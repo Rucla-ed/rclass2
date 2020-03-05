@@ -1,0 +1,37 @@
+
+# .gitignore
+
+
+# ----------
+# R
+# ----------
+
+.Rproj.user
+.Rhistory
+
+.RData
+
+.Ruserdata
+
+
+
+
+# ----------
+# TeX
+# ----------
+
+*.tex
+
+# ----------
+# MacOS
+# ---------
+
+.DS_Store
+__MACOSX/
+
+
+# ----------
+# OTHER, ?
+# ----------
+  
+_site/
