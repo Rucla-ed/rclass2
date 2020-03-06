@@ -1,0 +1,115 @@
+---
+title: "Visualization using ggplot2"
+author: "Ozan Jaquette"
+date: 
+urlcolor: blue
+output: 
+  github_document:
+    toc: TRUE
+    toc_depth: 2
+    #fig_width = 7 #Default width (in inches) for figures
+    #fig_height = 5 #Default height (in inches) for figures
+    html_preview: TRUE #TRUE to also generate an HTML file for the purpose of locally previewing what the document will look like on GitHub.    
+    df_print: tibble # Method to be used for printing data frames. Valid values include "default", "kable", "tibble", and "paged". The "default" method uses print.data.frame. 
+    
+    #Options you are not using yet:
+      
+    #dev = "png" #Graphics device to use for figure output (defaults to png)
+    #includes = NULL #Named list of additional content to include within the document (typically created using the includes function).
+    #md_extensions = NULL # Markdown extensions to be added or removed from the default definition or R Markdown. See the rmarkdown_format for additional details.
+    #hard_line_breaks = TRUE # TRUE to generate markdown that uses a simple newline to represent a line break (as opposed to two-spaces and a newline).
+    #pandoc_args = NULL # Additional command line options to pass to pandoc
+
+bibliography: ../rclass2_bib.bib
+csl: ../apa.csl
+---
+
+```{r, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+
+# Layered grammar of graphics
+
+Grammar
+
+- Grammar
+    - "the fundamental principles or rules of an art or science" [Oxford English dictonary]
+- Grammar of graphics [@RN4563]
+    - Principles/rules to describe and construct statistical graphics
+- Layered grammar of graphics [@RN4561]
+    - Principles/rules to describe and construct statistical graphics "based around the idea of building up a graphic from multiple layers of data" [@RN4561, p. 4]
+    - The layered grammar of graphics is a "formal system for building plots...based on the insight that you can uniquely describe _any_ plot as a combination of" seven paramaters [@RN4564, chapter 3] 
+    
+## Overview of parameters
+
+The seven parameters of the layered grammar of graphics consists of:
+
+- five layers
+    - a dataset (__data__)
+    - a set of mappings (__mappings__)
+    - a statistical transformation (__stat__)
+    - a geometric object (__geom__)        
+    - a position adjustment (__position__)
+- a coordinate system (__coord__)
+- a faceting scheme (__facets__)
+
+`ggplot2` -- part of the `tidyverse` -- is an R package to create graphics and `ggplot` is a function within the `ggplot2` package. 
+
+> In practice, you rarely need to supply all seven parameters to make a graph because ggplot2 will provide useful defaults for everything except the data, the mappings, and the geom function [@RN4564, chapter 3]
+
+Syntax conveying the seven parameters of the layered grammer of graphics
+
+```{r, eval = FALSE}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+```
+
+## Brief definitions of the seven parameters of layered grammar of graphics
+
+What does Wickham mean by __layers__? (from "[Telling Stories with Data Using the Grammar of Graphics](https://codewords.recurse.com/issues/six/telling-stories-with-data-using-the-grammar-of-graphics)" by Liz Sander)
+
+- In the grammar of a language, words have different parts of speach (e.g., noun, verb, adjective), with each part of speech performing a different role in a sentence
+- the layered grammar of graphics decomposes a graphic into different __layers__
+    - "These are layers in a literal sense – you can think of them as transparency sheets for an overhead projector, each containing a piece of the graphic, which can be arranged and combined in a variety of ways."
+
+
+The five layers of the grammar of graphics
+
+- dataset (__data__): 
+    - data defines the information to be visualized
+    - For example, imagine a dataset where each observation is a person, with two variables _age_ and _income_
+- set of mappings (__mappings__): 
+    - mapping defines how variables in a dataset are applied to a graphic. 
+    - For example, we map _age_ to the x-axis and _income_ to the y-axis
+- statistical transformation (__stat__): 
+    - a statistical transformation transforms the underlying data before plotting it
+    - For example, when creating a scatterplot (e.g., y=income, x=age), we usually do not transform the data for plotting. This is the "identity" transformation.
+    - By contrast, imagine we have student-level data and want to create bar chart of the number of students in the CA higher education system, with separate bars for UC, CSU, and CCs. Here, we do not plot the raw data. Rather, we count the number of observations within each system. This count is a statistical transformation.
+- geometric objects (__geoms__)
+    - graphs visually display data, using geometric objects like a point, line, bar, etc.
+    - each geometric object in a graph is called a "geom"
+    - "A geom is the geometrical object that a plot uses to represent data" [@RN4564, chapter 3]
+    - "People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms, line charts use line geoms, boxplots use boxplot geoms"  [@RN4564, chapter 3]
+    - We can plot the same underlying data using different geoms (e.g., bar chart vs. pie chart)
+    - A single graph can layer multiple geoms. For example, consider a scatterplot with a "line of best fit" layered on top
+- position adjustment (__position__)
+
+START HERE!    
+https://r4ds.had.co.nz/data-visualisation.html#position-adjustments
+https://cfss.uchicago.edu/notes/grammar-of-graphics/#data-and-mapping
+https://codewords.recurse.com/issues/six/telling-stories-with-data-using-the-grammar-of-graphics
+
+- a coordinate system (__coord__)
+- a faceting scheme (__facets__)
+
+"A geom is the geometrical object that a plot uses to represent data. People often describe plots by the type of geom that the plot uses. For example, bar charts use bar geoms, line charts use line geoms, boxplots use boxplot geoms, and so on. Scatterplots break the trend; they use the point geom. As we see above, you can use different geoms to plot the same data."
+
+
+# References
