@@ -20,7 +20,7 @@ output:
     
 ---
 
-# Intro/logistics
+# Introduction and overview
 
 Load packages
 ```{r, message=FALSE}
@@ -33,18 +33,39 @@ Resources used to create this lecture
 - https://edquant.github.io/edh7916/lessons/intro.html
 - https://www.codecademy.com/articles/f1-u3-git-setup
 
-# What and why?
+## What and why use git and GitHub?
 
 la la
 
-## Why use git and github?
-
 https://pbs.twimg.com/media/B9HgQmDIEAALfb4.jpg 
 
+## Core concepts and work flow
 
-# Installation
+Repository
+
+### Major components of git project work flow
+
+### Process concepts for a git project work flow
+
+## Glossary/terms
+
+## Good habits for work flow
+
 
 # Command line
+
+```{r}
+getwd()
+```
+```{bash}
+pwd
+ls
+cd ..
+pwd
+```
+```{bash}
+pwd
+```
 
 ## Shell vs. GUI
 
@@ -53,3 +74,14 @@ https://pbs.twimg.com/media/B9HgQmDIEAALfb4.jpg
 ### Mac, terminal
 
 ### Windows, git bash
+
+# Appendix
+
+## Installation
+
+## Authentication
+
+## .gitignore
+
+## Running git Bash from R Markdown
+
