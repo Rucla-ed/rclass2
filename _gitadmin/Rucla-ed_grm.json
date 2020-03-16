@@ -4,6 +4,6 @@
     "github_protocol": "SSH",
     "organization_name": "Rucla-ed",
     "roster_file": "_gitadmin/roster.csv",
-    "master_repo": "",
+    "master_repo": "../rclass2",
     "student_repo_dir": "_student_repositories"
 }
