@@ -3,7 +3,7 @@
     "github_token_file": "../github_token/token.txt",
     "github_protocol": "SSH",
     "organization_name": "Rucla-ed",
-    "roster_file": "./_gitadmin/roster.csv",
-    "master_repo": "./",
-    "student_repo_dir": "./_student_repositories"
+    "roster_file": "_gitadmin/roster.csv",
+    "master_repo": "",
+    "student_repo_dir": "_student_repositories"
 }
