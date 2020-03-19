@@ -20,7 +20,8 @@ output:
     
 ---
 
-# Intro/logistics
+# Introduction and overview
+
 
 Load packages
 
@@ -33,19 +34,349 @@ Resources used to create this lecture
 - https://happygitwithr.com/
 - https://edquant.github.io/edh7916/lessons/intro.html
 - https://www.codecademy.com/articles/f1-u3-git-setup
+- https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018
 
-# What and why?
+## What and why use git and GitHub?
 
-la la
+What is __version control__?
 
-## Why use git and github?
+- [Version control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control) is a "system that records changes to a file or set of files over time so that you can recall specific versions later"
+- keeps records of changes, who made changes when,
+- you or collaborators take "snapshots" of a document at a particular point in time. Later on, you can recover any previous snapshot of a document
 
-https://pbs.twimg.com/media/B9HgQmDIEAALfb4.jpg 
+How version control works
+
+- Imagine you write a simple text file document that gives a recipe for yummy chocolate chip cookies and you save it as `cookies.txt`
+- Later on, you make changes to `cookies.txt` (e.g., add alternative baking time for people who like "soft and chewy" cookies)
+- When using version control to make these changes, you don't save entirely new version of `cookies.txt`; rather, you save the changes made relative to the previous version of `cookies.txt`
 
 
-# Installation
+Why use version control when you can just save new version of document?
+
+1. Saving entirely new document each time a change is very inefficient from a memory/storage perspective. 
+    - When you save a new version of a document, much of the contents are the same as the previous version
+    - Inefficient to devote space to saving multiple copies of the same content.
+1. When document undergoes lots of changes -- especially a document that multiple people collaborating on -- hard to keep track of so many different documents. Easy to end up with a situation like this:
+
+
+
+[![](https://pbs.twimg.com/media/B9HgQmDIEAALfb4.jpg)](http://www.phdcomics.com/comics/archive.php?comicid=1531)
+
+*Credit: Jorge Chan (and also, lifted this example from Benjamin Skinner's [intro to Git/GitHub lecture](https://edquant.github.io/edh7916/lessons/intro.html))*
+
+<br>
+
+What is __Git__? (from git [website](https://git-scm.com/))
+
+> "Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency"
+
+- Git is a particular version control software created by The Git Project
+- Git can be used by:
+    - an individual/standalone developer
+    - for collaborative projects, where multiple people collaborate on each file
+- The term "__distributed__" means that every user collaborating on the project has access to all files and the history of changes to all files
+- Git is the industry standard version control system used to create software
+- Increasingly, Git is the industry standard for collaborative academic research projects
+
+What is a __Git repository__?
+
+- A project managed in Git is called a `Git repository`
+- From (Git Handbook)[https://guides.github.com/introduction/git-handbook/] by github.com:
+    - A repository "encompasses the entire collection of files and folders associated with a project, along with each file’s revision history."
+    - Because git is a __distributed__ version control system, "repositories are self-contained units and anyone who owns a copy of the repository can access the entire codebase and its history"
+- This course is a Git repository    
+- Local vs. remote git repository
+    - __local__ git repository: git repository for a project stored on your machine
+    - __remote___ git repository: git repository for a project stored on the internet
+- Typically, a local git repository is connected to a remote git repository
+    - You can make changes to local repository on your machine and then __push__ those changes to the remote repository
+    - A collaborator can make changes to their local repository, push them to the remote repository, and then you can __pull__ these changes into your local repository
+
+
+What is __GitHub__?
+
+- GitHub is the industry standard hosting site/service for Git repositories
+    - Hosting services allow people/organizations to store files on the internet and make those files available to others
+- Github stores your local repositories in "the cloud"
+    - e.g., if you create a local repository stored on your machine, GitHub enables you to create a "remote" version of this repository
+    - also, you can connect to a remote repository that already exists and create a local version of this respository on your machine
+- More broadly, GitHub enables you to store files, share code, collaborate with others
+
+
+# Core concepts and work flow
+
+> "Whoah, I’ve just read this quick tutorial about git and oh my god it is cool. I feel now super comfortable using it, and I’m not afraid at all to break something.”— said no one ever ([Pierre de Wulf](https://www.daolf.com/posts/git-series-part-1/))
+
+READ HIS THREE POSTS ON UNDERSTANDING WHAT'S IN .GIT AND PUT THAT INFO IN LATER CHAPTER OF YOUR GITHUB LECTURE
+
+- https://www.daolf.com/posts/git-series-part-1/ [part 1, what's in .git]
+- https://www.daolf.com/posts/git-series-part-2/ [part 2, rebasing and "golden rule"]
+- https://www.daolf.com/posts/git-series-part-3/ [part 3, more on rebase]
+
+
+This section introduces some core concepts and then explains the Git "work flow" (i.e., how Git works)
+
+## Git stores "snapshots," not "differences"
+
+Version control systems that save "differences"
+
+- Prior to Git, "centralized version control systems" were the industry standard version control systems (About Version Control)[https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control]
+    - In these systems, a central server stored all the versions of a file and "clients" (e.g., a programmer working on a project on their local computer) could "check out" files from the central server
+- These centralized version control systems stored multiple versions of a file as "differences"
+    - For example, imagine you create a simple text file called `twinkle.txt`
+    - "Version 1" (the "base" version) of `twinkle.txt` has the following contents:
+        - `twinkle, twinkle, little star`
+    - You make some changes to `twinkle.txt` and save those changes, resulting in "Version 2," which has the following contents:
+        - `twinkle, twinkle, little star, how I wonder what you are!`
+    - When storing "Version 2" of `twinkle.txt`, centralized version control systems don't store the entire file. Rather, they store the changes relative to the previous version. In our example, "Version 2" stores:
+        - `, how I wonder what you are!`
+- The below figure portrays version control systems that store data as changes relative to the base version of each file:    
+
+<br>
+
+[![](https://git-scm.com/book/en/v2/images/deltas.png)](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
+
+*Credit: [Getting Started - What is Git](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)*
+
+<br>
+
+Git stores data as "snapshots" rather than "differences" (From [Getting Started - What is Git](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F))
+
+- Git doesn't think of data as differences relative to the base version of each file
+- Rather, Git thinks of data as "a series of snapshots of a minature filesystem" or, said differently, a series of snapshots of all files in the repository.
+- "With Git, every time you commit, or save the state of your project, Git basically takes a picture of what all your files look like at that moment and stores a reference to that snapshot."
+- "To be efficient, if files have not changed, Git doesn’t store the file again, just a link to the previous identical file it has already stored."
+- The below figure portrays storing data as a stream of snapshots over time:
+
+<br>
+
+[![](https://git-scm.com/book/en/v2/images/snapshots.png)](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)
+
+*Credit: [Getting Started - What is Git](https://git-scm.com/book/en/v2/Getting-Started-What-is-Git%3F)*
+
+<br>
+
+__Commits__
+
+- A `commmit` is a snapshot of all files in the repository at a particular time
+- Example: Imagine you are working on a project (repository) that contains a dozen files.
+    - You change two files and make a `commit`
+    - Git takes a snapshot of the full repository (all files)
+    - Content that remains unchanged relative to the previous `commit` is stored vis-a-vis a link to the previous commit
+
+## Three components of a Git project
+
+- __Local working directory (also called "working tree")__
+    - This is the area where all your work happens! You are writing Rmd files, debugging R-scripts, adding and deleting files
+    - These changes are made on your local machine!
+- __Git index/staging area__
+    - The staging area is the area between your _local working directory_ and the _repository_ where you list changes you have made in the local working directory that you would like to commit to the repository
+    - Hypothetical work flow (imagine you are working on document cookies.txt):
+        - make changes to cookies.txt on a text editor. These are changes made in your _local working directory_
+        - Imagine you are happy with some changes you made to cookies.txt and you want to `commit` those changes to your repository
+        - Before you `commit` changes to repository, you must `add` them to the _staging area_ as an intermediary step
+- __Repository__
+    - This is the actual repository where Git permanently stores the changes you’ve made in the local working directory and listed in the staging area as different versions of the project file
+    - Hypothetical work flow to cookies.txt
+        - `add` changes from _local working directory_ to _staging area_
+        - `commit` changes from _staging area_ to _repository_
+    - each `commit` to the repository is a different version of the file that represents a snapshot of the file at a particular time
+    - local vs. remote repository
+        - when you `add` a change to the `staging area` and then `commit` the change to your repository, this changes your __local repository__ rather than your __remote repository__
+        - If you want to change your __remote repository__, you must `push` the change from your __local repository__ to your __remote repository__
+
+<br>
+
+[![](https://miro.medium.com/max/686/1*diRLm1S5hkVoh5qeArND0Q.png)](https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018)
+
+*Credit: Lucas Maurer, medium.com*
+
+## Git/GitHub work flow
+
+<br>
+
+[![](https://www.jrebel.com/sites/rebel/files/blog-images/2016/02/GitHub-cheat-sheet-graphic-v1.jpg)](https://www.jrebel.com/blog/git-cheat-sheet)
+
+*Credit: Simon Maple, JRebel, https://www.jrebel.com/blog/git-cheat-sheet*
+
+
+- `add`: add file from working directory to staging area
+- `commit`: commit file from staging area to local repository
+- `push`: send files from local repository (your machine) to remote repository
+    - Synchronizes local repository and remote repository
+    - Think of `push` as "uploading"
+- `fetch`: get files from remote repository and put them in local repository
+- `pull`: get files from remote repository and put them in the working directory
+    - Think of `pull` as "downloading"
+    - `pull` is effectively `fetch` followed by `merge` (discussed later)
+- `reset`: after you `add` files from working directory to staging area, `reset` unstages those files
+
+## Branches
+
+HELPFUL RESOURCES ON BRANCHES I USED TO CREATE THIS SECTION
+
+- https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f
+- https://backlog.com/git-tutorial/using-branches/
+- https://guides.github.com/activities/hello-world/
+
+Why are __branches__ necessary? (Drawing from [Using branches](https://backlog.com/git-tutorial/using-branches/) tutorial)
+
+- __Branching__ is a means of working on different versions of files in a repository at one time
+    - Branching is useful for "solo developer" projects (e.g., a PhD dissertation that does not build on an existing project) but is essential for collaborative projects
+- In collaborative projects, it is common for several programmers to share and work on the same programming scripts
+- Example in programming/software development world: 
+    - Imagine your bank is creating a new mobile banking app.
+    - Some programmers are fixing a bug in how the app imports data from your account
+    - Other programmers are developing a new feature (e.g., allowing users to use Venmo to transfer funds)
+    - "With so much going on, there needs to be a system in place for managing different versions of the same code base."
+- Example from social science research world:
+    - In the [Unrollment Project](https://github.com/eddatasci/unrollment_proj) we are exploring potential bias in alternative algorithms to predict student success
+    - We have a file [predict_grad.Rmd](https://github.com/eddatasci/unrollment_proj/blob/master/scripts/rmd/predict_grad.Rmd) that reads in secondary data, creates analysis variables, runs alternative models for predicting the probability of obtaining a BA
+    - Several collaborators are working on different parts of [predict_grad.Rmd](https://github.com/eddatasci/unrollment_proj/blob/master/scripts/rmd/predict_grad.Rmd). For example, one person writing functions to clean data and create analysis variables and another person writing functions to run models and store model results.
+    - Need a way for multiple people to work on [predict_grad.Rmd](https://github.com/eddatasci/unrollment_proj/blob/master/scripts/rmd/predict_grad.Rmd) at the same time.
+    
+What is a __branch__?
+
+- A branch is an "independent line of development" that "isolates your work from that of other team members" ([Using branches](https://backlog.com/git-tutorial/using-branches/) tutorial)
+- By default, a git repository "has one branch named __master__ which is considered to be the definitive branch. We use [other] branches to experiment and make edits before committing them to __master__" ([Hello World](https://guides.github.com/activities/hello-world/) tutorial)
+- "When you create a branch off the __master__ branch, you’re making a copy, or snapshot, of master as it was at that point in time"
+- Branches as sometimes described as "deviations" from the master branch
+- The below image shows three branches -- the master, "Branch 1," and "Branch 2" -- and each circle represents a `commit`
+
+[![](https://miro.medium.com/max/552/1*PiduCtSA7kMwdPiMZo1nHw.jpeg)](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f)
+
+*Credit: [Mastering git branches](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f) by Henrique Mota*
+
+<br>
+
+Defining branches in terms of commits
+
+- People often define a __branch__ as "a pointer to a single commit"
+    - In programming, a "pointer" is a variable/object that stores the address of other variables or objects in memory
+- Recall that a `commit` is a snapshot of a repository at a particular point in time
+    - Each commit also stores connections (referred to as "references") between the current commit and previous commit (referred to as "ancestors")
+- The figure below shows the relationship between commits, references, and branches
+- Below, commits 1, 2, 3, and 4 are made to the __master__ branch, prior to the creation of "Branch 1"
+    - When we make "commit 2," we create "reference 1," which is a pointer from "commit 2" to "commit 1"
+- "commit 4" is the last commit made to the master branch prior to the creation of "branch 1"
+- We can think of "branch 1" as a pointer to "commit 4"
+- When we make additional commits to "branch 1" (e.g., "commit 5," "commit 7") we also create create references to the previous commit
+    - For example, "commit 5" creates "reference 4," which is a pointer from "commit 5" to "commit 4"
+
+<br>
+
+[![](https://miro.medium.com/max/626/1*IkZTYrKIf8E3chEvgIiOxA.jpeg)](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f)
+
+*Credit: [Mastering git branches](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f) by Henrique Mota*
+
+## Merges
+
+RESOURCES USED TO CREAT SUB-SECTION
+
+- https://www.freecodecamp.org/news/an-introduction-to-git-merge-and-rebase-what-they-are-and-how-to-use-them-131b863785f/
+- https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f
+- https://community.intersystems.com/post/continuous-delivery-your-intersystems-solution-using-gitlab-part-i-git
+
+The goal of a `merge` is to "integrate changes from multiple branches into one [branch]" ([An introduction to Git merge and rebase](https://www.freecodecamp.org/news/an-introduction-to-git-merge-and-rebase-what-they-are-and-how-to-use-them-131b863785f/))
+
+The below image shows a merge between the __master__ branch a branch named "develop"
+
+- Each circle represents a `commit`
+- the "develop" branch was created after "commit 2" of the __master__
+- After two commits, the "develop" branch is merged "into" the __master__
+
+<br>
+[![](https://community.intersystems.com/sites/default/files/inline/images/risunok4.png)](https://community.intersystems.com/post/continuous-delivery-your-intersystems-solution-using-gitlab-part-i-git)
+
+*Credit: [Eduard Lebedyuk](https://community.intersystems.com/post/continuous-delivery-your-intersystems-solution-using-gitlab-part-i-git)*
+
+<br>
+Merge terminology
+
+- "current branch"
+    - branch you are currently working with
+    - the branch will be updated/modified by the `merge` with the "target branch"
+    - in the figure above, the __master__ branch is the "current branch"
+- "target branch"
+    - branch that will be merged "into" the "current branch"
+    - target branch will be unaffected by the merge
+    - often, programmers delete the target branch after merging with the current branch
+    - in the figure above, "develop" is the target branch
+    
+How programmers use branches and merges in day-to-day work
+
+- Typically, programmers do all work on branches rather than the __master__ branch
+    - For example, in the [Unrollment Project](https://github.com/eddatasci/unrollment_proj), project co-founders [Will Doyle](https://github.com/wdoyle42) and [Ben Skinner](https://github.com/btskinner). stated that all project work should be done on branches rather than the master
+- Branches are created for specific tasks (e.g., fixing a bug, adding a new feature)
+    - GitHub.com states states "Short-lived topic branches, in particular, keep teams focused" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
+    - Once, the specific task is completed, the "topic" branch is merged into the __master__ branch and then the topic branch is often deleted
+
+<br>
+Later on, we will devote more time to learning the conceptual and technical aspects of merging
+
+
+
+
+
+“Here at GitHub, our developers, writers, and designers use branches for keeping bug fixes and feature work separate from our master (production) branch. When a change is ready, they merge their non-master branch into the master branch”
+
+Create a branch: Topic branches created from the canonical deployment branch (usually master) allow teams to contribute to many parallel efforts. Short-lived topic branches, in particular, keep teams focused and results in quick ships
+
+
+
+Git merge 
+https://guides.github.com/introduction/git-handbook/
+“git merge merges lines of development together. This command is typically used to combine changes made on two distinct branches. For example, a developer would merge when they want to combine changes from a feature branch into the master branch for deployment.
+
+## Models for collaborative development
+
+Two primary ways people collaborate on GitHub
+
+1. Shared repository
+1. Fork and pull
+
+https://guides.github.com/introduction/git-handbook/
+
+
+## Glossary/terms
+
+## Good habits for work flow
+
 
 # Command line
+
+
+```r
+getwd()
+```
+
+```
+## [1] "C:/Users/ozanj/Documents/rclass2/lectures/github"
+```
+
+```bash
+pwd
+ls
+cd ..
+pwd
+```
+
+```
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## github_lecture.Rmd
+## github_lecture.html
+## github_lecture.md
+## text
+## /c/Users/ozanj/Documents/rclass2/lectures
+```
+
+```bash
+pwd
+```
+
+```
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+```
 
 ## Shell vs. GUI
 
@@ -54,3 +385,14 @@ https://pbs.twimg.com/media/B9HgQmDIEAALfb4.jpg
 ### Mac, terminal
 
 ### Windows, git bash
+
+# Appendix
+
+## Installation
+
+## Authentication
+
+## .gitignore
+
+## Running git Bash from R Markdown
+
