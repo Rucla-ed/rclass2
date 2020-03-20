@@ -20,7 +20,7 @@ output:
     
 ---
 
-# Introduction and overview
+# Introduction
 
 
 Load packages
@@ -103,15 +103,69 @@ What is __GitHub__?
 - More broadly, GitHub enables you to store files, share code, collaborate with others
 
 
-# Core concepts and work flow
+## How we will learn Git and GitHub
 
 > "Whoah, I’ve just read this quick tutorial about git and oh my god it is cool. I feel now super comfortable using it, and I’m not afraid at all to break something.”— said no one ever ([Pierre de Wulf](https://www.daolf.com/posts/git-series-part-1/))
 
-READ HIS THREE POSTS ON UNDERSTANDING WHAT'S IN .GIT AND PUT THAT INFO IN LATER CHAPTER OF YOUR GITHUB LECTURE
+NOTE FOR LATER: READ HIS THREE POSTS ON UNDERSTANDING WHAT'S IN .GIT AND PUT THAT INFO IN LATER CHAPTER OF YOUR GITHUB LECTURE
 
 - https://www.daolf.com/posts/git-series-part-1/ [part 1, what's in .git]
 - https://www.daolf.com/posts/git-series-part-2/ [part 2, rebasing and "golden rule"]
 - https://www.daolf.com/posts/git-series-part-3/ [part 3, more on rebase]
+
+Understanding and learning how to use Git and GitHub can be intimidating. A lot of tutorials give you recipes for how to accomplish specific tasks (either point-and-click or issuing commands on command line), but don't provide a conceptual understanding of how things work.
+
+Here is how we will learn Git and Github over the course of the quarter:
+
+- The first of three "units" of the course will be (mostly) devoted to Git and GitHub
+- During the Git/GitHub unit, we will:
+    - Provide a conceptual overview of concepts and workflow
+    - Show you how to accomplish specific tasks by issuing commands on the command-line
+    - Devote time to providing in-depth conceptual understanding of particular topics/concepts
+    - You will practice doing Git/GitHub stuff during in-class exercises and in weekly problem sets
+- With the exception of doing a few tasks on (https://github.com/)[github.com] (e.g., "issues"), we will perform all tasks on the "command line" rather than using a point-and-click graphical user interface (GUI)
+    - Initially, this will feel intimidating, but after a few weeks you will see that this helps you understang git/github better and is much more efficient
+- After the Git/GitHub unit:
+    - Weekly problem sets will be completed and submitted using GitHub
+    - When communicating with your problem-set "team," you will use GitHub "issues"
+    - When posing questions to instructors/classmates, you will use GitHub "issues"
+
+Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub unit
+
+
+
+- [Introduction](#introduction)
+    - [What and why use git and GitHub?](#what-and-why-use-git-and-github?)
+    - [How we will learn Git and GitHub](#how-we-will-learn-git-and-github)
+- [Overview of core concepts and work flow](#overview-of-core-concepts-and-work-flow)
+    - [Git stores "snapshots," not "differences"](#git-stores-"snapshots,"-not-"differences")
+    - [Three components of a Git project](#three-components-of-a-git-project)
+    - [Git/GitHub work flow](#git/github-work-flow)
+    - [Branch and merge](#branch-and-merge)
+        - [Branches](#branches)
+        - [Merges](#merges)
+    - [Models for collaborative development](#models-for-collaborative-development)
+        - [Shared repository](#shared-repository)
+        - [Fork and pull](#fork-and-pull)
+    - [Good habits for work flow](#good-habits-for-work-flow)
+- [Command line](#command-line)
+    - [Shell/command line vs. graphical user interface (GUI)](#shell/command-line-vs.-graphical-user-interface-(gui))
+    - [Basic (Bash) commands line commands](#basic-(bash)-commands-line-commands)
+        - [Navidating directories](#navidating-directories)
+        - [Making/deleting folders](#making/deleting-folders)
+        - [Getting help](#getting-help)
+    - [Shell](#shell)
+        - [Mac, terminal](#mac,-terminal)
+        - [Windows, git bash](#windows,-git-bash)
+- [Topics to cover in depth](#topics-to-cover-in-depth)
+    - [Pull requests](#pull-requests)
+- [Appendix](#appendix)
+    - [Installation](#installation)
+    - [Authentication](#authentication)
+    - [gitignore](#gitignore)
+    - [Running git Bash from R Markdown](#running-git-bash-from-r-markdown)
+
+# Overview of core concepts and work flow
 
 
 This section introduces some core concepts and then explains the Git "work flow" (i.e., how Git works)
@@ -211,7 +265,9 @@ __Commits__
     - `pull` is effectively `fetch` followed by `merge` (discussed later)
 - `reset`: after you `add` files from working directory to staging area, `reset` unstages those files
 
-## Branches
+## Branch and merge
+
+### Branches
 
 HELPFUL RESOURCES ON BRANCHES I USED TO CREATE THIS SECTION
 
@@ -269,9 +325,9 @@ Defining branches in terms of commits
 
 *Credit: [Mastering git branches](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f) by Henrique Mota*
 
-## Merges
+### Merges
 
-RESOURCES USED TO CREAT SUB-SECTION
+RESOURCES USED TO CREATE SUB-SECTION
 
 - https://www.freecodecamp.org/news/an-introduction-to-git-merge-and-rebase-what-they-are-and-how-to-use-them-131b863785f/
 - https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f
@@ -330,29 +386,188 @@ https://guides.github.com/introduction/git-handbook/
 
 ## Models for collaborative development
 
+RESOURCES USED TO CREATE SUB-SECTION
+
+- https://guides.github.com/introduction/git-handbook/
+
 Two primary ways people collaborate on GitHub
 
 1. Shared repository
 1. Fork and pull
 
-https://guides.github.com/introduction/git-handbook/
+### Shared repository
+
+<br>
+[![](https://miro.medium.com/max/1698/1*CEyiDu_mQ5u9NI0Fr2pSdA.png)](https://medium.com/faun/centralized-vs-distributed-version-control-systems-a135091299f0)
+
+*Credit: [Matuesz Lubanski](https://medium.com/faun/centralized-vs-distributed-version-control-systems-a135091299f0)*
+
+<br>
 
 
-## Glossary/terms
+Overview of shared repository work flow
+
+- All work on project happens on a single repository
+- Everyone working on the project `clones` the repository to their local computer
+- Designate level of "access" for each team member
+    - read access
+    - write access
+    - administrator access
+- As an individual team member, you work on specific tasks (e.g., fix a bug, add a new feature, write a lecture on a topic)
+    - Work on tasks in your local working directory on your local machine
+        - Often, work on tasks in a branch other than __master__
+    - Once you complete a task, `commit` changes to your local repository
+    - `push` changes from local repository on your machine to remote repository shared with collaborators
+- Other team members also working on specific tasks that they `commit` to their local repository and then `push` to the remote repository
+    - After your team members `push` a change to remote respository, you may `pull` those changes to your local repository and local working directory
+- Issuing a "pull request"
+    - For most collaborative projects, users do not simply `push` changes from their local repository to the shared remote repository
+    - Why? Before pushing changes to shared repository, those changes should be reviewed by other team members
+    - Instead of simply pushing changes to shared repository, a team member issues a "pull request"
+    - A "pull request" is an announcement to team members that you have made changes and you want those changes to be reviewed before they become finail (i.e., pushed to shared repository)
+        - "If you send a pull request to another repository, you ask their maintainers to pull your changes into theirs (you more or less ask them to use a git pull from your repository)" [Stacl Overflow](https://stackoverflow.com/questions/44669519/difference-between-git-pull-and-git-request-pull)
+    - Once you issue a pull request, "the person or team reviewing your changes may have questions or comments. Perhaps the coding style doesn't match project guidelines, the change is missing unit tests, or maybe everything looks great and props are in order" [Understanding the GitHub flow](https://guides.github.com/introduction/flow/)
+    - We will devote more time to understanding, doing "pull requests" later
+
+
+### Fork and pull
+
+RESOURCES
+
+- https://guides.github.com/introduction/git-handbook/
+- https://guides.github.com/activities/forking/
+
+
+What is a "fork"
+
+- A fork is a copy of a repository that is associated with an individual's personal account
+- The individual has full control of their fork (read, write, administrator)
+
+Why use forks?
+
+- For projects with many contributors, can become overwhelming to manage the project and to manage individual permissions using the "shared repository" model
+
+<br>
+[![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/02/14550049531.jpg)](https://www.sitepoint.com/quick-tip-synch-a-github-fork-via-the-command-line/)
+
+*Credit: [Shaumik Daityari](https://www.sitepoint.com/quick-tip-synch-a-github-fork-via-the-command-line/)*
+
+<br>
+
+Overview of "fork and pull" work flow
+
+- Create a fork repository (copy of project repository associated with your personal account) of the `central_repo` repository
+    - let's call the forked repository `your_fork`
+    - initially, `your_fork` repository only exists on GitHub
+- `clone` the `your_fork` repository to your local machine
+- On the local "working directory," make changes to files
+- When you are happy with changes you have made:
+    - `add` changes to index/staging area
+    - `commit` changes to local `your_fork` repository 
+    - `push` changes to remote `your_fork` repository
+- Issue a "pull request" asking that the changes you have made to remote `your_fork` repository be incorporated to the main `central_repo` repository    
 
 ## Good habits for work flow
 
 
 # Command line
 
+## Shell/command line vs. graphical user interface (GUI)
 
-```r
-getwd()
+What is a "shell"?
+
+- "A shell is a terminal application used to interface with an operating system through written commands" [Git Bash tutorial](https://www.atlassian.com/git/tutorials/git-bash)
+- "The shell is a program on your computer whose job is to run other programs. Pseudo-synonyms are 'terminal', 'command line', and 'console' [Happy Git and GitHub for the useR by Jenny Bryan](https://happygitwithr.com/shell.html)
+- In this course, we will usually use the term "command line" rather than "shell"
+- In the command line, you issue commands one line at a time
+- Most programmers use the command line rather than a graphical user interface (GUI) to accomplish tasks
+
+What is graphical user interface (GUI)?
+
+- A graphical user interface an an interface for using a program that includes graphical elements such as windows, icons, and buttons that the user can click on using the mouse
+- For example, "RStudio" has GUI capabilities in that it has windows and you can perform operations using point-and-click (however, RStudio also has command line capabilities)
+- RStudio also includes a GUI interface for performing Git operations
+- There are many other GUI software packages for performing GIT operations
+    - Popular tools include "GitHub Desktop," "GitKraken," and "SmartGit"
+    - see [GUI Clients](https://git-scm.com/downloads/guis)
+
+In this course, we will perform Git operations solely using the command line. Why?
+
+- Learning Git from the command line will give you a deeper understanding of how Git and GitHub work
+    - I have found that performing GIT operations using a GUI did nothing to help me overcome my feelings of anxiety/intimidation about Git
+    - As soon as I started doing stuff on the command line, I started feeling less intimidated
+- After you start feeling more comfortable with the command line, using the command line makes you __much__ more efficient than using a GUI
+- Learning the command line takes time and does feel intimidating
+    - So we will devote substantial time in-class and during problem sets to learning/practicing the command line
+
+Which command line program will we use to perform Git operations?
+
+We will use the Unix shell called "Bash" to perform Git operations
+
+- Some background on "Bash"
+    - Unix is an operating system developed by AT&T Bell Labs in the late 1960s
+    - The "Unix shell" is a command line program for issuing commands to "Unix-like" operating systems [Unix Shell](https://en.wikipedia.org/wiki/Unix_shell)
+        - Unix-like operating systems include macOS and Linux, but not Windows
+        - The first Unix shell was the "Thompson shell" originally written by Ken Thompson at Bell Labs in 1971
+    - The Bourne shell was a Unix shell programming language written by Stephen Bourne at Bell Labs in 1979
+    - The "Bourne Again Shell" - commonly referred to as "Bash" was "written by Brian Fox for the GNU Project as a free software replacement for the Bourne shell," and first released in 1989
+- Relationship between Git and Bash
+    - "At its core, Git is a set of command line utility programs that are designed to execute on a Unix style command-line environment" [GIT Bash](https://www.atlassian.com/git/tutorials/git-bash)
+- Mac users
+    - "Terminal" is the application that enables you to control your Mac using a command line prompt
+    - Terminal runs the Bash shell programming language
+    - Therefore, Mac users use "Terminal" to perform Git operations and the commands to perform Git operations utilize the Bash programming language
+- Windows users
+    - Windows is not a "Unix-like" operating system. Therefore, Bash is not the default command line interface
+    - In order for Windows users to use Bash to perform Git operations, you must install the Git Bash program, which is installed as part of "git for Windows" ([install here](https://gitforwindows.org/))
+- Because Mac "Terminal" program and the Windows "Git Bash" program both use the Bash command line program, performing Git operations using the command line will be __exactly the same__ for both Mac and Windows users!!!
+
+## Basic (Bash) commands line commands
+
+<br>
+
+[Helping my students overcome __command-line bullshittery__ by Philip J. Guo](http://www.pgbovine.net/command-line-bullshittery.htm)
+
+> "What is wonderful about doing applied computer science research in the modern era is that there are thousands of pieces of free software and other computer-based tools that researchers can leverage to create their research software. With the right set of tools, one can be 10x or even 100x more productive than peers who don't know how to set up those tools."
+
+> "But this power comes at a great cost: __*It takes a tremendous amount of command-line bullshittery to install, set up, and configure all of this wonderful free software*__. What I mean by command-line bullshittery is dealing with all of the arcane, obscure, strange bullshit of the command-line paradigm that most of these free tools are built upon....So perhaps what is more important to a researcher than programming ability is adeptness at dealing with command-line bullshittery, since that enables one to become 10x or even 100x more productive than peers by finding, installing, configuring, customizing, and remixing the appropriate pieces of free software."
+
+### Navidating directories
+
+- show current working directory
+    - `pwd`
+    
+
+```bash
+pwd
 ```
 
 ```
-## [1] "C:/Users/ozanj/Documents/rclass2/lectures/github"
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ```
+
+- list files in directory
+    - `ls`
+
+```bash
+ls
+```
+
+```
+## github_lecture.Rmd
+## github_lecture.html
+## github_lecture.md
+## render_toc.R
+## text
+```
+- changing directories
+    - `cd`
+    - Move up one directory
+        - `..`
+
+*show example of changing directory;
+START HERE WEEK OF MONDAY 3/23/2020
+    
 
 ```bash
 pwd
@@ -366,9 +581,15 @@ pwd
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
+## render_toc.R
 ## text
 ## /c/Users/ozanj/Documents/rclass2/lectures
 ```
+
+### Making/deleting folders
+
+
+### Getting help
 
 ```bash
 pwd
@@ -378,13 +599,16 @@ pwd
 ## /c/Users/ozanj/Documents/rclass2/lectures/github
 ```
 
-## Shell vs. GUI
 
 ## Shell
 
 ### Mac, terminal
 
 ### Windows, git bash
+
+# Topics to cover in depth
+
+## Pull requests
 
 # Appendix
 
