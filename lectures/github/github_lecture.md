@@ -153,12 +153,8 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
         - [Command-line bullshittery](#command-line-bullshittery)
     - [Basic (Bash) commands line commands](#basic-(bash)-commands-line-commands)
         - [Bash syntax](#bash-syntax)
-        - [Navigating directories](#navigating-directories)
-        - [Making/deleting folders](#making/deleting-folders)
-        - [Getting help](#getting-help)
-    - [Shell](#shell)
-        - [Mac, terminal](#mac,-terminal)
-        - [Windows, git bash](#windows,-git-bash)
+        - [Changing directories](#changing-directories)
+        - [Make/delete/move folders a](#make/delete/move-folders-a)
 - [Topics to cover in depth](#topics-to-cover-in-depth)
     - [Pull requests](#pull-requests)
 - [Appendix](#appendix)
@@ -546,6 +542,7 @@ RESOURCES TO CREATE SECTION
 - http://www.compciv.org/topics/bash/command-structure/
 - https://www.educative.io/blog/bash-shell-command-cheat-sheet
 
+
 The Bash command `ls` lists the contents (e.g., files, folders) of a directory. A "directory" is another word for "folder." In Terminal/Git Bash, try typing `ls` and then hit `ENTER` key. 
 
 The `pwd` command shows the filepath of the directory you are currently in, that is the current working directory. In Terminal/Git Bash, try typing `pwd` and then hit `ENTER` key.
@@ -573,6 +570,7 @@ We cun run `Bash` code instead of `R` code by replacing `{r}` with `{bash}` at t
 
 - Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
     - This is true for an `R` code chunk, a `Bash` code chunk, or any other programming language
+    - If you change working directories within a code chunk, the working directory reverts back to where the .Rmd file is saved after the code chunk finishes running
 
 ```bash
 pwd
@@ -781,61 +779,198 @@ ls --all
 ## text
 ```
 
-### Navigating directories
+### Changing directories
 
-Commands to navigate directories
+__`cd` command changes the current directory__
 
-- `pwd` -- show current working directory
-- `ls` -- lists the contents of a directory
-- `cd` -- change directories
+- syntax
+    - `cd [option(s)] directory_name`
+- example: change current directory to the "lectures" directory
+    - `cd lectures`
+- In Bash, separate sub-folders using `/` rather than `\` [even if you are using a PC!]
+- __absolute__ vs. __relative__ filepaths
+    - can specify `directory_name` using __absolute__ or __relative__ filepaths
+    - __absolute__ filepaths: the complete filepath relative to the "root" directory
+        - example: `cd "/c/Users/ozanj/documents/rclass2/lectures"`
+    - __relative__ filepath: filepath relative to the current directory
+        - example [starting from working directory `rclass2`]:
+            - `cd lectures`
+            - `cd lectures/github`
+    - by default, `cd` command assumes you are using a __relative__ filepath
+- `../` or `..` -- move up one directory
+    - (assume working directory is `"/c/Users/ozanj/documents/rclass2/lectures"`):
+    - `cd ..` -- move up one directory to `rclass2`
+    - `cd ../problem_sets` -- move up one directory to `rclass2` and then change to `problem_sets` directory
+- `./` or `.` -- current directory
+    - (assume working directory is `"/c/Users/ozanj/documents/rclass2/lectures"`):
+    - `cd .` -- doesn't change current working directory
+    - `cd ./` -- doesn't change current working directory
+    - `cd ./ggplot` -- changes to directory `lectures/ggplot`
+        - same as `cd ggplot`
+- `cd` [by itself] or `cd ~` changes to your "home directory"
 
-*show example of changing directory;
-START HERE WEEK OF MONDAY 3/23/2020
+__Examples using `cd` command__
 
+- can run these commands in .Rmd code chunk or paste them to Terminal/Git Bash command line
+- note: when running from .Rmd code chunk the working directory is `rclass2/lectures/github`
 
-- changing directories
-    - `cd`
-    - Move up one directory
-        - `..`
-
-    
+Move up one directory level and then show file path and list contents of directory
 
 ```bash
+pwd
+cd ../
 pwd
 ls
-cd ..
-pwd
 ```
 
 ```
 ## /c/Users/ozanj/Documents/rclass2/lectures/github
-## github_lecture.Rmd
-## github_lecture.html
-## github_lecture.md
-## render_toc.R
-## text
 ## /c/Users/ozanj/Documents/rclass2/lectures
+## apa.csl
+## ggplot
+## github
+## rclass2_bib.bib
 ```
 
-### Making/deleting folders
-
-
-### Getting help
+Move up two directory levels and then show file path and list contents of directory
 
 ```bash
 pwd
+cd ../../
+pwd
+ls
 ```
 
 ```
 ## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
+## README.md
+## _config.yml
+## _data
+## _gitadmin
+## _resources
+## _student_repositories
+## _working
+## lectures
+## problem_sets
+## rclass2.Rproj
+```
+Move up two directory levels and then show file path and list contents of directory, including files that begin with `.`
+
+```bash
+pwd
+cd ../../
+pwd
+ls -a
 ```
 
+```
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
+## .
+## ..
+## .Rhistory
+## .Rproj.user
+## .git
+## .gitignore
+## README.md
+## _config.yml
+## _data
+## _gitadmin
+## _resources
+## _student_repositories
+## _working
+## lectures
+## problem_sets
+## rclass2.Rproj
+```
 
-## Shell
+Move up one directory, then change to `ggplot` directory
 
-### Mac, terminal
+```bash
+pwd
 
-### Windows, git bash
+cd ../
+pwd
+
+cd ggplot
+pwd
+
+ls
+```
+
+```
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
+## ggplot_lecture.Rmd
+## ggplot_lecture.md
+```
+
+### Make/delete/move folders a
+
+__`mkdir` command makes a directory__
+
+- syntax
+    - `mkdir [option(s)] directory_name(s)`
+- common option
+    - `-p` -- no error if existing, make parent directories as needed
+
+Example
+
+- Make new directory
+
+```bash
+cd ../../../ 
+pwd
+mkdir mkdir_test
+```
+
+- move to new directory and create sub-folders
+
+```bash
+cd ../../../
+  
+cd mkdir_test
+
+mkdir folder_a folder_b folder_c
+ls
+```
+
+__`rm` command removes a file or folder__
+
+- syntax
+    - `rm [option(s)] [file/folder name(s)]`
+- common options
+    - `-f` -- force remove
+        - `rm -f some_file.txt`
+    - `-r` -- delete directory (default is deleting a file)
+        - `rm -r some_directory`
+    - `-rf` -- force remove directory
+        - `rm -rf some_directory`
+
+Example
+
+- remove directory named `folder_a`
+
+```bash
+cd ../../../
+  
+cd mkdir_test
+
+rm -rf folder_a
+ls
+```
+
+ADD THESE COMMANDS ON 3/25?
+
+cp file1 file2 – copy file1 to file2
+cp -r dir1 dir2 – copy dir1 to dir2; create dir2 if it
+doesn't exist
+mv file1 file2 – rename or move file1 to file2
+if file2 is an existing directory, moves file1 into
+directory file2
+
 
 # Topics to cover in depth
 

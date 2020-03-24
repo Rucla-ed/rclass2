@@ -1718,14 +1718,8 @@ div.tocify {
 <li><a href="#basic-(bash)-commands-line-commands">Basic (Bash) commands line commands</a>
 <ul>
 <li><a href="#bash-syntax">Bash syntax</a></li>
-<li><a href="#navigating-directories">Navigating directories</a></li>
-<li><a href="#making/deleting-folders">Making/deleting folders</a></li>
-<li><a href="#getting-help">Getting help</a></li>
-</ul></li>
-<li><a href="#shell">Shell</a>
-<ul>
-<li><a href="#mac,-terminal">Mac, terminal</a></li>
-<li><a href="#windows,-git-bash">Windows, git bash</a></li>
+<li><a href="#changing-directories">Changing directories</a></li>
+<li><a href="#make/delete/move-folders-a">Make/delete/move folders a</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#topics-to-cover-in-depth">Topics to cover in depth</a>
@@ -2180,6 +2174,7 @@ div.tocify {
 <li>Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
 <ul>
 <li>This is true for an <code>R</code> code chunk, a <code>Bash</code> code chunk, or any other programming language</li>
+<li>If you change working directories within a code chunk, the working directory reverts back to where the .Rmd file is saved after the code chunk finishes running</li>
 </ul></li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="bu">pwd</span></a>
@@ -2363,53 +2358,189 @@ div.tocify {
 ## render_toc.R
 ## text</code></pre>
 </div>
-<div id="navigating-directories" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> Navigating directories</h3>
-<p>Commands to navigate directories</p>
+<div id="changing-directories" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Changing directories</h3>
+<p><strong><code>cd</code> command changes the current directory</strong></p>
 <ul>
-<li><code>pwd</code> – show current working directory</li>
-<li><code>ls</code> – lists the contents of a directory</li>
-<li><code>cd</code> – change directories</li>
-</ul>
-<p>*show example of changing directory; START HERE WEEK OF MONDAY 3/23/2020</p>
+<li>syntax
 <ul>
-<li>changing directories
+<li><code>cd [option(s)] directory_name</code></li>
+</ul></li>
+<li>example: change current directory to the “lectures” directory
 <ul>
-<li><code>cd</code></li>
-<li>Move up one directory
+<li><code>cd lectures</code></li>
+</ul></li>
+<li>In Bash, separate sub-folders using <code>/</code> rather than <code>\</code> [even if you are using a PC!]</li>
+<li><strong>absolute</strong> vs. <strong>relative</strong> filepaths
 <ul>
-<li><code>..</code></li>
+<li>can specify <code>directory_name</code> using <strong>absolute</strong> or <strong>relative</strong> filepaths</li>
+<li><strong>absolute</strong> filepaths: the complete filepath relative to the “root” directory
+<ul>
+<li>example: <code>cd &quot;/c/Users/ozanj/documents/rclass2/lectures&quot;</code></li>
+</ul></li>
+<li><strong>relative</strong> filepath: filepath relative to the current directory
+<ul>
+<li>example [starting from working directory <code>rclass2</code>]:
+<ul>
+<li><code>cd lectures</code></li>
+<li><code>cd lectures/github</code></li>
 </ul></li>
 </ul></li>
+<li>by default, <code>cd</code> command assumes you are using a <strong>relative</strong> filepath</li>
+</ul></li>
+<li><code>../</code> or <code>..</code> – move up one directory
+<ul>
+<li>(assume working directory is <code>&quot;/c/Users/ozanj/documents/rclass2/lectures&quot;</code>):</li>
+<li><code>cd ..</code> – move up one directory to <code>rclass2</code></li>
+<li><code>cd ../problem_sets</code> – move up one directory to <code>rclass2</code> and then change to <code>problem_sets</code> directory</li>
+</ul></li>
+<li><code>./</code> or <code>.</code> – current directory
+<ul>
+<li>(assume working directory is <code>&quot;/c/Users/ozanj/documents/rclass2/lectures&quot;</code>):</li>
+<li><code>cd .</code> – doesn’t change current working directory</li>
+<li><code>cd ./</code> – doesn’t change current working directory</li>
+<li><code>cd ./ggplot</code> – changes to directory <code>lectures/ggplot</code>
+<ul>
+<li>same as <code>cd ggplot</code></li>
+</ul></li>
+</ul></li>
+<li><code>cd</code> [by itself] or <code>cd ~</code> changes to your “home directory”</li>
 </ul>
+<p><strong>Examples using <code>cd</code> command</strong></p>
+<ul>
+<li>can run these commands in .Rmd code chunk or paste them to Terminal/Git Bash command line</li>
+<li>note: when running from .Rmd code chunk the working directory is <code>rclass2/lectures/github</code></li>
+</ul>
+<p>Move up one directory level and then show file path and list contents of directory</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="fu">ls</span></a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="bu">cd</span> ..</a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="bu">pwd</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-2" title="2"><span class="bu">cd</span> ../</a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="fu">ls</span></a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
-## github_lecture.Rmd
-## github_lecture.html
-## github_lecture.md
-## render_toc.R
-## text
-## /c/Users/ozanj/Documents/rclass2/lectures</code></pre>
+## /c/Users/ozanj/Documents/rclass2/lectures
+## apa.csl
+## ggplot
+## github
+## rclass2_bib.bib</code></pre>
+<p>Move up two directory levels and then show file path and list contents of directory</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb16-2" title="2"><span class="bu">cd</span> ../../</a>
+<a class="sourceLine" id="cb16-3" title="3"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb16-4" title="4"><span class="fu">ls</span></a></code></pre></div>
+<pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
+## README.md
+## _config.yml
+## _data
+## _gitadmin
+## _resources
+## _student_repositories
+## _working
+## lectures
+## problem_sets
+## rclass2.Rproj</code></pre>
+<p>Move up two directory levels and then show file path and list contents of directory, including files that begin with <code>.</code></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb18-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="bu">cd</span> ../../</a>
+<a class="sourceLine" id="cb18-3" title="3"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb18-4" title="4"><span class="fu">ls</span> -a</a></code></pre></div>
+<pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
+## .
+## ..
+## .Rhistory
+## .Rproj.user
+## .git
+## .gitignore
+## README.md
+## _config.yml
+## _data
+## _gitadmin
+## _resources
+## _student_repositories
+## _working
+## lectures
+## problem_sets
+## rclass2.Rproj</code></pre>
+<p>Move up one directory, then change to <code>ggplot</code> directory</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb20-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb20-2" title="2"></a>
+<a class="sourceLine" id="cb20-3" title="3"><span class="bu">cd</span> ../</a>
+<a class="sourceLine" id="cb20-4" title="4"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb20-5" title="5"></a>
+<a class="sourceLine" id="cb20-6" title="6"><span class="bu">cd</span> ggplot</a>
+<a class="sourceLine" id="cb20-7" title="7"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb20-8" title="8"></a>
+<a class="sourceLine" id="cb20-9" title="9"><span class="fu">ls</span></a></code></pre></div>
+<pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
+## ggplot_lecture.Rmd
+## ggplot_lecture.md</code></pre>
 </div>
-<div id="makingdeleting-folders" class="section level3">
-<h3><span class="header-section-number">3.2.3</span> Making/deleting folders</h3>
-</div>
-<div id="getting-help" class="section level3">
-<h3><span class="header-section-number">3.2.4</span> Getting help</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" title="1"><span class="bu">pwd</span></a></code></pre></div>
-<pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github</code></pre>
-</div>
-</div>
-<div id="shell" class="section level2">
-<h2><span class="header-section-number">3.3</span> Shell</h2>
-<div id="mac-terminal" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Mac, terminal</h3>
-</div>
-<div id="windows-git-bash" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Windows, git bash</h3>
+<div id="makedeletemove-folders-a" class="section level3">
+<h3><span class="header-section-number">3.2.3</span> Make/delete/move folders a</h3>
+<p><strong><code>mkdir</code> command makes a directory</strong></p>
+<ul>
+<li>syntax
+<ul>
+<li><code>mkdir [option(s)] directory_name(s)</code></li>
+</ul></li>
+<li>common option
+<ul>
+<li><code>-p</code> – no error if existing, make parent directories as needed</li>
+</ul></li>
+</ul>
+<p>Example</p>
+<ul>
+<li>Make new directory</li>
+</ul>
+<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb22-1" title="1"><span class="bu">cd</span> ../../../ </a>
+<a class="sourceLine" id="cb22-2" title="2"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="fu">mkdir</span> mkdir_test</a></code></pre></div>
+<ul>
+<li>move to new directory and create sub-folders</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" title="1"><span class="bu">cd</span> ../../../</a>
+<a class="sourceLine" id="cb23-2" title="2">  </a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="bu">cd</span> mkdir_test</a>
+<a class="sourceLine" id="cb23-4" title="4"></a>
+<a class="sourceLine" id="cb23-5" title="5"><span class="fu">mkdir</span> folder_a folder_b folder_c</a>
+<a class="sourceLine" id="cb23-6" title="6"><span class="fu">ls</span></a></code></pre></div>
+<p><strong><code>rm</code> command removes a file or folder</strong></p>
+<ul>
+<li>syntax
+<ul>
+<li><code>rm [option(s)] [file/folder name(s)]</code></li>
+</ul></li>
+<li>common options
+<ul>
+<li><code>-f</code> – force remove
+<ul>
+<li><code>rm -f some_file.txt</code></li>
+</ul></li>
+<li><code>-r</code> – delete directory (default is deleting a file)
+<ul>
+<li><code>rm -r some_directory</code></li>
+</ul></li>
+<li><code>-rf</code> – force remove directory
+<ul>
+<li><code>rm -rf some_directory</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Example</p>
+<ul>
+<li>remove directory named <code>folder_a</code></li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb24-1" title="1"><span class="bu">cd</span> ../../../</a>
+<a class="sourceLine" id="cb24-2" title="2">  </a>
+<a class="sourceLine" id="cb24-3" title="3"><span class="bu">cd</span> mkdir_test</a>
+<a class="sourceLine" id="cb24-4" title="4"></a>
+<a class="sourceLine" id="cb24-5" title="5"><span class="fu">rm</span> -rf folder_a</a>
+<a class="sourceLine" id="cb24-6" title="6"><span class="fu">ls</span></a></code></pre></div>
+<p>ADD THESE COMMANDS ON 3/25?</p>
+<p>cp file1 file2 – copy file1 to file2 cp -r dir1 dir2 – copy dir1 to dir2; create dir2 if it doesn’t exist mv file1 file2 – rename or move file1 to file2 if file2 is an existing directory, moves file1 into directory file2</p>
 </div>
 </div>
 </div>
