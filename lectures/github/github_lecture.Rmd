@@ -535,6 +535,7 @@ We cun run `Bash` code instead of `R` code by replacing `{r}` with `{bash}` at t
 
 - Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
     - This is true for an `R` code chunk, a `Bash` code chunk, or any other programming language
+    - If you change working directories within a code chunk, the working directory reverts back to where the .Rmd file is saved after the code chunk finishes running
 ```{bash}
 pwd
 ls
@@ -586,14 +587,29 @@ Commands to navigate directories
 - `ls` -- lists the contents of a directory
 - `cd` -- change directories
 
-*show example of changing directory;
-START HERE WEEK OF MONDAY 3/23/2020
+`cd` command changes the current directory
+
+- syntax
+    - `cd [option(s)] directory_name`
+- example: change current directory to the "lectures" directory
+    - `cd lectures`
+- In Bash, separate sub-folders using `/` rather than `\` [even if you are using a PC!]
+- __absolute__ vs. __relative__ filepaths
+    - can specify `directory_name` using __absolute__ or __relative__ filepaths
+    - __absolute__ filepaths: the complete filepath relative to the "root" directory
+        - example: `cd "/c/Users/ozanj/documents/rclass2/lectures"`
+    - __relative__ filepath: filepath relative to the current directory
+        - example [starting from working directory `rclass2`]:
+            - `cd lectures`
+            - `cd lectures/github`
+    - by default, `cd` command assumes you are using a __relative__ filepath
 
 
-- changing directories
-    - `cd`
-    - Move up one directory
-        - `..`
+```{bash}
+pwd
+ls
+```
+
 
     
 ```{bash}

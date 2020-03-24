@@ -31,8 +31,10 @@ __MACOSX/
 
 
 # ----------
-# OTHER, ?
+# FOLDERS
 # ----------
-  
+_gitadmin/  
+_student_repositories/
+
 _site/
-*.pdf
+#*.pdf
