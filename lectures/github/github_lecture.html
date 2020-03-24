@@ -1711,10 +1711,14 @@ div.tocify {
 </ul></li>
 <li><a href="#command-line">Command line</a>
 <ul>
-<li><a href="#shell/command-line-vs.-graphical-user-interface-(gui)">Shell/command line vs. graphical user interface (GUI)</a></li>
+<li><a href="#shell/command-line-vs.-graphical-user-interface-(gui)">Shell/command line vs. graphical user interface (GUI)</a>
+<ul>
+<li><a href="#command-line-bullshittery">Command-line bullshittery</a></li>
+</ul></li>
 <li><a href="#basic-(bash)-commands-line-commands">Basic (Bash) commands line commands</a>
 <ul>
-<li><a href="#navidating-directories">Navidating directories</a></li>
+<li><a href="#bash-syntax">Bash syntax</a></li>
+<li><a href="#navigating-directories">Navigating directories</a></li>
 <li><a href="#making/deleting-folders">Making/deleting folders</a></li>
 <li><a href="#getting-help">Getting help</a></li>
 </ul></li>
@@ -2136,9 +2140,8 @@ div.tocify {
 </ul></li>
 <li>Because Mac “Terminal” program and the Windows “Git Bash” program both use the Bash command line program, performing Git operations using the command line will be <strong>exactly the same</strong> for both Mac and Windows users!!!</li>
 </ul>
-</div>
-<div id="basic-bash-commands-line-commands" class="section level2">
-<h2><span class="header-section-number">3.2</span> Basic (Bash) commands line commands</h2>
+<div id="command-line-bullshittery" class="section level3">
+<h3><span class="header-section-number">3.1.1</span> Command-line bullshittery</h3>
 <p><br></p>
 <p><a href="http://www.pgbovine.net/command-line-bullshittery.htm">Helping my students overcome <strong>command-line bullshittery</strong> by Philip J. Guo</a></p>
 <blockquote>
@@ -2147,28 +2150,228 @@ div.tocify {
 <blockquote>
 <p>“But this power comes at a great cost: <strong><em>It takes a tremendous amount of command-line bullshittery to install, set up, and configure all of this wonderful free software</em></strong>. What I mean by command-line bullshittery is dealing with all of the arcane, obscure, strange bullshit of the command-line paradigm that most of these free tools are built upon….So perhaps what is more important to a researcher than programming ability is adeptness at dealing with command-line bullshittery, since that enables one to become 10x or even 100x more productive than peers by finding, installing, configuring, customizing, and remixing the appropriate pieces of free software.”</p>
 </blockquote>
-<div id="navidating-directories" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Navidating directories</h3>
+</div>
+</div>
+<div id="basic-bash-commands-line-commands" class="section level2">
+<h2><span class="header-section-number">3.2</span> Basic (Bash) commands line commands</h2>
+<div id="bash-syntax" class="section level3">
+<h3><span class="header-section-number">3.2.1</span> Bash syntax</h3>
+<p>Let’s learn a bit about Bash command syntax</p>
+<p>RESOURCES TO CREATE SECTION</p>
 <ul>
-<li>show current working directory
+<li><a href="http://www.compciv.org/topics/bash/command-structure/" class="uri">http://www.compciv.org/topics/bash/command-structure/</a></li>
+<li><a href="https://www.educative.io/blog/bash-shell-command-cheat-sheet" class="uri">https://www.educative.io/blog/bash-shell-command-cheat-sheet</a></li>
+</ul>
+<p>The Bash command <code>ls</code> lists the contents (e.g., files, folders) of a directory. A “directory” is another word for “folder.” In Terminal/Git Bash, try typing <code>ls</code> and then hit <code>ENTER</code> key.</p>
+<p>The <code>pwd</code> command shows the filepath of the directory you are currently in, that is the current working directory. In Terminal/Git Bash, try typing <code>pwd</code> and then hit <code>ENTER</code> key.</p>
+<p>Note that you can also run <code>Bash</code> code from within an R code chunk of a .Rmd file. First, let’s run some simple <code>R</code> commands from within an R code chunk</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb2-2" title="2">mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">5</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 11
+##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
+##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;      &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt; 
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~</code></pre>
+<p>We cun run <code>Bash</code> code instead of <code>R</code> code by replacing <code>{r}</code> with <code>{bash}</code> at top of chunk.</p>
 <ul>
-<li><code>pwd</code></li>
+<li>Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
+<ul>
+<li>This is true for an <code>R</code> code chunk, a <code>Bash</code> code chunk, or any other programming language</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="bu">pwd</span></a></code></pre></div>
-<pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github</code></pre>
-<ul>
-<li>list files in directory
-<ul>
-<li><code>ls</code></li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="fu">ls</span></a></code></pre></div>
-<pre><code>## github_lecture.Rmd
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="fu">ls</span></a></code></pre></div>
+<pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
+## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
 ## render_toc.R
 ## text</code></pre>
+<p>We can see the help file for any Bash command by typing:</p>
+<ul>
+<li><code>command_name --help</code></li>
+<li>For example: <code>ls --help</code></li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="fu">ls</span> --help</a></code></pre></div>
+<pre><code>## Usage: /Rtools/bin/ls [OPTION]... [FILE]...
+## List information about the FILEs (the current directory by default).
+## Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
+## 
+## Mandatory arguments to long options are mandatory for short options too.
+##   -a, --all                  do not ignore entries starting with .
+##   -A, --almost-all           do not list implied . and ..
+##       --author               with -l, print the author of each file
+##   -b, --escape               print C-style escapes for nongraphic characters
+##       --block-size=SIZE      scale sizes by SIZE before printing them; e.g.,
+##                                &#39;--block-size=M&#39; prints sizes in units of
+##                                1,048,576 bytes; see SIZE format below
+##   -B, --ignore-backups       do not list implied entries ending with ~
+##   -c                         with -lt: sort by, and show, ctime (time of last
+##                                modification of file status information);
+##                                with -l: show ctime and sort by name;
+##                                otherwise: sort by ctime, newest first
+##   -C                         list entries by columns
+##       --color[=WHEN]         colorize the output; WHEN can be &#39;always&#39; (default
+##                                if omitted), &#39;auto&#39;, or &#39;never&#39;; more info below
+##   -d, --directory            list directories themselves, not their contents
+##   -D, --dired                generate output designed for Emacs&#39; dired mode
+##   -f                         do not sort, enable -aU, disable -ls --color
+##   -F, --classify             append indicator (one of */=&gt;@|) to entries
+##       --file-type            likewise, except do not append &#39;*&#39;
+##       --format=WORD          across -x, commas -m, horizontal -x, long -l,
+##                                single-column -1, verbose -l, vertical -C
+##       --full-time            like -l --time-style=full-iso
+##   -g                         like -l, but do not list owner
+##       --group-directories-first
+##                              group directories before files;
+##                                can be augmented with a --sort option, but any
+##                                use of --sort=none (-U) disables grouping
+##   -G, --no-group             in a long listing, don&#39;t print group names
+##   -h, --human-readable       with -l and/or -s, print human readable sizes
+##                                (e.g., 1K 234M 2G)
+##       --si                   likewise, but use powers of 1000 not 1024
+##   -H, --dereference-command-line
+##                              follow symbolic links listed on the command line
+##       --dereference-command-line-symlink-to-dir
+##                              follow each command line symbolic link
+##                                that points to a directory
+##       --hide=PATTERN         do not list implied entries matching shell PATTERN
+##                                (overridden by -a or -A)
+##       --indicator-style=WORD  append indicator with style WORD to entry names:
+##                                none (default), slash (-p),
+##                                file-type (--file-type), classify (-F)
+##   -i, --inode                print the index number of each file
+##   -I, --ignore=PATTERN       do not list implied entries matching shell PATTERN
+##   -k, --kibibytes            default to 1024-byte blocks for disk usage
+##   -l                         use a long listing format
+##   -L, --dereference          when showing file information for a symbolic
+##                                link, show information for the file the link
+##                                references rather than for the link itself
+##   -m                         fill width with a comma separated list of entries
+##   -n, --numeric-uid-gid      like -l, but list numeric user and group IDs
+##   -N, --literal              print entry names without quoting
+##   -o                         like -l, but do not list group information
+##   -p, --indicator-style=slash
+##                              append / indicator to directories
+##   -q, --hide-control-chars   print ? instead of nongraphic characters
+##       --show-control-chars   show nongraphic characters as-is (the default,
+##                                unless program is &#39;ls&#39; and output is a terminal)
+##   -Q, --quote-name           enclose entry names in double quotes
+##       --quoting-style=WORD   use quoting style WORD for entry names:
+##                                literal, locale, shell, shell-always,
+##                                shell-escape, shell-escape-always, c, escape
+##   -r, --reverse              reverse order while sorting
+##   -R, --recursive            list subdirectories recursively
+##   -s, --size                 print the allocated size of each file, in blocks
+##   -S                         sort by file size, largest first
+##       --sort=WORD            sort by WORD instead of name: none (-U), size (-S),
+##                                time (-t), version (-v), extension (-X)
+##       --time=WORD            with -l, show time as WORD instead of default
+##                                modification time: atime or access or use (-u);
+##                                ctime or status (-c); also use specified time
+##                                as sort key if --sort=time (newest first)
+##       --time-style=STYLE     with -l, show times using style STYLE:
+##                                full-iso, long-iso, iso, locale, or +FORMAT;
+##                                FORMAT is interpreted like in &#39;date&#39;; if FORMAT
+##                                is FORMAT1&lt;newline&gt;FORMAT2, then FORMAT1 applies
+##                                to non-recent files and FORMAT2 to recent files;
+##                                if STYLE is prefixed with &#39;posix-&#39;, STYLE
+##                                takes effect only outside the POSIX locale
+##   -t                         sort by modification time, newest first
+##   -T, --tabsize=COLS         assume tab stops at each COLS instead of 8
+##   -u                         with -lt: sort by, and show, access time;
+##                                with -l: show access time and sort by name;
+##                                otherwise: sort by access time, newest first
+##   -U                         do not sort; list entries in directory order
+##   -v                         natural sort of (version) numbers within text
+##   -w, --width=COLS           set output width to COLS.  0 means no limit
+##   -x                         list entries by lines instead of by columns
+##   -X                         sort alphabetically by entry extension
+##   -Z, --context              print any security context of each file
+##   -1                         list one file per line.  Avoid &#39;\n&#39; with -q or -b
+##       --append-exe           append .exe if cygwin magic was needed
+##       --help     display this help and exit
+##       --version  output version information and exit
+## 
+## The SIZE argument is an integer and optional unit (example: 10K is 10*1024).
+## Units are K,M,G,T,P,E,Z,Y (powers of 1024) or KB,MB,... (powers of 1000).
+## 
+## Using color to distinguish file types is disabled both by default and
+## with --color=never.  With --color=auto, ls emits color codes only when
+## standard output is connected to a terminal.  The LS_COLORS environment
+## variable can change the settings.  Use the dircolors command to set it.
+## 
+## Exit status:
+##  0  if OK,
+##  1  if minor problems (e.g., cannot access subdirectory),
+##  2  if serious trouble (e.g., cannot access command-line argument).
+## 
+## GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;
+## Report ls translation bugs to &lt;http://translationproject.org/team/&gt;
+## Full documentation at: &lt;http://www.gnu.org/software/coreutils/ls&gt;
+## or available locally via: info &#39;(coreutils) ls invocation&#39;</code></pre>
+<p>Syntax of <code>ls</code> command:</p>
+<ul>
+<li><code>ls [option(s)] [file(s)]</code></li>
+<li>The bracketed <code>[option(s)]</code> and <code>[file(s)]</code> means that you do not need to specify these</li>
+<li>Options in the <code>ls</code> command
+<ul>
+<li>in the help file for <code>ls</code> we see that most options can be specified using <code>-</code> or <code>--</code></li>
+<li>for example, <code>-a</code> and <code>--all</code> or two different ways to specify the option “do not ignore entries starting with .”</li>
+<li>for the most part, <code>--</code> is the way to specify the long name version of an option and <code>-</code> is the way to specify the short name version. For more see <a href="https://askubuntu.com/questions/813303/whats-the-difference-between-one-hyphen-and-two-hyphens-in-a-command">blog discussion</a></li>
+</ul></li>
+</ul>
+<p>Example, using <code>ls</code> command (run in code chunk and run on command line)</p>
+<ul>
+<li>without options</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="fu">ls</span></a></code></pre></div>
+<pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
+## github_lecture.Rmd
+## github_lecture.html
+## github_lecture.md
+## render_toc.R
+## text</code></pre>
+<ul>
+<li>using <code>-a</code> to include entries that start with <code>.</code></li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb10-2" title="2"><span class="fu">ls</span> -a</a></code></pre></div>
+<pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
+## .
+## ..
+## github_lecture.Rmd
+## github_lecture.html
+## github_lecture.md
+## render_toc.R
+## text</code></pre>
+<ul>
+<li>using <code>--all</code> to include entries that start with <code>.</code></li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="fu">ls</span> --all</a></code></pre></div>
+<pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
+## .
+## ..
+## github_lecture.Rmd
+## github_lecture.html
+## github_lecture.md
+## render_toc.R
+## text</code></pre>
+</div>
+<div id="navigating-directories" class="section level3">
+<h3><span class="header-section-number">3.2.2</span> Navigating directories</h3>
+<p>Commands to navigate directories</p>
+<ul>
+<li><code>pwd</code> – show current working directory</li>
+<li><code>ls</code> – lists the contents of a directory</li>
+<li><code>cd</code> – change directories</li>
+</ul>
+<p>*show example of changing directory; START HERE WEEK OF MONDAY 3/23/2020</p>
 <ul>
 <li>changing directories
 <ul>
@@ -2179,11 +2382,10 @@ div.tocify {
 </ul></li>
 </ul></li>
 </ul>
-<p>*show example of changing directory; START HERE WEEK OF MONDAY 3/23/2020</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="fu">ls</span></a>
-<a class="sourceLine" id="cb6-3" title="3"><span class="bu">cd</span> ..</a>
-<a class="sourceLine" id="cb6-4" title="4"><span class="bu">pwd</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="fu">ls</span></a>
+<a class="sourceLine" id="cb14-3" title="3"><span class="bu">cd</span> ..</a>
+<a class="sourceLine" id="cb14-4" title="4"><span class="bu">pwd</span></a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
@@ -2193,11 +2395,11 @@ div.tocify {
 ## /c/Users/ozanj/Documents/rclass2/lectures</code></pre>
 </div>
 <div id="makingdeleting-folders" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> Making/deleting folders</h3>
+<h3><span class="header-section-number">3.2.3</span> Making/deleting folders</h3>
 </div>
 <div id="getting-help" class="section level3">
-<h3><span class="header-section-number">3.2.3</span> Getting help</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="bu">pwd</span></a></code></pre></div>
+<h3><span class="header-section-number">3.2.4</span> Getting help</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" title="1"><span class="bu">pwd</span></a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github</code></pre>
 </div>
 </div>

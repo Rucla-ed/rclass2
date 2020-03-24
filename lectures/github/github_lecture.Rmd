@@ -498,7 +498,7 @@ We will use the Unix shell called "Bash" to perform Git operations
     - In order for Windows users to use Bash to perform Git operations, you must install the Git Bash program, which is installed as part of "git for Windows" ([install here](https://gitforwindows.org/))
 - Because Mac "Terminal" program and the Windows "Git Bash" program both use the Bash command line program, performing Git operations using the command line will be __exactly the same__ for both Mac and Windows users!!!
 
-## Basic (Bash) commands line commands
+### Command-line bullshittery
 
 <br>
 
@@ -508,27 +508,93 @@ We will use the Unix shell called "Bash" to perform Git operations
 
 > "But this power comes at a great cost: __*It takes a tremendous amount of command-line bullshittery to install, set up, and configure all of this wonderful free software*__. What I mean by command-line bullshittery is dealing with all of the arcane, obscure, strange bullshit of the command-line paradigm that most of these free tools are built upon....So perhaps what is more important to a researcher than programming ability is adeptness at dealing with command-line bullshittery, since that enables one to become 10x or even 100x more productive than peers by finding, installing, configuring, customizing, and remixing the appropriate pieces of free software."
 
-### Navidating directories
+## Basic (Bash) commands line commands
 
-- show current working directory
-    - `pwd`
-    
+
+### Bash syntax
+
+Let's learn a bit about Bash command syntax
+
+RESOURCES TO CREATE SECTION
+
+- http://www.compciv.org/topics/bash/command-structure/
+- https://www.educative.io/blog/bash-shell-command-cheat-sheet
+
+The Bash command `ls` lists the contents (e.g., files, folders) of a directory. A "directory" is another word for "folder." In Terminal/Git Bash, try typing `ls` and then hit `ENTER` key. 
+
+The `pwd` command shows the filepath of the directory you are currently in, that is the current working directory. In Terminal/Git Bash, try typing `pwd` and then hit `ENTER` key.
+
+Note that you can also run `Bash` code from within an R code chunk of a .Rmd file. First, let's run some simple `R` commands from within an R code chunk
+
+```{r}
+library(tidyverse)
+mpg %>% head(5)
+```
+
+We cun run `Bash` code instead of `R` code by replacing `{r}` with `{bash}` at top of chunk.
+
+- Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
+    - This is true for an `R` code chunk, a `Bash` code chunk, or any other programming language
 ```{bash}
 pwd
-```
-
-- list files in directory
-    - `ls`
-```{bash}
 ls
 ```
+
+We can see the help file for any Bash command by typing:
+
+- `command_name --help`
+- For example:
+    `ls --help`
+```{bash}
+ls --help
+```
+
+Syntax of `ls` command:
+
+- `ls [option(s)] [file(s)]`
+- The bracketed `[option(s)]` and `[file(s)]` means that you do not need to specify these
+- Options in the `ls` command
+    - in the help file for `ls` we see that most options can be specified using `-` or `--`
+    - for example, `-a` and `--all` or two different ways to specify the option "do not ignore entries starting with ."
+    - for the most part, `--` is the way to specify the long name version of an option and `-` is the way to specify the short name version. For more see [blog discussion](https://askubuntu.com/questions/813303/whats-the-difference-between-one-hyphen-and-two-hyphens-in-a-command)
+    
+Example, using `ls` command (run in code chunk and run on command line)
+
+- without options
+```{bash}
+pwd
+ls
+```
+
+- using `-a` to include entries that start with `.`
+```{bash}
+pwd
+ls -a
+```
+
+- using `--all` to include entries that start with `.`
+```{bash}
+pwd
+ls --all
+```
+
+### Navigating directories
+
+Commands to navigate directories
+
+- `pwd` -- show current working directory
+- `ls` -- lists the contents of a directory
+- `cd` -- change directories
+
+*show example of changing directory;
+START HERE WEEK OF MONDAY 3/23/2020
+
+
 - changing directories
     - `cd`
     - Move up one directory
         - `..`
 
-*show example of changing directory;
-START HERE WEEK OF MONDAY 3/23/2020
     
 ```{bash}
 pwd
