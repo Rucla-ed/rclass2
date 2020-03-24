@@ -1,9 +1,0 @@
-{
-    "github_login": "ozanj",
-    "github_token_file": "C:\\Users\\ozanj\\Documents\\github_token\\token.txt",
-    "github_protocol": "SSH",
-    "organization_name": "Rucla-ed",
-    "roster_file": "C:\\Users\\ozanj\\Documents\\rclass2\\_gitadmin\\roster.csv",
-    "master_repo": ".",
-    "student_repo_dir": "./_student_repositories"
-}
