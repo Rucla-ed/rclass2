@@ -1722,7 +1722,14 @@ div.tocify {
 <li><a href="#make/delete/move-folders-a">Make/delete/move folders a</a></li>
 </ul></li>
 </ul></li>
-<li><a href="#topics-to-cover-in-depth">Topics to cover in depth</a>
+<li><a href="#basic-git-tasks,-individual-developer">Basic Git tasks, individual developer</a>
+<ul>
+<li><a href="#git-commands">git commands</a>
+<ul>
+<li><a href="#clone-an-existing-repository">clone an existing repository</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#git-tasks,-collaborative-projects">Git tasks, collaborative projects</a>
 <ul>
 <li><a href="#pull-requests">Pull requests</a></li>
 </ul></li>
@@ -2418,6 +2425,7 @@ div.tocify {
 <a class="sourceLine" id="cb14-4" title="4"><span class="fu">ls</span></a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## /c/Users/ozanj/Documents/rclass2/lectures
+## _style
 ## apa.csl
 ## ggplot
 ## github
@@ -2433,6 +2441,7 @@ div.tocify {
 ## _config.yml
 ## _data
 ## _gitadmin
+## _layouts
 ## _resources
 ## _student_repositories
 ## _working
@@ -2456,6 +2465,7 @@ div.tocify {
 ## _config.yml
 ## _data
 ## _gitadmin
+## _layouts
 ## _resources
 ## _student_repositories
 ## _working
@@ -2544,25 +2554,88 @@ div.tocify {
 </div>
 </div>
 </div>
-<div id="topics-to-cover-in-depth" class="section level1">
-<h1><span class="header-section-number">4</span> Topics to cover in depth</h1>
+<div id="basic-git-tasks-individual-developer" class="section level1">
+<h1><span class="header-section-number">4</span> Basic Git tasks, individual developer</h1>
+<div id="git-commands" class="section level2">
+<h2><span class="header-section-number">4.1</span> git commands</h2>
+<div id="clone-an-existing-repository" class="section level3">
+<h3><span class="header-section-number">4.1.1</span> clone an existing repository</h3>
+<p>give overview of different basic things we will do each day (e.g., create new repository from our computer and then push to github, clone repository on github; and then show how to do it)</p>
+<p>CLONE AN EXISTING GIT REPOSITORY SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb25-1" title="1"><span class="co"># change directories to home directory</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="bu">cd</span> ~ </a>
+<a class="sourceLine" id="cb25-3" title="3"></a>
+<a class="sourceLine" id="cb25-4" title="4"><span class="co"># change to &quot;documents&quot; [if necessary]</span></a>
+<a class="sourceLine" id="cb25-5" title="5"><span class="bu">cd</span> documents</a>
+<a class="sourceLine" id="cb25-6" title="6"></a>
+<a class="sourceLine" id="cb25-7" title="7"><span class="co"># show filepath of current working directory</span></a>
+<a class="sourceLine" id="cb25-8" title="8"><span class="bu">pwd</span> </a>
+<a class="sourceLine" id="cb25-9" title="9"></a>
+<a class="sourceLine" id="cb25-10" title="10"><span class="co">#list files in current working directory</span></a>
+<a class="sourceLine" id="cb25-11" title="11"><span class="co">#ls</span></a>
+<a class="sourceLine" id="cb25-12" title="12"></a>
+<a class="sourceLine" id="cb25-13" title="13"><span class="co">#clone git repository that is on github.com</span></a>
+<a class="sourceLine" id="cb25-14" title="14"><span class="co">#git clone https://github.com/Rucla-ed/student_jaquette.git #http authentication</span></a>
+<a class="sourceLine" id="cb25-15" title="15"><span class="fu">git</span> clone git@github.com:Rucla-ed/student_jaquette.git <span class="co"># SSH authentication</span></a>
+<a class="sourceLine" id="cb25-16" title="16"></a>
+<a class="sourceLine" id="cb25-17" title="17"><span class="bu">cd</span> student_jaquette</a>
+<a class="sourceLine" id="cb25-18" title="18"><span class="fu">ls</span></a></code></pre></div>
+<p>Create new git repository on your local machine and connect it to github</p>
+<p>SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb26-1" title="1"><span class="co"># change directories to home directory</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="bu">cd</span> ~ </a>
+<a class="sourceLine" id="cb26-3" title="3"></a>
+<a class="sourceLine" id="cb26-4" title="4"><span class="co"># change to &quot;documents&quot; [if necessary]</span></a>
+<a class="sourceLine" id="cb26-5" title="5"><span class="bu">cd</span> documents</a>
+<a class="sourceLine" id="cb26-6" title="6"></a>
+<a class="sourceLine" id="cb26-7" title="7"><span class="co"># make new directory that will be our git repository</span></a>
+<a class="sourceLine" id="cb26-8" title="8"><span class="fu">mkdir</span> gitr_practice</a>
+<a class="sourceLine" id="cb26-9" title="9"></a>
+<a class="sourceLine" id="cb26-10" title="10"><span class="bu">cd</span> gitr_practice</a>
+<a class="sourceLine" id="cb26-11" title="11"></a>
+<a class="sourceLine" id="cb26-12" title="12"><span class="fu">ls</span> -a</a>
+<a class="sourceLine" id="cb26-13" title="13"></a>
+<a class="sourceLine" id="cb26-14" title="14"><span class="co"># turn the current, empty directory into a fresh Git repository.</span></a>
+<a class="sourceLine" id="cb26-15" title="15"><span class="fu">git</span> init</a>
+<a class="sourceLine" id="cb26-16" title="16"></a>
+<a class="sourceLine" id="cb26-17" title="17"><span class="co">#create a new README file with some sample text</span></a>
+<a class="sourceLine" id="cb26-18" title="18"><span class="bu">echo</span> <span class="st">&quot;Hello. I thought we would be learning R this quarter&quot;</span> <span class="op">&gt;&gt;</span> README.txt</a>
+<a class="sourceLine" id="cb26-19" title="19"></a>
+<a class="sourceLine" id="cb26-20" title="20"><span class="co">#show contents of file</span></a>
+<a class="sourceLine" id="cb26-21" title="21"><span class="fu">cat</span> README.txt</a>
+<a class="sourceLine" id="cb26-22" title="22"></a>
+<a class="sourceLine" id="cb26-23" title="23"><span class="fu">git</span> status</a>
+<a class="sourceLine" id="cb26-24" title="24"></a>
+<a class="sourceLine" id="cb26-25" title="25"><span class="co"># add README.txt to files that will be &quot;tracked&quot; by git</span></a>
+<a class="sourceLine" id="cb26-26" title="26"><span class="fu">git</span> add README.txt</a>
+<a class="sourceLine" id="cb26-27" title="27"></a>
+<a class="sourceLine" id="cb26-28" title="28"><span class="co"># check status</span></a>
+<a class="sourceLine" id="cb26-29" title="29"><span class="fu">git</span> status</a>
+<a class="sourceLine" id="cb26-30" title="30"></a>
+<a class="sourceLine" id="cb26-31" title="31"><span class="co"># commit changes to local repository</span></a>
+<a class="sourceLine" id="cb26-32" title="32"><span class="fu">git</span> commit -m <span class="st">&quot;First commit&quot;</span></a></code></pre></div>
+</div>
+</div>
+</div>
+<div id="git-tasks-collaborative-projects" class="section level1">
+<h1><span class="header-section-number">5</span> Git tasks, collaborative projects</h1>
 <div id="pull-requests" class="section level2">
-<h2><span class="header-section-number">4.1</span> Pull requests</h2>
+<h2><span class="header-section-number">5.1</span> Pull requests</h2>
 </div>
 </div>
 <div id="appendix" class="section level1">
-<h1><span class="header-section-number">5</span> Appendix</h1>
+<h1><span class="header-section-number">6</span> Appendix</h1>
 <div id="installation" class="section level2">
-<h2><span class="header-section-number">5.1</span> Installation</h2>
+<h2><span class="header-section-number">6.1</span> Installation</h2>
 </div>
 <div id="authentication" class="section level2">
-<h2><span class="header-section-number">5.2</span> Authentication</h2>
+<h2><span class="header-section-number">6.2</span> Authentication</h2>
 </div>
 <div id="gitignore" class="section level2">
-<h2><span class="header-section-number">5.3</span> .gitignore</h2>
+<h2><span class="header-section-number">6.3</span> .gitignore</h2>
 </div>
 <div id="running-git-bash-from-r-markdown" class="section level2">
-<h2><span class="header-section-number">5.4</span> Running git Bash from R Markdown</h2>
+<h2><span class="header-section-number">6.4</span> Running git Bash from R Markdown</h2>
 </div>
 </div>
 

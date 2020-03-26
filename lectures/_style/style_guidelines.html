@@ -1266,6 +1266,96 @@ window.buildTabsets = function(tocID) {
 </script>
 
 
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
 
 
 <style type="text/css">
@@ -1492,21 +1582,26 @@ div.tocify {
 <li>what other options should we use to improve appearance, functionality of lectures?</li>
 </ul>
 </div>
+<div id="global-chunk-options" class="section level1">
+<h1><span class="header-section-number">3</span> global chunk options?</h1>
+<p>for intro R class, we included following global option. what others should we include in each .Rmd lecture file?</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">collapse =</span> <span class="ot">TRUE</span>, <span class="dt">comment =</span> <span class="st">&quot;#&gt;&quot;</span>, <span class="dt">highlight =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+</div>
 <div id="headings.-level-1-for-big-topics-e.g.-xxxx" class="section level1">
-<h1><span class="header-section-number">3</span> HEADINGS. level-1 for big topics (e.g., xxxx)</h1>
+<h1><span class="header-section-number">4</span> HEADINGS. level-1 for big topics (e.g., xxxx)</h1>
 <div id="level-2-heading-for-topics" class="section level2">
-<h2><span class="header-section-number">3.1</span> level-2 heading for ??? topics</h2>
+<h2><span class="header-section-number">4.1</span> level-2 heading for ??? topics</h2>
 <div id="level-3-heading-for-topics" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> level-3 heading for ??? topics</h3>
+<h3><span class="header-section-number">4.1.1</span> level-3 heading for ??? topics</h3>
 <div id="use-level-4-heading-at-all" class="section level4">
-<h4><span class="header-section-number">3.1.1.1</span> use level 4 heading at all?</h4>
+<h4><span class="header-section-number">4.1.1.1</span> use level 4 heading at all?</h4>
 <p><strong>use bold for ??? level topics</strong></p>
 </div>
 </div>
 </div>
 </div>
 <div id="text-style" class="section level1">
-<h1><span class="header-section-number">4</span> text style</h1>
+<h1><span class="header-section-number">5</span> text style</h1>
 <p><code>code</code></p>
 <ul>
 <li>use for code. for example: <code>git commit -m &quot;my message here&quot;</code></li>
@@ -1531,12 +1626,12 @@ div.tocify {
 <li>? use color for emphasis?</li>
 </ul>
 <div id="bullet-points-vs.-paragraph-style" class="section level2">
-<h2><span class="header-section-number">4.1</span> bullet-points vs. paragraph-style</h2>
+<h2><span class="header-section-number">5.1</span> bullet-points vs. paragraph-style</h2>
 <p>not sure if main text [below headings] should be paragraph style or bullet-point or a mix of both. so far I am mainly using bullet-points, but that is because I am used to writing lecture slides.</p>
 </div>
 </div>
 <div id="referencesattribution" class="section level1">
-<h1><span class="header-section-number">5</span> References/attribution</h1>
+<h1><span class="header-section-number">6</span> References/attribution</h1>
 <ul>
 <li>I created <code>rclass2_bib.bib</code> for references, but haven’t added many references there yet</li>
 <li>I find I am using a lot of quoted text and images from other tutorials/websites. I am trying to be consistent in always attributing the sources, but I haven’t been consistent about whether I provide name of author or name of tutorial/article title. what should the standard be?</li>

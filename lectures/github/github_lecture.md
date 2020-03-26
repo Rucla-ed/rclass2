@@ -155,7 +155,10 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
         - [Bash syntax](#bash-syntax)
         - [Changing directories](#changing-directories)
         - [Make/delete/move folders a](#make/delete/move-folders-a)
-- [Topics to cover in depth](#topics-to-cover-in-depth)
+- [Basic Git tasks, individual developer](#basic-git-tasks,-individual-developer)
+    - [git commands](#git-commands)
+        - [clone an existing repository](#clone-an-existing-repository)
+- [Git tasks, collaborative projects](#git-tasks,-collaborative-projects)
     - [Pull requests](#pull-requests)
 - [Appendix](#appendix)
     - [Installation](#installation)
@@ -826,6 +829,7 @@ ls
 ```
 ## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## /c/Users/ozanj/Documents/rclass2/lectures
+## _style
 ## apa.csl
 ## ggplot
 ## github
@@ -848,6 +852,7 @@ ls
 ## _config.yml
 ## _data
 ## _gitadmin
+## _layouts
 ## _resources
 ## _student_repositories
 ## _working
@@ -877,6 +882,7 @@ ls -a
 ## _config.yml
 ## _data
 ## _gitadmin
+## _layouts
 ## _resources
 ## _student_repositories
 ## _working
@@ -971,8 +977,79 @@ mv file1 file2 – rename or move file1 to file2
 if file2 is an existing directory, moves file1 into
 directory file2
 
+# Basic Git tasks, individual developer
 
-# Topics to cover in depth
+## git commands
+
+### clone an existing repository
+
+give overview of different basic things we will do each day (e.g., create new repository from our computer and then push to github, clone repository on github; and then show how to do it)
+
+CLONE AN EXISTING GIT REPOSITORY
+SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE
+
+```bash
+# change directories to home directory
+cd ~ 
+
+# change to "documents" [if necessary]
+cd documents
+
+# show filepath of current working directory
+pwd 
+
+#list files in current working directory
+#ls
+
+#clone git repository that is on github.com
+#git clone https://github.com/Rucla-ed/student_jaquette.git #http authentication
+git clone git@github.com:Rucla-ed/student_jaquette.git # SSH authentication
+
+cd student_jaquette
+ls
+```
+
+
+Create new git repository on your local machine and connect it to github
+
+SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE
+
+```bash
+# change directories to home directory
+cd ~ 
+
+# change to "documents" [if necessary]
+cd documents
+
+# make new directory that will be our git repository
+mkdir gitr_practice
+
+cd gitr_practice
+
+ls -a
+
+# turn the current, empty directory into a fresh Git repository.
+git init
+
+#create a new README file with some sample text
+echo "Hello. I thought we would be learning R this quarter" >> README.txt
+
+#show contents of file
+cat README.txt
+
+git status
+
+# add README.txt to files that will be "tracked" by git
+git add README.txt
+
+# check status
+git status
+
+# commit changes to local repository
+git commit -m "First commit"
+```
+
+# Git tasks, collaborative projects
 
 ## Pull requests
 

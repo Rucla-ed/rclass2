@@ -33,6 +33,15 @@ should we be following APA style or something like that for
     - toc float = true
 - what other options should we use to improve appearance, functionality of lectures?
 
+# global chunk options?
+
+for intro R class, we included following global option. what others should we include in each .Rmd lecture file?
+
+```{r}
+
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", highlight = TRUE)
+```
+
 # HEADINGS. level-1 for big topics (e.g., xxxx)
 
 ## level-2 heading for ??? topics
