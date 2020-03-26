@@ -155,8 +155,9 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
         - [Bash syntax](#bash-syntax)
         - [Changing directories](#changing-directories)
         - [Make/delete/move folders a](#make/delete/move-folders-a)
-- [Basic Git tasks, individual developer](#basic-git-tasks,-individual-developer)
+- [Basic Git tasks [? INDIVIDUAL DEVELOPER?]](#basic-git-tasks-[?-individual-developer?])
     - [git commands](#git-commands)
+    - [Creating and cloning repositories](#creating-and-cloning-repositories)
         - [clone an existing repository](#clone-an-existing-repository)
 - [Git tasks, collaborative projects](#git-tasks,-collaborative-projects)
     - [Pull requests](#pull-requests)
@@ -977,9 +978,61 @@ mv file1 file2 – rename or move file1 to file2
 if file2 is an existing directory, moves file1 into
 directory file2
 
-# Basic Git tasks, individual developer
+# Basic Git tasks [? INDIVIDUAL DEVELOPER?]
+
 
 ## git commands
+
+Git command "cheat sheets"
+
+- https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf
+- https://www.jrebel.com/blog/git-cheat-sheet
+
+When performing git operations on command line, all commands begin with "`git`", for example:
+
+- `git init`
+- `git clone url_of_remote_repository`
+- `git status`
+
+For an overview of git command syntax and a list of common git commands, type this in command line
+
+```bash
+git --help
+```
+
+To see the help file for a particular git command (e.g., `add`, `commit`, `clone`) type:
+
+- `git command_name --help`
+- For example:
+
+```bash
+git add --help
+
+# or this:
+#git help add
+```
+
+Basic/essential git commands
+
+- __Create a repository__
+    - `git init`
+        - "initializes a brand new Git repository and begins tracking an existing directory. It adds a hidden subfolder [named .git] within the existing directory that houses the internal data structure required for version control" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
+    - `git clone url_of_remote_repository`
+- __Observe your repository__
+    - `git status`
+- __Make a change__
+    - `git add file_name(s)`
+    - `git commit -m "commit message"`
+- __Working with branches__
+- __Synchronize with remote repository__
+
+
+## Creating and cloning repositories
+
+Basic stuff you will do all the time
+
+- Create a new local git repository on your local machine
+- `clone` an existing remote repository from GitHub to your local machine
 
 ### clone an existing repository
 

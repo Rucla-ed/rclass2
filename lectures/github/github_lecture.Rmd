@@ -712,39 +712,83 @@ mv file1 file2 – rename or move file1 to file2
 if file2 is an existing directory, moves file1 into
 directory file2
 
-# Basic Git tasks, individual developer
+# Basic Git tasks [? INDIVIDUAL DEVELOPER?]
+
 
 ## git commands
 
-### clone an existing repository
+Git command "cheat sheets"
 
-give overview of different basic things we will do each day (e.g., create new repository from our computer and then push to github, clone repository on github; and then show how to do it)
+- https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf
+- https://www.jrebel.com/blog/git-cheat-sheet
 
-CLONE AN EXISTING GIT REPOSITORY
-SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE
+When performing git operations on command line, all commands begin with "`git`", for example:
+
+- `git init`
+- `git clone url_of_remote_repository`
+- `git status`
+
+For an overview of git command syntax and a list of common git commands, type this in command line
 ```{bash, eval = FALSE}
-# change directories to home directory
-cd ~ 
-
-# change to "documents" [if necessary]
-cd documents
-
-# show filepath of current working directory
-pwd 
-
-#list files in current working directory
-#ls
-
-#clone git repository that is on github.com
-#git clone https://github.com/Rucla-ed/student_jaquette.git #http authentication
-git clone git@github.com:Rucla-ed/student_jaquette.git # SSH authentication
-
-cd student_jaquette
-ls
+git --help
 ```
 
+To see the help file for a particular git command (e.g., `add`, `commit`, `clone`) type:
 
-Create new git repository on your local machine and connect it to github
+- `git command_name --help`
+- For example:
+```{bash, eval = FALSE}
+git add --help
+
+# or this:
+#git help add
+```
+
+Basic/essential git commands
+
+- __Create a repository__
+    - `git init`
+        - "initializes a brand new Git repository and begins tracking an existing directory. It adds a hidden subfolder [named .git] within the existing directory that houses the internal data structure required for version control" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
+    - `git clone url_of_remote_repository`
+        - "creates a local copy of a project that already exists remotely. The clone includes all the project’s files, history, and branches" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
+- __Make a change__
+    - `git add file_name(s)`
+        - add file(s) from local working directory to "staging area"/"index"
+        - Note: you must "stage" changes to a file before you `commit` them to your local repository
+    - `git commit -m "commit message"`
+        - all changes to files that have been staged [previous step] are committed to the local repository
+        - each commit is a snapshot of all files in your repository
+        - note: `-m` is an option to the `git commit` command, which specifies that you will add a brief description about changes you are committing
+- __Observe your repository__
+    - `git status`
+        - "shows the status of changes as untracked, modified, or staged" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
+- __Working with branches__
+- __Synchronize with remote repository__
+
+
+## Creating and cloning repositories
+
+Basic stuff you will do all the time
+
+- Create a new git repository on your local machine
+    - For example, you might want to create the repository `problem_set_1` for all files related to the first problem set
+- `clone` an existing remote repository from GitHub to your local machine
+
+### Create new git repository on your local machine
+
+What we will do:
+
+- Create a new directory
+- Change working directory to this new directory
+- turn this directory into a Git repository
+- Within the "local working directory," create/change one or more files
+- `add` changes to file(s) from the "local working directory" to the "staging area"/"index"
+- `commit` all staged changes to the "local repository"
+
+```{bash}
+cd ~
+pwd
+```
 
 SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE
 ```{bash, eval = FALSE}
@@ -781,6 +825,35 @@ git status
 # commit changes to local repository
 git commit -m "First commit"
 ```
+
+### clone an existing repository
+
+give overview of different basic things we will do each day (e.g., create new repository from our computer and then push to github, clone repository on github; and then show how to do it)
+
+CLONE AN EXISTING GIT REPOSITORY
+SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE
+```{bash, eval = FALSE}
+# change directories to home directory
+cd ~ 
+
+# change to "documents" [if necessary]
+cd documents
+
+# show filepath of current working directory
+pwd 
+
+#list files in current working directory
+#ls
+
+#clone git repository that is on github.com
+#git clone https://github.com/Rucla-ed/student_jaquette.git #http authentication
+git clone git@github.com:Rucla-ed/student_jaquette.git # SSH authentication
+
+cd student_jaquette
+ls
+```
+
+
 
 # Git tasks, collaborative projects
 
