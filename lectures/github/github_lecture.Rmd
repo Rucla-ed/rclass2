@@ -532,6 +532,27 @@ library(tidyverse)
 mpg %>% head(5)
 ```
 
+
+```{r}
+names(knitr::knit_engines$get())
+#knitr::knit_engines$get("bash")
+```
+
+```{r}
+# should exist
+Sys.which('bash')
+Sys.which('python')
+```
+
+
+```{r}
+Sys.getenv("PATH")
+#old_path <- Sys.getenv("PATH")
+#old_path
+#Sys.setenv(PATH = paste(old_path, "C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38", sep = ";"))
+#Sys.getenv("PATH")
+```
+
 We cun run `Bash` code instead of `R` code by replacing `{r}` with `{bash}` at top of chunk.
 
 - Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
@@ -541,13 +562,12 @@ We cun run `Bash` code instead of `R` code by replacing `{r}` with `{bash}` at t
 pwd
 ls
 ```
-
 We can see the help file for any Bash command by typing:
 
 - `command_name --help`
 - For example:
     `ls --help`
-```{bash}
+```{bash, eval = FALSE}
 ls --help
 ```
 
@@ -703,12 +723,17 @@ rm -rf folder_a
 ls
 ```
 
-ADD THESE COMMANDS ON 3/25?
+ADD THESE COMMANDS?
 
-cp file1 file2 – copy file1 to file2
-cp -r dir1 dir2 – copy dir1 to dir2; create dir2 if it
+__`cp` command copies files__
+
+- `cp file1 file2` –- copy file1 to file2
+- `cp -r dir1 dir2` -– copy dir1 to dir2; create dir2 if it
 doesn't exist
-mv file1 file2 – rename or move file1 to file2
+
+__`mv` renames or moves files__
+
+- `mv file1 file2` -– rename or move file1 to file2
 if file2 is an existing directory, moves file1 into
 directory file2
 
@@ -773,6 +798,7 @@ Basic stuff you will do all the time
 - Create a new git repository on your local machine
     - For example, you might want to create the repository `problem_set_1` for all files related to the first problem set
 - `clone` an existing remote repository from GitHub to your local machine
+    - For example, clone the repository for this class -- named `student_lastname` (e.g., `student_jaquette`) -- to your local machine
 
 ### Create new git repository on your local machine
 
@@ -785,53 +811,153 @@ What we will do:
 - `add` changes to file(s) from the "local working directory" to the "staging area"/"index"
 - `commit` all staged changes to the "local repository"
 
-```{bash}
-cd ~
-pwd
-```
-
-SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE
+Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk
 ```{bash, eval = FALSE}
-# change directories to home directory
-cd ~ 
+# CREATING AND CHANGING DIRECTORIES
 
-# change to "documents" [if necessary]
-cd documents
+  cd ~ # change directories to home directory
+  
+  #cd documents # change to "documents" [if necessary]
+  
+  ls # list files in directory
+  
+  # make new directory that will be our git repository
+  mkdir gitr_practice
+  
+  cd gitr_practice # move to new directory
+  
+  ls -a # show all files in directory
 
-# make new directory that will be our git repository
-mkdir gitr_practice
+# INITIALIZING GIT REPOSITORY
 
-cd gitr_practice
+  # turn the current, empty directory into a fresh Git repository.
+  git init
+  
+  ls -a # show all files in directory
+  
+  # CHANGING FILES IN WORKING DIRECTORY
+  
+  #create a new README file with some sample text
+  echo "Hello. I thought we would be learning R this quarter" >> README.txt
+  
+  #view the file README.txt
+  cat README.txt
+  
+  #create a simple r script
+  echo "library(tidyverse)" >> simple_script.r
+  echo "mpg %>% head(5)" >> simple_script.r # add another line to simple_script.r
+  
+  cat simple_script.r # show contents of file simple_script.r
 
-ls -a
+# STAGE AND COMMIT FILES TO LOCAL REPOSITORY
 
-# turn the current, empty directory into a fresh Git repository.
-git init
-
-#create a new README file with some sample text
-echo "Hello. I thought we would be learning R this quarter" >> README.txt
-
-#show contents of file
-cat README.txt
-
-git status
-
-# add README.txt to files that will be "tracked" by git
-git add README.txt
-
-# check status
-git status
-
-# commit changes to local repository
-git commit -m "First commit"
+  #check status of git repository
+  git status 
+  
+  # add README.txt from working directory to staging area (will now become a file that is "tracked" by git)
+  git add README.txt
+  
+  # add README.txt from working directory to staging area (will now become a file that is "tracked" by git)
+  git add simple_script.r
+  
+  # check status
+  git status
+  
+  # commit changes to local repository
+  git commit -m "Initial commit, README.txt simple_script.r"
+  
+  git status
 ```
 
-### clone an existing repository
+<br>
 
-give overview of different basic things we will do each day (e.g., create new repository from our computer and then push to github, clone repository on github; and then show how to do it)
+__What we just did:__
 
-CLONE AN EXISTING GIT REPOSITORY
-SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE
+
+
+[![](https://miro.medium.com/max/686/1*diRLm1S5hkVoh5qeArND0Q.png)](https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018)
+
+*Credit: Lucas Maurer, medium.com*
+
+### Clone an existing repository to your local machine
+
+What we will do:
+
+- Go to a remote repository stored on GitHub.com
+    - we will be downloading the remote repository called [downloadipeds](https://github.com/btskinner/downloadipeds)
+- Copy to our clipboard the URL that enables us to `clone` this repository to our local machine
+- On Git Bash command line
+    - change directories to folder we want repository to be downloaded to
+        - Note: we don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
+        - When we clone from github, the repository will be downloaded in a folder named `downloadipeds`
+    - use `git clone` command to clone repository
+
+<br>
+
+Click on link of remote repository: [downloadipeds](https://github.com/btskinner/downloadipeds)
+
+- This repository, created by [Ben Skinner](https://github.com/btskinner), contains a script to "batch download" files from the [Integrated Postsecondary Data System (IPEDS)](https://nces.ed.gov/ipeds/), which contains data on U.S. colleges and universities
+- Click on "Clone or download"
+    - We will be "cloning" rather than the "open in desktop" or "Download ZIP" options
+        - Essentially, we will get the url of the remote git repository and then paste this URL into the Git Bash command line
+    - Clone with SSH vs. HTTPs?
+        - These are two different ways to authenticate that you are you
+        - If you haven't set up SSH, then choose HTTPs
+    - Copy the url to your clipboard:
+        - HTTPS URL will be: https://github.com/btskinner/downloadipeds.git
+        - SSH URL will be: git@github.com:btskinner/downloadipeds.git
+
+
+Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk
+
+```{bash, eval = FALSE}
+# CHANGE TO DESIRED DIRECTORY
+
+  cd ~ # change directories to home directory
+  
+  #cd documents # change to "documents" [if necessary]
+  
+  ls # list files in directory
+  
+  #Note: we don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
+  #When we clone from github, the repository will be downloaded in a folder named `downloadipeds`
+
+# CLONE REMOTE REPOSITORY
+
+  # clone with https
+  git clone https://github.com/btskinner/downloadipeds.git
+  
+  # OR clone with ssh
+  git clone git@github.com:btskinner/downloadipeds.git
+  
+# INVESTIGATE REPOSITORY WE JUST CLONED
+
+  cd downloadipeds
+  
+  #list files
+  ls
+  ls -a
+  
+  git status
+```
+
+<br>
+
+__What we just did:__
+
+
+[![](https://www.w3docs.com/uploads/media/default/0001/03/3f26b30cc1dbda3424ceef3ab4977149906a0c58.png)](https://www.w3docs.com/learn-git/git-clone.html)
+
+*Credit: [W3 docs, Git clone](https://www.w3docs.com/learn-git/git-clone.html)*
+
+#### Student task: Clone repository for this course to desired directory on your local machine
+
+- Go to URL for the github organization [Rucla-ed](https://github.com/Rucla-ed)
+- Click on repository with the name `student_yourlastname` (e.g., `student_jaquette`)
+- Follow same steps as we did for cloning `downloadipeds`
+    - Note: before cloning, make sure you change directories to directory where you want to save files for this class
+    - you will be using this directory `student_yourlastname` for the rest of the quarter
+
 ```{bash, eval = FALSE}
 # change directories to home directory
 cd ~ 
@@ -852,6 +978,67 @@ git clone git@github.com:Rucla-ed/student_jaquette.git # SSH authentication
 cd student_jaquette
 ls
 ```
+
+
+### Create new repository and publish it to GitHub
+
+to create this example, can draw from both of these two tutorials:
+
+- https://www.codecademy.com/articles/f1-u3-git-setup
+- https://guides.github.com/introduction/git-handbook/
+First [stuff to do on github before you do stuff on command line]
+“First, you will need to create a new repository on GitHub. You can learn how to create a new repository in our Hello World guide. Do not initialize the repository with a README, .gitignore or License. This empty repository will await your code.”
+Stuff to do on command line
+
+```{bash, eval = FALSE}
+
+# create a new directory, and initialize it with git-specific functions
+git init my-repo
+
+
+# change into the `my-repo` directory
+cd my-repo
+
+
+# create the first file in the project
+touch README.md
+
+
+# git isn't aware of the file, stage it
+git add README.md
+
+
+# take a snapshot of the staging area
+git commit -m "add README to initial commit"
+
+
+# provide the path for the repository you created on github
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+
+
+# push changes to github
+git push --set-upstream origin master
+
+```
+
+
+
+### Synchronizing local repository and remote repository
+
+
+```{bash, eval = FALSE}
+
+[karina: think of as downloading]
+https://guides.github.com/introduction/git-handbook/
+“git pull updates the local line of development with updates from its remote counterpart. Developers use this command if a teammate has made commits to a branch on a remote, and they would like to reflect those changes in their local environment.”
+
+```
+git pull
+[karina: think of as downloading]
+https://guides.github.com/introduction/git-handbook/
+“git pull updates the local line of development with updates from its remote counterpart. Developers use this command if a teammate has made commits to a branch on a remote, and they would like to reflect those changes in their local environment.”
+
+
 
 
 

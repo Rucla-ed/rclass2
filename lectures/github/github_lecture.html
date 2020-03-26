@@ -1727,7 +1727,9 @@ div.tocify {
 <li><a href="#git-commands">git commands</a></li>
 <li><a href="#creating-and-cloning-repositories">Creating and cloning repositories</a>
 <ul>
-<li><a href="#clone-an-existing-repository">clone an existing repository</a></li>
+<li><a href="#create-new-git-repository-on-your-local-machine">Create new git repository on your local machine</a></li>
+<li><a href="#clone-an-existing-repository-to-your-local-machine">Clone an existing repository to your local machine</a></li>
+<li><a href="#create">Create</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#git-tasks,-collaborative-projects">Git tasks, collaborative projects</a>
@@ -2177,6 +2179,28 @@ div.tocify {
 ## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
 ## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
 ## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">names</span>(knitr<span class="op">::</span>knit_engines<span class="op">$</span><span class="kw">get</span>())</a></code></pre></div>
+<pre><code>##  [1] &quot;awk&quot;       &quot;bash&quot;      &quot;coffee&quot;    &quot;gawk&quot;      &quot;groovy&quot;    &quot;haskell&quot;  
+##  [7] &quot;lein&quot;      &quot;mysql&quot;     &quot;node&quot;      &quot;octave&quot;    &quot;perl&quot;      &quot;psql&quot;     
+## [13] &quot;Rscript&quot;   &quot;ruby&quot;      &quot;sas&quot;       &quot;scala&quot;     &quot;sed&quot;       &quot;sh&quot;       
+## [19] &quot;stata&quot;     &quot;zsh&quot;       &quot;highlight&quot; &quot;Rcpp&quot;      &quot;tikz&quot;      &quot;dot&quot;      
+## [25] &quot;c&quot;         &quot;fortran&quot;   &quot;fortran95&quot; &quot;asy&quot;       &quot;cat&quot;       &quot;asis&quot;     
+## [31] &quot;stan&quot;      &quot;block&quot;     &quot;block2&quot;    &quot;js&quot;        &quot;css&quot;       &quot;sql&quot;      
+## [37] &quot;go&quot;        &quot;python&quot;    &quot;julia&quot;     &quot;sass&quot;      &quot;scss&quot;</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="co">#knitr::knit_engines$get(&quot;bash&quot;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># should exist</span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">Sys.which</span>(<span class="st">&#39;bash&#39;</span>)</a></code></pre></div>
+<pre><code>##                               bash 
+## &quot;C:\\PROGRA~1\\Git\\bin\\bash.exe&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">Sys.which</span>(<span class="st">&#39;python&#39;</span>)</a></code></pre></div>
+<pre><code>## python 
+##     &quot;&quot;</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">Sys.getenv</span>(<span class="st">&quot;PATH&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;C:\\Program Files\\R\\R-3.6.1\\bin\\x64;C:\\Rtools\\bin;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\bin&quot;</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co">#old_path &lt;- Sys.getenv(&quot;PATH&quot;)</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="co">#old_path</span></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="co">#Sys.setenv(PATH = paste(old_path, &quot;C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38&quot;, sep = &quot;;&quot;))</span></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="co">#Sys.getenv(&quot;PATH&quot;)</span></a></code></pre></div>
 <p>We cun run <code>Bash</code> code instead of <code>R</code> code by replacing <code>{r}</code> with <code>{bash}</code> at top of chunk.</p>
 <ul>
 <li>Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
@@ -2185,8 +2209,8 @@ div.tocify {
 <li>If you change working directories within a code chunk, the working directory reverts back to where the .Rmd file is saved after the code chunk finishes running</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="fu">ls</span></a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="fu">ls</span></a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
@@ -2198,124 +2222,7 @@ div.tocify {
 <li><code>command_name --help</code></li>
 <li>For example: <code>ls --help</code></li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" title="1"><span class="fu">ls</span> --help</a></code></pre></div>
-<pre><code>## Usage: /Rtools/bin/ls [OPTION]... [FILE]...
-## List information about the FILEs (the current directory by default).
-## Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
-## 
-## Mandatory arguments to long options are mandatory for short options too.
-##   -a, --all                  do not ignore entries starting with .
-##   -A, --almost-all           do not list implied . and ..
-##       --author               with -l, print the author of each file
-##   -b, --escape               print C-style escapes for nongraphic characters
-##       --block-size=SIZE      scale sizes by SIZE before printing them; e.g.,
-##                                &#39;--block-size=M&#39; prints sizes in units of
-##                                1,048,576 bytes; see SIZE format below
-##   -B, --ignore-backups       do not list implied entries ending with ~
-##   -c                         with -lt: sort by, and show, ctime (time of last
-##                                modification of file status information);
-##                                with -l: show ctime and sort by name;
-##                                otherwise: sort by ctime, newest first
-##   -C                         list entries by columns
-##       --color[=WHEN]         colorize the output; WHEN can be &#39;always&#39; (default
-##                                if omitted), &#39;auto&#39;, or &#39;never&#39;; more info below
-##   -d, --directory            list directories themselves, not their contents
-##   -D, --dired                generate output designed for Emacs&#39; dired mode
-##   -f                         do not sort, enable -aU, disable -ls --color
-##   -F, --classify             append indicator (one of */=&gt;@|) to entries
-##       --file-type            likewise, except do not append &#39;*&#39;
-##       --format=WORD          across -x, commas -m, horizontal -x, long -l,
-##                                single-column -1, verbose -l, vertical -C
-##       --full-time            like -l --time-style=full-iso
-##   -g                         like -l, but do not list owner
-##       --group-directories-first
-##                              group directories before files;
-##                                can be augmented with a --sort option, but any
-##                                use of --sort=none (-U) disables grouping
-##   -G, --no-group             in a long listing, don&#39;t print group names
-##   -h, --human-readable       with -l and/or -s, print human readable sizes
-##                                (e.g., 1K 234M 2G)
-##       --si                   likewise, but use powers of 1000 not 1024
-##   -H, --dereference-command-line
-##                              follow symbolic links listed on the command line
-##       --dereference-command-line-symlink-to-dir
-##                              follow each command line symbolic link
-##                                that points to a directory
-##       --hide=PATTERN         do not list implied entries matching shell PATTERN
-##                                (overridden by -a or -A)
-##       --indicator-style=WORD  append indicator with style WORD to entry names:
-##                                none (default), slash (-p),
-##                                file-type (--file-type), classify (-F)
-##   -i, --inode                print the index number of each file
-##   -I, --ignore=PATTERN       do not list implied entries matching shell PATTERN
-##   -k, --kibibytes            default to 1024-byte blocks for disk usage
-##   -l                         use a long listing format
-##   -L, --dereference          when showing file information for a symbolic
-##                                link, show information for the file the link
-##                                references rather than for the link itself
-##   -m                         fill width with a comma separated list of entries
-##   -n, --numeric-uid-gid      like -l, but list numeric user and group IDs
-##   -N, --literal              print entry names without quoting
-##   -o                         like -l, but do not list group information
-##   -p, --indicator-style=slash
-##                              append / indicator to directories
-##   -q, --hide-control-chars   print ? instead of nongraphic characters
-##       --show-control-chars   show nongraphic characters as-is (the default,
-##                                unless program is &#39;ls&#39; and output is a terminal)
-##   -Q, --quote-name           enclose entry names in double quotes
-##       --quoting-style=WORD   use quoting style WORD for entry names:
-##                                literal, locale, shell, shell-always,
-##                                shell-escape, shell-escape-always, c, escape
-##   -r, --reverse              reverse order while sorting
-##   -R, --recursive            list subdirectories recursively
-##   -s, --size                 print the allocated size of each file, in blocks
-##   -S                         sort by file size, largest first
-##       --sort=WORD            sort by WORD instead of name: none (-U), size (-S),
-##                                time (-t), version (-v), extension (-X)
-##       --time=WORD            with -l, show time as WORD instead of default
-##                                modification time: atime or access or use (-u);
-##                                ctime or status (-c); also use specified time
-##                                as sort key if --sort=time (newest first)
-##       --time-style=STYLE     with -l, show times using style STYLE:
-##                                full-iso, long-iso, iso, locale, or +FORMAT;
-##                                FORMAT is interpreted like in &#39;date&#39;; if FORMAT
-##                                is FORMAT1&lt;newline&gt;FORMAT2, then FORMAT1 applies
-##                                to non-recent files and FORMAT2 to recent files;
-##                                if STYLE is prefixed with &#39;posix-&#39;, STYLE
-##                                takes effect only outside the POSIX locale
-##   -t                         sort by modification time, newest first
-##   -T, --tabsize=COLS         assume tab stops at each COLS instead of 8
-##   -u                         with -lt: sort by, and show, access time;
-##                                with -l: show access time and sort by name;
-##                                otherwise: sort by access time, newest first
-##   -U                         do not sort; list entries in directory order
-##   -v                         natural sort of (version) numbers within text
-##   -w, --width=COLS           set output width to COLS.  0 means no limit
-##   -x                         list entries by lines instead of by columns
-##   -X                         sort alphabetically by entry extension
-##   -Z, --context              print any security context of each file
-##   -1                         list one file per line.  Avoid &#39;\n&#39; with -q or -b
-##       --append-exe           append .exe if cygwin magic was needed
-##       --help     display this help and exit
-##       --version  output version information and exit
-## 
-## The SIZE argument is an integer and optional unit (example: 10K is 10*1024).
-## Units are K,M,G,T,P,E,Z,Y (powers of 1024) or KB,MB,... (powers of 1000).
-## 
-## Using color to distinguish file types is disabled both by default and
-## with --color=never.  With --color=auto, ls emits color codes only when
-## standard output is connected to a terminal.  The LS_COLORS environment
-## variable can change the settings.  Use the dircolors command to set it.
-## 
-## Exit status:
-##  0  if OK,
-##  1  if minor problems (e.g., cannot access subdirectory),
-##  2  if serious trouble (e.g., cannot access command-line argument).
-## 
-## GNU coreutils online help: &lt;http://www.gnu.org/software/coreutils/&gt;
-## Report ls translation bugs to &lt;http://translationproject.org/team/&gt;
-## Full documentation at: &lt;http://www.gnu.org/software/coreutils/ls&gt;
-## or available locally via: info &#39;(coreutils) ls invocation&#39;</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" title="1"><span class="fu">ls</span> --help</a></code></pre></div>
 <p>Syntax of <code>ls</code> command:</p>
 <ul>
 <li><code>ls [option(s)] [file(s)]</code></li>
@@ -2331,8 +2238,8 @@ div.tocify {
 <ul>
 <li>without options</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="fu">ls</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb17-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="fu">ls</span></a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
@@ -2342,8 +2249,8 @@ div.tocify {
 <ul>
 <li>using <code>-a</code> to include entries that start with <code>.</code></li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb10-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="fu">ls</span> -a</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb19-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb19-2" title="2"><span class="fu">ls</span> -a</a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## .
 ## ..
@@ -2355,8 +2262,8 @@ div.tocify {
 <ul>
 <li>using <code>--all</code> to include entries that start with <code>.</code></li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb12-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="fu">ls</span> --all</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb21-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb21-2" title="2"><span class="fu">ls</span> --all</a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## .
 ## ..
@@ -2420,10 +2327,10 @@ div.tocify {
 <li>note: when running from .Rmd code chunk the working directory is <code>rclass2/lectures/github</code></li>
 </ul>
 <p>Move up one directory level and then show file path and list contents of directory</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb14-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb14-2" title="2"><span class="bu">cd</span> ../</a>
-<a class="sourceLine" id="cb14-3" title="3"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb14-4" title="4"><span class="fu">ls</span></a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="bu">cd</span> ../</a>
+<a class="sourceLine" id="cb23-3" title="3"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb23-4" title="4"><span class="fu">ls</span></a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## /c/Users/ozanj/Documents/rclass2/lectures
 ## _style
@@ -2432,10 +2339,10 @@ div.tocify {
 ## github
 ## rclass2_bib.bib</code></pre>
 <p>Move up two directory levels and then show file path and list contents of directory</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb16-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb16-2" title="2"><span class="bu">cd</span> ../../</a>
-<a class="sourceLine" id="cb16-3" title="3"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb16-4" title="4"><span class="fu">ls</span></a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb25-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="bu">cd</span> ../../</a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb25-4" title="4"><span class="fu">ls</span></a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## /c/Users/ozanj/Documents/rclass2
 ## README.md
@@ -2450,10 +2357,10 @@ div.tocify {
 ## problem_sets
 ## rclass2.Rproj</code></pre>
 <p>Move up two directory levels and then show file path and list contents of directory, including files that begin with <code>.</code></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb18-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb18-2" title="2"><span class="bu">cd</span> ../../</a>
-<a class="sourceLine" id="cb18-3" title="3"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb18-4" title="4"><span class="fu">ls</span> -a</a></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb27-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb27-2" title="2"><span class="bu">cd</span> ../../</a>
+<a class="sourceLine" id="cb27-3" title="3"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb27-4" title="4"><span class="fu">ls</span> -a</a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## /c/Users/ozanj/Documents/rclass2
 ## .
@@ -2474,15 +2381,15 @@ div.tocify {
 ## problem_sets
 ## rclass2.Rproj</code></pre>
 <p>Move up one directory, then change to <code>ggplot</code> directory</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb20-1" title="1"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb20-2" title="2"></a>
-<a class="sourceLine" id="cb20-3" title="3"><span class="bu">cd</span> ../</a>
-<a class="sourceLine" id="cb20-4" title="4"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb20-5" title="5"></a>
-<a class="sourceLine" id="cb20-6" title="6"><span class="bu">cd</span> ggplot</a>
-<a class="sourceLine" id="cb20-7" title="7"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb20-8" title="8"></a>
-<a class="sourceLine" id="cb20-9" title="9"><span class="fu">ls</span></a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb29-1" title="1"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb29-2" title="2"></a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="bu">cd</span> ../</a>
+<a class="sourceLine" id="cb29-4" title="4"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb29-5" title="5"></a>
+<a class="sourceLine" id="cb29-6" title="6"><span class="bu">cd</span> ggplot</a>
+<a class="sourceLine" id="cb29-7" title="7"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb29-8" title="8"></a>
+<a class="sourceLine" id="cb29-9" title="9"><span class="fu">ls</span></a></code></pre></div>
 <pre><code>## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## /c/Users/ozanj/Documents/rclass2/lectures
 ## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
@@ -2506,18 +2413,18 @@ div.tocify {
 <ul>
 <li>Make new directory</li>
 </ul>
-<div class="sourceCode" id="cb22"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb22-1" title="1"><span class="bu">cd</span> ../../../ </a>
-<a class="sourceLine" id="cb22-2" title="2"><span class="bu">pwd</span></a>
-<a class="sourceLine" id="cb22-3" title="3"><span class="fu">mkdir</span> mkdir_test</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb31-1" title="1"><span class="bu">cd</span> ../../../ </a>
+<a class="sourceLine" id="cb31-2" title="2"><span class="bu">pwd</span></a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="fu">mkdir</span> mkdir_test</a></code></pre></div>
 <ul>
 <li>move to new directory and create sub-folders</li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb23-1" title="1"><span class="bu">cd</span> ../../../</a>
-<a class="sourceLine" id="cb23-2" title="2">  </a>
-<a class="sourceLine" id="cb23-3" title="3"><span class="bu">cd</span> mkdir_test</a>
-<a class="sourceLine" id="cb23-4" title="4"></a>
-<a class="sourceLine" id="cb23-5" title="5"><span class="fu">mkdir</span> folder_a folder_b folder_c</a>
-<a class="sourceLine" id="cb23-6" title="6"><span class="fu">ls</span></a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb32-1" title="1"><span class="bu">cd</span> ../../../</a>
+<a class="sourceLine" id="cb32-2" title="2">  </a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="bu">cd</span> mkdir_test</a>
+<a class="sourceLine" id="cb32-4" title="4"></a>
+<a class="sourceLine" id="cb32-5" title="5"><span class="fu">mkdir</span> folder_a folder_b folder_c</a>
+<a class="sourceLine" id="cb32-6" title="6"><span class="fu">ls</span></a></code></pre></div>
 <p><strong><code>rm</code> command removes a file or folder</strong></p>
 <ul>
 <li>syntax
@@ -2544,14 +2451,22 @@ div.tocify {
 <ul>
 <li>remove directory named <code>folder_a</code></li>
 </ul>
-<div class="sourceCode" id="cb24"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb24-1" title="1"><span class="bu">cd</span> ../../../</a>
-<a class="sourceLine" id="cb24-2" title="2">  </a>
-<a class="sourceLine" id="cb24-3" title="3"><span class="bu">cd</span> mkdir_test</a>
-<a class="sourceLine" id="cb24-4" title="4"></a>
-<a class="sourceLine" id="cb24-5" title="5"><span class="fu">rm</span> -rf folder_a</a>
-<a class="sourceLine" id="cb24-6" title="6"><span class="fu">ls</span></a></code></pre></div>
-<p>ADD THESE COMMANDS ON 3/25?</p>
-<p>cp file1 file2 – copy file1 to file2 cp -r dir1 dir2 – copy dir1 to dir2; create dir2 if it doesn’t exist mv file1 file2 – rename or move file1 to file2 if file2 is an existing directory, moves file1 into directory file2</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb33-1" title="1"><span class="bu">cd</span> ../../../</a>
+<a class="sourceLine" id="cb33-2" title="2">  </a>
+<a class="sourceLine" id="cb33-3" title="3"><span class="bu">cd</span> mkdir_test</a>
+<a class="sourceLine" id="cb33-4" title="4"></a>
+<a class="sourceLine" id="cb33-5" title="5"><span class="fu">rm</span> -rf folder_a</a>
+<a class="sourceLine" id="cb33-6" title="6"><span class="fu">ls</span></a></code></pre></div>
+<p>ADD THESE COMMANDS?</p>
+<p><strong><code>cp</code> command copies files</strong></p>
+<ul>
+<li><code>cp file1 file2</code> –- copy file1 to file2</li>
+<li><code>cp -r dir1 dir2</code> -– copy dir1 to dir2; create dir2 if it doesn’t exist</li>
+</ul>
+<p><strong><code>mv</code> renames or moves files</strong></p>
+<ul>
+<li><code>mv file1 file2</code> -– rename or move file1 to file2 if file2 is an existing directory, moves file1 into directory file2</li>
+</ul>
 </div>
 </div>
 </div>
@@ -2571,16 +2486,16 @@ div.tocify {
 <li><code>git status</code></li>
 </ul>
 <p>For an overview of git command syntax and a list of common git commands, type this in command line</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb25-1" title="1"><span class="fu">git</span> --help</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb34-1" title="1"><span class="fu">git</span> --help</a></code></pre></div>
 <p>To see the help file for a particular git command (e.g., <code>add</code>, <code>commit</code>, <code>clone</code>) type:</p>
 <ul>
 <li><code>git command_name --help</code></li>
 <li>For example:</li>
 </ul>
-<div class="sourceCode" id="cb26"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb26-1" title="1"><span class="fu">git</span> add --help</a>
-<a class="sourceLine" id="cb26-2" title="2"></a>
-<a class="sourceLine" id="cb26-3" title="3"><span class="co"># or this:</span></a>
-<a class="sourceLine" id="cb26-4" title="4"><span class="co">#git help add</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb35-1" title="1"><span class="fu">git</span> add --help</a>
+<a class="sourceLine" id="cb35-2" title="2"></a>
+<a class="sourceLine" id="cb35-3" title="3"><span class="co"># or this:</span></a>
+<a class="sourceLine" id="cb35-4" title="4"><span class="co">#git help add</span></a></code></pre></div>
 <p>Basic/essential git commands</p>
 <ul>
 <li><strong>Create a repository</strong>
@@ -2589,16 +2504,31 @@ div.tocify {
 <ul>
 <li>“initializes a brand new Git repository and begins tracking an existing directory. It adds a hidden subfolder [named .git] within the existing directory that houses the internal data structure required for version control” <a href="https://guides.github.com/introduction/git-handbook/">Git Handbook</a></li>
 </ul></li>
-<li><code>git clone url_of_remote_repository</code></li>
-</ul></li>
-<li><strong>Observe your repository</strong>
+<li><code>git clone url_of_remote_repository</code>
 <ul>
-<li><code>git status</code></li>
+<li>“creates a local copy of a project that already exists remotely. The clone includes all the project’s files, history, and branches” <a href="https://guides.github.com/introduction/git-handbook/">Git Handbook</a></li>
+</ul></li>
 </ul></li>
 <li><strong>Make a change</strong>
 <ul>
-<li><code>git add file_name(s)</code></li>
-<li><code>git commit -m &quot;commit message&quot;</code></li>
+<li><code>git add file_name(s)</code>
+<ul>
+<li>add file(s) from local working directory to “staging area”/“index”</li>
+<li>Note: you must “stage” changes to a file before you <code>commit</code> them to your local repository</li>
+</ul></li>
+<li><code>git commit -m &quot;commit message&quot;</code>
+<ul>
+<li>all changes to files that have been staged [previous step] are committed to the local repository</li>
+<li>each commit is a snapshot of all files in your repository</li>
+<li>note: <code>-m</code> is an option to the <code>git commit</code> command, which specifies that you will add a brief description about changes you are committing</li>
+</ul></li>
+</ul></li>
+<li><strong>Observe your repository</strong>
+<ul>
+<li><code>git status</code>
+<ul>
+<li>“shows the status of changes as untracked, modified, or staged” <a href="https://guides.github.com/introduction/git-handbook/">Git Handbook</a></li>
+</ul></li>
 </ul></li>
 <li><strong>Working with branches</strong></li>
 <li><strong>Synchronize with remote repository</strong></li>
@@ -2608,65 +2538,193 @@ div.tocify {
 <h2><span class="header-section-number">4.2</span> Creating and cloning repositories</h2>
 <p>Basic stuff you will do all the time</p>
 <ul>
-<li>Create a new local git repository on your local machine</li>
-<li><code>clone</code> an existing remote repository from GitHub to your local machine</li>
+<li>Create a new git repository on your local machine
+<ul>
+<li>For example, you might want to create the repository <code>problem_set_1</code> for all files related to the first problem set</li>
+</ul></li>
+<li><code>clone</code> an existing remote repository from GitHub to your local machine
+<ul>
+<li>For example, clone the repository for this class – named <code>student_lastname</code> (e.g., <code>student_jaquette</code>) – to your local machine</li>
+</ul></li>
 </ul>
-<div id="clone-an-existing-repository" class="section level3">
-<h3><span class="header-section-number">4.2.1</span> clone an existing repository</h3>
-<p>give overview of different basic things we will do each day (e.g., create new repository from our computer and then push to github, clone repository on github; and then show how to do it)</p>
-<p>CLONE AN EXISTING GIT REPOSITORY SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb27-1" title="1"><span class="co"># change directories to home directory</span></a>
-<a class="sourceLine" id="cb27-2" title="2"><span class="bu">cd</span> ~ </a>
-<a class="sourceLine" id="cb27-3" title="3"></a>
-<a class="sourceLine" id="cb27-4" title="4"><span class="co"># change to &quot;documents&quot; [if necessary]</span></a>
-<a class="sourceLine" id="cb27-5" title="5"><span class="bu">cd</span> documents</a>
-<a class="sourceLine" id="cb27-6" title="6"></a>
-<a class="sourceLine" id="cb27-7" title="7"><span class="co"># show filepath of current working directory</span></a>
-<a class="sourceLine" id="cb27-8" title="8"><span class="bu">pwd</span> </a>
-<a class="sourceLine" id="cb27-9" title="9"></a>
-<a class="sourceLine" id="cb27-10" title="10"><span class="co">#list files in current working directory</span></a>
-<a class="sourceLine" id="cb27-11" title="11"><span class="co">#ls</span></a>
-<a class="sourceLine" id="cb27-12" title="12"></a>
-<a class="sourceLine" id="cb27-13" title="13"><span class="co">#clone git repository that is on github.com</span></a>
-<a class="sourceLine" id="cb27-14" title="14"><span class="co">#git clone https://github.com/Rucla-ed/student_jaquette.git #http authentication</span></a>
-<a class="sourceLine" id="cb27-15" title="15"><span class="fu">git</span> clone git@github.com:Rucla-ed/student_jaquette.git <span class="co"># SSH authentication</span></a>
-<a class="sourceLine" id="cb27-16" title="16"></a>
-<a class="sourceLine" id="cb27-17" title="17"><span class="bu">cd</span> student_jaquette</a>
-<a class="sourceLine" id="cb27-18" title="18"><span class="fu">ls</span></a></code></pre></div>
-<p>Create new git repository on your local machine and connect it to github</p>
-<p>SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb28-1" title="1"><span class="co"># change directories to home directory</span></a>
-<a class="sourceLine" id="cb28-2" title="2"><span class="bu">cd</span> ~ </a>
-<a class="sourceLine" id="cb28-3" title="3"></a>
-<a class="sourceLine" id="cb28-4" title="4"><span class="co"># change to &quot;documents&quot; [if necessary]</span></a>
-<a class="sourceLine" id="cb28-5" title="5"><span class="bu">cd</span> documents</a>
-<a class="sourceLine" id="cb28-6" title="6"></a>
-<a class="sourceLine" id="cb28-7" title="7"><span class="co"># make new directory that will be our git repository</span></a>
-<a class="sourceLine" id="cb28-8" title="8"><span class="fu">mkdir</span> gitr_practice</a>
-<a class="sourceLine" id="cb28-9" title="9"></a>
-<a class="sourceLine" id="cb28-10" title="10"><span class="bu">cd</span> gitr_practice</a>
-<a class="sourceLine" id="cb28-11" title="11"></a>
-<a class="sourceLine" id="cb28-12" title="12"><span class="fu">ls</span> -a</a>
-<a class="sourceLine" id="cb28-13" title="13"></a>
-<a class="sourceLine" id="cb28-14" title="14"><span class="co"># turn the current, empty directory into a fresh Git repository.</span></a>
-<a class="sourceLine" id="cb28-15" title="15"><span class="fu">git</span> init</a>
-<a class="sourceLine" id="cb28-16" title="16"></a>
-<a class="sourceLine" id="cb28-17" title="17"><span class="co">#create a new README file with some sample text</span></a>
-<a class="sourceLine" id="cb28-18" title="18"><span class="bu">echo</span> <span class="st">&quot;Hello. I thought we would be learning R this quarter&quot;</span> <span class="op">&gt;&gt;</span> README.txt</a>
-<a class="sourceLine" id="cb28-19" title="19"></a>
-<a class="sourceLine" id="cb28-20" title="20"><span class="co">#show contents of file</span></a>
-<a class="sourceLine" id="cb28-21" title="21"><span class="fu">cat</span> README.txt</a>
-<a class="sourceLine" id="cb28-22" title="22"></a>
-<a class="sourceLine" id="cb28-23" title="23"><span class="fu">git</span> status</a>
-<a class="sourceLine" id="cb28-24" title="24"></a>
-<a class="sourceLine" id="cb28-25" title="25"><span class="co"># add README.txt to files that will be &quot;tracked&quot; by git</span></a>
-<a class="sourceLine" id="cb28-26" title="26"><span class="fu">git</span> add README.txt</a>
-<a class="sourceLine" id="cb28-27" title="27"></a>
-<a class="sourceLine" id="cb28-28" title="28"><span class="co"># check status</span></a>
-<a class="sourceLine" id="cb28-29" title="29"><span class="fu">git</span> status</a>
-<a class="sourceLine" id="cb28-30" title="30"></a>
-<a class="sourceLine" id="cb28-31" title="31"><span class="co"># commit changes to local repository</span></a>
-<a class="sourceLine" id="cb28-32" title="32"><span class="fu">git</span> commit -m <span class="st">&quot;First commit&quot;</span></a></code></pre></div>
+<div id="create-new-git-repository-on-your-local-machine" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Create new git repository on your local machine</h3>
+<p>What we will do:</p>
+<ul>
+<li>Create a new directory</li>
+<li>Change working directory to this new directory</li>
+<li>turn this directory into a Git repository</li>
+<li>Within the “local working directory,” create/change one or more files</li>
+<li><code>add</code> changes to file(s) from the “local working directory” to the “staging area”/“index”</li>
+<li><code>commit</code> all staged changes to the “local repository”</li>
+</ul>
+<p>Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb36-1" title="1"><span class="co"># CREATING AND CHANGING DIRECTORIES</span></a>
+<a class="sourceLine" id="cb36-2" title="2"></a>
+<a class="sourceLine" id="cb36-3" title="3">  <span class="bu">cd</span> ~ <span class="co"># change directories to home directory</span></a>
+<a class="sourceLine" id="cb36-4" title="4">  </a>
+<a class="sourceLine" id="cb36-5" title="5">  <span class="co">#cd documents # change to &quot;documents&quot; [if necessary]</span></a>
+<a class="sourceLine" id="cb36-6" title="6">  </a>
+<a class="sourceLine" id="cb36-7" title="7">  <span class="fu">ls</span> <span class="co"># list files in directory</span></a>
+<a class="sourceLine" id="cb36-8" title="8">  </a>
+<a class="sourceLine" id="cb36-9" title="9">  <span class="co"># make new directory that will be our git repository</span></a>
+<a class="sourceLine" id="cb36-10" title="10">  <span class="fu">mkdir</span> gitr_practice</a>
+<a class="sourceLine" id="cb36-11" title="11">  </a>
+<a class="sourceLine" id="cb36-12" title="12">  <span class="bu">cd</span> gitr_practice <span class="co"># move to new directory</span></a>
+<a class="sourceLine" id="cb36-13" title="13">  </a>
+<a class="sourceLine" id="cb36-14" title="14">  <span class="fu">ls</span> -a <span class="co"># show all files in directory</span></a>
+<a class="sourceLine" id="cb36-15" title="15"></a>
+<a class="sourceLine" id="cb36-16" title="16"><span class="co"># INITIALIZING GIT REPOSITORY</span></a>
+<a class="sourceLine" id="cb36-17" title="17"></a>
+<a class="sourceLine" id="cb36-18" title="18">  <span class="co"># turn the current, empty directory into a fresh Git repository.</span></a>
+<a class="sourceLine" id="cb36-19" title="19">  <span class="fu">git</span> init</a>
+<a class="sourceLine" id="cb36-20" title="20">  </a>
+<a class="sourceLine" id="cb36-21" title="21">  <span class="fu">ls</span> -a <span class="co"># show all files in directory</span></a>
+<a class="sourceLine" id="cb36-22" title="22">  </a>
+<a class="sourceLine" id="cb36-23" title="23">  <span class="co"># CHANGING FILES IN WORKING DIRECTORY</span></a>
+<a class="sourceLine" id="cb36-24" title="24">  </a>
+<a class="sourceLine" id="cb36-25" title="25">  <span class="co">#create a new README file with some sample text</span></a>
+<a class="sourceLine" id="cb36-26" title="26">  <span class="bu">echo</span> <span class="st">&quot;Hello. I thought we would be learning R this quarter&quot;</span> <span class="op">&gt;&gt;</span> README.txt</a>
+<a class="sourceLine" id="cb36-27" title="27">  </a>
+<a class="sourceLine" id="cb36-28" title="28">  <span class="co">#view the file README.txt</span></a>
+<a class="sourceLine" id="cb36-29" title="29">  <span class="fu">cat</span> README.txt</a>
+<a class="sourceLine" id="cb36-30" title="30">  </a>
+<a class="sourceLine" id="cb36-31" title="31">  <span class="co">#create a simple r script</span></a>
+<a class="sourceLine" id="cb36-32" title="32">  <span class="bu">echo</span> <span class="st">&quot;library(tidyverse)&quot;</span> <span class="op">&gt;&gt;</span> simple_script.r</a>
+<a class="sourceLine" id="cb36-33" title="33">  <span class="bu">echo</span> <span class="st">&quot;mpg %&gt;% head(5)&quot;</span> <span class="op">&gt;&gt;</span> simple_script.r <span class="co"># add another line to simple_script.r</span></a>
+<a class="sourceLine" id="cb36-34" title="34">  </a>
+<a class="sourceLine" id="cb36-35" title="35">  <span class="fu">cat</span> simple_script.r <span class="co"># show contents of file simple_script.r</span></a>
+<a class="sourceLine" id="cb36-36" title="36"></a>
+<a class="sourceLine" id="cb36-37" title="37"><span class="co"># STAGE AND COMMIT FILES TO LOCAL REPOSITORY</span></a>
+<a class="sourceLine" id="cb36-38" title="38"></a>
+<a class="sourceLine" id="cb36-39" title="39">  <span class="co">#check status of git repository</span></a>
+<a class="sourceLine" id="cb36-40" title="40">  <span class="fu">git</span> status </a>
+<a class="sourceLine" id="cb36-41" title="41">  </a>
+<a class="sourceLine" id="cb36-42" title="42">  <span class="co"># add README.txt from working directory to staging area (will now become a file that is &quot;tracked&quot; by git)</span></a>
+<a class="sourceLine" id="cb36-43" title="43">  <span class="fu">git</span> add README.txt</a>
+<a class="sourceLine" id="cb36-44" title="44">  </a>
+<a class="sourceLine" id="cb36-45" title="45">  <span class="co"># add README.txt from working directory to staging area (will now become a file that is &quot;tracked&quot; by git)</span></a>
+<a class="sourceLine" id="cb36-46" title="46">  <span class="fu">git</span> add simple_script.r</a>
+<a class="sourceLine" id="cb36-47" title="47">  </a>
+<a class="sourceLine" id="cb36-48" title="48">  <span class="co"># check status</span></a>
+<a class="sourceLine" id="cb36-49" title="49">  <span class="fu">git</span> status</a>
+<a class="sourceLine" id="cb36-50" title="50">  </a>
+<a class="sourceLine" id="cb36-51" title="51">  <span class="co"># commit changes to local repository</span></a>
+<a class="sourceLine" id="cb36-52" title="52">  <span class="fu">git</span> commit -m <span class="st">&quot;Initial commit, README.txt simple_script.r&quot;</span></a>
+<a class="sourceLine" id="cb36-53" title="53">  </a>
+<a class="sourceLine" id="cb36-54" title="54">  <span class="fu">git</span> status</a></code></pre></div>
+<p><br></p>
+<p><strong>What we just did:</strong></p>
+<p><a href="https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018"><img src="data:image/png;base64,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" /></a></p>
+<p><em>Credit: Lucas Maurer, medium.com</em></p>
+</div>
+<div id="clone-an-existing-repository-to-your-local-machine" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Clone an existing repository to your local machine</h3>
+<p>What we will do:</p>
+<ul>
+<li>Go to a remote repository stored on GitHub.com
+<ul>
+<li>we will be downloading the remote repository called <a href="https://github.com/btskinner/downloadipeds">downloadipeds</a></li>
+</ul></li>
+<li>Copy to our clipboard the URL that enables us to <code>clone</code> this repository to our local machine</li>
+<li>On Git Bash command line
+<ul>
+<li>change directories to folder we want repository to be downloaded to
+<ul>
+<li>Note: we don’t have to create a new directory (e.g., directory named <code>documents/downloadipeds</code>) prior to cloning.</li>
+<li>When we clone from github, the repository will be downloaded in a folder named <code>downloadipeds</code></li>
+</ul></li>
+<li>use <code>git clone</code> command to clone repository</li>
+</ul></li>
+</ul>
+<p><br></p>
+<p>Click on link of remote repository: <a href="https://github.com/btskinner/downloadipeds">downloadipeds</a></p>
+<ul>
+<li>This repository, created by <a href="https://github.com/btskinner">Ben Skinner</a>, contains a script to “batch download” files from the <a href="https://nces.ed.gov/ipeds/">Integrated Postsecondary Data System (IPEDS)</a>, which contains data on U.S. colleges and universities</li>
+<li>Click on “Clone or download”
+<ul>
+<li>We will be “cloning” rather than the “open in desktop” or “Download ZIP” options
+<ul>
+<li>Essentially, we will get the url of the remote git repository and then paste this URL into the Git Bash command line</li>
+</ul></li>
+<li>Clone with SSH vs. HTTPs?
+<ul>
+<li>These are two different ways to authenticate that you are you</li>
+<li>If you haven’t set up SSH, then choose HTTPs</li>
+</ul></li>
+<li>Copy the url to your clipboard:
+<ul>
+<li>HTTPS URL will be: <a href="https://github.com/btskinner/downloadipeds.git" class="uri">https://github.com/btskinner/downloadipeds.git</a></li>
+<li>SSH URL will be: <a href="mailto:git@github.com" class="email">git@github.com</a>:btskinner/downloadipeds.git</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># CHANGE TO DESIRED DIRECTORY</span></a>
+<a class="sourceLine" id="cb37-2" title="2"></a>
+<a class="sourceLine" id="cb37-3" title="3">  <span class="bu">cd</span> ~ <span class="co"># change directories to home directory</span></a>
+<a class="sourceLine" id="cb37-4" title="4">  </a>
+<a class="sourceLine" id="cb37-5" title="5">  <span class="co">#cd documents # change to &quot;documents&quot; [if necessary]</span></a>
+<a class="sourceLine" id="cb37-6" title="6">  </a>
+<a class="sourceLine" id="cb37-7" title="7">  <span class="fu">ls</span> <span class="co"># list files in directory</span></a>
+<a class="sourceLine" id="cb37-8" title="8">  </a>
+<a class="sourceLine" id="cb37-9" title="9">  <span class="co">#Note: we don&#39;t have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. </span></a>
+<a class="sourceLine" id="cb37-10" title="10">  <span class="co">#When we clone from github, the repository will be downloaded in a folder named `downloadipeds`</span></a>
+<a class="sourceLine" id="cb37-11" title="11"></a>
+<a class="sourceLine" id="cb37-12" title="12"><span class="co"># CLONE REMOTE REPOSITORY</span></a>
+<a class="sourceLine" id="cb37-13" title="13"></a>
+<a class="sourceLine" id="cb37-14" title="14">  <span class="co"># clone with https</span></a>
+<a class="sourceLine" id="cb37-15" title="15">  <span class="fu">git</span> clone https://github.com/btskinner/downloadipeds.git</a>
+<a class="sourceLine" id="cb37-16" title="16">  </a>
+<a class="sourceLine" id="cb37-17" title="17">  <span class="co"># OR clone with ssh</span></a>
+<a class="sourceLine" id="cb37-18" title="18">  <span class="fu">git</span> clone git@github.com:btskinner/downloadipeds.git</a>
+<a class="sourceLine" id="cb37-19" title="19">  </a>
+<a class="sourceLine" id="cb37-20" title="20"><span class="co"># INVESTIGATE REPOSITORY WE JUST CLONED</span></a>
+<a class="sourceLine" id="cb37-21" title="21"></a>
+<a class="sourceLine" id="cb37-22" title="22">  <span class="bu">cd</span> downloadipeds</a>
+<a class="sourceLine" id="cb37-23" title="23">  </a>
+<a class="sourceLine" id="cb37-24" title="24">  <span class="co">#list files</span></a>
+<a class="sourceLine" id="cb37-25" title="25">  <span class="fu">ls</span></a>
+<a class="sourceLine" id="cb37-26" title="26">  <span class="fu">ls</span> -a</a>
+<a class="sourceLine" id="cb37-27" title="27">  </a>
+<a class="sourceLine" id="cb37-28" title="28">  <span class="fu">git</span> status</a></code></pre></div>
+<p><br></p>
+<p><strong>What we just did:</strong></p>
+<p><a href="https://www.w3docs.com/learn-git/git-clone.html"><img src="data:image/png;base64,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" /></a></p>
+<p><em>Credit: <a href="https://www.w3docs.com/learn-git/git-clone.html">W3 docs, Git clone</a></em></p>
+<div id="student-task-clone-repository-for-this-course-to-desired-directory-on-your-local-machine" class="section level4">
+<h4><span class="header-section-number">4.2.2.1</span> Student task: Clone repository for this course to desired directory on your local machine</h4>
+<ul>
+<li>Go to URL for the github organization <a href="https://github.com/Rucla-ed">Rucla-ed</a></li>
+<li>Click on repository with the name <code>student_yourlastname</code> (e.g., <code>student_jaquette</code>)</li>
+<li>Follow same steps as we did for cloning <code>downloadipeds</code>
+<ul>
+<li>Note: before cloning, make sure you change directories to directory where you want to save files for this class</li>
+<li>you will be using this directory <code>student_yourlastname</code> for the rest of the quarter</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="create" class="section level3">
+<h3><span class="header-section-number">4.2.3</span> Create</h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb38-1" title="1"><span class="co"># change directories to home directory</span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="bu">cd</span> ~ </a>
+<a class="sourceLine" id="cb38-3" title="3"></a>
+<a class="sourceLine" id="cb38-4" title="4"><span class="co"># change to &quot;documents&quot; [if necessary]</span></a>
+<a class="sourceLine" id="cb38-5" title="5"><span class="bu">cd</span> documents</a>
+<a class="sourceLine" id="cb38-6" title="6"></a>
+<a class="sourceLine" id="cb38-7" title="7"><span class="co"># show filepath of current working directory</span></a>
+<a class="sourceLine" id="cb38-8" title="8"><span class="bu">pwd</span> </a>
+<a class="sourceLine" id="cb38-9" title="9"></a>
+<a class="sourceLine" id="cb38-10" title="10"><span class="co">#list files in current working directory</span></a>
+<a class="sourceLine" id="cb38-11" title="11"><span class="co">#ls</span></a>
+<a class="sourceLine" id="cb38-12" title="12"></a>
+<a class="sourceLine" id="cb38-13" title="13"><span class="co">#clone git repository that is on github.com</span></a>
+<a class="sourceLine" id="cb38-14" title="14"><span class="co">#git clone https://github.com/Rucla-ed/student_jaquette.git #http authentication</span></a>
+<a class="sourceLine" id="cb38-15" title="15"><span class="fu">git</span> clone git@github.com:Rucla-ed/student_jaquette.git <span class="co"># SSH authentication</span></a>
+<a class="sourceLine" id="cb38-16" title="16"></a>
+<a class="sourceLine" id="cb38-17" title="17"><span class="bu">cd</span> student_jaquette</a>
+<a class="sourceLine" id="cb38-18" title="18"><span class="fu">ls</span></a></code></pre></div>
 </div>
 </div>
 </div>

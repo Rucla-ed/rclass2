@@ -158,7 +158,9 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
 - [Basic Git tasks [? INDIVIDUAL DEVELOPER?]](#basic-git-tasks-[?-individual-developer?])
     - [git commands](#git-commands)
     - [Creating and cloning repositories](#creating-and-cloning-repositories)
-        - [clone an existing repository](#clone-an-existing-repository)
+        - [Create new git repository on your local machine](#create-new-git-repository-on-your-local-machine)
+        - [Clone an existing repository to your local machine](#clone-an-existing-repository-to-your-local-machine)
+        - [Create ](#create)
 - [Git tasks, collaborative projects](#git-tasks,-collaborative-projects)
     - [Pull requests](#pull-requests)
 - [Appendix](#appendix)
@@ -570,6 +572,63 @@ mpg %>% head(5)
 ## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
 ```
 
+
+
+```r
+names(knitr::knit_engines$get())
+```
+
+```
+##  [1] "awk"       "bash"      "coffee"    "gawk"      "groovy"    "haskell"  
+##  [7] "lein"      "mysql"     "node"      "octave"    "perl"      "psql"     
+## [13] "Rscript"   "ruby"      "sas"       "scala"     "sed"       "sh"       
+## [19] "stata"     "zsh"       "highlight" "Rcpp"      "tikz"      "dot"      
+## [25] "c"         "fortran"   "fortran95" "asy"       "cat"       "asis"     
+## [31] "stan"      "block"     "block2"    "js"        "css"       "sql"      
+## [37] "go"        "python"    "julia"     "sass"      "scss"
+```
+
+```r
+#knitr::knit_engines$get("bash")
+```
+
+
+```r
+# should exist
+Sys.which('bash')
+```
+
+```
+##                               bash 
+## "C:\\PROGRA~1\\Git\\bin\\bash.exe"
+```
+
+```r
+Sys.which('python')
+```
+
+```
+## python 
+##     ""
+```
+
+
+
+```r
+Sys.getenv("PATH")
+```
+
+```
+## [1] "C:\\Program Files\\R\\R-3.6.1\\bin\\x64;C:\\Rtools\\bin;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\bin"
+```
+
+```r
+#old_path <- Sys.getenv("PATH")
+#old_path
+#Sys.setenv(PATH = paste(old_path, "C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38", sep = ";"))
+#Sys.getenv("PATH")
+```
+
 We cun run `Bash` code instead of `R` code by replacing `{r}` with `{bash}` at top of chunk.
 
 - Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
@@ -589,7 +648,6 @@ ls
 ## render_toc.R
 ## text
 ```
-
 We can see the help file for any Bash command by typing:
 
 - `command_name --help`
@@ -598,126 +656,6 @@ We can see the help file for any Bash command by typing:
 
 ```bash
 ls --help
-```
-
-```
-## Usage: /Rtools/bin/ls [OPTION]... [FILE]...
-## List information about the FILEs (the current directory by default).
-## Sort entries alphabetically if none of -cftuvSUX nor --sort is specified.
-## 
-## Mandatory arguments to long options are mandatory for short options too.
-##   -a, --all                  do not ignore entries starting with .
-##   -A, --almost-all           do not list implied . and ..
-##       --author               with -l, print the author of each file
-##   -b, --escape               print C-style escapes for nongraphic characters
-##       --block-size=SIZE      scale sizes by SIZE before printing them; e.g.,
-##                                '--block-size=M' prints sizes in units of
-##                                1,048,576 bytes; see SIZE format below
-##   -B, --ignore-backups       do not list implied entries ending with ~
-##   -c                         with -lt: sort by, and show, ctime (time of last
-##                                modification of file status information);
-##                                with -l: show ctime and sort by name;
-##                                otherwise: sort by ctime, newest first
-##   -C                         list entries by columns
-##       --color[=WHEN]         colorize the output; WHEN can be 'always' (default
-##                                if omitted), 'auto', or 'never'; more info below
-##   -d, --directory            list directories themselves, not their contents
-##   -D, --dired                generate output designed for Emacs' dired mode
-##   -f                         do not sort, enable -aU, disable -ls --color
-##   -F, --classify             append indicator (one of */=>@|) to entries
-##       --file-type            likewise, except do not append '*'
-##       --format=WORD          across -x, commas -m, horizontal -x, long -l,
-##                                single-column -1, verbose -l, vertical -C
-##       --full-time            like -l --time-style=full-iso
-##   -g                         like -l, but do not list owner
-##       --group-directories-first
-##                              group directories before files;
-##                                can be augmented with a --sort option, but any
-##                                use of --sort=none (-U) disables grouping
-##   -G, --no-group             in a long listing, don't print group names
-##   -h, --human-readable       with -l and/or -s, print human readable sizes
-##                                (e.g., 1K 234M 2G)
-##       --si                   likewise, but use powers of 1000 not 1024
-##   -H, --dereference-command-line
-##                              follow symbolic links listed on the command line
-##       --dereference-command-line-symlink-to-dir
-##                              follow each command line symbolic link
-##                                that points to a directory
-##       --hide=PATTERN         do not list implied entries matching shell PATTERN
-##                                (overridden by -a or -A)
-##       --indicator-style=WORD  append indicator with style WORD to entry names:
-##                                none (default), slash (-p),
-##                                file-type (--file-type), classify (-F)
-##   -i, --inode                print the index number of each file
-##   -I, --ignore=PATTERN       do not list implied entries matching shell PATTERN
-##   -k, --kibibytes            default to 1024-byte blocks for disk usage
-##   -l                         use a long listing format
-##   -L, --dereference          when showing file information for a symbolic
-##                                link, show information for the file the link
-##                                references rather than for the link itself
-##   -m                         fill width with a comma separated list of entries
-##   -n, --numeric-uid-gid      like -l, but list numeric user and group IDs
-##   -N, --literal              print entry names without quoting
-##   -o                         like -l, but do not list group information
-##   -p, --indicator-style=slash
-##                              append / indicator to directories
-##   -q, --hide-control-chars   print ? instead of nongraphic characters
-##       --show-control-chars   show nongraphic characters as-is (the default,
-##                                unless program is 'ls' and output is a terminal)
-##   -Q, --quote-name           enclose entry names in double quotes
-##       --quoting-style=WORD   use quoting style WORD for entry names:
-##                                literal, locale, shell, shell-always,
-##                                shell-escape, shell-escape-always, c, escape
-##   -r, --reverse              reverse order while sorting
-##   -R, --recursive            list subdirectories recursively
-##   -s, --size                 print the allocated size of each file, in blocks
-##   -S                         sort by file size, largest first
-##       --sort=WORD            sort by WORD instead of name: none (-U), size (-S),
-##                                time (-t), version (-v), extension (-X)
-##       --time=WORD            with -l, show time as WORD instead of default
-##                                modification time: atime or access or use (-u);
-##                                ctime or status (-c); also use specified time
-##                                as sort key if --sort=time (newest first)
-##       --time-style=STYLE     with -l, show times using style STYLE:
-##                                full-iso, long-iso, iso, locale, or +FORMAT;
-##                                FORMAT is interpreted like in 'date'; if FORMAT
-##                                is FORMAT1<newline>FORMAT2, then FORMAT1 applies
-##                                to non-recent files and FORMAT2 to recent files;
-##                                if STYLE is prefixed with 'posix-', STYLE
-##                                takes effect only outside the POSIX locale
-##   -t                         sort by modification time, newest first
-##   -T, --tabsize=COLS         assume tab stops at each COLS instead of 8
-##   -u                         with -lt: sort by, and show, access time;
-##                                with -l: show access time and sort by name;
-##                                otherwise: sort by access time, newest first
-##   -U                         do not sort; list entries in directory order
-##   -v                         natural sort of (version) numbers within text
-##   -w, --width=COLS           set output width to COLS.  0 means no limit
-##   -x                         list entries by lines instead of by columns
-##   -X                         sort alphabetically by entry extension
-##   -Z, --context              print any security context of each file
-##   -1                         list one file per line.  Avoid '\n' with -q or -b
-##       --append-exe           append .exe if cygwin magic was needed
-##       --help     display this help and exit
-##       --version  output version information and exit
-## 
-## The SIZE argument is an integer and optional unit (example: 10K is 10*1024).
-## Units are K,M,G,T,P,E,Z,Y (powers of 1024) or KB,MB,... (powers of 1000).
-## 
-## Using color to distinguish file types is disabled both by default and
-## with --color=never.  With --color=auto, ls emits color codes only when
-## standard output is connected to a terminal.  The LS_COLORS environment
-## variable can change the settings.  Use the dircolors command to set it.
-## 
-## Exit status:
-##  0  if OK,
-##  1  if minor problems (e.g., cannot access subdirectory),
-##  2  if serious trouble (e.g., cannot access command-line argument).
-## 
-## GNU coreutils online help: <http://www.gnu.org/software/coreutils/>
-## Report ls translation bugs to <http://translationproject.org/team/>
-## Full documentation at: <http://www.gnu.org/software/coreutils/ls>
-## or available locally via: info '(coreutils) ls invocation'
 ```
 
 Syntax of `ls` command:
@@ -969,12 +907,17 @@ rm -rf folder_a
 ls
 ```
 
-ADD THESE COMMANDS ON 3/25?
+ADD THESE COMMANDS?
 
-cp file1 file2 – copy file1 to file2
-cp -r dir1 dir2 – copy dir1 to dir2; create dir2 if it
+__`cp` command copies files__
+
+- `cp file1 file2` –- copy file1 to file2
+- `cp -r dir1 dir2` -– copy dir1 to dir2; create dir2 if it
 doesn't exist
-mv file1 file2 – rename or move file1 to file2
+
+__`mv` renames or moves files__
+
+- `mv file1 file2` -– rename or move file1 to file2
 if file2 is an existing directory, moves file1 into
 directory file2
 
@@ -1018,11 +961,18 @@ Basic/essential git commands
     - `git init`
         - "initializes a brand new Git repository and begins tracking an existing directory. It adds a hidden subfolder [named .git] within the existing directory that houses the internal data structure required for version control" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
     - `git clone url_of_remote_repository`
-- __Observe your repository__
-    - `git status`
+        - "creates a local copy of a project that already exists remotely. The clone includes all the project’s files, history, and branches" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
 - __Make a change__
     - `git add file_name(s)`
+        - add file(s) from local working directory to "staging area"/"index"
+        - Note: you must "stage" changes to a file before you `commit` them to your local repository
     - `git commit -m "commit message"`
+        - all changes to files that have been staged [previous step] are committed to the local repository
+        - each commit is a snapshot of all files in your repository
+        - note: `-m` is an option to the `git commit` command, which specifies that you will add a brief description about changes you are committing
+- __Observe your repository__
+    - `git status`
+        - "shows the status of changes as untracked, modified, or staged" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
 - __Working with branches__
 - __Synchronize with remote repository__
 
@@ -1031,15 +981,173 @@ Basic/essential git commands
 
 Basic stuff you will do all the time
 
-- Create a new local git repository on your local machine
+- Create a new git repository on your local machine
+    - For example, you might want to create the repository `problem_set_1` for all files related to the first problem set
 - `clone` an existing remote repository from GitHub to your local machine
+    - For example, clone the repository for this class -- named `student_lastname` (e.g., `student_jaquette`) -- to your local machine
 
-### clone an existing repository
+### Create new git repository on your local machine
 
-give overview of different basic things we will do each day (e.g., create new repository from our computer and then push to github, clone repository on github; and then show how to do it)
+What we will do:
 
-CLONE AN EXISTING GIT REPOSITORY
-SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE
+- Create a new directory
+- Change working directory to this new directory
+- turn this directory into a Git repository
+- Within the "local working directory," create/change one or more files
+- `add` changes to file(s) from the "local working directory" to the "staging area"/"index"
+- `commit` all staged changes to the "local repository"
+
+Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk
+
+```bash
+# CREATING AND CHANGING DIRECTORIES
+
+  cd ~ # change directories to home directory
+  
+  #cd documents # change to "documents" [if necessary]
+  
+  ls # list files in directory
+  
+  # make new directory that will be our git repository
+  mkdir gitr_practice
+  
+  cd gitr_practice # move to new directory
+  
+  ls -a # show all files in directory
+
+# INITIALIZING GIT REPOSITORY
+
+  # turn the current, empty directory into a fresh Git repository.
+  git init
+  
+  ls -a # show all files in directory
+  
+  # CHANGING FILES IN WORKING DIRECTORY
+  
+  #create a new README file with some sample text
+  echo "Hello. I thought we would be learning R this quarter" >> README.txt
+  
+  #view the file README.txt
+  cat README.txt
+  
+  #create a simple r script
+  echo "library(tidyverse)" >> simple_script.r
+  echo "mpg %>% head(5)" >> simple_script.r # add another line to simple_script.r
+  
+  cat simple_script.r # show contents of file simple_script.r
+
+# STAGE AND COMMIT FILES TO LOCAL REPOSITORY
+
+  #check status of git repository
+  git status 
+  
+  # add README.txt from working directory to staging area (will now become a file that is "tracked" by git)
+  git add README.txt
+  
+  # add README.txt from working directory to staging area (will now become a file that is "tracked" by git)
+  git add simple_script.r
+  
+  # check status
+  git status
+  
+  # commit changes to local repository
+  git commit -m "Initial commit, README.txt simple_script.r"
+  
+  git status
+```
+
+<br>
+
+__What we just did:__
+
+
+
+[![](https://miro.medium.com/max/686/1*diRLm1S5hkVoh5qeArND0Q.png)](https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018)
+
+*Credit: Lucas Maurer, medium.com*
+
+### Clone an existing repository to your local machine
+
+What we will do:
+
+- Go to a remote repository stored on GitHub.com
+    - we will be downloading the remote repository called [downloadipeds](https://github.com/btskinner/downloadipeds)
+- Copy to our clipboard the URL that enables us to `clone` this repository to our local machine
+- On Git Bash command line
+    - change directories to folder we want repository to be downloaded to
+        - Note: we don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
+        - When we clone from github, the repository will be downloaded in a folder named `downloadipeds`
+    - use `git clone` command to clone repository
+
+<br>
+
+Click on link of remote repository: [downloadipeds](https://github.com/btskinner/downloadipeds)
+
+- This repository, created by [Ben Skinner](https://github.com/btskinner), contains a script to "batch download" files from the [Integrated Postsecondary Data System (IPEDS)](https://nces.ed.gov/ipeds/), which contains data on U.S. colleges and universities
+- Click on "Clone or download"
+    - We will be "cloning" rather than the "open in desktop" or "Download ZIP" options
+        - Essentially, we will get the url of the remote git repository and then paste this URL into the Git Bash command line
+    - Clone with SSH vs. HTTPs?
+        - These are two different ways to authenticate that you are you
+        - If you haven't set up SSH, then choose HTTPs
+    - Copy the url to your clipboard:
+        - HTTPS URL will be: https://github.com/btskinner/downloadipeds.git
+        - SSH URL will be: git@github.com:btskinner/downloadipeds.git
+
+
+Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk
+
+
+```bash
+# CHANGE TO DESIRED DIRECTORY
+
+  cd ~ # change directories to home directory
+  
+  #cd documents # change to "documents" [if necessary]
+  
+  ls # list files in directory
+  
+  #Note: we don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
+  #When we clone from github, the repository will be downloaded in a folder named `downloadipeds`
+
+# CLONE REMOTE REPOSITORY
+
+  # clone with https
+  git clone https://github.com/btskinner/downloadipeds.git
+  
+  # OR clone with ssh
+  git clone git@github.com:btskinner/downloadipeds.git
+  
+# INVESTIGATE REPOSITORY WE JUST CLONED
+
+  cd downloadipeds
+  
+  #list files
+  ls
+  ls -a
+  
+  git status
+```
+
+<br>
+
+__What we just did:__
+
+
+[![](https://www.w3docs.com/uploads/media/default/0001/03/3f26b30cc1dbda3424ceef3ab4977149906a0c58.png)](https://www.w3docs.com/learn-git/git-clone.html)
+
+*Credit: [W3 docs, Git clone](https://www.w3docs.com/learn-git/git-clone.html)*
+
+#### Student task: Clone repository for this course to desired directory on your local machine
+
+- Go to URL for the github organization [Rucla-ed](https://github.com/Rucla-ed)
+- Click on repository with the name `student_yourlastname` (e.g., `student_jaquette`)
+- Follow same steps as we did for cloning `downloadipeds`
+    - Note: before cloning, make sure you change directories to directory where you want to save files for this class
+    - you will be using this directory `student_yourlastname` for the rest of the quarter
+
+### Create 
+
 
 ```bash
 # change directories to home directory
@@ -1063,44 +1171,6 @@ ls
 ```
 
 
-Create new git repository on your local machine and connect it to github
-
-SHOW CODE HERE, BUT BETTER TO RUN IN COMMAND LINE
-
-```bash
-# change directories to home directory
-cd ~ 
-
-# change to "documents" [if necessary]
-cd documents
-
-# make new directory that will be our git repository
-mkdir gitr_practice
-
-cd gitr_practice
-
-ls -a
-
-# turn the current, empty directory into a fresh Git repository.
-git init
-
-#create a new README file with some sample text
-echo "Hello. I thought we would be learning R this quarter" >> README.txt
-
-#show contents of file
-cat README.txt
-
-git status
-
-# add README.txt to files that will be "tracked" by git
-git add README.txt
-
-# check status
-git status
-
-# commit changes to local repository
-git commit -m "First commit"
-```
 
 # Git tasks, collaborative projects
 

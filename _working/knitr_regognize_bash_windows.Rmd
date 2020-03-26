@@ -1,0 +1,79 @@
+
+
+
+
+
+
+```{r}
+names(knitr::knit_engines$get())
+names(knitr::knit_engines$get())
+
+knitr::knit_engines$get("python")
+
+str(knitr::knit_engines$get())
+
+knitr::knit_engines$get("bash")
+```
+
+
+```{r}
+str(knitr::knit_engines)
+
+knitr::knit_engines$set()
+```
+
+```{r}
+knitr::opts_chunk$set(engine.path = list(
+  python = '~/anaconda/bin/python',
+  ruby = '/usr/local/bin/ruby'
+))
+```
+
+```{bash, engine.path = "C:\\Program Files\\Git\\bin"}
+ls --help
+```
+
+
+```{r}
+# should exist
+Sys.which('bash')
+Sys.which('sh')
+Sys.which('python')
+```
+
+```{r}
+shell('setx PATH "C:\\Program Files\\Git\\bin"')
+```
+
+
+```{r}
+Sys.which('bash')
+```
+
+```{r}
+Sys.getenv("PATH")
+
+old_path <- Sys.getenv("PATH")
+old_path
+
+C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38
+#Sys.setenv(PATH = paste(old_path, "C:\\Program Files\\Git\\bin", sep = ":"))
+Sys.getenv("PATH")
+```
+
+```{r test-bash, engine='bash'}
+echo hello world
+echo 'a b c' | sed 's/ /\|/g'
+# number of lines
+awk 'END{print NR;}' 027-engine-bash.Rmd
+```
+
+We cun run `Bash` code instead of `R` code by replacing `{r}` with `{bash}` at top of chunk.
+
+- Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
+    - This is true for an `R` code chunk, a `Bash` code chunk, or any other programming language
+    - If you change working directories within a code chunk, the working directory reverts back to where the .Rmd file is saved after the code chunk finishes running
+```{bash}
+pwd
+ls
+```
