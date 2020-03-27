@@ -3,6 +3,27 @@
 
 <head>
 
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+ <style>
+
+ .container {
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  padding: 15px;
+  width: 100%;
+  border: 2px solid #e7e7e7;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+
+ </style>
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 .collapsible {
@@ -37,7 +58,7 @@
   padding: 0 10px;
   font-family: "Times";
   max-height: 0;
-  overflow: hidden;
+  overflow: auto;
   transition: max-height 0.2s ease-out;
   background-color: white;
   text-align: left;
@@ -73,12 +94,12 @@
 }
 
 .left {
-  width: 40%;
+  width: 30%;
   background: #F3F5F5;
 }
 
 .right {
-  width: 60%;
+  width: 70%;
   overflow: auto;
 }
 
@@ -185,9 +206,6 @@ div.ex1 {
     <br/>
     <br/>
     <br/>
-    <br/>
-    <br/>
-    <br/>
 
 
     <dl>
@@ -218,96 +236,254 @@ div.ex1 {
   </div>
 
   <div class="wrapper">
-    <button class="collapsible" color = "0A0602" >Week 1</button>
-    <div class="content" align="right">
-    <p>
-    Lecture 1 html,
-    .Rmd <br />
-    </p>
+    <button class="collapsible" color = "0A0602" > Lectures (by topic) </button>
+    <div class="content">
+    	<div class="container">
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse1">GitHub</a>
+    					</h4>
+    				</div>
+    				<div id="collapse1" class="panel-collapse collapse">
+    					<div class="panel-body">HTML</div>
+    					<div class="panel-body">.Rmd</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse2">ggplot</a>
+    					</h4>
+    				</div>
+    				<div id="collapse2" class="panel-collapse collapse">
+    					<div class="panel-body">HTML</div>
+    					<div class="panel-body">.Rmd</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse3">Dates & Times</a>
+    					</h4>
+    				</div>
+    				<div id="collapse3" class="panel-collapse collapse">
+    					<div class="panel-body">HTML</div>
+    					<div class="panel-body">.Rmd</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse4">JSON & APIs</a>
+    					</h4>
+    				</div>
+    				<div id="collapse4" class="panel-collapse collapse">
+    					<div class="panel-body">HTML</div>
+    					<<div class="panel-body">.Rmd</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse5">Regex</a>
+    					</h4>
+    				</div>
+    				<div id="collapse5" class="panel-collapse collapse">
+    					<div class="panel-body">HTML</div>
+    					<p class="indented"> Regex I</p>
+    					<p class="indented"> Regex II</p>
+    					<p class="indented"> Regex III </p>
+    					<div class="panel-body">.Rmd</div>
+    					<p class="indented"> Regex I</p>
+    					<p class="indented"> Regex II</p>
+    					<p class="indented"> Regex III </p>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse6">Programming</a>
+    					</h4>
+    				</div>
+    				<div id="collapse6" class="panel-collapse collapse">
+    					<div class="panel-body">HTML</div>
+    					<p class="indented"> Programming I</p>
+    					<p class="indented"> Programming II</p>
+    					<p class="indented"> Programming III</p>
+    					<div class="panel-body">.Rmd</div>
+    					<p class="indented"> Programming I</p>
+    					<p class="indented"> Programming II</p>
+    					<p class="indented"> Programming III </p>
+    				</div>
+    			</div>
+    		</div>
+    	</div>   		
+    	</div>
     </div>
-  </div>
+
 
   <div class="wrapper">
-    <button class="collapsible">Week 2</button>
+    <button class="collapsible">Weekly readings and assignments</button>
     <div class="content">
-    <p> Lecture 2 html, .Rmd <br />
-    </p>
+    	<div class="container">
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse7">Week 1: 03/30/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse7" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse8">Week 2: 04/06/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse8" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse9">Week 3: 04/13/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse9" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse10">Week 4: 04/20/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse10" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse11">Week 5: 04/27/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse11" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse12">Week 6: 05/4/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse12" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse13">Week 7: 05/11/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse13" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse14">Week 8: 05/18/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse14" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse15">Week 9: 05/25/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse15" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    		<div class="panel-group">
+    			<div class="panel panel-default">
+    				<div class="panel-heading">
+    					<h4 class="panel-title">
+    						<a data-toggle="collapse" href="#collapse16">Week 10: 06/01/20</a>
+    					</h4>
+    				</div>
+    				<div id="collapse16" class="panel-collapse collapse">
+    					<div class="panel-body">Readings</div>
+    					<p class="indented"> Readings for this week are...</p>
+    					<div class="panel-footer">Problem set due [date] @ 8:00am</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
     </div>
-  </div>
+</div>
+</div>
+</div>
 
-
-  <div class="wrapper">
-    <button class="collapsible">Week 3</button>
-    <div class="content">
-    <p> Lecture 3 html, .Rmd <br/>
-    </p>
-    </div>
-  </div>
-
-
-  <div class="wrapper">
-    <button class="collapsible">Week 4</button>
-    <div class="content">
-    <p> Lecture 4 html, .Rmd <br/>
-    </p>
-    </div>
-  </div>
-
-
-  <div class="wrapper">
-    <button class="collapsible">Week 5</button>
-    <div class="content">
-    <p> Lecture 5 html, .Rmd <br/>
-    </p>
-    </div>
-  </div>
-  
-
-  <div class="wrapper">
-    <button class="collapsible">Week 6</button>
-    <div class="content">
-    <p> Lecture 6 html, .Rmd <br/>
-    </p>
-    </div>
-  </div>
-
-
-  <div class="wrapper">
-    <button class="collapsible">Week 7</button>
-    <div class="content">
-    <p> Lecture 7 html, .Rmd <br/>
-    </p>
-    </div>
-  </div>
-
-
-  <div class="wrapper">
-    <button class="collapsible">Week 8</button>
-    <div class="content">
-    <p> Lecture 8 html, .Rmd <br/>
-    </p>
-    </div>
-  </div>
-
-
-  <div class="wrapper">
-    <button class="collapsible">Week 9</button>
-    <div class="content">
-    <p> Lecture 9 html, .Rmd <br/>
-    </p>
-    </div>
-  </div>
-  
-  <div class="wrapper">
-    <button class="collapsible">Week 10</button>
-    <div class="content">
-    <p> Lecture 10 html, .Rmd <br/>
-    </p>
-    </div>
-  </div>
-
-  </div>
-  </div>
 
 </div>
 </body>
