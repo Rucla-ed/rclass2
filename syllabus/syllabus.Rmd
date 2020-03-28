@@ -1,0 +1,390 @@
+---
+urlcolor: blue
+output:
+  pdf_document:
+    keep_tex: true
+    fig_caption: yes
+    latex_engine: pdflatex
+    template: svm-r-markdown-template.tex
+geometry: margin=1in
+
+title: "EDUC 263: Fundamentals of Programming, using R"
+author: Ozan Jaquette
+date: "Spring 2020"
+
+instructor: "Ozan Jaquette"
+pronouns: "he/him/his"
+email: "ozanj@ucla.edu"
+officehours: TBD
+zoom: TBD
+
+
+web: "rucla-ed.github.io/rclass2/"
+repo: "github.com/Rucla-ed/rclass2"
+classhours: "Mondays 8 - 11:50 am"
+
+ta: "Patricia Martin"
+tapronouns: "she/her/hers"
+taemail: "pmarti@g.ucla.edu"
+taofficehours: TBD
+tazoom: TBD
+
+  
+fontfamily: mathpazo
+fontsize: 11pt
+header-includes:
+   - \linespread{1.05}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+#template: ~/Desktop/GitHub/rclass/syllabus/svm-r-markdown-template.tex
+```
+
+```{r, eval=FALSE}
+mon <- as.Date("2020-03-30")
+
+
+advdate <- function(obj, adv) {
+ tmon <- obj + 7*(adv-1)
+ tfri <- obj + 4 + 7*(adv-0)
+ tmon <- format(tmon, format="%m/%d")
+ tfri <- format(tfri, format="%m/%d")
+ zadv <- sprintf("%02d", adv)
+ if(adv == 11) {
+   tmp <- paste("Finals Week",sep='',", ", tmon, "-" ,tfri)
+ } else {
+   tmp <- paste("Week ",zadv,sep='',", ", tfri)
+ }
+ return(tmp)
+}
+#advdate(mon, 11)
+```
+
+
+```{r}
+mon <- as.Date("2020-04-06")
+
+advdate <- function(obj, adv) {
+ tmon <- obj + 4 + 7*(adv-0)
+ tfri <- obj + 7*(adv-1)
+ tmon <- format(tmon, format="%m/%d")
+ tfri <- format(tfri, format="%m/%d")
+ zadv <- sprintf("%02d", adv)
+ #print(zadv)
+ #print(str(zadv))
+ if(adv == 11) {
+   tmp <- paste("Finals Week",sep='',", ",tfri)
+ } else if (adv<11) {
+   lec=adv+1
+   tmp <- paste("Lecture ",lec,sep='',", ", tfri)
+ } else {
+   tmp <- paste("Lecture ",adv,sep='',", ", tfri)
+ }
+ return(tmp)
+}
+#advdate(mon, 1)
+```
+# Course Description
+
+“Fundamentals of programming, using R” is the second course in a sequence designed for students who never thought they would become “coders”, ”programmers” (the first course in the sequence is “EDUC 263: Introduction to Programming and Data Management Using R”).  The course is organized around fundamental programming skills, including the following: iteration; writing functions; regular expressions; visualizations; using github for collaboration and version control; and using application programming interfaces (APIs) to acquire data. These general programming skills are prerequisite for flashier data science applications (e.g., web-scraping, streaming social media data, interactive maps, machine learning).  Each week, the first half of class will be lecture-based, giving students a conceptual understanding of programming concepts (e.g., using regular expressions to manipulate string data). During the second half of class students will apply these programming concepts to challenging, practical problem sets (e.g., stream Tweets using Twitter API and use regular expressions to analyze text patterns in Tweets). Students will work on these problems sets in small groups during class and submit them prior to the next class.  Although this uses the programming language R, these skills will translate to other object oriented programming languages (e.g., Python).  
+
+# Course Learning Goals
+
+1. Become familiar with GitHub 
+    - How to use GitHub to work collaboratively in teams
+    - How to conduct essential functions in GitHub (clone repo, commit, push, merge)
+1. Working with strings 
+    -	How to work with dates & times
+    - Understand JSON formatted files and how to work with APIs to stream data from the web
+    - Understand how to use regular expression (regex) patterns to parse text 
+1. Understand fundamental concepts of programming
+    - Writing functions
+    - Writing loops 
+
+
+# Prerequisite Requirements 
+
+1.	The prerequisite for this course is knowledge of the first 10 modules from “EDUC 263: Introduction to Programming and Data Management Using R,” which can be found here: https://ozanj.github.io/rclass/resources/
+
+
+# Course GitHub and Discussion 
+
+## Course GitHub
+
+Course GitHub can be found https://github.com/Rucla-ed/rclass2. 
+
+## Course discussion
+
+We will be using GitHub for this class and encourage students to post questions on GitHub through creating "issues" in the class repository (e.g. rclass2).
+
+All questions related to course content should be posted as issues on the GitHub class repository.  
+
+# Communication with Instructor and Teaching Assistant
+
+Email me directly if you have a question regarding any personal issue.
+
+Use GitHub issues for all questions related to course content.  All students can then benefit from the response. Instructors will aim to respond within 24 hours of your post Monday through Friday and 48 hours on Saturday and Sunday. We may not be able to respond to questions asked after Sunday at 12PM (problem sets due Monday at 8AM).
+
+I encourage students to answer questions your classmates post on GitHub issues. Writing out explanations to student questions will improve your own knowledge and will benefit your classmates.
+
+# Course Reading
+
+Required and optional readings for each week will be listed on the course website https://rucla-ed.github.io/rclass2/
+
+Please do the reading! I have worked hard to keep required reading load light, focusing only on essentials, because weekly problem sets will be time consuming.
+
+The reading schedule works as follows: I lecture on a topic in class, and then you do the reading about that topic and are required to complete a problem set about that topic. However, if you would prefer to the reading about a topic __prior__ to me lecturing about that topic, feel free to do so.
+
+# Required Software and Hardware
+
+## Software [FREE!]
+
+Instructions on downloading software can be found [here](https://github.com/ozanj/rclass/raw/master/educ263_todo.pdf)
+
+Please install the following software on your laptop
+
+- R
+- RStudio
+- TinyTeX R package *OR* MikTeK/MacTeX
+- git
+- GitHub account
+
+## Hardware
+
+- We will be using zoom each week for lecture. 
+
+Contact the teaching assistant beforehand if you do not have access to a laptop/computer.
+
+# Assignments & Grading  
+
+Your final grade will be based on the following components:
+
+-	Weekly problem sets (90 percent of total grade)
+-	Attendance and participation (10 percent of total grade)
+
+## Weekly problem sets
+
+Students will complete 10 problem sets (the last one due during finals week). Problem sets are due by 8AM each Monday, right before we start class. 
+
+Late submissions will lose 20% (i.e., max grade becomes 80%). Problem sets not submitted by 8AM the following Monday will not receive points because at that point we will post solutions on the course website. **The lowest problem-set grade will be dropped from the calculation of your final grade.** 
+
+You will not lose points for late submission if you cannot submit a problem set due to an unexpected emergency. But please contact the instructor by email as soon as you can so we can work out a plan.
+
+In general, each problem set will give your practice using the skills and concepts introduced during the previous lecture.  For example, after the lecture on regex (regular expressions), the problem set for that week will require that students complete several different tasks involving parsing text.  Additionally, the weekly problem sets will require you to use data manipulation skills you learned in previous weeks.  
+
+With the exception of the first problem set, students will complete problem sets in groups of 3. We will form groups during class in week 2 and you will keep the same group throughout the quarter. However, each student will submit their own R script (.Rmd file). You are encouraged to work together and get help from your group. **However, it is important that you understand how to do the problem set on your own, rather than copying the solution developed by group members.**  
+
+Since you will be working together, it is understandable that answers for many questions will be the same as your group members. However, if I find compelling evidence that a student merely copied solutions from a classmate, I will consider this a violation of academic integrity and that student will receive a zero for the homework assignment.
+
+A general strategy I recommend for completing the problem sets is as follows: (1) after lecture, do the reading associated with that lecture; (2) try doing the problem set on your own; (3) meet with your group to work through the problem set, with a particular focus on areas group members find challenging.
+
+Finally, we strongly recommend using GitHub issues to ask questions you have about problem sets. Instructors will do our best to reply quickly with helpful hints/explanations and we encourage members of the class to do the same.
+
+## Attendance and Participation (10 percent of total grade)
+
+Students are expected to participate in the weekly class meetings by being attentive, supportive, by asking questions, or by answering questions posed by others on zoom. Additionally, students can receive strong participation grades by asking questions and answering questions on GitHub issues. 
+
+Students are required to attend the weekly class meetings.  Each unexcused absence results in a loss of 20% from your attendance/participation grade.  Three or more unexcused absences will result in a failing grade for the course. 
+
+An excused absence is a professional opportunity that you discuss with me beforehand or a medical, or family emergency.  Excused absences will not result in a loss of attendance points.  However, you will be responsible for all material covered in that class and you will be expected to turn in homework assignments on time.
+
+
+# Course Policies  
+
+## Classroom environment
+
+With respect to the course material, learning the essential skills of programming is hard! This stuff feels overwhelming to me all the time. So it is important that we all create an environment where students feel comfortable asking questions and talking about what they did not understand. Discomfort is part of the learning process. Unburdern yourself from the weight of being an "expert" and just focus on improving, helping your classmates improve, and helping your instructors improve.
+
+With respect to classroom environment, let's work together to create an environment that is relaxed, supportive, and where students feel comfortable voicing any concerns they have. Be mindful that words and body language affect people. Express your thoughts in a way that doesn’t make people feel excluded and does not make disparaging generalizations about any group.  As an instructor, I am responsible for setting an example through my own conduct.
+
+```{r, eval=FALSE, include=FALSE}
+#I will endeavor to present materials that are respectful of diversity: race, color, ethnicity, gender, age, disability, religious beliefs, political preference, sexual orientation, gender identity, citizenship, or national origin among other personal characteristics. The diversity of student experiences and perspectives is essential to the deepening of knowledge in a course. Any suggestions that you have about other ways to include the value of diversity in this course are welcome. During the quarter, I will also create forums where students can voice concerns anonymously.
+
+```
+
+
+## Online Collaboration/Netiquette
+
+You will communicate with instructors and peers virtually through a variety of tools such as GitHub, email, and web conferencing. The following guidelines will enable everyone in the course to participate and collaborate in a productive, safe environment.
+
+-	Be professional, courteous, and respectful as you would in a physical classroom.
+-	Online communication lacks the nonverbal cues that provide much of the meaning and nuances in face-to-face conversations. Choose your words carefully, phrase your sentences clearly, and stay on topic.
+-	It is expected that students may disagree with the research presented or the opinions of their fellow classmates. To disagree is fine but to disparage others’ views is unacceptable. All comments should be kept civil and thoughtful. 
+
+## Academic accomodations
+
+Students needing academic accommodations based on a disability should contact the Center for Accessible Education (CAE) at (310)825-1501 (located in Murphy Hall A255). When possible, students should contact the CAE within the first two weeks of the term as reasonable notice is needed to coordinate accommodations. For more information visit https://www.cae.ucla.edu/.
+
+## Academic Honesty: 
+
+- UCLA policy
+    - UCLA is a community of scholars. In this community, all members including faculty, staff and students alike are responsible for maintaining standards of academic honesty. As a student and member of the University community, you are here to get an education and are, therefore, expected to demonstrate integrity in your academic endeavors. You are evaluated on your own merits. Cheating, plagiarism, collaborative work, multiple submissions without the permission of the professor, or other kinds of academic dishonesty are considered unacceptable behavior and will result in formal disciplinary proceedings.
+- This class
+    - Given that 90% of course grade is based on weekly problem sets, the primary academic honesty concern that could come up in this class is copying problem set solutions from somebody else and passing this in as your own work.
+
+# Course Schedule
+
+Course schedule is subject to change at the discretion of the instructor. If there are any changes, it will be to go slower and cut subsequent topics.
+
+- `r advdate(mon, 0)`: Introduction; GitHub
+
+- `r advdate(mon, 1)`: GitHub part II & visualizations with ggplot
+
+- `r advdate(mon, 2)`: Dates and Times
+
+- `r advdate(mon, 3)`: JSON & APIs
+
+- `r advdate(mon, 4)`: Regex I
+
+- `r advdate(mon, 5)`: Regex II
+
+- `r advdate(mon, 6)`: Regex III
+
+- `r advdate(mon, 7)`: Programming I (functions)
+
+- `r advdate(mon, 8)`: Programming II (Loops & Iterations)
+
+- `r advdate(mon, 9)`: Programming II (TBD)
+
+- `r advdate(mon, 10)`: No class, but problem set due
+
+
+
+```{r, include=FALSE, eval=FALSE}
+
+## `r advdate(fri, 0)`: Course introduction; objects in R
+
+- Reading (after class): Grolemund and Wickham (GW) 1; GW 2; GW 4; GW 20.1 - 20.3
+
+## `r advdate(fri, 1)`: Investigating data patterns
+
+- Problem set due (before class): Yes
+- Reading (after class): 
+    - GW 5.1 - 5.4
+    - Xie, Allaire & Grolemund (XAG) 3.1 [LINK HERE](https://bookdown.org/yihui/rmarkdown/html-document.html)
+    - Spend 15 minutes studying the "R Markdown Reference Guide" [LINK HERE](https://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)
+
+## `r advdate(fri, 2)`: Pipes and variable creation
+
+- Problem set due (before class): Yes
+- Reading (after class): 
+    - GW 5.5 (creating variables)
+    - XAG 3.3 (R Markdown, creating PDF documents) [LINK HERE](https://bookdown.org/yihui/rmarkdown/pdf-document.html)
+        - note: sections 3.3.5 through 3.3.8 will feel somewhat cryptic and are not required for this course; so just do the best you can with those
+
+## `r advdate(fri, 3)`: Processing across rows
+
+- Problem set due (before class): Yes
+- Reading (after class): 
+    - GW 5.6 - 5.7 (grouped summaries and mutates)
+    - XAG 4.1 (R Markdown, ioslides presentations) [LINK HERE](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html) and 4.3 (R Markdown, Beamer presentations) [LINK HERE](https://bookdown.org/yihui/rmarkdown/beamer-presentation.html)
+
+## `r advdate(fri, 4)`: Augmented vectors, Survey data, and exploratory data analysis
+
+- Problem set due (before class): Yes
+- Reading (after class): 
+    - GW 15.1 - 15.2 (factors) [this is like 2-3 pages]
+    - [OPTIONAL] GW 15.3 - 15.5 (remainder of "factors" chapter)
+    - [OPTIONAL] GW 20.6 - 20.7 (attributes and augmented vectors)
+    - [OPTIONAL] GW 10 (tibbles)
+
+## `r advdate(fri, 5)`: Tidy data
+
+- Problem set due (before class): Yes
+- Reading (after class):
+    - Work through slides we from lecture 6 that we don't get to in class
+        - [REQUIRED] slides from section 4 "Tidying data"
+        - [OPTIONAL] slides from section 5 "Missing data"
+    - [OPTIONAL] GW chapter 12 (tidy data)
+        - Lecture 6 covers this material pretty closely, so read chapter if you can, but I get it if you don't have time
+    - [OPTIONAL] Wickham, H. (2014). Tidy Data. _Journal of Statistical Software_, 59(10), 1-23. doi:10.18637/jss.v059.i10
+        - This is the journal article that introduced the data concepts covered in GW chapter 12 and created the packages related to tidying data
+        - Link to article here: [LINK](https://www.jstatsoft.org/article/view/v059i10)
+
+## `r advdate(fri, 6)`: Joining multiple datasets
+
+- Problem set due (before class): Yes
+- Reading (after class): GW 13
+
+## `r advdate(fri, 7)`: Acquiring data
+
+- Problem set due (before class): Yes
+- Reading (after class): GW 11
+
+## `r advdate(fri, 8)`: No class
+
+## `r advdate(fri, 9)`: Writing functions
+
+- Problem set due (before class): Yes
+- Reading (after class): GW 19
+
+## `r advdate(fri, 10)`: Accessing object elements and looping
+
+- Problem set due (before class): Yes
+- Reading (after class): GW 20.4 - 20.5; 21.1 - 21.3
+
+## `r advdate(fri, 11)`: No class
+
+- Problem set due: Yes
+
+```
+
+
+\newpage 
+# Campus Resources  
+**Counseling and Psychological Services (CAPS)**  
+This is a multidisciplinary student mental health center for the UCLA campus. CAPS offers an array of free services including individual counseling. If you suspect you are experiencing mental health problems or just need someone to talk to, you can make an appointment at John Wooden Center West, facing Drake Stadium, second floor, 310-825-0768. http://www.counseling.ucla.edu
+
+**Report Discrimination**  
+UCLA is committed to maintaining a campus community that provides the stronget possible support for the intellectual and personal growth of all its members- students, faculty, and staff. Acts intended to create a hostile climate are unacceptable. To file an online incident report, visit: https://equity.ucla.edu/report-an-incident/  
+
+**Sexual harassment**  
+Title IX prohibits gender discrimination, including sexual harassment, domestic and dating violence, sexual assault, and stalking.  If you have experienced sexual harassment or sexual violence, there are a variety of resources to assist you.  
+
+- CONFIDENTIAL RESOURCES:You can receive confidential support and advocacy at the CARE Advocacy Office for Sexual and Gender-Based Violence, A233 Murphy Hall, CAREadvocate@careprogram.ucla.edu, (310) 206-2465. Counseling and Psychological Services (CAPS) also provides confidential counseling to all students and can be reached 24/7 at (310) 825-0768.  
+- NON-CONFIDENTIAL RESOURCES: You can also report sexual violence or sexual harassment directly to the University's Title IX Coordinator, 2255 Murphy Hall, titleix@conet.ucla.edu, (310) 206-3417. Reports to law enforcement can be made to UCPD at (310) 825-1491. These offices may be required to pursue an official investigation.
+
+*Faculty and TAs are required under the UC Policy on Sexual Violence and Sexual Harassment to inform the Title IX Coordinator should they become aware that you or any other student has experienced sexual violence or sexual harassment.*  
+
+**LGBTQ Resource Center**
+This resource center provides a range of education and advocacy services supporting intersectional identity development. It fosters unity; wellness; and an open, safe, inclusive environment for lesbian, gay, bisexual, intersex, transgender, queer, asexual, questioning, and same-gender-loving students, their families, and the entire campus community. Find it in the Student Activities Center, or via email lgbt@lgbt.ucla.edu. Visit their website for more information: https://www.lgbt.ucla.edu/  
+
+**International Students**  
+The Dashew Center provides a range of programs to promote cross-cultural learning, language improvement, and cultural adjustment. Their programs include trips in the LA area, performances, and on-campus events and workshops. Visit their website for more information: https://www.internationalcenter.ucla.edu/  
+
+**Undocumented Student Program**  
+This program provides a safe space for undergraduate and graduate undocument students. USP supports the UndocuBruin community through personalized services and resources, programs, and workshops. Visit their website for more information: https://www.usp.ucla.edu/  
+
+**Student legal services**  
+UCLA student legal services provides a range of legal support to all registered and enrolled UCLA students. Some of their services include:  
+
+- Landlord/Tenant Relations
+- Accident and Injury Problems
+- Domestic Violence and Harassment
+- Divorces and Other Family Law Matter  
+
+For more information visit their website: http://www.studentlegal.ucla.edu/index.php
+
+**Students with dependents**  
+UCLA Students with Dependents provides support to UCLA studens who are parents, guardians, and caregivers. Some of their services include:  
+
+- Information, referrals, and support to navigate UCLA (childcare, family housing, financial aid)
+- Access to information about resources within the larger community
+- On-site application and verification for CalFresh (food stamps) & MediCal and assistance with Cal Works/GAIN
+- A quiet study space
+- Family friendly graduation celebration in June  
+
+For more information visit their website: https://www.swd.ucla.edu/
+
+**Lactation Rooms**  
+[Map to lactation rooms on campus](https://ucla.app.box.com/v/2019-lactation-map)  
+
+**Gender Inclusive restrooms**  
+[Map to gender inclusive restrooms](https://www.lgbt.ucla.edu/Portals/38/Documents/All-Gender%20Restroom%20Map_F15.pdf)  
+
+**Campus accessibility**  
+[Campus accessibility map](http://map.ucla.edu/downloads/pdf/Access_08_21_15.pdf)
+
+
+
