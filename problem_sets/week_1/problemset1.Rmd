@@ -27,7 +27,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```
 
-Open `problemset1.R` in RStudio to edit the file and perform the following tasks:
+4. Open `problemset1.R` in RStudio to edit the file and perform the following tasks:
 
 - Load the `tidyverse` library
 
@@ -38,8 +38,11 @@ Open `problemset1.R` in RStudio to edit the file and perform the following tasks
 
 # Part II: GitHub  
 
-1. Go to your GitHub account online and create a repository (name it **lastname_ps1**). Do not forget to initialize it with a README.md file.   
+1. Log in to your GitHub account online and create a new private repository here: https://github.com/organizations/Rucla-ed/repositories/new 
 
+    Name it **lastname_ps1** and do not forget to initialize it with a `README.md` file. Paste the link to your repository here:
+```
+```
 
 2. Clone the **lastname_ps1** repository to your local machine (again be intentional about where you save this folder): 
 
