@@ -39,7 +39,7 @@ Resources used to create this lecture:
 What is __version control__?
 
 - [Version control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control) is a "system that records changes to a file or set of files over time so that you can recall specific versions later"
-- Keeps records of changes, and who made changes when
+- Keeps records of changes, who made changes, and when those changes were made
 - You or collaborators take "snapshots" of a document at a particular point in time. Later on, you can recover any previous snapshot of the document.
 
 How version control works:
