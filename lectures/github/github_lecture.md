@@ -40,7 +40,7 @@ Resources used to create this lecture:
 What is __version control__?
 
 - [Version control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control) is a "system that records changes to a file or set of files over time so that you can recall specific versions later"
-- Keeps records of changes, and who made changes when
+- Keeps records of changes, who made changes, and when those changes were made
 - You or collaborators take "snapshots" of a document at a particular point in time. Later on, you can recover any previous snapshot of the document.
 
 How version control works:
@@ -562,13 +562,13 @@ mpg %>% head(5)
 
 ```
 ## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
-##   <chr>        <chr> <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
-## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
-## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
-## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
-## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
-## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…
+##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
+##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
 ```
 
 
@@ -577,15 +577,13 @@ names(knitr::knit_engines$get())
 ```
 
 ```
-##  [1] "awk"       "bash"      "coffee"    "gawk"      "groovy"   
-##  [6] "haskell"   "lein"      "mysql"     "node"      "octave"   
-## [11] "perl"      "psql"      "Rscript"   "ruby"      "sas"      
-## [16] "scala"     "sed"       "sh"        "stata"     "zsh"      
-## [21] "highlight" "Rcpp"      "tikz"      "dot"       "c"        
-## [26] "fortran"   "fortran95" "asy"       "cat"       "asis"     
-## [31] "stan"      "block"     "block2"    "js"        "css"      
-## [36] "sql"       "go"        "python"    "julia"     "sass"     
-## [41] "scss"
+##  [1] "awk"       "bash"      "coffee"    "gawk"      "groovy"    "haskell"  
+##  [7] "lein"      "mysql"     "node"      "octave"    "perl"      "psql"     
+## [13] "Rscript"   "ruby"      "sas"       "scala"     "sed"       "sh"       
+## [19] "stata"     "zsh"       "highlight" "Rcpp"      "tikz"      "dot"      
+## [25] "c"         "fortran"   "fortran95" "asy"       "cat"       "asis"     
+## [31] "stan"      "block"     "block2"    "js"        "css"       "sql"      
+## [37] "go"        "python"    "julia"     "sass"      "scss"
 ```
 
 
@@ -616,7 +614,7 @@ Sys.getenv("PATH")
 ```
 
 ```
-## [1] "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Library/TeX/texbin"
+## [1] "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Library/TeX/texbin:/opt/X11/bin:/opt/local/bin"
 ```
 
 
@@ -634,7 +632,7 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
@@ -672,7 +670,7 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
@@ -688,7 +686,7 @@ ls -a
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
 ## .
 ## ..
 ## github_lecture.Rmd
@@ -751,8 +749,8 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -770,8 +768,8 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2
 ## README.md
 ## _config.yml
 ## _data
@@ -780,7 +778,6 @@ ls
 ## _working
 ## lectures
 ## problem_sets
-## rclass2.Rproj
 ## syllabus
 ```
 
@@ -794,12 +791,11 @@ ls -a
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2
 ## .
 ## ..
 ## .DS_Store
-## .Rproj.user
 ## .git
 ## .gitignore
 ## README.md
@@ -810,7 +806,6 @@ ls -a
 ## _working
 ## lectures
 ## problem_sets
-## rclass2.Rproj
 ## syllabus
 ```
 
@@ -829,9 +824,9 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/ggplot
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.md
 ```
