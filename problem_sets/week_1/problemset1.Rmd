@@ -7,94 +7,22 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Part A
+# Part I: Command line & R practice  
 
-## Problem 1
+1. Using your command line interface (CLI) (e.g. Git Bash, terminal), create a new folder called **scripts**. Change directories to where you want to save this folder. Be intentional about where you create this folder (hint: change directories first). Write the commands you used here (to change directories and create the folder):  
 
-Clone the **rclass2_spring2020** repository to your local machine: https://github.com/Rucla-ed/rclass2_spring2020
+```
 
-Write the git command you used here:
+```  
+
+2. Change directory into the **scripts** folder and write the command you used here:  
+
 ```
 
 ```
 
-## Problem 2
+3. Inside the **scripts** folder, create a file called `problemset1.R` via the command line. Write the command you used here:  
 
-Change directory into **rclass2_spring2020**. Write the command you used here:
-```
-
-```
-
-What is the command to list all the directory contents in **rclass2_spring2020**, including hidden files and directories (ie. entries starting with `.`)?
-```
-
-```
-
-Copy the output here:
-```
-
-```
-
-## Problem 3
-
-Since **rclass2_spring2020** is a git repository, you can run git commands in this directory. What is the command to check the current state of the repository?
-```
-
-```
-
-Copy the output here:
-```
-
-```
-
-## Problem 4
-
-Recall from lecture that when you cloned this repository, your local repository is automatically connected with the remote: https://github.com/Rucla-ed/rclass2_spring2020
-
-You can verify this connection by running `git remote -v`. Copy the output of this command here:
-```
-
-```
-
-## Problem 5
-
-Navigate to the issues tab for the **rclass2_spring2020** repository here: https://github.com/Rucla-ed/rclass2_spring2020/issues
-
-Create a new issue titled "Problem Set 1 - YOUR NAME" and post a question of your choice. Add the "question" label to your issue and assign it to 3 students in the class who you do not know.
-
-Once your issue received 3 responses, close the issue. If other students assigned you to their issue, make sure to post your response as well. You should get an email notification if you were assigned to an issue.
-
-# Part B
-
-## Problem 6
-
-Recall your personal **student_lastname** repository that you've cloned during class. Navigate to this directory in your command line.
-
-Print out the current working directory. What is the command you used?
-```
-
-```
-
-Copy the output here:
-```
-
-```
-
-## Problem 7
-
-Create a new folder called **scripts** inside **student_lastname** via the command line. Write the command you used here:
-```
-
-```
-
-Change directory into the **scripts** folder and write the command you used here:
-```
-
-```
-
-## Problem 8
-
-Inside the **scripts** folder, create a file called `problemset1.R` via the command line. Write the command you used here:
 ```
 
 ```
@@ -102,36 +30,87 @@ Inside the **scripts** folder, create a file called `problemset1.R` via the comm
 Open `problemset1.R` in RStudio to edit the file and perform the following tasks:
 
 - Load the `tidyverse` library
-- Preview the first 5 rows of the `mpg` dataframe
+
+- Preview the first 5 rows of the `mpg` dataframe  
+
 - Filter the `mpg` dataframe to include only Ford Mustang's that were built after the year 2000
 
-## Problem 9
 
-In your terminal, navigate back to your **student_lastname** directory (ie. the parent directory of **scripts**). Write the command you used here:
-```
+# Part II: GitHub  
 
-```
+1. Go to your GitHub account online and create a repository (name it **lastname_ps1**). Do not forget to initialize it with a README.md file.   
 
-Check the status of the repository and copy the output here:
-```
 
-```
+2. Clone the **lastname_ps1** repository to your local machine (again be intentional about where you save this folder): 
 
-## Problem 10
+    Write the git command you used here:  
 
-Add the new file you've created (`problemset1.R`) to the staging area. Write the git command you used here:
 ```
 
 ```
 
-Commit your changes with a message of your choice and write the git command you used here:
-```
+3. Change directory into **lastname_ps1**. Write the command you used here:  
 
-```
-
-Push your changes to the remote repository and write the git command you used here:
 ```
 
 ```
 
-Finally, add this file (`problemset1.Rmd`) to the **scripts** folder and push to the remote repository as well.
+4. What is the command to list all the directory contents in **lastname_ps1**, including hidden files and directories (ie. entries starting with `.`)?  
+
+    Write the command you used here and paste your output:
+
+```
+
+```
+
+
+5. Since **lastname_ps1** is a git repository, you can run git commands in this directory. What is the command to check the current state of the repository?  
+
+    Write the git command you used here and paste your output:
+
+```
+
+```
+
+
+6. Go back to the folder **scripts** you created in Part I and move this folder inside your **lastname_ps1** folder on your local machine. Now check the status of your repository (what you did in the question above). 
+
+    Write the git command you used here and paste your output: 
+
+```
+
+```
+
+7. Add the new folder and file you've created (`scripts/problemset1.R`) to the staging area. Write the git command you used here:  
+
+```
+
+```
+
+8. Commit your changes with a message of your choice and write the git command you used here:  
+    
+```
+
+```
+
+9. Push your changes to the remote repository and write the git command you used here:  
+    
+```
+
+```
+
+10. Finally, add this file you are working on (`problemset1.Rmd`) to the **scripts** folder and push to the remote repository as well.
+
+
+
+# Part III: GitHub issues  
+
+1. Navigate to the issues tab for the **rclass2_spring2020** repository here: https://github.com/Rucla-ed/rclass2_spring2020/issues
+
+    Create a new issue titled "Problem Set 1 - YOUR NAME" and post a question of your choice. Add the "question" label to your issue and assign it to 3 students in the class who you do not know.
+
+    Once your issue received 3 responses, close the issue. If other students assigned you to their issue, make sure to post your response as well. You should get an email notification if you were assigned to an issue.
+
+
+
+
