@@ -1,6 +1,5 @@
 ---
-title: "Introduction to git and github"
-subtitle: "Fundamentals of programming using R" 
+title: "Introduction to Git and GitHub"
 author: 
 date: 
 urlcolor: blue
@@ -23,28 +22,28 @@ output:
 # Introduction
 
 
-Load packages
+Load packages:
 
 ```r
 library(tidyverse)
 ```
 
-Resources used to create this lecture
+Resources used to create this lecture:
 
 - https://happygitwithr.com/
 - https://edquant.github.io/edh7916/lessons/intro.html
 - https://www.codecademy.com/articles/f1-u3-git-setup
 - https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018
 
-## What and why use git and GitHub?
+## What and why use Git and GitHub?
 
 What is __version control__?
 
 - [Version control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control) is a "system that records changes to a file or set of files over time so that you can recall specific versions later"
-- keeps records of changes, who made changes when,
-- you or collaborators take "snapshots" of a document at a particular point in time. Later on, you can recover any previous snapshot of a document
+- Keeps records of changes, and who made changes when
+- You or collaborators take "snapshots" of a document at a particular point in time. Later on, you can recover any previous snapshot of the document.
 
-How version control works
+How version control works:
 
 - Imagine you write a simple text file document that gives a recipe for yummy chocolate chip cookies and you save it as `cookies.txt`
 - Later on, you make changes to `cookies.txt` (e.g., add alternative baking time for people who like "soft and chewy" cookies)
@@ -53,10 +52,10 @@ How version control works
 
 Why use version control when you can just save new version of document?
 
-1. Saving entirely new document each time a change is very inefficient from a memory/storage perspective. 
+1. Saving entirely new document each time a change is made is very inefficient from a memory/storage perspective
     - When you save a new version of a document, much of the contents are the same as the previous version
-    - Inefficient to devote space to saving multiple copies of the same content.
-1. When document undergoes lots of changes -- especially a document that multiple people collaborating on -- hard to keep track of so many different documents. Easy to end up with a situation like this:
+    - Inefficient to devote space to saving multiple copies of the same content
+1. When document undergoes lots of changes -- especially a document that multiple people are collaborating on -- it's hard to keep track of so many different documents. Easy to end up with a situation like this:
 
 
 
@@ -70,24 +69,24 @@ What is __Git__? (from git [website](https://git-scm.com/))
 
 > "Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency"
 
-- Git is a particular version control software created by The Git Project
+- Git is a particular version control software created by _The Git Project_
 - Git can be used by:
-    - an individual/standalone developer
-    - for collaborative projects, where multiple people collaborate on each file
+    - An individual/standalone developer
+    - For collaborative projects, where multiple people collaborate on each file
 - The term "__distributed__" means that every user collaborating on the project has access to all files and the history of changes to all files
 - Git is the industry standard version control system used to create software
 - Increasingly, Git is the industry standard for collaborative academic research projects
 
 What is a __Git repository__?
 
-- A project managed in Git is called a `Git repository`
-- From (Git Handbook)[https://guides.github.com/introduction/git-handbook/] by github.com:
-    - A repository "encompasses the entire collection of files and folders associated with a project, along with each file’s revision history."
+- A Git repository is any project managed in Git
+- From [Git Handbook](https://guides.github.com/introduction/git-handbook/) by github.com:
+    - A repository "encompasses the entire collection of files and folders associated with a project, along with each file’s revision history"
     - Because git is a __distributed__ version control system, "repositories are self-contained units and anyone who owns a copy of the repository can access the entire codebase and its history"
-- This course is a Git repository    
-- Local vs. remote git repository
-    - __local__ git repository: git repository for a project stored on your machine
-    - __remote___ git repository: git repository for a project stored on the internet
+- This course is a Git repository
+- Local vs. remote git repository:
+    - __Local__ git repository: git repository for a project stored on your machine
+    - __Remote__ git repository: git repository for a project stored on the internet
 - Typically, a local git repository is connected to a remote git repository
     - You can make changes to local repository on your machine and then __push__ those changes to the remote repository
     - A collaborator can make changes to their local repository, push them to the remote repository, and then you can __pull__ these changes into your local repository
@@ -95,47 +94,49 @@ What is a __Git repository__?
 
 What is __GitHub__?
 
-- GitHub is the industry standard hosting site/service for Git repositories
+- [GitHub](https://github.com/) is the industry standard hosting site/service for Git repositories
     - Hosting services allow people/organizations to store files on the internet and make those files available to others
-- Github stores your local repositories in "the cloud"
-    - e.g., if you create a local repository stored on your machine, GitHub enables you to create a "remote" version of this repository
-    - also, you can connect to a remote repository that already exists and create a local version of this respository on your machine
-- More broadly, GitHub enables you to store files, share code, collaborate with others
+- GitHub stores your local repositories in "the cloud"
+    - E.g., if you create a local repository stored on your machine, GitHub enables you to create a "remote" version of this repository
+    - Also, you can connect to a remote repository that already exists and create a local version of this respository on your machine
+- More broadly, GitHub enables you to store files, share code, and collaborate with others
 
 
 ## How we will learn Git and GitHub
 
 > "Whoah, I’ve just read this quick tutorial about git and oh my god it is cool. I feel now super comfortable using it, and I’m not afraid at all to break something.”— said no one ever ([Pierre de Wulf](https://www.daolf.com/posts/git-series-part-1/))
 
+<!--
 NOTE FOR LATER: READ HIS THREE POSTS ON UNDERSTANDING WHAT'S IN .GIT AND PUT THAT INFO IN LATER CHAPTER OF YOUR GITHUB LECTURE
 
 - https://www.daolf.com/posts/git-series-part-1/ [part 1, what's in .git]
 - https://www.daolf.com/posts/git-series-part-2/ [part 2, rebasing and "golden rule"]
 - https://www.daolf.com/posts/git-series-part-3/ [part 3, more on rebase]
+-->
 
 Understanding and learning how to use Git and GitHub can be intimidating. A lot of tutorials give you recipes for how to accomplish specific tasks (either point-and-click or issuing commands on command line), but don't provide a conceptual understanding of how things work.
 
-Here is how we will learn Git and Github over the course of the quarter:
+Here is how we will learn Git and GitHub over the course of the quarter:
 
 - The first of three "units" of the course will be (mostly) devoted to Git and GitHub
 - During the Git/GitHub unit, we will:
     - Provide a conceptual overview of concepts and workflow
-    - Show you how to accomplish specific tasks by issuing commands on the command-line
+    - Show you how to accomplish specific tasks by issuing commands on the command line
     - Devote time to providing in-depth conceptual understanding of particular topics/concepts
     - You will practice doing Git/GitHub stuff during in-class exercises and in weekly problem sets
-- With the exception of doing a few tasks on (https://github.com/)[github.com] (e.g., "issues"), we will perform all tasks on the "command line" rather than using a point-and-click graphical user interface (GUI)
-    - Initially, this will feel intimidating, but after a few weeks you will see that this helps you understang git/github better and is much more efficient
+- With the exception of doing a few tasks on [https://github.com/](github.com) (e.g., "issues"), we will perform all tasks on the "command line" rather than using a point-and-click graphical user interface (GUI)
+    - Initially, this will feel intimidating, but after a few weeks you will see that this helps you understand Git/GitHub better and is much more efficient
 - After the Git/GitHub unit:
     - Weekly problem sets will be completed and submitted using GitHub
-    - When communicating with your problem-set "team," you will use GitHub "issues"
+    - When communicating with your problem set "team," you will use GitHub "issues"
     - When posing questions to instructors/classmates, you will use GitHub "issues"
 
-Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub unit
+Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub unit:
 
 
 
 - [Introduction](#introduction)
-    - [What and why use git and GitHub?](#what-and-why-use-git-and-github?)
+    - [What and why use Git and GitHub?](#what-and-why-use-git-and-github?)
     - [How we will learn Git and GitHub](#how-we-will-learn-git-and-github)
 - [Overview of core concepts and work flow](#overview-of-core-concepts-and-work-flow)
     - [Git stores "snapshots," not "differences"](#git-stores-"snapshots,"-not-"differences")
@@ -147,27 +148,20 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
     - [Models for collaborative development](#models-for-collaborative-development)
         - [Shared repository](#shared-repository)
         - [Fork and pull](#fork-and-pull)
-    - [Good habits for work flow](#good-habits-for-work-flow)
 - [Command line](#command-line)
     - [Shell/command line vs. graphical user interface (GUI)](#shell/command-line-vs.-graphical-user-interface-(gui))
         - [Command-line bullshittery](#command-line-bullshittery)
     - [Basic (Bash) commands line commands](#basic-(bash)-commands-line-commands)
         - [Bash syntax](#bash-syntax)
         - [Changing directories](#changing-directories)
-        - [Make/delete/move folders a](#make/delete/move-folders-a)
-- [Basic Git tasks [? INDIVIDUAL DEVELOPER?]](#basic-git-tasks-[?-individual-developer?])
-    - [git commands](#git-commands)
+        - [Creating/deleting directories](#creating/deleting-directories)
+        - [Other commands](#other-commands)
+- [Basic Git tasks](#basic-git-tasks)
+    - [Git commands](#git-commands)
     - [Creating and cloning repositories](#creating-and-cloning-repositories)
-        - [Create new git repository on your local machine](#create-new-git-repository-on-your-local-machine)
         - [Clone an existing repository to your local machine](#clone-an-existing-repository-to-your-local-machine)
-        - [Create ](#create)
-- [Git tasks, collaborative projects](#git-tasks,-collaborative-projects)
-    - [Pull requests](#pull-requests)
-- [Appendix](#appendix)
-    - [Installation](#installation)
-    - [Authentication](#authentication)
-    - [gitignore](#gitignore)
-    - [Running git Bash from R Markdown](#running-git-bash-from-r-markdown)
+        - [Create new repository on GitHub and clone to your local machine](#create-new-repository-on-github-and-clone-to-your-local-machine)
+        - [Create new git repository on your local machine and add to GitHub](#create-new-git-repository-on-your-local-machine-and-add-to-github)
 
 # Overview of core concepts and work flow
 
@@ -178,7 +172,7 @@ This section introduces some core concepts and then explains the Git "work flow"
 
 Version control systems that save "differences"
 
-- Prior to Git, "centralized version control systems" were the industry standard version control systems (About Version Control)[https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control]
+- Prior to Git, "centralized version control systems" were the industry standard version control systems (From [Getting Started - About Version Control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control))
     - In these systems, a central server stored all the versions of a file and "clients" (e.g., a programmer working on a project on their local computer) could "check out" files from the central server
 - These centralized version control systems stored multiple versions of a file as "differences"
     - For example, imagine you create a simple text file called `twinkle.txt`
@@ -214,13 +208,13 @@ Git stores data as "snapshots" rather than "differences" (From [Getting Started 
 
 <br>
 
-__Commits__
+What is a __commit__?
 
-- A `commmit` is a snapshot of all files in the repository at a particular time
+- A **commit** is a snapshot of all files in the repository at a particular time
 - Example: Imagine you are working on a project (repository) that contains a dozen files.
-    - You change two files and make a `commit`
+    - You change two files and make a commit
     - Git takes a snapshot of the full repository (all files)
-    - Content that remains unchanged relative to the previous `commit` is stored vis-a-vis a link to the previous commit
+    - Content that remains unchanged relative to the previous commit is stored vis-a-vis a link to the previous commit
 
 ## Three components of a Git project
 
@@ -228,20 +222,20 @@ __Commits__
     - This is the area where all your work happens! You are writing Rmd files, debugging R-scripts, adding and deleting files
     - These changes are made on your local machine!
 - __Git index/staging area__
-    - The staging area is the area between your _local working directory_ and the _repository_ where you list changes you have made in the local working directory that you would like to commit to the repository
-    - Hypothetical work flow (imagine you are working on document cookies.txt):
-        - make changes to cookies.txt on a text editor. These are changes made in your _local working directory_
-        - Imagine you are happy with some changes you made to cookies.txt and you want to `commit` those changes to your repository
-        - Before you `commit` changes to repository, you must `add` them to the _staging area_ as an intermediary step
+    - The staging area is the area between your _local working directory_ and the _repository_, where you list changes you have made in the local working directory that you would like to commit to the repository
+    - Hypothetical work flow (imagine you are working on document `cookies.txt`):
+        - Make changes to `cookies.txt` in a text editor. These are changes made in your _local working directory_.
+        - Imagine you are happy with some changes you made to `cookies.txt` and you want to ***commit*** those changes to your repository
+        - Before you commit changes to repository, you must ***add*** them to the _staging area_ as an intermediary step
 - __Repository__
-    - This is the actual repository where Git permanently stores the changes you’ve made in the local working directory and listed in the staging area as different versions of the project file
-    - Hypothetical work flow to cookies.txt
-        - `add` changes from _local working directory_ to _staging area_
-        - `commit` changes from _staging area_ to _repository_
-    - each `commit` to the repository is a different version of the file that represents a snapshot of the file at a particular time
-    - local vs. remote repository
-        - when you `add` a change to the `staging area` and then `commit` the change to your repository, this changes your __local repository__ rather than your __remote repository__
-        - If you want to change your __remote repository__, you must `push` the change from your __local repository__ to your __remote repository__
+    - This is the actual repository where Git permanently stores the changes you've made in the local working directory and added to the staging area as different versions of the project file
+    - Hypothetical work flow to `cookies.txt`:
+        - ***Add*** changes from _local working directory_ to _staging area_
+        - ***Commit*** changes from _staging area_ to _repository_
+    - Each commit to the repository is a different version of the file that represents a snapshot of the file at a particular time
+    - Local vs. remote repository
+        - When you add a change to the _staging area_ and then commit the change to your _repository_, this changes your _local repository_ rather than your _remote repository_
+        - If you want to change your _remote repository_, you must ***push*** the change from your _local repository_ to your _remote repository_
 
 <br>
 
@@ -257,27 +251,32 @@ __Commits__
 
 *Credit: Simon Maple, JRebel, https://www.jrebel.com/blog/git-cheat-sheet*
 
+<br>
 
-- `add`: add file from working directory to staging area
-- `commit`: commit file from staging area to local repository
-- `push`: send files from local repository (your machine) to remote repository
+Git commands:
+
+- `add`: Add file from working directory to staging area
+- `commit`: Commit file from staging area to local repository
+- `push`: Send files from local repository (your machine) to remote repository
     - Synchronizes local repository and remote repository
     - Think of `push` as "uploading"
-- `fetch`: get files from remote repository and put them in local repository
-- `pull`: get files from remote repository and put them in the working directory
+- `fetch`: Get files from remote repository and put them in local repository
+- `pull`: Get files from remote repository and put them in the working directory
     - Think of `pull` as "downloading"
     - `pull` is effectively `fetch` followed by `merge` (discussed later)
-- `reset`: after you `add` files from working directory to staging area, `reset` unstages those files
+- `reset`: After you `add` files from working directory to staging area, `reset` unstages those files
 
 ## Branch and merge
 
 ### Branches
 
+<!--
 HELPFUL RESOURCES ON BRANCHES I USED TO CREATE THIS SECTION
 
 - https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f
 - https://backlog.com/git-tutorial/using-branches/
 - https://guides.github.com/activities/hello-world/
+-->
 
 Why are __branches__ necessary? (Drawing from [Using branches](https://backlog.com/git-tutorial/using-branches/) tutorial)
 
@@ -285,23 +284,23 @@ Why are __branches__ necessary? (Drawing from [Using branches](https://backlog.c
     - Branching is useful for "solo developer" projects (e.g., a PhD dissertation that does not build on an existing project) but is essential for collaborative projects
 - In collaborative projects, it is common for several programmers to share and work on the same programming scripts
 - Example in programming/software development world: 
-    - Imagine your bank is creating a new mobile banking app.
+    - Imagine your bank is creating a new mobile banking app
     - Some programmers are fixing a bug in how the app imports data from your account
     - Other programmers are developing a new feature (e.g., allowing users to use Venmo to transfer funds)
     - "With so much going on, there needs to be a system in place for managing different versions of the same code base."
 - Example from social science research world:
     - In the [Unrollment Project](https://github.com/eddatasci/unrollment_proj) we are exploring potential bias in alternative algorithms to predict student success
     - We have a file [predict_grad.Rmd](https://github.com/eddatasci/unrollment_proj/blob/master/scripts/rmd/predict_grad.Rmd) that reads in secondary data, creates analysis variables, runs alternative models for predicting the probability of obtaining a BA
-    - Several collaborators are working on different parts of [predict_grad.Rmd](https://github.com/eddatasci/unrollment_proj/blob/master/scripts/rmd/predict_grad.Rmd). For example, one person writing functions to clean data and create analysis variables and another person writing functions to run models and store model results.
-    - Need a way for multiple people to work on [predict_grad.Rmd](https://github.com/eddatasci/unrollment_proj/blob/master/scripts/rmd/predict_grad.Rmd) at the same time.
+    - Several collaborators are working on different parts of `predict_grad.Rmd`. For example, one person writing functions to clean data and create analysis variables and another person writing functions to run models and store model results.
+    - Need a way for multiple people to work on `predict_grad.Rmd` at the same time
     
 What is a __branch__?
 
 - A branch is an "independent line of development" that "isolates your work from that of other team members" ([Using branches](https://backlog.com/git-tutorial/using-branches/) tutorial)
 - By default, a git repository "has one branch named __master__ which is considered to be the definitive branch. We use [other] branches to experiment and make edits before committing them to __master__" ([Hello World](https://guides.github.com/activities/hello-world/) tutorial)
 - "When you create a branch off the __master__ branch, you’re making a copy, or snapshot, of master as it was at that point in time"
-- Branches as sometimes described as "deviations" from the master branch
-- The below image shows three branches -- the master, "Branch 1," and "Branch 2" -- and each circle represents a `commit`
+- Branches are sometimes described as "deviations" from the master branch
+- The below image shows three branches -- the master, "Branch 1," and "Branch 2" -- and each circle represents a commit:
 
 [![](https://miro.medium.com/max/552/1*PiduCtSA7kMwdPiMZo1nHw.jpeg)](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f)
 
@@ -309,18 +308,18 @@ What is a __branch__?
 
 <br>
 
-Defining branches in terms of commits
+Defining branches in terms of commits:
 
 - People often define a __branch__ as "a pointer to a single commit"
     - In programming, a "pointer" is a variable/object that stores the address of other variables or objects in memory
-- Recall that a `commit` is a snapshot of a repository at a particular point in time
-    - Each commit also stores connections (referred to as "references") between the current commit and previous commit (referred to as "ancestors")
+- Recall that a **commit** is a snapshot of a repository at a particular point in time
+    - Each commit also stores connections (referred to as "references") between the current commit and previous commits (referred to as "ancestors")
 - The figure below shows the relationship between commits, references, and branches
-- Below, commits 1, 2, 3, and 4 are made to the __master__ branch, prior to the creation of "Branch 1"
+- Below, commits 1, 2, 3, and 4 are made to the __master__ branch, prior to the creation of "branch 1"
     - When we make "commit 2," we create "reference 1," which is a pointer from "commit 2" to "commit 1"
 - "commit 4" is the last commit made to the master branch prior to the creation of "branch 1"
 - We can think of "branch 1" as a pointer to "commit 4"
-- When we make additional commits to "branch 1" (e.g., "commit 5," "commit 7") we also create create references to the previous commit
+- When we make additional commits to "branch 1" (e.g., "commit 5," "commit 7") we also create references to the previous commit
     - For example, "commit 5" creates "reference 4," which is a pointer from "commit 5" to "commit 4"
 
 <br>
@@ -331,19 +330,21 @@ Defining branches in terms of commits
 
 ### Merges
 
+<!--
 RESOURCES USED TO CREATE SUB-SECTION
 
 - https://www.freecodecamp.org/news/an-introduction-to-git-merge-and-rebase-what-they-are-and-how-to-use-them-131b863785f/
 - https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f
 - https://community.intersystems.com/post/continuous-delivery-your-intersystems-solution-using-gitlab-part-i-git
+-->
 
-The goal of a `merge` is to "integrate changes from multiple branches into one [branch]" ([An introduction to Git merge and rebase](https://www.freecodecamp.org/news/an-introduction-to-git-merge-and-rebase-what-they-are-and-how-to-use-them-131b863785f/))
+The goal of a **merge** is to "integrate changes from multiple branches into one [branch]" ([An introduction to Git merge and rebase](https://www.freecodecamp.org/news/an-introduction-to-git-merge-and-rebase-what-they-are-and-how-to-use-them-131b863785f/))
 
-The below image shows a merge between the __master__ branch a branch named "develop"
+The below image shows a merge between the __master__ branch and a branch named "develop"
 
-- Each circle represents a `commit`
-- the "develop" branch was created after "commit 2" of the __master__
-- After two commits, the "develop" branch is merged "into" the __master__
+- Each circle represents a commit
+- The "develop" branch was created after "commit 2" on the __master__
+- After two commits, the "develop" branch is merged back into the __master__
 
 <br>
 [![](https://community.intersystems.com/sites/default/files/inline/images/risunok4.png)](https://community.intersystems.com/post/continuous-delivery-your-intersystems-solution-using-gitlab-part-i-git)
@@ -351,50 +352,48 @@ The below image shows a merge between the __master__ branch a branch named "deve
 *Credit: [Eduard Lebedyuk](https://community.intersystems.com/post/continuous-delivery-your-intersystems-solution-using-gitlab-part-i-git)*
 
 <br>
-Merge terminology
+Merge terminology:
 
-- "current branch"
-    - branch you are currently working with
-    - the branch will be updated/modified by the `merge` with the "target branch"
-    - in the figure above, the __master__ branch is the "current branch"
-- "target branch"
-    - branch that will be merged "into" the "current branch"
-    - target branch will be unaffected by the merge
-    - often, programmers delete the target branch after merging with the current branch
-    - in the figure above, "develop" is the target branch
+- "Current branch"
+    - Branch you are currently working with
+    - The branch will be updated/modified by the merge with the "target branch"
+    - In the figure above, the __master__ branch is the "current branch"
+- "Target branch"
+    - Branch that will be merged into the "current branch"
+    - Target branch will be unaffected by the merge
+    - Often, programmers delete the target branch after merging with the current branch
+    - In the figure above, "develop" is the target branch
     
-How programmers use branches and merges in day-to-day work
+How programmers use branches and merges in day-to-day work:
 
 - Typically, programmers do all work on branches rather than the __master__ branch
-    - For example, in the [Unrollment Project](https://github.com/eddatasci/unrollment_proj), project co-founders [Will Doyle](https://github.com/wdoyle42) and [Ben Skinner](https://github.com/btskinner). stated that all project work should be done on branches rather than the master
+    - For example, in the [Unrollment Project](https://github.com/eddatasci/unrollment_proj), project co-founders [Will Doyle](https://github.com/wdoyle42) and [Ben Skinner](https://github.com/btskinner) stated that all project work should be done on branches rather than the master
 - Branches are created for specific tasks (e.g., fixing a bug, adding a new feature)
-    - GitHub.com states states "Short-lived topic branches, in particular, keep teams focused" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
-    - Once, the specific task is completed, the "topic" branch is merged into the __master__ branch and then the topic branch is often deleted
+    - "Short-lived topic branches, in particular, keep teams focused" ([Git Handbook](https://guides.github.com/introduction/git-handbook/))
+    - Once the specific task is completed, the topic branch is merged into the __master__ branch and then the topic branch is often deleted
 
-<br>
-Later on, we will devote more time to learning the conceptual and technical aspects of merging
+<!--
+Later on, we will devote more time to learning the conceptual and technical aspects of merging.
 
-
-
-
-
-“Here at GitHub, our developers, writers, and designers use branches for keeping bug fixes and feature work separate from our master (production) branch. When a change is ready, they merge their non-master branch into the master branch”
+"Here at GitHub, our developers, writers, and designers use branches for keeping bug fixes and feature work separate from our master (production) branch. When a change is ready, they merge their non-master branch into the master branch"
 
 Create a branch: Topic branches created from the canonical deployment branch (usually master) allow teams to contribute to many parallel efforts. Short-lived topic branches, in particular, keep teams focused and results in quick ships
-
-
 
 Git merge 
 https://guides.github.com/introduction/git-handbook/
 “git merge merges lines of development together. This command is typically used to combine changes made on two distinct branches. For example, a developer would merge when they want to combine changes from a feature branch into the master branch for deployment.
 
+-->
+
 ## Models for collaborative development
 
+<!--
 RESOURCES USED TO CREATE SUB-SECTION
 
 - https://guides.github.com/introduction/git-handbook/
+-->
 
-Two primary ways people collaborate on GitHub
+Two primary ways people collaborate on GitHub:
 
 1. Shared repository
 1. Fork and pull
@@ -409,14 +408,14 @@ Two primary ways people collaborate on GitHub
 <br>
 
 
-Overview of shared repository work flow
+Overview of "shared repository" work flow:
 
-- All work on project happens on a single repository
+- All work on project happens in a single repository
 - Everyone working on the project `clones` the repository to their local computer
 - Designate level of "access" for each team member
-    - read access
-    - write access
-    - administrator access
+    - Read access
+    - Write access
+    - Administrator access
 - As an individual team member, you work on specific tasks (e.g., fix a bug, add a new feature, write a lecture on a topic)
     - Work on tasks in your local working directory on your local machine
         - Often, work on tasks in a branch other than __master__
@@ -425,31 +424,31 @@ Overview of shared repository work flow
 - Other team members also working on specific tasks that they `commit` to their local repository and then `push` to the remote repository
     - After your team members `push` a change to remote respository, you may `pull` those changes to your local repository and local working directory
 - Issuing a "pull request"
-    - For most collaborative projects, users do not simply `push` changes from their local repository to the shared remote repository
-    - Why? Before pushing changes to shared repository, those changes should be reviewed by other team members
-    - Instead of simply pushing changes to shared repository, a team member issues a "pull request"
-    - A "pull request" is an announcement to team members that you have made changes and you want those changes to be reviewed before they become finail (i.e., pushed to shared repository)
-        - "If you send a pull request to another repository, you ask their maintainers to pull your changes into theirs (you more or less ask them to use a git pull from your repository)" [Stacl Overflow](https://stackoverflow.com/questions/44669519/difference-between-git-pull-and-git-request-pull)
-    - Once you issue a pull request, "the person or team reviewing your changes may have questions or comments. Perhaps the coding style doesn't match project guidelines, the change is missing unit tests, or maybe everything looks great and props are in order" [Understanding the GitHub flow](https://guides.github.com/introduction/flow/)
-    - We will devote more time to understanding, doing "pull requests" later
+    - For most collaborative projects, users do not simply `push` their changes to the master branch of the shared remote repository
+    - Why? Before pushing final changes to shared repository, those changes should be reviewed by other team members. This can be done by issuing a "pull request."
+    - A "pull request" is an announcement to team members that you have made changes and you want those changes to be reviewed before they become final (e.g., merged to the master branch)
+        - "If you send a pull request to another repository, you ask their maintainers to pull your changes into theirs (you more or less ask them to use a git pull from your repository)" ([Stack Overflow](https://stackoverflow.com/questions/44669519/difference-between-git-pull-and-git-request-pull))
+    - Once you issue a pull request, "the person or team reviewing your changes may have questions or comments. Perhaps the coding style doesn't match project guidelines, the change is missing unit tests, or maybe everything looks great and props are in order" ([Understanding the GitHub flow](https://guides.github.com/introduction/flow/))
+    - We will devote more time to understanding and doing "pull requests" later
 
 
 ### Fork and pull
 
+<!--
 RESOURCES
 
 - https://guides.github.com/introduction/git-handbook/
 - https://guides.github.com/activities/forking/
+-->
 
-
-What is a "fork"
+What is a **fork**?
 
 - A fork is a copy of a repository that is associated with an individual's personal account
 - The individual has full control of their fork (read, write, administrator)
 
 Why use forks?
 
-- For projects with many contributors, can become overwhelming to manage the project and to manage individual permissions using the "shared repository" model
+- For projects with many contributors, it can become overwhelming to manage the project and to manage individual permissions using the "shared repository" model
 
 <br>
 [![](https://dab1nmslvvntp.cloudfront.net/wp-content/uploads/2016/02/14550049531.jpg)](https://www.sitepoint.com/quick-tip-synch-a-github-fork-via-the-command-line/)
@@ -458,11 +457,11 @@ Why use forks?
 
 <br>
 
-Overview of "fork and pull" work flow
+Overview of "fork and pull" work flow:
 
 - Create a fork repository (copy of project repository associated with your personal account) of the `central_repo` repository
-    - let's call the forked repository `your_fork`
-    - initially, `your_fork` repository only exists on GitHub
+    - Let's call the forked repository `your_fork`
+    - Initially, `your_fork` repository only exists on GitHub
 - `clone` the `your_fork` repository to your local machine
 - On the local "working directory," make changes to files
 - When you are happy with changes you have made:
@@ -471,52 +470,49 @@ Overview of "fork and pull" work flow
     - `push` changes to remote `your_fork` repository
 - Issue a "pull request" asking that the changes you have made to remote `your_fork` repository be incorporated to the main `central_repo` repository    
 
-## Good habits for work flow
 
 
 # Command line
 
 ## Shell/command line vs. graphical user interface (GUI)
 
-What is a "shell"?
+What is a **shell**?
 
-- "A shell is a terminal application used to interface with an operating system through written commands" [Git Bash tutorial](https://www.atlassian.com/git/tutorials/git-bash)
-- "The shell is a program on your computer whose job is to run other programs. Pseudo-synonyms are 'terminal', 'command line', and 'console' [Happy Git and GitHub for the useR by Jenny Bryan](https://happygitwithr.com/shell.html)
+- "A shell is a terminal application used to interface with an operating system through written commands" ([Git Bash tutorial](https://www.atlassian.com/git/tutorials/git-bash))
+- "The shell is a program on your computer whose job is to run other programs. Pseudo-synonyms are 'terminal', 'command line', and 'console.'" ([Happy Git and GitHub for the useR](https://happygitwithr.com/shell.html) by Jenny Bryan)
 - In this course, we will usually use the term "command line" rather than "shell"
 - In the command line, you issue commands one line at a time
 - Most programmers use the command line rather than a graphical user interface (GUI) to accomplish tasks
 
-What is graphical user interface (GUI)?
+What is **graphical user interface (GUI)**?
 
-- A graphical user interface an an interface for using a program that includes graphical elements such as windows, icons, and buttons that the user can click on using the mouse
+- A graphical user interface is an interface for using a program that includes graphical elements such as windows, icons, and buttons that the user can click on using the mouse
 - For example, "RStudio" has GUI capabilities in that it has windows and you can perform operations using point-and-click (however, RStudio also has command line capabilities)
 - RStudio also includes a GUI interface for performing Git operations
 - There are many other GUI software packages for performing GIT operations
     - Popular tools include "GitHub Desktop," "GitKraken," and "SmartGit"
-    - see [GUI Clients](https://git-scm.com/downloads/guis)
+    - See [GUI Clients](https://git-scm.com/downloads/guis)
 
 In this course, we will perform Git operations solely using the command line. Why?
 
 - Learning Git from the command line will give you a deeper understanding of how Git and GitHub work
-    - I have found that performing GIT operations using a GUI did nothing to help me overcome my feelings of anxiety/intimidation about Git
+    - I have found that performing Git operations using a GUI did nothing to help me overcome my feelings of anxiety/intimidation about Git
     - As soon as I started doing stuff on the command line, I started feeling less intimidated
-- After you start feeling more comfortable with the command line, using the command line makes you __much__ more efficient than using a GUI
+- After you start feeling more comfortable with the command line, using the command line makes you _much_ more efficient than using a GUI
 - Learning the command line takes time and does feel intimidating
     - So we will devote substantial time in-class and during problem sets to learning/practicing the command line
 
-Which command line program will we use to perform Git operations?
-
-We will use the Unix shell called "Bash" to perform Git operations
+We will use the Unix shell called "Bash" to perform Git operations:
 
 - Some background on "Bash"
     - Unix is an operating system developed by AT&T Bell Labs in the late 1960s
-    - The "Unix shell" is a command line program for issuing commands to "Unix-like" operating systems [Unix Shell](https://en.wikipedia.org/wiki/Unix_shell)
+    - The "Unix shell" is a command line program for issuing commands to "Unix-like" operating systems ([Unix Shell](https://en.wikipedia.org/wiki/Unix_shell))
         - Unix-like operating systems include macOS and Linux, but not Windows
         - The first Unix shell was the "Thompson shell" originally written by Ken Thompson at Bell Labs in 1971
     - The Bourne shell was a Unix shell programming language written by Stephen Bourne at Bell Labs in 1979
     - The "Bourne Again Shell" - commonly referred to as "Bash" was "written by Brian Fox for the GNU Project as a free software replacement for the Bourne shell," and first released in 1989
 - Relationship between Git and Bash
-    - "At its core, Git is a set of command line utility programs that are designed to execute on a Unix style command-line environment" [GIT Bash](https://www.atlassian.com/git/tutorials/git-bash)
+    - "At its core, Git is a set of command line utility programs that are designed to execute on a Unix style command-line environment" ([GIT Bash](https://www.atlassian.com/git/tutorials/git-bash))
 - Mac users
     - "Terminal" is the application that enables you to control your Mac using a command line prompt
     - Terminal runs the Bash shell programming language
@@ -524,36 +520,39 @@ We will use the Unix shell called "Bash" to perform Git operations
 - Windows users
     - Windows is not a "Unix-like" operating system. Therefore, Bash is not the default command line interface
     - In order for Windows users to use Bash to perform Git operations, you must install the Git Bash program, which is installed as part of "git for Windows" ([install here](https://gitforwindows.org/))
-- Because Mac "Terminal" program and the Windows "Git Bash" program both use the Bash command line program, performing Git operations using the command line will be __exactly the same__ for both Mac and Windows users!!!
+- Because Mac "Terminal" program and the Windows "Git Bash" program both use the Bash command line program, performing Git operations using the command line will be _exactly the same_ for both Mac and Windows users!!!
 
 ### Command-line bullshittery
 
 <br>
 
-[Helping my students overcome __command-line bullshittery__ by Philip J. Guo](http://www.pgbovine.net/command-line-bullshittery.htm)
-
 > "What is wonderful about doing applied computer science research in the modern era is that there are thousands of pieces of free software and other computer-based tools that researchers can leverage to create their research software. With the right set of tools, one can be 10x or even 100x more productive than peers who don't know how to set up those tools."
 
 > "But this power comes at a great cost: __*It takes a tremendous amount of command-line bullshittery to install, set up, and configure all of this wonderful free software*__. What I mean by command-line bullshittery is dealing with all of the arcane, obscure, strange bullshit of the command-line paradigm that most of these free tools are built upon....So perhaps what is more important to a researcher than programming ability is adeptness at dealing with command-line bullshittery, since that enables one to become 10x or even 100x more productive than peers by finding, installing, configuring, customizing, and remixing the appropriate pieces of free software."
+
+_[Helping my students overcome __command-line bullshittery__](http://www.pgbovine.net/command-line-bullshittery.htm) by Philip J. Guo_
+
+<br>
 
 ## Basic (Bash) commands line commands
 
 
 ### Bash syntax
 
-Let's learn a bit about Bash command syntax
+Let's learn a bit about Bash command syntax.
 
+<!--
 RESOURCES TO CREATE SECTION
 
 - http://www.compciv.org/topics/bash/command-structure/
 - https://www.educative.io/blog/bash-shell-command-cheat-sheet
-
+-->
 
 The Bash command `ls` lists the contents (e.g., files, folders) of a directory. A "directory" is another word for "folder." In Terminal/Git Bash, try typing `ls` and then hit `ENTER` key. 
 
 The `pwd` command shows the filepath of the directory you are currently in, that is the current working directory. In Terminal/Git Bash, try typing `pwd` and then hit `ENTER` key.
 
-Note that you can also run `Bash` code from within an R code chunk of a .Rmd file. First, let's run some simple `R` commands from within an R code chunk
+Note that you can also run Bash code from within an R code chunk of a .Rmd file. First, let's run some simple R commands from within an R code chunk:
 
 
 ```r
@@ -563,15 +562,14 @@ mpg %>% head(5)
 
 ```
 ## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
-##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
-## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
-## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
-## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
-## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
-## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
+##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
+##   <chr>        <chr> <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
+## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
+## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
+## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
+## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
+## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…
 ```
-
 
 
 ```r
@@ -579,18 +577,18 @@ names(knitr::knit_engines$get())
 ```
 
 ```
-##  [1] "awk"       "bash"      "coffee"    "gawk"      "groovy"    "haskell"  
-##  [7] "lein"      "mysql"     "node"      "octave"    "perl"      "psql"     
-## [13] "Rscript"   "ruby"      "sas"       "scala"     "sed"       "sh"       
-## [19] "stata"     "zsh"       "highlight" "Rcpp"      "tikz"      "dot"      
-## [25] "c"         "fortran"   "fortran95" "asy"       "cat"       "asis"     
-## [31] "stan"      "block"     "block2"    "js"        "css"       "sql"      
-## [37] "go"        "python"    "julia"     "sass"      "scss"
+##  [1] "awk"       "bash"      "coffee"    "gawk"      "groovy"   
+##  [6] "haskell"   "lein"      "mysql"     "node"      "octave"   
+## [11] "perl"      "psql"      "Rscript"   "ruby"      "sas"      
+## [16] "scala"     "sed"       "sh"        "stata"     "zsh"      
+## [21] "highlight" "Rcpp"      "tikz"      "dot"       "c"        
+## [26] "fortran"   "fortran95" "asy"       "cat"       "asis"     
+## [31] "stan"      "block"     "block2"    "js"        "css"      
+## [36] "sql"       "go"        "python"    "julia"     "sass"     
+## [41] "scss"
 ```
 
-```r
-#knitr::knit_engines$get("bash")
-```
+
 
 
 ```r
@@ -599,8 +597,8 @@ Sys.which('bash')
 ```
 
 ```
-##                               bash 
-## "C:\\PROGRA~1\\Git\\bin\\bash.exe"
+##        bash 
+## "/bin/bash"
 ```
 
 ```r
@@ -608,10 +606,9 @@ Sys.which('python')
 ```
 
 ```
-## python 
-##     ""
+##            python 
+## "/usr/bin/python"
 ```
-
 
 
 ```r
@@ -619,21 +616,17 @@ Sys.getenv("PATH")
 ```
 
 ```
-## [1] "C:\\Program Files\\R\\R-3.6.1\\bin\\x64;C:\\Rtools\\bin;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\ProgramData\\Oracle\\Java\\javapath;C:\\WINDOWS\\system32;C:\\WINDOWS;C:\\WINDOWS\\System32\\Wbem;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\;C:\\WINDOWS\\System32\\OpenSSH\\;C:\\Program Files\\Intel\\WiFi\\bin\\;C:\\Program Files\\Common Files\\Intel\\WirelessCommon\\;C:\\Program Files\\Git\\cmd;C:\\Program Files\\Git\\bin"
+## [1] "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Library/TeX/texbin"
 ```
 
-```r
-#old_path <- Sys.getenv("PATH")
-#old_path
-#Sys.setenv(PATH = paste(old_path, "C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38", sep = ";"))
-#Sys.getenv("PATH")
-```
 
-We cun run `Bash` code instead of `R` code by replacing `{r}` with `{bash}` at top of chunk.
+
+We can run Bash code instead of R code by replacing `{r}` with `{bash}` at top of chunk.
 
 - Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
-    - This is true for an `R` code chunk, a `Bash` code chunk, or any other programming language
+    - This is true for an R code chunk, a Bash code chunk, or any other programming language
     - If you change working directories within a code chunk, the working directory reverts back to where the .Rmd file is saved after the code chunk finishes running
+    
 
 ```bash
 pwd
@@ -641,35 +634,37 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
 ## render_toc.R
 ## text
 ```
+
 We can see the help file for any Bash command by typing:
 
-- `command_name --help`
+- `command_name --help` or `man command_name`
 - For example:
-    `ls --help`
+
 
 ```bash
 ls --help
+man ls
 ```
 
 Syntax of `ls` command:
 
 - `ls [option(s)] [file(s)]`
-- The bracketed `[option(s)]` and `[file(s)]` means that you do not need to specify these
+- The bracketed `[option(s)]` and `[file(s)]` means they are optional and you do not need to specify these
 - Options in the `ls` command
-    - in the help file for `ls` we see that most options can be specified using `-` or `--`
-    - for example, `-a` and `--all` or two different ways to specify the option "do not ignore entries starting with ."
-    - for the most part, `--` is the way to specify the long name version of an option and `-` is the way to specify the short name version. For more see [blog discussion](https://askubuntu.com/questions/813303/whats-the-difference-between-one-hyphen-and-two-hyphens-in-a-command)
+    - In the help file for `ls` we see that most options can be specified using `-` or `--`
+    - For example, `-a` and `--all` are two different ways to specify the option "do not ignore entries starting with `.`"
+    - For the most part, `--` is the way to specify the long name version of an option and `-` is the way to specify the short name version. For more see [blog discussion](https://askubuntu.com/questions/813303/whats-the-difference-between-one-hyphen-and-two-hyphens-in-a-command).
     
-Example, using `ls` command (run in code chunk and run on command line)
+**Example**: Using `ls` command (run in code chunk and run on command line)
 
-- without options
+- Without options:
 
 ```bash
 pwd
@@ -677,7 +672,7 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
@@ -685,7 +680,7 @@ ls
 ## text
 ```
 
-- using `-a` to include entries that start with `.`
+- Using `-a` to include entries that start with `.`:
 
 ```bash
 pwd
@@ -693,7 +688,7 @@ ls -a
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## .
 ## ..
 ## github_lecture.Rmd
@@ -703,60 +698,50 @@ ls -a
 ## text
 ```
 
-- using `--all` to include entries that start with `.`
+- Using `--all` to include entries that start with `.`:
 
 ```bash
 pwd
 ls --all
 ```
 
-```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## .
-## ..
-## github_lecture.Rmd
-## github_lecture.html
-## github_lecture.md
-## render_toc.R
-## text
-```
-
 ### Changing directories
 
-__`cd` command changes the current directory__
+__`cd` command__: Changes the current directory
 
-- syntax
+- Syntax
     - `cd [option(s)] directory_name`
-- example: change current directory to the "lectures" directory
+- Example: Change current directory to the `lectures` directory
     - `cd lectures`
 - In Bash, separate sub-folders using `/` rather than `\` [even if you are using a PC!]
-- __absolute__ vs. __relative__ filepaths
-    - can specify `directory_name` using __absolute__ or __relative__ filepaths
-    - __absolute__ filepaths: the complete filepath relative to the "root" directory
-        - example: `cd "/c/Users/ozanj/documents/rclass2/lectures"`
-    - __relative__ filepath: filepath relative to the current directory
-        - example [starting from working directory `rclass2`]:
+- __Absolute__ vs. __relative__ filepaths
+    - Can specify `directory_name` using __absolute__ or __relative__ filepaths
+    - __Absolute__ filepath: the complete filepath relative to the "root" directory
+        - Example:
+            - `cd "/c/Users/ozanj/documents/rclass2/lectures"`
+    - __Relative__ filepath: filepath relative to the current directory
+        - Example [starting from working directory `rclass2`]:
             - `cd lectures`
             - `cd lectures/github`
-    - by default, `cd` command assumes you are using a __relative__ filepath
+    - By default, `cd` command assumes you are using a __relative__ filepath
 - `../` or `..` -- move up one directory
-    - (assume working directory is `"/c/Users/ozanj/documents/rclass2/lectures"`):
-    - `cd ..` -- move up one directory to `rclass2`
-    - `cd ../problem_sets` -- move up one directory to `rclass2` and then change to `problem_sets` directory
+    - Example [assume working directory is `"/c/Users/ozanj/documents/rclass2/lectures"`]:
+        - `cd ..` -- move up one directory to `rclass2`
+        - `cd ../problem_sets` -- move up one directory to `rclass2` and then change to `problem_sets` directory
 - `./` or `.` -- current directory
-    - (assume working directory is `"/c/Users/ozanj/documents/rclass2/lectures"`):
-    - `cd .` -- doesn't change current working directory
-    - `cd ./` -- doesn't change current working directory
-    - `cd ./ggplot` -- changes to directory `lectures/ggplot`
-        - same as `cd ggplot`
+    - Example [assume working directory is `"/c/Users/ozanj/documents/rclass2/lectures"`]:
+        - `cd .` -- doesn't change current working directory
+        - `cd ./` -- doesn't change current working directory
+        - `cd ./ggplot` -- changes to directory `lectures/ggplot`
+            - Same as `cd ggplot`
 - `cd` [by itself] or `cd ~` changes to your "home directory"
 
-__Examples using `cd` command__
+**Example**: Using `cd` command
 
-- can run these commands in .Rmd code chunk or paste them to Terminal/Git Bash command line
-- note: when running from .Rmd code chunk the working directory is `rclass2/lectures/github`
+- _Can run these commands in .Rmd code chunk or paste them to Terminal/Git Bash command line_
+- _**Note**: When running from .Rmd code chunk the working directory is `rclass2/lectures/github`_
 
-Move up one directory level and then show file path and list contents of directory
+- Move up one directory level and then show file path and list contents of directory:
 
 ```bash
 pwd
@@ -766,8 +751,8 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2/lectures
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -775,7 +760,7 @@ ls
 ## rclass2_bib.bib
 ```
 
-Move up two directory levels and then show file path and list contents of directory
+- Move up two directory levels and then show file path and list contents of directory:
 
 ```bash
 pwd
@@ -785,21 +770,21 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2
 ## README.md
 ## _config.yml
 ## _data
-## _gitadmin
 ## _layouts
 ## _resources
-## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
 ## rclass2.Rproj
+## syllabus
 ```
-Move up two directory levels and then show file path and list contents of directory, including files that begin with `.`
+
+- Move up two directory levels and then show file path and list contents of directory, including entries that begin with `.`:
 
 ```bash
 pwd
@@ -809,28 +794,27 @@ ls -a
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2
 ## .
 ## ..
-## .Rhistory
+## .DS_Store
 ## .Rproj.user
 ## .git
 ## .gitignore
 ## README.md
 ## _config.yml
 ## _data
-## _gitadmin
 ## _layouts
 ## _resources
-## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
 ## rclass2.Rproj
+## syllabus
 ```
 
-Move up one directory, then change to `ggplot` directory
+- Move up one directory, then change to `ggplot` directory:
 
 ```bash
 pwd
@@ -845,25 +829,25 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2/lectures
-## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.md
 ```
 
-### Make/delete/move folders a
+### Creating/deleting directories
 
-__`mkdir` command makes a directory__
+__`mkdir` command__: Makes a directory
 
-- syntax
+- Syntax
     - `mkdir [option(s)] directory_name(s)`
-- common option
+- Common option
     - `-p` -- no error if existing, make parent directories as needed
 
-Example
+**Example**: Using `mkdir` command
 
-- Make new directory
+- Make new directory:
 
 ```bash
 cd ../../../ 
@@ -871,7 +855,7 @@ pwd
 mkdir mkdir_test
 ```
 
-- move to new directory and create sub-folders
+- Move to new directory and create sub-folders:
 
 ```bash
 cd ../../../
@@ -882,11 +866,11 @@ mkdir folder_a folder_b folder_c
 ls
 ```
 
-__`rm` command removes a file or folder__
+__`rm` command__: Removes a file or folder
 
-- syntax
+- Syntax
     - `rm [option(s)] [file/folder name(s)]`
-- common options
+- Common options
     - `-f` -- force remove
         - `rm -f some_file.txt`
     - `-r` -- delete directory (default is deleting a file)
@@ -894,9 +878,9 @@ __`rm` command removes a file or folder__
     - `-rf` -- force remove directory
         - `rm -rf some_directory`
 
-Example
+**Example**: Using `rm` command
 
-- remove directory named `folder_a`
+- Remove directory named `folder_a`:
 
 ```bash
 cd ../../../
@@ -907,179 +891,100 @@ rm -rf folder_a
 ls
 ```
 
-ADD THESE COMMANDS?
+### Other commands
 
-__`cp` command copies files__
+__`touch` command__: Creates a file
+
+- `touch file_name(s)`
+
+__`cp` command__: Copies files
 
 - `cp file1 file2` –- copy file1 to file2
-- `cp -r dir1 dir2` -– copy dir1 to dir2; create dir2 if it
-doesn't exist
+- `cp -r dir1 dir2` -– copy dir1 to dir2; create dir2 if it doesn't exist
 
-__`mv` renames or moves files__
+__`mv` command__: Renames or moves files
 
-- `mv file1 file2` -– rename or move file1 to file2
-if file2 is an existing directory, moves file1 into
-directory file2
-
-# Basic Git tasks [? INDIVIDUAL DEVELOPER?]
+- `mv file1 file2` -– rename or move file1 to file2 if file2 is an existing directory, moves file1 into directory file2
 
 
-## git commands
+# Basic Git tasks
 
-Git command "cheat sheets"
+
+## Git commands
+
+Git command "cheat sheets":
 
 - https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf
 - https://www.jrebel.com/blog/git-cheat-sheet
 
-When performing git operations on command line, all commands begin with "`git`", for example:
+When performing git operations on command line, all commands begin with `git`, for example:
 
 - `git init`
 - `git clone url_of_remote_repository`
 - `git status`
 
-For an overview of git command syntax and a list of common git commands, type this in command line
+For an overview of git command syntax and a list of common git commands, type this in command line:
 
 ```bash
 git --help
 ```
 
-To see the help file for a particular git command (e.g., `add`, `commit`, `clone`) type:
-
-- `git command_name --help`
-- For example:
+To see the help file for a particular git command (e.g., `add`, `commit`, `clone`), type `git command_name --help`. For example:
 
 ```bash
 git add --help
 
 # or this:
-#git help add
+# git help add
 ```
 
-Basic/essential git commands
+Basic/essential git commands:
 
 - __Create a repository__
     - `git init`
-        - "initializes a brand new Git repository and begins tracking an existing directory. It adds a hidden subfolder [named .git] within the existing directory that houses the internal data structure required for version control" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
+        - "Initializes a brand new Git repository and begins tracking an existing directory. It adds a hidden subfolder [named `.git`] within the existing directory that houses the internal data structure required for version control" ([Git Handbook](https://guides.github.com/introduction/git-handbook/))
     - `git clone url_of_remote_repository`
-        - "creates a local copy of a project that already exists remotely. The clone includes all the project’s files, history, and branches" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
+        - "Creates a local copy of a project that already exists remotely. The clone includes all the project’s files, history, and branches" ([Git Handbook](https://guides.github.com/introduction/git-handbook/))
 - __Make a change__
     - `git add file_name(s)`
-        - add file(s) from local working directory to "staging area"/"index"
-        - Note: you must "stage" changes to a file before you `commit` them to your local repository
+        - Add file(s) from local working directory to staging area/index
+        - Note: You must "stage" changes to a file before you `commit` them to your local repository
     - `git commit -m "commit message"`
-        - all changes to files that have been staged [previous step] are committed to the local repository
-        - each commit is a snapshot of all files in your repository
-        - note: `-m` is an option to the `git commit` command, which specifies that you will add a brief description about changes you are committing
+        - All changes to files that have been staged [previous step] are committed to the local repository
+        - Each commit is a snapshot of all files in your repository
+        - Note: `-m` is an option to the `git commit` command, which specifies that you will add a brief description about changes you are committing
 - __Observe your repository__
     - `git status`
-        - "shows the status of changes as untracked, modified, or staged" [Git Handbook](https://guides.github.com/introduction/git-handbook/)
-- __Working with branches__
+        - "Shows the status of changes as untracked, modified, or staged" ([Git Handbook](https://guides.github.com/introduction/git-handbook/))
 - __Synchronize with remote repository__
+    - `git push`
+        - "Updates the remote repository with any commits made locally" ([Git Handbook](https://guides.github.com/introduction/git-handbook/))
+    - `git pull`
+        - Updates the local repository with any commits from the remote repository
 
 
 ## Creating and cloning repositories
 
-Basic stuff you will do all the time
+Basic stuff you will do all the time:
 
-- Create a new git repository on your local machine
-    - For example, you might want to create the repository `problem_set_1` for all files related to the first problem set
 - `clone` an existing remote repository from GitHub to your local machine
     - For example, clone the repository for this class -- named `student_lastname` (e.g., `student_jaquette`) -- to your local machine
-
-### Create new git repository on your local machine
-
-What we will do:
-
-- Create a new directory
-- Change working directory to this new directory
-- turn this directory into a Git repository
-- Within the "local working directory," create/change one or more files
-- `add` changes to file(s) from the "local working directory" to the "staging area"/"index"
-- `commit` all staged changes to the "local repository"
-
-Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk
-
-```bash
-# CREATING AND CHANGING DIRECTORIES
-
-  cd ~ # change directories to home directory
-  
-  #cd documents # change to "documents" [if necessary]
-  
-  ls # list files in directory
-  
-  # make new directory that will be our git repository
-  mkdir gitr_practice
-  
-  cd gitr_practice # move to new directory
-  
-  ls -a # show all files in directory
-
-# INITIALIZING GIT REPOSITORY
-
-  # turn the current, empty directory into a fresh Git repository.
-  git init
-  
-  ls -a # show all files in directory
-  
-  # CHANGING FILES IN WORKING DIRECTORY
-  
-  #create a new README file with some sample text
-  echo "Hello. I thought we would be learning R this quarter" >> README.txt
-  
-  #view the file README.txt
-  cat README.txt
-  
-  #create a simple r script
-  echo "library(tidyverse)" >> simple_script.r
-  echo "mpg %>% head(5)" >> simple_script.r # add another line to simple_script.r
-  
-  cat simple_script.r # show contents of file simple_script.r
-
-# STAGE AND COMMIT FILES TO LOCAL REPOSITORY
-
-  #check status of git repository
-  git status 
-  
-  # add README.txt from working directory to staging area (will now become a file that is "tracked" by git)
-  git add README.txt
-  
-  # add README.txt from working directory to staging area (will now become a file that is "tracked" by git)
-  git add simple_script.r
-  
-  # check status
-  git status
-  
-  # commit changes to local repository
-  git commit -m "Initial commit, README.txt simple_script.r"
-  
-  git status
-```
-
-<br>
-
-__What we just did:__
-
-
-
-[![](https://miro.medium.com/max/686/1*diRLm1S5hkVoh5qeArND0Q.png)](https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018)
-
-*Credit: Lucas Maurer, medium.com*
+- Create a new git repository on your local machine and add to GitHub
+    - For example, you might want to create the repository `problem_set_1` for all files related to the first problem set
 
 ### Clone an existing repository to your local machine
 
 What we will do:
 
 - Go to a remote repository stored on GitHub.com
-    - we will be downloading the remote repository called [downloadipeds](https://github.com/btskinner/downloadipeds)
+    - We will be downloading the remote repository called [downloadipeds](https://github.com/btskinner/downloadipeds)
 - Copy to our clipboard the URL that enables us to `clone` this repository to our local machine
-- On Git Bash command line
-    - change directories to folder we want repository to be downloaded to
-        - Note: we don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
-        - When we clone from github, the repository will be downloaded in a folder named `downloadipeds`
-    - use `git clone` command to clone repository
+- On Git Bash command line:
+    - Change directories to folder we want repository to be downloaded to
+        - Note: We don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
+        - When we clone from GitHub, the repository will be downloaded in a folder named `downloadipeds`
+    - Use `git clone` command to clone repository
 
-<br>
 
 Click on link of remote repository: [downloadipeds](https://github.com/btskinner/downloadipeds)
 
@@ -1091,11 +996,11 @@ Click on link of remote repository: [downloadipeds](https://github.com/btskinner
         - These are two different ways to authenticate that you are you
         - If you haven't set up SSH, then choose HTTPs
     - Copy the url to your clipboard:
-        - HTTPS URL will be: https://github.com/btskinner/downloadipeds.git
-        - SSH URL will be: git@github.com:btskinner/downloadipeds.git
+        - HTTPs URL will be: `https://github.com/btskinner/downloadipeds.git`
+        - SSH URL will be: `git@github.com:btskinner/downloadipeds.git`
 
 
-Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk
+Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk:
 
 
 ```bash
@@ -1107,8 +1012,8 @@ Below, I show the Bash code, but better to run this code in command line (one li
   
   ls # list files in directory
   
-  #Note: we don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
-  #When we clone from github, the repository will be downloaded in a folder named `downloadipeds`
+  # Note: we don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
+  # When we clone from github, the repository will be downloaded in a folder named `downloadipeds`
 
 # CLONE REMOTE REPOSITORY
 
@@ -1138,15 +1043,15 @@ __What we just did:__
 
 *Credit: [W3 docs, Git clone](https://www.w3docs.com/learn-git/git-clone.html)*
 
+<br>
+
 #### Student task: Clone repository for this course to desired directory on your local machine
 
 - Go to URL for the github organization [Rucla-ed](https://github.com/Rucla-ed)
 - Click on repository with the name `student_yourlastname` (e.g., `student_jaquette`)
 - Follow same steps as we did for cloning `downloadipeds`
-    - Note: before cloning, make sure you change directories to directory where you want to save files for this class
-    - you will be using this directory `student_yourlastname` for the rest of the quarter
-
-### Create 
+    - Note: Before cloning, make sure you change directories to directory where you want to save files for this class
+    - You will be using this directory `student_yourlastname` for the rest of the quarter
 
 
 ```bash
@@ -1159,30 +1064,130 @@ cd documents
 # show filepath of current working directory
 pwd 
 
-#list files in current working directory
+# list files in current working directory
 #ls
 
-#clone git repository that is on github.com
-#git clone https://github.com/Rucla-ed/student_jaquette.git #http authentication
+# clone git repository that is on github.com
+#git clone https://github.com/Rucla-ed/student_jaquette.git # HTTPs authentication
 git clone git@github.com:Rucla-ed/student_jaquette.git # SSH authentication
 
 cd student_jaquette
 ls
 ```
 
+### Create new repository on GitHub and clone to your local machine
+
+The repository you clone to your local machine can also be a new repository that you create:
+
+- Create a new repository on [GitHub](https://github.com/new)
+- Make sure to check the `Initialize this repository with a README` option
+- You will then be able to clone your new repository to your local machine as described in the previous section
+
+### Create new git repository on your local machine and add to GitHub
+
+<!--
+To create this example, can draw from both of these two tutorials:
+
+- https://www.codecademy.com/articles/f1-u3-git-setup
+- https://guides.github.com/introduction/git-handbook/
+-->
+
+Alternatively, you can create a new git repository on your local machine, and then connect it to the remote on GitHub.
+
+First, create the remote repository:
+
+- Create a new repository on [GitHub](https://github.com/new)
+- Do **not** check the `Initialize this repository with a README` option
+- After creation, you will be able to see the HTTPs/SSH URL of your new repository. Save this URL for later.
+
+Then, in Terminal/Git Bash on your local machine:
+
+- Create a new directory
+- Change working directory to this new directory
+- Turn this directory into a Git repository
+- Within the "local working directory," create/change one or more files
+- `add` changes to file(s) from the "local working directory" to the "staging area"/"index"
+- `commit` all staged changes to the "local repository"
+
+Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk:
+
+```bash
+# CREATING AND CHANGING DIRECTORIES
+
+  cd ~ # change directories to home directory
+  
+  #cd documents # change to "documents" [if necessary]
+  
+  ls # list files in directory
+  
+  # make new directory that will be our git repository
+  mkdir gitr_practice
+  
+  cd gitr_practice # move to new directory
+  
+  ls -a # show all files in directory
+
+# INITIALIZING GIT REPOSITORY
+
+  # turn the current, empty directory into a fresh Git repository
+  git init
+  
+  ls -a # show all files in directory
+  
+# CHANGING FILES IN WORKING DIRECTORY
+  
+  # create a new README file with some sample text
+  echo "Hello. I thought we would be learning R this quarter" >> README.txt
+  
+  # view the file README.txt
+  cat README.txt
+  
+  # create a simple R script
+  echo "library(tidyverse)" >> simple_script.r
+  echo "mpg %>% head(5)" >> simple_script.r # add another line to simple_script.r
+  
+  cat simple_script.r # show contents of file simple_script.r
+
+# STAGE AND COMMIT FILES TO LOCAL REPOSITORY
+
+  # check status of git repository
+  git status 
+  
+  # add README.txt from working directory to staging area (will now become a file that is "tracked" by git)
+  git add README.txt
+  
+  # add simple_script.r from working directory to staging area (will now become a file that is "tracked" by git)
+  git add simple_script.r
+  
+  # check status
+  git status
+  
+  # commit changes to local repository
+  git commit -m "Initial commit, README.txt simple_script.r"
+  
+  git status
+  
+# CONNECT AND PUSH TO REMOTE REPOSITORY
+  
+  # provide the path for the repository you created on GitHub in the first step
+  git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+
+  # push changes to GitHub
+  git push --set-upstream origin master
+```
+
+<br>
+
+__What we just did:__
 
 
-# Git tasks, collaborative projects
 
-## Pull requests
+[![](https://miro.medium.com/max/686/1*diRLm1S5hkVoh5qeArND0Q.png)](https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018)
 
-# Appendix
+*Credit: Lucas Maurer, medium.com*
 
-## Installation
+<br>
 
-## Authentication
 
-## .gitignore
 
-## Running git Bash from R Markdown
 
