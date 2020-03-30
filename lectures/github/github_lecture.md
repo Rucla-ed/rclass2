@@ -77,7 +77,10 @@ What is __Git__? (from git [website](https://git-scm.com/))
     - For collaborative projects, where multiple people collaborate on each file
 - The term "__distributed__" means that every user collaborating on the project has access to all files and the history of changes to all files
 - Git is the industry standard version control system used to create software
+    - For example, [Zoom](https://zoom.us/) is developed on GitHub ([Zoom GitHub site](https://github.com/zoom))
 - Increasingly, Git is the industry standard for collaborative academic research projects
+    - e.g., the nascent [Unrollment Project](https://github.com/eddatasci/unrollment_proj)
+    - Used GitHub to develop research on recruiting by universities at https://emraresearch.org/
 
 What is a __Git repository__?
 
@@ -85,7 +88,7 @@ What is a __Git repository__?
 - From [Git Handbook](https://guides.github.com/introduction/git-handbook/) by github.com:
     - A repository "encompasses the entire collection of files and folders associated with a project, along with each file’s revision history"
     - Because git is a __distributed__ version control system, "repositories are self-contained units and anyone who owns a copy of the repository can access the entire codebase and its history"
-- This course is a Git repository
+- This course is a Git repository ([Rclass2 repository](https://github.com/Rucla-ed/rclass2))
 - Local vs. remote git repository:
     - __Local__ git repository: git repository for a project stored on your machine
     - __Remote__ git repository: git repository for a project stored on the internet
@@ -103,10 +106,9 @@ What is __GitHub__?
     - Also, you can connect to a remote repository that already exists and create a local version of this respository on your machine
 - More broadly, GitHub enables you to store files, share code, and collaborate with others
 
-
 ## How we will learn Git and GitHub
 
-> "Whoah, I’ve just read this quick tutorial about git and oh my god it is cool. I feel now super comfortable using it, and I’m not afraid at all to break something.”— said no one ever ([Pierre de Wulf](https://www.daolf.com/posts/git-series-part-1/))
+> "Whoah, I’ve just read this quick tutorial about git and oh my god it is cool. I feel now super comfortable using it, and I’m not afraid at all to break something.”— said no one ever ([de Wulf](https://www.daolf.com/posts/git-series-part-1/))
 
 <!--
 NOTE FOR LATER: READ HIS THREE POSTS ON UNDERSTANDING WHAT'S IN .GIT AND PUT THAT INFO IN LATER CHAPTER OF YOUR GITHUB LECTURE
@@ -126,12 +128,13 @@ Here is how we will learn Git and GitHub over the course of the quarter:
     - Show you how to accomplish specific tasks by issuing commands on the command line
     - Devote time to providing in-depth conceptual understanding of particular topics/concepts
     - You will practice doing Git/GitHub stuff during in-class exercises and in weekly problem sets
-- With the exception of doing a few tasks on [https://github.com/](github.com) (e.g., "issues"), we will perform all tasks on the "command line" rather than using a point-and-click graphical user interface (GUI)
+- With the exception of using [https://github.com/](github.com) website for communication ("issues") and for creating/cloning repositories, we will perform all tasks on the "command line" rather than using a point-and-click graphical user interface (GUI)
     - Initially, this will feel intimidating, but after a few weeks you will see that this helps you understand Git/GitHub better and is much more efficient
 - After the Git/GitHub unit:
     - Weekly problem sets will be completed and submitted using GitHub
     - When communicating with your problem set "team," you will use GitHub "issues"
     - When posing questions to instructors/classmates, you will use GitHub "issues"
+    - Selected additional lectures/class exercises about additional Git/GitHub concepts
 
 Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub unit:
 
@@ -566,60 +569,32 @@ mpg %>% head(5)
 ## # A tibble: 5 x 11
 ##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
 ##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
-## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
-## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
-## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
-## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
-## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
 ```
 
+Checking that RMarkdown can run `Bash` commands [code not run]
 
 ```r
 names(knitr::knit_engines$get())
-```
+#knitr::knit_engines$get("bash")
 
-```
-##  [1] "awk"       "bash"      "coffee"    "gawk"      "groovy"    "haskell"  
-##  [7] "lein"      "mysql"     "node"      "octave"    "perl"      "psql"     
-## [13] "Rscript"   "ruby"      "sas"       "scala"     "sed"       "sh"       
-## [19] "stata"     "zsh"       "highlight" "Rcpp"      "tikz"      "dot"      
-## [25] "c"         "fortran"   "fortran95" "asy"       "cat"       "asis"     
-## [31] "stan"      "block"     "block2"    "js"        "css"       "sql"      
-## [37] "go"        "python"    "julia"     "sass"      "scss"
-```
-
-
-
-
-```r
 # should exist
 Sys.which('bash')
-```
-
-```
-##        bash 
-## "/bin/bash"
-```
-
-```r
 Sys.which('python')
-```
 
-```
-##            python 
-## "/usr/bin/python"
-```
-
-
-```r
+#path of where executables are run
 Sys.getenv("PATH")
-```
 
+#if path to an executable must be added to PATH
+  #old_path <- Sys.getenv("PATH")
+  #old_path
+  #Sys.setenv(PATH = paste(old_path, "C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38", sep = ";"))
+  #Sys.getenv("PATH")
 ```
-## [1] "/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/Library/TeX/texbin:/opt/X11/bin:/opt/local/bin"
-```
-
-
 
 We can run Bash code instead of R code by replacing `{r}` with `{bash}` at top of chunk.
 
@@ -634,7 +609,7 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
@@ -672,7 +647,7 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
@@ -688,7 +663,7 @@ ls -a
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## .
 ## ..
 ## github_lecture.Rmd
@@ -751,8 +726,8 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -770,16 +745,19 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
-## /Users/patriciamartin/Desktop/GitHub/rclass2
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
 ## README.md
 ## _config.yml
 ## _data
+## _gitadmin
 ## _layouts
 ## _resources
+## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
+## rclass2.Rproj
 ## syllabus
 ```
 
@@ -793,21 +771,25 @@ ls -a
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
-## /Users/patriciamartin/Desktop/GitHub/rclass2
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
 ## .
 ## ..
-## .DS_Store
+## .Rhistory
+## .Rproj.user
 ## .git
 ## .gitignore
 ## README.md
 ## _config.yml
 ## _data
+## _gitadmin
 ## _layouts
 ## _resources
+## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
+## rclass2.Rproj
 ## syllabus
 ```
 
@@ -826,9 +808,9 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/ggplot
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.md
 ```
@@ -902,7 +884,7 @@ __`cp` command__: Copies files
 __`mv` command__: Renames or moves files
 
 - `mv file1 file2` -– rename or move file1 to file2 if file2 is an existing directory, moves file1 into directory file2
-
+[CRYSTAL EXPLAIN A LITTLE MORE ABOUT THIS COMMAND. HOW DOES IT DIFFER FOR MOVING FILES VS. MOVING DIRECTORIES? HOW TO MOVE FILES/DIRECTORIES THAT ARE IN DIFFERENT SUB-DIRECTORIES. BRIEFLY EXPLAIN THE SYNTAX AND OPTIONS AND PROVIDE A COUPLE EXAMPLES OF WORKING CODE]
 
 # Basic Git tasks
 
@@ -1098,7 +1080,7 @@ Alternatively, you can create a new git repository on your local machine, and th
 
 First, create the remote repository:
 
-- Create a new repository on [GitHub](https://github.com/new)
+- Create a new repository on [GitHub](https://github.com/new), call it `gitr_practice` [not required to use this name]
 - Do **not** check the `Initialize this repository with a README` option
 - After creation, you will be able to see the HTTPs/SSH URL of your new repository. Save this URL for later.
 
@@ -1110,6 +1092,13 @@ Then, in Terminal/Git Bash on your local machine:
 - Within the "local working directory," create/change one or more files
 - `add` changes to file(s) from the "local working directory" to the "staging area"/"index"
 - `commit` all staged changes to the "local repository"
+- connect this local git repository to a remote git repository and push changes to remote repo
+
+CRYSTAL - EXPLAIN COMMANDS NECESSARY TO CONNECT AND PUSH TO REMOTE
+
+- HERE ARE THE COMMANDS WE USE BELOW. GIVE STUDENTS UNDERSTANDING OF THIS SYNTEX (E.G., WHAT IS "GIT REMOTE ADD" WHAT IS "ORIGIN; WHAT DOES "--SET-UPSTREAM ORIGIN MASTER" MEAN?)
+-   git remote add origin https://github.com/ozanj/gitr_practice.git
+-  git push --set-upstream origin master
 
 Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk:
 
@@ -1123,6 +1112,7 @@ Below, I show the Bash code, but better to run this code in command line (one li
   ls # list files in directory
   
   # make new directory that will be our git repository
+    # rm -rf gitr_practice # remove if it exists
   mkdir gitr_practice
   
   cd gitr_practice # move to new directory
@@ -1172,7 +1162,8 @@ Below, I show the Bash code, but better to run this code in command line (one li
 # CONNECT AND PUSH TO REMOTE REPOSITORY
   
   # provide the path for the repository you created on GitHub in the first step
-  git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+  #git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+  git remote add origin https://github.com/ozanj/gitr_practice.git
 
   # push changes to GitHub
   git push --set-upstream origin master
