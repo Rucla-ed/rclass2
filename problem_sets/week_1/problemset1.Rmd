@@ -7,6 +7,9 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+# Overview
+Learning how to use git and GitHub can be intimidating. Problem sets this quarter will give you the opportunity to practice using git and GitHub both individually and in groups. In this problem set we are asking you to create a folder and file using your command line interface (Git Bash or terminal). These files you create on your local computer will later be pushed into a remote repository you create. These exercises will give you practice with the git/GitHub workflow (e.g. changing directories, creating files, staging those files, committing, and pushing to GitHub). Lastly, you will practice creating issues on our **rclass2** repository. We will be using the **issues** page in the **rclass** repository to ask questions.    
+
 # Part I: Command line & R practice  
 
 1. Using your command line interface (CLI) (e.g. Git Bash, terminal), create a new folder called **scripts**. Change directories to where you want to save this folder. Be intentional about where you create this folder (hint: change directories first). Write the commands you used here (to change directories and create the folder):  
@@ -108,9 +111,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Part III: GitHub issues  
 
-1. Navigate to the issues tab for the **rclass2_spring2020** repository here: https://github.com/Rucla-ed/rclass2_spring2020/issues
+1. Navigate to the issues tab for the **rclass2** repository here: https://github.com/Rucla-ed/rclass2/issues
 
-    Create a new issue titled "Problem Set 1 - YOUR NAME" and post a question of your choice. Add the "question" label to your issue and assign it to 3 students in the class who you do not know.
+    Create a new issue titled "Problem Set 1 - YOUR NAME" and post a question of your choice (e.g favorite food, self-care practices, favorite shows). Add the "question" label to your issue and assign it to 3 students in the class who you do not know.
 
     Once your issue received 3 responses, close the issue. If other students assigned you to their issue, make sure to post your response as well. You should get an email notification if you were assigned to an issue.
 
