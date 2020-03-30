@@ -167,6 +167,8 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
         - [Clone an existing repository to your local machine](#clone-an-existing-repository-to-your-local-machine)
         - [Create new repository on GitHub and clone to your local machine](#create-new-repository-on-github-and-clone-to-your-local-machine)
         - [Create new git repository on your local machine and add to GitHub](#create-new-git-repository-on-your-local-machine-and-add-to-github)
+- [Investigating git directory](#investigating-git-directory)
+    - [sub-section](#sub-section)
 
 # Overview of core concepts and work flow
 
@@ -567,13 +569,13 @@ mpg %>% head(5)
 
 ```
 ## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
-##   <chr>        <chr> <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
-## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
-## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
-## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
-## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
-## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…
+##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
+##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
 ```
 
 Checking that RMarkdown can run `Bash` commands [code not run]:
@@ -609,7 +611,7 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
@@ -647,7 +649,7 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
@@ -663,7 +665,7 @@ ls -a
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## .
 ## ..
 ## github_lecture.Rmd
@@ -726,8 +728,8 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -745,13 +747,15 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
 ## README.md
 ## _config.yml
 ## _data
+## _gitadmin
 ## _layouts
 ## _resources
+## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
@@ -769,19 +773,21 @@ ls -a
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
 ## .
 ## ..
-## .DS_Store
+## .Rhistory
 ## .Rproj.user
 ## .git
 ## .gitignore
 ## README.md
 ## _config.yml
 ## _data
+## _gitadmin
 ## _layouts
 ## _resources
+## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
@@ -804,9 +810,9 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/ggplot
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.md
 ```
@@ -1180,8 +1186,61 @@ __What we just did:__
 
 *Credit: Lucas Maurer, medium.com*
 
-<br>
 
+
+# Investigating git directory
+
+## sub-section
+
+Initializing local git repo
+
+
+```bash
+cd ~
+
+cd documents
+cd learning_git
+
+mkdir dot_git
+
+ls -al
+
+git init
+
+ls -al
+
+cd .git
+
+ls -al # show contents of .git prior to an initial commit
+```
+
+
+Making initial commit
+
+```bash
+
+
+touch file__1.txt # in working directory, create new file (that has no contents)
+
+git add file__1.txt # add file to staging
+
+git commit -m "initial commit, so far only file__1.txt" # commit all staged files to local repo
+```
+
+
+Investigating commit, after initial commit
+
+- command `git cat-file` gives information about "repository objects"
+    - syntax:`git cat-file 
+
+```bash
+
+cd .git
+cd objects
+
+git cat-file -p 7f3882e0d9e67a7a014167e5db02a75670a24637
+#100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    file__1.txt
+```
 
 
 

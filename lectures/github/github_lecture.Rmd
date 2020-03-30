@@ -1048,7 +1048,144 @@ __What we just did:__
 
 *Credit: Lucas Maurer, medium.com*
 
-<br>
+# Investigating git directory
+
+
+
+## git objects
+
+[Deep dive into git: git Objects](https://aboullaite.me/deep-dive-into-git/)
+
+- "A git repository is actually just a collection of objects"
+- Each object in a git repository is identified with its own "hash"
+    - a "hash" can be thought of as an address that points to a particular version of a file
+- For example, if you create an empty file, it will have the hash `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`. You can confirm this by adding an empty file to a repository and using git ls-tree to see the contents
+
+
+Initializing local git repo
+```{bash}
+cd ~
+pwd
+mkdir dot_git
+cd dot_git
+pwd
+git init
+```
+
+Here, we show the contents of `dot_git/.git` directory immediately after initializing as a git repo (no files yet, no commits)
+```{bash}
+cd ~/dot_git/.git
+pwd
+
+ls -F1
+```
+[Deep dive into git: git Objects](https://aboullaite.me/deep-dive-into-git/) helps us identify which of the files and directories within `.git` are important:
+
+- Unimportant files and folders
+    - "The description file is only used by the GitWeb program ( to display the description of the repo on the GitWeb page), so don’t worry about it. The config file contains your project specific configuration options, and the info directory keeps a global exclude file for ignored patterns that you don’t want to track in a `.gitignore` file. The hooks directory contains your client- or server-side hook scripts. "
+- Important files and folders
+    - START HERE ON WEDS 4/1
+    - "This leaves four important entries: the HEAD and (yet to be created) index files, and the objects and refs directories. These are the core parts of Git."
+    - "The objects directory stores all the content for your database, the refs directory stores pointers into commit objects in that data (branches), the HEAD file points to the branch you currently have checked out, and the index file is where Git stores your staging area information."
+
+```{bash, eval=FALSE}
+cd ~
+
+cd documents
+cd learning_git
+
+mkdir dot_git
+
+ls -al
+
+git init
+
+ls -al
+
+cd .git
+
+ls -al # show contents of .git prior to an initial commit
+```
+
+
+Making initial commit
+```{bash, eval=FALSE}
+
+
+touch file__1.txt # in working directory, create new file (that has no contents)
+
+git add file__1.txt # add file to staging
+
+git commit -m "initial commit, so far only file__1.txt" # commit all staged files to local repo
+```
+
+
+Investigating commit, after initial commit
+
+- command `git cat-file` gives information about "repository objects"
+    - find help for `git cat-file` command:
+        - `git help cat-file`
+    - syntax:
+        - `git cat-file [options] <object_name>`
+    - some options:
+        - `-t`: Instead of the content, show the object type identified by <object>.
+        - `-s`: Instead of the content, show the object size identified by <object>.
+        - `-p`: Pretty-print the contents of <object> based on its type.
+        
+Examin the contents of the uncompressed "commit file"
+```{bash, eval=FALSE}
+
+cd .git
+cd objects
+
+ls -al
+
+#below we try to uncompress the "commit file"
+git cat-file -p d6449981020533fc7a917720da718bc5bd885705
+#result: 
+#tree 7f3882e0d9e67a7a014167e5db02a75670a24637
+#author Ozan Jaquette <ozanj@ucla.edu> 1585605599 -0700
+#committer Ozan Jaquette <ozanj@ucla.edu> 1585605599 -0700
+
+#initial commit, so far only file__1.txt
+```
+
+- above result is the uncompressed "commit file". we get three things:
+    - the "snapshot hash"
+        - `tree 7f3882e0d9e67a7a014167e5db02a75670a24637`
+        - note that this snapshot hash is also an object we can find in the object folder
+    - This is info about the author of the commit:
+        - `author Ozan Jaquette <ozanj@ucla.edu> 1585605599 -0700`
+        - `committer Ozan Jaquette <ozanj@ucla.edu> 1585605599 -0700`
+    - The commit message:
+        `initial commit, so far only file__1.txt`
+    - Note: because this is the initial commit there is no "parent" commit
+    
+Examine contents of the shapshot object (associated with `tree 7f3882e0d9e67a7a014167e5db02a75670a24637`)
+```{bash, eval=FALSE}
+
+ls -al
+
+git cat-file -p 7f3882e0d9e67a7a014167e5db02a75670a24637
+#result
+#100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    file__1.txt
+```
+
+- Contents of the snapshot object:
+    `100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    file__1.txt`
+
+
+Contents of object referenced in the snapshot object
+```{bash, eval=FALSE}
+git cat-file -p e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 # this is a "blob"
+
+```
+
+- this object is empty
+    - ?? BECAUSE file__1.txt HAS NO CONTENTS??
+
+
+
 
 
 ```{r, echo=FALSE, include=FALSE}
