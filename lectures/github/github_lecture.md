@@ -79,7 +79,7 @@ What is __Git__? (from git [website](https://git-scm.com/))
 - Git is the industry standard version control system used to create software
     - For example, [Zoom](https://zoom.us/) is developed on GitHub ([Zoom GitHub site](https://github.com/zoom))
 - Increasingly, Git is the industry standard for collaborative academic research projects
-    - e.g., the nascent [Unrollment Project](https://github.com/eddatasci/unrollment_proj)
+    - E.g., the nascent [Unrollment Project](https://github.com/eddatasci/unrollment_proj)
     - Used GitHub to develop research on recruiting by universities at https://emraresearch.org/
 
 What is a __Git repository__?
@@ -128,7 +128,7 @@ Here is how we will learn Git and GitHub over the course of the quarter:
     - Show you how to accomplish specific tasks by issuing commands on the command line
     - Devote time to providing in-depth conceptual understanding of particular topics/concepts
     - You will practice doing Git/GitHub stuff during in-class exercises and in weekly problem sets
-- With the exception of using [https://github.com/](github.com) website for communication ("issues") and for creating/cloning repositories, we will perform all tasks on the "command line" rather than using a point-and-click graphical user interface (GUI)
+- With the exception of using [github.com](https://github.com/) website for communication ("issues") and for creating/cloning repositories, we will perform all tasks on the "command line" rather than using a point-and-click graphical user interface (GUI)
     - Initially, this will feel intimidating, but after a few weeks you will see that this helps you understand Git/GitHub better and is much more efficient
 - After the Git/GitHub unit:
     - Weekly problem sets will be completed and submitted using GitHub
@@ -567,16 +567,16 @@ mpg %>% head(5)
 
 ```
 ## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
-##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
-## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
-## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
-## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
-## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
-## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
+##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
+##   <chr>        <chr> <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
+## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
+## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
+## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
+## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
+## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…
 ```
 
-Checking that RMarkdown can run `Bash` commands [code not run]
+Checking that RMarkdown can run `Bash` commands [code not run]:
 
 ```r
 names(knitr::knit_engines$get())
@@ -609,7 +609,7 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
@@ -647,7 +647,7 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
@@ -663,7 +663,7 @@ ls -a
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## .
 ## ..
 ## github_lecture.Rmd
@@ -726,8 +726,8 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2/lectures
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -745,15 +745,13 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2
 ## README.md
 ## _config.yml
 ## _data
-## _gitadmin
 ## _layouts
 ## _resources
-## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
@@ -771,21 +769,19 @@ ls -a
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2
 ## .
 ## ..
-## .Rhistory
+## .DS_Store
 ## .Rproj.user
 ## .git
 ## .gitignore
 ## README.md
 ## _config.yml
 ## _data
-## _gitadmin
 ## _layouts
 ## _resources
-## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
@@ -808,9 +804,9 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2/lectures
-## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.md
 ```
@@ -845,10 +841,10 @@ mkdir folder_a folder_b folder_c
 ls
 ```
 
-__`rm` command__: Removes a file or folder
+__`rm` command__: Removes a file or directory
 
 - Syntax
-    - `rm [option(s)] [file/folder name(s)]`
+    - `rm [option(s)] file/directory_name(s)`
 - Common options
     - `-f` -- force remove
         - `rm -f some_file.txt`
@@ -883,8 +879,11 @@ __`cp` command__: Copies files
 
 __`mv` command__: Renames or moves files
 
-- `mv file1 file2` -– rename or move file1 to file2 if file2 is an existing directory, moves file1 into directory file2
-[CRYSTAL EXPLAIN A LITTLE MORE ABOUT THIS COMMAND. HOW DOES IT DIFFER FOR MOVING FILES VS. MOVING DIRECTORIES? HOW TO MOVE FILES/DIRECTORIES THAT ARE IN DIFFERENT SUB-DIRECTORIES. BRIEFLY EXPLAIN THE SYNTAX AND OPTIONS AND PROVIDE A COUPLE EXAMPLES OF WORKING CODE]
+- `mv file1 file2` -- rename file1 to file2
+- `mv file/directory_name(s) directory_name` -- if last argument provided is a directory, move all previous files and/or directories into the destination directory
+  - `mv file1 dir2` -- move file1 into dir2
+  - `mv dir1 dir2` -- move dir1 into dir2
+  - `mv dir1/file1 dir2 dir3` -- move file1 (originally located inside dir1) and dir2 into dir3
 
 # Basic Git tasks
 
@@ -1092,13 +1091,15 @@ Then, in Terminal/Git Bash on your local machine:
 - Within the "local working directory," create/change one or more files
 - `add` changes to file(s) from the "local working directory" to the "staging area"/"index"
 - `commit` all staged changes to the "local repository"
-- connect this local git repository to a remote git repository and push changes to remote repo
-
-CRYSTAL - EXPLAIN COMMANDS NECESSARY TO CONNECT AND PUSH TO REMOTE
-
-- HERE ARE THE COMMANDS WE USE BELOW. GIVE STUDENTS UNDERSTANDING OF THIS SYNTEX (E.G., WHAT IS "GIT REMOTE ADD" WHAT IS "ORIGIN; WHAT DOES "--SET-UPSTREAM ORIGIN MASTER" MEAN?)
--   git remote add origin https://github.com/ozanj/gitr_practice.git
--  git push --set-upstream origin master
+- Connect this local git repository to a remote git repository using `git remote add` command. To add a new remote:
+  - `git remote add remote_name remote_url`
+    - `remote_name`: Name we choose to call our remote repository, conventionally `origin`
+    - `remote_url`: HTTPs/SSH URL of remote repository
+  - Example: `git remote add origin https://github.com/ozanj/gitr_practice.git`
+- Push changes to specified remote repository and branch using `git push` command with option `--set-upstream`:
+  - `git push --set-upstream remote_name branch_name`
+  - Example: `git push --set-upstream origin master`
+    - This sets our local git repository to track from our remote repository's master branch
 
 Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk:
 
