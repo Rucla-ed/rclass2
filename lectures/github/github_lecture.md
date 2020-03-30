@@ -35,7 +35,9 @@ Resources used to create this lecture:
 - https://www.codecademy.com/articles/f1-u3-git-setup
 - https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018
 
-## What and why use Git and GitHub?
+## What and why use Git and GitHub?  
+
+[Video](https://www.dropbox.com/s/r4gij79tw8dx1zv/doyle_why_code_git.mp4?dl=0) from Will Doyle, Professor at Vanderbilt University
 
 What is __version control__?
 
@@ -136,7 +138,7 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
 
 
 - [Introduction](#introduction)
-    - [What and why use Git and GitHub?](#what-and-why-use-git-and-github?)
+    - [What and why use Git and GitHub?  ](#what-and-why-use-git-and-github?-)
     - [How we will learn Git and GitHub](#how-we-will-learn-git-and-github)
 - [Overview of core concepts and work flow](#overview-of-core-concepts-and-work-flow)
     - [Git stores "snapshots," not "differences"](#git-stores-"snapshots,"-not-"differences")
@@ -1040,10 +1042,13 @@ __What we just did:__
 
 <br>
 
+<details><summary>Optional: Student task</summary>
+<p>
+
 #### Student task: Clone repository for this course to desired directory on your local machine
 
 - Go to URL for the github organization [Rucla-ed](https://github.com/Rucla-ed)
-- Click on repository with the name `student_yourlastname` (e.g., `student_jaquette`)
+- Create your own repository and name it `student_yourlastname` (e.g., `student_jaquette`) (NOTE: You need access to Rucla-ed org)
 - Follow same steps as we did for cloning `downloadipeds`
     - Note: Before cloning, make sure you change directories to directory where you want to save files for this class
     - You will be using this directory `student_yourlastname` for the rest of the quarter
@@ -1069,6 +1074,8 @@ git clone git@github.com:Rucla-ed/student_jaquette.git # SSH authentication
 cd student_jaquette
 ls
 ```
+</p>
+</details>
 
 ### Create new repository on GitHub and clone to your local machine
 
