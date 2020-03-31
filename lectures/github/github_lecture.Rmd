@@ -1048,19 +1048,9 @@ __What we just did:__
 
 *Credit: Lucas Maurer, medium.com*
 
-# Investigating git directory
+# Understanding `.git` directory and git commits
 
-
-
-## git objects
-
-[Deep dive into git: git Objects](https://aboullaite.me/deep-dive-into-git/)
-
-- "A git repository is actually just a collection of objects"
-- Each object in a git repository is identified with its own "hash"
-    - a "hash" can be thought of as an address that points to a particular version of a file
-- For example, if you create an empty file, it will have the hash `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`. You can confirm this by adding an empty file to a repository and using git ls-tree to see the contents
-
+## `.git` directory
 
 Initializing local git repo
 ```{bash}
@@ -1072,13 +1062,107 @@ pwd
 git init
 ```
 
-Here, we show the contents of `dot_git/.git` directory immediately after initializing as a git repo (no files yet, no commits)
+List files in `.git` directory
 ```{bash}
 cd ~/dot_git/.git
 pwd
 
 ls -F1
 ```
+
+Contents of `.git` directory immediately after initializing as a git repo that has no files and no commits (Commentary from ["Deep dive into git: git Objects"](https://aboullaite.me/deep-dive-into-git/) by Mohammed Aboullaite)
+
+
+- `HEAD` [important]
+- `config` [usually unimportant]
+    - "The config file contains your project specific configuration options"
+- `description` [unimportant]
+    - "The description file is only used by the GitWeb program ( to display the description of the repo on the GitWeb page), so don’t worry about it."
+- `hooks/` [unimportant]
+    - "The hooks directory contains client- or server-side hook scripts."
+- `info/`[unimportant]
+    - "the info directory keeps a global exclude file for ignored patterns that you don’t want to track in a .gitignore file."
+- `objects/` [important]
+- `refs/` [important]
+
+"This leaves four important entries: the __HEAD__ and (yet to be created) __index__ files, and the __objects__ and __refs__ directories. These are the core parts of Git." [Aboullaite](https://aboullaite.me/deep-dive-into-git/)
+
+
+```{bash}
+cd ~/dot_git/.git
+pwd
+
+ls -F1
+
+#touch empty_file # in working directory, create new file (that has no contents)
+
+#git add empty_file # add file to staging
+
+#git commit -m "initial commit, so far empty empty_file" # commit all staged files to local repo
+```
+
+```{bash}
+cd ~/dot_git
+pwd
+
+ls -F1
+
+git ls-tree master
+```
+"What git ls-tree is saying is that the master branch contains a file called emptyFile whose permissions are 100644 (owner read/write, groupe other read), and whose hash is e69de29bb2d1d6434b8b29ae775ad8c2e48c5391."
+
+"instead of calculating this format ourselves, we can use git hash-object to calculate a hash – or, with -w, insert an object in our local repository:"
+
+QUESTIONS [FOR CRYSTAL?]
+- ??? HOW TO USE git hash-object ???
+- ??? WHAT IS AN SHA-1 POINTER???
+- ??? IS THERE A COMMAND TO GET HASHES OF ALL GIT OBJECTS???
+- EXPLAIN WHAT A TREE IS? WHAT A BLOB IS?
+
+
+"Git uses a uniform storage model for all of its objects. Each object is identified with its hash, but the type of the object is stored in metadata along with the object. Thus, it's possible to find out from an ID what its type is, as well as its content using the -t option with git cat file command:"
+```{bash}
+cd ~/dot_git
+#cd ~/dot_git/.git
+pwd
+
+#git cat-file -t e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+git cat-file -t e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+```
+
+```{bash}
+cd ~/dot_git
+
+git cat-file -p master^{tree}
+```
+
+What is the `HEAD`? (from bottom of https://www.daolf.com/posts/git-series-part-1/)
+
+- "Okay, this is not an hash, and it makes sense, because the HEAD can be considered as a pointer to the tip of the branch you’re working on. And now if we look at what is in refs/heads/master here what we’ll see"
+
+```{bash}
+cd ~/dot_git/.git
+
+cat HEAD
+
+cat refs/heads/master
+```
+- "Does that look familiar? Yes this is the exact same hash of our first commit. This shows you that branches and tags are nothing more than a pointer to a commit. Meaning that you can delete all the branches you want, all the tags you want, the commit they were pointing to are still going to be here."
+- WHAT IS A COMMIT:
+    - "So by now, you should understand that all that git does when you commit is “zipping” your current working directory and storing it into the objects folder with a bunch of other information. But if you’re familiar enough with the tool you’ll now that you have complete control on what files should be included in the commit and what files should not.
+    - I mean a commit isn’t really a snapshot of your working directory, it is a snapshot of the files you want to commit. And where does git store those file you want to commit before making the actual ? Well it stores them into the index file. We’re not going to dig deeper into it now, meanwhile if you’re really curious you can always take a look at this."
+
+## git objects
+
+[Deep dive into git: git Objects](https://aboullaite.me/deep-dive-into-git/)
+
+- "A git repository is actually just a collection of objects"
+- Each object in a git repository is identified with its own "hash"
+    - a "hash" can be thought of as an address that points to a particular version of a file
+- For example, if you create an empty file, it will have the hash `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`. You can confirm this by adding an empty file to a repository and using git ls-tree to see the contents
+
+
+
 [Deep dive into git: git Objects](https://aboullaite.me/deep-dive-into-git/) helps us identify which of the files and directories within `.git` are important:
 
 - Unimportant files and folders
