@@ -157,6 +157,7 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
     - [Shell/command line vs. graphical user interface (GUI)](#shell/command-line-vs.-graphical-user-interface-(gui))
         - [Command-line bullshittery](#command-line-bullshittery)
     - [Basic (Bash) commands line commands](#basic-(bash)-commands-line-commands)
+        - [logistics for running `Bash` code in .Rmd code chunks [skip]](#logistics-for-running-`bash`-code-in-.rmd-code-chunks-[skip])
         - [Bash syntax](#bash-syntax)
         - [Changing directories](#changing-directories)
         - [Creating/deleting directories](#creating/deleting-directories)
@@ -167,8 +168,6 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
         - [Clone an existing repository to your local machine](#clone-an-existing-repository-to-your-local-machine)
         - [Create new repository on GitHub and clone to your local machine](#create-new-repository-on-github-and-clone-to-your-local-machine)
         - [Create new git repository on your local machine and add to GitHub](#create-new-git-repository-on-your-local-machine-and-add-to-github)
-- [Investigating git directory](#investigating-git-directory)
-    - [sub-section](#sub-section)
 
 # Overview of core concepts and work flow
 
@@ -543,8 +542,94 @@ _[Helping my students overcome __command-line bullshittery__](http://www.pgbovin
 
 ## Basic (Bash) commands line commands
 
+### logistics for running `Bash` code in .Rmd code chunks [skip]
+
+Checking that RMarkdown can run `Bash` commands [code not run]:
+
+```r
+names(knitr::knit_engines$get())
+#knitr::knit_engines$get("bash")
+
+# should exist
+Sys.which('bash')
+Sys.which('python')
+
+#path of where executables are run
+Sys.getenv("PATH")
+Sys.getenv("HOME")
+
+#if path to an executable must be added to PATH
+  #old_path <- Sys.getenv("PATH")
+  #old_path
+  #Sys.setenv(PATH = paste(old_path, "C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38", sep = ";"))
+  #Sys.getenv("PATH")
+```
+
+Show "home" directory for code chunks
+
+```r
+Sys.getenv("HOME")
+```
+
+```
+## [1] "C:\\Users\\ozanj"
+```
+Show "home" directory for `bash` code chunks
+
+```bash
+cd ~
+pwd
+```
+
+```
+## /c/Users/ozanj
+```
+
+note: home directory for r code chunks run in R might be different
+
+```r
+setwd("~")
+getwd()
+```
+
+```
+## [1] "C:/Users/ozanj/Documents"
+```
+
 
 ### Bash syntax
+
+We can run Bash code instead of R code by replacing `{r}` with `{bash}` at top of chunk.
+
+- Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
+    - This is true for an R code chunk, a Bash code chunk, or any other programming language
+    - If you change working directories within a code chunk, the working directory reverts back to where the .Rmd file is saved after the code chunk finishes running
+    
+
+```bash
+pwd
+ls
+```
+
+```
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## github_lecture.Rmd
+## github_lecture.html
+## github_lecture.md
+## render_toc.R
+## text
+```
+
+We can see the help file for any Bash command by typing:
+
+- `command_name --help` or `man command_name`
+- For example:
+
+
+```bash
+ls --help
+man ls
+```
 
 Let's learn a bit about Bash command syntax.
 
@@ -578,57 +663,6 @@ mpg %>% head(5)
 ## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
 ```
 
-Checking that RMarkdown can run `Bash` commands [code not run]:
-
-```r
-names(knitr::knit_engines$get())
-#knitr::knit_engines$get("bash")
-
-# should exist
-Sys.which('bash')
-Sys.which('python')
-
-#path of where executables are run
-Sys.getenv("PATH")
-
-#if path to an executable must be added to PATH
-  #old_path <- Sys.getenv("PATH")
-  #old_path
-  #Sys.setenv(PATH = paste(old_path, "C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38", sep = ";"))
-  #Sys.getenv("PATH")
-```
-
-We can run Bash code instead of R code by replacing `{r}` with `{bash}` at top of chunk.
-
-- Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved
-    - This is true for an R code chunk, a Bash code chunk, or any other programming language
-    - If you change working directories within a code chunk, the working directory reverts back to where the .Rmd file is saved after the code chunk finishes running
-    
-
-```bash
-pwd
-ls
-```
-
-```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## github_lecture.Rmd
-## github_lecture.html
-## github_lecture.md
-## render_toc.R
-## text
-```
-
-We can see the help file for any Bash command by typing:
-
-- `command_name --help` or `man command_name`
-- For example:
-
-
-```bash
-ls --help
-man ls
-```
 
 Syntax of `ls` command:
 
@@ -870,6 +904,174 @@ cd mkdir_test
 
 rm -rf folder_a
 ls
+```
+
+
+
+```bash
+cd ~/documents
+pwd
+rm -rf ojch_repo
+ls
+```
+
+```
+## /c/Users/ozanj/documents
+## Audit-Study
+## CV-bio
+## Custom Office Templates
+## My Data Sources
+## My Kindle Content
+## My Music
+## My Pictures
+## My Videos
+## OneNote Notebooks
+## Outlook Files
+## R
+## Zoom
+## academic papers
+## arizona-2013-14
+## arizona-2014-15
+## arizona-2015-16
+## arizona2011-12
+## arizona2012-13
+## baby
+## cache
+## cascading
+## cerpp_2020
+## data
+## desktop (1).ini
+## desktop.ini
+## dot_git
+## downloadipeds
+## edrclass2_test
+## finances
+## github_token
+## grm
+## grmtest
+## hello-world
+## joyce_report
+## joyce_report_copy
+## learning_git
+## lsc
+## naed_presentation
+## ozanburner_ps1
+## personnel_hiring
+## public_records_requests
+## rclass
+## rclass2
+## rclass2_test
+## rclass_fall2018_copy
+## reviews
+## soc_of_ed_presentation
+## stat programs
+## student_jaquette
+## tenure
+## test_dir
+## third-way-report
+## ucla2016-17
+## ucla2017-18
+## ucla2018-19
+## ucla2019-20
+## ucla2020-21
+## unrollment_proj
+## yobo
+```
+
+
+
+```bash
+cd ~/documents
+pwd
+rm -rf ojch_repo # remove this directory if it already exists
+mkdir ojch_repo
+cd ojch_repo
+
+pwd
+git init
+
+#create directory for r scripts
+mkdir scripts
+
+
+cd scripts
+
+#add a simple r script
+echo "library(tidyverse)" >> create_data.r
+echo "df <- mpg %>% filter(year==2008)" >> create_data.r
+echo "df %>% group_by(cyl) %>% summarize(avg_mpg = mean(hwy, na.rm = TRUE))" >> create_data.r
+
+ls -al
+```
+
+```
+## /c/Users/ozanj/documents
+## /c/Users/ozanj/documents/ojch_repo
+## Initialized empty Git repository in C:/Users/ozanj/Documents/ojch_repo/.git/
+## total 1
+## drwxr-xr-x 1 ozanj 197121   0 Apr  1 16:25 .
+## drwxr-xr-x 1 ozanj 197121   0 Apr  1 16:25 ..
+## -rw-r--r-- 1 ozanj 197121 122 Apr  1 16:25 create_data.r
+```
+
+show `.git` directory before adding/committing files
+
+```bash
+cd ~/documents/ojch_repo/.git
+ls -al # show tree instead
+```
+
+```
+## total 11
+## drwxr-xr-x 1 ozanj 197121   0 Apr  1 16:25 .
+## drwxr-xr-x 1 ozanj 197121   0 Apr  1 16:25 ..
+## -rw-r--r-- 1 ozanj 197121  23 Apr  1 16:25 HEAD
+## -rw-r--r-- 1 ozanj 197121 130 Apr  1 16:25 config
+## -rw-r--r-- 1 ozanj 197121  73 Apr  1 16:25 description
+## drwxr-xr-x 1 ozanj 197121   0 Apr  1 16:25 hooks
+## drwxr-xr-x 1 ozanj 197121   0 Apr  1 16:25 info
+## drwxr-xr-x 1 ozanj 197121   0 Apr  1 16:25 objects
+## drwxr-xr-x 1 ozanj 197121   0 Apr  1 16:25 refs
+```
+
+
+
+```r
+library(tidyverse)
+mpg %>% filter(year==2008)
+```
+
+```
+## # A tibble: 117 x 11
+##    manufacturer model     displ  year   cyl trans  drv     cty   hwy fl    class
+##    <chr>        <chr>     <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
+##  1 audi         a4          2    2008     4 manua~ f        20    31 p     comp~
+##  2 audi         a4          2    2008     4 auto(~ f        21    30 p     comp~
+##  3 audi         a4          3.1  2008     6 auto(~ f        18    27 p     comp~
+##  4 audi         a4 quatt~   2    2008     4 manua~ 4        20    28 p     comp~
+##  5 audi         a4 quatt~   2    2008     4 auto(~ 4        19    27 p     comp~
+##  6 audi         a4 quatt~   3.1  2008     6 auto(~ 4        17    25 p     comp~
+##  7 audi         a4 quatt~   3.1  2008     6 manua~ 4        15    25 p     comp~
+##  8 audi         a6 quatt~   3.1  2008     6 auto(~ 4        17    25 p     mids~
+##  9 audi         a6 quatt~   4.2  2008     8 auto(~ 4        16    23 p     mids~
+## 10 chevrolet    c1500 su~   5.3  2008     8 auto(~ r        14    20 r     suv  
+## # ... with 107 more rows
+```
+
+```r
+df <- mpg %>% filter(year==2008)
+
+df %>% group_by(cyl) %>% summarize(avg_mpg = mean(hwy, na.rm = TRUE))
+```
+
+```
+## # A tibble: 4 x 2
+##     cyl avg_mpg
+##   <int>   <dbl>
+## 1     4    29.3
+## 2     5    28.8
+## 3     6    23.5
+## 4     8    18
 ```
 
 ### Other commands
@@ -1187,60 +1389,6 @@ __What we just did:__
 *Credit: Lucas Maurer, medium.com*
 
 
-
-# Investigating git directory
-
-## sub-section
-
-Initializing local git repo
-
-
-```bash
-cd ~
-
-cd documents
-cd learning_git
-
-mkdir dot_git
-
-ls -al
-
-git init
-
-ls -al
-
-cd .git
-
-ls -al # show contents of .git prior to an initial commit
-```
-
-
-Making initial commit
-
-```bash
-
-
-touch file__1.txt # in working directory, create new file (that has no contents)
-
-git add file__1.txt # add file to staging
-
-git commit -m "initial commit, so far only file__1.txt" # commit all staged files to local repo
-```
-
-
-Investigating commit, after initial commit
-
-- command `git cat-file` gives information about "repository objects"
-    - syntax:`git cat-file 
-
-```bash
-
-cd .git
-cd objects
-
-git cat-file -p 7f3882e0d9e67a7a014167e5db02a75670a24637
-#100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    file__1.txt
-```
 
 
 

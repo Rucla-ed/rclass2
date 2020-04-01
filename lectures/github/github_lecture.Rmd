@@ -522,28 +522,7 @@ _[Helping my students overcome __command-line bullshittery__](http://www.pgbovin
 
 ## Basic (Bash) commands line commands
 
-
-### Bash syntax
-
-Let's learn a bit about Bash command syntax.
-
-<!--
-RESOURCES TO CREATE SECTION
-
-- http://www.compciv.org/topics/bash/command-structure/
-- https://www.educative.io/blog/bash-shell-command-cheat-sheet
--->
-
-The Bash command `ls` lists the contents (e.g., files, folders) of a directory. A "directory" is another word for "folder." In Terminal/Git Bash, try typing `ls` and then hit `ENTER` key. 
-
-The `pwd` command shows the filepath of the directory you are currently in, that is the current working directory. In Terminal/Git Bash, try typing `pwd` and then hit `ENTER` key.
-
-Note that you can also run Bash code from within an R code chunk of a .Rmd file. First, let's run some simple R commands from within an R code chunk:
-
-```{r}
-library(tidyverse)
-mpg %>% head(5)
-```
+### logistics for running `Bash` code in .Rmd code chunks [skip]
 
 Checking that RMarkdown can run `Bash` commands [code not run]:
 ```{r, eval=FALSE}
@@ -564,27 +543,25 @@ Sys.getenv("HOME")
   #Sys.setenv(PATH = paste(old_path, "C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38", sep = ";"))
   #Sys.getenv("PATH")
 ```
-```{r}
-Sys.getenv("HOME")
-Sys.setenv(HOME = "C:\\Users\\ozanj")
-Sys.getenv("HOME")
-```
 
+Show "home" directory for code chunks
 ```{r}
 Sys.getenv("HOME")
 ```
-
-```{r}
-#setwd("~")
-getwd()
-setwd("../")
-getwd()
-```
-
+Show "home" directory for `bash` code chunks
 ```{bash}
 cd ~
 pwd
 ```
+
+note: home directory for r code chunks run in R might be different
+```{r}
+setwd("~")
+getwd()
+```
+
+
+### Bash syntax
 
 We can run Bash code instead of R code by replacing `{r}` with `{bash}` at top of chunk.
 
@@ -606,6 +583,27 @@ We can see the help file for any Bash command by typing:
 ls --help
 man ls
 ```
+
+Let's learn a bit about Bash command syntax.
+
+<!--
+RESOURCES TO CREATE SECTION
+
+- http://www.compciv.org/topics/bash/command-structure/
+- https://www.educative.io/blog/bash-shell-command-cheat-sheet
+-->
+
+The Bash command `ls` lists the contents (e.g., files, folders) of a directory. A "directory" is another word for "folder." In Terminal/Git Bash, try typing `ls` and then hit `ENTER` key. 
+
+The `pwd` command shows the filepath of the directory you are currently in, that is the current working directory. In Terminal/Git Bash, try typing `pwd` and then hit `ENTER` key.
+
+Note that you can also run Bash code from within an R code chunk of a .Rmd file. First, let's run some simple R commands from within an R code chunk:
+
+```{r}
+library(tidyverse)
+mpg %>% head(5)
+```
+
 
 Syntax of `ls` command:
 
@@ -759,6 +757,55 @@ cd mkdir_test
 
 rm -rf folder_a
 ls
+```
+
+
+```{bash}
+cd ~/documents
+pwd
+rm -rf ojch_repo
+ls
+```
+
+
+```{bash}
+cd ~/documents
+pwd
+rm -rf ojch_repo # remove this directory if it already exists
+mkdir ojch_repo
+cd ojch_repo
+
+pwd
+git init
+
+#create directory for r scripts
+mkdir scripts
+
+
+cd scripts
+
+#add a simple r script
+echo "library(tidyverse)" >> create_data.r
+echo "df <- mpg %>% filter(year==2008)" >> create_data.r
+echo "df %>% group_by(cyl) %>% summarize(avg_mpg = mean(hwy, na.rm = TRUE))" >> create_data.r
+
+ls -al
+```
+
+show `.git` directory before adding/committing files
+```{bash}
+cd ~/documents/ojch_repo/.git
+ls -al # show tree instead
+```
+
+
+```{r}
+library(tidyverse)
+mpg %>% filter(year==2008)
+df <- mpg %>% filter(year==2008)
+
+df %>% group_by(cyl) %>% summarize(avg_mpg = mean(hwy, na.rm = TRUE))
+
 ```
 
 ### Other commands
@@ -1069,273 +1116,6 @@ __What we just did:__
 [![](https://miro.medium.com/max/686/1*diRLm1S5hkVoh5qeArND0Q.png)](https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018)
 
 *Credit: Lucas Maurer, medium.com*
-
-# Understanding `.git` directory and git commits
-
-## `.git` directory
-
-Initializing local git repo
-```{bash}
-cd ~
-pwd
-mkdir dot_git
-cd dot_git
-pwd
-git init
-```
-
-List files in `.git` directory
-```{bash}
-cd ~/dot_git/.git
-pwd
-
-ls -F1
-```
-
-Contents of `.git` directory immediately after initializing as a git repo that has no files and no commits (Commentary from ["Deep dive into git: git Objects"](https://aboullaite.me/deep-dive-into-git/) by Mohammed Aboullaite)
-
-
-- `HEAD` [important]
-- `config` [usually unimportant]
-    - "The config file contains your project specific configuration options"
-- `description` [unimportant]
-    - "The description file is only used by the GitWeb program ( to display the description of the repo on the GitWeb page), so don’t worry about it."
-- `hooks/` [unimportant]
-    - "The hooks directory contains client- or server-side hook scripts."
-- `info/`[unimportant]
-    - "the info directory keeps a global exclude file for ignored patterns that you don’t want to track in a .gitignore file."
-- `objects/` [important]
-- `refs/` [important]
-
-"This leaves four important entries: the __HEAD__ and (yet to be created) __index__ files, and the __objects__ and __refs__ directories. These are the core parts of Git." [Aboullaite](https://aboullaite.me/deep-dive-into-git/)
-
-```{r}
-Sys.getenv("HOME")
-```
-
-```{bash}
-cd ~
-pwd
-cd ~/documents/dot_git/.git
-pwd
-```
-
-
-```{bash}
-cd ~/dot_git/.git
-pwd
-
-ls -F1
-
-#touch empty_file # in working directory, create new file (that has no contents)
-
-#git add empty_file # add file to staging
-
-#git commit -m "initial commit, so far empty empty_file" # commit all staged files to local repo
-```
-
-```{bash}
-cd ~/dot_git
-pwd
-
-#ls -F1
-
-git ls-tree master
-```
-"What git ls-tree is saying is that the master branch contains a file called emptyFile whose permissions are 100644 (owner read/write, groupe other read), and whose hash is e69de29bb2d1d6434b8b29ae775ad8c2e48c5391."
-
-```{r}
-sys.which("bash")
-```
-
-```{bash}
-find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-```
-
-```{r}
-getwd()
-#setwd("C:\\Users\\ozanj")
-#setwd("~")
-#getwd()
-```
-
-```{bash}
-#cd ~
-pwd
-```
-
-```{r}
-getwd()
-```
-
-```{bash}
-
-#alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
-cd ~/dot_git
-pwd
-
-find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g' # don't worry about this
-```
-
-
-"instead of calculating this format ourselves, we can use git hash-object to calculate a hash – or, with -w, insert an object in our local repository:"
-
-QUESTIONS [FOR CRYSTAL?]
-- ??? HOW TO USE git hash-object ???
-- ??? WHAT IS AN SHA-1 POINTER???
-- ??? IS THERE A COMMAND TO GET HASHES OF ALL GIT OBJECTS???
-- EXPLAIN WHAT A TREE IS? WHAT A BLOB IS?
-
-
-"Git uses a uniform storage model for all of its objects. Each object is identified with its hash, but the type of the object is stored in metadata along with the object. Thus, it's possible to find out from an ID what its type is, as well as its content using the -t option with git cat file command:"
-```{bash}
-cd ~/dot_git
-#cd ~/dot_git/.git
-pwd
-
-#git cat-file -t e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
-git cat-file -t e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
-```
-
-```{bash}
-cd ~/dot_git
-
-git cat-file -p master^{tree}
-```
-
-What is the `HEAD`? (from bottom of https://www.daolf.com/posts/git-series-part-1/)
-
-- "Okay, this is not an hash, and it makes sense, because the HEAD can be considered as a pointer to the tip of the branch you’re working on. And now if we look at what is in refs/heads/master here what we’ll see"
-
-```{bash}
-cd ~/dot_git/.git
-
-cat HEAD
-
-cat refs/heads/master
-```
-- "Does that look familiar? Yes this is the exact same hash of our first commit. This shows you that branches and tags are nothing more than a pointer to a commit. Meaning that you can delete all the branches you want, all the tags you want, the commit they were pointing to are still going to be here."
-- WHAT IS A COMMIT:
-    - "So by now, you should understand that all that git does when you commit is “zipping” your current working directory and storing it into the objects folder with a bunch of other information. But if you’re familiar enough with the tool you’ll now that you have complete control on what files should be included in the commit and what files should not.
-    - I mean a commit isn’t really a snapshot of your working directory, it is a snapshot of the files you want to commit. And where does git store those file you want to commit before making the actual ? Well it stores them into the index file. We’re not going to dig deeper into it now, meanwhile if you’re really curious you can always take a look at this."
-
-## git objects
-
-[Deep dive into git: git Objects](https://aboullaite.me/deep-dive-into-git/)
-
-- "A git repository is actually just a collection of objects"
-- Each object in a git repository is identified with its own "hash"
-    - a "hash" can be thought of as an address that points to a particular version of a file
-- For example, if you create an empty file, it will have the hash `e69de29bb2d1d6434b8b29ae775ad8c2e48c5391`. You can confirm this by adding an empty file to a repository and using git ls-tree to see the contents
-
-
-
-[Deep dive into git: git Objects](https://aboullaite.me/deep-dive-into-git/) helps us identify which of the files and directories within `.git` are important:
-
-- Unimportant files and folders
-    - "The description file is only used by the GitWeb program ( to display the description of the repo on the GitWeb page), so don’t worry about it. The config file contains your project specific configuration options, and the info directory keeps a global exclude file for ignored patterns that you don’t want to track in a `.gitignore` file. The hooks directory contains your client- or server-side hook scripts. "
-- Important files and folders
-    - START HERE ON WEDS 4/1
-    - "This leaves four important entries: the HEAD and (yet to be created) index files, and the objects and refs directories. These are the core parts of Git."
-    - "The objects directory stores all the content for your database, the refs directory stores pointers into commit objects in that data (branches), the HEAD file points to the branch you currently have checked out, and the index file is where Git stores your staging area information."
-
-```{bash, eval=FALSE}
-cd ~
-
-cd documents
-cd learning_git
-
-mkdir dot_git
-
-ls -al
-
-git init
-
-ls -al
-
-cd .git
-
-ls -al # show contents of .git prior to an initial commit
-```
-
-
-Making initial commit
-```{bash, eval=FALSE}
-
-
-touch file__1.txt # in working directory, create new file (that has no contents)
-
-git add file__1.txt # add file to staging
-
-git commit -m "initial commit, so far only file__1.txt" # commit all staged files to local repo
-```
-
-
-Investigating commit, after initial commit
-
-- command `git cat-file` gives information about "repository objects"
-    - find help for `git cat-file` command:
-        - `git help cat-file`
-    - syntax:
-        - `git cat-file [options] <object_name>`
-    - some options:
-        - `-t`: Instead of the content, show the object type identified by <object>.
-        - `-s`: Instead of the content, show the object size identified by <object>.
-        - `-p`: Pretty-print the contents of <object> based on its type.
-        
-Examin the contents of the uncompressed "commit file"
-```{bash, eval=FALSE}
-
-cd .git
-cd objects
-
-ls -al
-
-#below we try to uncompress the "commit file"
-git cat-file -p d6449981020533fc7a917720da718bc5bd885705
-#result: 
-#tree 7f3882e0d9e67a7a014167e5db02a75670a24637
-#author Ozan Jaquette <ozanj@ucla.edu> 1585605599 -0700
-#committer Ozan Jaquette <ozanj@ucla.edu> 1585605599 -0700
-
-#initial commit, so far only file__1.txt
-```
-
-- above result is the uncompressed "commit file". we get three things:
-    - the "snapshot hash"
-        - `tree 7f3882e0d9e67a7a014167e5db02a75670a24637`
-        - note that this snapshot hash is also an object we can find in the object folder
-    - This is info about the author of the commit:
-        - `author Ozan Jaquette <ozanj@ucla.edu> 1585605599 -0700`
-        - `committer Ozan Jaquette <ozanj@ucla.edu> 1585605599 -0700`
-    - The commit message:
-        `initial commit, so far only file__1.txt`
-    - Note: because this is the initial commit there is no "parent" commit
-    
-Examine contents of the shapshot object (associated with `tree 7f3882e0d9e67a7a014167e5db02a75670a24637`)
-```{bash, eval=FALSE}
-
-ls -al
-
-git cat-file -p 7f3882e0d9e67a7a014167e5db02a75670a24637
-#result
-#100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    file__1.txt
-```
-
-- Contents of the snapshot object:
-    `100644 blob e69de29bb2d1d6434b8b29ae775ad8c2e48c5391    file__1.txt`
-
-
-Contents of object referenced in the snapshot object
-```{bash, eval=FALSE}
-git cat-file -p e69de29bb2d1d6434b8b29ae775ad8c2e48c5391 # this is a "blob"
-
-```
-
-- this object is empty
-    - ?? BECAUSE file__1.txt HAS NO CONTENTS??
-
-
 
 
 

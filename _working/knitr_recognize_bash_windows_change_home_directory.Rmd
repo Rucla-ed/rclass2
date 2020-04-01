@@ -68,6 +68,14 @@ echo 'a b c' | sed 's/ /\|/g'
 awk 'END{print NR;}' 027-engine-bash.Rmd
 ```
 
+SHOW AND CHANGE "HOME" DIRECTORY FOR R CODE CHUNKS
+```{r}
+Sys.getenv("HOME")
+Sys.setenv(HOME = "C:\\Users\\ozanj")
+Sys.getenv("HOME")
+```
+
+
 We cun run `Bash` code instead of `R` code by replacing `{r}` with `{bash}` at top of chunk.
 
 - Note that the default working directory when you run a code chunk in a .Rmd file is the directory where the .Rmd file is saved

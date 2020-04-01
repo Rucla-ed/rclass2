@@ -83,6 +83,7 @@ not sure if main text [below headings] should be paragraph style or bullet-point
 
 `function_name`: brief function description
 
+- help: `command to get function help`
 - syntax: `function_name [option(s)] <required_objects?>
 - Options/arguments (not exhaustive)
     - `option a`: what this option does
@@ -90,7 +91,16 @@ not sure if main text [below headings] should be paragraph style or bullet-point
 - What function is used for (not exhaustive)
 - Examples of function in action (collapsible)
 
+`git status`: brief function description
 
+- help: `command to get function help`
+- syntax: `function_name [option(s)] <required_objects?>
+- Options/arguments (not exhaustive)
+    - `option a`: what this option does
+    - `option b`:  what this option does
+- What function is used for (not exhaustive)
+    - To see which files are modified, if there are new files to add, etc...
+- Examples of function in action (collapsible)
 
 # References/attribution
 
