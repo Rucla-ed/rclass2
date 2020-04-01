@@ -79,6 +79,17 @@ _italics_
 
 not sure if main text [below headings] should be paragraph style or bullet-point or a mix of both. so far I am mainly using bullet-points, but that is because I am used to writing lecture slides. 
 
+# standards for introducing functions
+
+`function_name`: brief function description
+
+- syntax: `function_name [option(s)] <required_objects?>
+- Options/arguments (not exhaustive)
+    - `option a`: what this option does
+    - `option b`:  what this option does
+- What function is used for (not exhaustive)
+- Examples of function in action (collapsible)
+
 
 
 # References/attribution

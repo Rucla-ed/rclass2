@@ -556,12 +556,34 @@ Sys.which('python')
 
 #path of where executables are run
 Sys.getenv("PATH")
+Sys.getenv("HOME")
 
 #if path to an executable must be added to PATH
   #old_path <- Sys.getenv("PATH")
   #old_path
   #Sys.setenv(PATH = paste(old_path, "C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38", sep = ";"))
   #Sys.getenv("PATH")
+```
+```{r}
+Sys.getenv("HOME")
+Sys.setenv(HOME = "C:\\Users\\ozanj")
+Sys.getenv("HOME")
+```
+
+```{r}
+Sys.getenv("HOME")
+```
+
+```{r}
+#setwd("~")
+getwd()
+setwd("../")
+getwd()
+```
+
+```{bash}
+cd ~
+pwd
 ```
 
 We can run Bash code instead of R code by replacing `{r}` with `{bash}` at top of chunk.
@@ -1087,6 +1109,17 @@ Contents of `.git` directory immediately after initializing as a git repo that h
 
 "This leaves four important entries: the __HEAD__ and (yet to be created) __index__ files, and the __objects__ and __refs__ directories. These are the core parts of Git." [Aboullaite](https://aboullaite.me/deep-dive-into-git/)
 
+```{r}
+Sys.getenv("HOME")
+```
+
+```{bash}
+cd ~
+pwd
+cd ~/documents/dot_git/.git
+pwd
+```
+
 
 ```{bash}
 cd ~/dot_git/.git
@@ -1105,11 +1138,45 @@ ls -F1
 cd ~/dot_git
 pwd
 
-ls -F1
+#ls -F1
 
 git ls-tree master
 ```
 "What git ls-tree is saying is that the master branch contains a file called emptyFile whose permissions are 100644 (owner read/write, groupe other read), and whose hash is e69de29bb2d1d6434b8b29ae775ad8c2e48c5391."
+
+```{r}
+sys.which("bash")
+```
+
+```{bash}
+find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```{r}
+getwd()
+#setwd("C:\\Users\\ozanj")
+#setwd("~")
+#getwd()
+```
+
+```{bash}
+#cd ~
+pwd
+```
+
+```{r}
+getwd()
+```
+
+```{bash}
+
+#alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+cd ~/dot_git
+pwd
+
+find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g' # don't worry about this
+```
+
 
 "instead of calculating this format ourselves, we can use git hash-object to calculate a hash – or, with -w, insert an object in our local repository:"
 
