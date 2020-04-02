@@ -16,7 +16,7 @@ instructor: "Ozan Jaquette"
 pronouns: "he/him/his"
 email: "ozanj@ucla.edu"
 officehours: Weds 3-4PM; & by appointment
-office: "[ucla.zoom.us/j/2545750562](ucla.zoom.us/j/2545750562)"
+zoom: "ucla.zoom.us/j/2545750562"
 
 
 zoomlink: "ucla.zoom.us/j/418743803"
