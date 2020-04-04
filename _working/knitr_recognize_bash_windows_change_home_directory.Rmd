@@ -56,8 +56,8 @@ Sys.getenv("PATH")
 old_path <- Sys.getenv("PATH")
 old_path
 
-C:\\Users\\ozanj\\AppData\\Local\\Programs\\Python\\Python38
-#Sys.setenv(PATH = paste(old_path, "C:\\Program Files\\Git\\bin", sep = ":"))
+
+Sys.setenv(PATH = paste(old_path, "C:\\Program Files\\Git\\bin", sep = ":"))
 Sys.getenv("PATH")
 ```
 
