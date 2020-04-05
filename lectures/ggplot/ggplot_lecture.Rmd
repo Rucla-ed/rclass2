@@ -564,7 +564,7 @@ ggplot(data = mpg, aes(x = displ, y = hwy)) +
 ```
   
 
-**Student Task**: Using the `els` dataset, create a scatterplot of the relationship between HS math score (`bynels2m`) on the x-axis and 2011 earnings (`f3ern2011`) on the y-axis, with the color of points determined by sex (`f1sex`)
+**Student Task**: Using the `els_parphd` dataset, create a scatterplot of the relationship between HS math score (`hs_math`) on the x-axis and 2011 earnings (`earn2011`) on the y-axis, with the color of points determined by sex (`f1sex`)
 
 <details><summary>Solution</summary>
 
@@ -640,7 +640,7 @@ ggplot(data=els_v2) + geom_smooth(mapping = aes(x = hs_math, y = earn2011, group
 ggplot(data=els_v2) + geom_smooth(mapping = aes(x = hs_math, y = earn2011, linetype=as_factor(f1sex)))
 ```
 
-- Use `color` aesthatic to create separate prediction lines (with different colors) by sex (`f1sex`):
+- Use `color` aesthetic to create separate prediction lines (with different colors) by sex (`f1sex`):
 
 ```{r}
 #ggplot(data=els_v2, aes(x = hs_math, y = earn2011, color=as_factor(f1sex))) + geom_smooth()
@@ -769,7 +769,7 @@ diamonds %>% count(cut) %>% ggplot(aes(x= cut, y=n)) +
 ```
 
 
-**Student Task**: Using the `els` dataset, create a bar chart with the variable "ever attended postsecondary education" (`f2evratt`) as x-axis and number of students as y-axis
+**Student Task**: Using the `els_v2` dataset, create a bar chart with the variable "ever attended postsecondary education" (`f2evratt`) as x-axis and number of students as y-axis
 
 <details><summary>Solution</summary>
 
