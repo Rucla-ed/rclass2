@@ -428,9 +428,9 @@ ls -al
 ```
 ## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
 ## total 0
-## drwxr-xr-x    3 cyouh95  staff   102 Apr  4 22:45 .
-## drwxr-xr-x+ 101 cyouh95  staff  3434 Apr  4 22:45 ..
-## drwxr-xr-x    9 cyouh95  staff   306 Apr  4 22:45 .git
+## drwxr-xr-x    3 cyouh95  staff   102 Apr  5 00:44 .
+## drwxr-xr-x+ 101 cyouh95  staff  3434 Apr  5 00:44 ..
+## drwxr-xr-x    9 cyouh95  staff   306 Apr  5 00:44 .git
 ```
 
 <br>
@@ -514,6 +514,11 @@ A **blob** is generally a file which stores data
 
 - For example, this could be an R script
 - The file must be added to the _staging area_ (i.e., "index") in order for the blob object to be created
+- The hash of the blob object can be seen in the `.git/objects` directory
+  - The first 2 characters of the hash is the name of the sub-directory within `.git/objects`
+  - The rest of the hash comes from the git object filename
+  - But only the first 7 characters of the hash is required to uniquely identify it
+- This hash can also be computed from the name of the file for which the blob is to be created by using the `git hash-object` command
 
 
 ```bash
@@ -535,6 +540,26 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | |____info
 ## | |____pack
 ```
+
+
+<br>
+**`git hash-object`**: Compute hash for a blob object from name of file
+
+- Help: `git hash-object -help`
+- Syntax: `git hash-object <file_name>`
+
+We can use `git hash-object` to verify the hash for `create_dataset.R`:
+
+
+```bash
+# Generate blob object hash for R script
+git hash-object create_dataset.R
+```
+
+```
+## c1cff389562e8bc123e6691a60352fdf839df113
+```
+
 
 <br>
 <details><summary>**Example**: Using `git cat-file` to view blob object content</summary>
@@ -645,7 +670,7 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master (root-commit) 899e753] initial commit
+## [master (root-commit) faa6e9a] initial commit
 ##  3 files changed, 4 insertions(+)
 ##  create mode 100644 create_dataset.R
 ##  create mode 100644 notes/note_1.txt
@@ -657,12 +682,12 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____89
-## | | |____9e7538c09e4989ce37882d56cb81a6fd6b27d7
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____fa
+## | | |____a6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## | |____info
 ## | |____pack
 ```
@@ -767,11 +792,9 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master 45f78a4] second commit
+## [master 71cfc04] second commit
 ##  1 file changed, 1 insertion(+)
 ## |____objects
-## | |____45
-## | | |____f78a4af7aba974790ff42c2f10925543cc5ecd
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -782,12 +805,14 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____89
-## | | |____9e7538c09e4989ce37882d56cb81a6fd6b27d7
+## | |____71
+## | | |____cfc0415e370b4db18c9f64426697b570795147
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____fa
+## | | |____a6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## | |____info
 ## | |____pack
 ```
@@ -808,10 +833,10 @@ git cat-file -p $(git rev-list HEAD | tail -n 1)
 ```
 
 ```
-## 899e7538c09e4989ce37882d56cb81a6fd6b27d7
+## faa6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586065548 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586065548 -0700
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586072664 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586072664 -0700
 ## 
 ## initial commit
 ```
@@ -832,11 +857,11 @@ git cat-file -p $(git rev-parse HEAD)
 ```
 
 ```
-## 45f78a4af7aba974790ff42c2f10925543cc5ecd
+## 71cfc0415e370b4db18c9f64426697b570795147
 ## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent 899e7538c09e4989ce37882d56cb81a6fd6b27d7
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586065548 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586065548 -0700
+## parent faa6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586072664 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586072664 -0700
 ## 
 ## second commit
 ```
@@ -873,10 +898,6 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ```
 ## |____objects
-## | |____36
-## | | |____e85fa4c353b4a0f6e8192c5c2caf95a895bc36
-## | |____45
-## | | |____f78a4af7aba974790ff42c2f10925543cc5ecd
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -887,12 +908,16 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____89
-## | | |____9e7538c09e4989ce37882d56cb81a6fd6b27d7
+## | |____71
+## | | |____cfc0415e370b4db18c9f64426697b570795147
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____e4
+## | | |____17cd2a9c2687280ea387f743bd8e9cb52138a1
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____fa
+## | | |____a6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## | |____info
 ## | |____pack
 ```
@@ -906,10 +931,10 @@ git cat-file -p $(git show-ref -s v1)  # retrieves hash for v1 tag
 ```
 
 ```
-## object 45f78a4af7aba974790ff42c2f10925543cc5ecd
+## object 71cfc0415e370b4db18c9f64426697b570795147
 ## type commit
 ## tag v1
-## tagger cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586065549 -0700
+## tagger cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586072664 -0700
 ## 
 ## version 1.0
 ```
@@ -921,15 +946,15 @@ git log
 ```
 
 ```
-## commit 45f78a4af7aba974790ff42c2f10925543cc5ecd
+## commit 71cfc0415e370b4db18c9f64426697b570795147
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 4 22:45:48 2020 -0700
+## Date:   Sun Apr 5 00:44:24 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 899e7538c09e4989ce37882d56cb81a6fd6b27d7
+## commit faa6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 4 22:45:48 2020 -0700
+## Date:   Sun Apr 5 00:44:24 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -959,7 +984,7 @@ cat .git/refs/heads/master
 ```
 
 ```
-## 45f78a4af7aba974790ff42c2f10925543cc5ecd
+## 71cfc0415e370b4db18c9f64426697b570795147
 ```
 
 We can use `git log` to verify that this is the hash ID of the latest commit:
@@ -971,15 +996,15 @@ git log
 ```
 
 ```
-## commit 45f78a4af7aba974790ff42c2f10925543cc5ecd
+## commit 71cfc0415e370b4db18c9f64426697b570795147
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 4 22:45:48 2020 -0700
+## Date:   Sun Apr 5 00:44:24 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 899e7538c09e4989ce37882d56cb81a6fd6b27d7
+## commit faa6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 4 22:45:48 2020 -0700
+## Date:   Sun Apr 5 00:44:24 2020 -0700
 ## 
 ##     initial commit
 ```

@@ -473,6 +473,11 @@ A **blob** is generally a file which stores data
 
 - For example, this could be an R script
 - The file must be added to the _staging area_ (i.e., "index") in order for the blob object to be created
+- The hash of the blob object can be seen in the `.git/objects` directory
+  - The first 2 characters of the hash is the name of the sub-directory within `.git/objects`
+  - The rest of the hash comes from the git object filename
+  - But only the first 7 characters of the hash is required to uniquely identify it
+- This hash can also be computed from the name of the file for which the blob is to be created by using the `git hash-object` command
 
 ```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
@@ -487,6 +492,23 @@ git add create_dataset.R
 # View .git/objects directory
 find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
+
+
+<br>
+**`git hash-object`**: Compute hash for a blob object from name of file
+
+- Help: `git hash-object -help`
+- Syntax: `git hash-object <file_name>`
+
+We can use `git hash-object` to verify the hash for `create_dataset.R`:
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Generate blob object hash for R script
+git hash-object create_dataset.R
+```
+
 
 <br>
 <details><summary>**Example**: Using `git cat-file` to view blob object content</summary>

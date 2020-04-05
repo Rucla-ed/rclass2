@@ -1922,9 +1922,9 @@ index c1cff38..8b151a2 100644
 <a class="sourceLine" id="cb25-5" data-line-number="5"><span class="fu">ls</span> -al</a></code></pre></div>
 <pre><code>## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
 ## total 0
-## drwxr-xr-x    3 cyouh95  staff   102 Apr  4 22:45 .
-## drwxr-xr-x+ 101 cyouh95  staff  3434 Apr  4 22:45 ..
-## drwxr-xr-x    9 cyouh95  staff   306 Apr  4 22:45 .git</code></pre>
+## drwxr-xr-x    3 cyouh95  staff   102 Apr  5 00:44 .
+## drwxr-xr-x+ 101 cyouh95  staff  3434 Apr  5 00:44 ..
+## drwxr-xr-x    9 cyouh95  staff   306 Apr  5 00:44 .git</code></pre>
 <p><br> What’s inside the <strong><code>.git/</code> directory</strong>?</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="co"># List out the contents of the .git/ directory (in tree form)</span></a>
 <a class="sourceLine" id="cb27-2" data-line-number="2"><span class="fu">find</span> .git -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">'s;[^/]*/;|____;g;s;____|; |;g'</span></a></code></pre></div>
@@ -2003,6 +2003,13 @@ index c1cff38..8b151a2 100644
 <ul>
 <li>For example, this could be an R script</li>
 <li>The file must be added to the <em>staging area</em> (i.e., “index”) in order for the blob object to be created</li>
+<li>The hash of the blob object can be seen in the <code>.git/objects</code> directory
+<ul>
+<li>The first 2 characters of the hash is the name of the sub-directory within <code>.git/objects</code></li>
+<li>The rest of the hash comes from the git object filename</li>
+<li>But only the first 7 characters of the hash is required to uniquely identify it</li>
+</ul></li>
+<li>This hash can also be computed from the name of the file for which the blob is to be created by using the <code>git hash-object</code> command</li>
 </ul>
 <div class="sourceCode" id="cb29"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># Create new R script</span></a>
 <a class="sourceLine" id="cb29-2" data-line-number="2"><span class="bu">echo</span> <span class="st">&quot;library(tidyverse)&quot;</span> <span class="op">&gt;</span> create_dataset.R</a>
@@ -2018,26 +2025,35 @@ index c1cff38..8b151a2 100644
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____info
 ## | |____pack</code></pre>
+<p><br> <strong><code>git hash-object</code></strong>: Compute hash for a blob object from name of file</p>
+<ul>
+<li>Help: <code>git hash-object -help</code></li>
+<li>Syntax: <code>git hash-object &lt;file_name&gt;</code></li>
+</ul>
+<p>We can use <code>git hash-object</code> to verify the hash for <code>create_dataset.R</code>:</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># Generate blob object hash for R script</span></a>
+<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="fu">git</span> hash-object create_dataset.R</a></code></pre></div>
+<pre><code>## c1cff389562e8bc123e6691a60352fdf839df113</code></pre>
 <br>
 <details>
 <p><summary><strong>Example</strong>: Using <code>git cat-file</code> to view blob object content</summary></p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="co"># View content of create_dataset.R</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="fu">git</span> cat-file -p c1cff38</a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># View content of create_dataset.R</span></a>
+<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="fu">git</span> cat-file -p c1cff38</a></code></pre></div>
 <pre><code>## library(tidyverse)
 ## mpg %&gt;% head(5)</code></pre>
 </details>
 <br>
 <details>
 <p><summary><strong>Example</strong>: Using <code>git cat-file</code> to view blob object type</summary></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="co"># View content of create_dataset.R</span></a>
-<a class="sourceLine" id="cb33-2" data-line-number="2"><span class="fu">git</span> cat-file -t c1cff38</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># View content of create_dataset.R</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="fu">git</span> cat-file -t c1cff38</a></code></pre></div>
 <pre><code>## blob</code></pre>
 </details>
 <br>
 <details>
 <p><summary><strong>Example</strong>: Using <code>git cat-file</code> to view blob object size</summary></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="co"># View content of create_dataset.R</span></a>
-<a class="sourceLine" id="cb35-2" data-line-number="2"><span class="fu">git</span> cat-file -s c1cff38</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># View content of create_dataset.R</span></a>
+<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="fu">git</span> cat-file -s c1cff38</a></code></pre></div>
 <pre><code>## 35</code></pre>
 </details>
 <p><br></p>
@@ -2053,18 +2069,18 @@ index c1cff38..8b151a2 100644
 <li>The root directory of the git repository is also a tree itself, and contains references to all its content at the point of commit (like a “snapshot”)</li>
 <li>A commit must be made in order for the tree object(s) to be created</li>
 </ul>
-<div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="co"># Create a sub-directory </span></a>
-<a class="sourceLine" id="cb37-2" data-line-number="2"><span class="fu">mkdir</span> notes</a>
-<a class="sourceLine" id="cb37-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb37-4" data-line-number="4"><span class="co"># Add files to the sub-directory (since git doesn't track empty directories)</span></a>
-<a class="sourceLine" id="cb37-5" data-line-number="5"><span class="bu">echo</span> <span class="st">&quot;This is my first set of notes.&quot;</span> <span class="op">&gt;</span> notes/note_1.txt</a>
-<a class="sourceLine" id="cb37-6" data-line-number="6"><span class="bu">echo</span> <span class="st">&quot;This is my second set of notes.&quot;</span> <span class="op">&gt;</span> notes/note_2.txt</a>
-<a class="sourceLine" id="cb37-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb37-8" data-line-number="8"><span class="co"># Add new files</span></a>
-<a class="sourceLine" id="cb37-9" data-line-number="9"><span class="fu">git</span> add .</a>
-<a class="sourceLine" id="cb37-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb37-11" data-line-number="11"><span class="co"># View .git/objects directory</span></a>
-<a class="sourceLine" id="cb37-12" data-line-number="12"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">'s;[^/]*/;|____;g;s;____|; |;g'</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co"># Create a sub-directory </span></a>
+<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="fu">mkdir</span> notes</a>
+<a class="sourceLine" id="cb39-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb39-4" data-line-number="4"><span class="co"># Add files to the sub-directory (since git doesn't track empty directories)</span></a>
+<a class="sourceLine" id="cb39-5" data-line-number="5"><span class="bu">echo</span> <span class="st">&quot;This is my first set of notes.&quot;</span> <span class="op">&gt;</span> notes/note_1.txt</a>
+<a class="sourceLine" id="cb39-6" data-line-number="6"><span class="bu">echo</span> <span class="st">&quot;This is my second set of notes.&quot;</span> <span class="op">&gt;</span> notes/note_2.txt</a>
+<a class="sourceLine" id="cb39-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb39-8" data-line-number="8"><span class="co"># Add new files</span></a>
+<a class="sourceLine" id="cb39-9" data-line-number="9"><span class="fu">git</span> add .</a>
+<a class="sourceLine" id="cb39-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb39-11" data-line-number="11"><span class="co"># View .git/objects directory</span></a>
+<a class="sourceLine" id="cb39-12" data-line-number="12"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">'s;[^/]*/;|____;g;s;____|; |;g'</span></a></code></pre></div>
 <pre><code>## |____objects
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
@@ -2075,18 +2091,18 @@ index c1cff38..8b151a2 100644
 ## | |____info
 ## | |____pack</code></pre>
 <p><br> As seen, new blob objects are created for <code>note_1.txt</code> and <code>note_2.txt</code> since the files have been added (but tree objects will not be created until a commit has been made):</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="co"># View content of note_1.txt and note_2.txt</span></a>
-<a class="sourceLine" id="cb39-2" data-line-number="2"><span class="fu">git</span> cat-file -p 476fb98</a>
-<a class="sourceLine" id="cb39-3" data-line-number="3"><span class="fu">git</span> cat-file -p 6108458</a></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># View content of note_1.txt and note_2.txt</span></a>
+<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="fu">git</span> cat-file -p 476fb98</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3"><span class="fu">git</span> cat-file -p 6108458</a></code></pre></div>
 <pre><code>## This is my second set of notes.
 ## This is my first set of notes.</code></pre>
 <p><br> After the files have been committed, tree objects will be created for any sub-directories as well as for the root directory of the repository:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="co"># Make a commit</span></a>
-<a class="sourceLine" id="cb41-2" data-line-number="2"><span class="fu">git</span> commit -m <span class="st">&quot;initial commit&quot;</span></a>
-<a class="sourceLine" id="cb41-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb41-4" data-line-number="4"><span class="co"># View .git/objects directory</span></a>
-<a class="sourceLine" id="cb41-5" data-line-number="5"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">'s;[^/]*/;|____;g;s;____|; |;g'</span></a></code></pre></div>
-<pre><code>## [master (root-commit) 899e753] initial commit
+<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># Make a commit</span></a>
+<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="fu">git</span> commit -m <span class="st">&quot;initial commit&quot;</span></a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"><span class="co"># View .git/objects directory</span></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">'s;[^/]*/;|____;g;s;____|; |;g'</span></a></code></pre></div>
+<pre><code>## [master (root-commit) faa6e9a] initial commit
 ##  3 files changed, 4 insertions(+)
 ##  create mode 100644 create_dataset.R
 ##  create mode 100644 notes/note_1.txt
@@ -2098,21 +2114,21 @@ index c1cff38..8b151a2 100644
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____89
-## | | |____9e7538c09e4989ce37882d56cb81a6fd6b27d7
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____fa
+## | | |____a6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## | |____info
 ## | |____pack</code></pre>
 <p><br> As we now see, the tree objects for the <code>my_git_repo/</code> root directory and <code>notes/</code> sub-directory exists, and another object has been created for the commit (<em>more info on that in <a href="#commit-object">next section</a></em>):</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb43-1" data-line-number="1"><span class="co"># View object type for my_git_repo/ and notes/ trees</span></a>
-<a class="sourceLine" id="cb43-2" data-line-number="2"><span class="fu">git</span> cat-file -t f59085d</a>
-<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="fu">git</span> cat-file -t 6cf7bbf</a>
-<a class="sourceLine" id="cb43-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="co"># View object type for the commit</span></a>
-<a class="sourceLine" id="cb43-6" data-line-number="6"><span class="fu">git</span> cat-file -t <span class="va">$(</span><span class="fu">git</span> rev-parse --short HEAD<span class="va">)</span>  # git rev-parse retrieves latest commit hash</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="co"># View object type for my_git_repo/ and notes/ trees</span></a>
+<a class="sourceLine" id="cb45-2" data-line-number="2"><span class="fu">git</span> cat-file -t f59085d</a>
+<a class="sourceLine" id="cb45-3" data-line-number="3"><span class="fu">git</span> cat-file -t 6cf7bbf</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="co"># View object type for the commit</span></a>
+<a class="sourceLine" id="cb45-6" data-line-number="6"><span class="fu">git</span> cat-file -t <span class="va">$(</span><span class="fu">git</span> rev-parse --short HEAD<span class="va">)</span>  # git rev-parse retrieves latest commit hash</a></code></pre></div>
 <pre><code>## tree
 ## tree
 ## commit</code></pre>
@@ -2130,16 +2146,16 @@ index c1cff38..8b151a2 100644
 <br>
 <details>
 <p><summary><strong>Example</strong>: Using <code>git cat-file</code> to view tree object content for <code>my_git_repo/</code> root directory</summary></p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co"># View content of my_git_repo/ tree object</span></a>
-<a class="sourceLine" id="cb46-2" data-line-number="2"><span class="fu">git</span> cat-file -p f59085d</a></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="co"># View content of my_git_repo/ tree object</span></a>
+<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="fu">git</span> cat-file -p f59085d</a></code></pre></div>
 <pre><code>## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113 create_dataset.R
 ## 040000 tree 6cf7bbf49af4f9fd5103cf9f0a3fa25226b12336 notes</code></pre>
 </details>
 <br>
 <details>
 <p><summary><strong>Example</strong>: Using <code>git cat-file</code> to view tree object content for <code>notes/</code> sub-directory</summary></p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="co"># View content of notes/ tree object</span></a>
-<a class="sourceLine" id="cb48-2" data-line-number="2"><span class="fu">git</span> cat-file -p 6cf7bbf</a></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb50-1" data-line-number="1"><span class="co"># View content of notes/ tree object</span></a>
+<a class="sourceLine" id="cb50-2" data-line-number="2"><span class="fu">git</span> cat-file -p 6cf7bbf</a></code></pre></div>
 <pre><code>## 100644 blob 6108458417308ddc15d7390a2f8db50cf65ec399 note_1.txt
 ## 100644 blob 476fb98775843929ca6c55b16b04752d973b3d2a note_2.txt</code></pre>
 </details>
@@ -2160,22 +2176,20 @@ committer &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <li>Other information about the commit (e.g., <code>author</code>, <code>committer</code>, <code>commit_message</code>)</li>
 </ul>
 <p><br> All commits except for the initial commit will contain a reference to its <code>parent</code> commit. So let’s create a second commit:</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="co"># Modify R script</span></a>
-<a class="sourceLine" id="cb51-2" data-line-number="2"><span class="bu">echo</span> <span class="st">&quot;df &lt;- mpg %&gt;% filter(year == 2008)&quot;</span> <span class="op">&gt;&gt;</span> create_dataset.R</a>
-<a class="sourceLine" id="cb51-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="co"># Add R script</span></a>
-<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="fu">git</span> add create_dataset.R</a>
-<a class="sourceLine" id="cb51-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="co"># Make another commit</span></a>
-<a class="sourceLine" id="cb51-8" data-line-number="8"><span class="fu">git</span> commit -m <span class="st">&quot;second commit&quot;</span></a>
-<a class="sourceLine" id="cb51-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb51-10" data-line-number="10"><span class="co"># View .git/objects directory</span></a>
-<a class="sourceLine" id="cb51-11" data-line-number="11"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">'s;[^/]*/;|____;g;s;____|; |;g'</span></a></code></pre></div>
-<pre><code>## [master 45f78a4] second commit
+<div class="sourceCode" id="cb53"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># Modify R script</span></a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="bu">echo</span> <span class="st">&quot;df &lt;- mpg %&gt;% filter(year == 2008)&quot;</span> <span class="op">&gt;&gt;</span> create_dataset.R</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="co"># Add R script</span></a>
+<a class="sourceLine" id="cb53-5" data-line-number="5"><span class="fu">git</span> add create_dataset.R</a>
+<a class="sourceLine" id="cb53-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb53-7" data-line-number="7"><span class="co"># Make another commit</span></a>
+<a class="sourceLine" id="cb53-8" data-line-number="8"><span class="fu">git</span> commit -m <span class="st">&quot;second commit&quot;</span></a>
+<a class="sourceLine" id="cb53-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb53-10" data-line-number="10"><span class="co"># View .git/objects directory</span></a>
+<a class="sourceLine" id="cb53-11" data-line-number="11"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">'s;[^/]*/;|____;g;s;____|; |;g'</span></a></code></pre></div>
+<pre><code>## [master 71cfc04] second commit
 ##  1 file changed, 1 insertion(+)
 ## |____objects
-## | |____45
-## | | |____f78a4af7aba974790ff42c2f10925543cc5ecd
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -2186,12 +2200,14 @@ committer &lt;username&gt; &lt;email&gt; &lt;time&gt;
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____89
-## | | |____9e7538c09e4989ce37882d56cb81a6fd6b27d7
+## | |____71
+## | | |____cfc0415e370b4db18c9f64426697b570795147
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____fa
+## | | |____a6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## | |____info
 ## | |____pack</code></pre>
 <br>
@@ -2200,15 +2216,15 @@ committer &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <ul>
 <li><em><strong>Note</strong>: The commit hash will be different each time we run this because it is dependent on the time</em></li>
 </ul>
-<div class="sourceCode" id="cb53"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="co"># Retrieve commit hash for first commit</span></a>
-<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="fu">git</span> rev-list HEAD <span class="kw">|</span> <span class="fu">tail</span> -n 1</a>
-<a class="sourceLine" id="cb53-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb53-4" data-line-number="4"><span class="co"># View content of the commit object</span></a>
-<a class="sourceLine" id="cb53-5" data-line-number="5"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> rev-list HEAD <span class="kw">|</span> <span class="fu">tail</span> -n 1<span class="va">)</span></a></code></pre></div>
-<pre><code>## 899e7538c09e4989ce37882d56cb81a6fd6b27d7
+<div class="sourceCode" id="cb55"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># Retrieve commit hash for first commit</span></a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="fu">git</span> rev-list HEAD <span class="kw">|</span> <span class="fu">tail</span> -n 1</a>
+<a class="sourceLine" id="cb55-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="co"># View content of the commit object</span></a>
+<a class="sourceLine" id="cb55-5" data-line-number="5"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> rev-list HEAD <span class="kw">|</span> <span class="fu">tail</span> -n 1<span class="va">)</span></a></code></pre></div>
+<pre><code>## faa6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586065548 -0700
-## committer cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586065548 -0700
+## author cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586072664 -0700
+## committer cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586072664 -0700
 ## 
 ## initial commit</code></pre>
 </details>
@@ -2218,16 +2234,16 @@ committer &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <ul>
 <li><em><strong>Note</strong>: The commit hash will be different each time we run this because it is dependent on the time</em></li>
 </ul>
-<div class="sourceCode" id="cb55"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb55-1" data-line-number="1"><span class="co"># Retrieve commit hash for lastest commit</span></a>
-<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="fu">git</span> rev-parse HEAD</a>
-<a class="sourceLine" id="cb55-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="co"># View content of the commit object</span></a>
-<a class="sourceLine" id="cb55-5" data-line-number="5"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> rev-parse HEAD<span class="va">)</span></a></code></pre></div>
-<pre><code>## 45f78a4af7aba974790ff42c2f10925543cc5ecd
+<div class="sourceCode" id="cb57"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb57-1" data-line-number="1"><span class="co"># Retrieve commit hash for lastest commit</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="fu">git</span> rev-parse HEAD</a>
+<a class="sourceLine" id="cb57-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb57-4" data-line-number="4"><span class="co"># View content of the commit object</span></a>
+<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> rev-parse HEAD<span class="va">)</span></a></code></pre></div>
+<pre><code>## 71cfc0415e370b4db18c9f64426697b570795147
 ## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent 899e7538c09e4989ce37882d56cb81a6fd6b27d7
-## author cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586065548 -0700
-## committer cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586065548 -0700
+## parent faa6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
+## author cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586072664 -0700
+## committer cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586072664 -0700
 ## 
 ## second commit</code></pre>
 </details>
@@ -2248,16 +2264,12 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <li>Other information about the tag (e.g., name of <code>tag</code>, <code>tagger</code>, <code>tag_message</code>)</li>
 </ul>
 <p>Let’s create a tag for the current commit:</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb58-1" data-line-number="1"><span class="co"># Create a tag</span></a>
-<a class="sourceLine" id="cb58-2" data-line-number="2"><span class="fu">git</span> tag -a v1 -m <span class="st">&quot;version 1.0&quot;</span></a>
-<a class="sourceLine" id="cb58-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb58-4" data-line-number="4"><span class="co"># View .git/objects directory</span></a>
-<a class="sourceLine" id="cb58-5" data-line-number="5"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">'s;[^/]*/;|____;g;s;____|; |;g'</span></a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># Create a tag</span></a>
+<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="fu">git</span> tag -a v1 -m <span class="st">&quot;version 1.0&quot;</span></a>
+<a class="sourceLine" id="cb60-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb60-4" data-line-number="4"><span class="co"># View .git/objects directory</span></a>
+<a class="sourceLine" id="cb60-5" data-line-number="5"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">'s;[^/]*/;|____;g;s;____|; |;g'</span></a></code></pre></div>
 <pre><code>## |____objects
-## | |____36
-## | | |____e85fa4c353b4a0f6e8192c5c2caf95a895bc36
-## | |____45
-## | | |____f78a4af7aba974790ff42c2f10925543cc5ecd
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -2268,36 +2280,40 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____89
-## | | |____9e7538c09e4989ce37882d56cb81a6fd6b27d7
+## | |____71
+## | | |____cfc0415e370b4db18c9f64426697b570795147
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____e4
+## | | |____17cd2a9c2687280ea387f743bd8e9cb52138a1
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____fa
+## | | |____a6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## | |____info
 ## | |____pack</code></pre>
 <br>
 <details>
 <p><summary><strong>Example</strong>: Using <code>git cat-file</code> to view tag object</summary></p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb60-1" data-line-number="1"><span class="co"># View content of the tag object</span></a>
-<a class="sourceLine" id="cb60-2" data-line-number="2"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> show-ref -s v1<span class="va">)</span>  # retrieves hash for v1 tag</a></code></pre></div>
-<pre><code>## object 45f78a4af7aba974790ff42c2f10925543cc5ecd
+<div class="sourceCode" id="cb62"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co"># View content of the tag object</span></a>
+<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> show-ref -s v1<span class="va">)</span>  # retrieves hash for v1 tag</a></code></pre></div>
+<pre><code>## object 71cfc0415e370b4db18c9f64426697b570795147
 ## type commit
 ## tag v1
-## tagger cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586065549 -0700
+## tagger cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt; 1586072664 -0700
 ## 
 ## version 1.0</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb62-1" data-line-number="1"><span class="co"># The tagged object was the second commit</span></a>
-<a class="sourceLine" id="cb62-2" data-line-number="2"><span class="fu">git</span> log</a></code></pre></div>
-<pre><code>## commit 45f78a4af7aba974790ff42c2f10925543cc5ecd
+<div class="sourceCode" id="cb64"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co"># The tagged object was the second commit</span></a>
+<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="fu">git</span> log</a></code></pre></div>
+<pre><code>## commit 71cfc0415e370b4db18c9f64426697b570795147
 ## Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
-## Date:   Sat Apr 4 22:45:48 2020 -0700
+## Date:   Sun Apr 5 00:44:24 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 899e7538c09e4989ce37882d56cb81a6fd6b27d7
+## commit faa6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
-## Date:   Sat Apr 4 22:45:48 2020 -0700
+## Date:   Sun Apr 5 00:44:24 2020 -0700
 ## 
 ##     initial commit</code></pre>
 </details>
@@ -2307,25 +2323,25 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <div id="head-and-refs" class="section level2">
 <h2><span class="header-section-number">2.3</span> <code>HEAD</code> and <code>refs/</code></h2>
 <p>Recall from earlier that <code>HEAD</code> is a reference to the latest commit of the current branch (in this case, <em>master</em>):</p>
-<div class="sourceCode" id="cb64"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb64-1" data-line-number="1"><span class="co"># View content of HEAD</span></a>
-<a class="sourceLine" id="cb64-2" data-line-number="2"><span class="fu">cat</span> .git/HEAD</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="co"># View content of HEAD</span></a>
+<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="fu">cat</span> .git/HEAD</a></code></pre></div>
 <pre><code>## ref: refs/heads/master</code></pre>
 <p>The hash ID of the commit referred to by <code>HEAD</code> is located in the <code>refs/</code> directory:</p>
-<div class="sourceCode" id="cb66"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb66-1" data-line-number="1"><span class="co"># View content of refs/heads/master</span></a>
-<a class="sourceLine" id="cb66-2" data-line-number="2"><span class="fu">cat</span> .git/refs/heads/master</a></code></pre></div>
-<pre><code>## 45f78a4af7aba974790ff42c2f10925543cc5ecd</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="co"># View content of refs/heads/master</span></a>
+<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="fu">cat</span> .git/refs/heads/master</a></code></pre></div>
+<pre><code>## 71cfc0415e370b4db18c9f64426697b570795147</code></pre>
 <p>We can use <code>git log</code> to verify that this is the hash ID of the latest commit:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb68-1" data-line-number="1"><span class="co"># View commit log</span></a>
-<a class="sourceLine" id="cb68-2" data-line-number="2"><span class="fu">git</span> log</a></code></pre></div>
-<pre><code>## commit 45f78a4af7aba974790ff42c2f10925543cc5ecd
+<div class="sourceCode" id="cb70"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="co"># View commit log</span></a>
+<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="fu">git</span> log</a></code></pre></div>
+<pre><code>## commit 71cfc0415e370b4db18c9f64426697b570795147
 ## Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
-## Date:   Sat Apr 4 22:45:48 2020 -0700
+## Date:   Sun Apr 5 00:44:24 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 899e7538c09e4989ce37882d56cb81a6fd6b27d7
+## commit faa6e9ac2e57e11fddfb4b6f43dc8da3e0c95dde
 ## Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
-## Date:   Sat Apr 4 22:45:48 2020 -0700
+## Date:   Sun Apr 5 00:44:24 2020 -0700
 ## 
 ##     initial commit</code></pre>
 </div>
@@ -2357,8 +2373,8 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <li>Imagine you have made some changes to a file called <code>create_dataset.R</code> since you last committed it</li>
 <li>You can use <code>git checkout</code> to discard these changes in the <em>working directory</em></li>
 </ul>
-<div class="sourceCode" id="cb70"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb70-1" data-line-number="1"><span class="co"># Check status before discarding changes</span></a>
-<a class="sourceLine" id="cb70-2" data-line-number="2"><span class="fu">git</span> status</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="co"># Check status before discarding changes</span></a>
+<a class="sourceLine" id="cb72-2" data-line-number="2"><span class="fu">git</span> status</a></code></pre></div>
 <pre><code>On branch master
 Changes not staged for commit:
   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
@@ -2367,10 +2383,10 @@ Changes not staged for commit:
     modified:   create_dataset.R
 
 no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)</code></pre>
-<div class="sourceCode" id="cb72"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb72-1" data-line-number="1"><span class="fu">git</span> checkout create_dataset.R</a>
-<a class="sourceLine" id="cb72-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb72-3" data-line-number="3"><span class="co"># Check status after discarding changes</span></a>
-<a class="sourceLine" id="cb72-4" data-line-number="4"><span class="fu">git</span> status</a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="fu">git</span> checkout create_dataset.R</a>
+<a class="sourceLine" id="cb74-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb74-3" data-line-number="3"><span class="co"># Check status after discarding changes</span></a>
+<a class="sourceLine" id="cb74-4" data-line-number="4"><span class="fu">git</span> status</a></code></pre></div>
 <pre><code>On branch master
 nothing to commit, working tree clean</code></pre>
 </details>
@@ -2404,18 +2420,18 @@ nothing to commit, working tree clean</code></pre>
 <li>Note that you can use <code>.</code> to specify all files in the currenty directory to be unstaged</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb74"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb74-1" data-line-number="1"><span class="co"># Check status before unstaging files</span></a>
-<a class="sourceLine" id="cb74-2" data-line-number="2"><span class="fu">git</span> status</a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="co"># Check status before unstaging files</span></a>
+<a class="sourceLine" id="cb76-2" data-line-number="2"><span class="fu">git</span> status</a></code></pre></div>
 <pre><code>On branch master
 Changes to be committed:
   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
 
     modified:   create_dataset.R
     new file:   new_file.txt</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="fu">git</span> reset HEAD .</a>
-<a class="sourceLine" id="cb76-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb76-3" data-line-number="3"><span class="co"># Check status after unstaging files</span></a>
-<a class="sourceLine" id="cb76-4" data-line-number="4"><span class="fu">git</span> status</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="fu">git</span> reset HEAD .</a>
+<a class="sourceLine" id="cb78-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb78-3" data-line-number="3"><span class="co"># Check status after unstaging files</span></a>
+<a class="sourceLine" id="cb78-4" data-line-number="4"><span class="fu">git</span> status</a></code></pre></div>
 <pre><code>On branch master
 Changes not staged for commit:
   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
@@ -2435,8 +2451,8 @@ Untracked files:
 <li>Imagine you have made two commits adding lines to a file called <code>create_dataset.R</code></li>
 <li>You can use <code>git reset</code> to undo commit(s) by specifying the hash ID of the commit you want to undo up to</li>
 </ul>
-<div class="sourceCode" id="cb78"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb78-1" data-line-number="1"><span class="co"># Check log before undoing commit</span></a>
-<a class="sourceLine" id="cb78-2" data-line-number="2"><span class="fu">git</span> log</a></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="co"># Check log before undoing commit</span></a>
+<a class="sourceLine" id="cb80-2" data-line-number="2"><span class="fu">git</span> log</a></code></pre></div>
 <pre><code>commit 4a2f6fe315ff94aee5646c01a4e693e37b610119 (HEAD -&gt; master)
 Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
 Date:   Sat Apr 4 13:04:35 2020 -0700
@@ -2448,10 +2464,10 @@ Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
 Date:   Sat Apr 4 03:11:38 2020 -0700
 
     add 1st line to create_dataset.R</code></pre>
-<div class="sourceCode" id="cb80"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="fu">git</span> reset d5c6e09</a>
-<a class="sourceLine" id="cb80-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb80-3" data-line-number="3"><span class="co"># Check log after undoing commit</span></a>
-<a class="sourceLine" id="cb80-4" data-line-number="4"><span class="fu">git</span> log</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="fu">git</span> reset d5c6e09</a>
+<a class="sourceLine" id="cb82-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb82-3" data-line-number="3"><span class="co"># Check log after undoing commit</span></a>
+<a class="sourceLine" id="cb82-4" data-line-number="4"><span class="fu">git</span> log</a></code></pre></div>
 <pre><code>commit d5c6e0958fb173af04f7e2c5d5fd81457e8ffd0c (HEAD -&gt; master)
 Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
 Date:   Sat Apr 4 03:11:38 2020 -0700
@@ -2481,8 +2497,8 @@ Date:   Sat Apr 4 03:11:38 2020 -0700
 <li>Imagine you have made two commits adding lines to a file called <code>create_dataset.R</code></li>
 <li>You can use <code>git revert</code> to revert committed changes by specifying the hash ID of the unwanted commit</li>
 </ul>
-<div class="sourceCode" id="cb82"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb82-1" data-line-number="1"><span class="co"># Check log before reverting commit</span></a>
-<a class="sourceLine" id="cb82-2" data-line-number="2"><span class="fu">git</span> log</a></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="co"># Check log before reverting commit</span></a>
+<a class="sourceLine" id="cb84-2" data-line-number="2"><span class="fu">git</span> log</a></code></pre></div>
 <pre><code>commit 4a2f6fe315ff94aee5646c01a4e693e37b610119 (HEAD -&gt; master)
 Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
 Date:   Sat Apr 4 13:04:35 2020 -0700
@@ -2494,10 +2510,10 @@ Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
 Date:   Sat Apr 4 03:11:38 2020 -0700
 
     add 1st line to create_dataset.R</code></pre>
-<div class="sourceCode" id="cb84"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb84-1" data-line-number="1"><span class="fu">git</span> revert 4a2f6fe</a>
-<a class="sourceLine" id="cb84-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb84-3" data-line-number="3"><span class="co"># Check log after reverting commit</span></a>
-<a class="sourceLine" id="cb84-4" data-line-number="4"><span class="fu">git</span> log</a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb86-1" data-line-number="1"><span class="fu">git</span> revert 4a2f6fe</a>
+<a class="sourceLine" id="cb86-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb86-3" data-line-number="3"><span class="co"># Check log after reverting commit</span></a>
+<a class="sourceLine" id="cb86-4" data-line-number="4"><span class="fu">git</span> log</a></code></pre></div>
 <pre><code>commit f4dfac7d8703a94c4353eb27418646ca158792b4 (HEAD -&gt; master)
 Author: cyouh95 &lt;25449416+cyouh95@users.noreply.github.com&gt;
 Date:   Sat Apr 4 13:10:41 2020 -0700
