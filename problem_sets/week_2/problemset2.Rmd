@@ -213,6 +213,7 @@ One of the goals for this quarter is to get you comfortable using git and GitHub
     + Create a new issue posting a question you have about the class/problem set
     + Answer a question that another student posted
     + Create a new issue posting about something new you learned or figured out from this class
+        + If you choose this option, please mention the other members of your team and assign yourself
     
     Paste the link to the issue you contributed to here:
     
@@ -220,6 +221,8 @@ One of the goals for this quarter is to get you comfortable using git and GitHub
     
     ```
     
+    Please make sure to close the issue once your question has been resolved or within 1 week.
+
 
 # Part VI: Wrapping up 
 
