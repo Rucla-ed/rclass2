@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Overview:  
 
-One of the goals for this quarter is to get you comfortable using git and GitHub. In this problem set we will be practicing more git/GitHub workflow basics, manipulating data in R, creating GitHub issues, and creating a plot using the `ggplot2` library. We are asking you to create a git repository on your local computer which you will later connect to a remote repository on GitHub. This local repository will have an `.R` file where you will read in data and practice manipulating this data to later create a scatterplot using the `ggplot` library. 
+One of the goals for this quarter is to get you comfortable using git and GitHub. In this problem set we will be practicing more git/GitHub workflow basics, manipulating data in R, and creating GitHub issues. We are asking you to create a git repository on your local computer which you will later connect to a remote repository on GitHub. This local repository will have an `.R` file where you will read in data and practice manipulating this data. We recommend doing the reading prior to completing the problem set.
 
 
 # Part I: Concepts & Definitions
@@ -197,14 +197,14 @@ One of the goals for this quarter is to get you comfortable using git and GitHub
     
     ```
 
-8. Connect your local **lastname_ps1** repository to the remote and push your changes (hint: refer to Section 4.2.3 in the lecture). Write the commands you used here: 
+8. Connect your local **lastname_ps2** repository to the remote and push your changes (hint: refer to Section 4.2.3 in the lecture). Write the commands you used here: 
 
     ```
     
     ```
 
 
-# Part V: GitHub issues  
+# Part V: I got issues  
 
 1. Navigate to the issues tab for the **rclass2** repository here: https://github.com/Rucla-ed/rclass2/issues
 
@@ -221,18 +221,7 @@ One of the goals for this quarter is to get you comfortable using git and GitHub
     ```
     
 
-# Part VI: Plots using ggplot (**Optional Bonus Section**)
-
-1. Update `problemset2.R` and use the dataframe from part III to create a scatterplot of total enrollment by medican household income.  
-
-    + X-axis: `total_students`
-    + Y-axis: `avgmedian_inc_2564`
-    + Color: `visited` 
-    + Label your graph
-    
-2. Export your plot as an image or PDF.
-
-# Part VII: Wrapping up 
+# Part VI: Wrapping up 
 
 1. Finally, add and commit this file you are working on (`problemset2.Rmd`) -- as well as the plot if you completed the optional bonus section -- to your repository and push to the remote repository.  
 
