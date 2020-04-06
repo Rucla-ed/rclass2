@@ -7,7 +7,7 @@ output:
   html_document:
     toc: true
     toc_depth: 2
-    #toc_float: true # toc_float option to float the table of contents to the left of the main document content. floating table of contents will always be visible even when the document is scrolled
+    toc_float: true # toc_float option to float the table of contents to the left of the main document content. floating table of contents will always be visible even when the document is scrolled
       #collapsed: false # collapsed (defaults to TRUE) controls whether the TOC appears with only the top-level (e.g., H2) headers. If collapsed initially, the TOC is automatically expanded inline when necessary
       #smooth_scroll: true # smooth_scroll (defaults to TRUE) controls whether page scrolls are animated when TOC items are navigated to via mouse clicks
     number_sections: true
@@ -576,7 +576,7 @@ ls
 
 We can see the help file for any Bash command by typing:
 
-- `command_name --help` or `man command_name`
+- `command_name --help` (Windows) or `man command_name` (Mac)
 - For example:
 
 ```{bash, eval = FALSE}
@@ -760,59 +760,15 @@ ls
 ```
 
 
-```{bash}
-cd ~/documents
-pwd
-rm -rf ojch_repo
-ls
-```
-
-
-```{bash}
-cd ~/documents
-pwd
-rm -rf ojch_repo # remove this directory if it already exists
-mkdir ojch_repo
-cd ojch_repo
-
-pwd
-git init
-
-#create directory for r scripts
-mkdir scripts
-
-
-cd scripts
-
-#add a simple r script
-echo "library(tidyverse)" >> create_data.r
-echo "df <- mpg %>% filter(year==2008)" >> create_data.r
-echo "df %>% group_by(cyl) %>% summarize(avg_mpg = mean(hwy, na.rm = TRUE))" >> create_data.r
-
-ls -al
-```
-
-show `.git` directory before adding/committing files
-```{bash}
-cd ~/documents/ojch_repo/.git
-ls -al # show tree instead
-```
-
-
-```{r}
-library(tidyverse)
-mpg %>% filter(year==2008)
-df <- mpg %>% filter(year==2008)
-
-df %>% group_by(cyl) %>% summarize(avg_mpg = mean(hwy, na.rm = TRUE))
-
-```
-
 ### Other commands
 
 __`touch` command__: Creates a file
 
 - `touch file_name(s)`
+
+__`cat` command__: Outputs content of a file
+
+- `cat file_name(s)`
 
 __`cp` command__: Copies files
 
@@ -963,9 +919,8 @@ __What we just did:__
 <br>
 
 <details><summary>Optional: Student task</summary>
-<p>
 
-#### Student task: Clone repository for this course to desired directory on your local machine
+**Student task: Clone repository for this course to desired directory on your local machine**
 
 - Go to URL for the github organization [Rucla-ed](https://github.com/Rucla-ed)
 - Create your own repository and name it `student_yourlastname` (e.g., `student_jaquette`) (NOTE: You need access to Rucla-ed org)
@@ -993,7 +948,6 @@ git clone git@github.com:Rucla-ed/student_jaquette.git # SSH authentication
 cd student_jaquette
 ls
 ```
-</p>
 </details>
 
 ### Create new repository on GitHub and clone to your local machine
@@ -1040,6 +994,7 @@ Then, in Terminal/Git Bash on your local machine:
     - This sets our local git repository to track from our remote repository's master branch
 
 Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk:
+
 ```{bash, eval = FALSE}
 # CREATING AND CHANGING DIRECTORIES
 
@@ -1115,7 +1070,6 @@ __What we just did:__
 
 *Credit: Lucas Maurer, medium.com*
 
-
 # Git commands: Observing your repository
 
 Below are some common git commands you might use to observe your repository:
@@ -1124,7 +1078,7 @@ Below are some common git commands you might use to observe your repository:
 - [git log](#git-log)
 - [git diff](#git-diff)
 
-## `git status`
+## git status
 
 **`git status`**: Shows the working tree status
 
@@ -1270,7 +1224,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 </details>
 <br>
 
-## `git log`
+## git log
 
 **`git log`**: Show commit logs
 
@@ -1304,7 +1258,7 @@ Date:   Wed Apr 1 22:49:52 2020 -0700
 
 <br>
 
-## `git diff`
+## git diff
 
 **`git diff`**: Show changes between files, commits, etc.
 
@@ -1498,7 +1452,7 @@ index c1cff38..8b151a2 100644
 
 # Git: Under the hood
 
-## `.git/` directory
+## .git/ directory
 
 <br>
 Every git repository that is created using `git init` contains a **`.git/` directory** that "contains all the informations needed for git to work" (From [Git series 1/3: Understanding git for real by exploring the .git directory](https://www.daolf.com/posts/git-series-part-1/)):
@@ -1740,9 +1694,9 @@ cd ~/my_git_repo
 ls -al
 echo ""
 
-# View content of my_git_repo/ tree object
-git cat-file -t f59085d # type
-git cat-file -p f59085d # print
+# View type and content of my_git_repo/ tree object
+git cat-file -t f59085d  # type
+git cat-file -p f59085d  # content
 ```
 
 - contents of tree object are essentially a list of files in the directory
@@ -1755,9 +1709,9 @@ git cat-file -p f59085d # print
 ```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
-# View content of notes/ tree object
-git cat-file -t 6cf7bbf # type
-git cat-file -p 6cf7bbf
+# View type and content of notes/ tree object
+git cat-file -t 6cf7bbf  # type
+git cat-file -p 6cf7bbf  # content
 ```
 </details>
 <br>
@@ -1880,12 +1834,12 @@ git log
 </details>
 <br>
 
-## `HEAD` and `refs/`
+## HEAD and refs/
 
-CRYSTAL - SAY A BIT MORE ABOUT WHY THIS IS IMPORTANT AND PRACTICAL USAGE OF HEAD AND REFS/
+The `HEAD` file is a pointer to your current (active) branch -- specifically, it points to the latest commit of that branch (whose hash ID is stored in the `refs/` directory). Especially when we get to working with multiple branches, the `HEAD` becomes important as it keeps track of which branch you are currently on.
 
 
-Recall from earlier that `HEAD` is a reference to the latest commit of the current branch (in this case, _master_):
+If we output the contents of `HEAD`, we see it contains a reference to the _master_ branch:
 
 ```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
@@ -1894,7 +1848,7 @@ cd ~/my_git_repo
 cat .git/HEAD
 ```
 
-The hash ID of the commit referred to by `HEAD` is located in the `refs/` directory:
+Following that reference, we can find the hash ID of the latest commit located inside the `refs/` directory:
 
 ```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
@@ -1912,13 +1866,157 @@ cd ~/my_git_repo
 git log
 ```
 
-## EXAMPLE OF GIT UNDER HOOD IN ACTION (CAN RENAME)
+## Full example
 
-CRYSTAL - CAN YOU ADD ONE SUBSTANTIVE EXAMPLE, WHERE YOU CREATE NEW GIT REPO. ADD A FILE AND A SUB-DIRECTORY. COMMIT FILE. USE GIT CAT-FILE AND GIT HASH-OBJECT TO VIEW FILE. THEN MODIFY THE FILE. MAKE ANOTHER COMMIT. AND USE GIT CAT-FILE AND GIT HASH-OBJECT AGAIN TO VIEW FILE. AS WELL AS USE OTHER COMMANDS (E.G., GIT DIFF, GIT LOG, ETC.) THAT COULD BE RELEVANT IN UNDERSTANDING CHANGES. AND MAYBE THIS COULD BE OPPORTUNITY TO SHOW HOW HEAD AND REFS/ ARE UTILIZED.
+```{bash, echo=-c(1:4)}
+cd ~  # change to root directory
+rm -rf my_git_repo  # force remove `my_git_repo` (if it exists)
+mkdir my_git_repo  # make directory `my_git_repo`
+
+# Initialize a new git repository in `my_git_repo` directory
+cd my_git_repo
+git init
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Create new R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(5)" >> create_dataset.R
+
+# R script initially starts off under `Untracked Files`
+git status
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Add R script
+git add create_dataset.R
+
+# R script moves to `Changes to be committed`
+git status
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Once R script has been added, a blob object is created for it in the .git/objects directory
+find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# We can use `git hash-object` to verify the hash of the blob object
+git hash-object create_dataset.R
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# With this hash, we can view the content of create_dataset.R
+git cat-file -p c1cff38
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Make a commit
+git commit -m "add create_dataset.R"
+
+# The R script is now no longer listed
+git status
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Check the commit history
+git log
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Verify that `HEAD` is indeed pointing to the last commit made, which is our initial commit
+cat .git/HEAD
+cat .git/refs/heads/master
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Further modify R script, which is now a tracked file
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+
+# R script is now under `Changes not staged for commit`
+git status
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# View what new changes were made to R script
+git diff
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Add new changes made to R script
+git add create_dataset.R
+
+# .git/objects directory now contains blob objects for both versions of R script
+# It also contains objects for the commit and root directory tree
+find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# We can use `git hash-object` to verify the hash for the new blob object
+git hash-object create_dataset.R
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# With this hash, we can view the content of the modified create_dataset.R
+git cat-file -p 490ec1c
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Make a commit
+git commit -m "modify create_dataset.R"
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Check the commit history
+git log
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Verify that `HEAD` is pointing to the last commit made, which is now our second commit
+cat .git/HEAD
+cat .git/refs/heads/master
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# View content of commit object for second commit
+git cat-file -p $(git rev-parse HEAD)
+```
 
 # Git commands: Undoing changes
-
-CRYSTAL - MAKE THE EXAMPLES HERE MORE SELF CONTAINED IN CODE CHUNKS. FOR EXAMPLE. EACH CODE CHUNK COULD START BY CHANGING DIRECTORY TO ~ FORCE REMOVING DIRECTORY NAMED "git_undo_repo" AND ADDING/COMMITTING FILES THEN UNDOING. MORE HELPFUL THAN JUST SEEING THE OUTPUT JUST FOR THE SPECIFIC COMMAND WITHOUT THE CONTEXT OF WHAT WAS DONE BEFORE THAT COMMAND. PLEASE MAKE THESE CHANGES FOR EXAMPLES FOR ALL THREE COMMANDS.
 
 Below are some common git commands you might use to undo changes:
 
@@ -1926,7 +2024,7 @@ Below are some common git commands you might use to undo changes:
 - [git reset](#git-reset)
 - [git revert](#git-revert)
 
-## `git checkout`
+## git checkout
 
 **`git checkout`**: Restore working tree files (or switch branches)
 
@@ -1939,41 +2037,63 @@ Below are some common git commands you might use to undo changes:
 <br>
 <details><summary>**Example**: Using `git checkout` to discard changes to a tracked, unstaged file</summary>
 
-- Imagine you have made some changes to a file called `create_dataset.R` since you last committed it
-- You can use `git checkout` to discard these changes in the _working directory_
 
-```{bash, eval = FALSE}
-# Check status before discarding changes
-git status
+```{bash, echo=-c(1:6)}
+cd ~  # change to root directory
+rm -rf my_git_repo  # force remove `my_git_repo` (if it exists)
+mkdir my_git_repo  # make directory `my_git_repo`
+cd my_git_repo
+git init
+
+# First, create new R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(5)" >> create_dataset.R
+
+# Add/commit R script so it is now tracked
+git add create_dataset.R
+git commit -m "add create_dataset.R"
 ```
 
-```
-On branch master
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
 
-	modified:   create_dataset.R
-
-no changes added to commit (use "git add" and/or "git commit -a")
+# View how create_dataset.R looks when it was committed
+cat create_dataset.R
 ```
 
-```{bash, eval = FALSE}
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Modify R script
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+
+# View how create_dataset.R looks now
+cat create_dataset.R
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# See exact changes that have been made to file since last commit
+git diff
+```
+
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Undo those changes using git checkout
 git checkout create_dataset.R
 
-# Check status after discarding changes
-git status
+# View file after discarding changes
+cat create_dataset.R
 ```
 
-```
-On branch master
-nothing to commit, working tree clean
-```
 </details>
 <br>
 
 
-## `git reset`
+## git reset
 
 **`git reset`**: Reset current `HEAD` to the specified state
 
@@ -1981,97 +2101,112 @@ nothing to commit, working tree clean
 - Syntax:
   - `git reset HEAD <file_name(s)>`: Unstages the specified `file_name(s)` from the _staging area_ to the _working directory_
     - This only applies to staged files (i.e., files listed under `Changes to be committed` when you check `git status`) and will move them back under `Changes not staged for commit` or `Untracked files`
-    - `HEAD` is a pointer to the latest commit and will restore the "index" to that state
-    - CRYSTAL - DOESN'T UNDO CHANGES TO FILE, RIGHT? JUST UNSTAGES THEM AND THOSE CHANGES STILL ON VERSION IN WORKING DIRECTORY, RIGHT? CAN YOU STATE THIS?
+    - `HEAD` is a pointer to the latest commit and will restore the _staging area_/"index" to that state
+    - Any changes made to the file in the _working directory_ are still retained
   - `git reset <commit_hash>`: Undo all commits up to (but not including) the specified `commit_hash`
     - The `HEAD` pointer will be set to the specified commit
+    - The undone changes will be retained in the _working directory_
 
 <br>
 <details><summary>**Example**: Using `git reset` to unstage a file</summary>
+  
+```{bash, echo=-c(1:6)}
+cd ~  # change to root directory
+rm -rf my_git_repo  # force remove `my_git_repo` (if it exists)
+mkdir my_git_repo  # make directory `my_git_repo`
+cd my_git_repo
+git init
 
-- Imagine you used `git add` to add `create_dataset.R` and `new_file.txt` to the _staging area_
-- You can use `git reset` to unstage these files
-  - Note that you can use `.` to specify all files in the currenty directory to be unstaged
+# First, create new R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(5)" >> create_dataset.R
 
-```{bash, eval = FALSE}
-# Check status before unstaging files
+# Add/commit R script so it is now tracked
+git add create_dataset.R
+git commit -m "add create_dataset.R"
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Modify R script
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+
+# Add new changes to the staging area
+git add create_dataset.R
+
+# Check status to verify it has been staged (listed under `Changes to be committed`)
 git status
 ```
 
-```
-On branch master
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
 
-	modified:   create_dataset.R
-	new file:   new_file.txt
-```
+# Use git reset to unstage file
+git reset HEAD create_dataset.R
 
-```{bash, eval = FALSE}
-git reset HEAD .
-
-# Check status after unstaging files
+# Check status to verify it has been unstaged (listed under `Changes not staged for commit`)
 git status
-```
-
-```
-On branch master
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	modified:   create_dataset.R
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	new_file.txt
 ```
 </details>
 
 <br>
 <details><summary>**Example**: Using `git reset` to undo a commit</summary>
 
-- Imagine you have made two commits adding lines to a file called `create_dataset.R`
-- You can use `git reset` to undo commit(s) by specifying the hash ID of the commit you want to undo up to
+```{bash, echo=-c(1:6)}
+cd ~  # change to root directory
+rm -rf my_git_repo  # force remove `my_git_repo` (if it exists)
+mkdir my_git_repo  # make directory `my_git_repo`
+cd my_git_repo
+git init
 
-```{bash, eval = FALSE}
-# Check log before undoing commit
+# First, create new R script
+echo "library(tidyverse)" > create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "add 1st line to create_dataset.R"
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Modify R script
+echo "mpg %>% head(5)" >> create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "add 2nd line to create_dataset.R"
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# View commit log
 git log
 ```
 
-```
-commit 4a2f6fe315ff94aee5646c01a4e693e37b610119 (HEAD -> master)
-Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-Date:   Sat Apr 4 13:04:35 2020 -0700
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
 
-    add 2nd line to create_dataset.R
+# Specify the hash ID of the commit to undo up to
+git reset $(git rev-list HEAD | tail -n 1)  # this retrieves the first commit hash
 
-commit d5c6e0958fb173af04f7e2c5d5fd81457e8ffd0c
-Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-Date:   Sat Apr 4 03:11:38 2020 -0700
-
-    add 1st line to create_dataset.R
-```
-
-```{bash, eval = FALSE}
-git reset d5c6e09
-
-# Check log after undoing commit
+# View commit log - the 2nd commit has been removed
 git log
 ```
 
-```
-commit d5c6e0958fb173af04f7e2c5d5fd81457e8ffd0c (HEAD -> master)
-Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-Date:   Sat Apr 4 03:11:38 2020 -0700
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
 
-    add 1st line to create_dataset.R
+# Notice that the changes to the file is still retained in the working directory
+cat create_dataset.R
 ```
+
 </details>
 <br>
 
-## `git revert`
+## git revert
 
 **`git revert`**: Revert existing commit(s)
 
@@ -2079,83 +2214,67 @@ Date:   Sat Apr 4 03:11:38 2020 -0700
 - Syntax:
   - `git revert <commit_hash>`: Revert all commits up to and including the specified `commit_hash`
     - The difference between `git revert` and `git reset` is that the former does not completely remove all past commits, but creates a new one that reverts those changes
+    - When working in a collaborative project where multiple users are contributing to a remote repository, you may want to use `git revert` so that it does not permenantly erase history
+    - When you are working locally and want to undo commits that you have not yet pushed to a remote, then `git reset` may also be an option
     - _**Note**: After entering this command, you'll be given a chance to edit the commit message of the new commit. Just enter `:q` to use the default message._
-
-CRYSTAL - GIVE SOME INTUITION OF WHEN STUDENTS WOULD WANT TO USE GIT REVERT VS. GIT RESET
 
 <br>
 <details><summary>**Example**: Using `git revert` to revert a commit</summary>
 
-- Imagine you have made two commits adding lines to a file called `create_dataset.R`
-- You can use `git revert` to revert committed changes by specifying the hash ID of the unwanted commit
+```{bash, echo=-c(1:6)}
+cd ~  # change to root directory
+rm -rf my_git_repo  # force remove `my_git_repo` (if it exists)
+mkdir my_git_repo  # make directory `my_git_repo`
+cd my_git_repo
+git init
 
-```{bash, eval = FALSE}
-# Check log before reverting commit
+# First, create new R script
+echo "library(tidyverse)" > create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "add 1st line to create_dataset.R"
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Modify R script
+echo "mpg %>% head(5)" >> create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "add 2nd line to create_dataset.R"
+```
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# View commit log
 git log
 ```
 
-```
-commit 4a2f6fe315ff94aee5646c01a4e693e37b610119 (HEAD -> master)
-Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-Date:   Sat Apr 4 13:04:35 2020 -0700
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
 
-    add 2nd line to create_dataset.R
+# Specify the hash ID of the unwanted commit
+git revert $(git rev-parse --short HEAD)  # git rev-parse retrieves latest commit hash
 
-commit d5c6e0958fb173af04f7e2c5d5fd81457e8ffd0c
-Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-Date:   Sat Apr 4 03:11:38 2020 -0700
-
-    add 1st line to create_dataset.R
-```
-
-```{bash, eval = FALSE}
-git revert 4a2f6fe
-
-# Check log after reverting commit
+# View commit log
 git log
 ```
 
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# The file now only contains the 1st line
+cat create_dataset.R
 ```
-commit f4dfac7d8703a94c4353eb27418646ca158792b4 (HEAD -> master)
-Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-Date:   Sat Apr 4 13:10:41 2020 -0700
 
-    Revert "add 2nd line to create_dataset.R"
-
-    This reverts commit 4a2f6fe315ff94aee5646c01a4e693e37b610119.
-
-commit 4a2f6fe315ff94aee5646c01a4e693e37b610119
-Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-Date:   Sat Apr 4 13:04:35 2020 -0700
-
-    add 2nd line to create_dataset.R
-
-commit d5c6e0958fb173af04f7e2c5d5fd81457e8ffd0c
-Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-Date:   Sat Apr 4 03:11:38 2020 -0700
-
-    add 1st line to create_dataset.R
+```{bash, echo=FALSE}
+rm -rf my_git_repo
 ```
+
 </details>
 
-
-
-
-```{r, echo=FALSE, include=FALSE}
-
-# Git tasks, collaborative projects
-
-## Pull requests
-
-# Appendix
-
-## Installation
-
-## Authentication
-
-## .gitignore
-
-## Running git Bash from R Markdown
-
-```
 
