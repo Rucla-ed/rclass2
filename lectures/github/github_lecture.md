@@ -168,10 +168,6 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
         - [Clone an existing repository to your local machine](#clone-an-existing-repository-to-your-local-machine)
         - [Create new repository on GitHub and clone to your local machine](#create-new-repository-on-github-and-clone-to-your-local-machine)
         - [Create new git repository on your local machine and add to GitHub](#create-new-git-repository-on-your-local-machine-and-add-to-github)
-- [Git commands: Observing your repository](#git-commands:-observing-your-repository)
-    - [git status](#git-status)
-    - [git log](#git-log)
-    - [git diff](#git-diff)
 - [Git: Under the hood](#git:-under-the-hood)
     - [git/ directory](#git/-directory)
     - [Git objects](#git-objects)
@@ -181,6 +177,10 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
         - [Tag object](#tag-object)
     - [HEAD and refs/](#head-and-refs/)
     - [Full example](#full-example)
+- [Git commands: Observing your repository](#git-commands:-observing-your-repository)
+    - [git status](#git-status)
+    - [git log](#git-log)
+    - [git diff](#git-diff)
 - [Git commands: Undoing changes](#git-commands:-undoing-changes)
     - [git checkout](#git-checkout)
     - [git reset](#git-reset)
@@ -589,7 +589,7 @@ Sys.getenv("HOME")
 ```
 
 ```
-## [1] "/Users/cyouh95"
+## [1] "C:\\Users\\ozanj"
 ```
 Show "home" directory for `bash` code chunks
 
@@ -599,7 +599,7 @@ pwd
 ```
 
 ```
-## /Users/cyouh95
+## /c/Users/ozanj
 ```
 
 note: home directory for r code chunks run in R might be different
@@ -610,7 +610,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/cyouh95"
+## [1] "C:/Users/ozanj/Documents"
 ```
 
 
@@ -629,7 +629,7 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -637,7 +637,6 @@ ls
 ## github_lecture.html
 ## github_lecture.md
 ## render_toc.R
-## test.R
 ## text
 ```
 
@@ -675,13 +674,13 @@ mpg %>% head(5)
 
 ```
 ## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
-##   <chr>        <chr> <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
-## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
-## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
-## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
-## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
-## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…
+##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
+##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
 ```
 
 
@@ -704,7 +703,7 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -712,7 +711,6 @@ ls
 ## github_lecture.html
 ## github_lecture.md
 ## render_toc.R
-## test.R
 ## text
 ```
 
@@ -724,7 +722,7 @@ ls -a
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## .
 ## ..
 ## git_lecture.Rmd
@@ -734,7 +732,6 @@ ls -a
 ## github_lecture.html
 ## github_lecture.md
 ## render_toc.R
-## test.R
 ## text
 ```
 
@@ -791,8 +788,8 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -810,13 +807,15 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
 ## README.md
 ## _config.yml
 ## _data
+## _gitadmin
 ## _layouts
 ## _resources
+## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
@@ -834,11 +833,10 @@ ls -a
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
 ## .
 ## ..
-## .DS_Store
 ## .Rhistory
 ## .Rproj.user
 ## .git
@@ -846,8 +844,10 @@ ls -a
 ## README.md
 ## _config.yml
 ## _data
+## _gitadmin
 ## _layouts
 ## _resources
+## _student_repositories
 ## _working
 ## lectures
 ## problem_sets
@@ -870,9 +870,9 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/ggplot
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.html
 ## ggplot_lecture.md
@@ -1248,6 +1248,937 @@ __What we just did:__
 [![](https://miro.medium.com/max/686/1*diRLm1S5hkVoh5qeArND0Q.png)](https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018)
 
 *Credit: Lucas Maurer, medium.com*
+
+# Git: Under the hood
+
+## .git/ directory
+
+<br>
+Every git repository that is created using `git init` contains a **`.git/` directory** that "contains all the informations needed for git to work" (From [Git series 1/3: Understanding git for real by exploring the .git directory](https://www.daolf.com/posts/git-series-part-1/)):
+
+
+```bash
+# Initialize a new git repository in `my_git_repo` directory
+cd my_git_repo
+git init
+
+ls -al
+```
+
+```
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## total 16
+## drwxr-xr-x 1 ozanj 197121 0 Apr  5 22:38 .
+## drwxr-xr-x 1 ozanj 197121 0 Apr  5 22:38 ..
+## drwxr-xr-x 1 ozanj 197121 0 Apr  5 22:38 .git
+```
+
+<br>
+What's inside the **`.git/` directory**?
+
+
+```bash
+# List out the contents of the .git/ directory (in tree form)
+find .git -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```
+## .git
+## |____config
+## |____description
+## |____HEAD
+## |____hooks
+## | |____applypatch-msg.sample
+## | |____commit-msg.sample
+## | |____fsmonitor-watchman.sample
+## | |____post-update.sample
+## | |____pre-applypatch.sample
+## | |____pre-commit.sample
+## | |____pre-merge-commit.sample
+## | |____pre-push.sample
+## | |____pre-rebase.sample
+## | |____pre-receive.sample
+## | |____prepare-commit-msg.sample
+## | |____update.sample
+## |____info
+## | |____exclude
+## |____objects
+## | |____info
+## | |____pack
+## |____refs
+## | |____heads
+## | |____tags
+```
+
+We will be focusing on:
+
+- `objects/`: Directory containing all git objects
+- `HEAD`: Reference to the latest commit of the current branch
+- `refs/`: Directory containing the hash ID of commit referred to by `HEAD`
+
+We'll get into git objects starting in the next section, and see an example of `HEAD` and `refs/` in a [later section](#head-and-refs).
+
+## Git objects
+
+What is a **git object**?
+
+- "A git repository is actually just a collection of objects, each identified with their own hash." (From [Deep dive into git: git Objects](https://aboullaite.me/deep-dive-into-git/))
+  - A "hash" can be thought of as an unique ID that points to the git object
+  - "Git is a simple key-value data store. You put a value into the repository and get a key by which this value can be accessed." (From [Becoming a Git pro. Part 1: internal Git architecture](https://indepth.dev/becoming-a-git-pro-part-1-internal-git-architecture/))
+    - Key = Hash
+    - Value = Git object
+- Git objects are stored inside the `.git/objects` directory
+  - The first 2 characters of its hash will be the name of the sub-directory within `.git/objects` that it is located in
+  - The rest of the hash will be the git object filename
+- Use the `git cat-file` command can be used to view information about a git object whose hash you specify
+- Use the `git hash-object` to compute (show) the hash for a git "blob" object based on the name of associated file
+
+<br>
+**`git cat-file`**: Provide content or type and size information for repository objects
+
+- Help: `git cat-file -help`
+- Syntax: `git cat-file [<option(s)>] <object>`
+- Options:
+  - `-p`: Pretty-print the contents of `<object>` based on its type
+  - `-t`: Instead of the content, show the object type identified by `<object>`
+  - `-s`: Instead of the content, show the object size identified by `<object>`
+
+<br>
+There are 4 types of **git objects** (From [The Git Object Model](http://shafiul.github.io/gitbook/1_the_git_object_model.html))
+  
+- [Blob](#blob-object)
+- [Tree](#tree-object)
+- [Commit](#commit-object)
+- [Tag](#tag-object)
+
+### Blob object
+
+A **blob** is generally a file which stores data
+
+- For example, this could be an R script
+- The file must be added to the _staging area_ (i.e., "index") in order for the blob object to be created
+- The hash of the blob object can be seen in the `.git/objects` directory
+  - The first 2 characters of the hash is the name of the sub-directory within `.git/objects`
+  - The rest of the hash comes from the git object filename
+  - But only the first 7 characters of the hash is required to uniquely identify it
+- This hash can also be computed from the name of the file for which the blob is to be created by using the `git hash-object` command
+
+
+```bash
+# Create new R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(5)" >> create_dataset.R
+
+# Add R script
+git add create_dataset.R
+
+# View .git/objects directory
+find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## |____objects
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____info
+## | |____pack
+```
+
+
+<br>
+**`git hash-object`**: Compute hash for a blob object from name of file
+
+- Help: `git hash-object -help`
+- Syntax: `git hash-object <file_name>`
+
+We can use `git hash-object` to verify the hash for `create_dataset.R`:
+
+
+```bash
+# Generate blob object hash for R script
+git hash-object create_dataset.R
+```
+
+```
+## c1cff389562e8bc123e6691a60352fdf839df113
+```
+
+
+<br>
+<details><summary>**Example**: Using `git cat-file` to view blob object content</summary>
+
+
+```bash
+# View content of create_dataset.R
+git cat-file -p c1cff38
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(5)
+```
+</details>
+
+<br>
+<details><summary>**Example**: Using `git cat-file` to view blob object type</summary>
+
+
+```bash
+# View content of create_dataset.R
+git cat-file -t c1cff38
+```
+
+```
+## blob
+```
+</details>
+
+<br>
+<details><summary>**Example**: Using `git cat-file` to view blob object size</summary>
+
+
+```bash
+# View content of create_dataset.R
+git cat-file -s c1cff38
+```
+
+```
+## 35
+```
+</details>
+<br>
+
+### Tree object
+
+A **tree** is a directory that contains references to blobs (_files_) or other trees (_sub-directories_)
+
+- Any sub-directories created inside the git repository is a tree object
+  - It contains references to any blobs (_files_) or additional trees (_sub-directories_) within it
+- The root directory of the git repository is also a tree itself, and contains references to all its content at the point of commit (like a "snapshot")
+- A commit must be made in order for the tree object(s) to be created
+
+
+```bash
+# Create a sub-directory 
+rm -rf notes
+mkdir notes
+
+# Add files to the sub-directory (since git doesn't track empty directories)
+echo "This is my first set of notes." > notes/note_1.txt
+echo "This is my second set of notes." > notes/note_2.txt
+
+# Add new files
+git add .
+
+# View .git/objects directory
+find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## warning: LF will be replaced by CRLF in notes/note_1.txt.
+## The file will have its original line endings in your working directory
+## warning: LF will be replaced by CRLF in notes/note_2.txt.
+## The file will have its original line endings in your working directory
+## |____objects
+## | |____47
+## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
+## | |____61
+## | | |____08458417308ddc15d7390a2f8db50cf65ec399
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____info
+## | |____pack
+```
+
+<br>
+As seen, new blob objects are created for `note_1.txt` and `note_2.txt` since the files have been added (but tree objects will not be created until a commit has been made):
+
+
+```bash
+# View content of note_1.txt and note_2.txt
+git cat-file -p 476fb98
+git cat-file -p 6108458
+```
+
+```
+## This is my second set of notes.
+## This is my first set of notes.
+```
+
+<br>
+After the files have been committed, tree objects will be created for any sub-directories as well as for the root directory of the repository:
+
+
+```bash
+# Make a commit
+git commit -m "initial commit"
+
+# View .git/objects directory
+find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```
+## [master (root-commit) 05ae512] initial commit
+##  3 files changed, 4 insertions(+)
+##  create mode 100644 create_dataset.R
+##  create mode 100644 notes/note_1.txt
+##  create mode 100644 notes/note_2.txt
+## |____objects
+## | |____05
+## | | |____ae5124198500eb6b068e51f014bb9cf3514af8
+## | |____47
+## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
+## | |____61
+## | | |____08458417308ddc15d7390a2f8db50cf65ec399
+## | |____6c
+## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____f5
+## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____info
+## | |____pack
+```
+
+<br>
+As we now see, the tree objects for the `my_git_repo/` root directory and `notes/` sub-directory exists, and another object has been created for the commit (_more info on that in [next section](#commit-object)_):
+
+
+```bash
+# View object type for my_git_repo/ and notes/ trees
+git cat-file -t f59085d
+git cat-file -t 6cf7bbf
+
+# View object type for the commit
+git cat-file -t $(git rev-parse --short HEAD)  # git rev-parse retrieves latest commit hash
+```
+
+```
+## tree
+## tree
+## commit
+```
+
+<br>
+The content of a tree object is a list of all blobs (_files_) and other trees (_sub-directories_) in the directory. Each list entry follows the format:
+
+```
+<permission_code> <object_type> <object_hash> <object_name>
+```
+
+- `<permission_code>`: Code indicating who has read/write access to the object
+  - This is typically `100644` for blobs and `100755` or `040000` for trees
+- `<object_type>`: Type of the object (i.e., blobs or trees)
+- `<object_hash>`: Reference to the object (i.e., the hash)
+- `<object_name>`: Name of the file or directory
+
+<br>
+<details><summary>**Example**: Using `git cat-file` to view tree object content for `my_git_repo/` root directory</summary>
+
+First, show files in directory using `ls` command with options `al`
+
+```bash
+#show files in directory
+ls -al
+```
+
+```
+## total 17
+## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 .
+## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 ..
+## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 .git
+## -rw-r--r-- 1 ozanj 197121 35 Apr  5 22:38 create_dataset.R
+## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 notes
+```
+
+Second, show contents of tree using `git cat-file`
+
+```bash
+#show files in directory
+ls -al
+echo ""
+
+# View type and content of my_git_repo/ tree object
+git cat-file -t f59085d  # type
+git cat-file -p f59085d  # content
+```
+
+```
+## total 17
+## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 .
+## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 ..
+## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 .git
+## -rw-r--r-- 1 ozanj 197121 35 Apr  5 22:38 create_dataset.R
+## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 notes
+## 
+## tree
+## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113	create_dataset.R
+## 040000 tree 6cf7bbf49af4f9fd5103cf9f0a3fa25226b12336	notes
+```
+
+- contents of tree object are essentially a list of files in the directory
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `git cat-file` to view tree object content for `notes/` sub-directory</summary>
+
+
+```bash
+# View type and content of notes/ tree object
+git cat-file -t 6cf7bbf  # type
+git cat-file -p 6cf7bbf  # content
+```
+
+```
+## tree
+## 100644 blob 6108458417308ddc15d7390a2f8db50cf65ec399	note_1.txt
+## 100644 blob 476fb98775843929ca6c55b16b04752d973b3d2a	note_2.txt
+```
+</details>
+<br>
+
+### Commit object
+
+A **commit** object is created after a commit is made that contains information about the commit:
+
+```
+tree <tree_hash>
+parent <commit_hash>
+author <username> <email> <time>
+committer <username> <email> <time>
+
+<commit_message>
+```
+
+- `tree`: Reference to the root directory tree object (i.e., "snapshot" of repository at the point of commit)
+- `parent`: Reference to the parent commit
+- Other information about the commit (e.g., `author`, `committer`, `commit_message`)
+
+
+<br>
+All commits except for the initial commit will contain a reference to its `parent` commit. So let's create a second commit:
+
+
+```bash
+# Modify R script
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+
+# Add R script
+git add create_dataset.R
+
+# Make another commit
+git commit -m "second commit"
+
+# View .git/objects directory
+find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master 1f4c3b5] second commit
+##  1 file changed, 1 insertion(+)
+## |____objects
+## | |____05
+## | | |____ae5124198500eb6b068e51f014bb9cf3514af8
+## | |____1f
+## | | |____4c3b5906610eeaadb7a8f2a704fc355279b8a8
+## | |____47
+## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
+## | |____49
+## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____52
+## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
+## | |____61
+## | | |____08458417308ddc15d7390a2f8db50cf65ec399
+## | |____6c
+## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____f5
+## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____info
+## | |____pack
+```
+
+
+<br>
+<details><summary>**Example**: Using `git cat-file` to view commit object content for first commit</summary>
+
+- _**Note**: The commit hash will be different each time we run this because it is dependent on the time_
+
+
+```bash
+# Retrieve commit hash for first commit
+git rev-list HEAD | tail -n 1
+
+# View content of the commit object
+git cat-file -p $(git rev-list HEAD | tail -n 1)
+```
+
+```
+## 05ae5124198500eb6b068e51f014bb9cf3514af8
+## tree f59085df29aed7826a89b23af3f67fc3ab96f643
+## author Ozan Jaquette <ozanj@ucla.edu> 1586151515 -0700
+## committer Ozan Jaquette <ozanj@ucla.edu> 1586151515 -0700
+## 
+## initial commit
+```
+</details>
+
+<br>
+<details><summary>**Example**: Using `git cat-file` to view commit object content for second commit</summary>
+
+- _**Note**: The commit hash will be different each time we run this because it is dependent on the time_
+
+
+```bash
+# Retrieve commit hash for lastest commit
+git rev-parse HEAD
+
+# View content of the commit object
+git cat-file -p $(git rev-parse HEAD)
+```
+
+```
+## 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8
+## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
+## parent 05ae5124198500eb6b068e51f014bb9cf3514af8
+## author Ozan Jaquette <ozanj@ucla.edu> 1586151517 -0700
+## committer Ozan Jaquette <ozanj@ucla.edu> 1586151517 -0700
+## 
+## second commit
+```
+</details>
+<br>
+
+### Tag object
+
+A **tag** object is created after a tag is generated:
+
+```
+object <object_hash>
+type <object_type>
+tag <tag_name>
+tagger <username> <email> <time>
+
+<tag_message>
+```
+
+- `object`: Reference to the tagged object
+- `type`: Object type of the tagged object (usually a `commit`)
+- Other information about the tag (e.g., name of `tag`, `tagger`, `tag_message`)
+
+Let's create a tag for the current commit:
+
+
+```bash
+# Create a tag
+git tag -a v1 -m "version 1.0"
+
+# View .git/objects directory
+find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```
+## |____objects
+## | |____05
+## | | |____ae5124198500eb6b068e51f014bb9cf3514af8
+## | |____1f
+## | | |____4c3b5906610eeaadb7a8f2a704fc355279b8a8
+## | |____47
+## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
+## | |____49
+## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____52
+## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
+## | |____54
+## | | |____e99fc14ca176ff1f9ab515913932ec25ec978b
+## | |____61
+## | | |____08458417308ddc15d7390a2f8db50cf65ec399
+## | |____6c
+## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____f5
+## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____info
+## | |____pack
+```
+
+<br>
+<details><summary>**Example**: Using `git cat-file` to view tag object</summary>
+
+```bash
+# View content of the tag object
+git cat-file -p $(git show-ref -s v1)  # retrieves hash for v1 tag
+```
+
+```
+## object 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8
+## type commit
+## tag v1
+## tagger Ozan Jaquette <ozanj@ucla.edu> 1586151518 -0700
+## 
+## version 1.0
+```
+
+
+```bash
+# The tagged object was the second commit
+git log
+```
+
+```
+## commit 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:37 2020 -0700
+## 
+##     second commit
+## 
+## commit 05ae5124198500eb6b068e51f014bb9cf3514af8
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:35 2020 -0700
+## 
+##     initial commit
+```
+</details>
+<br>
+
+## HEAD and refs/
+
+The `HEAD` file is a pointer to your current (active) branch -- specifically, it points to the latest commit of that branch (whose hash ID is stored in the `refs/` directory). Especially when we get to working with multiple branches, the `HEAD` becomes important as it keeps track of which branch you are currently on.
+
+
+If we output the contents of `HEAD`, we see it contains a reference to the _master_ branch:
+
+
+```bash
+# View content of HEAD
+cat .git/HEAD
+```
+
+```
+## ref: refs/heads/master
+```
+
+Following that reference, we can find the hash ID of the latest commit located inside the `refs/` directory:
+
+
+```bash
+# View content of refs/heads/master
+cat .git/refs/heads/master
+```
+
+```
+## 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8
+```
+
+We can use `git log` to verify that this is the hash ID of the latest commit:
+
+
+```bash
+# View commit log
+git log
+```
+
+```
+## commit 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:37 2020 -0700
+## 
+##     second commit
+## 
+## commit 05ae5124198500eb6b068e51f014bb9cf3514af8
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:35 2020 -0700
+## 
+##     initial commit
+```
+
+## Full example
+
+
+```bash
+# Initialize a new git repository in `my_git_repo` directory
+cd my_git_repo
+git init
+```
+
+```
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+```
+
+
+```bash
+# Create new R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(5)" >> create_dataset.R
+
+# R script initially starts off under `Untracked Files`
+git status
+```
+
+```
+## On branch master
+## 
+## No commits yet
+## 
+## Untracked files:
+##   (use "git add <file>..." to include in what will be committed)
+## 	create_dataset.R
+## 
+## nothing added to commit but untracked files present (use "git add" to track)
+```
+
+
+```bash
+# Add R script
+git add create_dataset.R
+
+# R script moves to `Changes to be committed`
+git status
+```
+
+```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## On branch master
+## 
+## No commits yet
+## 
+## Changes to be committed:
+##   (use "git rm --cached <file>..." to unstage)
+## 	new file:   create_dataset.R
+```
+
+
+```bash
+# Once R script has been added, a blob object is created for it in the .git/objects directory
+find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```
+## |____objects
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____info
+## | |____pack
+```
+
+
+```bash
+# We can use `git hash-object` to verify the hash of the blob object
+git hash-object create_dataset.R
+```
+
+```
+## c1cff389562e8bc123e6691a60352fdf839df113
+```
+
+
+```bash
+# With this hash, we can view the content of create_dataset.R
+git cat-file -p c1cff38
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(5)
+```
+
+
+```bash
+# Make a commit
+git commit -m "add create_dataset.R"
+
+# The R script is now no longer listed
+git status
+```
+
+```
+## [master (root-commit) 9ed32a5] add create_dataset.R
+##  1 file changed, 2 insertions(+)
+##  create mode 100644 create_dataset.R
+## On branch master
+## nothing to commit, working tree clean
+```
+
+
+```bash
+# Check the commit history
+git log
+```
+
+```
+## commit 9ed32a54a04cce7741115286a4cc12645a43db4a
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:41 2020 -0700
+## 
+##     add create_dataset.R
+```
+
+
+```bash
+# Verify that `HEAD` is indeed pointing to the last commit made, which is our initial commit
+cat .git/HEAD
+cat .git/refs/heads/master
+```
+
+```
+## ref: refs/heads/master
+## 9ed32a54a04cce7741115286a4cc12645a43db4a
+```
+
+
+```bash
+# Further modify R script, which is now a tracked file
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+
+# R script is now under `Changes not staged for commit`
+git status
+```
+
+```
+## On branch master
+## Changes not staged for commit:
+##   (use "git add <file>..." to update what will be committed)
+##   (use "git restore <file>..." to discard changes in working directory)
+## 	modified:   create_dataset.R
+## 
+## no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+
+```bash
+# View what new changes were made to R script
+git diff
+```
+
+```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## diff --git a/create_dataset.R b/create_dataset.R
+## index c1cff38..490ec1c 100644
+## --- a/create_dataset.R
+## +++ b/create_dataset.R
+## @@ -1,2 +1,3 @@
+##  library(tidyverse)
+##  mpg %>% head(5)
+## +df <- mpg %>% filter(year == 2008)
+```
+
+
+```bash
+# Add new changes made to R script
+git add create_dataset.R
+
+# .git/objects directory now contains blob objects for both versions of R script
+# It also contains objects for the commit and root directory tree
+find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
+```
+
+```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## |____objects
+## | |____49
+## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____96
+## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
+## | |____9e
+## | | |____d32a54a04cce7741115286a4cc12645a43db4a
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____info
+## | |____pack
+```
+
+
+```bash
+# We can use `git hash-object` to verify the hash for the new blob object
+git hash-object create_dataset.R
+```
+
+```
+## 490ec1c138021b8d5c196c26a2a7b3de69afc2d1
+```
+
+
+```bash
+# With this hash, we can view the content of the modified create_dataset.R
+git cat-file -p 490ec1c
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(5)
+## df <- mpg %>% filter(year == 2008)
+```
+
+
+```bash
+# Make a commit
+git commit -m "modify create_dataset.R"
+```
+
+```
+## [master 5dea84c] modify create_dataset.R
+##  1 file changed, 1 insertion(+)
+```
+
+
+```bash
+# Check the commit history
+git log
+```
+
+```
+## commit 5dea84c6e76ed479db4fafc1f36b60fd23a428f0
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:43 2020 -0700
+## 
+##     modify create_dataset.R
+## 
+## commit 9ed32a54a04cce7741115286a4cc12645a43db4a
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:41 2020 -0700
+## 
+##     add create_dataset.R
+```
+
+
+```bash
+# Verify that `HEAD` is pointing to the last commit made, which is now our second commit
+cat .git/HEAD
+cat .git/refs/heads/master
+```
+
+```
+## ref: refs/heads/master
+## 5dea84c6e76ed479db4fafc1f36b60fd23a428f0
+```
+
+
+```bash
+# View content of commit object for second commit
+git cat-file -p $(git rev-parse HEAD)
+```
+
+```
+## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
+## parent 9ed32a54a04cce7741115286a4cc12645a43db4a
+## author Ozan Jaquette <ozanj@ucla.edu> 1586151523 -0700
+## committer Ozan Jaquette <ozanj@ucla.edu> 1586151523 -0700
+## 
+## modify create_dataset.R
+```
+
 
 # Git commands: Observing your repository
 
@@ -1640,920 +2571,6 @@ index c1cff38..8b151a2 100644
 </details>
 <br>
 
-# Git: Under the hood
-
-## .git/ directory
-
-<br>
-Every git repository that is created using `git init` contains a **`.git/` directory** that "contains all the informations needed for git to work" (From [Git series 1/3: Understanding git for real by exploring the .git directory](https://www.daolf.com/posts/git-series-part-1/)):
-
-
-```bash
-# Initialize a new git repository in `my_git_repo` directory
-cd my_git_repo
-git init
-
-ls -al
-```
-
-```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## total 0
-## drwxr-xr-x    3 cyouh95  staff   102 Apr  5 19:40 .
-## drwxr-xr-x+ 101 cyouh95  staff  3434 Apr  5 19:40 ..
-## drwxr-xr-x    9 cyouh95  staff   306 Apr  5 19:40 .git
-```
-
-<br>
-What's inside the **`.git/` directory**?
-
-
-```bash
-# List out the contents of the .git/ directory (in tree form)
-find .git -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-```
-
-```
-## .git
-## |____config
-## |____description
-## |____HEAD
-## |____hooks
-## | |____applypatch-msg.sample
-## | |____commit-msg.sample
-## | |____post-update.sample
-## | |____pre-applypatch.sample
-## | |____pre-commit.sample
-## | |____pre-push.sample
-## | |____pre-rebase.sample
-## | |____pre-receive.sample
-## | |____prepare-commit-msg.sample
-## | |____update.sample
-## |____info
-## | |____exclude
-## |____objects
-## | |____info
-## | |____pack
-## |____refs
-## | |____heads
-## | |____tags
-```
-
-We will be focusing on:
-
-- `objects/`: Directory containing all git objects
-- `HEAD`: Reference to the latest commit of the current branch
-- `refs/`: Directory containing the hash ID of commit referred to by `HEAD`
-
-We'll get into git objects starting in the next section, and see an example of `HEAD` and `refs/` in a [later section](#head-and-refs).
-
-## Git objects
-
-What is a **git object**?
-
-- "A git repository is actually just a collection of objects, each identified with their own hash." (From [Deep dive into git: git Objects](https://aboullaite.me/deep-dive-into-git/))
-  - A "hash" can be thought of as an unique ID that points to the git object
-  - "Git is a simple key-value data store. You put a value into the repository and get a key by which this value can be accessed." (From [Becoming a Git pro. Part 1: internal Git architecture](https://indepth.dev/becoming-a-git-pro-part-1-internal-git-architecture/))
-    - Key = Hash
-    - Value = Git object
-- Git objects are stored inside the `.git/objects` directory
-  - The first 2 characters of its hash will be the name of the sub-directory within `.git/objects` that it is located in
-  - The rest of the hash will be the git object filename
-- Use the `git cat-file` command can be used to view information about a git object whose hash you specify
-- Use the `git hash-object` to compute (show) the hash for a git "blob" object based on the name of associated file
-
-<br>
-**`git cat-file`**: Provide content or type and size information for repository objects
-
-- Help: `git cat-file -help`
-- Syntax: `git cat-file [<option(s)>] <object>`
-- Options:
-  - `-p`: Pretty-print the contents of `<object>` based on its type
-  - `-t`: Instead of the content, show the object type identified by `<object>`
-  - `-s`: Instead of the content, show the object size identified by `<object>`
-
-<br>
-There are 4 types of **git objects** (From [The Git Object Model](http://shafiul.github.io/gitbook/1_the_git_object_model.html))
-  
-- [Blob](#blob-object)
-- [Tree](#tree-object)
-- [Commit](#commit-object)
-- [Tag](#tag-object)
-
-### Blob object
-
-A **blob** is generally a file which stores data
-
-- For example, this could be an R script
-- The file must be added to the _staging area_ (i.e., "index") in order for the blob object to be created
-- The hash of the blob object can be seen in the `.git/objects` directory
-  - The first 2 characters of the hash is the name of the sub-directory within `.git/objects`
-  - The rest of the hash comes from the git object filename
-  - But only the first 7 characters of the hash is required to uniquely identify it
-- This hash can also be computed from the name of the file for which the blob is to be created by using the `git hash-object` command
-
-
-```bash
-# Create new R script
-echo "library(tidyverse)" > create_dataset.R
-echo "mpg %>% head(5)" >> create_dataset.R
-
-# Add R script
-git add create_dataset.R
-
-# View .git/objects directory
-find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-```
-
-```
-## |____objects
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____info
-## | |____pack
-```
-
-
-<br>
-**`git hash-object`**: Compute hash for a blob object from name of file
-
-- Help: `git hash-object -help`
-- Syntax: `git hash-object <file_name>`
-
-We can use `git hash-object` to verify the hash for `create_dataset.R`:
-
-
-```bash
-# Generate blob object hash for R script
-git hash-object create_dataset.R
-```
-
-```
-## c1cff389562e8bc123e6691a60352fdf839df113
-```
-
-
-<br>
-<details><summary>**Example**: Using `git cat-file` to view blob object content</summary>
-
-
-```bash
-# View content of create_dataset.R
-git cat-file -p c1cff38
-```
-
-```
-## library(tidyverse)
-## mpg %>% head(5)
-```
-</details>
-
-<br>
-<details><summary>**Example**: Using `git cat-file` to view blob object type</summary>
-
-
-```bash
-# View content of create_dataset.R
-git cat-file -t c1cff38
-```
-
-```
-## blob
-```
-</details>
-
-<br>
-<details><summary>**Example**: Using `git cat-file` to view blob object size</summary>
-
-
-```bash
-# View content of create_dataset.R
-git cat-file -s c1cff38
-```
-
-```
-## 35
-```
-</details>
-<br>
-
-### Tree object
-
-A **tree** is a directory that contains references to blobs (_files_) or other trees (_sub-directories_)
-
-- Any sub-directories created inside the git repository is a tree object
-  - It contains references to any blobs (_files_) or additional trees (_sub-directories_) within it
-- The root directory of the git repository is also a tree itself, and contains references to all its content at the point of commit (like a "snapshot")
-- A commit must be made in order for the tree object(s) to be created
-
-
-```bash
-# Create a sub-directory 
-rm -rf notes
-mkdir notes
-
-# Add files to the sub-directory (since git doesn't track empty directories)
-echo "This is my first set of notes." > notes/note_1.txt
-echo "This is my second set of notes." > notes/note_2.txt
-
-# Add new files
-git add .
-
-# View .git/objects directory
-find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-```
-
-```
-## |____objects
-## | |____47
-## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
-## | |____61
-## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____info
-## | |____pack
-```
-
-<br>
-As seen, new blob objects are created for `note_1.txt` and `note_2.txt` since the files have been added (but tree objects will not be created until a commit has been made):
-
-
-```bash
-# View content of note_1.txt and note_2.txt
-git cat-file -p 476fb98
-git cat-file -p 6108458
-```
-
-```
-## This is my second set of notes.
-## This is my first set of notes.
-```
-
-<br>
-After the files have been committed, tree objects will be created for any sub-directories as well as for the root directory of the repository:
-
-
-```bash
-# Make a commit
-git commit -m "initial commit"
-
-# View .git/objects directory
-find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-```
-
-```
-## [master (root-commit) 6092c8f] initial commit
-##  3 files changed, 4 insertions(+)
-##  create mode 100644 create_dataset.R
-##  create mode 100644 notes/note_1.txt
-##  create mode 100644 notes/note_2.txt
-## |____objects
-## | |____47
-## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
-## | |____60
-## | | |____92c8f293f5cc0f4543d21ed6546a4165c62455
-## | |____61
-## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____6c
-## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____f5
-## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
-## | |____info
-## | |____pack
-```
-
-<br>
-As we now see, the tree objects for the `my_git_repo/` root directory and `notes/` sub-directory exists, and another object has been created for the commit (_more info on that in [next section](#commit-object)_):
-
-
-```bash
-# View object type for my_git_repo/ and notes/ trees
-git cat-file -t f59085d
-git cat-file -t 6cf7bbf
-
-# View object type for the commit
-git cat-file -t $(git rev-parse --short HEAD)  # git rev-parse retrieves latest commit hash
-```
-
-```
-## tree
-## tree
-## commit
-```
-
-<br>
-The content of a tree object is a list of all blobs (_files_) and other trees (_sub-directories_) in the directory. Each list entry follows the format:
-
-```
-<permission_code> <object_type> <object_hash> <object_name>
-```
-
-- `<permission_code>`: Code indicating who has read/write access to the object
-  - This is typically `100644` for blobs and `100755` or `040000` for trees
-- `<object_type>`: Type of the object (i.e., blobs or trees)
-- `<object_hash>`: Reference to the object (i.e., the hash)
-- `<object_name>`: Name of the file or directory
-
-<br>
-<details><summary>**Example**: Using `git cat-file` to view tree object content for `my_git_repo/` root directory</summary>
-
-First, show files in directory using `ls` command with options `al`
-
-```bash
-#show files in directory
-ls -al
-```
-
-```
-## total 8
-## drwxr-xr-x    5 cyouh95  staff   170 Apr  5 19:40 .
-## drwxr-xr-x+ 101 cyouh95  staff  3434 Apr  5 19:40 ..
-## drwxr-xr-x   12 cyouh95  staff   408 Apr  5 19:40 .git
-## -rw-r--r--    1 cyouh95  staff    35 Apr  5 19:40 create_dataset.R
-## drwxr-xr-x    4 cyouh95  staff   136 Apr  5 19:40 notes
-```
-
-Second, show contents of tree using `git cat-file`
-
-```bash
-#show files in directory
-ls -al
-echo ""
-
-# View type and content of my_git_repo/ tree object
-git cat-file -t f59085d  # type
-git cat-file -p f59085d  # content
-```
-
-```
-## total 8
-## drwxr-xr-x    5 cyouh95  staff   170 Apr  5 19:40 .
-## drwxr-xr-x+ 101 cyouh95  staff  3434 Apr  5 19:40 ..
-## drwxr-xr-x   12 cyouh95  staff   408 Apr  5 19:40 .git
-## -rw-r--r--    1 cyouh95  staff    35 Apr  5 19:40 create_dataset.R
-## drwxr-xr-x    4 cyouh95  staff   136 Apr  5 19:40 notes
-## 
-## tree
-## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113	create_dataset.R
-## 040000 tree 6cf7bbf49af4f9fd5103cf9f0a3fa25226b12336	notes
-```
-
-- contents of tree object are essentially a list of files in the directory
-
-</details>
-
-<br>
-<details><summary>**Example**: Using `git cat-file` to view tree object content for `notes/` sub-directory</summary>
-
-
-```bash
-# View type and content of notes/ tree object
-git cat-file -t 6cf7bbf  # type
-git cat-file -p 6cf7bbf  # content
-```
-
-```
-## tree
-## 100644 blob 6108458417308ddc15d7390a2f8db50cf65ec399	note_1.txt
-## 100644 blob 476fb98775843929ca6c55b16b04752d973b3d2a	note_2.txt
-```
-</details>
-<br>
-
-### Commit object
-
-A **commit** object is created after a commit is made that contains information about the commit:
-
-```
-tree <tree_hash>
-parent <commit_hash>
-author <username> <email> <time>
-committer <username> <email> <time>
-
-<commit_message>
-```
-
-- `tree`: Reference to the root directory tree object (i.e., "snapshot" of repository at the point of commit)
-- `parent`: Reference to the parent commit
-- Other information about the commit (e.g., `author`, `committer`, `commit_message`)
-
-
-<br>
-All commits except for the initial commit will contain a reference to its `parent` commit. So let's create a second commit:
-
-
-```bash
-# Modify R script
-echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
-
-# Add R script
-git add create_dataset.R
-
-# Make another commit
-git commit -m "second commit"
-
-# View .git/objects directory
-find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-```
-
-```
-## [master 859ff0b] second commit
-##  1 file changed, 1 insertion(+)
-## |____objects
-## | |____47
-## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
-## | |____49
-## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
-## | |____52
-## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
-## | |____60
-## | | |____92c8f293f5cc0f4543d21ed6546a4165c62455
-## | |____61
-## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____6c
-## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____85
-## | | |____9ff0b57ed1ad0b1a9d8d5ec30d1fdddbdcc3a6
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____f5
-## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
-## | |____info
-## | |____pack
-```
-
-
-<br>
-<details><summary>**Example**: Using `git cat-file` to view commit object content for first commit</summary>
-
-- _**Note**: The commit hash will be different each time we run this because it is dependent on the time_
-
-
-```bash
-# Retrieve commit hash for first commit
-git rev-list HEAD | tail -n 1
-
-# View content of the commit object
-git cat-file -p $(git rev-list HEAD | tail -n 1)
-```
-
-```
-## 6092c8f293f5cc0f4543d21ed6546a4165c62455
-## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586140818 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586140818 -0700
-## 
-## initial commit
-```
-</details>
-
-<br>
-<details><summary>**Example**: Using `git cat-file` to view commit object content for second commit</summary>
-
-- _**Note**: The commit hash will be different each time we run this because it is dependent on the time_
-
-
-```bash
-# Retrieve commit hash for lastest commit
-git rev-parse HEAD
-
-# View content of the commit object
-git cat-file -p $(git rev-parse HEAD)
-```
-
-```
-## 859ff0b57ed1ad0b1a9d8d5ec30d1fdddbdcc3a6
-## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent 6092c8f293f5cc0f4543d21ed6546a4165c62455
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586140819 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586140819 -0700
-## 
-## second commit
-```
-</details>
-<br>
-
-### Tag object
-
-A **tag** object is created after a tag is generated:
-
-```
-object <object_hash>
-type <object_type>
-tag <tag_name>
-tagger <username> <email> <time>
-
-<tag_message>
-```
-
-- `object`: Reference to the tagged object
-- `type`: Object type of the tagged object (usually a `commit`)
-- Other information about the tag (e.g., name of `tag`, `tagger`, `tag_message`)
-
-Let's create a tag for the current commit:
-
-
-```bash
-# Create a tag
-git tag -a v1 -m "version 1.0"
-
-# View .git/objects directory
-find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-```
-
-```
-## |____objects
-## | |____47
-## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
-## | |____49
-## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
-## | |____52
-## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
-## | |____60
-## | | |____92c8f293f5cc0f4543d21ed6546a4165c62455
-## | |____61
-## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____6c
-## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____85
-## | | |____9ff0b57ed1ad0b1a9d8d5ec30d1fdddbdcc3a6
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____e6
-## | | |____bfe30b853e8aab8a2034e41e9255851e710f1c
-## | |____f5
-## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
-## | |____info
-## | |____pack
-```
-
-<br>
-<details><summary>**Example**: Using `git cat-file` to view tag object</summary>
-
-```bash
-# View content of the tag object
-git cat-file -p $(git show-ref -s v1)  # retrieves hash for v1 tag
-```
-
-```
-## object 859ff0b57ed1ad0b1a9d8d5ec30d1fdddbdcc3a6
-## type commit
-## tag v1
-## tagger cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586140819 -0700
-## 
-## version 1.0
-```
-
-
-```bash
-# The tagged object was the second commit
-git log
-```
-
-```
-## commit 859ff0b57ed1ad0b1a9d8d5ec30d1fdddbdcc3a6
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:19 2020 -0700
-## 
-##     second commit
-## 
-## commit 6092c8f293f5cc0f4543d21ed6546a4165c62455
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:18 2020 -0700
-## 
-##     initial commit
-```
-</details>
-<br>
-
-## HEAD and refs/
-
-The `HEAD` file is a pointer to your current (active) branch -- specifically, it points to the latest commit of that branch (whose hash ID is stored in the `refs/` directory). Especially when we get to working with multiple branches, the `HEAD` becomes important as it keeps track of which branch you are currently on.
-
-
-If we output the contents of `HEAD`, we see it contains a reference to the _master_ branch:
-
-
-```bash
-# View content of HEAD
-cat .git/HEAD
-```
-
-```
-## ref: refs/heads/master
-```
-
-Following that reference, we can find the hash ID of the latest commit located inside the `refs/` directory:
-
-
-```bash
-# View content of refs/heads/master
-cat .git/refs/heads/master
-```
-
-```
-## 859ff0b57ed1ad0b1a9d8d5ec30d1fdddbdcc3a6
-```
-
-We can use `git log` to verify that this is the hash ID of the latest commit:
-
-
-```bash
-# View commit log
-git log
-```
-
-```
-## commit 859ff0b57ed1ad0b1a9d8d5ec30d1fdddbdcc3a6
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:19 2020 -0700
-## 
-##     second commit
-## 
-## commit 6092c8f293f5cc0f4543d21ed6546a4165c62455
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:18 2020 -0700
-## 
-##     initial commit
-```
-
-## Full example
-
-
-```bash
-# Initialize a new git repository in `my_git_repo` directory
-cd my_git_repo
-git init
-```
-
-```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-```
-
-
-```bash
-# Create new R script
-echo "library(tidyverse)" > create_dataset.R
-echo "mpg %>% head(5)" >> create_dataset.R
-
-# R script initially starts off under `Untracked Files`
-git status
-```
-
-```
-## On branch master
-## 
-## No commits yet
-## 
-## Untracked files:
-##   (use "git add <file>..." to include in what will be committed)
-## 
-## 	create_dataset.R
-## 
-## nothing added to commit but untracked files present (use "git add" to track)
-```
-
-
-```bash
-# Add R script
-git add create_dataset.R
-
-# R script moves to `Changes to be committed`
-git status
-```
-
-```
-## On branch master
-## 
-## No commits yet
-## 
-## Changes to be committed:
-##   (use "git rm --cached <file>..." to unstage)
-## 
-## 	new file:   create_dataset.R
-```
-
-
-```bash
-# Once R script has been added, a blob object is created for it in the .git/objects directory
-find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-```
-
-```
-## |____objects
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____info
-## | |____pack
-```
-
-
-```bash
-# We can use `git hash-object` to verify the hash of the blob object
-git hash-object create_dataset.R
-```
-
-```
-## c1cff389562e8bc123e6691a60352fdf839df113
-```
-
-
-```bash
-# With this hash, we can view the content of create_dataset.R
-git cat-file -p c1cff38
-```
-
-```
-## library(tidyverse)
-## mpg %>% head(5)
-```
-
-
-```bash
-# Make a commit
-git commit -m "add create_dataset.R"
-
-# The R script is now no longer listed
-git status
-```
-
-```
-## [master (root-commit) 5f2e89b] add create_dataset.R
-##  1 file changed, 2 insertions(+)
-##  create mode 100644 create_dataset.R
-## On branch master
-## nothing to commit, working tree clean
-```
-
-
-```bash
-# Check the commit history
-git log
-```
-
-```
-## commit 5f2e89b89eb07a40016d4726e9d959526e508efe
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:19 2020 -0700
-## 
-##     add create_dataset.R
-```
-
-
-```bash
-# Verify that `HEAD` is indeed pointing to the last commit made, which is our initial commit
-cat .git/HEAD
-cat .git/refs/heads/master
-```
-
-```
-## ref: refs/heads/master
-## 5f2e89b89eb07a40016d4726e9d959526e508efe
-```
-
-
-```bash
-# Further modify R script, which is now a tracked file
-echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
-
-# R script is now under `Changes not staged for commit`
-git status
-```
-
-```
-## On branch master
-## Changes not staged for commit:
-##   (use "git add <file>..." to update what will be committed)
-##   (use "git checkout -- <file>..." to discard changes in working directory)
-## 
-## 	modified:   create_dataset.R
-## 
-## no changes added to commit (use "git add" and/or "git commit -a")
-```
-
-
-```bash
-# View what new changes were made to R script
-git diff
-```
-
-```
-## diff --git a/create_dataset.R b/create_dataset.R
-## index c1cff38..490ec1c 100644
-## --- a/create_dataset.R
-## +++ b/create_dataset.R
-## @@ -1,2 +1,3 @@
-##  library(tidyverse)
-##  mpg %>% head(5)
-## +df <- mpg %>% filter(year == 2008)
-```
-
-
-```bash
-# Add new changes made to R script
-git add create_dataset.R
-
-# .git/objects directory now contains blob objects for both versions of R script
-# It also contains objects for the commit and root directory tree
-find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
-```
-
-```
-## |____objects
-## | |____49
-## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
-## | |____5f
-## | | |____2e89b89eb07a40016d4726e9d959526e508efe
-## | |____96
-## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____info
-## | |____pack
-```
-
-
-```bash
-# We can use `git hash-object` to verify the hash for the new blob object
-git hash-object create_dataset.R
-```
-
-```
-## 490ec1c138021b8d5c196c26a2a7b3de69afc2d1
-```
-
-
-```bash
-# With this hash, we can view the content of the modified create_dataset.R
-git cat-file -p 490ec1c
-```
-
-```
-## library(tidyverse)
-## mpg %>% head(5)
-## df <- mpg %>% filter(year == 2008)
-```
-
-
-```bash
-# Make a commit
-git commit -m "modify create_dataset.R"
-```
-
-```
-## [master 16fafad] modify create_dataset.R
-##  1 file changed, 1 insertion(+)
-```
-
-
-```bash
-# Check the commit history
-git log
-```
-
-```
-## commit 16fafad1ce899f2fce729ab985de75cd002e3728
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:19 2020 -0700
-## 
-##     modify create_dataset.R
-## 
-## commit 5f2e89b89eb07a40016d4726e9d959526e508efe
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:19 2020 -0700
-## 
-##     add create_dataset.R
-```
-
-
-```bash
-# Verify that `HEAD` is pointing to the last commit made, which is now our second commit
-cat .git/HEAD
-cat .git/refs/heads/master
-```
-
-```
-## ref: refs/heads/master
-## 16fafad1ce899f2fce729ab985de75cd002e3728
-```
-
-
-```bash
-# View content of commit object for second commit
-git cat-file -p $(git rev-parse HEAD)
-```
-
-```
-## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
-## parent 5f2e89b89eb07a40016d4726e9d959526e508efe
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586140819 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586140819 -0700
-## 
-## modify create_dataset.R
-```
 
 # Git commands: Undoing changes
 
@@ -2589,8 +2606,10 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) ec71b59] add create_dataset.R
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) fafdd7d] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2628,6 +2647,8 @@ git diff
 ```
 
 ```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
 ## diff --git a/create_dataset.R b/create_dataset.R
 ## index c1cff38..490ec1c 100644
 ## --- a/create_dataset.R
@@ -2649,6 +2670,7 @@ cat create_dataset.R
 ```
 
 ```
+## Updated 1 path from the index
 ## library(tidyverse)
 ## mpg %>% head(5)
 ```
@@ -2686,8 +2708,10 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) ec71b59] add create_dataset.R
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) da43ed2] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2705,10 +2729,11 @@ git status
 ```
 
 ```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
 ## On branch master
 ## Changes to be committed:
-##   (use "git reset HEAD <file>..." to unstage)
-## 
+##   (use "git restore --staged <file>..." to unstage)
 ## 	modified:   create_dataset.R
 ```
 
@@ -2727,8 +2752,7 @@ git status
 ## On branch master
 ## Changes not staged for commit:
 ##   (use "git add <file>..." to update what will be committed)
-##   (use "git checkout -- <file>..." to discard changes in working directory)
-## 
+##   (use "git restore <file>..." to discard changes in working directory)
 ## 	modified:   create_dataset.R
 ## 
 ## no changes added to commit (use "git add" and/or "git commit -a")
@@ -2749,8 +2773,10 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) 2beb5fe] add 1st line to create_dataset.R
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) 871a547] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2766,7 +2792,9 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## [master 2f42348] add 2nd line to create_dataset.R
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master a04d45e] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2777,15 +2805,15 @@ git log
 ```
 
 ```
-## commit 2f42348f262c8e1252f70eced7c0877c3b060b16
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:20 2020 -0700
+## commit a04d45e84a01a9944962fe684a9bc9aa4f5dab7e
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:47 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 2beb5fe25d81e38bfdc86e92b403406d2f2de275
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:20 2020 -0700
+## commit 871a547e5f140995e9f75db58ac313cdafaab40c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:46 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2802,9 +2830,9 @@ git log
 ```
 ## Unstaged changes after reset:
 ## M	create_dataset.R
-## commit 2beb5fe25d81e38bfdc86e92b403406d2f2de275
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:20 2020 -0700
+## commit 871a547e5f140995e9f75db58ac313cdafaab40c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:46 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2849,8 +2877,10 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) 2beb5fe] add 1st line to create_dataset.R
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) b7faffa] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2866,7 +2896,9 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## [master 2f42348] add 2nd line to create_dataset.R
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master b7ec26a] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2877,15 +2909,15 @@ git log
 ```
 
 ```
-## commit 2f42348f262c8e1252f70eced7c0877c3b060b16
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:20 2020 -0700
+## commit b7ec26a74816f229ca85c2b4dec202813de8be92
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:48 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 2beb5fe25d81e38bfdc86e92b403406d2f2de275
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:20 2020 -0700
+## commit b7faffae1ccc4d57d9e1b8ccbd75151954425fe5
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:48 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2900,25 +2932,26 @@ git log
 ```
 
 ```
-## [master 14e3536] Revert "add 2nd line to create_dataset.R"
+## [master 5b0e7f9] Revert "add 2nd line to create_dataset.R"
+##  Date: Sun Apr 5 22:38:49 2020 -0700
 ##  1 file changed, 1 deletion(-)
-## commit 14e3536a0fad03ed8746f21043c5addfad095700
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:20 2020 -0700
+## commit 5b0e7f965a60cebfcd06ba842f7fc54eac00d52c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:49 2020 -0700
 ## 
 ##     Revert "add 2nd line to create_dataset.R"
 ##     
-##     This reverts commit 2f42348f262c8e1252f70eced7c0877c3b060b16.
+##     This reverts commit b7ec26a74816f229ca85c2b4dec202813de8be92.
 ## 
-## commit 2f42348f262c8e1252f70eced7c0877c3b060b16
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:20 2020 -0700
+## commit b7ec26a74816f229ca85c2b4dec202813de8be92
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:48 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 2beb5fe25d81e38bfdc86e92b403406d2f2de275
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 5 19:40:20 2020 -0700
+## commit b7faffae1ccc4d57d9e1b8ccbd75151954425fe5
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 5 22:38:48 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
