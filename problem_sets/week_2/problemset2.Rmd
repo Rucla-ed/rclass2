@@ -226,6 +226,6 @@ One of the goals for this quarter is to get you comfortable using git and GitHub
 
 # Part VI: Wrapping up 
 
-1. Finally, add and commit this file you are working on (`problemset2.Rmd`) -- as well as the plot if you completed the optional bonus section -- to your repository and push to the remote repository.  
+1. Finally, add and commit this file you are working on (`problemset2.Rmd`) to your repository and push to the remote repository.  
 
 2. How much time did you spend on this problem set?
