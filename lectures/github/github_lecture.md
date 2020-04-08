@@ -164,10 +164,11 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
         - [Other commands](#other-commands)
 - [Basic Git tasks](#basic-git-tasks)
     - [Git commands](#git-commands)
-    - [Creating and cloning repositories](#creating-and-cloning-repositories)
-        - [Clone an existing repository to your local machine](#clone-an-existing-repository-to-your-local-machine)
-        - [Create new repository on GitHub and clone to your local machine](#create-new-repository-on-github-and-clone-to-your-local-machine)
-        - [Create new git repository on your local machine and add to GitHub](#create-new-git-repository-on-your-local-machine-and-add-to-github)
+- [Create repo: clone, initialize, remote add](#create-repo:-clone,-initialize,-remote-add)
+    - [Concepts](#concepts)
+    - [Clone an existing repository to your local machine](#clone-an-existing-repository-to-your-local-machine)
+    - [Create new repository on GitHub and clone to your local machine](#create-new-repository-on-github-and-clone-to-your-local-machine)
+    - [Create new git repository on your local machine and add to GitHub](#create-new-git-repository-on-your-local-machine-and-add-to-github)
 - [Git: Under the hood](#git:-under-the-hood)
     - [git/ directory](#git/-directory)
     - [Git objects](#git-objects)
@@ -1013,16 +1014,35 @@ Basic/essential git commands:
         - Updates the local repository with any commits from the remote repository
 
 
-## Creating and cloning repositories
+# Create repo: clone, initialize, remote add
+
+CRYSTAL - INSTEAD OF ADDING NEW SECTION, I WANT YOU TO MODIFY THIS ONE TO REFLECT OUR DISCUSSION ON THE MORNING OF 4/8/2020
 
 Basic stuff you will do all the time:
 
 - `clone` an existing remote repository from GitHub to your local machine
     - For example, clone the repository for this class -- named `student_lastname` (e.g., `student_jaquette`) -- to your local machine
-- Create a new git repository on your local machine and add to GitHub
-    - For example, you might want to create the repository `problem_set_1` for all files related to the first problem set
+- Create new git repo
+    - Approach A: create new repo on github and clone to your local machine
+    - Approach B: create new repo on your local machine and connect to remote repo on github
 
-### Clone an existing repository to your local machine
+## Concepts
+
+Clone
+
+Local
+
+Remote
+
+Repo URL/"origin"
+
+Upstream branch
+
+## Clone an existing repository to your local machine
+
+INTRODUCE GIT CLONE COMMAND
+
+REVISE THIS SECTION
 
 What we will do:
 
@@ -1128,7 +1148,7 @@ ls
 ```
 </details>
 
-### Create new repository on GitHub and clone to your local machine
+## Create new repository on GitHub and clone to your local machine
 
 The repository you clone to your local machine can also be a new repository that you create:
 
@@ -1136,7 +1156,7 @@ The repository you clone to your local machine can also be a new repository that
 - Make sure to check the `Initialize this repository with a README` option
 - You will then be able to clone your new repository to your local machine as described in the previous section
 
-### Create new git repository on your local machine and add to GitHub
+## Create new git repository on your local machine and add to GitHub
 
 <!--
 To create this example, can draw from both of these two tutorials:
@@ -1268,9 +1288,9 @@ ls -al
 ```
 ## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## total 16
-## drwxr-xr-x 1 ozanj 197121 0 Apr  8 09:28 .
-## drwxr-xr-x 1 ozanj 197121 0 Apr  8 09:28 ..
-## drwxr-xr-x 1 ozanj 197121 0 Apr  8 09:28 .git
+## drwxr-xr-x 1 ozanj 197121 0 Apr  8 14:13 .
+## drwxr-xr-x 1 ozanj 197121 0 Apr  8 14:13 ..
+## drwxr-xr-x 1 ozanj 197121 0 Apr  8 14:13 .git
 ```
 
 <br>
@@ -1522,7 +1542,7 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master (root-commit) d4d005f] initial commit
+## [master (root-commit) db02b54] initial commit
 ##  3 files changed, 4 insertions(+)
 ##  create mode 100644 create_dataset.R
 ##  create mode 100644 notes/note_1.txt
@@ -1536,8 +1556,8 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____d4
-## | | |____d005f42a1309a386709841b06fdbb8f431628d
+## | |____db
+## | | |____02b544dff971e51eaa0a170bed3863bd2a0f3a
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -1588,11 +1608,11 @@ ls -al
 
 ```
 ## total 17
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 .
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 ..
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 .git
-## -rw-r--r-- 1 ozanj 197121 35 Apr  8 09:28 create_dataset.R
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 notes
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 .
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 ..
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:14 .git
+## -rw-r--r-- 1 ozanj 197121 35 Apr  8 14:13 create_dataset.R
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 notes
 ```
 
 Second, show contents of tree using `git cat-file`
@@ -1609,11 +1629,11 @@ git cat-file -p f59085d  # content
 
 ```
 ## total 17
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 .
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 ..
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 .git
-## -rw-r--r-- 1 ozanj 197121 35 Apr  8 09:28 create_dataset.R
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 notes
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 .
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 ..
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:14 .git
+## -rw-r--r-- 1 ozanj 197121 35 Apr  8 14:13 create_dataset.R
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 notes
 ## 
 ## tree
 ## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113	create_dataset.R
@@ -1681,11 +1701,11 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master 2d7267d] second commit
+## [master 0c7ce50] second commit
 ##  1 file changed, 1 insertion(+)
 ## |____objects
-## | |____2d
-## | | |____7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
+## | |____0c
+## | | |____7ce501ab5d723eec00aa19fc235f6582d4d397
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -1698,8 +1718,8 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____d4
-## | | |____d005f42a1309a386709841b06fdbb8f431628d
+## | |____db
+## | | |____02b544dff971e51eaa0a170bed3863bd2a0f3a
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -1722,10 +1742,10 @@ git cat-file -p $(git rev-list HEAD | tail -n 1)
 ```
 
 ```
-## d4d005f42a1309a386709841b06fdbb8f431628d
+## db02b544dff971e51eaa0a170bed3863bd2a0f3a
 ## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author Ozan Jaquette <ozanj@ucla.edu> 1586363293 -0700
-## committer Ozan Jaquette <ozanj@ucla.edu> 1586363293 -0700
+## author Ozan Jaquette <ozanj@ucla.edu> 1586380440 -0700
+## committer Ozan Jaquette <ozanj@ucla.edu> 1586380440 -0700
 ## 
 ## initial commit
 ```
@@ -1746,11 +1766,11 @@ git cat-file -p $(git rev-parse HEAD)
 ```
 
 ```
-## 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
+## 0c7ce501ab5d723eec00aa19fc235f6582d4d397
 ## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent d4d005f42a1309a386709841b06fdbb8f431628d
-## author Ozan Jaquette <ozanj@ucla.edu> 1586363295 -0700
-## committer Ozan Jaquette <ozanj@ucla.edu> 1586363295 -0700
+## parent db02b544dff971e51eaa0a170bed3863bd2a0f3a
+## author Ozan Jaquette <ozanj@ucla.edu> 1586380442 -0700
+## committer Ozan Jaquette <ozanj@ucla.edu> 1586380442 -0700
 ## 
 ## second commit
 ```
@@ -1787,10 +1807,8 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ```
 ## |____objects
-## | |____24
-## | | |____51a70d35921f98765e2e6e5e50a78635272deb
-## | |____2d
-## | | |____7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
+## | |____0c
+## | | |____7ce501ab5d723eec00aa19fc235f6582d4d397
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -1801,10 +1819,12 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____78
+## | | |____66652a2da82f3bf5619d6ab694c2fc46630f41
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____d4
-## | | |____d005f42a1309a386709841b06fdbb8f431628d
+## | |____db
+## | | |____02b544dff971e51eaa0a170bed3863bd2a0f3a
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -1820,10 +1840,10 @@ git cat-file -p $(git show-ref -s v1)  # retrieves hash for v1 tag
 ```
 
 ```
-## object 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
+## object 0c7ce501ab5d723eec00aa19fc235f6582d4d397
 ## type commit
 ## tag v1
-## tagger Ozan Jaquette <ozanj@ucla.edu> 1586363296 -0700
+## tagger Ozan Jaquette <ozanj@ucla.edu> 1586380443 -0700
 ## 
 ## version 1.0
 ```
@@ -1835,15 +1855,15 @@ git log
 ```
 
 ```
-## commit 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
+## commit 0c7ce501ab5d723eec00aa19fc235f6582d4d397
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:15 2020 -0700
+## Date:   Wed Apr 8 14:14:02 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit d4d005f42a1309a386709841b06fdbb8f431628d
+## commit db02b544dff971e51eaa0a170bed3863bd2a0f3a
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:13 2020 -0700
+## Date:   Wed Apr 8 14:14:00 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -1876,7 +1896,7 @@ cat .git/refs/heads/master
 ```
 
 ```
-## 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
+## 0c7ce501ab5d723eec00aa19fc235f6582d4d397
 ```
 
 We can use `git log` to verify that this is the hash ID of the latest commit:
@@ -1888,15 +1908,15 @@ git log
 ```
 
 ```
-## commit 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
+## commit 0c7ce501ab5d723eec00aa19fc235f6582d4d397
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:15 2020 -0700
+## Date:   Wed Apr 8 14:14:02 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit d4d005f42a1309a386709841b06fdbb8f431628d
+## commit db02b544dff971e51eaa0a170bed3863bd2a0f3a
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:13 2020 -0700
+## Date:   Wed Apr 8 14:14:00 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -2002,7 +2022,7 @@ git status
 ```
 
 ```
-## [master (root-commit) 416f2d6] add create_dataset.R
+## [master (root-commit) f993545] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ## On branch master
@@ -2016,9 +2036,9 @@ git log
 ```
 
 ```
-## commit 416f2d6f92ae4242b80dfa86c11764097eca0145
+## commit f993545add3d99748f87c9ad21f8ee66ec1b2292
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:20 2020 -0700
+## Date:   Wed Apr 8 14:14:06 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2032,7 +2052,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## 416f2d6f92ae4242b80dfa86c11764097eca0145
+## f993545add3d99748f87c9ad21f8ee66ec1b2292
 ```
 
 
@@ -2087,14 +2107,14 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
 ## |____objects
-## | |____41
-## | | |____6f2d6f92ae4242b80dfa86c11764097eca0145
 ## | |____49
 ## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
 ## | |____96
 ## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____f9
+## | | |____93545add3d99748f87c9ad21f8ee66ec1b2292
 ## | |____info
 ## | |____pack
 ```
@@ -2128,7 +2148,7 @@ git commit -m "modify create_dataset.R"
 ```
 
 ```
-## [master 4d62f7b] modify create_dataset.R
+## [master 9309e34] modify create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2139,15 +2159,15 @@ git log
 ```
 
 ```
-## commit 4d62f7b802e469e12531c5639eb7efef80a71420
+## commit 9309e346b08210edeee919e855ac077437f6a610
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:22 2020 -0700
+## Date:   Wed Apr 8 14:14:08 2020 -0700
 ## 
 ##     modify create_dataset.R
 ## 
-## commit 416f2d6f92ae4242b80dfa86c11764097eca0145
+## commit f993545add3d99748f87c9ad21f8ee66ec1b2292
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:20 2020 -0700
+## Date:   Wed Apr 8 14:14:06 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2161,7 +2181,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## 4d62f7b802e469e12531c5639eb7efef80a71420
+## 9309e346b08210edeee919e855ac077437f6a610
 ```
 
 
@@ -2172,9 +2192,9 @@ git cat-file -p $(git rev-parse HEAD)
 
 ```
 ## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
-## parent 416f2d6f92ae4242b80dfa86c11764097eca0145
-## author Ozan Jaquette <ozanj@ucla.edu> 1586363302 -0700
-## committer Ozan Jaquette <ozanj@ucla.edu> 1586363302 -0700
+## parent f993545add3d99748f87c9ad21f8ee66ec1b2292
+## author Ozan Jaquette <ozanj@ucla.edu> 1586380448 -0700
+## committer Ozan Jaquette <ozanj@ucla.edu> 1586380448 -0700
 ## 
 ## modify create_dataset.R
 ```
@@ -2609,7 +2629,7 @@ git commit -m "add create_dataset.R"
 ## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master (root-commit) 9e06d22] add create_dataset.R
+## [master (root-commit) 970c937] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2711,7 +2731,7 @@ git commit -m "add create_dataset.R"
 ## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master (root-commit) 7e768fe] add create_dataset.R
+## [master (root-commit) 5a1190c] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2776,7 +2796,7 @@ git commit -m "add 1st line to create_dataset.R"
 ## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master (root-commit) 7dd6683] add 1st line to create_dataset.R
+## [master (root-commit) 175af3a] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2794,7 +2814,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master 1a46099] add 2nd line to create_dataset.R
+## [master a5a13bd] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2805,15 +2825,15 @@ git log
 ```
 
 ```
-## commit 1a46099e3744e7d2cb1883dbaa2fbc75eb1f3539
+## commit a5a13bd8f67ea674c2babcf878a7faebba0477bb
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:27 2020 -0700
+## Date:   Wed Apr 8 14:14:12 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 7dd6683866836365b5dd073009aa3e70d37c7488
+## commit 175af3a99e68746adf8f523d866aefbf4f828eea
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:26 2020 -0700
+## Date:   Wed Apr 8 14:14:12 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2830,9 +2850,9 @@ git log
 ```
 ## Unstaged changes after reset:
 ## M	create_dataset.R
-## commit 7dd6683866836365b5dd073009aa3e70d37c7488
+## commit 175af3a99e68746adf8f523d866aefbf4f828eea
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:26 2020 -0700
+## Date:   Wed Apr 8 14:14:12 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2880,7 +2900,7 @@ git commit -m "add 1st line to create_dataset.R"
 ## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master (root-commit) af7cb66] add 1st line to create_dataset.R
+## [master (root-commit) 0e41d10] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2898,7 +2918,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master 053347d] add 2nd line to create_dataset.R
+## [master 3bcf356] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2909,15 +2929,15 @@ git log
 ```
 
 ```
-## commit 053347d9140ec3889650cb343f218ed9ebf2a949
+## commit 3bcf356e86bdc291031ced04a23c84a7542e3d06
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:29 2020 -0700
+## Date:   Wed Apr 8 14:14:13 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit af7cb664fa07dbb0cb31f91870952b0f03c1a7e1
+## commit 0e41d10e96e059b7454692cd65991f4b1eae56df
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:28 2020 -0700
+## Date:   Wed Apr 8 14:14:13 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2932,26 +2952,26 @@ git log
 ```
 
 ```
-## [master 79c5e81] Revert "add 2nd line to create_dataset.R"
-##  Date: Wed Apr 8 09:28:29 2020 -0700
+## [master 9df0923] Revert "add 2nd line to create_dataset.R"
+##  Date: Wed Apr 8 14:14:14 2020 -0700
 ##  1 file changed, 1 deletion(-)
-## commit 79c5e818cad7b5c47fa736bf34d661920332af54
+## commit 9df0923d543da4c0e41e4c77b9740d710727cba0
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:29 2020 -0700
+## Date:   Wed Apr 8 14:14:14 2020 -0700
 ## 
 ##     Revert "add 2nd line to create_dataset.R"
 ##     
-##     This reverts commit 053347d9140ec3889650cb343f218ed9ebf2a949.
+##     This reverts commit 3bcf356e86bdc291031ced04a23c84a7542e3d06.
 ## 
-## commit 053347d9140ec3889650cb343f218ed9ebf2a949
+## commit 3bcf356e86bdc291031ced04a23c84a7542e3d06
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:29 2020 -0700
+## Date:   Wed Apr 8 14:14:13 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit af7cb664fa07dbb0cb31f91870952b0f03c1a7e1
+## commit 0e41d10e96e059b7454692cd65991f4b1eae56df
 ## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 09:28:28 2020 -0700
+## Date:   Wed Apr 8 14:14:13 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```

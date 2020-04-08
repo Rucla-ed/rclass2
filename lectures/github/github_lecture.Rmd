@@ -839,16 +839,33 @@ Basic/essential git commands:
 
 # Create repo: clone, initialize, remote add
 
+CRYSTAL - INSTEAD OF ADDING NEW SECTION, I WANT YOU TO MODIFY THIS ONE TO REFLECT OUR DISCUSSION ON THE MORNING OF 4/8/2020
+
 Basic stuff you will do all the time:
 
 - `clone` an existing remote repository from GitHub to your local machine
     - For example, clone the repository for this class -- named `student_lastname` (e.g., `student_jaquette`) -- to your local machine
-- Create a new git repository on your local machine and add to GitHub
-    - For example, you might want to create the repository `problem_set_1` for all files related to the first problem set
+- Create new git repo
+    - Approach A: create new repo on github and clone to your local machine
+    - Approach B: create new repo on your local machine and connect to remote repo on github
 
-### Clone an existing repository to your local machine
+## Concepts
 
-CRYSTAL - INSTEAD OF ADDING NEW SECTION, I WANT YOU TO MODIFY THIS ONE TO REFLECT OUR DISCUSSION ON THE MORNING OF 4/8/2020
+Clone
+
+Local
+
+Remote
+
+Repo URL/"origin"
+
+Upstream branch
+
+## Clone an existing repository to your local machine
+
+INTRODUCE GIT CLONE COMMAND
+
+REVISE THIS SECTION
 
 What we will do:
 
@@ -952,7 +969,7 @@ ls
 ```
 </details>
 
-### Create new repository on GitHub and clone to your local machine
+## Create new repository on GitHub and clone to your local machine
 
 The repository you clone to your local machine can also be a new repository that you create:
 
@@ -960,7 +977,7 @@ The repository you clone to your local machine can also be a new repository that
 - Make sure to check the `Initialize this repository with a README` option
 - You will then be able to clone your new repository to your local machine as described in the previous section
 
-### Create new git repository on your local machine and add to GitHub
+## Create new git repository on your local machine and add to GitHub
 
 <!--
 To create this example, can draw from both of these two tutorials:
