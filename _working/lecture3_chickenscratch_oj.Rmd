@@ -1,0 +1,290 @@
+---
+title: "Introduction to Git and GitHub"
+author: 
+date: 
+urlcolor: blue
+output: 
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true # toc_float option to float the table of contents to the left of the main document content. floating table of contents will always be visible even when the document is scrolled
+      #collapsed: false # collapsed (defaults to TRUE) controls whether the TOC appears with only the top-level (e.g., H2) headers. If collapsed initially, the TOC is automatically expanded inline when necessary
+      #smooth_scroll: true # smooth_scroll (defaults to TRUE) controls whether page scrolls are animated when TOC items are navigated to via mouse clicks
+    number_sections: true
+    fig_caption: true # ? this option doesn't seem to be working for figure inserted below outside of r code chunk    
+    highlight: tango # Supported styles include "default", "tango", "pygments", "kate", "monochrome", "espresso", "zenburn", and "haddock" (specify null to prevent syntax    
+    theme: default # theme specifies the Bootstrap theme to use for the page. Valid themes include default, cerulean, journal, flatly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex, and yeti.
+    df_print: tibble #options: default, tibble, paged
+    keep_md: true # may be helpful for storing on github
+    
+---
+
+```{bash}
+cd ~ # change directories to home directory
+
+rm -rf repo_lec3  # force remove `my_git_repo` (if it exists)
+mkdir repo_lec3  # make directory `my_git_repo`
+
+# Initialize a new git repository in `my_git_repo` directory
+cd repo_lec3
+git init
+
+ls -al
+git status
+```
+
+add remote rep
+```{bash}
+cd ~/repo_lec3
+
+ls -al
+
+#add a remote repository that connects to local repository, thus enabling us to  push/pull 
+
+git remote add origin https://github.com/ozanj/repo_lec3.git # https 
+#git remote add ozan_origin https://github.com/ozanj/repo_lec3.git # https
+#git remote add origin git@github.com:ozanj/repo_lec3.git # ssh
+```
+
+use `get remote set-url` to change url of remote
+```{bash}
+cd ~/repo_lec3
+
+ls -al
+
+#set url
+#git remote set-url origin git@github.com:ozanj/repo_lec3.git
+
+```
+
+```{bash}
+cd ~/repo_lec3
+
+git remote
+
+git remote -v
+```
+
+```{bash}
+cd ~/repo_lec3
+
+echo "library(tidyverse)" > lec3_script.R
+
+git add lec3_script.R
+
+git commit -m "initial commit, lec3_script.R"
+```
+
+note: we have committed file to local repo. we have connected local and remote repo using git remote add, but when we use git status, we don't see a note indicating that our local repo is ahead of our remote repo
+```{bash}
+cd ~/repo_lec3
+
+git status
+```
+
+try pushing changes
+```{bash}
+cd ~/repo_lec3
+
+git push
+```
+
+DEFINE UPSTREAM BRANCH [CONCEPTUALLY IN LECTURE]
+
+EXPLAIN git push COMMAND [FOCUSING ON GIT PUSH BY ITSELF AND GIT PUSH --SET-UPSTREAM]
+
+AND SHOW STUDENTS HOW THEY CAN OBTAIN THE INFO FOR:  --set-upstream <remote_name> <branch_name>
+
+- find <remote_name>
+
+```{bash}
+cd ~/repo_lec3
+git remote -v
+```
+
+- find <branch_name>
+
+```{bash}
+cd ~/repo_lec3
+
+git branch
+
+echo ""
+#OR
+git status
+```
+
+```{bash}
+cd ~/repo_lec3
+git push --set-upstream origin master
+```
+
+
+
+
+# BRANCHES
+
+## conceptual stuff
+
+- what is a branch
+
+- show image of a branch
+
+- introduce git branch command
+
+
+Listing branches
+```{bash}
+cd ~/repo_lec3
+
+git status
+
+echo ""
+git branch
+
+```
+
+Listing both local and remote branches
+
+- Note: the branch “master” on your local machine is a different branch from “origin/master”
+```{bash}
+cd ~/repo_lec3
+
+git branch -av
+
+```
+
+
+## creating branches
+
+before we create branch, let's make a second commit on the master
+```{bash}
+cd ~/repo_lec3
+
+echo "mpg %>% head(5)" >> lec3_script.R
+
+git add lec3_script.R
+git commit -m "add line to lec3_script.R"
+git push
+```
+```{bash}
+cd ~/repo_lec3
+git log
+```
+
+show the commit object associated w/ commit hashes
+```{bash}
+cd ~/repo_lec3
+echo "initial commit"
+git cat-file -p fe91b419c71935c8edd3f4dcb3b6971634d681c5
+
+echo ""
+echo "2nd commit"
+git cat-file -p 67bd01f2a55e4411ceeb11629d79352598782199
+
+```
+
+create new branch
+```{bash}
+cd ~/repo_lec3
+
+git branch dev
+
+git branch # show branches
+```
+
+delete branch
+```{bash}
+cd ~/repo_lec3
+
+git branch -d dev
+
+git branch
+```
+
+## switching to different branch [using git checkout]
+
+introduce git checkout command
+
+- to switch from one branch to another (existing) branch
+- to create new branch and switch from existing branch to this new branch
+- [add note that we also use git checkout for different purpose of discarding changes from working directory]
+
+
+create branch and switch to it using git checkout
+```{bash}
+cd ~/repo_lec3
+
+git branch
+git checkout -b dev
+git branch
+```
+
+```{bash}
+cd ~/repo_lec3
+
+git status
+```
+
+on `dev` branch, make changes to file
+```{bash}
+cd ~/repo_lec3
+
+echo "mpg %>% filter(hwy >=30)" >> lec3_script.R
+echo "mpg %>% filter(hwy <30)" >> lec3_script.R
+
+git add lec3_script.R
+git commit -m "add lines to lec3_script.R"
+
+git status
+```
+
+```{bash}
+cd ~/repo_lec3
+git log
+git cat-file -p 105cecccf921d6eb45bf26314ecaba8bd05ad732
+```
+
+## merge master and dev [no conflicts]
+
+- define merge
+- introduce terminology
+“Current branch”
+Branch you are currently working with
+The branch will be updated/modified by the merge with the “target branch”
+In the figure above, the master branch is the “current branch”
+“Target branch”
+Branch that will be merged into the “current branch”
+Target branch will be unaffected by the merge
+Often, programmers delete the target branch after merging with the current branch
+In the figure above, “develop” is the target branch
+
+show example of merging dev into master
+
+show example of merging master into dev
+
+
+## merge master and dev [with conflicts]
+
+
+```{r}
+library(tidyverse)
+mpg %>% head(5)
+mpg %>% filter(hwy >=30)
+mpg %>% filter(hwy <30)
+```
+
+
+list branches
+```{bash}
+cd ~/repo_lec3
+
+git checkout dev
+git branch
+```
+
+show `git status` after you swich branches
+```{r}
+
+```
+

@@ -2875,9 +2875,9 @@ To create this example, can draw from both of these two tutorials:
 <a class="sourceLine" id="cb35-5" title="5"><span class="fu">ls</span> -al</a></code></pre></div>
 <pre><code>## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## total 16
-## drwxr-xr-x 1 ozanj 197121 0 Apr  5 22:38 .
-## drwxr-xr-x 1 ozanj 197121 0 Apr  5 22:38 ..
-## drwxr-xr-x 1 ozanj 197121 0 Apr  5 22:38 .git</code></pre>
+## drwxr-xr-x 1 ozanj 197121 0 Apr  8 09:28 .
+## drwxr-xr-x 1 ozanj 197121 0 Apr  8 09:28 ..
+## drwxr-xr-x 1 ozanj 197121 0 Apr  8 09:28 .git</code></pre>
 <p><br> What’s inside the <strong><code>.git/</code> directory</strong>?</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># List out the contents of the .git/ directory (in tree form)</span></a>
 <a class="sourceLine" id="cb37-2" title="2"><span class="fu">find</span> .git -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">&#39;s;[^/]*/;|____;g;s;____|; |;g&#39;</span></a></code></pre></div>
@@ -3067,14 +3067,12 @@ To create this example, can draw from both of these two tutorials:
 <a class="sourceLine" id="cb53-3" title="3"></a>
 <a class="sourceLine" id="cb53-4" title="4"><span class="co"># View .git/objects directory</span></a>
 <a class="sourceLine" id="cb53-5" title="5"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">&#39;s;[^/]*/;|____;g;s;____|; |;g&#39;</span></a></code></pre></div>
-<pre><code>## [master (root-commit) 05ae512] initial commit
+<pre><code>## [master (root-commit) d4d005f] initial commit
 ##  3 files changed, 4 insertions(+)
 ##  create mode 100644 create_dataset.R
 ##  create mode 100644 notes/note_1.txt
 ##  create mode 100644 notes/note_2.txt
 ## |____objects
-## | |____05
-## | | |____ae5124198500eb6b068e51f014bb9cf3514af8
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____61
@@ -3083,6 +3081,8 @@ To create this example, can draw from both of these two tutorials:
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____d4
+## | | |____d005f42a1309a386709841b06fdbb8f431628d
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -3115,11 +3115,11 @@ To create this example, can draw from both of these two tutorials:
 <div class="sourceCode" id="cb58"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb58-1" title="1"><span class="co">#show files in directory</span></a>
 <a class="sourceLine" id="cb58-2" title="2"><span class="fu">ls</span> -al</a></code></pre></div>
 <pre><code>## total 17
-## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 .
-## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 ..
-## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 .git
-## -rw-r--r-- 1 ozanj 197121 35 Apr  5 22:38 create_dataset.R
-## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 notes</code></pre>
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 .
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 ..
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 .git
+## -rw-r--r-- 1 ozanj 197121 35 Apr  8 09:28 create_dataset.R
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 notes</code></pre>
 <p>Second, show contents of tree using <code>git cat-file</code></p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb60-1" title="1"><span class="co">#show files in directory</span></a>
 <a class="sourceLine" id="cb60-2" title="2"><span class="fu">ls</span> -al</a>
@@ -3129,11 +3129,11 @@ To create this example, can draw from both of these two tutorials:
 <a class="sourceLine" id="cb60-6" title="6"><span class="fu">git</span> cat-file -t f59085d  <span class="co"># type</span></a>
 <a class="sourceLine" id="cb60-7" title="7"><span class="fu">git</span> cat-file -p f59085d  <span class="co"># content</span></a></code></pre></div>
 <pre><code>## total 17
-## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 .
-## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 ..
-## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 .git
-## -rw-r--r-- 1 ozanj 197121 35 Apr  5 22:38 create_dataset.R
-## drwxr-xr-x 1 ozanj 197121  0 Apr  5 22:38 notes
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 .
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 ..
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 .git
+## -rw-r--r-- 1 ozanj 197121 35 Apr  8 09:28 create_dataset.R
+## drwxr-xr-x 1 ozanj 197121  0 Apr  8 09:28 notes
 ## 
 ## tree
 ## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113 create_dataset.R
@@ -3182,13 +3182,11 @@ committer &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <a class="sourceLine" id="cb65-11" title="11"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">&#39;s;[^/]*/;|____;g;s;____|; |;g&#39;</span></a></code></pre></div>
 <pre><code>## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master 1f4c3b5] second commit
+## [master 2d7267d] second commit
 ##  1 file changed, 1 insertion(+)
 ## |____objects
-## | |____05
-## | | |____ae5124198500eb6b068e51f014bb9cf3514af8
-## | |____1f
-## | | |____4c3b5906610eeaadb7a8f2a704fc355279b8a8
+## | |____2d
+## | | |____7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -3201,6 +3199,8 @@ committer &lt;username&gt; &lt;email&gt; &lt;time&gt;
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____d4
+## | | |____d005f42a1309a386709841b06fdbb8f431628d
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -3216,10 +3216,10 @@ committer &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <a class="sourceLine" id="cb67-3" title="3"></a>
 <a class="sourceLine" id="cb67-4" title="4"><span class="co"># View content of the commit object</span></a>
 <a class="sourceLine" id="cb67-5" title="5"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> rev-list HEAD <span class="kw">|</span> <span class="fu">tail</span> -n 1<span class="va">)</span></a></code></pre></div>
-<pre><code>## 05ae5124198500eb6b068e51f014bb9cf3514af8
+<pre><code>## d4d005f42a1309a386709841b06fdbb8f431628d
 ## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586151515 -0700
-## committer Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586151515 -0700
+## author Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586363293 -0700
+## committer Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586363293 -0700
 ## 
 ## initial commit</code></pre>
 </details>
@@ -3234,11 +3234,11 @@ committer &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <a class="sourceLine" id="cb69-3" title="3"></a>
 <a class="sourceLine" id="cb69-4" title="4"><span class="co"># View content of the commit object</span></a>
 <a class="sourceLine" id="cb69-5" title="5"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> rev-parse HEAD<span class="va">)</span></a></code></pre></div>
-<pre><code>## 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8
+<pre><code>## 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
 ## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent 05ae5124198500eb6b068e51f014bb9cf3514af8
-## author Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586151517 -0700
-## committer Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586151517 -0700
+## parent d4d005f42a1309a386709841b06fdbb8f431628d
+## author Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586363295 -0700
+## committer Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586363295 -0700
 ## 
 ## second commit</code></pre>
 </details>
@@ -3265,24 +3265,24 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <a class="sourceLine" id="cb72-4" title="4"><span class="co"># View .git/objects directory</span></a>
 <a class="sourceLine" id="cb72-5" title="5"><span class="fu">find</span> .git/objects -print <span class="kw">|</span> <span class="fu">sed</span> -e <span class="st">&#39;s;[^/]*/;|____;g;s;____|; |;g&#39;</span></a></code></pre></div>
 <pre><code>## |____objects
-## | |____05
-## | | |____ae5124198500eb6b068e51f014bb9cf3514af8
-## | |____1f
-## | | |____4c3b5906610eeaadb7a8f2a704fc355279b8a8
+## | |____24
+## | | |____51a70d35921f98765e2e6e5e50a78635272deb
+## | |____2d
+## | | |____7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
 ## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
 ## | |____52
 ## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
-## | |____54
-## | | |____e99fc14ca176ff1f9ab515913932ec25ec978b
 ## | |____61
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____d4
+## | | |____d005f42a1309a386709841b06fdbb8f431628d
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -3292,23 +3292,23 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <p><summary><strong>Example</strong>: Using <code>git cat-file</code> to view tag object</summary></p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb74-1" title="1"><span class="co"># View content of the tag object</span></a>
 <a class="sourceLine" id="cb74-2" title="2"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> show-ref -s v1<span class="va">)</span>  <span class="co"># retrieves hash for v1 tag</span></a></code></pre></div>
-<pre><code>## object 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8
+<pre><code>## object 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
 ## type commit
 ## tag v1
-## tagger Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586151518 -0700
+## tagger Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586363296 -0700
 ## 
 ## version 1.0</code></pre>
 <div class="sourceCode" id="cb76"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb76-1" title="1"><span class="co"># The tagged object was the second commit</span></a>
 <a class="sourceLine" id="cb76-2" title="2"><span class="fu">git</span> log</a></code></pre></div>
-<pre><code>## commit 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8
+<pre><code>## commit 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:37 2020 -0700
+## Date:   Wed Apr 8 09:28:15 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 05ae5124198500eb6b068e51f014bb9cf3514af8
+## commit d4d005f42a1309a386709841b06fdbb8f431628d
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:35 2020 -0700
+## Date:   Wed Apr 8 09:28:13 2020 -0700
 ## 
 ##     initial commit</code></pre>
 </details>
@@ -3325,19 +3325,19 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <p>Following that reference, we can find the hash ID of the latest commit located inside the <code>refs/</code> directory:</p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb80-1" title="1"><span class="co"># View content of refs/heads/master</span></a>
 <a class="sourceLine" id="cb80-2" title="2"><span class="fu">cat</span> .git/refs/heads/master</a></code></pre></div>
-<pre><code>## 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8</code></pre>
+<pre><code>## 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6</code></pre>
 <p>We can use <code>git log</code> to verify that this is the hash ID of the latest commit:</p>
 <div class="sourceCode" id="cb82"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb82-1" title="1"><span class="co"># View commit log</span></a>
 <a class="sourceLine" id="cb82-2" title="2"><span class="fu">git</span> log</a></code></pre></div>
-<pre><code>## commit 1f4c3b5906610eeaadb7a8f2a704fc355279b8a8
+<pre><code>## commit 2d7267d7fd9b4b2c13ff3b4e32082b6759fb57c6
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:37 2020 -0700
+## Date:   Wed Apr 8 09:28:15 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 05ae5124198500eb6b068e51f014bb9cf3514af8
+## commit d4d005f42a1309a386709841b06fdbb8f431628d
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:35 2020 -0700
+## Date:   Wed Apr 8 09:28:13 2020 -0700
 ## 
 ##     initial commit</code></pre>
 </div>
@@ -3395,23 +3395,23 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <a class="sourceLine" id="cb96-3" title="3"></a>
 <a class="sourceLine" id="cb96-4" title="4"><span class="co"># The R script is now no longer listed</span></a>
 <a class="sourceLine" id="cb96-5" title="5"><span class="fu">git</span> status</a></code></pre></div>
-<pre><code>## [master (root-commit) 9ed32a5] add create_dataset.R
+<pre><code>## [master (root-commit) 416f2d6] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ## On branch master
 ## nothing to commit, working tree clean</code></pre>
 <div class="sourceCode" id="cb98"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb98-1" title="1"><span class="co"># Check the commit history</span></a>
 <a class="sourceLine" id="cb98-2" title="2"><span class="fu">git</span> log</a></code></pre></div>
-<pre><code>## commit 9ed32a54a04cce7741115286a4cc12645a43db4a
+<pre><code>## commit 416f2d6f92ae4242b80dfa86c11764097eca0145
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:41 2020 -0700
+## Date:   Wed Apr 8 09:28:20 2020 -0700
 ## 
 ##     add create_dataset.R</code></pre>
 <div class="sourceCode" id="cb100"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb100-1" title="1"><span class="co"># Verify that `HEAD` is indeed pointing to the last commit made, which is our initial commit</span></a>
 <a class="sourceLine" id="cb100-2" title="2"><span class="fu">cat</span> .git/HEAD</a>
 <a class="sourceLine" id="cb100-3" title="3"><span class="fu">cat</span> .git/refs/heads/master</a></code></pre></div>
 <pre><code>## ref: refs/heads/master
-## 9ed32a54a04cce7741115286a4cc12645a43db4a</code></pre>
+## 416f2d6f92ae4242b80dfa86c11764097eca0145</code></pre>
 <div class="sourceCode" id="cb102"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb102-1" title="1"><span class="co"># Further modify R script, which is now a tracked file</span></a>
 <a class="sourceLine" id="cb102-2" title="2"><span class="bu">echo</span> <span class="st">&quot;df &lt;- mpg %&gt;% filter(year == 2008)&quot;</span> <span class="op">&gt;&gt;</span> create_dataset.R</a>
 <a class="sourceLine" id="cb102-3" title="3"></a>
@@ -3445,12 +3445,12 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 <pre><code>## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
 ## |____objects
+## | |____41
+## | | |____6f2d6f92ae4242b80dfa86c11764097eca0145
 ## | |____49
 ## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
 ## | |____96
 ## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
-## | |____9e
-## | | |____d32a54a04cce7741115286a4cc12645a43db4a
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____info
@@ -3465,32 +3465,32 @@ tagger &lt;username&gt; &lt;email&gt; &lt;time&gt;
 ## df &lt;- mpg %&gt;% filter(year == 2008)</code></pre>
 <div class="sourceCode" id="cb112"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb112-1" title="1"><span class="co"># Make a commit</span></a>
 <a class="sourceLine" id="cb112-2" title="2"><span class="fu">git</span> commit -m <span class="st">&quot;modify create_dataset.R&quot;</span></a></code></pre></div>
-<pre><code>## [master 5dea84c] modify create_dataset.R
+<pre><code>## [master 4d62f7b] modify create_dataset.R
 ##  1 file changed, 1 insertion(+)</code></pre>
 <div class="sourceCode" id="cb114"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb114-1" title="1"><span class="co"># Check the commit history</span></a>
 <a class="sourceLine" id="cb114-2" title="2"><span class="fu">git</span> log</a></code></pre></div>
-<pre><code>## commit 5dea84c6e76ed479db4fafc1f36b60fd23a428f0
+<pre><code>## commit 4d62f7b802e469e12531c5639eb7efef80a71420
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:43 2020 -0700
+## Date:   Wed Apr 8 09:28:22 2020 -0700
 ## 
 ##     modify create_dataset.R
 ## 
-## commit 9ed32a54a04cce7741115286a4cc12645a43db4a
+## commit 416f2d6f92ae4242b80dfa86c11764097eca0145
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:41 2020 -0700
+## Date:   Wed Apr 8 09:28:20 2020 -0700
 ## 
 ##     add create_dataset.R</code></pre>
 <div class="sourceCode" id="cb116"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb116-1" title="1"><span class="co"># Verify that `HEAD` is pointing to the last commit made, which is now our second commit</span></a>
 <a class="sourceLine" id="cb116-2" title="2"><span class="fu">cat</span> .git/HEAD</a>
 <a class="sourceLine" id="cb116-3" title="3"><span class="fu">cat</span> .git/refs/heads/master</a></code></pre></div>
 <pre><code>## ref: refs/heads/master
-## 5dea84c6e76ed479db4fafc1f36b60fd23a428f0</code></pre>
+## 4d62f7b802e469e12531c5639eb7efef80a71420</code></pre>
 <div class="sourceCode" id="cb118"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb118-1" title="1"><span class="co"># View content of commit object for second commit</span></a>
 <a class="sourceLine" id="cb118-2" title="2"><span class="fu">git</span> cat-file -p <span class="va">$(</span><span class="fu">git</span> rev-parse HEAD<span class="va">)</span></a></code></pre></div>
 <pre><code>## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
-## parent 9ed32a54a04cce7741115286a4cc12645a43db4a
-## author Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586151523 -0700
-## committer Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586151523 -0700
+## parent 416f2d6f92ae4242b80dfa86c11764097eca0145
+## author Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586363302 -0700
+## committer Ozan Jaquette &lt;ozanj@ucla.edu&gt; 1586363302 -0700
 ## 
 ## modify create_dataset.R</code></pre>
 </div>
@@ -3874,7 +3874,7 @@ index c1cff38..8b151a2 100644
 <pre><code>## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master (root-commit) fafdd7d] add create_dataset.R
+## [master (root-commit) 9e06d22] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R</code></pre>
 <div class="sourceCode" id="cb146"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb146-1" title="1"><span class="co"># View how create_dataset.R looks when it was committed</span></a>
@@ -3945,7 +3945,7 @@ index c1cff38..8b151a2 100644
 <pre><code>## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master (root-commit) da43ed2] add create_dataset.R
+## [master (root-commit) 7e768fe] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R</code></pre>
 <div class="sourceCode" id="cb156"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb156-1" title="1"><span class="co"># Modify R script</span></a>
@@ -3989,7 +3989,7 @@ index c1cff38..8b151a2 100644
 <pre><code>## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master (root-commit) 871a547] add 1st line to create_dataset.R
+## [master (root-commit) 7dd6683] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R</code></pre>
 <div class="sourceCode" id="cb162"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb162-1" title="1"><span class="co"># Modify R script</span></a>
@@ -4000,19 +4000,19 @@ index c1cff38..8b151a2 100644
 <a class="sourceLine" id="cb162-6" title="6"><span class="fu">git</span> commit -m <span class="st">&quot;add 2nd line to create_dataset.R&quot;</span></a></code></pre></div>
 <pre><code>## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master a04d45e] add 2nd line to create_dataset.R
+## [master 1a46099] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)</code></pre>
 <div class="sourceCode" id="cb164"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb164-1" title="1"><span class="co"># View commit log</span></a>
 <a class="sourceLine" id="cb164-2" title="2"><span class="fu">git</span> log</a></code></pre></div>
-<pre><code>## commit a04d45e84a01a9944962fe684a9bc9aa4f5dab7e
+<pre><code>## commit 1a46099e3744e7d2cb1883dbaa2fbc75eb1f3539
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:47 2020 -0700
+## Date:   Wed Apr 8 09:28:27 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 871a547e5f140995e9f75db58ac313cdafaab40c
+## commit 7dd6683866836365b5dd073009aa3e70d37c7488
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:46 2020 -0700
+## Date:   Wed Apr 8 09:28:26 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R</code></pre>
 <div class="sourceCode" id="cb166"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb166-1" title="1"><span class="co"># Specify the hash ID of the commit to undo up to</span></a>
@@ -4022,9 +4022,9 @@ index c1cff38..8b151a2 100644
 <a class="sourceLine" id="cb166-5" title="5"><span class="fu">git</span> log</a></code></pre></div>
 <pre><code>## Unstaged changes after reset:
 ## M    create_dataset.R
-## commit 871a547e5f140995e9f75db58ac313cdafaab40c
+## commit 7dd6683866836365b5dd073009aa3e70d37c7488
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:46 2020 -0700
+## Date:   Wed Apr 8 09:28:26 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R</code></pre>
 <div class="sourceCode" id="cb168"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb168-1" title="1"><span class="co"># Notice that the changes to the file is still retained in the working directory</span></a>
@@ -4062,7 +4062,7 @@ index c1cff38..8b151a2 100644
 <pre><code>## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master (root-commit) b7faffa] add 1st line to create_dataset.R
+## [master (root-commit) af7cb66] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R</code></pre>
 <div class="sourceCode" id="cb172"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb172-1" title="1"><span class="co"># Modify R script</span></a>
@@ -4073,19 +4073,19 @@ index c1cff38..8b151a2 100644
 <a class="sourceLine" id="cb172-6" title="6"><span class="fu">git</span> commit -m <span class="st">&quot;add 2nd line to create_dataset.R&quot;</span></a></code></pre></div>
 <pre><code>## warning: LF will be replaced by CRLF in create_dataset.R.
 ## The file will have its original line endings in your working directory
-## [master b7ec26a] add 2nd line to create_dataset.R
+## [master 053347d] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)</code></pre>
 <div class="sourceCode" id="cb174"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb174-1" title="1"><span class="co"># View commit log</span></a>
 <a class="sourceLine" id="cb174-2" title="2"><span class="fu">git</span> log</a></code></pre></div>
-<pre><code>## commit b7ec26a74816f229ca85c2b4dec202813de8be92
+<pre><code>## commit 053347d9140ec3889650cb343f218ed9ebf2a949
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:48 2020 -0700
+## Date:   Wed Apr 8 09:28:29 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit b7faffae1ccc4d57d9e1b8ccbd75151954425fe5
+## commit af7cb664fa07dbb0cb31f91870952b0f03c1a7e1
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:48 2020 -0700
+## Date:   Wed Apr 8 09:28:28 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R</code></pre>
 <div class="sourceCode" id="cb176"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb176-1" title="1"><span class="co"># Specify the hash ID of the unwanted commit</span></a>
@@ -4093,26 +4093,26 @@ index c1cff38..8b151a2 100644
 <a class="sourceLine" id="cb176-3" title="3"></a>
 <a class="sourceLine" id="cb176-4" title="4"><span class="co"># View commit log</span></a>
 <a class="sourceLine" id="cb176-5" title="5"><span class="fu">git</span> log</a></code></pre></div>
-<pre><code>## [master 5b0e7f9] Revert &quot;add 2nd line to create_dataset.R&quot;
-##  Date: Sun Apr 5 22:38:49 2020 -0700
+<pre><code>## [master 79c5e81] Revert &quot;add 2nd line to create_dataset.R&quot;
+##  Date: Wed Apr 8 09:28:29 2020 -0700
 ##  1 file changed, 1 deletion(-)
-## commit 5b0e7f965a60cebfcd06ba842f7fc54eac00d52c
+## commit 79c5e818cad7b5c47fa736bf34d661920332af54
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:49 2020 -0700
+## Date:   Wed Apr 8 09:28:29 2020 -0700
 ## 
 ##     Revert &quot;add 2nd line to create_dataset.R&quot;
 ##     
-##     This reverts commit b7ec26a74816f229ca85c2b4dec202813de8be92.
+##     This reverts commit 053347d9140ec3889650cb343f218ed9ebf2a949.
 ## 
-## commit b7ec26a74816f229ca85c2b4dec202813de8be92
+## commit 053347d9140ec3889650cb343f218ed9ebf2a949
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:48 2020 -0700
+## Date:   Wed Apr 8 09:28:29 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit b7faffae1ccc4d57d9e1b8ccbd75151954425fe5
+## commit af7cb664fa07dbb0cb31f91870952b0f03c1a7e1
 ## Author: Ozan Jaquette &lt;ozanj@ucla.edu&gt;
-## Date:   Sun Apr 5 22:38:48 2020 -0700
+## Date:   Wed Apr 8 09:28:28 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R</code></pre>
 <div class="sourceCode" id="cb178"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb178-1" title="1"><span class="co"># The file now only contains the 1st line</span></a>
