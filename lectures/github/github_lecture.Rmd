@@ -848,6 +848,8 @@ Basic stuff you will do all the time:
 
 ### Clone an existing repository to your local machine
 
+CRYSTAL - INSTEAD OF ADDING NEW SECTION, I WANT YOU TO MODIFY THIS ONE TO REFLECT OUR DISCUSSION ON THE MORNING OF 4/8/2020
+
 What we will do:
 
 - Go to a remote repository stored on GitHub.com
