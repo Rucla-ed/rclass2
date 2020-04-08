@@ -837,7 +837,7 @@ Basic/essential git commands:
         - Updates the local repository with any commits from the remote repository
 
 
-## Creating and cloning repositories
+# Create repo: clone, initialize, remote add
 
 Basic stuff you will do all the time:
 
