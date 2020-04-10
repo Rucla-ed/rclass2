@@ -39,6 +39,12 @@ touch problemset1.R
 
 - Filter the `mpg` dataframe to include only Ford Mustang's that were built after the year 2000
 
+```{r}
+library(tidyverse)
+mpg %>% head(5)
+mpg %>% filter(manufacturer == 'ford', model == 'mustang', year > 2000)
+```
+
 
 # Part II: GitHub (10 pts) 
 
