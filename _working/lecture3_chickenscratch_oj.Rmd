@@ -45,6 +45,9 @@ git remote add origin https://github.com/ozanj/repo_lec3.git # https
 #git remote add ozan_origin https://github.com/ozanj/repo_lec3.git # https
 #git remote add origin git@github.com:ozanj/repo_lec3.git # ssh
 ```
+```{r}
+
+```
 
 use `get remote set-url` to change url of remote
 ```{bash}
@@ -82,6 +85,8 @@ cd ~/repo_lec3
 git status
 ```
 
+'
+```
 try pushing changes
 ```{bash}
 cd ~/repo_lec3
@@ -118,9 +123,6 @@ git status
 cd ~/repo_lec3
 git push --set-upstream origin master
 ```
-
-
-
 
 # BRANCHES
 

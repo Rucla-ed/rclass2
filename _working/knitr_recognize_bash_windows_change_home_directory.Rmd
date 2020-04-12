@@ -57,7 +57,7 @@ old_path <- Sys.getenv("PATH")
 old_path
 
 
-Sys.setenv(PATH = paste(old_path, "C:\\Program Files\\Git\\bin", sep = ":"))
+Sys.setenv(PATH = paste(old_path, "C:\\Program Files\\Git\\bin", sep = ";"))
 Sys.getenv("PATH")
 ```
 
@@ -66,6 +66,24 @@ echo hello world
 echo 'a b c' | sed 's/ /\|/g'
 # number of lines
 awk 'END{print NR;}' 027-engine-bash.Rmd
+```
+
+```{r}
+old_path <- Sys.getenv("PATH")
+old_path
+
+#paste(old_path, "C:\\Program Files\\Git\\bin", sep = ";")
+```
+
+```{r}
+paste(old_path, "C:\\Program Files\\Git\\bin", sep = ";")
+
+new_path <- paste(old_path, "C:\\Program Files\\Git\\bin", sep = ";")
+new_path
+```
+```{r}
+#Sys.setenv(PATH = paste(old_path, "C:\\Program Files\\Git\\bin", sep = ";"))
+Sys.setenv(PATH = new_path)
 ```
 
 SHOW AND CHANGE "HOME" DIRECTORY FOR R CODE CHUNKS
