@@ -164,7 +164,7 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
         - [Other commands](#other-commands)
 - [Basic Git tasks](#basic-git-tasks)
     - [Git commands](#git-commands)
-- [Create repo: clone, initialize, remote add](#create-repo:-clone,-initialize,-remote-add)
+- [Getting started: Git repository](#getting-started:-git-repository)
     - [Concepts](#concepts)
     - [Clone an existing repository to your local machine](#clone-an-existing-repository-to-your-local-machine)
     - [Create new repository on GitHub and clone to your local machine](#create-new-repository-on-github-and-clone-to-your-local-machine)
@@ -186,6 +186,12 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
     - [git checkout](#git-checkout)
     - [git reset](#git-reset)
     - [git revert](#git-revert)
+- [Branching](#branching)
+    - [git branch](#git-branch)
+    - [git checkout](#git-checkout)
+- [Merging](#merging)
+    - [git merge](#git-merge)
+    - [Resolving merge conflicts](#resolving-merge-conflicts)
 
 # Overview of core concepts and work flow
 
@@ -590,7 +596,7 @@ Sys.getenv("HOME")
 ```
 
 ```
-## [1] "C:\\Users\\ozanj"
+## [1] "/Users/cyouh95"
 ```
 Show "home" directory for `bash` code chunks
 
@@ -600,7 +606,7 @@ pwd
 ```
 
 ```
-## /c/Users/ozanj
+## /Users/cyouh95
 ```
 
 note: home directory for r code chunks run in R might be different
@@ -611,7 +617,7 @@ getwd()
 ```
 
 ```
-## [1] "C:/Users/ozanj/Documents"
+## [1] "/Users/cyouh95"
 ```
 
 
@@ -630,7 +636,7 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -675,13 +681,13 @@ mpg %>% head(5)
 
 ```
 ## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
-##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
-## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
-## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
-## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
-## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
-## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
+##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
+##   <chr>        <chr> <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
+## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
+## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
+## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
+## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
+## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…
 ```
 
 
@@ -704,7 +710,7 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -723,7 +729,7 @@ ls -a
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## .
 ## ..
 ## git_lecture.Rmd
@@ -789,8 +795,8 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2/lectures
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -808,16 +814,15 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2
 ## README.md
 ## _config.yml
 ## _data
-## _gitadmin
 ## _layouts
 ## _resources
-## _student_repositories
 ## _working
+## assets
 ## lectures
 ## problem_sets
 ## rclass2.Rproj
@@ -834,10 +839,11 @@ ls -a
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2
 ## .
 ## ..
+## .DS_Store
 ## .Rhistory
 ## .Rproj.user
 ## .git
@@ -845,11 +851,10 @@ ls -a
 ## README.md
 ## _config.yml
 ## _data
-## _gitadmin
 ## _layouts
 ## _resources
-## _student_repositories
 ## _working
+## assets
 ## lectures
 ## problem_sets
 ## rclass2.Rproj
@@ -871,9 +876,9 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2/lectures
-## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.html
 ## ggplot_lecture.md
@@ -1014,139 +1019,160 @@ Basic/essential git commands:
         - Updates the local repository with any commits from the remote repository
 
 
-# Create repo: clone, initialize, remote add
-
-CRYSTAL - INSTEAD OF ADDING NEW SECTION, I WANT YOU TO MODIFY THIS ONE TO REFLECT OUR DISCUSSION ON THE MORNING OF 4/8/2020
+# Getting started: Git repository
 
 Basic stuff you will do all the time:
 
 - `clone` an existing remote repository from GitHub to your local machine
     - For example, clone the repository for this class -- named `student_lastname` (e.g., `student_jaquette`) -- to your local machine
 - Create new git repo
-    - Approach A: create new repo on github and clone to your local machine
-    - Approach B: create new repo on your local machine and connect to remote repo on github
+    - Approach A: Create new repo on GitHub and clone to your local machine
+    - Approach B: Create new repo on your local machine and connect to remote repo on GitHub
 
 ## Concepts
 
-Clone
+What are **local** and **remote** repositories?
 
-Local
+- Local vs. remote git repository:
+    - __Local__ git repository: git repository for a project stored on your machine
+    - __Remote__ git repository: git repository for a project stored on the internet (e.g., GitHub)
+- Typically, a local git repository is connected to a remote git repository
+    - You can make changes to local repository on your machine and then push those changes to the remote repository
+    - A collaborator can make changes to their local repository, push them to the remote repository, and then you can pull these changes into your local repository
+- A remote repository is identified by its URL, which can be used to clone the repository or add it as a remote to a local repository
+    - There are 2 types of URL: HTTPS and SSH
+    - HTTPS and SSH are two different ways to authenticate that you are you
+    - If you haven't set up SSH, then choose HTTPS
+    
+<br>
+**`git remote`**: Show list of connected remote repositories
 
-Remote
+- Help: `git remote --help`
+- Syntax: `git remote [<option(s)>]`
+- Options:
+    - `-v`: Show more detailed info about the remotes, including its URL
 
-Repo URL/"origin"
-
-Upstream branch
+<br>
+Understanding how local and remote repositories are connected:
+    
+- We can use `git remote` to check which remote repository is connected (_i.e., which remote(s) you can push to and pull from_)
+    - By convention, the remote repository is named `origin`, but you could call it anything
+    - When you clone a repository, it will by default be given the name `origin`, but you could change it afterwards if you wanted to
+    - When you add a remote, you could name it anything
+- Each local branch can be set to track a remote branch (_e.g., your local **master** branch tracks the remote **master** branch_)
+    - The remote branch that you are tracking is known as the **upstream branch**
+    - Once the upstream branch is set for a local branch, git will know where to push to and pull from
+    - When you clone a repository, your local branch will automatically be set to track the corresponding remote branch
+    - When you push a new local branch to the remote, you will need to set the upstream branch the very first time you push
 
 ## Clone an existing repository to your local machine
 
-INTRODUCE GIT CLONE COMMAND
+**Obtain the URL of the remote repository on GitHub**:
 
-REVISE THIS SECTION
+- In your browser, navigate to the repository on GitHub
+- Click on the green `Clone or download` button
+- Copy either the HTTPS or SSH URL to your clipboard (_ignore the `Open in Desktop` and `Download ZIP` options_)
 
-What we will do:
+**Clone the repository to your local machine**:
 
-- Go to a remote repository stored on GitHub.com
-    - We will be downloading the remote repository called [downloadipeds](https://github.com/btskinner/downloadipeds)
-- Copy to our clipboard the URL that enables us to `clone` this repository to our local machine
-- On Git Bash command line:
-    - Change directories to folder we want repository to be downloaded to
-        - Note: We don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
-        - When we clone from GitHub, the repository will be downloaded in a folder named `downloadipeds`
-    - Use `git clone` command to clone repository
-
-
-Click on link of remote repository: [downloadipeds](https://github.com/btskinner/downloadipeds)
-
-- This repository, created by [Ben Skinner](https://github.com/btskinner), contains a script to "batch download" files from the [Integrated Postsecondary Data System (IPEDS)](https://nces.ed.gov/ipeds/), which contains data on U.S. colleges and universities
-- Click on "Clone or download"
-    - We will be "cloning" rather than the "open in desktop" or "Download ZIP" options
-        - Essentially, we will get the url of the remote git repository and then paste this URL into the Git Bash command line
-    - Clone with SSH vs. HTTPs?
-        - These are two different ways to authenticate that you are you
-        - If you haven't set up SSH, then choose HTTPs
-    - Copy the url to your clipboard:
-        - HTTPs URL will be: `https://github.com/btskinner/downloadipeds.git`
-        - SSH URL will be: `git@github.com:btskinner/downloadipeds.git`
-
-
-Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk:
-
-
-```bash
-# CHANGE TO DESIRED DIRECTORY
-
-  cd ~ # change directories to home directory
-  
-  #cd documents # change to "documents" [if necessary]
-  
-  ls # list files in directory
-  
-  # Note: we don't have to create a new directory (e.g., directory named `documents/downloadipeds`) prior to cloning. 
-  # When we clone from github, the repository will be downloaded in a folder named `downloadipeds`
-
-# CLONE REMOTE REPOSITORY
-
-  # clone with https
-  git clone https://github.com/btskinner/downloadipeds.git
-  
-  # OR clone with ssh
-  git clone git@github.com:btskinner/downloadipeds.git
-  
-# INVESTIGATE REPOSITORY WE JUST CLONED
-
-  cd downloadipeds
-  
-  #list files
-  ls
-  ls -a
-  
-  git status
-```
-
-<br>
-
-__What we just did:__
-
+- In your Terminal/Git Bash, change directory into where you want to clone the repository
+  - Note that you do not need to create a new folder for this repository. Cloning it will create a folder for you that contains the contents of the repository.
+- Use the `git clone` command to clone the repository to your local machine
 
 [![](https://www.w3docs.com/uploads/media/default/0001/03/3f26b30cc1dbda3424ceef3ab4977149906a0c58.png)](https://www.w3docs.com/learn-git/git-clone.html)
 
 *Credit: [W3 docs, Git clone](https://www.w3docs.com/learn-git/git-clone.html)*
 
 <br>
+**`git clone`**: Clone a repository into a new directory
 
-<details><summary>Optional: Student task</summary>
+- Help: `git clone --help`
+- Syntax: `git clone <repo_url>`
+    - The `repo_url` can be the HTTPS or SSH URL
+- Result:
+    - A new directory will be created that contains the cloned repository
+    - The remote repository will be given the default name of `origin`
+    - Local branches are created that tracks the corresponding remote branches
 
-**Student task: Clone repository for this course to desired directory on your local machine**
+<br>
+<details><summary>**Example**: Using `git clone` to clone a repository</summary> 
 
-- Go to URL for the github organization [Rucla-ed](https://github.com/Rucla-ed)
-- Create your own repository and name it `student_yourlastname` (e.g., `student_jaquette`) (NOTE: You need access to Rucla-ed org)
-- Follow same steps as we did for cloning `downloadipeds`
-    - Note: Before cloning, make sure you change directories to directory where you want to save files for this class
-    - You will be using this directory `student_yourlastname` for the rest of the quarter
+- The repository [downloadipeds](https://github.com/btskinner/downloadipeds), created by [Ben Skinner](https://github.com/btskinner), contains a script to "batch download" files from the [Integrated Postsecondary Data System (IPEDS)](https://nces.ed.gov/ipeds/), which contains data on U.S. colleges and universities
+- Copy the repository URL and use it to clone the repository to your local machine
+  - HTTPS URL will be: `https://github.com/btskinner/downloadipeds.git`
+  - SSH URL will be: `git@github.com:btskinner/downloadipeds.git`
 
 
 ```bash
-# change directories to home directory
-cd ~ 
+# Change directory to where you want to clone the repository
+cd ~
 
-# change to "documents" [if necessary]
-cd documents
-
-# show filepath of current working directory
-pwd 
-
-# list files in current working directory
-#ls
-
-# clone git repository that is on github.com
-#git clone https://github.com/Rucla-ed/student_jaquette.git # HTTPs authentication
-git clone git@github.com:Rucla-ed/student_jaquette.git # SSH authentication
-
-cd student_jaquette
-ls
+# This will be the directory where the `downloadipeds` repository will be cloned
+# Note that you do not need to create a `downloadipeds` sub-directory yourself
+pwd
 ```
+
+```
+## /Users/cyouh95
+```
+
+
+```bash
+# Clone the remote repository
+git clone https://github.com/btskinner/downloadipeds.git  # HTTPS URL
+# git clone git@github.com:btskinner/downloadipeds.git  # SSH URL
+```
+
+```
+## Cloning into 'downloadipeds'...
+```
+
+
+```bash
+# Change directory to the newly cloned `downloadipeds`
+cd downloadipeds
+pwd
+
+# List out contents of repository
+ls -la
+```
+
+```
+## /Users/cyouh95/downloadipeds
+## total 72
+## drwxr-xr-x    8 cyouh95  staff    272 Apr 11 21:39 .
+## drwxr-xr-x+ 101 cyouh95  staff   3434 Apr 11 21:39 ..
+## drwxr-xr-x   12 cyouh95  staff    408 Apr 11 21:39 .git
+## -rw-r--r--    1 cyouh95  staff     20 Apr 11 21:39 .gitignore
+## -rw-r--r--    1 cyouh95  staff   1073 Apr 11 21:39 LICENSE
+## -rw-r--r--    1 cyouh95  staff   4388 Apr 11 21:39 README.md
+## -rwxr-xr-x    1 cyouh95  staff   5847 Apr 11 21:39 downloadipeds.R
+## -rwxr-xr-x    1 cyouh95  staff  11754 Apr 11 21:39 ipeds_file_list.txt
+```
+
+
+```bash
+# List out the connected remote, which is named `origin` by default
+git remote
+```
+
+```
+## origin
+```
+
+
+```bash
+# Display more details about the remote, including the repository URL
+git remote -v
+```
+
+```
+## origin	https://github.com/btskinner/downloadipeds.git (fetch)
+## origin	https://github.com/btskinner/downloadipeds.git (push)
+```
+
 </details>
+<br>
 
 ## Create new repository on GitHub and clone to your local machine
 
@@ -1167,31 +1193,62 @@ To create this example, can draw from both of these two tutorials:
 
 Alternatively, you can create a new git repository on your local machine, and then connect it to the remote on GitHub.
 
-First, create the remote repository:
+**Create a local git repository**:
 
-- Create a new repository on [GitHub](https://github.com/new), call it `gitr_practice` [not required to use this name]
+- In your Terminal/Git Bash, create a new directory or change into an existing directory that you want to turn into a git repository
+- Turn this directory into a git repository using `git init`
+- In this directory, you can use any git commands and start tracking files
+  - For example, create/change one or more file(s)
+  - `git add` changes to file(s) from the "local working directory" to the "staging area"/"index"
+  - `git commit` all staged changes to the "local repository"
+  
+[![](https://miro.medium.com/max/686/1*diRLm1S5hkVoh5qeArND0Q.png){width=500px}](https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018)
+
+*Credit: Lucas Maurer, medium.com*
+
+**Create a remote repository on GitHub**:
+
+- Create a new repository on [GitHub](https://github.com/new)
 - Do **not** check the `Initialize this repository with a README` option
-- After creation, you will be able to see the HTTPs/SSH URL of your new repository. Save this URL for later.
+- After creation, you will be able to see the HTTPS/SSH URL of your new repository. Save this URL for later.
 
-Then, in Terminal/Git Bash on your local machine:
+**Connect your local repository to the remote**:
 
-- Create a new directory
-- Change working directory to this new directory
-- Turn this directory into a Git repository
-- Within the "local working directory," create/change one or more files
-- `add` changes to file(s) from the "local working directory" to the "staging area"/"index"
-- `commit` all staged changes to the "local repository"
-- Connect this local git repository to a remote git repository using `git remote add` command. To add a new remote:
-  - `git remote add remote_name remote_url`
-    - `remote_name`: Name we choose to call our remote repository, conventionally `origin`
-    - `remote_url`: HTTPs/SSH URL of remote repository
-  - Example: `git remote add origin https://github.com/ozanj/gitr_practice.git`
-- Push changes to specified remote repository and branch using `git push` command with option `--set-upstream`:
-  - `git push --set-upstream remote_name branch_name`
-  - Example: `git push --set-upstream origin master`
-    - This sets our local git repository to track from our remote repository's master branch
+- In your Terminal/Git Bash, use `git remote add` to add a new remote for your local repository
+  - This will allow you to start pushing to and pulling from the remote repository
+- The very first time you push to the remote, you'll need to use the `--set-upstream` option with the `git push` command
+  - All new repositories start off with the default **master** branch
+  - If you are pushing a new local branch to the remote for the first time, you need to set the upstream branch so Git knows which remote branch to track
+  - For example, we'll want to set our local **master** branch to track the remote repository's **master** branch
+  
+[![](../../assets/images/git-push.png)](https://www.javatpoint.com/git-push)
 
-Below, I show the Bash code, but better to run this code in command line (one line at a time) than run in code chunk:
+*Credit: [Java T Point, Git Push](https://www.javatpoint.com/git-push)*
+
+<br>
+**`git remote`**: Add or modify a remote repository
+
+- Help: `git remote --help`
+- Syntax:
+    - `git remote add <remote_name> <remote_url>`: Add a new remote
+      - `remote_name`: Name we choose to call our remote repository, conventionally `origin`
+      - `remote_url`: HTTPS/SSH URL of remote repository 
+    - `git remote set-url <remote_name> <remote_url>`: Update the URL for the specified remote
+      - `remote_name`: Name of the remote we want to update URL for
+      - `remote_url`: HTTPS/SSH URL we want to update to
+    
+**`git push`**: Set and push to upstream branch
+
+- Help: `git push --help`
+- Syntax: `git push --set-upstream <remote_name> <branch_name>`
+    - `remote_name`: Name of the remote repository to push to
+    - `branch_name`: Name of the remote branch you want your current branch to track
+- Result:
+    - Your current branch will be set to track the specified remote repository's branch
+    - This will only need to be run the first time you push a new local branch to the remote. All subsequent pushes can just be `git push`.
+
+<br>
+<details><summary>**Example**: Full sample workflow</summary>
 
 
 ```bash
@@ -1260,14 +1317,171 @@ Below, I show the Bash code, but better to run this code in command line (one li
   # push changes to GitHub
   git push --set-upstream origin master
 ```
+</details>
+    
+<br>
+<details><summary>**Example**: Using `git remote` to add a remote</summary>
+
+
+```bash
+# Initialize a new git repository in `my_git_repo` directory
+cd my_git_repo
+git init
+
+# Add remote (https://github.com/Rucla-ed/my_git_repo) and name it `origin`
+git remote add origin https://github.com/Rucla-ed/my_git_repo.git
+
+# Check remote
+git remote -v
+```
+
+```
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## origin	https://github.com/Rucla-ed/my_git_repo.git (fetch)
+## origin	https://github.com/Rucla-ed/my_git_repo.git (push)
+```
+
+<br>
+Note that we could've named the remote repository anything - it doesn't have to be `origin`:
+
+
+```bash
+# Add remote (https://github.com/Rucla-ed/my_git_repo) and name it `my_remote`
+git remote add my_remote https://github.com/Rucla-ed/my_git_repo.git
+
+# Check remote
+git remote -v
+```
+
+```
+## my_remote	https://github.com/Rucla-ed/my_git_repo.git (fetch)
+## my_remote	https://github.com/Rucla-ed/my_git_repo.git (push)
+```
+</details>
+
+<br>
+<details><summary>**Example**: Using `git remote` to update URL for a remote</summary>
+
+
+```bash
+# Check remote
+git remote -v
+```
+
+```
+## my_remote	https://github.com/Rucla-ed/my_git_repo.git (fetch)
+## my_remote	https://github.com/Rucla-ed/my_git_repo.git (push)
+```
+
+
+```bash
+# Change the URL for the remote named `my_remote`
+git remote set-url my_remote https://github.com/Rucla-ed/my_git_repo_2.git
+```
+
+
+```bash
+# Check remote
+git remote -v
+```
+
+```
+## my_remote	https://github.com/Rucla-ed/my_git_repo_2.git (fetch)
+## my_remote	https://github.com/Rucla-ed/my_git_repo_2.git (push)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `git push` to push a new branch</summary>
+
+
+```bash
+# Create new R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(5)" >> create_dataset.R
+
+# Add R script and make a commit
+git add create_dataset.R
+git commit -m "initial commit"
+```
+
+```
+## [master (root-commit) 551e8c3] initial commit
+##  1 file changed, 2 insertions(+)
+##  create mode 100644 create_dataset.R
+```
+
+
+```bash
+# Because this is a new local branch, we get an error if we just use `git push` on the initial push
+git push
+```
+
+```
+## fatal: The current branch master has no upstream branch.
+## To push the current branch and set the remote as upstream, use
+## 
+##     git push --set-upstream my_remote master
+```
+
+<br>
+As hinted in the error message, we need to use the `--set-upstream` option to set upstream branch on the initial push for a new local branch:
+
+
+```bash
+# Recall that we are connected to a remote repository we named `my_remote`
+git remote -v
+```
+
+```
+## my_remote	https://github.com/Rucla-ed/my_git_repo_2.git (fetch)
+## my_remote	https://github.com/Rucla-ed/my_git_repo_2.git (push)
+```
+
+
+```bash
+# We can check status to see that we are currently on the `master` branch
+# (Note that because we have yet to set an upstream branch,
+# it does not say our master branch is ahead of remote by 1 commit)
+git status
+```
+
+```
+## On branch master
+## nothing to commit, working tree clean
+```
+
+
+```bash
+# Use the `--set-upstream` option with the remote and branch names to push new local branch
+git push --set-upstream my_remote master
+```
+
+```
+## To https://github.com/Rucla-ed/my_git_repo_2.git
+##  * [new branch]      master -> master
+## Branch master set up to track remote branch master from my_remote.
+```
+
+
+```bash
+# Check status
+# (Now that we have set the upstream branch, 
+# it says our master branch is up-to-date with the remote's master branch)
+git status
+```
+
+```
+## On branch master
+## Your branch is up-to-date with 'my_remote/master'.
+## 
+## nothing to commit, working tree clean
+```
+</details>
 
 <br>
 
-__What we just did:__
-
-[![](https://miro.medium.com/max/686/1*diRLm1S5hkVoh5qeArND0Q.png)](https://medium.com/@lucasmaurer/git-gud-the-working-tree-staging-area-and-local-repo-a1f0f4822018)
-
-*Credit: Lucas Maurer, medium.com*
 
 # Git: Under the hood
 
@@ -1286,11 +1500,11 @@ ls -al
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## total 16
-## drwxr-xr-x 1 ozanj 197121 0 Apr  8 14:13 .
-## drwxr-xr-x 1 ozanj 197121 0 Apr  8 14:13 ..
-## drwxr-xr-x 1 ozanj 197121 0 Apr  8 14:13 .git
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## total 0
+## drwxr-xr-x    3 cyouh95  staff   102 Apr 11 21:39 .
+## drwxr-xr-x+ 102 cyouh95  staff  3468 Apr 11 21:39 ..
+## drwxr-xr-x    9 cyouh95  staff   306 Apr 11 21:39 .git
 ```
 
 <br>
@@ -1310,11 +1524,9 @@ find .git -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## |____hooks
 ## | |____applypatch-msg.sample
 ## | |____commit-msg.sample
-## | |____fsmonitor-watchman.sample
 ## | |____post-update.sample
 ## | |____pre-applypatch.sample
 ## | |____pre-commit.sample
-## | |____pre-merge-commit.sample
 ## | |____pre-push.sample
 ## | |____pre-rebase.sample
 ## | |____pre-receive.sample
@@ -1397,8 +1609,6 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## |____objects
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
@@ -1446,7 +1656,7 @@ git cat-file -p c1cff38
 
 
 ```bash
-# View content of create_dataset.R
+# View object type for create_dataset.R
 git cat-file -t c1cff38
 ```
 
@@ -1460,7 +1670,7 @@ git cat-file -t c1cff38
 
 
 ```bash
-# View content of create_dataset.R
+# View object size for create_dataset.R
 git cat-file -s c1cff38
 ```
 
@@ -1497,12 +1707,6 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## warning: LF will be replaced by CRLF in notes/note_1.txt.
-## The file will have its original line endings in your working directory
-## warning: LF will be replaced by CRLF in notes/note_2.txt.
-## The file will have its original line endings in your working directory
 ## |____objects
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
@@ -1542,7 +1746,7 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master (root-commit) db02b54] initial commit
+## [master (root-commit) 5e631f9] initial commit
 ##  3 files changed, 4 insertions(+)
 ##  create mode 100644 create_dataset.R
 ##  create mode 100644 notes/note_1.txt
@@ -1550,14 +1754,14 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## |____objects
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
+## | |____5e
+## | | |____631f9e1badea1791795c6d3f73a867fffae1ae
 ## | |____61
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____db
-## | | |____02b544dff971e51eaa0a170bed3863bd2a0f3a
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -1607,12 +1811,12 @@ ls -al
 ```
 
 ```
-## total 17
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 .
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 ..
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:14 .git
-## -rw-r--r-- 1 ozanj 197121 35 Apr  8 14:13 create_dataset.R
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 notes
+## total 8
+## drwxr-xr-x    5 cyouh95  staff   170 Apr 11 21:39 .
+## drwxr-xr-x+ 102 cyouh95  staff  3468 Apr 11 21:39 ..
+## drwxr-xr-x   12 cyouh95  staff   408 Apr 11 21:39 .git
+## -rw-r--r--    1 cyouh95  staff    35 Apr 11 21:39 create_dataset.R
+## drwxr-xr-x    4 cyouh95  staff   136 Apr 11 21:39 notes
 ```
 
 Second, show contents of tree using `git cat-file`
@@ -1628,12 +1832,12 @@ git cat-file -p f59085d  # content
 ```
 
 ```
-## total 17
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 .
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 ..
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:14 .git
-## -rw-r--r-- 1 ozanj 197121 35 Apr  8 14:13 create_dataset.R
-## drwxr-xr-x 1 ozanj 197121  0 Apr  8 14:13 notes
+## total 8
+## drwxr-xr-x    5 cyouh95  staff   170 Apr 11 21:39 .
+## drwxr-xr-x+ 102 cyouh95  staff  3468 Apr 11 21:39 ..
+## drwxr-xr-x   12 cyouh95  staff   408 Apr 11 21:39 .git
+## -rw-r--r--    1 cyouh95  staff    35 Apr 11 21:39 create_dataset.R
+## drwxr-xr-x    4 cyouh95  staff   136 Apr 11 21:39 notes
 ## 
 ## tree
 ## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113	create_dataset.R
@@ -1699,27 +1903,25 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master 0c7ce50] second commit
+## [master 684c23e] second commit
 ##  1 file changed, 1 insertion(+)
 ## |____objects
-## | |____0c
-## | | |____7ce501ab5d723eec00aa19fc235f6582d4d397
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
 ## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
 ## | |____52
 ## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
+## | |____5e
+## | | |____631f9e1badea1791795c6d3f73a867fffae1ae
 ## | |____61
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
+## | |____68
+## | | |____4c23e63625384ffc6f243daf2183a6f27da5e1
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____db
-## | | |____02b544dff971e51eaa0a170bed3863bd2a0f3a
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -1742,10 +1944,10 @@ git cat-file -p $(git rev-list HEAD | tail -n 1)
 ```
 
 ```
-## db02b544dff971e51eaa0a170bed3863bd2a0f3a
+## 5e631f9e1badea1791795c6d3f73a867fffae1ae
 ## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author Ozan Jaquette <ozanj@ucla.edu> 1586380440 -0700
-## committer Ozan Jaquette <ozanj@ucla.edu> 1586380440 -0700
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
 ## 
 ## initial commit
 ```
@@ -1766,11 +1968,11 @@ git cat-file -p $(git rev-parse HEAD)
 ```
 
 ```
-## 0c7ce501ab5d723eec00aa19fc235f6582d4d397
+## 684c23e63625384ffc6f243daf2183a6f27da5e1
 ## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent db02b544dff971e51eaa0a170bed3863bd2a0f3a
-## author Ozan Jaquette <ozanj@ucla.edu> 1586380442 -0700
-## committer Ozan Jaquette <ozanj@ucla.edu> 1586380442 -0700
+## parent 5e631f9e1badea1791795c6d3f73a867fffae1ae
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
 ## 
 ## second commit
 ```
@@ -1807,24 +2009,24 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ```
 ## |____objects
-## | |____0c
-## | | |____7ce501ab5d723eec00aa19fc235f6582d4d397
+## | |____0a
+## | | |____c2b27b84c933c0dc615a5c55a4e05bd8cde6d1
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
 ## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
 ## | |____52
 ## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
+## | |____5e
+## | | |____631f9e1badea1791795c6d3f73a867fffae1ae
 ## | |____61
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
+## | |____68
+## | | |____4c23e63625384ffc6f243daf2183a6f27da5e1
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____78
-## | | |____66652a2da82f3bf5619d6ab694c2fc46630f41
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____db
-## | | |____02b544dff971e51eaa0a170bed3863bd2a0f3a
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -1840,10 +2042,10 @@ git cat-file -p $(git show-ref -s v1)  # retrieves hash for v1 tag
 ```
 
 ```
-## object 0c7ce501ab5d723eec00aa19fc235f6582d4d397
+## object 684c23e63625384ffc6f243daf2183a6f27da5e1
 ## type commit
 ## tag v1
-## tagger Ozan Jaquette <ozanj@ucla.edu> 1586380443 -0700
+## tagger cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
 ## 
 ## version 1.0
 ```
@@ -1855,15 +2057,15 @@ git log
 ```
 
 ```
-## commit 0c7ce501ab5d723eec00aa19fc235f6582d4d397
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:02 2020 -0700
+## commit 684c23e63625384ffc6f243daf2183a6f27da5e1
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:47 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit db02b544dff971e51eaa0a170bed3863bd2a0f3a
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:00 2020 -0700
+## commit 5e631f9e1badea1791795c6d3f73a867fffae1ae
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:47 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -1896,7 +2098,7 @@ cat .git/refs/heads/master
 ```
 
 ```
-## 0c7ce501ab5d723eec00aa19fc235f6582d4d397
+## 684c23e63625384ffc6f243daf2183a6f27da5e1
 ```
 
 We can use `git log` to verify that this is the hash ID of the latest commit:
@@ -1908,15 +2110,15 @@ git log
 ```
 
 ```
-## commit 0c7ce501ab5d723eec00aa19fc235f6582d4d397
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:02 2020 -0700
+## commit 684c23e63625384ffc6f243daf2183a6f27da5e1
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:47 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit db02b544dff971e51eaa0a170bed3863bd2a0f3a
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:00 2020 -0700
+## commit 5e631f9e1badea1791795c6d3f73a867fffae1ae
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:47 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -1931,7 +2133,7 @@ git init
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
 ```
 
 
@@ -1951,6 +2153,7 @@ git status
 ## 
 ## Untracked files:
 ##   (use "git add <file>..." to include in what will be committed)
+## 
 ## 	create_dataset.R
 ## 
 ## nothing added to commit but untracked files present (use "git add" to track)
@@ -1966,14 +2169,13 @@ git status
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## On branch master
 ## 
 ## No commits yet
 ## 
 ## Changes to be committed:
 ##   (use "git rm --cached <file>..." to unstage)
+## 
 ## 	new file:   create_dataset.R
 ```
 
@@ -2022,7 +2224,7 @@ git status
 ```
 
 ```
-## [master (root-commit) f993545] add create_dataset.R
+## [master (root-commit) 4ed2d90] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ## On branch master
@@ -2036,9 +2238,9 @@ git log
 ```
 
 ```
-## commit f993545add3d99748f87c9ad21f8ee66ec1b2292
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:06 2020 -0700
+## commit 4ed2d907b2dd01f23f992a25274e648cffdbe2f1
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:47 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2052,7 +2254,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## f993545add3d99748f87c9ad21f8ee66ec1b2292
+## 4ed2d907b2dd01f23f992a25274e648cffdbe2f1
 ```
 
 
@@ -2068,7 +2270,8 @@ git status
 ## On branch master
 ## Changes not staged for commit:
 ##   (use "git add <file>..." to update what will be committed)
-##   (use "git restore <file>..." to discard changes in working directory)
+##   (use "git checkout -- <file>..." to discard changes in working directory)
+## 
 ## 	modified:   create_dataset.R
 ## 
 ## no changes added to commit (use "git add" and/or "git commit -a")
@@ -2081,8 +2284,6 @@ git diff
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## diff --git a/create_dataset.R b/create_dataset.R
 ## index c1cff38..490ec1c 100644
 ## --- a/create_dataset.R
@@ -2104,17 +2305,15 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## |____objects
 ## | |____49
 ## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____4e
+## | | |____d2d907b2dd01f23f992a25274e648cffdbe2f1
 ## | |____96
 ## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____f9
-## | | |____93545add3d99748f87c9ad21f8ee66ec1b2292
 ## | |____info
 ## | |____pack
 ```
@@ -2148,7 +2347,7 @@ git commit -m "modify create_dataset.R"
 ```
 
 ```
-## [master 9309e34] modify create_dataset.R
+## [master e316167] modify create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2159,15 +2358,15 @@ git log
 ```
 
 ```
-## commit 9309e346b08210edeee919e855ac077437f6a610
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:08 2020 -0700
+## commit e316167bd05568042b8831fd6f9f059003898a9e
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:48 2020 -0700
 ## 
 ##     modify create_dataset.R
 ## 
-## commit f993545add3d99748f87c9ad21f8ee66ec1b2292
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:06 2020 -0700
+## commit 4ed2d907b2dd01f23f992a25274e648cffdbe2f1
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:47 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2181,7 +2380,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## 9309e346b08210edeee919e855ac077437f6a610
+## e316167bd05568042b8831fd6f9f059003898a9e
 ```
 
 
@@ -2192,9 +2391,9 @@ git cat-file -p $(git rev-parse HEAD)
 
 ```
 ## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
-## parent f993545add3d99748f87c9ad21f8ee66ec1b2292
-## author Ozan Jaquette <ozanj@ucla.edu> 1586380448 -0700
-## committer Ozan Jaquette <ozanj@ucla.edu> 1586380448 -0700
+## parent 4ed2d907b2dd01f23f992a25274e648cffdbe2f1
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666388 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666388 -0700
 ## 
 ## modify create_dataset.R
 ```
@@ -2626,10 +2825,8 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) 970c937] add create_dataset.R
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## [master (root-commit) 46c4108] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2667,8 +2864,6 @@ git diff
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## diff --git a/create_dataset.R b/create_dataset.R
 ## index c1cff38..490ec1c 100644
 ## --- a/create_dataset.R
@@ -2690,7 +2885,6 @@ cat create_dataset.R
 ```
 
 ```
-## Updated 1 path from the index
 ## library(tidyverse)
 ## mpg %>% head(5)
 ```
@@ -2728,10 +2922,8 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) 5a1190c] add create_dataset.R
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## [master (root-commit) 46c4108] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2749,11 +2941,10 @@ git status
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## On branch master
 ## Changes to be committed:
-##   (use "git restore --staged <file>..." to unstage)
+##   (use "git reset HEAD <file>..." to unstage)
+## 
 ## 	modified:   create_dataset.R
 ```
 
@@ -2772,7 +2963,8 @@ git status
 ## On branch master
 ## Changes not staged for commit:
 ##   (use "git add <file>..." to update what will be committed)
-##   (use "git restore <file>..." to discard changes in working directory)
+##   (use "git checkout -- <file>..." to discard changes in working directory)
+## 
 ## 	modified:   create_dataset.R
 ## 
 ## no changes added to commit (use "git add" and/or "git commit -a")
@@ -2793,10 +2985,8 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) 175af3a] add 1st line to create_dataset.R
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## [master (root-commit) 9ec9ce7] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2812,9 +3002,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master a5a13bd] add 2nd line to create_dataset.R
+## [master 48aee0a] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2825,15 +3013,15 @@ git log
 ```
 
 ```
-## commit a5a13bd8f67ea674c2babcf878a7faebba0477bb
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:12 2020 -0700
+## commit 48aee0a82ad9abcab28a5e76907a8c3c02a919ec
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:48 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 175af3a99e68746adf8f523d866aefbf4f828eea
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:12 2020 -0700
+## commit 9ec9ce71e356eebd238c30168777aa70cb843c8c
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:48 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2850,9 +3038,9 @@ git log
 ```
 ## Unstaged changes after reset:
 ## M	create_dataset.R
-## commit 175af3a99e68746adf8f523d866aefbf4f828eea
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:12 2020 -0700
+## commit 9ec9ce71e356eebd238c30168777aa70cb843c8c
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:48 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2897,10 +3085,8 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) 0e41d10] add 1st line to create_dataset.R
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## [master (root-commit) 9ec9ce7] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2916,9 +3102,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master 3bcf356] add 2nd line to create_dataset.R
+## [master 48aee0a] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2929,15 +3113,15 @@ git log
 ```
 
 ```
-## commit 3bcf356e86bdc291031ced04a23c84a7542e3d06
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:13 2020 -0700
+## commit 48aee0a82ad9abcab28a5e76907a8c3c02a919ec
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:48 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 0e41d10e96e059b7454692cd65991f4b1eae56df
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:13 2020 -0700
+## commit 9ec9ce71e356eebd238c30168777aa70cb843c8c
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:48 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2952,26 +3136,25 @@ git log
 ```
 
 ```
-## [master 9df0923] Revert "add 2nd line to create_dataset.R"
-##  Date: Wed Apr 8 14:14:14 2020 -0700
+## [master 2044a57] Revert "add 2nd line to create_dataset.R"
 ##  1 file changed, 1 deletion(-)
-## commit 9df0923d543da4c0e41e4c77b9740d710727cba0
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:14 2020 -0700
+## commit 2044a57225323cb34d9df690f95a77c64dfe4752
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
 ## 
 ##     Revert "add 2nd line to create_dataset.R"
 ##     
-##     This reverts commit 3bcf356e86bdc291031ced04a23c84a7542e3d06.
+##     This reverts commit 48aee0a82ad9abcab28a5e76907a8c3c02a919ec.
 ## 
-## commit 3bcf356e86bdc291031ced04a23c84a7542e3d06
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:13 2020 -0700
+## commit 48aee0a82ad9abcab28a5e76907a8c3c02a919ec
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:48 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 0e41d10e96e059b7454692cd65991f4b1eae56df
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Wed Apr 8 14:14:13 2020 -0700
+## commit 9ec9ce71e356eebd238c30168777aa70cb843c8c
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:48 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -2986,6 +3169,903 @@ cat create_dataset.R
 ## library(tidyverse)
 ```
 
+</details>
+
+# Branching
+
+What is a __branch__?
+
+- A branch is an "independent line of development" that "isolates your work from that of other team members" ([Using branches](https://backlog.com/git-tutorial/using-branches/) tutorial)
+- By default, a git repository "has one branch named __master__ which is considered to be the definitive branch. We use [other] branches to experiment and make edits before committing them to __master__" ([Hello World](https://guides.github.com/activities/hello-world/) tutorial)
+- "When you create a branch off the __master__ branch, you’re making a copy, or snapshot, of master as it was at that point in time"
+
+[![](https://miro.medium.com/max/552/1*PiduCtSA7kMwdPiMZo1nHw.jpeg)](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f)
+
+*Credit: [Mastering git branches](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f) by Henrique Mota*
+
+## git branch
+
+**`git branch`**: List, create, or delete branches
+
+- Help: `git branch -help`
+- Syntax:
+  - `git branch [<option(s)>]`: List existing branches (default: only local branches)
+    - There will be a `*` next to your current branch
+    - Options:
+      - `-a`: List all branches, both local and remote
+      - `-v`: Display details about latest commits next to each branch
+  - `git branch <branch_name>`: Create new local branch
+  - `git branch -d <branch_name>`: Delete local branch
+    - You must be on a branch different than the one you want to delete
+
+<br>
+<details><summary>**Example**: Using `git branch` to list branches</summary>
+
+
+```bash
+# Initialize a new git repository in `my_git_repo` directory
+cd my_git_repo
+git init
+
+# Note that you won't be able to list branches until you've made at least 1 commit
+git branch
+```
+
+```
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+```
+
+
+```bash
+# Create new R script
+echo "library(tidyverse)" > create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "import tidyverse in create_dataset.R"
+```
+
+```
+## [master (root-commit) 8e3198c] import tidyverse in create_dataset.R
+##  1 file changed, 1 insertion(+)
+##  create mode 100644 create_dataset.R
+```
+
+
+```bash
+# Now we can see the `master` branch listed, with an `*` indicating it is our current branch
+git branch
+```
+
+```
+## * master
+```
+
+
+```bash
+# See detailed branch listing with info about the latest commit
+git branch -v
+```
+
+```
+## * master 8e3198c import tidyverse in create_dataset.R
+```
+
+
+```bash
+# If the repository is connected to a remote, the `-a` option will list remote branches too
+# (In the specific example below, the remote is named `origin`)
+git branch -a
+```
+
+```
+## * master
+##   remotes/origin/HEAD -> origin/master
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `git branch` to create new branch</summary>
+
+
+```bash
+# See branch listing
+git branch
+```
+
+```
+## * master
+```
+
+
+```bash
+# Create new branch
+git branch dev
+```
+
+
+```bash
+# See branch listing
+git branch
+```
+
+```
+##   dev
+## * master
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `git branch` to delete branch</summary>
+
+
+```bash
+# See branch listing
+git branch
+```
+
+```
+##   dev
+## * master
+```
+
+
+```bash
+# Delete branch
+git branch -d dev
+```
+
+```
+## Deleted branch dev (was 8e3198c).
+```
+
+
+```bash
+# See branch listing
+git branch
+```
+
+```
+## * master
+```
+
+</details>
+
+## git checkout
+
+**`git checkout`**: Switch branches
+
+- Help: `git checkout -help`
+- Syntax: 
+    - `git checkout <branch_name>`: Switches to an existing branch named `branch_name`
+    - `git checkout -b <branch_name>`: Creates a new branch named `branch_name` and switches to it
+
+<br>
+<details><summary>**Example**: Using `git checkout` to create a new branch and switch to it</summary>
+
+
+```bash
+# See branch listing
+git branch
+```
+
+```
+## * master
+```
+
+
+```bash
+# Create new branch and switch to it
+git checkout -b dev
+```
+
+```
+## Switched to a new branch 'dev'
+```
+
+
+```bash
+# See branch listing
+git branch
+```
+
+```
+## * dev
+##   master
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `git checkout` to switch to an existing branch</summary>
+
+
+```bash
+# See branch listing
+git branch
+```
+
+```
+## * dev
+##   master
+```
+
+
+```bash
+# Switch to an existing branch
+git checkout master
+```
+
+```
+## Switched to branch 'master'
+```
+
+
+```bash
+# See branch listing
+git branch
+```
+
+```
+##   dev
+## * master
+```
+
+</details>
+
+# Merging
+
+What is a __merge__?
+
+- The goal of a merge is to "integrate changes from multiple branches into one [branch]" ([An introduction to Git merge and rebase](https://www.freecodecamp.org/news/an-introduction-to-git-merge-and-rebase-what-they-are-and-how-to-use-them-131b863785f/))
+- Changes from a "target branch" can be merged into your "current branch"
+- It is good practice to make changes on separate branches, then once they look good, merge them back into the main branch (typically **master**)
+
+Types of merges:
+
+- **Fast-forward merge**
+  - If after branching, changes are only made to the "target branch," then merging changes from the "target branch" back to the "current branch" will be a fast-forward merge
+  - In other words, the "current branch" will gain all the new changes from "target branch" after the merge, and essentially "fast forward" its `HEAD` to point to the most recent commit from the "target branch"
+- **3-way merge**
+  - If after branching, changes are made to both the "target branch" and "current branch" (i.e., the branches have _diverged_), then Git will attempt to combine all changes in a 3-way merge
+  - The 3-way merge looks at the latest commits on both branches and their common ancestor, then attempts to create a new commit merge that combines all changes
+  - Git is able to combine changes made to the same file if the changes are not made to the same line
+  - Otherwise, a **merge conflict** occurs and would have to be resolved manually
+
+[![](https://wac-cdn.atlassian.com/dam/jcr:b87df050-2a3a-4f17-bb80-43c5217b4947/07%20(1).svg?cdnVersion=949){width=350px}](https://www.atlassian.com/git/tutorials/using-branches/git-merge) [![](https://wac-cdn.atlassian.com/dam/jcr:91b1bdf5-fda3-4d20-b108-0bb9eea402b2/08.svg?cdnVersion=949){width=350px}](https://www.atlassian.com/git/tutorials/using-branches/git-merge)
+
+*Credit: [Atlassian, Git merge](https://www.atlassian.com/git/tutorials/using-branches/git-merge)*
+
+## git merge
+
+**`git merge`**: Merge branches
+
+- Help: `git merge -help`
+- Syntax: 
+  - `git merge <branch_name>`: All changes from `branch_name` will be merged into the current branch
+  - `git merge --abort`: If a conflict arises during the merge, this can be run to restore both branches to their original states
+
+<br>
+<details><summary>**Example**: Using `git merge` for fast-forward merge</summary>
+
+Continuing from previous examples, we have the `master` and `dev` branches, which are even with the same initial commit:
+
+
+```bash
+# View commit log for `master` branch
+git log
+```
+
+```
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+
+```bash
+# Switch to `dev` branch
+git checkout dev
+
+# View commit log for `dev` branch
+git log
+```
+
+```
+## Switched to branch 'dev'
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+
+```bash
+# View content of R script, which is the same on both `master` and `dev` branches
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+```
+
+<br>
+Now, let's make a second commit on the `dev` branch:
+
+
+```bash
+# Modify R script
+echo "mpg %>% head(5)" >> create_dataset.R
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "manipulate mpg dataset"
+```
+
+```
+## [dev b3f1c5e] manipulate mpg dataset
+##  1 file changed, 2 insertions(+)
+```
+
+
+```bash
+# View commit log for `dev` branch
+git log
+```
+
+```
+## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+<br>
+Let's switch back to the `master` branch and merge in `dev`. Since the `dev` branch is ahead of `master` by 1 commit, the changes can be combined using a fast-forward merge:
+
+
+```bash
+# Switch to `master` branch
+git checkout master
+
+# Merge `dev` branch into `master`
+git merge dev
+```
+
+```
+## Switched to branch 'master'
+## Updating 8e3198c..b3f1c5e
+## Fast-forward
+##  create_dataset.R | 2 ++
+##  1 file changed, 2 insertions(+)
+```
+
+
+```bash
+# The commit log for `master` now matches the `dev` branch
+git log
+```
+
+```
+## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `git merge` for 3-way merge</summary>
+
+Continuing from previous examples, we have the `master` and `dev` branches, which are even with the same two commits:
+
+
+```bash
+# View commit log for `master` branch
+git log
+```
+
+```
+## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+
+```bash
+# View content of R script, which is the same on both `master` and `dev` branches
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(5)
+## df <- mpg %>% filter(year == 2008)
+```
+
+<br>
+Now, let's suppose the two branches diverge, both making changes to the R script:
+
+
+```bash
+# On the `master` branch, we created a new commit that modified the 2nd line of the R script
+git log
+```
+
+```
+## [master 3826d54] update head() on line 2
+##  1 file changed, 1 insertion(+), 1 deletion(-)
+## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     update head() on line 2
+## 
+## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+
+```bash
+# View updated content of R script on the `master` branch - now shows `head(10)` instead of `head(5)`
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+```
+
+
+```bash
+# Switch to `dev` branch
+git checkout dev
+
+# On the `dev` branch, we created a new commit that added a 4th line to the R script
+git log
+```
+
+```
+## Switched to branch 'dev'
+## [dev 8edce38] add additional filter() on line 4
+##  1 file changed, 1 insertion(+)
+## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     add additional filter() on line 4
+## 
+## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+
+```bash
+# View updated content of R script on the `dev` branch - now has additional `filter()` line
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(5)
+## df <- mpg %>% filter(year == 2008)
+## df <- df %>% filter(manufacturer == 'audi')
+```
+
+<br>
+Let's switch back to the `master` branch and merge in `dev`. Since both branches made changes to the R script on different lines, the changes can be combined without any conflicts via a 3-way merge:
+
+
+```bash
+# Switch to `master` branch
+git checkout master
+
+# Merge changes from `dev` into `master`
+git merge dev
+```
+
+```
+## Switched to branch 'master'
+## Auto-merging create_dataset.R
+## Merge made by the 'recursive' strategy.
+##  create_dataset.R | 1 +
+##  1 file changed, 1 insertion(+)
+```
+
+
+```bash
+# View commit log - note that a new merge commit was created during the 3-way merge
+git log
+```
+
+```
+## commit ca84e9036efbcbb5d03cdad3576eb55f639b1ec4
+## Merge: 3826d54 8edce38
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:50 2020 -0700
+## 
+##     Merge branch 'dev'
+## 
+## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     update head() on line 2
+## 
+## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     add additional filter() on line 4
+## 
+## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+
+```bash
+# View merged content of R script
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## df <- df %>% filter(manufacturer == 'audi')
+```
+
+</details>
+
+## Resolving merge conflicts
+
+Merge conflicts can occur during a 3-way merge when both branches made changes to the same line(s) of the same file(s). In the case of `create_dataset.R`, you will get an error message that looks like this:
+
+```
+Auto-merging create_dataset.R
+CONFLICT (content): Merge conflict in create_dataset.R
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+You can also tell which file(s) failed to merge by checking `git status`:
+
+```
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+	both modified:   create_dataset.R
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+If you open the failed file, you will see that Git has marked the line(s) that were conflicting:
+
+```
+<normal_line_of_code>
+<normal_line_of_code>
+
+<<<<<<< HEAD
+<conflicted_line_of_code__current_branch_version>
+=======
+<conflicted_line_of_code__target_branch_version>
+>>>>>>> <branch_name>
+
+<normal_line_of_code>
+<normal_line_of_code>
+```
+
+What to do when you encounter a **merge conflict**?
+
+- As introduced earlier, you can use `git merge --abort` to abort the merge and restore the branches back to their original states
+- Alternatively, you can manually edit the file(s) to resolve the conflicts
+  - Make sure to remove the markers that Git has added (i.e., `<<<<<<< HEAD`, `=======`, `>>>>>>> <branch_name>`) and choose which version of the conflicted line to keep
+  - `git add` the file(s) after you are done resolving the conflicts
+  - Commit your changes using `git commit -m "<commit_message>"` to complete the merge
+
+<br>
+<details><summary>**Example**: Resolving a merge conflict</summary>
+
+Continuing from previous examples, our `master` branch currently looks like this:
+
+
+```bash
+# View commit log for `master` branch
+git log
+```
+
+```
+## commit ca84e9036efbcbb5d03cdad3576eb55f639b1ec4
+## Merge: 3826d54 8edce38
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:50 2020 -0700
+## 
+##     Merge branch 'dev'
+## 
+## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     update head() on line 2
+## 
+## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     add additional filter() on line 4
+## 
+## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+
+```bash
+# View content of R script
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## df <- df %>% filter(manufacturer == 'audi')
+```
+
+<br>
+Let's create a new branch called `revision` that branches off `master`, then make a new commit on this branch:
+
+
+```bash
+# Create and switch to new branch
+git checkout -b revision
+
+# On the `revision` branch, we created a new commit that modified the last line of the R script
+git log
+```
+
+```
+## Switched to a new branch 'revision'
+## [revision bac7fcd] filter for lincoln instead of audi
+##  1 file changed, 1 insertion(+), 1 deletion(-)
+## commit bac7fcdf5f01853412a85fdcfa28fdf49562a6ce
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:50 2020 -0700
+## 
+##     filter for lincoln instead of audi
+## 
+## commit ca84e9036efbcbb5d03cdad3576eb55f639b1ec4
+## Merge: 3826d54 8edce38
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:50 2020 -0700
+## 
+##     Merge branch 'dev'
+## 
+## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     update head() on line 2
+## 
+## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     add additional filter() on line 4
+## 
+## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+
+```bash
+# View updated content of R script on the `revision` branch
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## df <- df %>% filter(manufacturer == 'lincoln')
+```
+
+<br>
+Back on the `master` branch, let's modify the same line in the R script:
+
+
+```bash
+# Switch back to `master` branch
+git checkout master
+
+# On the `master` branch, we created a new commit that modified the last line of the R script
+git log
+```
+
+```
+## Switched to branch 'master'
+## [master 604a264] filter for chevrolet instead of audi
+##  1 file changed, 1 insertion(+), 1 deletion(-)
+## commit 604a26488fa61baa6a27e9b5094f4f4928976f01
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:50 2020 -0700
+## 
+##     filter for chevrolet instead of audi
+## 
+## commit ca84e9036efbcbb5d03cdad3576eb55f639b1ec4
+## Merge: 3826d54 8edce38
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:50 2020 -0700
+## 
+##     Merge branch 'dev'
+## 
+## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     update head() on line 2
+## 
+## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     add additional filter() on line 4
+## 
+## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sat Apr 11 21:39:49 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+
+```bash
+# View updated content of R script on the `master` branch
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## df <- df %>% filter(manufacturer == 'chevrolet')
+```
+
+<br>
+If we try to merge changes from `revision` into `master` now, there will be a merge conflict:
+
+
+```bash
+# Merge changes from `revision` into `master`
+git merge revision
+```
+
+```
+## Auto-merging create_dataset.R
+## CONFLICT (content): Merge conflict in create_dataset.R
+## Automatic merge failed; fix conflicts and then commit the result.
+```
+
+
+```bash
+# View content of R script
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## <<<<<<< HEAD
+## df <- df %>% filter(manufacturer == 'chevrolet')
+## =======
+## df <- df %>% filter(manufacturer == 'lincoln')
+## >>>>>>> revision
+```
+
+<br>
+We can manually edit the file to resolve the conflicts. Let's say we choose to filter for `'volkswagen'` instead:
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## df <- df %>% filter(manufacturer == 'volkswagen')
+```
+
+<br>
+Finally, we can add and commit the file to complete the merge:
+
+
+```bash
+# Add/commit R script
+git add create_dataset.R
+git commit -m "merge revision branch"
+```
 
 
 </details>
