@@ -596,7 +596,7 @@ Sys.getenv("HOME")
 ```
 
 ```
-## [1] "/Users/patriciamartin"
+## [1] "C:\\Users\\ozanj"
 ```
 Show "home" directory for `bash` code chunks
 
@@ -606,7 +606,7 @@ pwd
 ```
 
 ```
-## /Users/patriciamartin
+## /c/Users/ozanj
 ```
 
 note: home directory for r code chunks run in R might be different
@@ -617,7 +617,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/patriciamartin"
+## [1] "C:/Users/ozanj/Documents"
 ```
 
 
@@ -636,7 +636,7 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -683,11 +683,11 @@ mpg %>% head(5)
 ## # A tibble: 5 x 11
 ##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
 ##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
-## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
-## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
-## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
-## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
-## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
 ```
 
 
@@ -710,7 +710,7 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -729,10 +729,9 @@ ls -a
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures/github
 ## .
 ## ..
-## .Rhistory
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -796,8 +795,8 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -815,17 +814,20 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
-## /Users/patriciamartin/Desktop/GitHub/rclass2
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
 ## README.md
 ## _config.yml
 ## _data
+## _gitadmin
 ## _layouts
 ## _resources
+## _student_repositories
 ## _working
 ## assets
 ## lectures
 ## problem_sets
+## rclass2.Rproj
 ## syllabus
 ```
 
@@ -839,22 +841,26 @@ ls -a
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
-## /Users/patriciamartin/Desktop/GitHub/rclass2
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2
 ## .
 ## ..
-## .DS_Store
+## .Rhistory
+## .Rproj.user
 ## .git
 ## .gitignore
 ## README.md
 ## _config.yml
 ## _data
+## _gitadmin
 ## _layouts
 ## _resources
+## _student_repositories
 ## _working
 ## assets
 ## lectures
 ## problem_sets
+## rclass2.Rproj
 ## syllabus
 ```
 
@@ -873,9 +879,9 @@ ls
 ```
 
 ```
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures
-## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/ggplot
+## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /c/Users/ozanj/Documents/rclass2/lectures
+## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.html
 ## ggplot_lecture.md
@@ -1110,7 +1116,7 @@ pwd
 ```
 
 ```
-## /Users/patriciamartin
+## /c/Users/ozanj
 ```
 
 
@@ -1135,16 +1141,16 @@ ls -la
 ```
 
 ```
-## /Users/patriciamartin/downloadipeds
-## total 72
-## drwxr-xr-x    8 patriciamartin  staff    256 Apr 12 11:05 .
-## drwxr-xr-x+ 102 patriciamartin  staff   3264 Apr 12 11:05 ..
-## drwxr-xr-x   12 patriciamartin  staff    384 Apr 12 11:05 .git
-## -rw-r--r--    1 patriciamartin  staff     20 Apr 12 11:05 .gitignore
-## -rw-r--r--    1 patriciamartin  staff   1073 Apr 12 11:05 LICENSE
-## -rw-r--r--    1 patriciamartin  staff   4388 Apr 12 11:05 README.md
-## -rwxr-xr-x    1 patriciamartin  staff   5847 Apr 12 11:05 downloadipeds.R
-## -rwxr-xr-x    1 patriciamartin  staff  11754 Apr 12 11:05 ipeds_file_list.txt
+## /c/Users/ozanj/downloadipeds
+## total 57
+## drwxr-xr-x 1 ozanj 197121     0 Apr 12 15:47 .
+## drwxr-xr-x 1 ozanj 197121     0 Apr 12 15:47 ..
+## drwxr-xr-x 1 ozanj 197121     0 Apr 12 15:47 .git
+## -rw-r--r-- 1 ozanj 197121    22 Apr 12 15:47 .gitignore
+## -rw-r--r-- 1 ozanj 197121  1094 Apr 12 15:47 LICENSE
+## -rw-r--r-- 1 ozanj 197121  4526 Apr 12 15:47 README.md
+## -rw-r--r-- 1 ozanj 197121  6028 Apr 12 15:47 downloadipeds.R
+## -rw-r--r-- 1 ozanj 197121 12888 Apr 12 15:47 ipeds_file_list.txt
 ```
 
 
@@ -1333,7 +1339,7 @@ git remote -v
 ```
 
 ```
-## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ## origin	https://github.com/Rucla-ed/my_git_repo.git (fetch)
 ## origin	https://github.com/Rucla-ed/my_git_repo.git (push)
 ```
@@ -1404,7 +1410,9 @@ git commit -m "initial commit"
 ```
 
 ```
-## [master (root-commit) 6f3d065] initial commit
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) 1e65eeb] initial commit
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -1497,11 +1505,11 @@ ls -al
 ```
 
 ```
-## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
-## total 0
-## drwxr-xr-x    3 patriciamartin  staff    96 Apr 12 11:05 .
-## drwxr-xr-x+ 102 patriciamartin  staff  3264 Apr 12 11:05 ..
-## drwxr-xr-x    9 patriciamartin  staff   288 Apr 12 11:05 .git
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## total 16
+## drwxr-xr-x 1 ozanj 197121 0 Apr 12 15:47 .
+## drwxr-xr-x 1 ozanj 197121 0 Apr 12 15:47 ..
+## drwxr-xr-x 1 ozanj 197121 0 Apr 12 15:47 .git
 ```
 
 <br>
@@ -1516,26 +1524,26 @@ find .git -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 ## .git
 ## |____config
-## |____objects
-## | |____pack
-## | |____info
-## |____HEAD
-## |____info
-## | |____exclude
 ## |____description
+## |____HEAD
 ## |____hooks
-## | |____commit-msg.sample
-## | |____pre-rebase.sample
-## | |____pre-commit.sample
 ## | |____applypatch-msg.sample
+## | |____commit-msg.sample
 ## | |____fsmonitor-watchman.sample
+## | |____post-update.sample
+## | |____pre-applypatch.sample
+## | |____pre-commit.sample
+## | |____pre-merge-commit.sample
+## | |____pre-push.sample
+## | |____pre-rebase.sample
 ## | |____pre-receive.sample
 ## | |____prepare-commit-msg.sample
-## | |____post-update.sample
-## | |____pre-merge-commit.sample
-## | |____pre-applypatch.sample
-## | |____pre-push.sample
 ## | |____update.sample
+## |____info
+## | |____exclude
+## |____objects
+## | |____info
+## | |____pack
 ## |____refs
 ## | |____heads
 ## | |____tags
@@ -1608,11 +1616,13 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
 ## |____objects
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____pack
 ## | |____info
+## | |____pack
 ```
 
 
@@ -1706,15 +1716,21 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## warning: LF will be replaced by CRLF in notes/note_1.txt.
+## The file will have its original line endings in your working directory
+## warning: LF will be replaced by CRLF in notes/note_2.txt.
+## The file will have its original line endings in your working directory
 ## |____objects
+## | |____47
+## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____61
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____pack
 ## | |____info
-## | |____47
-## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
+## | |____pack
 ```
 
 <br>
@@ -1745,26 +1761,26 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master (root-commit) da23b36] initial commit
+## [master (root-commit) 11e4f54] initial commit
 ##  3 files changed, 4 insertions(+)
 ##  create mode 100644 create_dataset.R
 ##  create mode 100644 notes/note_1.txt
 ##  create mode 100644 notes/note_2.txt
 ## |____objects
-## | |____61
-## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____da
-## | | |____23b36a497cb3de4bdb30a4da654c5b36a2a4a8
-## | |____f5
-## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____pack
-## | |____info
-## | |____6c
-## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____11
+## | | |____e4f54acb8f0f5a67810c4f94fb8b455802a2b1
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
+## | |____61
+## | | |____08458417308ddc15d7390a2f8db50cf65ec399
+## | |____6c
+## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____f5
+## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____info
+## | |____pack
 ```
 
 <br>
@@ -1810,12 +1826,12 @@ ls -al
 ```
 
 ```
-## total 8
-## drwxr-xr-x    5 patriciamartin  staff   160 Apr 12 11:05 .
-## drwxr-xr-x+ 102 patriciamartin  staff  3264 Apr 12 11:05 ..
-## drwxr-xr-x   12 patriciamartin  staff   384 Apr 12 11:05 .git
-## -rw-r--r--    1 patriciamartin  staff    35 Apr 12 11:05 create_dataset.R
-## drwxr-xr-x    4 patriciamartin  staff   128 Apr 12 11:05 notes
+## total 17
+## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 .
+## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 ..
+## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 .git
+## -rw-r--r-- 1 ozanj 197121 35 Apr 12 15:47 create_dataset.R
+## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 notes
 ```
 
 Second, show contents of tree using `git cat-file`
@@ -1831,12 +1847,12 @@ git cat-file -p f59085d  # content
 ```
 
 ```
-## total 8
-## drwxr-xr-x    5 patriciamartin  staff   160 Apr 12 11:05 .
-## drwxr-xr-x+ 102 patriciamartin  staff  3264 Apr 12 11:05 ..
-## drwxr-xr-x   12 patriciamartin  staff   384 Apr 12 11:05 .git
-## -rw-r--r--    1 patriciamartin  staff    35 Apr 12 11:05 create_dataset.R
-## drwxr-xr-x    4 patriciamartin  staff   128 Apr 12 11:05 notes
+## total 17
+## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 .
+## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 ..
+## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 .git
+## -rw-r--r-- 1 ozanj 197121 35 Apr 12 15:47 create_dataset.R
+## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 notes
 ## 
 ## tree
 ## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113	create_dataset.R
@@ -1902,29 +1918,31 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master 433e033] second commit
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master efe359c] second commit
 ##  1 file changed, 1 insertion(+)
 ## |____objects
-## | |____61
-## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____da
-## | | |____23b36a497cb3de4bdb30a4da654c5b36a2a4a8
-## | |____f5
-## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____pack
-## | |____43
-## | | |____3e033dda854e268dc15b1177a38125c6c64cab
-## | |____info
-## | |____6c
-## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____52
-## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
-## | |____49
-## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____11
+## | | |____e4f54acb8f0f5a67810c4f94fb8b455802a2b1
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
+## | |____49
+## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____52
+## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
+## | |____61
+## | | |____08458417308ddc15d7390a2f8db50cf65ec399
+## | |____6c
+## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____ef
+## | | |____e359cd79ab94958b18f6cfa5958afc9e1121e4
+## | |____f5
+## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____info
+## | |____pack
 ```
 
 
@@ -1943,10 +1961,10 @@ git cat-file -p $(git rev-list HEAD | tail -n 1)
 ```
 
 ```
-## da23b36a497cb3de4bdb30a4da654c5b36a2a4a8
+## 11e4f54acb8f0f5a67810c4f94fb8b455802a2b1
 ## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author Patricia Martin <pmar21995@gmail.com> 1586714755 -0700
-## committer Patricia Martin <pmar21995@gmail.com> 1586714755 -0700
+## author Ozan Jaquette <ozanj@ucla.edu> 1586731678 -0700
+## committer Ozan Jaquette <ozanj@ucla.edu> 1586731678 -0700
 ## 
 ## initial commit
 ```
@@ -1967,11 +1985,11 @@ git cat-file -p $(git rev-parse HEAD)
 ```
 
 ```
-## 433e033dda854e268dc15b1177a38125c6c64cab
+## efe359cd79ab94958b18f6cfa5958afc9e1121e4
 ## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent da23b36a497cb3de4bdb30a4da654c5b36a2a4a8
-## author Patricia Martin <pmar21995@gmail.com> 1586714755 -0700
-## committer Patricia Martin <pmar21995@gmail.com> 1586714755 -0700
+## parent 11e4f54acb8f0f5a67810c4f94fb8b455802a2b1
+## author Ozan Jaquette <ozanj@ucla.edu> 1586731680 -0700
+## committer Ozan Jaquette <ozanj@ucla.edu> 1586731680 -0700
 ## 
 ## second commit
 ```
@@ -2008,28 +2026,28 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ```
 ## |____objects
-## | |____61
-## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____da
-## | | |____23b36a497cb3de4bdb30a4da654c5b36a2a4a8
-## | |____bd
-## | | |____1362981611c4fdda08c61874e45e20ea5ea9de
-## | |____f5
-## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____pack
-## | |____43
-## | | |____3e033dda854e268dc15b1177a38125c6c64cab
-## | |____info
-## | |____6c
-## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____52
-## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
-## | |____49
-## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____06
+## | | |____82d2ebc667367ed240ec448621f1e04d71c34b
+## | |____11
+## | | |____e4f54acb8f0f5a67810c4f94fb8b455802a2b1
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
+## | |____49
+## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____52
+## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
+## | |____61
+## | | |____08458417308ddc15d7390a2f8db50cf65ec399
+## | |____6c
+## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____ef
+## | | |____e359cd79ab94958b18f6cfa5958afc9e1121e4
+## | |____f5
+## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
+## | |____info
+## | |____pack
 ```
 
 <br>
@@ -2041,10 +2059,10 @@ git cat-file -p $(git show-ref -s v1)  # retrieves hash for v1 tag
 ```
 
 ```
-## object 433e033dda854e268dc15b1177a38125c6c64cab
+## object efe359cd79ab94958b18f6cfa5958afc9e1121e4
 ## type commit
 ## tag v1
-## tagger Patricia Martin <pmar21995@gmail.com> 1586714756 -0700
+## tagger Ozan Jaquette <ozanj@ucla.edu> 1586731681 -0700
 ## 
 ## version 1.0
 ```
@@ -2056,15 +2074,15 @@ git log
 ```
 
 ```
-## commit 433e033dda854e268dc15b1177a38125c6c64cab
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:55 2020 -0700
+## commit efe359cd79ab94958b18f6cfa5958afc9e1121e4
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:00 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit da23b36a497cb3de4bdb30a4da654c5b36a2a4a8
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:55 2020 -0700
+## commit 11e4f54acb8f0f5a67810c4f94fb8b455802a2b1
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:47:58 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -2097,7 +2115,7 @@ cat .git/refs/heads/master
 ```
 
 ```
-## 433e033dda854e268dc15b1177a38125c6c64cab
+## efe359cd79ab94958b18f6cfa5958afc9e1121e4
 ```
 
 We can use `git log` to verify that this is the hash ID of the latest commit:
@@ -2109,15 +2127,15 @@ git log
 ```
 
 ```
-## commit 433e033dda854e268dc15b1177a38125c6c64cab
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:55 2020 -0700
+## commit efe359cd79ab94958b18f6cfa5958afc9e1121e4
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:00 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit da23b36a497cb3de4bdb30a4da654c5b36a2a4a8
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:55 2020 -0700
+## commit 11e4f54acb8f0f5a67810c4f94fb8b455802a2b1
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:47:58 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -2132,7 +2150,7 @@ git init
 ```
 
 ```
-## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ```
 
 
@@ -2167,6 +2185,8 @@ git status
 ```
 
 ```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
 ## On branch master
 ## 
 ## No commits yet
@@ -2186,8 +2206,8 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## |____objects
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____pack
 ## | |____info
+## | |____pack
 ```
 
 
@@ -2221,7 +2241,7 @@ git status
 ```
 
 ```
-## [master (root-commit) 996e2d2] add create_dataset.R
+## [master (root-commit) b0dd583] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ## On branch master
@@ -2235,9 +2255,9 @@ git log
 ```
 
 ```
-## commit 996e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:56 2020 -0700
+## commit b0dd5836b1deaa362f0a14d9043ca0056bea142b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:04 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2251,7 +2271,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## 996e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
+## b0dd5836b1deaa362f0a14d9043ca0056bea142b
 ```
 
 
@@ -2280,6 +2300,8 @@ git diff
 ```
 
 ```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
 ## diff --git a/create_dataset.R b/create_dataset.R
 ## index c1cff38..490ec1c 100644
 ## --- a/create_dataset.R
@@ -2301,17 +2323,19 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
 ## |____objects
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____pack
-## | |____info
-## | |____96
-## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
-## | |____99
-## | | |____6e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
 ## | |____49
 ## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____96
+## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
+## | |____b0
+## | | |____dd5836b1deaa362f0a14d9043ca0056bea142b
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____info
+## | |____pack
 ```
 
 
@@ -2343,7 +2367,7 @@ git commit -m "modify create_dataset.R"
 ```
 
 ```
-## [master a1f9e43] modify create_dataset.R
+## [master 4437736] modify create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2354,15 +2378,15 @@ git log
 ```
 
 ```
-## commit a1f9e43866b9f6bc49d0ee0a917c7b6f11c90bb5
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:56 2020 -0700
+## commit 4437736cc2695d19aca7f80555f3d08543478cc1
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:07 2020 -0700
 ## 
 ##     modify create_dataset.R
 ## 
-## commit 996e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:56 2020 -0700
+## commit b0dd5836b1deaa362f0a14d9043ca0056bea142b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:04 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2376,7 +2400,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## a1f9e43866b9f6bc49d0ee0a917c7b6f11c90bb5
+## 4437736cc2695d19aca7f80555f3d08543478cc1
 ```
 
 
@@ -2387,9 +2411,9 @@ git cat-file -p $(git rev-parse HEAD)
 
 ```
 ## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
-## parent 996e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
-## author Patricia Martin <pmar21995@gmail.com> 1586714756 -0700
-## committer Patricia Martin <pmar21995@gmail.com> 1586714756 -0700
+## parent b0dd5836b1deaa362f0a14d9043ca0056bea142b
+## author Ozan Jaquette <ozanj@ucla.edu> 1586731687 -0700
+## committer Ozan Jaquette <ozanj@ucla.edu> 1586731687 -0700
 ## 
 ## modify create_dataset.R
 ```
@@ -2821,8 +2845,10 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
-## [master (root-commit) 996e2d2] add create_dataset.R
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) 0365c74] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2860,6 +2886,8 @@ git diff
 ```
 
 ```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
 ## diff --git a/create_dataset.R b/create_dataset.R
 ## index c1cff38..490ec1c 100644
 ## --- a/create_dataset.R
@@ -2919,8 +2947,10 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
-## [master (root-commit) 8b45e9b] add create_dataset.R
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) db23be2] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2938,6 +2968,8 @@ git status
 ```
 
 ```
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
 ## On branch master
 ## Changes to be committed:
 ##   (use "git restore --staged <file>..." to unstage)
@@ -2980,8 +3012,10 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
-## [master (root-commit) fd2da7a] add 1st line to create_dataset.R
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) 7c44f4b] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2997,7 +3031,9 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## [master 586b13d] add 2nd line to create_dataset.R
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master cf9d21e] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -3008,15 +3044,15 @@ git log
 ```
 
 ```
-## commit 586b13dda65a9377ff6284c846074f395eb18109
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit cf9d21e321b335b1bb882bd190d19d188bcc5a16
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:11 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit fd2da7aa2a33ecedc7e9d94f6cb9afaf85787955
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit 7c44f4b212473c039816417722db45e3536a57a4
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:11 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3033,9 +3069,9 @@ git log
 ```
 ## Unstaged changes after reset:
 ## M	create_dataset.R
-## commit fd2da7aa2a33ecedc7e9d94f6cb9afaf85787955
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit 7c44f4b212473c039816417722db45e3536a57a4
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:11 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3080,8 +3116,10 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
-## [master (root-commit) fd2da7a] add 1st line to create_dataset.R
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) 6161396] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3097,7 +3135,9 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## [master 586b13d] add 2nd line to create_dataset.R
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master 486a14c] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -3108,15 +3148,15 @@ git log
 ```
 
 ```
-## commit 586b13dda65a9377ff6284c846074f395eb18109
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit 486a14c59a0fe85a5dedff49b0e2a5c1be6555f8
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:12 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit fd2da7aa2a33ecedc7e9d94f6cb9afaf85787955
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit 6161396f04d78141bd224dc851e6b4d5b09c3c85
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:12 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3131,26 +3171,26 @@ git log
 ```
 
 ```
-## [master 1febcfd] Revert "add 2nd line to create_dataset.R"
-##  Date: Sun Apr 12 11:05:57 2020 -0700
+## [master 06d6ae6] Revert "add 2nd line to create_dataset.R"
+##  Date: Sun Apr 12 15:48:13 2020 -0700
 ##  1 file changed, 1 deletion(-)
-## commit 1febcfd2581a77fbe4aada3e1cd6cb776e955fc2
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit 06d6ae67d894acab89edcd221363c7de3a0bd0e6
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:13 2020 -0700
 ## 
 ##     Revert "add 2nd line to create_dataset.R"
 ##     
-##     This reverts commit 586b13dda65a9377ff6284c846074f395eb18109.
+##     This reverts commit 486a14c59a0fe85a5dedff49b0e2a5c1be6555f8.
 ## 
-## commit 586b13dda65a9377ff6284c846074f395eb18109
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit 486a14c59a0fe85a5dedff49b0e2a5c1be6555f8
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:12 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit fd2da7aa2a33ecedc7e9d94f6cb9afaf85787955
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit 6161396f04d78141bd224dc851e6b4d5b09c3c85
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:12 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3208,7 +3248,7 @@ git branch
 ```
 
 ```
-## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
+## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
 ```
 
 
@@ -3222,7 +3262,9 @@ git commit -m "import tidyverse in create_dataset.R"
 ```
 
 ```
-## [master (root-commit) e2523a4] import tidyverse in create_dataset.R
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master (root-commit) b78d7dd] import tidyverse in create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3244,7 +3286,7 @@ git branch -v
 ```
 
 ```
-## * master e2523a4 import tidyverse in create_dataset.R
+## * master b78d7dd import tidyverse in create_dataset.R
 ```
 
 
@@ -3314,7 +3356,7 @@ git branch -d dev
 ```
 
 ```
-## Deleted branch dev (was e2523a4).
+## Deleted branch dev (was b78d7dd).
 ```
 
 
@@ -3455,9 +3497,9 @@ git log
 ```
 
 ```
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3473,9 +3515,9 @@ git log
 
 ```
 ## Switched to branch 'dev'
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3505,7 +3547,9 @@ git commit -m "manipulate mpg dataset"
 ```
 
 ```
-## [dev fbb21d4] manipulate mpg dataset
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [dev b909c10] manipulate mpg dataset
 ##  1 file changed, 2 insertions(+)
 ```
 
@@ -3516,15 +3560,15 @@ git log
 ```
 
 ```
-## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:19 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3543,7 +3587,7 @@ git merge dev
 
 ```
 ## Switched to branch 'master'
-## Updating e2523a4..fbb21d4
+## Updating b78d7dd..b909c10
 ## Fast-forward
 ##  create_dataset.R | 2 ++
 ##  1 file changed, 2 insertions(+)
@@ -3556,18 +3600,86 @@ git log
 ```
 
 ```
-## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:19 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
+
+Let's examine the git objects associated w/ the commit [hash numbers will differ from below]
+
+```bash
+cd ~/my_git_repo
+
+git cat-file -t 5e0f2c25845d22683465bea1cbd91304e06cfb25 # type = commit
+git cat-file -p 5e0f2c25845d22683465bea1cbd91304e06cfb25 # type = commit
+```
+Examine the "tree" object associated with the commit
+
+```bash
+cd ~/my_git_repo
+
+git cat-file -t 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = commit
+git cat-file -p 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = commit
+```
+
+Let's examine the "blob" object (file) associated with the commit
+
+```bash
+cd ~/my_git_repo
+
+git cat-file -t 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = commit
+git cat-file -p 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = commit
+```
+
+Let's examine the "parent" object associated with this commit
+
+- use `git log` again to get hash of most recent commit
+
+```bash
+cd ~/my_git_repo
+
+git log
+```
+
+```
+## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:19 2020 -0700
+## 
+##     manipulate mpg dataset
+## 
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
+## 
+##     import tidyverse in create_dataset.R
+```
+
+- then print the object associated w/ the commit hash
+
+```bash
+cd ~/my_git_repo
+
+git cat-file -p 5e0f2c25845d22683465bea1cbd91304e06cfb25
+```
+
+print object associated w/ "parent" commit
+
+```bash
+cd ~/my_git_repo
+
+git cat-file -t c5bc307a3e5cfe3f971071ac5d296d0ab39e154d # type = commit
+git cat-file -p c5bc307a3e5cfe3f971071ac5d296d0ab39e154d
+```
+
 
 </details>
 
@@ -3583,19 +3695,32 @@ git log
 ```
 
 ```
-## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:19 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
 
+Which branch are we currently on:
+
+```bash
+# View commit log for `master` branch
+git branch
+```
+
+```
+##   dev
+## * master
+```
+
+View contents of R script
 
 ```bash
 # View content of R script, which is the same on both `master` and `dev` branches
@@ -3618,27 +3743,30 @@ git log
 ```
 
 ```
-## [master d98d6e4] update head() on line 2
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master 323fa8c] update head() on line 2
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
-## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit 323fa8cdc8b89fcde4975e1370dc7df96cbd5ad0
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:21 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:19 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
 
+View updated content of R script on the `master` branch
 
 ```bash
 # View updated content of R script on the `master` branch - now shows `head(10)` instead of `head(5)`
@@ -3651,6 +3779,7 @@ cat create_dataset.R
 ## df <- mpg %>% filter(year == 2008)
 ```
 
+Switch to `dev` branch, and make change to file `create_dataset.R`
 
 ```bash
 # Switch to `dev` branch
@@ -3662,23 +3791,25 @@ git log
 
 ```
 ## Switched to branch 'dev'
-## [dev b2bd31a] add additional filter() on line 4
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [dev fa2e832] add additional filter() on line 4
 ##  1 file changed, 1 insertion(+)
-## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit fa2e832096414e10b63c2876874a0bb6b57a1e67
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:21 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:19 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3695,6 +3826,31 @@ cat create_dataset.R
 ## df <- mpg %>% filter(year == 2008)
 ## df <- df %>% filter(manufacturer == 'audi')
 ```
+
+Before we attempt to merge `master` and `dev` branch, can use `git diff` to compare two branches
+
+- syntax: `git diff <branch1_name>..<branch2_name>`
+
+
+```bash
+cd ~/my_git_repo
+
+git diff master dev
+```
+
+```
+## diff --git a/create_dataset.R b/create_dataset.R
+## index da2f5c5..6665541 100644
+## --- a/create_dataset.R
+## +++ b/create_dataset.R
+## @@ -1,3 +1,4 @@
+##  library(tidyverse)
+## -mpg %>% head(10)
+## +mpg %>% head(5)
+##  df <- mpg %>% filter(year == 2008)
+## +df <- df %>% filter(manufacturer == 'audi')
+```
+
 
 <br>
 Let's switch back to the `master` branch and merge in `dev`. Since both branches made changes to the R script on different lines, the changes can be combined without any conflicts via a 3-way merge:
@@ -3723,34 +3879,34 @@ git log
 ```
 
 ```
-## commit 7bda360b2b2e3210441ee71c22c677698d874852
-## Merge: d98d6e4 b2bd31a
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit 941cb45b1f4aab8265a3a25e0bcfbfd303c1c185
+## Merge: 323fa8c fa2e832
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:22 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit 323fa8cdc8b89fcde4975e1370dc7df96cbd5ad0
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:21 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit fa2e832096414e10b63c2876874a0bb6b57a1e67
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:21 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:19 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3832,34 +3988,34 @@ git log
 ```
 
 ```
-## commit 7bda360b2b2e3210441ee71c22c677698d874852
-## Merge: d98d6e4 b2bd31a
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit 941cb45b1f4aab8265a3a25e0bcfbfd303c1c185
+## Merge: 323fa8c fa2e832
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:22 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit 323fa8cdc8b89fcde4975e1370dc7df96cbd5ad0
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:21 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit fa2e832096414e10b63c2876874a0bb6b57a1e67
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:21 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:19 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3891,42 +4047,44 @@ git log
 
 ```
 ## Switched to a new branch 'revision'
-## [revision 6e064ea] filter for lincoln instead of audi
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [revision 033f54c] filter for lincoln instead of audi
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
-## commit 6e064eaa1a36037603327c8344101816881a1132
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit 033f54cbf45d5071e78d5c6f853e6d2c3ca8e924
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:24 2020 -0700
 ## 
 ##     filter for lincoln instead of audi
 ## 
-## commit 7bda360b2b2e3210441ee71c22c677698d874852
-## Merge: d98d6e4 b2bd31a
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit 941cb45b1f4aab8265a3a25e0bcfbfd303c1c185
+## Merge: 323fa8c fa2e832
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:22 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit 323fa8cdc8b89fcde4975e1370dc7df96cbd5ad0
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:21 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit fa2e832096414e10b63c2876874a0bb6b57a1e67
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:21 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
+## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:19 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
+## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
+## Author: Ozan Jaquette <ozanj@ucla.edu>
+## Date:   Sun Apr 12 15:48:14 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3953,58 +4111,31 @@ Back on the `master` branch, let's modify the same line in the R script:
 git checkout master
 
 # On the `master` branch, we created a new commit that modified the last line of the R script
-git log
+#git log -n 3
 ```
 
 ```
 ## Switched to branch 'master'
-## [master f6d2c98] filter for chevrolet instead of audi
+## warning: LF will be replaced by CRLF in create_dataset.R.
+## The file will have its original line endings in your working directory
+## [master 9b5ac32] filter for chevrolet instead of audi
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
-## commit f6d2c9844498e518a35936a995f1b0875076b6d7
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:59 2020 -0700
-## 
-##     filter for chevrolet instead of audi
-## 
-## commit 7bda360b2b2e3210441ee71c22c677698d874852
-## Merge: d98d6e4 b2bd31a
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
-## 
-##     Merge branch 'dev'
-## 
-## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
-## 
-##     update head() on line 2
-## 
-## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
-## 
-##     add additional filter() on line 4
-## 
-## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:58 2020 -0700
-## 
-##     manipulate mpg dataset
-## 
-## commit e2523a47f90efceb7c4fb375216db845a959b9fc
-## Author: Patricia Martin <pmar21995@gmail.com>
-## Date:   Sun Apr 12 11:05:57 2020 -0700
-## 
-##     import tidyverse in create_dataset.R
 ```
 
 
 ```bash
+git branch
+echo ""
+
 # View updated content of R script on the `master` branch
 cat create_dataset.R
 ```
 
 ```
+##   dev
+## * master
+##   revision
+## 
 ## library(tidyverse)
 ## mpg %>% head(10)
 ## df <- mpg %>% filter(year == 2008)
