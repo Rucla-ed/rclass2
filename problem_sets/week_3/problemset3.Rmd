@@ -110,6 +110,7 @@ In this problem set we will be practicing more git/GitHub workflow basics, manip
     Open `problemset3.R` in RStudio and load in the following data on off-campus recruiting events by public universities:
 
     ```
+    load(url("https://github.com/Rucla-ed/rclass2/raw/master/_data/recruiting/recruit_school_somevars.RData"))
 
     ```
 
