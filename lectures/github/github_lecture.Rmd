@@ -2757,6 +2757,54 @@ cd ~/my_git_repo
 git log
 ```
 
+Let's examine the git objects associated w/ the commit [hash numbers will differ from below]
+```{bash, eval = FALSE}
+cd ~/my_git_repo
+
+git cat-file -t 5e0f2c25845d22683465bea1cbd91304e06cfb25 # type = commit
+git cat-file -p 5e0f2c25845d22683465bea1cbd91304e06cfb25 # type = commit
+```
+Examine the "tree" object associated with the commit
+```{bash, eval = FALSE}
+cd ~/my_git_repo
+
+git cat-file -t 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = commit
+git cat-file -p 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = commit
+```
+
+Let's examine the "blob" object (file) associated with the commit
+```{bash, eval = FALSE}
+cd ~/my_git_repo
+
+git cat-file -t 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = commit
+git cat-file -p 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = commit
+```
+
+Let's examine the "parent" object associated with this commit
+
+- use `git log` again to get hash of most recent commit
+```{bash}
+cd ~/my_git_repo
+
+git log
+```
+
+- then print the object associated w/ the commit hash
+```{bash, eval = FALSE}
+cd ~/my_git_repo
+
+git cat-file -p 5e0f2c25845d22683465bea1cbd91304e06cfb25
+```
+
+print object associated w/ "parent" commit
+```{bash, eval = FALSE}
+cd ~/my_git_repo
+
+git cat-file -t c5bc307a3e5cfe3f971071ac5d296d0ab39e154d # type = commit
+git cat-file -p c5bc307a3e5cfe3f971071ac5d296d0ab39e154d
+```
+
+
 </details>
 
 <br>
@@ -2771,6 +2819,15 @@ cd ~/my_git_repo
 git log
 ```
 
+Which branch are we currently on:
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# View commit log for `master` branch
+git branch
+```
+
+View contents of R script
 ```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
@@ -2791,6 +2848,7 @@ git commit -m "update head() on line 2"
 git log
 ```
 
+View updated content of R script on the `master` branch
 ```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
@@ -2798,6 +2856,7 @@ cd ~/my_git_repo
 cat create_dataset.R
 ```
 
+Switch to `dev` branch, and make change to file `create_dataset.R`
 ```{bash, echo=-c(1:2, 6:9)}
 cd ~/my_git_repo
 
@@ -2818,6 +2877,17 @@ cd ~/my_git_repo
 # View updated content of R script on the `dev` branch - now has additional `filter()` line
 cat create_dataset.R
 ```
+
+Before we attempt to merge `master` and `dev` branch, can use `git diff` to compare two branches
+
+- syntax: `git diff <branch1_name>..<branch2_name>`
+
+```{bash}
+cd ~/my_git_repo
+
+git diff master dev
+```
+
 
 <br>
 Let's switch back to the `master` branch and merge in `dev`. Since both branches made changes to the R script on different lines, the changes can be combined without any conflicts via a 3-way merge:
@@ -2955,11 +3025,14 @@ git add create_dataset.R
 git commit -m "filter for chevrolet instead of audi"
 
 # On the `master` branch, we created a new commit that modified the last line of the R script
-git log
+#git log -n 3
 ```
 
 ```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
+
+git branch
+echo ""
 
 # View updated content of R script on the `master` branch
 cat create_dataset.R
