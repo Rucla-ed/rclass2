@@ -104,9 +104,7 @@ els_keepvars <- c(
 )
 els_keepvars
 
-if (!exists("els")) { # if object named "els" does not exist, load in stata dataset
-  load("../../_data/els/els.RData")
-}
+load(url("https://github.com/Rucla-ed/rclass2/raw/master/_data/els/els.RData"))
 
 els <- els %>%
   # keep only subset of vars
