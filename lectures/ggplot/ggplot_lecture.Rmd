@@ -217,7 +217,7 @@ The five layers of the grammar of graphics:
 
 **Example**: Imagine a dataset where each observation is a student
 
-- The variables of interest are high school math test score (`bynels2m`), earnings in 2011 (`f3ern2011`), and student gender (`f1sex`)
+- The variables of interest are high school math test score (`bynels2m`), earnings in 2011 (`f3ern2011`), and student sex (`f1sex`)
 
 ```{r}
 glimpse(els)
@@ -689,7 +689,7 @@ ggplot(data= els_v2) +
 
 **Bar charts** are used to plot a single, discrete variable.
 
-- X-axis typically represents a categorical variable (e.g,. race, gender, institutional type)
+- X-axis typically represents a categorical variable (e.g,. race, sex, institutional type)
     - Each value of the categorical variable is a "group"
 - Y-axis often represents the number of cases in a group (or the proportion of cases in a group)
     - But height of bar could also represent mean value for a group or some other summary statistic (e.g., min, max, std)
