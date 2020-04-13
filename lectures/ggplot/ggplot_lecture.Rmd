@@ -104,9 +104,7 @@ els_keepvars <- c(
 )
 els_keepvars
 
-if (!exists("els")) { # if object named "els" does not exist, load in stata dataset
-  load("../../_data/els/els.RData")
-}
+load(url("https://github.com/Rucla-ed/rclass2/raw/master/_data/els/els.RData"))
 
 els <- els %>%
   # keep only subset of vars
@@ -118,36 +116,6 @@ glimpse(els)
 
 els %>% var_label()
 ```
-
-```{r, eval = FALSE, echo = FALSE}
-
-if (!exists("els")) { # if object named "els" does not exist, read in stata dataset
-  els <- read_dta(file="../../_data/els/els_02_12_byf3pststu_v1_0.dta") %>%
-    # keep only subset of vars
-    select(one_of(els_keepvars)) %>%
-    # lower variable names
-    rename_all(tolower)
-}
-
-# count number of obs per student id
-els %>% group_by(stu_id) %>% # group by your candidate key
-  summarise(n_per_id=n()) %>% # create a measure of number of observations per group
-  ungroup %>% # ungroup, otherwise frequency table [next step] created separately for each group
-  count(n_per_id) # frequency of number of observations per group
-
-
-#UNROLLMENT_PROJ DATA
-elsdir <- "C:/Users/ozanj/Documents/unrollment_proj/data/cleaned"
-
-list.files(path= elsdir)
-file.path(elsdir)
-file.path(elsdir,"els.Rds")
-
-df <- readRDS(file = file.path(elsdir, "els.Rds"))
-df
-glimpse(df)
-```
-
 
 # Concepts
 
@@ -183,9 +151,8 @@ The seven parameters of the layered grammar of graphics consists of:
 Syntax conveying the seven parameters of the layered grammer of graphics:
 
 ```{r, eval = FALSE}
-ggplot(data = <DATA>) + 
+ggplot(data = <DATA>, mapping = aes(<MAPPINGS>)) + 
   <GEOM_FUNCTION>(
-     mapping = aes(<MAPPINGS>),
      stat = <STAT>, 
      position = <POSITION>
   ) +
@@ -470,7 +437,8 @@ Adding a **geometric layer** to a ggplot object dictates how observations are di
 **Example**: Scatterplot of the relationship between `carat` and `price`, using the `diamonds` dataset
 
 ```{r}
-ggplot(data = diamonds, aes(x = carat, y = price)) + geom_point()
+#ggplot(data = diamonds, aes(x = carat, y = price)) + geom_point()
+ggplot(data = diamonds, mapping = aes(x = carat, y = price)) + geom_point()
 ```
 
 - If we already created and assigned a ggplot object, we can use that object to create the plot:
