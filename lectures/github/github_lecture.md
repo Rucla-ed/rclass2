@@ -596,7 +596,7 @@ Sys.getenv("HOME")
 ```
 
 ```
-## [1] "/Users/cyouh95"
+## [1] "/Users/patriciamartin"
 ```
 Show "home" directory for `bash` code chunks
 
@@ -606,7 +606,7 @@ pwd
 ```
 
 ```
-## /Users/cyouh95
+## /Users/patriciamartin
 ```
 
 note: home directory for r code chunks run in R might be different
@@ -617,7 +617,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/cyouh95"
+## [1] "/Users/patriciamartin"
 ```
 
 
@@ -636,7 +636,7 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -681,13 +681,13 @@ mpg %>% head(5)
 
 ```
 ## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
-##   <chr>        <chr> <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
-## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
-## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
-## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
-## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
-## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…
+##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
+##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
+## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa…
+## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa…
+## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa…
+## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa…
+## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa…
 ```
 
 
@@ -710,7 +710,7 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -729,9 +729,10 @@ ls -a
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
 ## .
 ## ..
+## .Rhistory
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -795,8 +796,8 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -814,8 +815,8 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2
 ## README.md
 ## _config.yml
 ## _data
@@ -825,7 +826,6 @@ ls
 ## assets
 ## lectures
 ## problem_sets
-## rclass2.Rproj
 ## syllabus
 ```
 
@@ -839,13 +839,11 @@ ls -a
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2
 ## .
 ## ..
 ## .DS_Store
-## .Rhistory
-## .Rproj.user
 ## .git
 ## .gitignore
 ## README.md
@@ -857,7 +855,6 @@ ls -a
 ## assets
 ## lectures
 ## problem_sets
-## rclass2.Rproj
 ## syllabus
 ```
 
@@ -876,9 +873,9 @@ ls
 ```
 
 ```
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures
-## /Users/cyouh95/Projects/RStudio/rclass2/lectures/ggplot
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/github
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures
+## /Users/patriciamartin/Desktop/GitHub/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.html
 ## ggplot_lecture.md
@@ -1113,7 +1110,7 @@ pwd
 ```
 
 ```
-## /Users/cyouh95
+## /Users/patriciamartin
 ```
 
 
@@ -1138,16 +1135,16 @@ ls -la
 ```
 
 ```
-## /Users/cyouh95/downloadipeds
+## /Users/patriciamartin/downloadipeds
 ## total 72
-## drwxr-xr-x    8 cyouh95  staff    272 Apr 11 21:39 .
-## drwxr-xr-x+ 101 cyouh95  staff   3434 Apr 11 21:39 ..
-## drwxr-xr-x   12 cyouh95  staff    408 Apr 11 21:39 .git
-## -rw-r--r--    1 cyouh95  staff     20 Apr 11 21:39 .gitignore
-## -rw-r--r--    1 cyouh95  staff   1073 Apr 11 21:39 LICENSE
-## -rw-r--r--    1 cyouh95  staff   4388 Apr 11 21:39 README.md
-## -rwxr-xr-x    1 cyouh95  staff   5847 Apr 11 21:39 downloadipeds.R
-## -rwxr-xr-x    1 cyouh95  staff  11754 Apr 11 21:39 ipeds_file_list.txt
+## drwxr-xr-x    8 patriciamartin  staff    256 Apr 12 11:05 .
+## drwxr-xr-x+ 102 patriciamartin  staff   3264 Apr 12 11:05 ..
+## drwxr-xr-x   12 patriciamartin  staff    384 Apr 12 11:05 .git
+## -rw-r--r--    1 patriciamartin  staff     20 Apr 12 11:05 .gitignore
+## -rw-r--r--    1 patriciamartin  staff   1073 Apr 12 11:05 LICENSE
+## -rw-r--r--    1 patriciamartin  staff   4388 Apr 12 11:05 README.md
+## -rwxr-xr-x    1 patriciamartin  staff   5847 Apr 12 11:05 downloadipeds.R
+## -rwxr-xr-x    1 patriciamartin  staff  11754 Apr 12 11:05 ipeds_file_list.txt
 ```
 
 
@@ -1336,7 +1333,7 @@ git remote -v
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
 ## origin	https://github.com/Rucla-ed/my_git_repo.git (fetch)
 ## origin	https://github.com/Rucla-ed/my_git_repo.git (push)
 ```
@@ -1407,7 +1404,7 @@ git commit -m "initial commit"
 ```
 
 ```
-## [master (root-commit) 551e8c3] initial commit
+## [master (root-commit) 6f3d065] initial commit
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -1500,11 +1497,11 @@ ls -al
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
 ## total 0
-## drwxr-xr-x    3 cyouh95  staff   102 Apr 11 21:39 .
-## drwxr-xr-x+ 102 cyouh95  staff  3468 Apr 11 21:39 ..
-## drwxr-xr-x    9 cyouh95  staff   306 Apr 11 21:39 .git
+## drwxr-xr-x    3 patriciamartin  staff    96 Apr 12 11:05 .
+## drwxr-xr-x+ 102 patriciamartin  staff  3264 Apr 12 11:05 ..
+## drwxr-xr-x    9 patriciamartin  staff   288 Apr 12 11:05 .git
 ```
 
 <br>
@@ -1519,24 +1516,26 @@ find .git -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 ## .git
 ## |____config
-## |____description
+## |____objects
+## | |____pack
+## | |____info
 ## |____HEAD
-## |____hooks
-## | |____applypatch-msg.sample
-## | |____commit-msg.sample
-## | |____post-update.sample
-## | |____pre-applypatch.sample
-## | |____pre-commit.sample
-## | |____pre-push.sample
-## | |____pre-rebase.sample
-## | |____pre-receive.sample
-## | |____prepare-commit-msg.sample
-## | |____update.sample
 ## |____info
 ## | |____exclude
-## |____objects
-## | |____info
-## | |____pack
+## |____description
+## |____hooks
+## | |____commit-msg.sample
+## | |____pre-rebase.sample
+## | |____pre-commit.sample
+## | |____applypatch-msg.sample
+## | |____fsmonitor-watchman.sample
+## | |____pre-receive.sample
+## | |____prepare-commit-msg.sample
+## | |____post-update.sample
+## | |____pre-merge-commit.sample
+## | |____pre-applypatch.sample
+## | |____pre-push.sample
+## | |____update.sample
 ## |____refs
 ## | |____heads
 ## | |____tags
@@ -1612,8 +1611,8 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## |____objects
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____info
 ## | |____pack
+## | |____info
 ```
 
 
@@ -1708,14 +1707,14 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ```
 ## |____objects
-## | |____47
-## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____61
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____info
 ## | |____pack
+## | |____info
+## | |____47
+## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ```
 
 <br>
@@ -1746,26 +1745,26 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master (root-commit) 5e631f9] initial commit
+## [master (root-commit) da23b36] initial commit
 ##  3 files changed, 4 insertions(+)
 ##  create mode 100644 create_dataset.R
 ##  create mode 100644 notes/note_1.txt
 ##  create mode 100644 notes/note_2.txt
 ## |____objects
-## | |____47
-## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
-## | |____5e
-## | | |____631f9e1badea1791795c6d3f73a867fffae1ae
 ## | |____61
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____6c
-## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____da
+## | | |____23b36a497cb3de4bdb30a4da654c5b36a2a4a8
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
-## | |____info
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____pack
+## | |____info
+## | |____6c
+## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____47
+## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ```
 
 <br>
@@ -1812,11 +1811,11 @@ ls -al
 
 ```
 ## total 8
-## drwxr-xr-x    5 cyouh95  staff   170 Apr 11 21:39 .
-## drwxr-xr-x+ 102 cyouh95  staff  3468 Apr 11 21:39 ..
-## drwxr-xr-x   12 cyouh95  staff   408 Apr 11 21:39 .git
-## -rw-r--r--    1 cyouh95  staff    35 Apr 11 21:39 create_dataset.R
-## drwxr-xr-x    4 cyouh95  staff   136 Apr 11 21:39 notes
+## drwxr-xr-x    5 patriciamartin  staff   160 Apr 12 11:05 .
+## drwxr-xr-x+ 102 patriciamartin  staff  3264 Apr 12 11:05 ..
+## drwxr-xr-x   12 patriciamartin  staff   384 Apr 12 11:05 .git
+## -rw-r--r--    1 patriciamartin  staff    35 Apr 12 11:05 create_dataset.R
+## drwxr-xr-x    4 patriciamartin  staff   128 Apr 12 11:05 notes
 ```
 
 Second, show contents of tree using `git cat-file`
@@ -1833,11 +1832,11 @@ git cat-file -p f59085d  # content
 
 ```
 ## total 8
-## drwxr-xr-x    5 cyouh95  staff   170 Apr 11 21:39 .
-## drwxr-xr-x+ 102 cyouh95  staff  3468 Apr 11 21:39 ..
-## drwxr-xr-x   12 cyouh95  staff   408 Apr 11 21:39 .git
-## -rw-r--r--    1 cyouh95  staff    35 Apr 11 21:39 create_dataset.R
-## drwxr-xr-x    4 cyouh95  staff   136 Apr 11 21:39 notes
+## drwxr-xr-x    5 patriciamartin  staff   160 Apr 12 11:05 .
+## drwxr-xr-x+ 102 patriciamartin  staff  3264 Apr 12 11:05 ..
+## drwxr-xr-x   12 patriciamartin  staff   384 Apr 12 11:05 .git
+## -rw-r--r--    1 patriciamartin  staff    35 Apr 12 11:05 create_dataset.R
+## drwxr-xr-x    4 patriciamartin  staff   128 Apr 12 11:05 notes
 ## 
 ## tree
 ## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113	create_dataset.R
@@ -1903,29 +1902,29 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master 684c23e] second commit
+## [master 433e033] second commit
 ##  1 file changed, 1 insertion(+)
 ## |____objects
-## | |____47
-## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
-## | |____49
-## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
-## | |____52
-## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
-## | |____5e
-## | | |____631f9e1badea1791795c6d3f73a867fffae1ae
 ## | |____61
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____68
-## | | |____4c23e63625384ffc6f243daf2183a6f27da5e1
-## | |____6c
-## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____da
+## | | |____23b36a497cb3de4bdb30a4da654c5b36a2a4a8
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
-## | |____info
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____pack
+## | |____43
+## | | |____3e033dda854e268dc15b1177a38125c6c64cab
+## | |____info
+## | |____6c
+## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____52
+## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
+## | |____49
+## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____47
+## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ```
 
 
@@ -1944,10 +1943,10 @@ git cat-file -p $(git rev-list HEAD | tail -n 1)
 ```
 
 ```
-## 5e631f9e1badea1791795c6d3f73a867fffae1ae
+## da23b36a497cb3de4bdb30a4da654c5b36a2a4a8
 ## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
+## author Patricia Martin <pmar21995@gmail.com> 1586714755 -0700
+## committer Patricia Martin <pmar21995@gmail.com> 1586714755 -0700
 ## 
 ## initial commit
 ```
@@ -1968,11 +1967,11 @@ git cat-file -p $(git rev-parse HEAD)
 ```
 
 ```
-## 684c23e63625384ffc6f243daf2183a6f27da5e1
+## 433e033dda854e268dc15b1177a38125c6c64cab
 ## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent 5e631f9e1badea1791795c6d3f73a867fffae1ae
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
+## parent da23b36a497cb3de4bdb30a4da654c5b36a2a4a8
+## author Patricia Martin <pmar21995@gmail.com> 1586714755 -0700
+## committer Patricia Martin <pmar21995@gmail.com> 1586714755 -0700
 ## 
 ## second commit
 ```
@@ -2009,28 +2008,28 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ```
 ## |____objects
-## | |____0a
-## | | |____c2b27b84c933c0dc615a5c55a4e05bd8cde6d1
-## | |____47
-## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
-## | |____49
-## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
-## | |____52
-## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
-## | |____5e
-## | | |____631f9e1badea1791795c6d3f73a867fffae1ae
 ## | |____61
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
-## | |____68
-## | | |____4c23e63625384ffc6f243daf2183a6f27da5e1
-## | |____6c
-## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____c1
-## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____da
+## | | |____23b36a497cb3de4bdb30a4da654c5b36a2a4a8
+## | |____bd
+## | | |____1362981611c4fdda08c61874e45e20ea5ea9de
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
-## | |____info
+## | |____c1
+## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____pack
+## | |____43
+## | | |____3e033dda854e268dc15b1177a38125c6c64cab
+## | |____info
+## | |____6c
+## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____52
+## | | |____4db779f0a3e3b3b353b522285c7da4830e21f1
+## | |____49
+## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____47
+## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ```
 
 <br>
@@ -2042,10 +2041,10 @@ git cat-file -p $(git show-ref -s v1)  # retrieves hash for v1 tag
 ```
 
 ```
-## object 684c23e63625384ffc6f243daf2183a6f27da5e1
+## object 433e033dda854e268dc15b1177a38125c6c64cab
 ## type commit
 ## tag v1
-## tagger cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666387 -0700
+## tagger Patricia Martin <pmar21995@gmail.com> 1586714756 -0700
 ## 
 ## version 1.0
 ```
@@ -2057,15 +2056,15 @@ git log
 ```
 
 ```
-## commit 684c23e63625384ffc6f243daf2183a6f27da5e1
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:47 2020 -0700
+## commit 433e033dda854e268dc15b1177a38125c6c64cab
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:55 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 5e631f9e1badea1791795c6d3f73a867fffae1ae
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:47 2020 -0700
+## commit da23b36a497cb3de4bdb30a4da654c5b36a2a4a8
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:55 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -2098,7 +2097,7 @@ cat .git/refs/heads/master
 ```
 
 ```
-## 684c23e63625384ffc6f243daf2183a6f27da5e1
+## 433e033dda854e268dc15b1177a38125c6c64cab
 ```
 
 We can use `git log` to verify that this is the hash ID of the latest commit:
@@ -2110,15 +2109,15 @@ git log
 ```
 
 ```
-## commit 684c23e63625384ffc6f243daf2183a6f27da5e1
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:47 2020 -0700
+## commit 433e033dda854e268dc15b1177a38125c6c64cab
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:55 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 5e631f9e1badea1791795c6d3f73a867fffae1ae
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:47 2020 -0700
+## commit da23b36a497cb3de4bdb30a4da654c5b36a2a4a8
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:55 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -2133,7 +2132,7 @@ git init
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
 ```
 
 
@@ -2153,7 +2152,6 @@ git status
 ## 
 ## Untracked files:
 ##   (use "git add <file>..." to include in what will be committed)
-## 
 ## 	create_dataset.R
 ## 
 ## nothing added to commit but untracked files present (use "git add" to track)
@@ -2175,7 +2173,6 @@ git status
 ## 
 ## Changes to be committed:
 ##   (use "git rm --cached <file>..." to unstage)
-## 
 ## 	new file:   create_dataset.R
 ```
 
@@ -2189,8 +2186,8 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## |____objects
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____info
 ## | |____pack
+## | |____info
 ```
 
 
@@ -2224,7 +2221,7 @@ git status
 ```
 
 ```
-## [master (root-commit) 4ed2d90] add create_dataset.R
+## [master (root-commit) 996e2d2] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ## On branch master
@@ -2238,9 +2235,9 @@ git log
 ```
 
 ```
-## commit 4ed2d907b2dd01f23f992a25274e648cffdbe2f1
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:47 2020 -0700
+## commit 996e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:56 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2254,7 +2251,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## 4ed2d907b2dd01f23f992a25274e648cffdbe2f1
+## 996e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
 ```
 
 
@@ -2270,8 +2267,7 @@ git status
 ## On branch master
 ## Changes not staged for commit:
 ##   (use "git add <file>..." to update what will be committed)
-##   (use "git checkout -- <file>..." to discard changes in working directory)
-## 
+##   (use "git restore <file>..." to discard changes in working directory)
 ## 	modified:   create_dataset.R
 ## 
 ## no changes added to commit (use "git add" and/or "git commit -a")
@@ -2306,16 +2302,16 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ```
 ## |____objects
-## | |____49
-## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
-## | |____4e
-## | | |____d2d907b2dd01f23f992a25274e648cffdbe2f1
-## | |____96
-## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____info
 ## | |____pack
+## | |____info
+## | |____96
+## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
+## | |____99
+## | | |____6e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
+## | |____49
+## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
 ```
 
 
@@ -2347,7 +2343,7 @@ git commit -m "modify create_dataset.R"
 ```
 
 ```
-## [master e316167] modify create_dataset.R
+## [master a1f9e43] modify create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2358,15 +2354,15 @@ git log
 ```
 
 ```
-## commit e316167bd05568042b8831fd6f9f059003898a9e
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:48 2020 -0700
+## commit a1f9e43866b9f6bc49d0ee0a917c7b6f11c90bb5
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:56 2020 -0700
 ## 
 ##     modify create_dataset.R
 ## 
-## commit 4ed2d907b2dd01f23f992a25274e648cffdbe2f1
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:47 2020 -0700
+## commit 996e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:56 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2380,7 +2376,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## e316167bd05568042b8831fd6f9f059003898a9e
+## a1f9e43866b9f6bc49d0ee0a917c7b6f11c90bb5
 ```
 
 
@@ -2391,9 +2387,9 @@ git cat-file -p $(git rev-parse HEAD)
 
 ```
 ## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
-## parent 4ed2d907b2dd01f23f992a25274e648cffdbe2f1
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666388 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586666388 -0700
+## parent 996e2d2729a5d9daa7cbbe7f2d0f47e02a48434f
+## author Patricia Martin <pmar21995@gmail.com> 1586714756 -0700
+## committer Patricia Martin <pmar21995@gmail.com> 1586714756 -0700
 ## 
 ## modify create_dataset.R
 ```
@@ -2825,8 +2821,8 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) 46c4108] add create_dataset.R
+## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
+## [master (root-commit) 996e2d2] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2885,6 +2881,7 @@ cat create_dataset.R
 ```
 
 ```
+## Updated 1 path from the index
 ## library(tidyverse)
 ## mpg %>% head(5)
 ```
@@ -2922,8 +2919,8 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) 46c4108] add create_dataset.R
+## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
+## [master (root-commit) 8b45e9b] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2943,8 +2940,7 @@ git status
 ```
 ## On branch master
 ## Changes to be committed:
-##   (use "git reset HEAD <file>..." to unstage)
-## 
+##   (use "git restore --staged <file>..." to unstage)
 ## 	modified:   create_dataset.R
 ```
 
@@ -2963,8 +2959,7 @@ git status
 ## On branch master
 ## Changes not staged for commit:
 ##   (use "git add <file>..." to update what will be committed)
-##   (use "git checkout -- <file>..." to discard changes in working directory)
-## 
+##   (use "git restore <file>..." to discard changes in working directory)
 ## 	modified:   create_dataset.R
 ## 
 ## no changes added to commit (use "git add" and/or "git commit -a")
@@ -2985,8 +2980,8 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) 9ec9ce7] add 1st line to create_dataset.R
+## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
+## [master (root-commit) fd2da7a] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3002,7 +2997,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## [master 48aee0a] add 2nd line to create_dataset.R
+## [master 586b13d] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -3013,15 +3008,15 @@ git log
 ```
 
 ```
-## commit 48aee0a82ad9abcab28a5e76907a8c3c02a919ec
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:48 2020 -0700
+## commit 586b13dda65a9377ff6284c846074f395eb18109
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 9ec9ce71e356eebd238c30168777aa70cb843c8c
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:48 2020 -0700
+## commit fd2da7aa2a33ecedc7e9d94f6cb9afaf85787955
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3038,9 +3033,9 @@ git log
 ```
 ## Unstaged changes after reset:
 ## M	create_dataset.R
-## commit 9ec9ce71e356eebd238c30168777aa70cb843c8c
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:48 2020 -0700
+## commit fd2da7aa2a33ecedc7e9d94f6cb9afaf85787955
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3085,8 +3080,8 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) 9ec9ce7] add 1st line to create_dataset.R
+## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
+## [master (root-commit) fd2da7a] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3102,7 +3097,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## [master 48aee0a] add 2nd line to create_dataset.R
+## [master 586b13d] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -3113,15 +3108,15 @@ git log
 ```
 
 ```
-## commit 48aee0a82ad9abcab28a5e76907a8c3c02a919ec
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:48 2020 -0700
+## commit 586b13dda65a9377ff6284c846074f395eb18109
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 9ec9ce71e356eebd238c30168777aa70cb843c8c
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:48 2020 -0700
+## commit fd2da7aa2a33ecedc7e9d94f6cb9afaf85787955
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3136,25 +3131,26 @@ git log
 ```
 
 ```
-## [master 2044a57] Revert "add 2nd line to create_dataset.R"
+## [master 1febcfd] Revert "add 2nd line to create_dataset.R"
+##  Date: Sun Apr 12 11:05:57 2020 -0700
 ##  1 file changed, 1 deletion(-)
-## commit 2044a57225323cb34d9df690f95a77c64dfe4752
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit 1febcfd2581a77fbe4aada3e1cd6cb776e955fc2
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     Revert "add 2nd line to create_dataset.R"
 ##     
-##     This reverts commit 48aee0a82ad9abcab28a5e76907a8c3c02a919ec.
+##     This reverts commit 586b13dda65a9377ff6284c846074f395eb18109.
 ## 
-## commit 48aee0a82ad9abcab28a5e76907a8c3c02a919ec
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:48 2020 -0700
+## commit 586b13dda65a9377ff6284c846074f395eb18109
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 9ec9ce71e356eebd238c30168777aa70cb843c8c
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:48 2020 -0700
+## commit fd2da7aa2a33ecedc7e9d94f6cb9afaf85787955
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3212,7 +3208,7 @@ git branch
 ```
 
 ```
-## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## Initialized empty Git repository in /Users/patriciamartin/my_git_repo/.git/
 ```
 
 
@@ -3226,7 +3222,7 @@ git commit -m "import tidyverse in create_dataset.R"
 ```
 
 ```
-## [master (root-commit) 8e3198c] import tidyverse in create_dataset.R
+## [master (root-commit) e2523a4] import tidyverse in create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3248,7 +3244,7 @@ git branch -v
 ```
 
 ```
-## * master 8e3198c import tidyverse in create_dataset.R
+## * master e2523a4 import tidyverse in create_dataset.R
 ```
 
 
@@ -3318,7 +3314,7 @@ git branch -d dev
 ```
 
 ```
-## Deleted branch dev (was 8e3198c).
+## Deleted branch dev (was e2523a4).
 ```
 
 
@@ -3459,9 +3455,9 @@ git log
 ```
 
 ```
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3477,9 +3473,9 @@ git log
 
 ```
 ## Switched to branch 'dev'
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3509,7 +3505,7 @@ git commit -m "manipulate mpg dataset"
 ```
 
 ```
-## [dev b3f1c5e] manipulate mpg dataset
+## [dev fbb21d4] manipulate mpg dataset
 ##  1 file changed, 2 insertions(+)
 ```
 
@@ -3520,15 +3516,15 @@ git log
 ```
 
 ```
-## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3547,7 +3543,7 @@ git merge dev
 
 ```
 ## Switched to branch 'master'
-## Updating 8e3198c..b3f1c5e
+## Updating e2523a4..fbb21d4
 ## Fast-forward
 ##  create_dataset.R | 2 ++
 ##  1 file changed, 2 insertions(+)
@@ -3560,15 +3556,15 @@ git log
 ```
 
 ```
-## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3587,15 +3583,15 @@ git log
 ```
 
 ```
-## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3622,23 +3618,23 @@ git log
 ```
 
 ```
-## [master 3826d54] update head() on line 2
+## [master d98d6e4] update head() on line 2
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
-## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3666,23 +3662,23 @@ git log
 
 ```
 ## Switched to branch 'dev'
-## [dev 8edce38] add additional filter() on line 4
+## [dev b2bd31a] add additional filter() on line 4
 ##  1 file changed, 1 insertion(+)
-## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3727,34 +3723,34 @@ git log
 ```
 
 ```
-## commit ca84e9036efbcbb5d03cdad3576eb55f639b1ec4
-## Merge: 3826d54 8edce38
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:50 2020 -0700
+## commit 7bda360b2b2e3210441ee71c22c677698d874852
+## Merge: d98d6e4 b2bd31a
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3836,34 +3832,34 @@ git log
 ```
 
 ```
-## commit ca84e9036efbcbb5d03cdad3576eb55f639b1ec4
-## Merge: 3826d54 8edce38
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:50 2020 -0700
+## commit 7bda360b2b2e3210441ee71c22c677698d874852
+## Merge: d98d6e4 b2bd31a
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3895,42 +3891,42 @@ git log
 
 ```
 ## Switched to a new branch 'revision'
-## [revision bac7fcd] filter for lincoln instead of audi
+## [revision 6e064ea] filter for lincoln instead of audi
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
-## commit bac7fcdf5f01853412a85fdcfa28fdf49562a6ce
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:50 2020 -0700
+## commit 6e064eaa1a36037603327c8344101816881a1132
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     filter for lincoln instead of audi
 ## 
-## commit ca84e9036efbcbb5d03cdad3576eb55f639b1ec4
-## Merge: 3826d54 8edce38
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:50 2020 -0700
+## commit 7bda360b2b2e3210441ee71c22c677698d874852
+## Merge: d98d6e4 b2bd31a
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3962,42 +3958,42 @@ git log
 
 ```
 ## Switched to branch 'master'
-## [master 604a264] filter for chevrolet instead of audi
+## [master f6d2c98] filter for chevrolet instead of audi
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
-## commit 604a26488fa61baa6a27e9b5094f4f4928976f01
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:50 2020 -0700
+## commit f6d2c9844498e518a35936a995f1b0875076b6d7
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:59 2020 -0700
 ## 
 ##     filter for chevrolet instead of audi
 ## 
-## commit ca84e9036efbcbb5d03cdad3576eb55f639b1ec4
-## Merge: 3826d54 8edce38
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:50 2020 -0700
+## commit 7bda360b2b2e3210441ee71c22c677698d874852
+## Merge: d98d6e4 b2bd31a
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit 3826d54ea89b8bec06c5486c6391c5777bae82e7
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit d98d6e4e1e2116f95ef21b250f2733c3523971a0
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit 8edce38cd27583ac134d5f20ff3d1b748f0a8fef
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit b2bd31a6e5e2ad2eef9df9cd3f56559f1dc19580
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit b3f1c5e8607baef342e1f19e91145ed22726b26a
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit fbb21d48322a5a8ffbc30cd1b7d715118d22dc03
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:58 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 8e3198ca2da68c5b4d747222e67538efa7c42c07
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sat Apr 11 21:39:49 2020 -0700
+## commit e2523a47f90efceb7c4fb375216db845a959b9fc
+## Author: Patricia Martin <pmar21995@gmail.com>
+## Date:   Sun Apr 12 11:05:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
