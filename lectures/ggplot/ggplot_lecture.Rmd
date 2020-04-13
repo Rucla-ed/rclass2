@@ -816,9 +816,9 @@ els_v2 %>%
 </details>
 <br>
 
-### Relationship between discrete x and discrete y
+<!-- Relationship between discrete x and discrete y -->
 
-```{r}
+```{r, echo=FALSE, eval=FALSE}
 els_v2 %>% select(f2evratt,f2ps1lvl) %>% var_label()
 
 #ever attended
@@ -837,6 +837,209 @@ els_v2 %>%  count(f2evratt,f2ps1lvl) %>% as_factor()
 
 ## Small multiples using faceting
 
+**Facets** divide a plot into subplots based on the values of one or more discrete variables. They are most commonly used to create "small multiples"
+
+Two functions to split your plots into facets:
+
+- `facet_grid()`: Display subplots in grid format, where rows and columns are determined by the faceting variable(s)
+    - `facet_grid()` is most useful when you have two discrete variables, and all combinations of the variables exist in the data
+- `facet_wrap()`: Display all subplots side-by-side, but can be wrapped to fill multiple rows
+    - `facet_wrap()` generally has better use of screen space, and you can specify the number of plots in each row or column
+
+<br>
+
+__The `facet_grid()` and `facet_wrap()` functions__:
+    
+```{r, eval = FALSE}
+?facet_grid
+
+# SYNTAX AND DEFAULT VALUES
+facet_grid(rows = NULL, cols = NULL, scales = "fixed",
+  space = "fixed", shrink = TRUE, labeller = "label_value",
+  as.table = TRUE, switch = NULL, drop = TRUE, margins = FALSE,
+  facets = NULL)
+
+?facet_wrap
+
+# SYNTAX AND DEFAULT VALUES
+facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
+  shrink = TRUE, labeller = "label_value", as.table = TRUE,
+  switch = NULL, drop = TRUE, dir = "h", strip.position = "top")
+```
+
+Specifying which variable(s) to facet your plot on:
+
+- `facet_grid()`
+  - Since `facet_grid()` arranges subplots in a grid format, we need to specify how we define the rows and columns
+  - One way to do this is passing in the `rows` and `cols` arguments, which should be variables quoted by `vars()`
+    - `facet_grid(rows = vars(<var_1>), cols = vars(<var_2>))`: facet into both rows and columns
+    - `facet_grid(rows = vars(<var_1>))`: facet into rows only
+    - `facet_grid(cols = vars(<var_1>))`: facet into columns only
+  - Alternatively, we can pass in a _formula_, which has the syntax `<row_var> ~ <col_var>`
+    - `facet_grid(<var_1> ~ <var_2>)`: facet into both rows and columns
+    - `facet_grid(<var_1> ~ .)`: facet into rows only
+    - `facet_grid(. ~ <var_1>)`: facet into columns only
+- `facet_wrap()`
+  - `facet_wrap()` also accepts a _formula_ for its `facets` argument
+    - `facet_wrap(~ <var_1>)`: facet by one variable
+    - `facet_wrap(<var_1> ~ <var_2>)`: facet on the combination of two variables
+
+### Faceting by one variable
+
+**Example**: Scatterplot of the relationship between engine displacement (`displ`) and highway miles-per-gallon (`hwy`), faceted by number of cylinders (`cyl`), from the `mpg` dataset
+
+***Method 1***: Faceting using `facet_grid()`
+
+- For one variable, you can choose to facet into rows or columns:
+
+```{r}
+# Facet into rows
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(rows = vars(cyl))
+```
+
+```{r}
+# Facet into columns
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(cols = vars(cyl))
+```
+
+- Alternatively, we could specify the input as a _formula_ to get the same results:
+
+```{r}
+# Facet into rows
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(cyl ~ .)
+```
+
+```{r}
+# Facet into columns
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(. ~ cyl)
+```
+
+***Method 2***: Faceting using `facet_wrap()`
+
+- Unlike `facet_grid()`, `facet_wrap()` is not restricted to either rows or columns:
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ cyl)
+```
+
+- But we are free to set the number of rows or columns if we wanted:
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ cyl, nrow = 1)
+```
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(~ cyl, ncol = 1)
+```
+
+### Faceting by two variables
+
+**Example**: Scatterplot of the relationship between engine displacement (`displ`) and highway miles-per-gallon (`hwy`), faceted by number of cylinders (`cyl`) and type of car (`class`), from the `mpg` dataset
+
+***Method 1***: Faceting using `facet_grid()`
+
+- For example, we can make the rows based on `cyl` and the columns based on `class`:
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(rows = vars(cyl), cols = vars(class))
+```
+
+- Alternatively, we could specify the input as a _formula_ to get the same results:
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_grid(cyl ~ class)
+```
+
+***Method 2***: Faceting using `facet_wrap()`
+
+- Since `facet_wrap()` is not defined by rows and columns, it omits any subplots that do not display any data:
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(cyl ~ class)
+```
+
+- We are also free to choose the number of rows or columns to display:
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(cyl ~ class, nrow = 3)
+```
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) +
+  geom_point() +
+  facet_wrap(cyl ~ class, ncol = 4)
+```
+
+# Exporting plots
+
+The plots generated by `ggplot` can be exported as a PDF, PNG, or other file types. (From [Creating and Saving Graphs - R Base Graphs](http://www.sthda.com/english/wiki/creating-and-saving-graphs-r-base-graphs))
+
+## Exporting in RStudio
+
+In RStudio, the generated plots will typically be displayed in the lower right panel. There is an `Export` button that allows you to save the plot as a PDF or PNG:
+
+[![](http://www.sthda.com/sthda/RDoc/images/create-save-plots-r.png)](http://www.sthda.com/english/wiki/creating-and-saving-graphs-r-base-graphs)
+
+## Exporting via R code
+
+There are also various R functions, including `jpeg()`, `png()`, `svg()`, and `pdf()`, for exporting plots.
+
+The steps for saving a plot:
+
+- Use one of the R functions to open a file
+  - Optional arguments include `height` and `width` for specifying image dimension
+- Create the plot
+- Close the file with `dev.off()`
+
+**Example**: Exporting plot using `pdf()`
+
+```{r, eval = FALSE}
+# Open the file
+pdf('Rplot.pdf')
+
+# Create the plot
+ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) + 
+  geom_point()
+
+# Close the file
+dev.off()
+```
+
+**Example**: Exporting plot using `jpeg()`
+
+```{r, eval = FALSE}
+# Open the file
+jpeg('Rplot.jpg', width = 350, height = 350)
+
+# Create the plot
+ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) + 
+  geom_point()
+
+# Close the file
+dev.off()
+```
 
 # References
 
