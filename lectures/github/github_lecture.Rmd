@@ -2465,10 +2465,18 @@ What is a __branch__?
 - A branch is an "independent line of development" that "isolates your work from that of other team members" ([Using branches](https://backlog.com/git-tutorial/using-branches/) tutorial)
 - By default, a git repository "has one branch named __master__ which is considered to be the definitive branch. We use [other] branches to experiment and make edits before committing them to __master__" ([Hello World](https://guides.github.com/activities/hello-world/) tutorial)
 - "When you create a branch off the __master__ branch, you’re making a copy, or snapshot, of master as it was at that point in time"
+- A branch can be thought of as a "pointer to a single commit"
 
-[![](https://miro.medium.com/max/552/1*PiduCtSA7kMwdPiMZo1nHw.jpeg)](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f)
+[![](https://www.w3docs.com/uploads/media/default/0001/03/1e5d7590562b3b214008617211b2539ce2bddfaf.png)](https://www.w3docs.com/learn-git/git-branch.html)
 
-*Credit: [Mastering git branches](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f) by Henrique Mota*
+*Credit: [W3 docs, Git branch](https://www.w3docs.com/learn-git/git-branch.html)*
+
+<br>
+Why use branches?
+
+- Branching is a means of working on different versions of files in a repository at one time
+- Typically, there is one main branch (usually **master**) that contains working or approved changes. All other development and testing is usually done on separate branches.
+- It is good practice to work on branches, then merge back to master at key points
 
 ## git branch
 
@@ -2757,53 +2765,48 @@ cd ~/my_git_repo
 git log
 ```
 
-Let's examine the git objects associated w/ the commit [hash numbers will differ from below]
-```{bash, eval = FALSE}
+<br>
+Let's examine the git object associated with the commit:
+
+```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
-git cat-file -t 5e0f2c25845d22683465bea1cbd91304e06cfb25 # type = commit
-git cat-file -p 5e0f2c25845d22683465bea1cbd91304e06cfb25 # type = commit
+# Commit object hash
+git rev-parse HEAD # git rev-parse retrieves latest commit hash
+
+git cat-file -t $(git rev-parse HEAD) # type = commit
+git cat-file -p $(git rev-parse HEAD)
 ```
-Examine the "tree" object associated with the commit
-```{bash, eval = FALSE}
+
+Examine the "tree" object associated with the commit:
+
+```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
-git cat-file -t 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = commit
-git cat-file -p 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = commit
+git cat-file -t 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = tree
+git cat-file -p 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
 ```
 
-Let's examine the "blob" object (file) associated with the commit
-```{bash, eval = FALSE}
+Examine the "blob" object (file) associated with the commit:
+
+```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
-git cat-file -t 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = commit
-git cat-file -p 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = commit
+git cat-file -t 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = blob
+git cat-file -p 490ec1c138021b8d5c196c26a2a7b3de69afc2d1
 ```
 
-Let's examine the "parent" object associated with this commit
+Examine the "parent" object associated with this commit:
 
-- use `git log` again to get hash of most recent commit
-```{bash}
+```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
-git log
+# Parent commit hash
+git rev-list HEAD | tail -n 1
+
+git cat-file -t $(git rev-list HEAD | tail -n 1) # type = commit
+git cat-file -p $(git rev-list HEAD | tail -n 1)
 ```
-
-- then print the object associated w/ the commit hash
-```{bash, eval = FALSE}
-cd ~/my_git_repo
-
-git cat-file -p 5e0f2c25845d22683465bea1cbd91304e06cfb25
-```
-
-print object associated w/ "parent" commit
-```{bash, eval = FALSE}
-cd ~/my_git_repo
-
-git cat-file -t c5bc307a3e5cfe3f971071ac5d296d0ab39e154d # type = commit
-git cat-file -p c5bc307a3e5cfe3f971071ac5d296d0ab39e154d
-```
-
 
 </details>
 
@@ -2819,68 +2822,77 @@ cd ~/my_git_repo
 git log
 ```
 
-Which branch are we currently on:
-```{bash, echo=-c(1:2)}
+```{bash, echo=-c(1:2,4)}
 cd ~/my_git_repo
 
-# View commit log for `master` branch
 git branch
-```
+echo ""
 
-View contents of R script
-```{bash, echo=-c(1:2)}
-cd ~/my_git_repo
-
-# View content of R script, which is the same on both `master` and `dev` branches
+# View content of R script on the `master` branch
 cat create_dataset.R
 ```
 
 <br>
 Now, let's suppose the two branches diverge, both making changes to the R script:
 
-```{bash, echo=-c(1:5)}
-cd ~/my_git_repo
-sed -i.bak "s/head(5)/head(10)/g" create_dataset.R
-git add create_dataset.R
-git commit -m "update head() on line 2" 
-
-# On the `master` branch, we created a new commit that modified the 2nd line of the R script
-git log
-```
-
-View updated content of R script on the `master` branch
 ```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
-# View updated content of R script on the `master` branch - now shows `head(10)` instead of `head(5)`
+# Modify R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(10)" >> create_dataset.R  # this line is modified
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+
+# Add and commit changes
+git add create_dataset.R
+git commit -m "update head() on line 2" 
+```
+
+View updated content of R script on the `master` branch, which now shows `head(10)` instead of `head(5)`:
+
+```{bash, echo=-c(1:2,4)}
+cd ~/my_git_repo
+
+git branch
+echo ""
+
+# View content of R script
 cat create_dataset.R
 ```
 
-Switch to `dev` branch, and make change to file `create_dataset.R`
-```{bash, echo=-c(1:2, 6:9)}
+<br>
+Switch to `dev` branch, and make change to file `create_dataset.R`:
+
+```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
 # Switch to `dev` branch
 git checkout dev
 
-echo "df <- df %>% filter(manufacturer == 'audi')" >> create_dataset.R
+# Modify R script
+echo "df <- df %>% filter(manufacturer == 'audi')" >> create_dataset.R  # add new line
+
+# Add and commit changes
 git add create_dataset.R
 git commit -m "add additional filter() on line 4" 
-
-# On the `dev` branch, we created a new commit that added a 4th line to the R script
-git log
 ```
 
-```{bash, echo=-c(1:2)}
+View updated content of R script on the `dev` branch, which now has additional `filter()` line at the end:
+
+```{bash, echo=-c(1:2,4)}
 cd ~/my_git_repo
 
-# View updated content of R script on the `dev` branch - now has additional `filter()` line
+git branch
+echo ""
+
+# View content of R script 
 cat create_dataset.R
 ```
 
-Before we attempt to merge `master` and `dev` branch, can use `git diff` to compare two branches
+<br>
+Before we attempt to merge `master` and `dev` branches, we can use `git diff` to compare the two branches:
 
-- syntax: `git diff <branch1_name>..<branch2_name>`
+- Syntax: `git diff <branch1_name> <branch2_name>`
 
 ```{bash}
 cd ~/my_git_repo
@@ -2918,30 +2930,27 @@ cat create_dataset.R
 
 </details>
 
-## Resolving merge conflicts
+## Merge conflicts
 
-Merge conflicts can occur during a 3-way merge when both branches made changes to the same line(s) of the same file(s). In the case of `create_dataset.R`, you will get an error message that looks like this:
+When attempting a `git merge`, conflict can arise **when starting** a merge or **during** the merge. (From [Git merge conflicts](https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts))
+
+<br>
+**When starting** a merge, Git will first check if you have any changes in either the working directory or staging area. If so, Git will abort the merge completely and display an error message that looks like this:
 
 ```
-Auto-merging create_dataset.R
-CONFLICT (content): Merge conflict in create_dataset.R
+error: Your local changes to the following files would be overwritten by merge:
+	<file_name>
+Please commit your changes or stash them before you merge.
+Aborting
+```
+
+<br>
+**During** a 3-way merge when both branches made changes to the same line(s) of the same file(s), a conflict will occur. The error message would look like this:
+
+```
+Auto-merging <file_name>
+CONFLICT (content): Merge conflict in <file_name>
 Automatic merge failed; fix conflicts and then commit the result.
-```
-
-You can also tell which file(s) failed to merge by checking `git status`:
-
-```
-On branch master
-You have unmerged paths.
-  (fix conflicts and run "git commit")
-  (use "git merge --abort" to abort the merge)
-
-Unmerged paths:
-  (use "git add <file>..." to mark resolution)
-
-	both modified:   create_dataset.R
-
-no changes added to commit (use "git add" and/or "git commit -a")
 ```
 
 If you open the failed file, you will see that Git has marked the line(s) that were conflicting:
@@ -2960,16 +2969,10 @@ If you open the failed file, you will see that Git has marked the line(s) that w
 <normal_line_of_code>
 ```
 
-What to do when you encounter a **merge conflict**?
-
-- As introduced earlier, you can use `git merge --abort` to abort the merge and restore the branches back to their original states
-- Alternatively, you can manually edit the file(s) to resolve the conflicts
-  - Make sure to remove the markers that Git has added (i.e., `<<<<<<< HEAD`, `=======`, `>>>>>>> <branch_name>`) and choose which version of the conflicted line to keep
-  - `git add` the file(s) after you are done resolving the conflicts
-  - Commit your changes using `git commit -m "<commit_message>"` to complete the merge
+These conflicts will need to be resolved manually (described in next section), or the merge can be aborted using `git merge --abort`.
 
 <br>
-<details><summary>**Example**: Resolving a merge conflict</summary>
+<details><summary>**Example**: Merge conflict when starting a merge</summary>
 
 Continuing from previous examples, our `master` branch currently looks like this:
 
@@ -2980,8 +2983,11 @@ cd ~/my_git_repo
 git log
 ```
 
-```{bash, echo=-c(1:2)}
+```{bash, echo=-c(1:2,4)}
 cd ~/my_git_repo
+
+git branch
+echo ""
 
 # View content of R script
 cat create_dataset.R
@@ -2990,56 +2996,117 @@ cat create_dataset.R
 <br>
 Let's create a new branch called `revision` that branches off `master`, then make a new commit on this branch:
 
-```{bash, echo=-c(1:2, 6:9)}
+```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
 # Create and switch to new branch
 git checkout -b revision
 
-sed -i.bak "s/audi/lincoln/g" create_dataset.R
+# Modify R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(10)" >> create_dataset.R
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+echo "df <- df %>% filter(manufacturer == 'lincoln')" >> create_dataset.R  # this line is modified
+
+# Add and commit change
 git add create_dataset.R
 git commit -m "filter for lincoln instead of audi"
-
-# On the `revision` branch, we created a new commit that modified the last line of the R script
-git log
 ```
 
-```{bash, echo=-c(1:2)}
+View updated content of R script on the `revision` branch, which now filters for `lincoln` instead of `audi` on the last line:
+
+```{bash, echo=-c(1:2,4)}
 cd ~/my_git_repo
 
-# View updated content of R script on the `revision` branch
+git branch
+echo ""
+
+# View content of R script
 cat create_dataset.R
 ```
 
 <br>
 Back on the `master` branch, let's modify the same line in the R script:
 
-```{bash, echo=-c(1:2, 6:9)}
+```{bash, echo=-c(1:2)}
 cd ~/my_git_repo
 
 # Switch back to `master` branch
 git checkout master
 
-sed -i.bak "s/audi/chevrolet/g" create_dataset.R
-git add create_dataset.R
-git commit -m "filter for chevrolet instead of audi"
-
-# On the `master` branch, we created a new commit that modified the last line of the R script
-#git log -n 3
+# Modify R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(10)" >> create_dataset.R
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+echo "df <- df %>% filter(manufacturer == 'chevrolet')" >> create_dataset.R  # this line is modified
 ```
 
+<br>
+Notice that we have uncommitted changes in the working directory:
+
 ```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Check status
+git status
+```
+
+<br>
+If we try to merge changes from `revision` into `master` now, there will be a merge conflict because we have uncommited changes. The merge will be aborted:
+
+```{bash, echo=-c(1:2), eval=FALSE}
+cd ~/my_git_repo
+
+# Merge changes from `revision` into `master`
+git merge revision
+```
+
+```
+## error: Your local changes to the following files would be overwritten by merge:
+##  create_dataset.R
+## Please commit your changes or stash them before you merge.
+## Aborting
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Merge conflict during a merge</summary>
+
+Continuing from the previous example, let's say we commited our change to `create_dataset.R` on the `master` branch:
+
+```{bash, echo=-c(1:2)}
+cd ~/my_git_repo
+
+# Add and commit change
+git add create_dataset.R
+git commit -m "filter for chevrolet instead of audi"
+```
+
+View updated content of R script on the `master` branch, which now filters for `chevrolet` instead of `audi` on the last line:
+
+```{bash, echo=-c(1:2,4)}
 cd ~/my_git_repo
 
 git branch
 echo ""
 
-# View updated content of R script on the `master` branch
+# View content of R script
 cat create_dataset.R
 ```
 
 <br>
-If we try to merge changes from `revision` into `master` now, there will be a merge conflict:
+Recall that `create_dataset.R` on the `revision` branch looks like this:
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## df <- df %>% filter(manufacturer == 'lincoln')
+```
+
+<br>
+If we try to merge changes from `revision` into `master` now, there will be a merge conflict because both branches modified the same line of the same file:
 
 ```{bash, echo=-c(1:2), eval=FALSE}
 cd ~/my_git_repo
@@ -3053,6 +3120,59 @@ git merge revision
 ## CONFLICT (content): Merge conflict in create_dataset.R
 ## Automatic merge failed; fix conflicts and then commit the result.
 ```
+
+<br>
+You can also tell which file(s) failed to merge by checking `git status`:
+
+```
+## On branch master
+## You have unmerged paths.
+##   (fix conflicts and run "git commit")
+##   (use "git merge --abort" to abort the merge)
+## 
+## Unmerged paths:
+##   (use "git add <file>..." to mark resolution)
+## 
+## both modified:   create_dataset.R
+## 
+## no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+<br>
+The file(s) that failed to merge will contain markings by Git that indicates which line(s) are conflicted:
+
+```{bash, echo=-c(1:2), eval=FALSE}
+cd ~/my_git_repo
+
+# View content of R script
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## <<<<<<< HEAD
+## df <- df %>% filter(manufacturer == 'chevrolet')
+## =======
+## df <- df %>% filter(manufacturer == 'lincoln')
+## >>>>>>> revision
+```
+
+</details>
+
+## Resolving merge conflicts
+
+What to do when you encounter a **merge conflict**?
+
+- As introduced earlier, you can use `git merge --abort` to abort the merge and restore the branches back to their original states
+- Alternatively, you can manually edit the file(s) to resolve the conflicts
+  - Make sure to remove the markers that Git has added (i.e., `<<<<<<< HEAD`, `=======`, `>>>>>>> <branch_name>`) and choose which version of the conflicted line to keep
+  - `git add` the file(s) after you are done resolving the conflicts
+  - Commit your changes using `git commit -m "<commit_message>"` to complete the merge
+
+<br>
+<details><summary>**Example**: Resolving a merge conflict</summary>
 
 ```{bash, echo=-c(1:2), eval=FALSE}
 cd ~/my_git_repo

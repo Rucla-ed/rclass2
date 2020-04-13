@@ -191,6 +191,7 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
     - [git checkout](#git-checkout)
 - [Merging](#merging)
     - [git merge](#git-merge)
+    - [Merge conflicts](#merge-conflicts)
     - [Resolving merge conflicts](#resolving-merge-conflicts)
 
 # Overview of core concepts and work flow
@@ -596,7 +597,7 @@ Sys.getenv("HOME")
 ```
 
 ```
-## [1] "C:\\Users\\ozanj"
+## [1] "/Users/cyouh95"
 ```
 Show "home" directory for `bash` code chunks
 
@@ -606,7 +607,7 @@ pwd
 ```
 
 ```
-## /c/Users/ozanj
+## /Users/cyouh95
 ```
 
 note: home directory for r code chunks run in R might be different
@@ -617,7 +618,7 @@ getwd()
 ```
 
 ```
-## [1] "C:/Users/ozanj/Documents"
+## [1] "/Users/cyouh95"
 ```
 
 
@@ -636,7 +637,7 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -681,13 +682,13 @@ mpg %>% head(5)
 
 ```
 ## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans      drv     cty   hwy fl    class 
-##   <chr>        <chr> <dbl> <int> <int> <chr>      <chr> <int> <int> <chr> <chr> 
-## 1 audi         a4      1.8  1999     4 auto(l5)   f        18    29 p     compa~
-## 2 audi         a4      1.8  1999     4 manual(m5) f        21    29 p     compa~
-## 3 audi         a4      2    2008     4 manual(m6) f        20    31 p     compa~
-## 4 audi         a4      2    2008     4 auto(av)   f        21    30 p     compa~
-## 5 audi         a4      2.8  1999     6 auto(l5)   f        16    26 p     compa~
+##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
+##   <chr>        <chr> <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
+## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
+## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
+## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
+## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
+## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…
 ```
 
 
@@ -710,7 +711,7 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
@@ -729,7 +730,7 @@ ls -a
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## .
 ## ..
 ## git_lecture.Rmd
@@ -795,8 +796,8 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2/lectures
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures
 ## _style
 ## apa.csl
 ## ggplot
@@ -814,15 +815,13 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2
 ## README.md
 ## _config.yml
 ## _data
-## _gitadmin
 ## _layouts
 ## _resources
-## _student_repositories
 ## _working
 ## assets
 ## lectures
@@ -841,10 +840,11 @@ ls -a
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2
 ## .
 ## ..
+## .DS_Store
 ## .Rhistory
 ## .Rproj.user
 ## .git
@@ -852,10 +852,8 @@ ls -a
 ## README.md
 ## _config.yml
 ## _data
-## _gitadmin
 ## _layouts
 ## _resources
-## _student_repositories
 ## _working
 ## assets
 ## lectures
@@ -879,9 +877,9 @@ ls
 ```
 
 ```
-## /c/Users/ozanj/Documents/rclass2/lectures/github
-## /c/Users/ozanj/Documents/rclass2/lectures
-## /c/Users/ozanj/Documents/rclass2/lectures/ggplot
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures
+## /Users/cyouh95/Projects/RStudio/rclass2/lectures/ggplot
 ## ggplot_lecture.Rmd
 ## ggplot_lecture.html
 ## ggplot_lecture.md
@@ -1116,7 +1114,7 @@ pwd
 ```
 
 ```
-## /c/Users/ozanj
+## /Users/cyouh95
 ```
 
 
@@ -1141,16 +1139,16 @@ ls -la
 ```
 
 ```
-## /c/Users/ozanj/downloadipeds
-## total 57
-## drwxr-xr-x 1 ozanj 197121     0 Apr 12 15:47 .
-## drwxr-xr-x 1 ozanj 197121     0 Apr 12 15:47 ..
-## drwxr-xr-x 1 ozanj 197121     0 Apr 12 15:47 .git
-## -rw-r--r-- 1 ozanj 197121    22 Apr 12 15:47 .gitignore
-## -rw-r--r-- 1 ozanj 197121  1094 Apr 12 15:47 LICENSE
-## -rw-r--r-- 1 ozanj 197121  4526 Apr 12 15:47 README.md
-## -rw-r--r-- 1 ozanj 197121  6028 Apr 12 15:47 downloadipeds.R
-## -rw-r--r-- 1 ozanj 197121 12888 Apr 12 15:47 ipeds_file_list.txt
+## /Users/cyouh95/downloadipeds
+## total 72
+## drwxr-xr-x    8 cyouh95  staff    272 Apr 12 23:11 .
+## drwxr-xr-x+ 102 cyouh95  staff   3468 Apr 12 23:11 ..
+## drwxr-xr-x   12 cyouh95  staff    408 Apr 12 23:11 .git
+## -rw-r--r--    1 cyouh95  staff     20 Apr 12 23:11 .gitignore
+## -rw-r--r--    1 cyouh95  staff   1073 Apr 12 23:11 LICENSE
+## -rw-r--r--    1 cyouh95  staff   4388 Apr 12 23:11 README.md
+## -rwxr-xr-x    1 cyouh95  staff   5847 Apr 12 23:11 downloadipeds.R
+## -rwxr-xr-x    1 cyouh95  staff  11754 Apr 12 23:11 ipeds_file_list.txt
 ```
 
 
@@ -1339,7 +1337,7 @@ git remote -v
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
 ## origin	https://github.com/Rucla-ed/my_git_repo.git (fetch)
 ## origin	https://github.com/Rucla-ed/my_git_repo.git (push)
 ```
@@ -1410,9 +1408,7 @@ git commit -m "initial commit"
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) 1e65eeb] initial commit
+## [master (root-commit) d1f860b] initial commit
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -1505,11 +1501,11 @@ ls -al
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## total 16
-## drwxr-xr-x 1 ozanj 197121 0 Apr 12 15:47 .
-## drwxr-xr-x 1 ozanj 197121 0 Apr 12 15:47 ..
-## drwxr-xr-x 1 ozanj 197121 0 Apr 12 15:47 .git
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## total 0
+## drwxr-xr-x    3 cyouh95  staff   102 Apr 12 23:11 .
+## drwxr-xr-x+ 103 cyouh95  staff  3502 Apr 12 23:11 ..
+## drwxr-xr-x    9 cyouh95  staff   306 Apr 12 23:11 .git
 ```
 
 <br>
@@ -1529,11 +1525,9 @@ find .git -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## |____hooks
 ## | |____applypatch-msg.sample
 ## | |____commit-msg.sample
-## | |____fsmonitor-watchman.sample
 ## | |____post-update.sample
 ## | |____pre-applypatch.sample
 ## | |____pre-commit.sample
-## | |____pre-merge-commit.sample
 ## | |____pre-push.sample
 ## | |____pre-rebase.sample
 ## | |____pre-receive.sample
@@ -1616,8 +1610,6 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## |____objects
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
@@ -1716,12 +1708,6 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## warning: LF will be replaced by CRLF in notes/note_1.txt.
-## The file will have its original line endings in your working directory
-## warning: LF will be replaced by CRLF in notes/note_2.txt.
-## The file will have its original line endings in your working directory
 ## |____objects
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
@@ -1761,14 +1747,14 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master (root-commit) 11e4f54] initial commit
+## [master (root-commit) 3e6b9db] initial commit
 ##  3 files changed, 4 insertions(+)
 ##  create mode 100644 create_dataset.R
 ##  create mode 100644 notes/note_1.txt
 ##  create mode 100644 notes/note_2.txt
 ## |____objects
-## | |____11
-## | | |____e4f54acb8f0f5a67810c4f94fb8b455802a2b1
+## | |____3e
+## | | |____6b9db22f702b1d8ca361b3be5c9d8dc2883c94
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____61
@@ -1826,12 +1812,12 @@ ls -al
 ```
 
 ```
-## total 17
-## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 .
-## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 ..
-## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 .git
-## -rw-r--r-- 1 ozanj 197121 35 Apr 12 15:47 create_dataset.R
-## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 notes
+## total 8
+## drwxr-xr-x    5 cyouh95  staff   170 Apr 12 23:11 .
+## drwxr-xr-x+ 103 cyouh95  staff  3502 Apr 12 23:11 ..
+## drwxr-xr-x   12 cyouh95  staff   408 Apr 12 23:11 .git
+## -rw-r--r--    1 cyouh95  staff    35 Apr 12 23:11 create_dataset.R
+## drwxr-xr-x    4 cyouh95  staff   136 Apr 12 23:11 notes
 ```
 
 Second, show contents of tree using `git cat-file`
@@ -1847,12 +1833,12 @@ git cat-file -p f59085d  # content
 ```
 
 ```
-## total 17
-## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 .
-## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 ..
-## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 .git
-## -rw-r--r-- 1 ozanj 197121 35 Apr 12 15:47 create_dataset.R
-## drwxr-xr-x 1 ozanj 197121  0 Apr 12 15:47 notes
+## total 8
+## drwxr-xr-x    5 cyouh95  staff   170 Apr 12 23:11 .
+## drwxr-xr-x+ 103 cyouh95  staff  3502 Apr 12 23:11 ..
+## drwxr-xr-x   12 cyouh95  staff   408 Apr 12 23:11 .git
+## -rw-r--r--    1 cyouh95  staff    35 Apr 12 23:11 create_dataset.R
+## drwxr-xr-x    4 cyouh95  staff   136 Apr 12 23:11 notes
 ## 
 ## tree
 ## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113	create_dataset.R
@@ -1918,13 +1904,13 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master efe359c] second commit
+## [master 08ea6cc] second commit
 ##  1 file changed, 1 insertion(+)
 ## |____objects
-## | |____11
-## | | |____e4f54acb8f0f5a67810c4f94fb8b455802a2b1
+## | |____08
+## | | |____ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
+## | |____3e
+## | | |____6b9db22f702b1d8ca361b3be5c9d8dc2883c94
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -1937,8 +1923,6 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____ef
-## | | |____e359cd79ab94958b18f6cfa5958afc9e1121e4
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -1961,10 +1945,10 @@ git cat-file -p $(git rev-list HEAD | tail -n 1)
 ```
 
 ```
-## 11e4f54acb8f0f5a67810c4f94fb8b455802a2b1
+## 3e6b9db22f702b1d8ca361b3be5c9d8dc2883c94
 ## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author Ozan Jaquette <ozanj@ucla.edu> 1586731678 -0700
-## committer Ozan Jaquette <ozanj@ucla.edu> 1586731678 -0700
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758316 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758316 -0700
 ## 
 ## initial commit
 ```
@@ -1985,11 +1969,11 @@ git cat-file -p $(git rev-parse HEAD)
 ```
 
 ```
-## efe359cd79ab94958b18f6cfa5958afc9e1121e4
+## 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
 ## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent 11e4f54acb8f0f5a67810c4f94fb8b455802a2b1
-## author Ozan Jaquette <ozanj@ucla.edu> 1586731680 -0700
-## committer Ozan Jaquette <ozanj@ucla.edu> 1586731680 -0700
+## parent 3e6b9db22f702b1d8ca361b3be5c9d8dc2883c94
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
 ## 
 ## second commit
 ```
@@ -2026,10 +2010,10 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ```
 ## |____objects
-## | |____06
-## | | |____82d2ebc667367ed240ec448621f1e04d71c34b
-## | |____11
-## | | |____e4f54acb8f0f5a67810c4f94fb8b455802a2b1
+## | |____08
+## | | |____ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
+## | |____3e
+## | | |____6b9db22f702b1d8ca361b3be5c9d8dc2883c94
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -2040,10 +2024,10 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
+## | |____92
+## | | |____f8e4ba58f0d260306d70863569502cefae11e3
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
-## | |____ef
-## | | |____e359cd79ab94958b18f6cfa5958afc9e1121e4
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -2059,10 +2043,10 @@ git cat-file -p $(git show-ref -s v1)  # retrieves hash for v1 tag
 ```
 
 ```
-## object efe359cd79ab94958b18f6cfa5958afc9e1121e4
+## object 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
 ## type commit
 ## tag v1
-## tagger Ozan Jaquette <ozanj@ucla.edu> 1586731681 -0700
+## tagger cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
 ## 
 ## version 1.0
 ```
@@ -2074,15 +2058,15 @@ git log
 ```
 
 ```
-## commit efe359cd79ab94958b18f6cfa5958afc9e1121e4
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:00 2020 -0700
+## commit 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:57 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 11e4f54acb8f0f5a67810c4f94fb8b455802a2b1
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:47:58 2020 -0700
+## commit 3e6b9db22f702b1d8ca361b3be5c9d8dc2883c94
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:56 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -2115,7 +2099,7 @@ cat .git/refs/heads/master
 ```
 
 ```
-## efe359cd79ab94958b18f6cfa5958afc9e1121e4
+## 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
 ```
 
 We can use `git log` to verify that this is the hash ID of the latest commit:
@@ -2127,15 +2111,15 @@ git log
 ```
 
 ```
-## commit efe359cd79ab94958b18f6cfa5958afc9e1121e4
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:00 2020 -0700
+## commit 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:57 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 11e4f54acb8f0f5a67810c4f94fb8b455802a2b1
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:47:58 2020 -0700
+## commit 3e6b9db22f702b1d8ca361b3be5c9d8dc2883c94
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:56 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -2150,7 +2134,7 @@ git init
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
 ```
 
 
@@ -2170,6 +2154,7 @@ git status
 ## 
 ## Untracked files:
 ##   (use "git add <file>..." to include in what will be committed)
+## 
 ## 	create_dataset.R
 ## 
 ## nothing added to commit but untracked files present (use "git add" to track)
@@ -2185,14 +2170,13 @@ git status
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## On branch master
 ## 
 ## No commits yet
 ## 
 ## Changes to be committed:
 ##   (use "git rm --cached <file>..." to unstage)
+## 
 ## 	new file:   create_dataset.R
 ```
 
@@ -2241,7 +2225,7 @@ git status
 ```
 
 ```
-## [master (root-commit) b0dd583] add create_dataset.R
+## [master (root-commit) 58c2a0b] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ## On branch master
@@ -2255,9 +2239,9 @@ git log
 ```
 
 ```
-## commit b0dd5836b1deaa362f0a14d9043ca0056bea142b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:04 2020 -0700
+## commit 58c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:57 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2271,7 +2255,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## b0dd5836b1deaa362f0a14d9043ca0056bea142b
+## 58c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
 ```
 
 
@@ -2287,7 +2271,8 @@ git status
 ## On branch master
 ## Changes not staged for commit:
 ##   (use "git add <file>..." to update what will be committed)
-##   (use "git restore <file>..." to discard changes in working directory)
+##   (use "git checkout -- <file>..." to discard changes in working directory)
+## 
 ## 	modified:   create_dataset.R
 ## 
 ## no changes added to commit (use "git add" and/or "git commit -a")
@@ -2300,8 +2285,6 @@ git diff
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## diff --git a/create_dataset.R b/create_dataset.R
 ## index c1cff38..490ec1c 100644
 ## --- a/create_dataset.R
@@ -2323,15 +2306,13 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## |____objects
 ## | |____49
 ## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
+## | |____58
+## | | |____c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
 ## | |____96
 ## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
-## | |____b0
-## | | |____dd5836b1deaa362f0a14d9043ca0056bea142b
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____info
@@ -2367,7 +2348,7 @@ git commit -m "modify create_dataset.R"
 ```
 
 ```
-## [master 4437736] modify create_dataset.R
+## [master 5c9206f] modify create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2378,15 +2359,15 @@ git log
 ```
 
 ```
-## commit 4437736cc2695d19aca7f80555f3d08543478cc1
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:07 2020 -0700
+## commit 5c9206f9170d298aef9e5f17d91ac79283fff6fb
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:57 2020 -0700
 ## 
 ##     modify create_dataset.R
 ## 
-## commit b0dd5836b1deaa362f0a14d9043ca0056bea142b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:04 2020 -0700
+## commit 58c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:57 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2400,7 +2381,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## 4437736cc2695d19aca7f80555f3d08543478cc1
+## 5c9206f9170d298aef9e5f17d91ac79283fff6fb
 ```
 
 
@@ -2411,9 +2392,9 @@ git cat-file -p $(git rev-parse HEAD)
 
 ```
 ## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
-## parent b0dd5836b1deaa362f0a14d9043ca0056bea142b
-## author Ozan Jaquette <ozanj@ucla.edu> 1586731687 -0700
-## committer Ozan Jaquette <ozanj@ucla.edu> 1586731687 -0700
+## parent 58c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
 ## 
 ## modify create_dataset.R
 ```
@@ -2845,10 +2826,8 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) 0365c74] add create_dataset.R
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## [master (root-commit) ce780b8] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2886,8 +2865,6 @@ git diff
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## diff --git a/create_dataset.R b/create_dataset.R
 ## index c1cff38..490ec1c 100644
 ## --- a/create_dataset.R
@@ -2909,7 +2886,6 @@ cat create_dataset.R
 ```
 
 ```
-## Updated 1 path from the index
 ## library(tidyverse)
 ## mpg %>% head(5)
 ```
@@ -2947,10 +2923,8 @@ git commit -m "add create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) db23be2] add create_dataset.R
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## [master (root-commit) ce780b8] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2968,11 +2942,10 @@ git status
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
 ## On branch master
 ## Changes to be committed:
-##   (use "git restore --staged <file>..." to unstage)
+##   (use "git reset HEAD <file>..." to unstage)
+## 
 ## 	modified:   create_dataset.R
 ```
 
@@ -2991,7 +2964,8 @@ git status
 ## On branch master
 ## Changes not staged for commit:
 ##   (use "git add <file>..." to update what will be committed)
-##   (use "git restore <file>..." to discard changes in working directory)
+##   (use "git checkout -- <file>..." to discard changes in working directory)
+## 
 ## 	modified:   create_dataset.R
 ## 
 ## no changes added to commit (use "git add" and/or "git commit -a")
@@ -3012,10 +2986,8 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) 7c44f4b] add 1st line to create_dataset.R
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## [master (root-commit) 10f3cf5] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3031,9 +3003,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master cf9d21e] add 2nd line to create_dataset.R
+## [master 57c3d41] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -3044,15 +3014,15 @@ git log
 ```
 
 ```
-## commit cf9d21e321b335b1bb882bd190d19d188bcc5a16
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:11 2020 -0700
+## commit 57c3d41f78b83aec7f512b115751a6e06ccf8db6
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:58 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 7c44f4b212473c039816417722db45e3536a57a4
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:11 2020 -0700
+## commit 10f3cf528199f6c4f83d9592c9b29b485fc1f063
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:58 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3069,9 +3039,9 @@ git log
 ```
 ## Unstaged changes after reset:
 ## M	create_dataset.R
-## commit 7c44f4b212473c039816417722db45e3536a57a4
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:11 2020 -0700
+## commit 10f3cf528199f6c4f83d9592c9b29b485fc1f063
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:58 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3116,10 +3086,8 @@ git commit -m "add 1st line to create_dataset.R"
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) 6161396] add 1st line to create_dataset.R
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
+## [master (root-commit) 10f3cf5] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3135,9 +3103,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master 486a14c] add 2nd line to create_dataset.R
+## [master 57c3d41] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -3148,15 +3114,15 @@ git log
 ```
 
 ```
-## commit 486a14c59a0fe85a5dedff49b0e2a5c1be6555f8
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:12 2020 -0700
+## commit 57c3d41f78b83aec7f512b115751a6e06ccf8db6
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:58 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 6161396f04d78141bd224dc851e6b4d5b09c3c85
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:12 2020 -0700
+## commit 10f3cf528199f6c4f83d9592c9b29b485fc1f063
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:58 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3171,26 +3137,25 @@ git log
 ```
 
 ```
-## [master 06d6ae6] Revert "add 2nd line to create_dataset.R"
-##  Date: Sun Apr 12 15:48:13 2020 -0700
+## [master 2cc1d75] Revert "add 2nd line to create_dataset.R"
 ##  1 file changed, 1 deletion(-)
-## commit 06d6ae67d894acab89edcd221363c7de3a0bd0e6
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:13 2020 -0700
+## commit 2cc1d75bb41eb6c5759b863455ce91745ff717f4
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:58 2020 -0700
 ## 
 ##     Revert "add 2nd line to create_dataset.R"
 ##     
-##     This reverts commit 486a14c59a0fe85a5dedff49b0e2a5c1be6555f8.
+##     This reverts commit 57c3d41f78b83aec7f512b115751a6e06ccf8db6.
 ## 
-## commit 486a14c59a0fe85a5dedff49b0e2a5c1be6555f8
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:12 2020 -0700
+## commit 57c3d41f78b83aec7f512b115751a6e06ccf8db6
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:58 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 6161396f04d78141bd224dc851e6b4d5b09c3c85
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:12 2020 -0700
+## commit 10f3cf528199f6c4f83d9592c9b29b485fc1f063
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:58 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3214,10 +3179,18 @@ What is a __branch__?
 - A branch is an "independent line of development" that "isolates your work from that of other team members" ([Using branches](https://backlog.com/git-tutorial/using-branches/) tutorial)
 - By default, a git repository "has one branch named __master__ which is considered to be the definitive branch. We use [other] branches to experiment and make edits before committing them to __master__" ([Hello World](https://guides.github.com/activities/hello-world/) tutorial)
 - "When you create a branch off the __master__ branch, you’re making a copy, or snapshot, of master as it was at that point in time"
+- A branch can be thought of as a "pointer to a single commit"
 
-[![](https://miro.medium.com/max/552/1*PiduCtSA7kMwdPiMZo1nHw.jpeg)](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f)
+[![](https://www.w3docs.com/uploads/media/default/0001/03/1e5d7590562b3b214008617211b2539ce2bddfaf.png)](https://www.w3docs.com/learn-git/git-branch.html)
 
-*Credit: [Mastering git branches](https://geeks.uniplaces.com/mastering-branches-in-git-f20cb2d0c51f) by Henrique Mota*
+*Credit: [W3 docs, Git branch](https://www.w3docs.com/learn-git/git-branch.html)*
+
+<br>
+Why use branches?
+
+- Branching is a means of working on different versions of files in a repository at one time
+- Typically, there is one main branch (usually **master**) that contains working or approved changes. All other development and testing is usually done on separate branches.
+- It is good practice to work on branches, then merge back to master at key points
 
 ## git branch
 
@@ -3248,7 +3221,7 @@ git branch
 ```
 
 ```
-## Initialized empty Git repository in C:/Users/ozanj/my_git_repo/.git/
+## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
 ```
 
 
@@ -3262,9 +3235,7 @@ git commit -m "import tidyverse in create_dataset.R"
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master (root-commit) b78d7dd] import tidyverse in create_dataset.R
+## [master (root-commit) 2608230] import tidyverse in create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3286,7 +3257,7 @@ git branch -v
 ```
 
 ```
-## * master b78d7dd import tidyverse in create_dataset.R
+## * master 2608230 import tidyverse in create_dataset.R
 ```
 
 
@@ -3356,7 +3327,7 @@ git branch -d dev
 ```
 
 ```
-## Deleted branch dev (was b78d7dd).
+## Deleted branch dev (was 2608230).
 ```
 
 
@@ -3497,9 +3468,9 @@ git log
 ```
 
 ```
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
+## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3515,9 +3486,9 @@ git log
 
 ```
 ## Switched to branch 'dev'
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
+## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3547,9 +3518,7 @@ git commit -m "manipulate mpg dataset"
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [dev b909c10] manipulate mpg dataset
+## [dev ff0f95d] manipulate mpg dataset
 ##  1 file changed, 2 insertions(+)
 ```
 
@@ -3560,15 +3529,15 @@ git log
 ```
 
 ```
-## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:19 2020 -0700
+## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
+## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3587,7 +3556,7 @@ git merge dev
 
 ```
 ## Switched to branch 'master'
-## Updating b78d7dd..b909c10
+## Updating 2608230..ff0f95d
 ## Fast-forward
 ##  create_dataset.R | 2 ++
 ##  1 file changed, 2 insertions(+)
@@ -3600,86 +3569,90 @@ git log
 ```
 
 ```
-## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:19 2020 -0700
+## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
+## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
 
-Let's examine the git objects associated w/ the commit [hash numbers will differ from below]
+<br>
+Let's examine the git object associated with the commit:
+
 
 ```bash
-cd ~/my_git_repo
+# Commit object hash
+git rev-parse HEAD # git rev-parse retrieves latest commit hash
 
-git cat-file -t 5e0f2c25845d22683465bea1cbd91304e06cfb25 # type = commit
-git cat-file -p 5e0f2c25845d22683465bea1cbd91304e06cfb25 # type = commit
-```
-Examine the "tree" object associated with the commit
-
-```bash
-cd ~/my_git_repo
-
-git cat-file -t 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = commit
-git cat-file -p 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = commit
-```
-
-Let's examine the "blob" object (file) associated with the commit
-
-```bash
-cd ~/my_git_repo
-
-git cat-file -t 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = commit
-git cat-file -p 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = commit
-```
-
-Let's examine the "parent" object associated with this commit
-
-- use `git log` again to get hash of most recent commit
-
-```bash
-cd ~/my_git_repo
-
-git log
+git cat-file -t $(git rev-parse HEAD) # type = commit
+git cat-file -p $(git rev-parse HEAD)
 ```
 
 ```
-## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:19 2020 -0700
+## ff0f95d50ae73c57a31ee5e413046681415b8b36
+## commit
+## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
+## parent 2608230a883747936bfdb9c7b819de298fcda19d
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758319 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758319 -0700
 ## 
-##     manipulate mpg dataset
-## 
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
-## 
-##     import tidyverse in create_dataset.R
+## manipulate mpg dataset
 ```
 
-- then print the object associated w/ the commit hash
+Examine the "tree" object associated with the commit:
+
 
 ```bash
-cd ~/my_git_repo
-
-git cat-file -p 5e0f2c25845d22683465bea1cbd91304e06cfb25
+git cat-file -t 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53 # type = tree
+git cat-file -p 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
 ```
 
-print object associated w/ "parent" commit
+```
+## tree
+## 100644 blob 490ec1c138021b8d5c196c26a2a7b3de69afc2d1	create_dataset.R
+```
+
+Examine the "blob" object (file) associated with the commit:
+
 
 ```bash
-cd ~/my_git_repo
-
-git cat-file -t c5bc307a3e5cfe3f971071ac5d296d0ab39e154d # type = commit
-git cat-file -p c5bc307a3e5cfe3f971071ac5d296d0ab39e154d
+git cat-file -t 490ec1c138021b8d5c196c26a2a7b3de69afc2d1 # type = blob
+git cat-file -p 490ec1c138021b8d5c196c26a2a7b3de69afc2d1
 ```
 
+```
+## blob
+## library(tidyverse)
+## mpg %>% head(5)
+## df <- mpg %>% filter(year == 2008)
+```
+
+Examine the "parent" object associated with this commit:
+
+
+```bash
+# Parent commit hash
+git rev-list HEAD | tail -n 1
+
+git cat-file -t $(git rev-list HEAD | tail -n 1) # type = commit
+git cat-file -p $(git rev-list HEAD | tail -n 1)
+```
+
+```
+## 2608230a883747936bfdb9c7b819de298fcda19d
+## commit
+## tree cb70185218351236255cdea1297210ceeaf6e3b5
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758319 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758319 -0700
+## 
+## import tidyverse in create_dataset.R
+```
 
 </details>
 
@@ -3695,39 +3668,31 @@ git log
 ```
 
 ```
-## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:19 2020 -0700
+## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
+## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
 
-Which branch are we currently on:
 
 ```bash
-# View commit log for `master` branch
 git branch
+
+# View content of R script on the `master` branch
+cat create_dataset.R
 ```
 
 ```
 ##   dev
 ## * master
-```
-
-View contents of R script
-
-```bash
-# View content of R script, which is the same on both `master` and `dev` branches
-cat create_dataset.R
-```
-
-```
+## 
 ## library(tidyverse)
 ## mpg %>% head(5)
 ## df <- mpg %>% filter(year == 2008)
@@ -3738,98 +3703,86 @@ Now, let's suppose the two branches diverge, both making changes to the R script
 
 
 ```bash
-# On the `master` branch, we created a new commit that modified the 2nd line of the R script
-git log
+# Modify R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(10)" >> create_dataset.R  # this line is modified
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+
+# Add and commit changes
+git add create_dataset.R
+git commit -m "update head() on line 2" 
 ```
 
 ```
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master 323fa8c] update head() on line 2
+## [master eca51ac] update head() on line 2
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
-## commit 323fa8cdc8b89fcde4975e1370dc7df96cbd5ad0
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:21 2020 -0700
-## 
-##     update head() on line 2
-## 
-## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:19 2020 -0700
-## 
-##     manipulate mpg dataset
-## 
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
-## 
-##     import tidyverse in create_dataset.R
 ```
 
-View updated content of R script on the `master` branch
+View updated content of R script on the `master` branch, which now shows `head(10)` instead of `head(5)`:
+
 
 ```bash
-# View updated content of R script on the `master` branch - now shows `head(10)` instead of `head(5)`
+git branch
+
+# View content of R script
 cat create_dataset.R
 ```
 
 ```
+##   dev
+## * master
+## 
 ## library(tidyverse)
 ## mpg %>% head(10)
 ## df <- mpg %>% filter(year == 2008)
 ```
 
-Switch to `dev` branch, and make change to file `create_dataset.R`
+<br>
+Switch to `dev` branch, and make change to file `create_dataset.R`:
+
 
 ```bash
 # Switch to `dev` branch
 git checkout dev
 
-# On the `dev` branch, we created a new commit that added a 4th line to the R script
-git log
+# Modify R script
+echo "df <- df %>% filter(manufacturer == 'audi')" >> create_dataset.R  # add new line
+
+# Add and commit changes
+git add create_dataset.R
+git commit -m "add additional filter() on line 4" 
 ```
 
 ```
 ## Switched to branch 'dev'
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [dev fa2e832] add additional filter() on line 4
+## [dev 314965c] add additional filter() on line 4
 ##  1 file changed, 1 insertion(+)
-## commit fa2e832096414e10b63c2876874a0bb6b57a1e67
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:21 2020 -0700
-## 
-##     add additional filter() on line 4
-## 
-## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:19 2020 -0700
-## 
-##     manipulate mpg dataset
-## 
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
-## 
-##     import tidyverse in create_dataset.R
 ```
+
+View updated content of R script on the `dev` branch, which now has additional `filter()` line at the end:
 
 
 ```bash
-# View updated content of R script on the `dev` branch - now has additional `filter()` line
+git branch
+
+# View content of R script 
 cat create_dataset.R
 ```
 
 ```
+## * dev
+##   master
+## 
 ## library(tidyverse)
 ## mpg %>% head(5)
 ## df <- mpg %>% filter(year == 2008)
 ## df <- df %>% filter(manufacturer == 'audi')
 ```
 
-Before we attempt to merge `master` and `dev` branch, can use `git diff` to compare two branches
+<br>
+Before we attempt to merge `master` and `dev` branches, we can use `git diff` to compare the two branches:
 
-- syntax: `git diff <branch1_name>..<branch2_name>`
+- Syntax: `git diff <branch1_name> <branch2_name>`
 
 
 ```bash
@@ -3879,34 +3832,34 @@ git log
 ```
 
 ```
-## commit 941cb45b1f4aab8265a3a25e0bcfbfd303c1c185
-## Merge: 323fa8c fa2e832
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:22 2020 -0700
+## commit 6728797761c8e12481d4a9f5eb838aad2b5f8d56
+## Merge: eca51ac 314965c
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:12:00 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit 323fa8cdc8b89fcde4975e1370dc7df96cbd5ad0
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:21 2020 -0700
-## 
-##     update head() on line 2
-## 
-## commit fa2e832096414e10b63c2876874a0bb6b57a1e67
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:21 2020 -0700
+## commit 314965c884e2fb922abe5becaa2fa1bdfaffbf4c
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:12:00 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:19 2020 -0700
+## commit eca51acd6b92fdd227f39285a4857f1780a01963
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
+## 
+##     update head() on line 2
+## 
+## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
+## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3926,30 +3879,27 @@ cat create_dataset.R
 
 </details>
 
-## Resolving merge conflicts
+## Merge conflicts
 
-Merge conflicts can occur during a 3-way merge when both branches made changes to the same line(s) of the same file(s). In the case of `create_dataset.R`, you will get an error message that looks like this:
+When attempting a `git merge`, conflict can arise **when starting** a merge or **during** the merge. (From [Git merge conflicts](https://www.atlassian.com/git/tutorials/using-branches/merge-conflicts))
+
+<br>
+**When starting** a merge, Git will first check if you have any changes in either the working directory or staging area. If so, Git will abort the merge completely and display an error message that looks like this:
 
 ```
-Auto-merging create_dataset.R
-CONFLICT (content): Merge conflict in create_dataset.R
+error: Your local changes to the following files would be overwritten by merge:
+	<file_name>
+Please commit your changes or stash them before you merge.
+Aborting
+```
+
+<br>
+**During** a 3-way merge when both branches made changes to the same line(s) of the same file(s), a conflict will occur. The error message would look like this:
+
+```
+Auto-merging <file_name>
+CONFLICT (content): Merge conflict in <file_name>
 Automatic merge failed; fix conflicts and then commit the result.
-```
-
-You can also tell which file(s) failed to merge by checking `git status`:
-
-```
-On branch master
-You have unmerged paths.
-  (fix conflicts and run "git commit")
-  (use "git merge --abort" to abort the merge)
-
-Unmerged paths:
-  (use "git add <file>..." to mark resolution)
-
-	both modified:   create_dataset.R
-
-no changes added to commit (use "git add" and/or "git commit -a")
 ```
 
 If you open the failed file, you will see that Git has marked the line(s) that were conflicting:
@@ -3968,16 +3918,10 @@ If you open the failed file, you will see that Git has marked the line(s) that w
 <normal_line_of_code>
 ```
 
-What to do when you encounter a **merge conflict**?
-
-- As introduced earlier, you can use `git merge --abort` to abort the merge and restore the branches back to their original states
-- Alternatively, you can manually edit the file(s) to resolve the conflicts
-  - Make sure to remove the markers that Git has added (i.e., `<<<<<<< HEAD`, `=======`, `>>>>>>> <branch_name>`) and choose which version of the conflicted line to keep
-  - `git add` the file(s) after you are done resolving the conflicts
-  - Commit your changes using `git commit -m "<commit_message>"` to complete the merge
+These conflicts will need to be resolved manually (described in next section), or the merge can be aborted using `git merge --abort`.
 
 <br>
-<details><summary>**Example**: Resolving a merge conflict</summary>
+<details><summary>**Example**: Merge conflict when starting a merge</summary>
 
 Continuing from previous examples, our `master` branch currently looks like this:
 
@@ -3988,45 +3932,50 @@ git log
 ```
 
 ```
-## commit 941cb45b1f4aab8265a3a25e0bcfbfd303c1c185
-## Merge: 323fa8c fa2e832
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:22 2020 -0700
+## commit 6728797761c8e12481d4a9f5eb838aad2b5f8d56
+## Merge: eca51ac 314965c
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:12:00 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit 323fa8cdc8b89fcde4975e1370dc7df96cbd5ad0
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:21 2020 -0700
-## 
-##     update head() on line 2
-## 
-## commit fa2e832096414e10b63c2876874a0bb6b57a1e67
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:21 2020 -0700
+## commit 314965c884e2fb922abe5becaa2fa1bdfaffbf4c
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:12:00 2020 -0700
 ## 
 ##     add additional filter() on line 4
 ## 
-## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:19 2020 -0700
+## commit eca51acd6b92fdd227f39285a4857f1780a01963
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
+## 
+##     update head() on line 2
+## 
+## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
+## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 12 23:11:59 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
 
 
 ```bash
+git branch
+
 # View content of R script
 cat create_dataset.R
 ```
 
 ```
+##   dev
+## * master
+## 
 ## library(tidyverse)
 ## mpg %>% head(10)
 ## df <- mpg %>% filter(year == 2008)
@@ -4041,61 +3990,38 @@ Let's create a new branch called `revision` that branches off `master`, then mak
 # Create and switch to new branch
 git checkout -b revision
 
-# On the `revision` branch, we created a new commit that modified the last line of the R script
-git log
+# Modify R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(10)" >> create_dataset.R
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+echo "df <- df %>% filter(manufacturer == 'lincoln')" >> create_dataset.R  # this line is modified
+
+# Add and commit change
+git add create_dataset.R
+git commit -m "filter for lincoln instead of audi"
 ```
 
 ```
 ## Switched to a new branch 'revision'
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [revision 033f54c] filter for lincoln instead of audi
+## [revision 2de3b89] filter for lincoln instead of audi
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
-## commit 033f54cbf45d5071e78d5c6f853e6d2c3ca8e924
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:24 2020 -0700
-## 
-##     filter for lincoln instead of audi
-## 
-## commit 941cb45b1f4aab8265a3a25e0bcfbfd303c1c185
-## Merge: 323fa8c fa2e832
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:22 2020 -0700
-## 
-##     Merge branch 'dev'
-## 
-## commit 323fa8cdc8b89fcde4975e1370dc7df96cbd5ad0
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:21 2020 -0700
-## 
-##     update head() on line 2
-## 
-## commit fa2e832096414e10b63c2876874a0bb6b57a1e67
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:21 2020 -0700
-## 
-##     add additional filter() on line 4
-## 
-## commit b909c10ea579b4ec5cab28c9dafbd798f45a488c
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:19 2020 -0700
-## 
-##     manipulate mpg dataset
-## 
-## commit b78d7dd2049442bf189f657c20a90bd6a2b13b9b
-## Author: Ozan Jaquette <ozanj@ucla.edu>
-## Date:   Sun Apr 12 15:48:14 2020 -0700
-## 
-##     import tidyverse in create_dataset.R
 ```
+
+View updated content of R script on the `revision` branch, which now filters for `lincoln` instead of `audi` on the last line:
 
 
 ```bash
-# View updated content of R script on the `revision` branch
+git branch
+
+# View content of R script
 cat create_dataset.R
 ```
 
 ```
+##   dev
+##   master
+## * revision
+## 
 ## library(tidyverse)
 ## mpg %>% head(10)
 ## df <- mpg %>% filter(year == 2008)
@@ -4110,24 +4036,79 @@ Back on the `master` branch, let's modify the same line in the R script:
 # Switch back to `master` branch
 git checkout master
 
-# On the `master` branch, we created a new commit that modified the last line of the R script
-#git log -n 3
+# Modify R script
+echo "library(tidyverse)" > create_dataset.R
+echo "mpg %>% head(10)" >> create_dataset.R
+echo "df <- mpg %>% filter(year == 2008)" >> create_dataset.R
+echo "df <- df %>% filter(manufacturer == 'chevrolet')" >> create_dataset.R  # this line is modified
 ```
 
 ```
 ## Switched to branch 'master'
-## warning: LF will be replaced by CRLF in create_dataset.R.
-## The file will have its original line endings in your working directory
-## [master 9b5ac32] filter for chevrolet instead of audi
+```
+
+<br>
+Notice that we have uncommitted changes in the working directory:
+
+
+```bash
+# Check status
+git status
+```
+
+```
+## On branch master
+## Changes not staged for commit:
+##   (use "git add <file>..." to update what will be committed)
+##   (use "git checkout -- <file>..." to discard changes in working directory)
+## 
+## 	modified:   create_dataset.R
+## 
+## no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+<br>
+If we try to merge changes from `revision` into `master` now, there will be a merge conflict because we have uncommited changes. The merge will be aborted:
+
+
+```bash
+# Merge changes from `revision` into `master`
+git merge revision
+```
+
+```
+## error: Your local changes to the following files would be overwritten by merge:
+##  create_dataset.R
+## Please commit your changes or stash them before you merge.
+## Aborting
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Merge conflict during a merge</summary>
+
+Continuing from the previous example, let's say we commited our change to `create_dataset.R` on the `master` branch:
+
+
+```bash
+# Add and commit change
+git add create_dataset.R
+git commit -m "filter for chevrolet instead of audi"
+```
+
+```
+## [master 6e8d570] filter for chevrolet instead of audi
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
+
+View updated content of R script on the `master` branch, which now filters for `chevrolet` instead of `audi` on the last line:
 
 
 ```bash
 git branch
-echo ""
 
-# View updated content of R script on the `master` branch
+# View content of R script
 cat create_dataset.R
 ```
 
@@ -4143,7 +4124,17 @@ cat create_dataset.R
 ```
 
 <br>
-If we try to merge changes from `revision` into `master` now, there will be a merge conflict:
+Recall that `create_dataset.R` on the `revision` branch looks like this:
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## df <- df %>% filter(manufacturer == 'lincoln')
+```
+
+<br>
+If we try to merge changes from `revision` into `master` now, there will be a merge conflict because both branches modified the same line of the same file:
 
 
 ```bash
@@ -4156,6 +4147,58 @@ git merge revision
 ## CONFLICT (content): Merge conflict in create_dataset.R
 ## Automatic merge failed; fix conflicts and then commit the result.
 ```
+
+<br>
+You can also tell which file(s) failed to merge by checking `git status`:
+
+```
+## On branch master
+## You have unmerged paths.
+##   (fix conflicts and run "git commit")
+##   (use "git merge --abort" to abort the merge)
+## 
+## Unmerged paths:
+##   (use "git add <file>..." to mark resolution)
+## 
+## both modified:   create_dataset.R
+## 
+## no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+<br>
+The file(s) that failed to merge will contain markings by Git that indicates which line(s) are conflicted:
+
+
+```bash
+# View content of R script
+cat create_dataset.R
+```
+
+```
+## library(tidyverse)
+## mpg %>% head(10)
+## df <- mpg %>% filter(year == 2008)
+## <<<<<<< HEAD
+## df <- df %>% filter(manufacturer == 'chevrolet')
+## =======
+## df <- df %>% filter(manufacturer == 'lincoln')
+## >>>>>>> revision
+```
+
+</details>
+
+## Resolving merge conflicts
+
+What to do when you encounter a **merge conflict**?
+
+- As introduced earlier, you can use `git merge --abort` to abort the merge and restore the branches back to their original states
+- Alternatively, you can manually edit the file(s) to resolve the conflicts
+  - Make sure to remove the markers that Git has added (i.e., `<<<<<<< HEAD`, `=======`, `>>>>>>> <branch_name>`) and choose which version of the conflicted line to keep
+  - `git add` the file(s) after you are done resolving the conflicts
+  - Commit your changes using `git commit -m "<commit_message>"` to complete the merge
+
+<br>
+<details><summary>**Example**: Resolving a merge conflict</summary>
 
 
 ```bash
