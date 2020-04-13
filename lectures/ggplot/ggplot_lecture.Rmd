@@ -384,12 +384,14 @@ aes(x, y, ...)
 
 ```{r}
 ggplot(data = diamonds, aes(x = carat, y = price))
+ggplot(data = diamonds, mapping = aes(x = carat, y = price))
 ```
 
 - Alternatively, we can use pipes with the dataframe we want to plot, which allows us to omit the first `data` argument of `ggplot()`:
 
 ```{r}
-diamonds %>% ggplot(aes(x = carat, y = price))
+class(diamonds)
+diamonds %>% ggplot(mapping = aes(x = carat, y = price))
 ```
 
 - We can also create a ggplot object and assign it to a variable for later use:
@@ -470,6 +472,7 @@ els %>% select(f3ern2011) %>% filter(f3ern2011<0) %>% count(f3ern2011) %>% as_fa
 
 - Create version of variables that replace values less than zero with `NA`:
 
+
 ```{r}
 els_v2 <- els %>% 
   mutate(
@@ -527,7 +530,7 @@ ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) +
 - Alternatively, the `color` aesthetic can be specified within `geom_point()`:
 
 ```{r}
-ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
   geom_point(mapping = aes(color = class))
 ```
   
@@ -732,6 +735,7 @@ ggplot(data = cut_count, aes(x = cut, y=n)) +
 
 ```{r}
 #diamonds %>% count(cut) %>% str()
+diamonds %>% count(cut) %>% str()
 diamonds %>% count(cut) %>% ggplot(aes(x= cut, y=n)) + 
   geom_col()
 ```
