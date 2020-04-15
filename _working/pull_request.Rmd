@@ -61,6 +61,9 @@ CREATE .gitignore
 ```{bash}
 cd ~/documents/learning_git/pull_request
 echo "*Rproj*" > .gitignore
+echo "*.Rhistory*" >> .gitignore
+
+cat .gitignore
 ```
 
 
@@ -140,26 +143,36 @@ git push --set-upstream repo_remote plot
 ```
 
 
-TO DELETE A BRANCH IN REMOTE REPOS
+AFTER PULL REQUEST IS APPROVED
 
-- `git push origin --delete <branch>`
- 
+- good practice to go to local master branch and pull changes because the remote master changed due to approving  pull request bit you must pull those changes from remote master to local master in order to have them be reflected on your local repo
 ```{bash}
-cd ~/documents/learning_git/git_branch
+cd ~/documents/learning_git/pull_request
 
-git branch -a
-
-git push origin --delete newbranch
-
-printf "\n\n"
-git branch -a # you can delete remote branch even if the remote branch has commits that haven't been merged to master
-```
-
-```{bash}
-cd ~/documents/learning_git/git_branch
-
+git branch
 git checkout master
-
-git branch -d newbranch # error: `newbranch` not fully merged
+git pull
 ```
 
+- once pull request is approved, usually a good idea to delete the branch. and you can do this on github or in bash
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+#delete local branch
+git branch -d plot
+
+#delete remote branch
+git push repo_remote --delete plot
+```
+
+CREATE NEW TASK: CREATE SECOND PLOT
+
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+git branch plot2
+git branch
+git checkout plot2
+```
+
+MODIFY R SCRIPT pull_request.R in Rstudio
