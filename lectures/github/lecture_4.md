@@ -81,7 +81,7 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) c6e43d4] import tidyverse library
+## [master (root-commit) 5c02e6c] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -104,7 +104,7 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev bdbe5c2] preview mpg dataset
+## [dev 4f3f4dc] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -121,7 +121,7 @@ git merge dev
 
 ```
 ## Switched to branch 'master'
-## Updating c6e43d4..bdbe5c2
+## Updating 5c02e6c..4f3f4dc
 ## Fast-forward
 ##  create_dataset.R | 1 +
 ##  1 file changed, 1 insertion(+)
@@ -208,7 +208,7 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) c6e43d4] import tidyverse library
+## [master (root-commit) 6de5ee6] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -231,7 +231,7 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev bdbe5c2] preview mpg dataset
+## [dev 7be23e8] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -336,6 +336,7 @@ TBD
 
 - [Organizing a project directory](https://edquant.github.io/edh7916/lessons/organizing.html#organizing-a-project-directory)
 - [Organizing a script](https://edquant.github.io/edh7916/lessons/organizing.html#organizing-a-script)
+- *Bonus: [Some notes on work flow (good habits)](https://edquant.github.io/edh7916/lessons/intro.html#some-notes-on-work-flow-good-habits)*
 
 Problem set expectations:
 
@@ -501,5 +502,85 @@ Next, write this dataframe to a file called `data_<your_last_name>.RDS` - make s
 Add/commit your data file and push to GitHub. Pull your team member's data file.
 
 </details>
+
+# JSON
+
+What is **JSON**?
+
+- **JavaScript Object Notation** (**JSON**) is a data file format, like CSV
+- JSON syntax is derived from JavaScript
+
+What does **JSON** data look like?
+
+- In JavaScript, there are data structures called **arrays** and **objects**
+  - **Arrays**: Contains elements separated by `,` and surrounded by square brackets (`[]`)
+    - Example: `["a", "b", "c"]`
+    - We can think of this as `R` vectors, except the elements do not have to be the same type
+  - **Objects**: Contains key-value pairs separated by `,` and surrounded by curly brackets (`{}`)
+    - Example: `{"a": "alfa", "b": "bravo", "c": "charlie"}`
+    - We can think of this as `R` lists
+- Each element can be a string or numeric type
+  - String elements must be surrounded by **double quotes**
+- There can be nested "arrays" and/or "objects" in the JSON data
+
+<br>
+**Example**: Simple JSON data
+
+- In this particular example, the data can easily be converted to an R dataframe
+  - Each row is a state
+  - The columns are `state_name` and `median_household_income`
+
+```
+[
+  {
+    "state_name": "Alaska",
+    "median_household_income": 72515
+  },
+  {
+    "state_name": "California",
+    "median_household_income": 61818
+  },
+  {
+    "state_name": "New York",
+    "median_household_income": 59269
+  }
+]
+```
+
+<br>
+**Example**: Nested JSON data
+
+```
+{
+   "status" : "OK",
+   "plus_code" : {
+      "compound_code" : "P27Q+MC New York, NY, USA",
+      "global_code" : "87G8P27Q+MC"
+   },
+   "results" : [
+      {
+         "formatted_address" : "279 Bedford Ave, Brooklyn, NY 11211, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 40.7142484,
+               "lng" : -73.9614103
+            }
+         },
+         "types" : [
+            "bakery",
+            "cafe",
+            "establishment",
+            "food",
+            "point_of_interest",
+            "store"
+         ]
+      }
+   ]
+}
+```
+
+*Source: [Geocoding API](https://developers.google.com/maps/documentation/geocoding/start)*
+
+  
 
 
