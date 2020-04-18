@@ -52,6 +52,8 @@ Resources used to create this lecture:
 
 ## What are APIs and why do we use them  
 
+[API video](https://www.youtube.com/watch?v=s7wmiS2mSXY), from MuleSoft
+
 What is an __API__? (from [wikipedia](https://en.wikipedia.org/wiki/Application_programming_interface))
 
 > "An application programming interface (API) is a computing interface to a software component or a system, that defines how other components or systems can use it. It defines the kinds of calls or requests that can be made, how to make them, the data formats that should be used, the conventions to follow, etc. "  
@@ -102,7 +104,8 @@ Valid requests need the following four things:
 3. List of Headers  
 4. Body
 
-[![](https://images.zapier.com/storage/photos/4717d012f26dc6a4928e0d025102af7f.png)](https://zapier.com/learn/apis/chapter-2-protocols/)  
+    [![](https://images.zapier.com/storage/photos/4717d012f26dc6a4928e0d025102af7f.png){ width=65% height=300px}](https://zapier.com/learn/apis/chapter-2-protocols/)  
+
 
 *Credit: Brian Cooksey ([An introduction to APIs: Chapter 2](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/))*
 
@@ -128,9 +131,9 @@ Four of the most common methods used for APIs are:
 - __DELETE__ - asks the server to delete a resource  
 
 
-  [![](https://cdn.crownmediadev.com/dims4/default/4b791e8/2147483647/thumbnail/726x410%3E/quality/80/?url=https%3A%2F%2Fcdn.crownmediadev.com%2F0f%2Fab%2Fece022c74e789172156423551256%2Fhome-family-blueberry-pancakes.jpg){ width=60% }](https://www.hallmarkchannel.com/home-and-family/recipes/blueberry-pancakes)  
+    [![](https://cdn.crownmediadev.com/dims4/default/4b791e8/2147483647/thumbnail/726x410%3E/quality/80/?url=https%3A%2F%2Fcdn.crownmediadev.com%2F0f%2Fab%2Fece022c74e789172156423551256%2Fhome-family-blueberry-pancakes.jpg){ width=50% height=200px }](https://www.hallmarkchannel.com/home-and-family/recipes/blueberry-pancakes) 
 
-*Credit: Cristina Ferrare ([Blueberry pancakes](https://www.hallmarkchannel.com/home-and-family/recipes/blueberry-pancakes))*
+*Credit: Cristina Ferrare ([Blueberry pancakes](https://www.hallmarkchannel.com/home-and-family/recipes/blueberry-pancakes))* 
 
 - You make a __POST__ request by telling your waiter (API) you want to order blueberry pancakes.  
 - After you have made your order, you realize that you are also craving something savory like roasted breakfast potatoes. You make a __PUT__ request by asking your waiter to update your order and communicate those changes to the kitchen (server).  
@@ -139,21 +142,42 @@ Four of the most common methods used for APIs are:
 
 ### List of Headers  
 
-[__Headers__](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) let the client and server provide meta-information about an HTTP request. An HTTP header has a case-sensitive name followed by a colon `:` and its value. To view HTTP headers on [Google Chrome](https://mkyong.com/computer-tips/how-to-view-http-headers-in-google-chrome/) you could:  
-
-![](http_headers.png){ width=60%}
+[__Headers__](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) let the client and server provide additional information about an HTTP request. An HTTP header has a case-sensitive name followed by a colon `:` and its value. To view HTTP headers on [Google Chrome](https://mkyong.com/computer-tips/how-to-view-http-headers-in-google-chrome/) you could:  
 
 1. `right click` on the page  
 2. select `Inspect`  
-3. refresh the page and on the left panel select any HTTP request and you can view the HTTP headers on the right panel  
+3. refresh the page and on the left panel select any HTTP request and you can view the HTTP headers on the right panel
 
+    ![](http_headers.png){ width=70% height=300px}  
+
+There are four kinds of HTTP messages: [headers](https://www.tutorialspoint.com/http/http_header_fields.htm):  
+
+- __General Header__: These headers generally apply to both request and response messages.  
+- __Client Request Header__: These headers only apply to request messages.  
+- __Server Response Header__: These headers only apply to response messages.  
+- __Entity Header__: These headers provide additional information about the entity-body or, if no body is present, about the resource identified by the request.  
+
+
+In the image above we can see our class website has two kinds of HTTP messages-- General and Response. In General header provides general information about the website (e.g. Request URL, Remote Address, etc.). The Response header includes information about response messages such as the content-type, content-encoding, and date. 
 
 ### Body  
 
-The [body](https://zapier.com/learn/apis/chapter-2-protocols/) of an HTTP request contains data the client wants to send to the server and data the server sends back to the client. In our blueberry pancake example, the data would be our order. Not all HTTP requests have a body. Unlike other components of the HTTP protocol (e.g. URL, headers, etc.), the client has a lot of control over this part of the request (aka ordering food at a restaurant).
+The message [body](https://zapier.com/learn/apis/chapter-2-protocols/) of an HTTP request contains data the client wants to send to the server and data the server sends back to the client. In our blueberry pancake example, the data would be our order. Unlike other components of the HTTP protocol (e.g. URL, headers, etc.), the client has more control over this part of the request (aka ordering food at a restaurant). Not all HTTP requests have a message body. If the message body is available for the HTTP request, then it is used to carry the entity-body associated with the request. The entity-body is simply the content (data) of the request (from [w3.org](https://www.w3.org/Protocols/HTTP/1.1/rfc2616bis/draft-lafon-rfc2616bis-03.html#entity.body)). The Content-Type, Content-Length, and Transfer-Encoding headers signal whether a message body can be made with the HTTP request (from [w3.org](https://www.w3.org/Protocols/HTTP/1.1/rfc2616bis/draft-lafon-rfc2616bis-03.html#message.body))   
 
+The response message body will depend on two things- the request method and the status code. 
+
+[![](https://mdn.mozillademos.org/files/13821/HTTP_Request_Headers2.png)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)  
+    
+*Credit: MDN contributors ([HTTP messages)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)*
+
+- The image above shows three types of headers-- General, Request, and Entity headers.  
+
+    - The light blue section containing __Content-Type__ and __Content-Length__ signal to us that we can include a message body if we choose to.  
+ 
+- An example HTTP request and response.  
 
 [![](https://mdn.mozillademos.org/files/13827/HTTPMsgStructure2.png)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)  
+    
 *Credit: MDN contributors ([HTTP messages)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)*
 
 ## HTTP Responses  
@@ -181,10 +205,56 @@ A common status code we have encountered is 404, which means "Not Found". Other 
 - 502: Bad Gateway  
 - 200: Success
 
-[![](https://images.zapier.com/storage/photos/df8b6d09ab35aac47c1fb7b020a42d61.png)](https://zapier.com/learn/apis/chapter-2-protocols/)  
+    [![](https://images.zapier.com/storage/photos/df8b6d09ab35aac47c1fb7b020a42d61.png){ width=70% }](https://zapier.com/learn/apis/chapter-2-protocols/)  
+
 
 # Authentication: API keys  
+ 
+Three of the most common forms of API authentication are:  
+
+- HTTP Basic Authentication  
+- API Keys  
+- OAuth  
+
+Authentication vs. Authorization (from Nordic APIs [blog](https://nordicapis.com/3-common-methods-api-authentication-explained/))  
+
+- Prior to a discussion on different methods of API authentication, it is important to distinguish the terms __authentication__ and __authorization__-- which tend to be used interchangeably.  
+    - __Authentication__: an entity proves an identity (e.g. Bruin card to prove you are a UCLA student)   
+    - __Authorization__: an entity proves a right to access (e.g. a ticket lets you in to a football game)  
+    - __Authentication & Authorization__: an entity proves an identity and proves right to access (e.g. Bruin card to prove you are a UCLA student and can use the gym)
+    
+
+## HTTP Basic Authentication  
+
+Basic authentication (from Brian Cookey, [An Introduction to APIs](https://zapier.com/learn/apis/chapter-4-authentication-part-1/))  
+
+>"Basic Auth only requires a username and password. The client takes these two credentials, smooshes them together to form a single value, and passes that along in the request in an HTTP header called Authorization."  
+
+- The server will receive the request and compare the credentials in the request (Authorization header) with credentials it has stored. If the credentials match, the server will return status code (200), otherwise it will return status code (401) (authentication failed and the request has been denied). 
+
+[![](https://dotnetthoughts.net/assets/images/2013/11/basic_auth.png)](https://dotnetthoughts.net/basic-http-authentication-in-asp-net-web-api/)  
+
+*Credit: Anuraj ([Basic HTTP authentication](https://dotnetthoughts.net/basic-http-authentication-in-asp-net-web-api/))*
+
+weakness of this approach
+
+## API Keys  
+
+What they are  
+Example  
+weaknesses of this approach 
+
+## OAuth  
+
+What it is  
+Example  
+
+
+
+
+
 # Using APIs to request data  
+## JSON 
 ## Practical example
 
 
