@@ -25,9 +25,9 @@ What is a **pull request**?
 
 > "Pull requests let you tell others about changes you've pushed to a branch in a repository on GitHub. Once a pull request is opened, you can discuss and review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch." -- [GitHub Help](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)
 
-- As mentioned in the [branching](#9_branching) section, there is typically one base branch (usually _master_) that contains all working or approved changes
+- As mentioned in the [branching](#9_branching) section, there is typically one base branch (usually master) that contains all working or approved changes
 - Any development or testing is usually done on separate branches, then merged back into master once changes are finalized
-- Pull requests are essentially requests to have one branch (e.g., _development_ branch) merged into another (e.g., _master_ branch)
+- Pull requests are essentially requests to have one branch (e.g., development branch) merged into another (e.g., master branch)
 - Pull requests are opened on GitHub
 
 <br>
@@ -42,7 +42,7 @@ Why make a **pull request**?
 Types of **pull requests** ([Pull Request Tutorial](https://yangsu.github.io/pull-request-tutorial/))
 
 - Pull request from a forked repository
-  - People who don't have write permission to a repository can still contribute to the repository using this method
+  - People who don't have write permission to a repository can still contribute to it using this method
   - Process:
     - Fork the repository (i.e., create a copy under one's own account so they have write permission)
     - Make changes to the forked repository
@@ -52,13 +52,13 @@ Types of **pull requests** ([Pull Request Tutorial](https://yangsu.github.io/pul
     - But this means someone still has to implement the change
     - If the requester is able to make the change themselves, doing so and creating a pull request is a faster way to get the change incorporated
 - Pull request from a branch within a repository
-  - Collaborators working on the same repository can use pull requests as a way to let each other know about changes they made that they want incorporated to the main branch (typically _master_)
+  - Collaborators working on the same repository can use pull requests as a way to let each other know about changes they made that they want incorporated to the main branch (typically master)
   - Process:
-    - Create a new local branch off _master_ to make changes to
+    - Create a new local branch off master to make changes to
     - Push the branch to the remote repository
-    - Open a pull request on GitHub to have their branch merged to _master_
+    - Open a pull request on GitHub to have their branch merged to master
   - Alternative to pull request:
-    - Merge your changes on the local branch directly into local _master_, then push to remote (see below for example)
+    - Merge your changes on the local branch directly into local master, then push to remote (see below for example)
     - This bypasses the review and approval process that a pull request offers
   
 We will be focusing on the second type of pull request.
@@ -66,7 +66,7 @@ We will be focusing on the second type of pull request.
 <br>
 <details><summary>**Example**: Alternative to pull request: Merging changes directly into master</summary>
 
-Let's say we created a new R script and added/committed that to the _master_ branch:
+Let's say we create a new R script and add/commit that to the master branch:
 
 
 
@@ -81,12 +81,12 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) 5c02e6c] import tidyverse library
+## [master (root-commit) 3a2c074] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
 
-Then, we created a new branch and made further changes to the R script on the branch:
+Then, we create a new branch and make further changes to the R script on the branch:
 
 
 ```bash
@@ -104,11 +104,11 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev 4f3f4dc] preview mpg dataset
+## [dev 18c53d0] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
-At this point, we can push this new branch to the remote if we wanted to open a pull request. But the alternative is to directly merge the changes to _master_:
+At this point, we can push this new branch to the remote if we wanted to open a pull request. But the alternative is to directly merge the changes to master:
 
 
 ```bash
@@ -121,13 +121,13 @@ git merge dev
 
 ```
 ## Switched to branch 'master'
-## Updating 5c02e6c..4f3f4dc
+## Updating 3a2c074..18c53d0
 ## Fast-forward
 ##  create_dataset.R | 1 +
 ##  1 file changed, 1 insertion(+)
 ```
 
-Then, we can push the changes to the remote's _master_ branch, which would also be the ultimate goal of a pull request:
+Then, we can push the changes to the remote's master branch, which would also be the ultimate goal of a pull request:
 
 
 ```bash
@@ -146,8 +146,8 @@ git push
 **Creating a topical branch**:
 
 - Create a new local branch and make your changes to it
-- After you are done making changes, make sure to merge in any changes from _master_ that your branch doesn't have
-  - This makes it easier later down the road when you are merging your branch back into _master_ after the pull request is complete
+- After you are done, it is good practice to merge in any changes from master that your branch doesn't have
+  - This makes it easier later down the road when you are merging your branch back into master after the pull request is complete
 - Push your branch to the remote repository
 
 <br>
@@ -165,7 +165,7 @@ git push
 
   [![](https://help.github.com/assets/images/help/pull_requests/pullrequest-send.png){width=300px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
 
-- Your pull request will appear under the tab `Pull request`:
+- Your pull request will appear under the tab `Pull requests`:
 
   [![](https://help.github.com/assets/images/help/repository/repo-tabs-pull-requests.png)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/requesting-a-pull-request-review)
 
@@ -179,7 +179,7 @@ git push
 - **Reviewers** should be someone who you want to review the changes you made, while **Assignees** could be anyone else more generally involved in the pull request
   - Reviewers will get a notification that their review is requested
   - Whether or not the reviewer actually completes a reviews does not affect the ability to merge pull request
-  - If someone who is not assigned as reviewer reviews the changes (i.e., does one of three actions described in next section), they will be added to the reviewers list
+  - If someone who is not assigned as reviewer reviews the changes (i.e., does one of three actions described in the next section), they will be added to the reviewers list
 - The users listed under **Reviewers** (unlike **Assignees**) will also have a status icon:
 
   [![](https://help.github.com/assets/images/help/pull_requests/request-re-review.png)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/requesting-a-pull-request-review)
@@ -193,7 +193,7 @@ git push
 <br>
 <details><summary>**Example**: Creating a pull request</summary>
 
-Similar to the previous example, let's say we created a new R script and added/committed that to the _master_ branch:
+Similar to the previous example, let's say we create a new R script and added/committed that to the master branch:
 
 
 
@@ -208,12 +208,12 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) 6de5ee6] import tidyverse library
+## [master (root-commit) 3a2c074] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
 
-Then, we created a new branch and made further changes to the R script on the branch:
+Then, we create a new branch and make further changes to the R script on the branch:
 
 
 ```bash
@@ -231,7 +231,7 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev 7be23e8] preview mpg dataset
+## [dev 18c53d0] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -250,7 +250,7 @@ All the subsequent steps to open the pull request will be performed on GitHub.
 
 ## Responding to a pull request
 
-There are two ultimate response to a pull request.
+There are two ultimate responses to a pull request.
 
 - **Merging** pull request:
 
@@ -297,7 +297,7 @@ There, you will also see a button called `Review changes` that contains three op
 
   [![](https://help.github.com/assets/images/help/pull_requests/merge_box/pr-reviews-in-merge-box.png){width=500px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-reviews)
   
-- To address the request for changes from each reviewer, there are three options:
+- To respond to the change request from each reviewer, there are three options:
 
   [![](https://help.github.com/assets/images/help/pull_requests/merge_box/pull-request-dismiss-review.png){width=500px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/dismissing-a-pull-request-review)
   
@@ -342,9 +342,9 @@ Problem set expectations:
 
 - Each team will create one repository to share
   - Rotate who will be creating the repository each week
-- All work must be done on a separate branch other than _master_
-- You must push your branch to remote and have your work merged to _master_ via a pull request
-- Your work will now all be completed in an `.R` script (rather than an `.Rmd` file)
+- All work must be done on a separate branch other than master
+- You must push your branch to the remote and have your work merged to master via a pull request
+- All your work will be completed in an `.R` script (rather than an `.Rmd` file)
 
 <br>
 <details><summary>**Student Task**: Creating a team GitHub repository</summary>
@@ -364,6 +364,8 @@ Problem set expectations:
   - Add/commit the file and push to GitHub
 - All other team members will pull this change
   
+<!--
+  
 **Part 3: Add lecture file**
 
 - Have a third member of your team add the lecture file
@@ -371,6 +373,8 @@ Problem set expectations:
   - Inside `lecture`, save the latest version of the Github lecture Rmd [here](https://raw.githubusercontent.com/Rucla-ed/rclass2/master/lectures/github/github_lecture.Rmd)
   - Add/commit the file and push to GitHub
 - All other team members will pull this change
+
+-->
 
 </details>
 
@@ -414,11 +418,11 @@ Why use **RStudio project**?
   - Your file browser window (bottom right panel) will also start off in the project directory
 
 <br>
-<details><summary>**Student Task**: </summary>
+<details><summary>**Student Task**: Creating an RStudio project</summary>
 
 Create an RStudio project for your `<team_name>_ps4` directory.
 
-Notice that the working directory in both your R Console and Terminal is set to your project directory.
+Notice that the working directory in both your R Console and Terminal will be set to your project directory.
 
 </details>
 
@@ -499,7 +503,7 @@ Using your `data_dir` saved from the previous exercise, load the recruiting data
 
 Next, write this dataframe to a file called `data_<your_last_name>.RDS` - make sure this file is saved inside `data_dir`.
 
-Add/commit your data file and push to GitHub. Pull your team member's data file.
+Add/commit your data file and push to GitHub. Pull your team members' data files.
 
 </details>
 
