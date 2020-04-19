@@ -81,7 +81,7 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) 3a2c074] import tidyverse library
+## [master (root-commit) d562739] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -104,7 +104,7 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev 18c53d0] preview mpg dataset
+## [dev d8a0248] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -121,7 +121,7 @@ git merge dev
 
 ```
 ## Switched to branch 'master'
-## Updating 3a2c074..18c53d0
+## Updating d562739..d8a0248
 ## Fast-forward
 ##  create_dataset.R | 1 +
 ##  1 file changed, 1 insertion(+)
@@ -208,7 +208,7 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) 3a2c074] import tidyverse library
+## [master (root-commit) d734529] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -231,7 +231,7 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev 18c53d0] preview mpg dataset
+## [dev 32c6f84] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -336,47 +336,8 @@ TBD
 
 - [Organizing a project directory](https://edquant.github.io/edh7916/lessons/organizing.html#organizing-a-project-directory)
 - [Organizing a script](https://edquant.github.io/edh7916/lessons/organizing.html#organizing-a-script)
-- *Bonus: [Some notes on work flow (good habits)](https://edquant.github.io/edh7916/lessons/intro.html#some-notes-on-work-flow-good-habits)*
 
-Problem set expectations:
-
-- Each team will create one repository to share
-  - Rotate who will be creating the repository each week
-- All work must be done on a separate branch other than master
-- You must push your branch to the remote and have your work merged to master via a pull request
-- All your work will be completed in an `.R` script (rather than an `.Rmd` file)
-
-<br>
-<details><summary>**Student Task**: Creating a team GitHub repository</summary>
-
-**Part 1: Create the repository**
-
-- Have one member of your team create a private repository [here](https://github.com/organizations/Rucla-ed/repositories/new)
-  - Name it `<team_name>_ps4`
-  - You will use it for this week's problem set
-- All team members will clone this repository to their local machines
-
-**Part 2: Add data file**
-
-- Have a second member of your team add the data file
-  - Create a sub-directory in the repository called `data`
-  - Inside `data`, save the recruiting dataset from [here](https://github.com/Rucla-ed/rclass2/raw/master/_data/recruiting/recruit_school_somevars.RDS)
-  - Add/commit the file and push to GitHub
-- All other team members will pull this change
-  
-<!--
-  
-**Part 3: Add lecture file**
-
-- Have a third member of your team add the lecture file
-  - Create a sub-directory in the repository called `lecture`
-  - Inside `lecture`, save the latest version of the Github lecture Rmd [here](https://raw.githubusercontent.com/Rucla-ed/rclass2/master/lectures/github/github_lecture.Rmd)
-  - Add/commit the file and push to GitHub
-- All other team members will pull this change
-
--->
-
-</details>
+See [Problem set expectations](https://github.com/Rucla-ed/rclass2/tree/master/_resources/problemset/ps_expectations.md)
 
 ## Current working directory
 
@@ -417,14 +378,6 @@ Why use **RStudio project**?
   - Your Terminal in RStudio will start in the project directory
   - Your file browser window (bottom right panel) will also start off in the project directory
 
-<br>
-<details><summary>**Student Task**: Creating an RStudio project</summary>
-
-Create an RStudio project for your `<team_name>_ps4` directory.
-
-Notice that the working directory in both your R Console and Terminal will be set to your project directory.
-
-</details>
 
 ## File paths
 
@@ -448,24 +401,123 @@ file.path(..., fsep = .Platform$file.sep)
 - You can also save this file path object in a variable
   - Example: `lec_dir <- file.path('.', 'lectures', 'week_1')`
 
-<!--
-
-- `dir.create()`: `mkdir`
-- `file.create()`: `touch`
-- `list.files()`: `ls`
-
-data_dir <- file.path('.', '_data', 'recruiting')
-saveRDS(df_school, file.path(data_dir, 'recruit_school_somevars.RDS'))
-df <- readRDS(file.path(data_dir, 'recruit_school_somevars.RDS'))
--->
 
 <br>
-<details><summary>**Student Task**: Saving path in an object</summary>
+<details><summary>**Example**: Working with file paths</summary>
 
-In your R console, create a variable called `data_dir` that stores the path to your `data` folder. Remember that the R console for an RStudio project uses the project directory as the working directory, so write `data_dir` as a path relative to that.
+Let's first create some folders and files on the command line:
+
+
+```bash
+# Change to root directory
+cd ~
+
+# Create new directory called `my_directory` and change into it
+mkdir my_directory
+cd my_directory
+
+# Create a directory called `notes` with a `week_1` sub-directory
+mkdir notes/
+mkdir notes/week_1
+
+# Create new files in the sub-directories
+echo "This is my first set of notes." > notes/week_1/note_1.txt
+echo "This is my second set of notes." > notes/week_1/note_2.txt
+```
+
+<br>
+Now, in R:
+
+
+```r
+# Create a file path object to store the `my_directory` directory
+proj_dir <- file.path('~', 'my_directory')
+proj_dir
+```
+
+```
+## [1] "~/my_directory"
+```
+
+```r
+# We can also use the file path object to create another file path
+note_dir <- file.path(proj_dir, 'notes', 'week_1')
+note_dir
+```
+
+```
+## [1] "~/my_directory/notes/week_1"
+```
+
+```r
+# Print out contents of the 2 notes
+cat(readLines(file.path(note_dir, 'note_1.txt')),
+    readLines(file.path(note_dir, 'note_2.txt')), sep='\n')
+```
+
+```
+## This is my first set of notes.
+## This is my second set of notes.
+```
+
+<br>
+Back on the command line, let's move the note files:
+
+
+```bash
+# Move note files into the `notes` directory rather than the sub-directory
+mv notes/week_1/*.txt notes/
+rm -rf notes/week_1
+
+ls notes/
+```
+
+```
+## note_1.txt
+## note_2.txt
+```
+
+<br>
+Back in R:
+
+
+```r
+# Notice these lines from above will no longer run since the files have moved
+cat(readLines(file.path(note_dir, 'note_1.txt')),
+    readLines(file.path(note_dir, 'note_2.txt')), sep='\n')
+```
+
+```
+## Error in file(con, "r") : cannot open the connection
+## In addition: Warning message:
+## In file(con, "r") :
+##   cannot open file '~/notes/week_1/note_1.txt': No such file or directory
+```
+
+
+```r
+# But since we saved the file path in `note_dir` instead of writing it out manually for each note,
+# we just need to change it in one place here:
+note_dir <- file.path(proj_dir, 'notes')
+note_dir
+```
+
+```
+## [1] "~/my_directory/notes"
+```
+
+```r
+# And then both these lines will run again
+cat(readLines(file.path(note_dir, 'note_1.txt')),
+    readLines(file.path(note_dir, 'note_2.txt')), sep='\n')
+```
+
+```
+## This is my first set of notes.
+## This is my second set of notes.
+```
 
 </details>
-
 <br>
 
 ## Saving and reading data
@@ -496,16 +548,47 @@ readRDS(file, refhook = NULL)
   - Example: `my_df <- readRDS(file.path(files_dir, 'my_data.RDS'))`
     - This loads the R object stored in `my_data.RDS` (which is located inside the `files_dir`) and saves it in a variable called `my_df`
 
-<br>
-<details><summary>**Student Task**: Reading and saving data</summary>
 
-Using your `data_dir` saved from the previous exercise, load the recruiting dataset and save it to a variable called `df_school`.
+## Student Exercise
 
-Next, write this dataframe to a file called `data_<your_last_name>.RDS` - make sure this file is saved inside `data_dir`.
+**Part 1: Create the repository**
 
-Add/commit your data file and push to GitHub. Pull your team members' data files.
+- Have one member of your team create a private repository [here](https://github.com/organizations/Rucla-ed/repositories/new)
+  - Name it `<team_name>_practice`
+  - Add a `.gitignore` file and choose `R` from the dropdown menu
+  - Invite the other members as collaborators under `Settings` > `Manage access` > `Invite teams or people`
+- All team members will clone this repository to their local machines
 
-</details>
+**Part 2: Create RStudio project**
+
+- Create an RStudio project for your `<team_name>_practice` directory
+  - Notice that the working directory in both your R Console and Terminal will be set to your project directory
+- If you check `git status`, you will see that an `.Rproj` file has been generated for your project
+- The `.Rproj` file contains your project settings and it is recommended that this file be tracked by Git so all collaborators share the same settings
+- Have a second member of your team add/commit the `.Rproj` file and push to GitHub
+- All other team members will pull this change
+
+**Part 3: Add data file**
+
+- Have the third member of your team add the data file
+  - Create a sub-directory in the repository called `data`
+  - Inside `data`, save the recruiting dataset from [here](https://github.com/Rucla-ed/rclass2/raw/master/_data/recruiting/recruit_school_somevars.RDS)
+  - Add/commit the file and push to GitHub
+- All other team members will pull this change
+
+**Part 4: Practice with file paths and reading/saving data**
+
+- Create an R script in the project directory called `<last_name>_script.R`
+- In your script, create a variable called `data_dir` that stores the path to the `data` folder  
+  - Remember that the working directory for an RStudio project is your project directory, so make sure to write `data_dir` as a path relative to that
+- Using `data_dir` and `readRDS()`, load in the recruiting dataset and save it to a variable called `df_school`
+- Perform any data manipulations you'd like to this dataset, then use `saveRDS()` to save your dataframe to a file called `data_<your_last_name>.RDS` that is located inside `data_dir`
+
+**Part 5: Collaborative setting**
+
+- Add/commit your data file and R script and push to GitHub
+- Pull your team members' changes
+- Try running your team members' R scripts. Because the file path used in the scripts is relative to the common project repository - you can run them without any problem!
 
 # JSON
 
@@ -585,6 +668,20 @@ What does **JSON** data look like?
 
 *Source: [Geocoding API](https://developers.google.com/maps/documentation/geocoding/start)*
 
+
+# Appendix
+
+## .gitignore
+
+What is a `.gitignore` file?
+
+- It is a special file that tells Git what files in the repository to ignore, or not track
+- These files will no longer be listed under `Untracked files` when you check `git status`
+- More on `.gitignore` in the coming weeks, but for now, you can click `Add .gitignore` when you are creating a new repository on GitHub and select `R` from the dropdown menu:
+
+  ![](../../assets/images/gitignore.png)
   
+*Credit: [How to Make Git Forget Tracked Files Now In gitignore](https://ardalis.com/how-to-make-git-forget-tracked-files-in-gitignore)*
+
 
 
