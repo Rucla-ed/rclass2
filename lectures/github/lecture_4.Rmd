@@ -630,6 +630,10 @@ What is a `.gitignore` file?
   
 *Credit: [How to Make Git Forget Tracked Files Now In gitignore](https://ardalis.com/how-to-make-git-forget-tracked-files-in-gitignore)*
 
+## Referencing issues and pull requests in commit message
+
+- You can reference an issue or pull request by including a hashtag and the issue/pull request number in the commit message: `#<issue/pr_number>`
+- These commits will appear on the issue/pull request page
 
 ```{bash, echo=FALSE}
 cd ~  # change to root directory

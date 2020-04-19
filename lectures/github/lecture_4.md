@@ -81,7 +81,7 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) d562739] import tidyverse library
+## [master (root-commit) 60fa0ad] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -104,7 +104,7 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev d8a0248] preview mpg dataset
+## [dev 7a78d44] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -121,7 +121,7 @@ git merge dev
 
 ```
 ## Switched to branch 'master'
-## Updating d562739..d8a0248
+## Updating 60fa0ad..7a78d44
 ## Fast-forward
 ##  create_dataset.R | 1 +
 ##  1 file changed, 1 insertion(+)
@@ -208,7 +208,7 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) d734529] import tidyverse library
+## [master (root-commit) 60fa0ad] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -231,7 +231,7 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev 32c6f84] preview mpg dataset
+## [dev 7a78d44] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -683,5 +683,9 @@ What is a `.gitignore` file?
   
 *Credit: [How to Make Git Forget Tracked Files Now In gitignore](https://ardalis.com/how-to-make-git-forget-tracked-files-in-gitignore)*
 
+## Referencing issues and pull requests in commit message
+
+- You can reference an issue or pull request by including a hashtag and the issue/pull request number in the commit message: `#<issue/pr_number>`
+- These commits will appear on the issue/pull request page
 
 
