@@ -110,7 +110,7 @@ Valid requests need the following four things:
 *Credit: Brian Cooksey ([An introduction to APIs: Chapter 2](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/))*
 
 ### URL
-A [__URL__](https://www.whoishostingthis.com/resources/url/) is an acronym for Uniform Resource Locator and it refers to the location of a "thing" resource on the web. Usually URLs are considered "addresses" to a thing or "resource". These resources most of the time are web pages, but can also be images, pictures, or documents.   
+A [__URL__](https://www.whoishostingthis.com/resources/url/) is an acronym for Uniform Resource Locator and it refers to the location of a "thing" or resource on the web. Usually URLs are considered "addresses" to a thing or "resource". Most of the time, these resources are web pages, but can also be images, pictures, or documents.   
 
 A simple URL will include the protocol, the host name or address, and the resource location  
 
@@ -138,27 +138,41 @@ Four of the most common methods used for APIs are:
 - You make a __POST__ request by telling your waiter (API) you want to order blueberry pancakes.  
 - After you have made your order, you realize that you are also craving something savory like roasted breakfast potatoes. You make a __PUT__ request by asking your waiter to update your order and communicate those changes to the kitchen (server).  
 - After waiting for some time, you make a __GET__ request by asking your waiter for an update on your order which will be sent to the kitchen (server) and they will reply with the status of your order.  
-- It's been over an hour and still not food. You make a __DELETE__ request and tell your waiter (API) to cancel your order which in turn they will communicate to the kitchen (server).  
+- It's been over an hour and still no food. You make a __DELETE__ request and tell your waiter (API) to cancel your order which in turn they will communicate to the kitchen (server).  
 
 ### List of Headers  
 
 [__Headers__](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) let the client and server provide additional information about an HTTP request. An HTTP header has a case-sensitive name followed by a colon `:` and its value. To view HTTP headers on [Google Chrome](https://mkyong.com/computer-tips/how-to-view-http-headers-in-google-chrome/) you could:  
 
-1. `right click` on the page  
-2. select `Inspect`  
-3. refresh the page and on the left panel select any HTTP request and you can view the HTTP headers on the right panel
+1. `Right click` on the page  
+2. Select `Inspect`  
+3. Refresh the page
+4. Under the `Network` tab, you can select any HTTP request on the left panel and view the HTTP headers on the right panel
 
     ![](http_headers.png){ width=70% height=300px}  
 
-There are four kinds of HTTP messages: [headers](https://www.tutorialspoint.com/http/http_header_fields.htm):  
+There are four kinds of HTTP message [headers](https://www.tutorialspoint.com/http/http_header_fields.htm):  
 
 - __General Header__: These headers generally apply to both request and response messages.  
 - __Client Request Header__: These headers only apply to request messages.  
 - __Server Response Header__: These headers only apply to response messages.  
 - __Entity Header__: These headers provide additional information about the entity-body or, if no body is present, about the resource identified by the request.  
 
+<!--
 
 In the image above we can see our class website has two kinds of HTTP messages-- General and Response. In General header provides general information about the website (e.g. Request URL, Remote Address, etc.). The Response header includes information about response messages such as the content-type, content-encoding, and date. 
+
+----
+
+FOR THE CLASS WEBSITE EXAMPLE ABOVE, THERE'S ALSO A "REQUEST HEADERS" SECTION IF YOU SCROLL DOWN. BUT ACTUALLY, I DON'T THINK THOSE SECTION HEADINGS IN THE CHROME INSPECTION TOOL NECESSARILY CORRESPONDS TO THE 4 TYPES OF HTTP HEADER FIELDS YOU'VE LISTED ABOVE.
+
+FOR EXAMPLE, ACCORDING TO THE "HTTP HEADER FIELDS" LINK ABOVE, ENTITY HEADERS INCLUDE FIELDS LIKE "Content-Length" AND "Content-Type", WHICH IN THIS CASE APPEARS UNDER THE "RESPONSE HEADERS" SECTION. BUT I THINK IF IT WERE A POST REQUEST, THE "REQUEST HEADERS" SECTION MAY INCLUDE SOME ENTITY HEADER FIELDS AS WELL.
+
+SAME GOES FOR GENERAL HEADER - FIELDS SUCH AS "Cache-Control" APPEARS UNDER BOTH THE "REQUEST HEADERS" AND "RESPONSE HEADERS" SECTIONS. SO I THINK THE 4 TYPES OF HEADER FIELDS COULD APPEAR UNDER "REQUEST HEADERS" AND/OR "RESPONSE HEADERS" SECTIONS, BUT THE "GENERAL" SECTION SEEMS TO JUST CONTAIN SOME GENERAL INFO ABOUT THE REQUEST - THEY'RE NOT ACTUALLY HEADER FIELDS.
+
+NOT SURE IF IT'S NECESSARY TO GO INTO ALL THIS DISTINCTION IN THE LECTURE THOUGH! MAYBE IT'S ENOUGH JUST TO MENTION YOU CAN FIND THE HEADER FIELDS LISTED UNDER THE NETWORK TAB WHEN YOU INSPECT? ONE THING THAT MIGHT BE WORTH MENTIONING HERE THOUGH (WHICH COULD TIE IN W/ YOUR LATER SECTION), IS THAT ONE OF THE POSSIBLE REQUEST HEADER FIELDS IS "Authorization", WHICH IS THE FIELD YOU WOULD SPECIFY IF YOU NEED TO PROVIDE AUTHORIZATION FOR AN API REQUEST.
+
+-->
 
 ### Body  
 
@@ -195,12 +209,14 @@ A [status code](https://www.digitalocean.com/community/tutorials/how-to-troubles
 - 4xx: Client Error  
 - 5xx: Server Error  
 
-A common status code we have encountered is 404, which means "Not Found". Other common status codes are:   
+A common status code we have encountered is 404, which means "Not Found":   
 
 [![](https://images.zapier.com/storage/photos/8b38efb0fa87bbf81018ff532f929a8a.png)](https://zapier.com/learn/apis/chapter-2-protocols/)  
 
 *Credit: Brian Cooksey ([An introduction to APIs: Chapter 2](https://zapier.com/learn/apis/chapter-1-introduction-to-apis/))*
 
+<br>
+Other common status codes are:
 
 - 400: Bad request  
 - 401: Unauthorized  
@@ -261,7 +277,7 @@ API security (from [Kristopher Sandoval](https://nordicapis.com/3-common-methods
 ## OAuth  
 
 - OAuth is different from the previous two approaches in that it can be used for both authentication and authorization (from [Kristopher Sandoval, Three Common Methods of API authentication explained ](https://nordicapis.com/3-common-methods-api-authentication-explained/))  
-- OAuth requires various steps (from [Brian Cooksey, Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/):   
+- OAuth requires various steps (from [Brian Cooksey, Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/)):   
 
     - __Step 1__: User tells the client to connect to the server  
     - __Step 2__: Client directs user to the server  
@@ -276,7 +292,7 @@ API security (from [Kristopher Sandoval](https://nordicapis.com/3-common-methods
 
 *Credit: Chris Hoffman ([What is OAuth?](https://www.howtogeek.com/53275/exchanging-data-safely-with-oauth/))*  
 
-- While the term OAuth might be new to us, we interact with OAuth athentication daily. 
+- While the term OAuth might be new to us, we interact with OAuth authentication daily. 
 - OAuth is used for two main purposes: Signing In or Third-Party Applications (from Chris Hoffman [What is OAuth?](https://www.howtogeek.com/53275/exchanging-data-safely-with-oauth/))  
 - We may go to the Spotify account and are given the option to log in with our Facebook account.  
     - By selecting "Continue as Bob" we are granting Spotify access to certain features of our Facebook account.  
@@ -300,6 +316,83 @@ API security (from [Kristopher Sandoval](https://nordicapis.com/3-common-methods
 
 # API data: JSON
 
+What is **JSON**?
+
+- **JavaScript Object Notation** (**JSON**) is a data file format, like CSV
+- Data fetched from API's often come in JSON format
+- JSON syntax is derived from JavaScript
+
+What does **JSON** data look like?
+
+- In JavaScript, there are data structures called **arrays** and **objects**
+  - **Arrays**: Contains elements separated by `,` and surrounded by square brackets (`[]`)
+    - Example: `["a", "b", "c"]`
+    - We can think of this as `R` vectors, except the elements do not have to be the same type
+  - **Objects**: Contains key-value pairs separated by `,` and surrounded by curly brackets (`{}`)
+    - Example: `{"a": "alfa", "b": "bravo", "c": "charlie"}`
+    - We can think of this as `R` lists
+- Each element can be a string or numeric type
+  - String elements must be surrounded by **double quotes**
+- There can be nested "arrays" and/or "objects" in the JSON data
+
+<br>
+**Example**: Simple JSON data
+
+- In this particular example, the data can easily be converted to an R dataframe
+  - Each row is a state
+  - The columns are `state_name` and `median_household_income`
+
+```
+[
+  {
+    "state_name": "Alaska",
+    "median_household_income": 72515
+  },
+  {
+    "state_name": "California",
+    "median_household_income": 61818
+  },
+  {
+    "state_name": "New York",
+    "median_household_income": 59269
+  }
+]
+```
+
+<br>
+**Example**: Nested JSON data
+
+```
+{
+   "status" : "OK",
+   "plus_code" : {
+      "compound_code" : "P27Q+MC New York, NY, USA",
+      "global_code" : "87G8P27Q+MC"
+   },
+   "results" : [
+      {
+         "formatted_address" : "279 Bedford Ave, Brooklyn, NY 11211, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 40.7142484,
+               "lng" : -73.9614103
+            }
+         },
+         "types" : [
+            "bakery",
+            "cafe",
+            "establishment",
+            "food",
+            "point_of_interest",
+            "store"
+         ]
+      }
+   ]
+}
+```
+
+*Source: [Geocoding API](https://developers.google.com/maps/documentation/geocoding/start)*
+
 
 # Using APIs to request data  
 
@@ -308,25 +401,25 @@ API security (from [Kristopher Sandoval](https://nordicapis.com/3-common-methods
 Tidycensus package (from tidycensus [website](https://walkerke.github.io/tidycensus/index.html))
 
 
-tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/tidycensus/tidycensus.pdf))  
+Tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/tidycensus/tidycensus.pdf))  
 
 ## census_api_key  
 
-`census_api_key`: Install a Census API key in Your .Renviron File for Repeated Use  
+`census_api_key()`: Install a Census API key in your `.Renviron` file for repeated use  
 
 - __Description__  
 
-    - This function will add your CENSUS API key to your .Renviron file so it can be called securely without being stored in your code. After you have installed your key, it can be called any time by typing Sys.getenv("CENSUS_API_KEY") and can be used in package functions by simply typing CENSUS_API_KEY If you do not have an .Renviron file, the function will create on for you. If you already have an .Renviron file, the function will append the key to your existing file, while making a backup of your original file for disaster recovery purposes.
+    - This function will add your CENSUS API key to your `.Renviron` file so it can be called securely without being stored in your code. After you have installed your key, it can be called any time by typing `Sys.getenv("CENSUS_API_KEY")` and can be used in package functions by simply typing `CENSUS_API_KEY`. If you do not have an `.Renviron` file, the function will create one for you. If you already have an `.Renviron` file, the function will append the key to your existing file, while making a backup of your original file for disaster recovery purposes.
 
 - __Usage__  
 
-    - `census_api_key`(key, overwrite = FALSE, install = FALSE)  
+    - `census_api_key(key, overwrite = FALSE, install = FALSE)`
 
 - __Arguments__  
   
-    - `key` : The API key provided to your from Census formated in quotes. A key can be aquired at https://api.census.gov/data/key_signup.html  
-    - `overwrite` : If TRUE, it will overwrite an existing census_api_key that you already have in your .Renviron file  
-    - `install` : If TRUE, will install the key in your .Renviron file for use in future sessions. Default is set to FALSE.  
+    - `key` : The API key provided to you from Census formatted in quotes. A key can be acquired at https://api.census.gov/data/key_signup.html  
+    - `overwrite` : If `TRUE`, it will overwrite an existing `CENSUS_API_KEY` that you already have in your `.Renviron` file  
+    - `install` : If `TRUE`, will install the key in your `.Renviron` file for use in future sessions. Default is set to `FALSE`.
     
 
 ## fips_codes
@@ -351,7 +444,7 @@ tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/ti
     
 ## get_acs  
 
-`get_acs`: Obtain data and feature geometry for the five-year American Community Survey  
+`get_acs()`: Obtain data and feature geometry for the five-year American Community Survey  
 
 - __Description__  
 
@@ -359,8 +452,7 @@ tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/ti
     
 - __Usage__  
 
-    - `get_acs`(
-        geography,
+    - `get_acs`(geography,
         variables = NULL,
         table = NULL,
         cache_table = FALSE,
@@ -378,7 +470,7 @@ tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/ti
         survey = "acs5",
         show_call = FALSE,
         ...
-    )
+    )`
 
 - __Arguments__  
 
@@ -421,11 +513,11 @@ tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/ti
 
 
 ### tidycensus example
-__Example__: using tidycensus (from Will Doyle [github](https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd)) 
+__Example__: Using tidycensus (from Will Doyle [GitHub](https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd)) 
 
 - Request an API from the Census https://api.census.gov/data/key_signup.html
 
-```{r message=FALSE}
+```{r message=FALSE, eval=FALSE}
 #load package
 library(tidycensus)
 library(tidyverse)
@@ -445,7 +537,7 @@ census_api_key(acs_key)
 ```
 
 - Read in ACS data
-```{r message=FALSE}
+```{r message=FALSE, eval=FALSE}
 #Load variables from acs 2017 
 acs17 <- load_variables(2017, "acs5")
 
@@ -483,6 +575,23 @@ names(educ)<-tolower(names(educ)) #lowercase variable names
 head(educ)
 ```
 
+```
+## # A tibble: 6 x 24
+##   geoid name  b15002_001e b15002_001m b15002_014e b15002_014m b15002_015e
+##   <chr> <chr>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+## 1 43964 ZCTA…        6316         314         276          82         245
+## 2 28216 ZCTA…       33273        1009        1084         237        2969
+## 3 28277 ZCTA…       48340        1019        1205         272        9285
+## 4 28278 ZCTA…       18009         802         506         159        2655
+## 5 28303 ZCTA…       20122         570         951         237        1576
+## 6 28314 ZCTA…       35672         789        1824         270        2678
+## # … with 17 more variables: b15002_015m <dbl>, b15002_016e <dbl>,
+## #   b15002_016m <dbl>, b15002_017e <dbl>, b15002_017m <dbl>, b15002_018e <dbl>,
+## #   b15002_018m <dbl>, b15002_031e <dbl>, b15002_031m <dbl>, b15002_032e <dbl>,
+## #   b15002_032m <dbl>, b15002_033e <dbl>, b15002_033m <dbl>, b15002_034e <dbl>,
+## #   b15002_034m <dbl>, b15002_035e <dbl>, b15002_035m <dbl>
+```
+
 ### Student exercise
 
 1. Apply for an API key here https://api.census.gov/data/key_signup.html
@@ -491,14 +600,14 @@ head(educ)
 3. Follow the steps from above to load your API key, and use the `load_variables()` function to get 'acs', '2017' variables.
 4. Can use the same variables from the example above or choose your own 5 variables  
     - *hint: could use the `var_list` example from above*  
-5. Use the `get_acs` to read in acs data.  
+5. Use `get_acs()` to read in acs data.  
     - In `geography` argument use 'county' instead of 'zcta'  
     - Use the `state` argument to filter for 'CA'  
 
 <br>
 <details><summary>**Solution**: Student exercise</summary>
 
-```{r message=FALSE}
+```{r message=FALSE, eval=FALSE}
 #load package
 library(tidycensus)
 library(tidyverse)
@@ -553,7 +662,7 @@ county<- get_acs(geography = 'county', #zip code tabulation area
 
 
 
-```{r echo=FALSE, message=FALSE}
+```{r echo=FALSE, message=FALSE, eval=FALSE}
 
 #lookup_code("CA","Los Angeles") 
 #state_fips<-"06"
