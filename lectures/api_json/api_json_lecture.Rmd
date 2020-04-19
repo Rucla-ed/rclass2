@@ -162,11 +162,14 @@ In the image above we can see our class website has two kinds of HTTP messages--
 
 ### Body  
 
-The message [body](https://zapier.com/learn/apis/chapter-2-protocols/) of an HTTP request contains data the client wants to send to the server and data the server sends back to the client. In our blueberry pancake example, the data would be our order. Unlike other components of the HTTP protocol (e.g. URL, headers, etc.), the client has more control over this part of the request (aka ordering food at a restaurant). Not all HTTP requests have a message body. If the message body is available for the HTTP request, then it is used to carry the entity-body associated with the request. The entity-body is simply the content (data) of the request (from [w3.org](https://www.w3.org/Protocols/HTTP/1.1/rfc2616bis/draft-lafon-rfc2616bis-03.html#entity.body)). The Content-Type, Content-Length, and Transfer-Encoding headers signal whether a message body can be made with the HTTP request (from [w3.org](https://www.w3.org/Protocols/HTTP/1.1/rfc2616bis/draft-lafon-rfc2616bis-03.html#message.body))   
+- The message [body](https://zapier.com/learn/apis/chapter-2-protocols/) of an HTTP request contains data the client wants to send to the server and data the server sends back to the client. In our blueberry pancake example, the data would be our order. Unlike other components of the HTTP protocol (e.g. URL, headers, etc.), the client has more control over this part of the request (aka ordering food at a restaurant).
+- Not all HTTP requests have a message body. If the message body is available for the HTTP request, then it is used to carry the entity-body associated with the request.
+    - The entity-body is simply the content (data) of the request (from [w3.org](https://www.w3.org/Protocols/HTTP/1.1/rfc2616bis/draft-lafon-rfc2616bis-03.html#entity.body)).
+    - The Content-Type, Content-Length, and Transfer-Encoding headers signal whether a message body can be made with the HTTP request (from [w3.org](https://www.w3.org/Protocols/HTTP/1.1/rfc2616bis/draft-lafon-rfc2616bis-03.html#message.body))   
 
-The response message body will depend on two things- the request method and the status code. 
+- The response message body will depend on two things- the request method and the status code. 
 
-[![](https://mdn.mozillademos.org/files/13821/HTTP_Request_Headers2.png)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)  
+    [![](https://mdn.mozillademos.org/files/13821/HTTP_Request_Headers2.png){width=80%}](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)  
     
 *Credit: MDN contributors ([HTTP messages)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)*
 
@@ -232,29 +235,217 @@ Basic authentication (from Brian Cookey, [An Introduction to APIs](https://zapie
 
 - The server will receive the request and compare the credentials in the request (Authorization header) with credentials it has stored. If the credentials match, the server will return status code (200), otherwise it will return status code (401) (authentication failed and the request has been denied). 
 
-[![](https://dotnetthoughts.net/assets/images/2013/11/basic_auth.png)](https://dotnetthoughts.net/basic-http-authentication-in-asp-net-web-api/)  
+    [![](https://dotnetthoughts.net/assets/images/2013/11/basic_auth.png)](https://dotnetthoughts.net/basic-http-authentication-in-asp-net-web-api/)  
 
 *Credit: Anuraj ([Basic HTTP authentication](https://dotnetthoughts.net/basic-http-authentication-in-asp-net-web-api/))*
 
-weakness of this approach
+- Basic Auth is not an ideal API authentication system because the user inputs the same username and password from their account and this could lead to security issues. 
 
 ## API Keys  
 
-What they are  
-Example  
-weaknesses of this approach 
+- An API key is a unique key composed of a series of letters and numbers given to the user.  
+- API keys are distinct from HTTP basic authentication because the user authenticates using a unique key instead of their credentials (from Brian Cookey, [An Introduction to APIs](https://zapier.com/learn/apis/chapter-4-authentication-part-1/)).  
+- The API key is a default approach for many API providers as it grants users access and at the same time servers can limit administrative functions. 
+
+    [![](https://secureservercdn.net/166.62.109.86/486.2ea.myftpupload.com/wp-content/uploads/2020/02/api-key.png){ width=70%}](https://api-university.com/blog/is-the-api-key-enough-common-api-security-issues-and-how-to-fix-them/)
+    
+*Credit: API University ([Is the API-key enough?](https://api-university.com/blog/is-the-api-key-enough-common-api-security-issues-and-how-to-fix-them/))*
+
+- A drawback of API keys is that they are long and can lead to user input errors (typos). Additionally, API keys can compromise the security of the network.
+
+API security (from [Kristopher Sandoval](https://nordicapis.com/3-common-methods-api-authentication-explained/))
+
+>"Because anyone who makes a request of a service transmits their key, in theory, this key can be picked up just as easy as any network transmission, and if any point in the entire network is insecure, the entire network is exposed."
+
 
 ## OAuth  
 
-What it is  
-Example  
+- OAuth is different from the previous two approaches in that it can be used for both authentication and authorization (from [Kristopher Sandoval, Three Common Methods of API authentication explained ](https://nordicapis.com/3-common-methods-api-authentication-explained/))  
+- OAuth requires various steps (from [Brian Cooksey, Authentication, Part 2](https://zapier.com/learn/apis/chapter-5-authentication-part-2/):   
+
+    - __Step 1__: User tells the client to connect to the server  
+    - __Step 2__: Client directs user to the server  
+    - __Step 3__: User logs-in to the server and grants client access  
+    - __Step 4__: Server sends user back to client, along with code 
+    - __Step 5__: Client exchanges code + secret key for access token  
+    - __Step 6__: Client fetches data from server  
+    
+- Have you ever tried to sign in to a website or app and seen a "Sign In With Facebook" or "Sign in with Google" button?     
+
+    [![](https://www.howtogeek.com/wp-content/uploads/2017/08/img_59824fe226969.png){width=75%}](https://www.howtogeek.com/53275/exchanging-data-safely-with-oauth/)
+
+*Credit: Chris Hoffman ([What is OAuth?](https://www.howtogeek.com/53275/exchanging-data-safely-with-oauth/))*  
+
+- While the term OAuth might be new to us, we interact with OAuth athentication daily. 
+- OAuth is used for two main purposes: Signing In or Third-Party Applications (from Chris Hoffman [What is OAuth?](https://www.howtogeek.com/53275/exchanging-data-safely-with-oauth/))  
+- We may go to the Spotify account and are given the option to log in with our Facebook account.  
+    - By selecting "Continue as Bob" we are granting Spotify access to certain features of our Facebook account.  
 
 
+    [![](https://www.howtogeek.com/wp-content/uploads/2017/08/img_598254182a05f.png){width=75%}](https://www.howtogeek.com/53275/exchanging-data-safely-with-oauth/)
 
+*Credit: Chris Hoffman ([What is OAuth?](https://www.howtogeek.com/53275/exchanging-data-safely-with-oauth/))*
+
+- So how does OAuth work? 
+
+    [![](https://a.slack-edge.com/fbd3c/img/api/articles/oauth_scopes_tutorial/slack_oauth_flow_diagram.png){width=80%}](https://api.slack.com/legacy/oauth) 
+
+*Credit: Slack API ([Using OAuth 2.0](https://api.slack.com/legacy/oauth))*  
+
+- On the right hand side we are the __User__  
+- The __client__ or __application__ on the left hand side would be Spotify for example.  
+- The __service API__ (Facebook) is both an authorization and resource server.  
+- The __client__ or __application__ (Spotify) sends the __user__ (us) a request for authorization (to our Facebook). The __user__ (us) clicks on the "Continue with Facebook" button and the __client__ then sends us to the __server__ (Facebook) to sign in and grant the client access. The __server__ (Facebook) sends us back to the __client__ (Spotify) with an access token. The __client__ (Spotify) uses the access token to fetch data from the __server__ (Facebook). 
+
+
+# API data: JSON
 
 
 # Using APIs to request data  
-## JSON 
+
+Tidycensus package (from tidycensus [website](https://walkerke.github.io/tidycensus/index.html))
+
+
+tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/tidycensus/tidycensus.pdf))  
+
+## census_api_key  
+
+`census_api_key`: Install a Census API key in Your .Renviron File for Repeated Use  
+
+- __Description__  
+
+    - This function will add your CENSUS API key to your .Renviron file so it can be called securely without being stored in your code. After you have installed your key, it can be called any time by typing Sys.getenv("CENSUS_API_KEY") and can be used in package functions by simply typing CENSUS_API_KEY If you do not have an .Renviron file, the function will create on for you. If you already have an .Renviron file, the function will append the key to your existing file, while making a backup of your original file for disaster recovery purposes.
+
+- __Usage__  
+
+    - `census_api_key`(key, overwrite = FALSE, install = FALSE)  
+
+- __Arguments__  
+  
+    - `key` : The API key provided to your from Census formated in quotes. A key can be aquired at https://api.census.gov/data/key_signup.html  
+    - `overwrite` : If TRUE, it will overwrite an existing census_api_key that you already have in your .Renviron file  
+    - `install` : If TRUE, will install the key in your .Renviron file for use in future sessions. Default is set to FALSE.  
+    
+
+## fips_codes
+
+`fips_codes` : Dataset with FIPS codes for US states and counties  
+
+- __Description__  
+
+    - `county`: County name, title-case  
+    - `county_code`: County code (3-digit, 0-padded, character)  
+    - `state`: Upper-case abbreviation of state  
+    - `state_code`: State FIPS code (2-digit, 0-padded, character)  
+    - `state_name`: Title-case name of state  
+    
+- __Usage__  
+
+    - `data(fips_codes)`  
+
+- __Format__  
+
+    - An object of class data.frame with 3237 rows and 5 columns.  
+    
+## get_acs  
+
+`get_acs`: Obtain data and feature geometry for the five-year American Community Survey  
+
+- __Description__  
+
+    - Obtain data and feature geometry for the five-year American Community Survey  
+    
+- __Usage__  
+
+    - `get_acs`(
+        geography,
+        variables = NULL,
+        table = NULL,
+        cache_table = FALSE,
+        year = 2018,
+        endyear = NULL,
+        output = "tidy",
+        state = NULL,
+        county = NULL,
+        geometry = FALSE,
+        keep_geo_vars = FALSE,
+        shift_geo = FALSE,
+        summary_var = NULL,
+        key = NULL,
+        moe_level = 90,
+        survey = "acs5",
+        show_call = FALSE,
+        ...
+    )
+
+- __Arguments__  
+
+    - `geography`: The geography of your data.  
+    - `variables`: Character string or vector of character strings of variable IDs. tidycensus automatically returns the estimate and the margin of error associated with the variable.  
+    - `table`: The ACS table for which you would like to request all variables. Uses lookup tables to identify the variables; performs faster when variable table already exists through load_variables(cache = TRUE). Only one table may be requested per call.  
+    - `cache_table`:  Whether or not to cache table names for faster future access. Defaults to FALSE; if TRUE, only needs to be called once per dataset. If variables dataset is already cached via the load_variables function, this can be bypassed.  
+    - `year`: The year, or endyear, of the ACS sample. 2009 through 2018 are available. Defaults to 2018.  
+    - `endyear`: Deprecated and will be removed in a future release.  
+    - `output`: One of "tidy" (the default) in which each row represents an enumeration unitvariable combination, or "wide" in which each row represents an enumeration unit and the variables are in the columns.  
+    - `state`: An optional vector of states for which you are requesting data. State names, postal codes, and FIPS codes are accepted. Defaults to NULL.  
+    - `county`: The county for which you are requesting data. County names and FIPS codes are accepted. Must be combined with a value supplied to ‘state‘. Defaults to NULL.  
+    - `geometry`: if FALSE (the default), return a regular tibble of ACS data. if TRUE, uses the tigris package to return an sf tibble with simple feature geometry in the ‘geometry‘ column. state, county, tract, block group, block, and ZCTA geometry are supported.  
+    - `keep_geo_vars`: if TRUE, keeps all the variables from the Census shapefile obtained by tigris. Defaults to FALSE.  
+    - `shift_geo`: if TRUE, returns geometry with Alaska and Hawaii shifted for thematic mapping of the entire US. Geometry was originally obtained from the albersusa R package.  
+    - `summary_var`: Character string of a "summary variable" from the ACS to be included in your output. Usually a variable (e.g. total population) that you’ll want to use as a denominator or comparison.  
+    - `key`:  Your Census API key. Obtain one at http://api.census.gov/data/key_signup.html  
+    - `moe_level`: The confidence level of the returned margin of error. One of 90 (the default), 95, or 99.  
+    - `survey`: The ACS contains one-year, three-year, and five-year surveys expressed as "acs1", "acs3", and "acs5". The default selection is "acs5."  
+    - `show_call`: if TRUE, display call made to Census API. This can be very useful in debugging and determining if error messages returned are due to tidycensus or the Census API. Copy to the API call into a browser and see what is returned by the API directly. Defaults to FALSE.  
+    - `...`: Other keyword arguments  
+    
+## load_variables  
+
+`load_variables`: Load variables from a decennial Census or American Community Survey dataset to search in R 
+
+- __Description__  
+
+    - Load variables from a decennial Census or American Community Survey dataset to search in R  
+    
+- __Usage__  
+
+    - `load_variables`(year, dataset, cache = FALSE)  
+    
+- __Arguments__  
+
+    - `year`: The year for which you are requesting variables. Either the year of the decennial Census, or the endyear for a 5-year ACS sample.
+    - `dataset`: One of "sf1", "sf3", "acs1", "acs3", "acs5", "acs1/profile", "acs3/profile, "acs5/profile", "acs1/subject", "acs3/subject", or "acs5/subject".
+    - `cache`: Whether you would like to cache the dataset for future access, or load the dataset from an existing cache. Defaults to FALSE.
+
+
+Tidycensus functions (from tidycensus [website](https://walkerke.github.io/tidycensus/reference/index.html))
+
+__Example__: using tidycensus  
+
+- Request an API from the Census https://api.census.gov/data/key_signup.html
+
+```{r message=FALSE}
+#load package
+library(tidycensus)
+library(tidyverse)
+library(tigris)
+options(tigris_use_cache = TRUE)
+
+#census_api_key("YOUR API KEY GOES HERE")
+
+#from will doyle lecture https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd
+my_acs_key<-readLines("~/Desktop/census_api.txt",warn = FALSE)
+
+acs_key<-my_acs_key
+
+# Or just paste it here.
+#acs_key<-"<your_acs_key_here>"
+
+census_api_key(acs_key)
+data(fips_codes)
+
+```
+
 ## Practical example
 
 
@@ -268,153 +459,3 @@ Example
 
 
 
-
-
-<!--
-#Introduction to JSON formated data
-Readings: https://towardsdatascience.com/an-introduction-to-json-c9acb464f43e, https://flaviocopes.com/json/, https://blog.scottlowe.org/2013/11/08/a-non-programmers-introduction-to-json/, https://www.w3schools.com/js/js_json_intro.asp   
-Videos: https://www.youtube.com/watch?v=uxf0--uiX0I
-
-
-#https://www.dataquest.io/blog/r-api-tutorial/ APIs in R 
-
-```{r eval=FALSE, echo=FALSE}
-library(httr) #to request data on server
-library(rvest) #to parse html files
-
-lyrics <- GET("https://genius.com/John-legend-all-of-me-lyrics")
-status_code(lyrics)
-str(content(lyrics))
-
-content(lyrics, "text")
-
-```
-
-##web-scraping example
-```{r}
-moby_url = url("http://www.gutenberg.org/files/2701/2701-h/2701-h.htm")
-
-moby_dick = readLines(moby_url, n = 5000)
-moby_dick[1200:1210]
-```
-
-##ACS example
-```{r}
-#Load libraries
-library(acs) #for accessing American Community Survey data via the census API
-library(tidyverse)
-library(tigris) #for accessing TIGER shapefiles via the census API
-library(tidycensus) #allows users to interface with the US Census Bureau’s decennial Census and five-year American Community APIs
-```
-
-```{r}
-## Look up fips code for county
-lookup_code("CA","Kern") 
-state_fips<-"06" #code for CA
-county_stub<-"029" #code for Kern County
-county_fips<-paste0(state_fips,county_stub) #concatenate together
-
-#county_fips
-```
-
-```{r}
-# Get dataset that matches all zip codes to cities, counties and states. 
-county_to_zip<-read_csv("http://www2.census.gov/geo/docs/maps-data/data/rel/zcta_county_rel_10.txt")
-#easier names to work with
-names(county_to_zip)<-tolower(names(county_to_zip))
-
-#Just zip codes in selected county
-county_to_zip<-county_to_zip%>%
-  filter(state%in%as.numeric(state_fips),county==county_stub)%>%
-  select(zcta5,state,county)
-```
-
-```{r eval=FALSE}
-#list of zip codes
-ziplist<-county_to_zip$zcta5
-#City names
-data(zip_codes)
-city_zip<-zip_codes%>%filter(zip%in%ziplist)%>%select(zip,city)
-#Arrange in order
-city_zip<-city_zip%>%arrange(as.numeric(zip))
-```
-
-```{r eval=FALSE}
-#An Alternative: Tidycensus
-acs_key<-"89332977439e7b7492c9aae1ac271a857bfddc4e"
-
-census_api_key(acs_key)
-v17 <- load_variables(2017, "acs5", cache = TRUE)
-
-#View(v17)
-var_list<-paste0("B15002_",c("001",
-                            "015",
-                            "016",
-                            "017",
-                            "018",
-                            "032",
-                            "033",
-                            "034",
-                            "035"))
-educ<-get_acs("zcta",
-                variables=var_list,
-                output="wide"
-                )
-names(educ)<-tolower(names(educ))
-educ%>%filter(geoid%in%ziplist)->county_educ
-county_educ%>%
-  rename(zip=geoid)%>%
-  group_by(zip)%>%
-  mutate(college_educ=((b15002_015e+
-                         b15002_016e+
-                         b15002_017e+
-                         b15002_018e+
-                         b15002_032e+
-                         b15002_033e+
-                         b15002_034e+
-                         b15002_035e)/b15002_001e)*100) %>%
-    select(zip,college_educ)->
-    county_educ
-
-```
-
-#https://medium.com/@traffordDataLab/querying-apis-in-r-39029b73d5f1
-```{r}
-library(httr) ; library(jsonlite)
-
-path <- "https://data.police.uk/api/crimes-street/burglary?"
-
-request <- GET(url = path, 
-               query = list(
-                 lat = 53.421813,
-                 lng = -2.330251,
-                 date = "2019-05")
-               )
-
-request$status_code
-
-response <- content(request, as = "text", encoding = "UTF-8")
-
-df <- fromJSON(response, flatten = TRUE) %>% 
-  data.frame()
-```
-
-#https://github.com/btskinner/rscorecard
-```{r}
-#install.packages("rscorecard")
-library(rscorecard)
-
-sc_key('6vNHxtvNKi5XJvxOdh1KFlIkOJxv2bPivPkr5EFA')
-
-library(rscorecard)
-
-df <- sc_init() %>% 
-    sc_filter(region == 2, ccbasic == c(21,22,23), locale == 41:43) %>% 
-    sc_select(unitid, instnm, stabbr) %>% 
-    sc_year("latest") %>% 
-    sc_get()
-
-
-```
-
--->
