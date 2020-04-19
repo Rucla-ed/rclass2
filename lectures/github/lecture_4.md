@@ -81,7 +81,7 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) 60fa0ad] import tidyverse library
+## [master (root-commit) 1a0afa2] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -104,7 +104,7 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev 7a78d44] preview mpg dataset
+## [dev 9025262] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -121,7 +121,7 @@ git merge dev
 
 ```
 ## Switched to branch 'master'
-## Updating 60fa0ad..7a78d44
+## Updating 1a0afa2..9025262
 ## Fast-forward
 ##  create_dataset.R | 1 +
 ##  1 file changed, 1 insertion(+)
@@ -208,7 +208,7 @@ git commit -m "import tidyverse library"
 ```
 
 ```
-## [master (root-commit) 60fa0ad] import tidyverse library
+## [master (root-commit) 1a0afa2] import tidyverse library
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -231,7 +231,7 @@ git commit -m "preview mpg dataset"
 ```
 ## Switched to a new branch 'dev'
 ## 
-## [dev 7a78d44] preview mpg dataset
+## [dev 9025262] preview mpg dataset
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -564,8 +564,8 @@ readRDS(file, refhook = NULL)
 - Create an RStudio project for your `<team_name>_practice` directory
   - Notice that the working directory in both your R Console and Terminal will be set to your project directory
 - If you check `git status`, you will see that an `.Rproj` file has been generated for your project
-- The `.Rproj` file contains your project settings and it is recommended that this file be tracked by Git so all collaborators share the same settings
-- Have a second member of your team add/commit the `.Rproj` file and push to GitHub
+- For the purposes of this class, you can add `.Rproj` to `.gitignore`
+- Have a second member of your group add this to `.gitignore`, then add/commit this change and push to the remote
 - All other team members will pull this change
 
 **Part 3: Add data file**
