@@ -1,0 +1,178 @@
+---
+title: "Understanding pull requests"
+output: html_document
+---
+
+from tutorial: https://www.atlassian.com/git/tutorials/using-branches
+
+
+Make sure bash works
+```{bash}
+cd ~/documents/learning_git
+pwd
+ls -al
+```
+
+# create directory and initialize repo
+```{bash}
+cd ~/documents/learning_git
+
+rm -rf pull_request
+mkdir pull_request
+
+cd pull_request
+git init
+
+ls -al
+
+echo "# R script to introduce and prctice pull requests" > pull_request.R
+echo "library(tidyverse)" >> pull_request.R
+echo "load(url('https://github.com/Rucla-ed/rclass2/raw/master/_data/recruiting/recruit_school_somevars.RData'))" >> pull_request.R
+cat pull_request.R
+
+git add pull_request.R
+git commit -m "initial commit"
+git status
+```
+
+
+CONNECT TO REMOTE
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+git remote add repo_remote https://github.com/ozanj/pull_request.git
+
+git remote -v
+```
+
+
+CONNECT LOCAL MASTER TO REMOTE MASTER
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+git branch -a
+git remote -v
+
+git push --set-upstream repo_remote master
+```
+
+
+CREATE .gitignore
+```{bash}
+cd ~/documents/learning_git/pull_request
+echo "*Rproj*" > .gitignore
+echo "*.Rhistory*" >> .gitignore
+
+cat .gitignore
+```
+
+
+CREATE BRANCH "plot" FOR A NEW TASK WHERE YOU CREATE A PLOT
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+git branch -a
+
+git branch plot
+git checkout plot
+```
+
+
+BEFORE CREATING PLOT IN RSTUDIO, CREATE DIRECTORY "plots" within pull_request repo
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+rm -rf plots
+mkdir plots
+```
+
+
+IN R STUDIO, MODIFY pull_request.R TO CREATE SOME PLOT
+
+- code you added, in case you need to paste this in again
+```{r, eval = FALSE}
+#4. Perform the following data manipulations and save the resulting dataframe in an object to use later:
+# create 0/1 dummy of whether high school received visit from CU Boulder
+#Filter observations to keep only high schools that are located in the same state as the university
+# Subset your dataframe to include the following variables: `school_type`, `ncessch`, `name`, `total_students`, `avgmedian_inc_2564`, `visits_by_[univ]`, `visited`
+
+df_boulder <- df_school %>% 
+  ## create 0/1 indicator of whether received a visit from CU boulder
+  mutate(
+    visited = if_else(visits_by_126614>=1 & is.na(visits_by_126614) ==0,1,0)
+  ) %>% 
+  ## Filter observations to keep only high schools that are located in the same state as the university
+  filter(state_code == inst_126614) %>% 
+  ## keep only selected variables
+  select(school_type,ncessch,name,total_students,avgmedian_inc_2564,visits_by_126614,visited)
+
+#5. Use the dataframe from the previous step to create a scatterplot of total enrollment by median household income and have different point colors based on whether the high school has been visited or not by the university.
+
+getwd()
+list.files()
+#open png file  
+png("plots/scatterplot_color.png")
+
+#create plot
+ggplot(data = df_boulder, mapping = aes(x = total_students, y = avgmedian_inc_2564, color = as.factor(visited))) + geom_point() +
+  xlab("Total students") + ylab("Avg. median income") + scale_color_discrete(name = "Legend", labels = c("No visit", "Visits"))
+
+#close file
+dev.off()
+```
+
+
+IN BRANCH "plots" COMMIT CHANGES
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+git add plots/
+git add pull_request.R
+
+git commit -m "added scatterplot of enrollment by income w/ color = visited"
+```
+PUSH CHANGES ON BRANCH "plots" to REMOTE REPO; FIRST YOU HAVE TO SET UPSTREAM REMOTE REPO "branch"
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+git remote -v
+git branch -av
+
+git push --set-upstream repo_remote plot
+#git push --set-upstream origin newbranch
+```
+
+
+AFTER PULL REQUEST IS APPROVED
+
+- good practice to go to local master branch and pull changes because the remote master changed due to approving  pull request bit you must pull those changes from remote master to local master in order to have them be reflected on your local repo
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+git branch
+git checkout master
+git pull
+```
+
+- once pull request is approved, usually a good idea to delete the branch. and you can do this on github or in bash
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+#delete local branch
+git branch -d plot
+
+#delete remote branch
+git push repo_remote --delete plot
+```
+
+CREATE NEW TASK: CREATE SECOND PLOT
+
+```{bash}
+cd ~/documents/learning_git/pull_request
+
+git branch plot2
+git branch
+git checkout plot2
+```
+
+MODIFY R SCRIPT pull_request.R in Rstudio
