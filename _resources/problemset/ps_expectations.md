@@ -1,4 +1,4 @@
-## Problem Set Expectations
+# Problem Set Expectations
 
 - Each team will create one repository to share
   - Rotate who will be creating the repository each week
