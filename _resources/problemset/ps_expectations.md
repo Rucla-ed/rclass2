@@ -1,11 +1,4 @@
----
-title: "Problem Set Expectations"
-output: 
-  html_document:
-    keep_md: yes
----
-
-
+## Problem Set Expectations
 
 - Each team will create one repository to share
   - Rotate who will be creating the repository each week
