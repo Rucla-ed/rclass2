@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
@@ -197,6 +196,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -615,6 +615,7 @@ Example -->
 </div>
 <div id="using-apis-to-request-data" class="section level1">
 <h1><span class="header-section-number">5</span> Using APIs to request data</h1>
+<p>[TEXT ABOUT ACS/CENSUS AND TIDYCENSUS PACKAGE]</p>
 <p>Tidycensus package (from tidycensus <a href="https://walkerke.github.io/tidycensus/index.html">website</a>)</p>
 <p>tidycensus documentation (from <a href="https://cran.r-project.org/web/packages/tidycensus/tidycensus.pdf">CRAN</a>)</p>
 <div id="census_api_key" class="section level2">
@@ -736,20 +737,20 @@ Example -->
 <li><code>cache</code>: Whether you would like to cache the dataset for future access, or load the dataset from an existing cache. Defaults to FALSE.</li>
 </ul></li>
 </ul>
-<p>Tidycensus functions (from tidycensus <a href="https://walkerke.github.io/tidycensus/reference/index.html">website</a>)</p>
-<p><strong>Example</strong>: using tidycensus</p>
+<div id="tidycensus-example" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> tidycensus example</h3>
+<p><strong>Example</strong>: using tidycensus (from Will Doyle <a href="https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd">github</a>)</p>
 <ul>
 <li>Request an API from the Census <a href="https://api.census.gov/data/key_signup.html" class="uri">https://api.census.gov/data/key_signup.html</a></li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#load package</span>
 <span class="kw">library</span>(tidycensus)
 <span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(tigris)
 <span class="kw">options</span>(<span class="dt">tigris_use_cache =</span> <span class="ot">TRUE</span>)
+
 
 <span class="co">#census_api_key(&quot;YOUR API KEY GOES HERE&quot;)</span>
 
-<span class="co">#from will doyle lecture https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd</span>
 my_acs_key&lt;-<span class="kw">readLines</span>(<span class="st">&quot;~/Desktop/census_api.txt&quot;</span>,<span class="dt">warn =</span> <span class="ot">FALSE</span>)
 
 acs_key&lt;-my_acs_key
@@ -757,11 +758,127 @@ acs_key&lt;-my_acs_key
 <span class="co"># Or just paste it here.</span>
 <span class="co">#acs_key&lt;-&quot;&lt;your_acs_key_here&gt;&quot;</span>
 
-<span class="kw">census_api_key</span>(acs_key)
-<span class="kw">data</span>(fips_codes)</code></pre></div>
+<span class="kw">census_api_key</span>(acs_key)</code></pre></div>
+<ul>
+<li>Read in ACS data</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Load variables from acs 2017 </span>
+acs17 &lt;-<span class="st"> </span><span class="kw">load_variables</span>(<span class="dv">2017</span>, <span class="st">&quot;acs5&quot;</span>)
+
+<span class="co">#View(acs17)</span>
+<span class="co">#glimpse(acs17)</span>
+
+<span class="co">#create a list of variables</span>
+var_list&lt;-<span class="kw">paste0</span>(<span class="st">&quot;B15002_&quot;</span>,<span class="kw">c</span>(<span class="st">&quot;001&quot;</span>,
+                            <span class="st">&quot;014&quot;</span>,
+                            <span class="st">&quot;015&quot;</span>,
+                            <span class="st">&quot;016&quot;</span>,
+                            <span class="st">&quot;017&quot;</span>,
+                            <span class="st">&quot;018&quot;</span>,
+                            <span class="st">&quot;031&quot;</span>,
+                            <span class="st">&quot;032&quot;</span>,
+                            <span class="st">&quot;033&quot;</span>,
+                            <span class="st">&quot;034&quot;</span>,
+                            <span class="st">&quot;035&quot;</span>))
+
+<span class="co">#obtain data from acs, long version</span>
+<span class="co">#educ&lt;-get_acs(geography = 'county', </span>
+<span class="co">#              variables=var_list</span>
+              <span class="co">#geometry=TRUE</span>
+<span class="co">#              )</span>
+
+educ&lt;-<span class="st"> </span><span class="kw">get_acs</span>(<span class="dt">geography =</span> <span class="st">'zcta'</span>, <span class="co">#zip code tabulation area</span>
+              <span class="dt">variables=</span>var_list, <span class="co">#list of variables</span>
+              <span class="dt">output=</span><span class="st">&quot;wide&quot;</span> <span class="co">#each row represents an enumeration unit and the variables are in the columns</span>
+              <span class="co">#geometry=T #not using geometry argument </span>
+              )
+
+
+<span class="kw">names</span>(educ)&lt;-<span class="kw">tolower</span>(<span class="kw">names</span>(educ)) <span class="co">#lowercase variable names</span>
+
+<span class="kw">head</span>(educ)</code></pre></div>
+<pre><code>## # A tibble: 6 x 24
+##   geoid name  b15002_001e b15002_001m b15002_014e b15002_014m b15002_015e
+##   &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1 43964 ZCTA…        6316         314         276          82         245
+## 2 28216 ZCTA…       33273        1009        1084         237        2969
+## 3 28277 ZCTA…       48340        1019        1205         272        9285
+## 4 28278 ZCTA…       18009         802         506         159        2655
+## 5 28303 ZCTA…       20122         570         951         237        1576
+## 6 28314 ZCTA…       35672         789        1824         270        2678
+## # … with 17 more variables: b15002_015m &lt;dbl&gt;, b15002_016e &lt;dbl&gt;,
+## #   b15002_016m &lt;dbl&gt;, b15002_017e &lt;dbl&gt;, b15002_017m &lt;dbl&gt;, b15002_018e &lt;dbl&gt;,
+## #   b15002_018m &lt;dbl&gt;, b15002_031e &lt;dbl&gt;, b15002_031m &lt;dbl&gt;, b15002_032e &lt;dbl&gt;,
+## #   b15002_032m &lt;dbl&gt;, b15002_033e &lt;dbl&gt;, b15002_033m &lt;dbl&gt;, b15002_034e &lt;dbl&gt;,
+## #   b15002_034m &lt;dbl&gt;, b15002_035e &lt;dbl&gt;, b15002_035m &lt;dbl&gt;</code></pre>
 </div>
-<div id="practical-example" class="section level2">
-<h2><span class="header-section-number">5.5</span> Practical example</h2>
+<div id="student-exercise" class="section level3">
+<h3><span class="header-section-number">5.4.2</span> Student exercise</h3>
+<ol style="list-style-type: decimal">
+<li>Apply for an API key here <a href="https://api.census.gov/data/key_signup.html" class="uri">https://api.census.gov/data/key_signup.html</a></li>
+<li>Install packages
+<ul>
+<li><code>library(tidycensus)</code>, <code>library(tidyverse)</code>, and include <code>options(tigris_use_cache = TRUE)</code><br />
+</li>
+</ul></li>
+<li>Follow the steps from above to load your API key, and use the <code>load_variables()</code> function to get ‘acs’, ‘2017’ variables.</li>
+<li>Can use the same variables from the example above or choose your own 5 variables
+<ul>
+<li><em>hint: could use the <code>var_list</code> example from above</em><br />
+</li>
+</ul></li>
+<li>Use the <code>get_acs</code> to read in acs data.
+<ul>
+<li>In <code>geography</code> argument use ‘county’ instead of ‘zcta’<br />
+</li>
+<li>Use the <code>state</code> argument to filter for ‘CA’</li>
+</ul></li>
+</ol>
+<p><br> <details><summary><strong>Solution</strong>: Student exercise</summary></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#load package</span>
+<span class="kw">library</span>(tidycensus)
+<span class="kw">library</span>(tidyverse)
+<span class="kw">options</span>(<span class="dt">tigris_use_cache =</span> <span class="ot">TRUE</span>)
+
+
+<span class="co">#census_api_key(&quot;YOUR API KEY GOES HERE&quot;)</span>
+
+<span class="co">#my_acs_key&lt;-readLines(&quot;~/Desktop/census_api.txt&quot;,warn = FALSE)</span>
+
+<span class="co">#acs_key&lt;-my_acs_key</span>
+
+<span class="co"># Or just paste it here.</span>
+<span class="co">#acs_key&lt;-&quot;&lt;your_acs_key_here&gt;&quot;</span>
+
+<span class="kw">census_api_key</span>(acs_key) <span class="co">#using our census api key</span>
+
+
+<span class="co">#Load variables from acs 2017 </span>
+acs17 &lt;-<span class="st"> </span><span class="kw">load_variables</span>(<span class="dv">2017</span>, <span class="st">&quot;acs5&quot;</span>)
+
+<span class="co">#create a list of variables</span>
+var_list&lt;-<span class="kw">paste0</span>(<span class="st">&quot;B15002_&quot;</span>,<span class="kw">c</span>(<span class="st">&quot;001&quot;</span>,
+                            <span class="st">&quot;014&quot;</span>,
+                            <span class="st">&quot;015&quot;</span>,
+                            <span class="st">&quot;016&quot;</span>,
+                            <span class="st">&quot;017&quot;</span>,
+                            <span class="st">&quot;018&quot;</span>,
+                            <span class="st">&quot;031&quot;</span>,
+                            <span class="st">&quot;032&quot;</span>,
+                            <span class="st">&quot;033&quot;</span>,
+                            <span class="st">&quot;034&quot;</span>,
+                            <span class="st">&quot;035&quot;</span>))
+
+
+<span class="co">#load acs ca county level data </span>
+county&lt;-<span class="st"> </span><span class="kw">get_acs</span>(<span class="dt">geography =</span> <span class="st">'county'</span>, <span class="co">#zip code tabulation area</span>
+                 <span class="dt">state =</span> <span class="st">'CA'</span>,
+                 <span class="dt">variables=</span>var_list, <span class="co">#list of variables</span>
+                 <span class="dt">output=</span><span class="st">&quot;wide&quot;</span> <span class="co">#each row represents an enumeration unit and the variables are in the columns</span>
+              <span class="co">#geometry=T #not using geometry argument </span>
+              )</code></pre></div>
+<p></details> <br></p>
+</div>
 </div>
 </div>
 

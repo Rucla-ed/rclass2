@@ -303,6 +303,8 @@ API security (from [Kristopher Sandoval](https://nordicapis.com/3-common-methods
 
 # Using APIs to request data  
 
+[TEXT ABOUT ACS/CENSUS AND TIDYCENSUS PACKAGE]
+
 Tidycensus package (from tidycensus [website](https://walkerke.github.io/tidycensus/index.html))
 
 
@@ -418,9 +420,8 @@ tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/ti
     - `cache`: Whether you would like to cache the dataset for future access, or load the dataset from an existing cache. Defaults to FALSE.
 
 
-Tidycensus functions (from tidycensus [website](https://walkerke.github.io/tidycensus/reference/index.html))
-
-__Example__: using tidycensus  
+### tidycensus example
+__Example__: using tidycensus (from Will Doyle [github](https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd)) 
 
 - Request an API from the Census https://api.census.gov/data/key_signup.html
 
@@ -428,12 +429,11 @@ __Example__: using tidycensus
 #load package
 library(tidycensus)
 library(tidyverse)
-library(tigris)
 options(tigris_use_cache = TRUE)
+
 
 #census_api_key("YOUR API KEY GOES HERE")
 
-#from will doyle lecture https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd
 my_acs_key<-readLines("~/Desktop/census_api.txt",warn = FALSE)
 
 acs_key<-my_acs_key
@@ -442,11 +442,247 @@ acs_key<-my_acs_key
 #acs_key<-"<your_acs_key_here>"
 
 census_api_key(acs_key)
-data(fips_codes)
+```
+
+- Read in ACS data
+```{r message=FALSE}
+#Load variables from acs 2017 
+acs17 <- load_variables(2017, "acs5")
+
+#View(acs17)
+#glimpse(acs17)
+
+#create a list of variables
+var_list<-paste0("B15002_",c("001",
+                            "014",
+                            "015",
+                            "016",
+                            "017",
+                            "018",
+                            "031",
+                            "032",
+                            "033",
+                            "034",
+                            "035"))
+
+#obtain data from acs, long version
+#educ<-get_acs(geography = 'county', 
+#              variables=var_list
+              #geometry=TRUE
+#              )
+
+educ<- get_acs(geography = 'zcta', #zip code tabulation area
+              variables=var_list, #list of variables
+              output="wide" #each row represents an enumeration unit and the variables are in the columns
+              #geometry=T #not using geometry argument 
+              )
+
+
+names(educ)<-tolower(names(educ)) #lowercase variable names
+
+head(educ)
+```
+
+### Student exercise
+
+1. Apply for an API key here https://api.census.gov/data/key_signup.html
+2. Install packages  
+    - `library(tidycensus)`, `library(tidyverse)`, and include `options(tigris_use_cache = TRUE)`  
+3. Follow the steps from above to load your API key, and use the `load_variables()` function to get 'acs', '2017' variables.
+4. Can use the same variables from the example above or choose your own 5 variables  
+    - *hint: could use the `var_list` example from above*  
+5. Use the `get_acs` to read in acs data.  
+    - In `geography` argument use 'county' instead of 'zcta'  
+    - Use the `state` argument to filter for 'CA'  
+
+<br>
+<details><summary>**Solution**: Student exercise</summary>
+
+```{r message=FALSE}
+#load package
+library(tidycensus)
+library(tidyverse)
+options(tigris_use_cache = TRUE)
+
+
+#census_api_key("YOUR API KEY GOES HERE")
+
+#my_acs_key<-readLines("~/Desktop/census_api.txt",warn = FALSE)
+
+#acs_key<-my_acs_key
+
+# Or just paste it here.
+#acs_key<-"<your_acs_key_here>"
+
+census_api_key(acs_key) #using our census api key
+
+
+#Load variables from acs 2017 
+acs17 <- load_variables(2017, "acs5")
+
+#create a list of variables
+var_list<-paste0("B15002_",c("001",
+                            "014",
+                            "015",
+                            "016",
+                            "017",
+                            "018",
+                            "031",
+                            "032",
+                            "033",
+                            "034",
+                            "035"))
+
+
+#load acs ca county level data 
+county<- get_acs(geography = 'county', #zip code tabulation area
+                 state = 'CA',
+                 variables=var_list, #list of variables
+                 output="wide" #each row represents an enumeration unit and the variables are in the columns
+              #geometry=T #not using geometry argument 
+              )
+
 
 ```
 
-## Practical example
+</details>
+<br>
+
+
+
+
+
+
+```{r echo=FALSE, message=FALSE}
+
+#lookup_code("CA","Los Angeles") 
+#state_fips<-"06"
+#county_stub<-"037"
+
+#county_fips<-paste0(state_fips,county_stub)
+
+#county_to_zip<-read_csv("http://www2.census.gov/geo/docs/maps-data/data/rel/zcta_county_rel_10.txt")
+#easier names to work with
+#names(county_to_zip)<-tolower(names(county_to_zip))
+
+#Just zip codes in selected county
+#county_to_zip<-county_to_zip%>%
+#  filter(state%in%as.numeric(state_fips),county==county_stub)%>%
+#  select(zcta5,state,county)
+
+#list of zip codes
+#ziplist<-county_to_zip$zcta5
+
+#data(zip_codes) 
+
+
+
+
+#Load variables from acs 2017 
+acs17 <- load_variables(2017, "acs5")
+
+#View(acs17)
+#glimpse(acs17)
+
+#create a list of variables
+var_list<-paste0("B15002_",c("001",
+                            "014",
+                            "015",
+                            "016",
+                            "017",
+                            "018",
+                            "031",
+                            "032",
+                            "033",
+                            "034",
+                            "035"))
+
+#obtain data from acs, long version
+#educ<-get_acs(geography = 'county', 
+#              variables=var_list
+              #geometry=TRUE
+#              )
+
+educ<- get_acs(geography = 'zcta', #zip code tabulation area
+              variables=var_list, #list of variables
+              output="wide", #each row represents an enumeration unit and the variables are in the columns
+              geometry=T
+              )
+
+
+names(educ)<-tolower(names(educ))
+
+#educ%>%filter(geoid%in%ziplist)->county_educ #creating df of LA county zip codes
+
+#county_educ <- county_educ %>%
+#  rename(zip=geoid) %>%
+#  group_by(zip) %>%
+#  mutate(college_educ=((b15002_014e+
+#                         b15002_015e+
+#                         b15002_016e+
+#                         b15002_017e+
+#                         b15002_018e+
+#                         b15002_031e+
+#                         b15002_032e+
+#                        b15002_033e+
+#                         b15002_034e+
+#                         b15002_035e)/b15002_001e)*100) %>%
+#    select(zip,college_educ)
+
+
+
+
+#var_list<-paste0("B19001_",c("001",
+#                             "013",
+#                             "014",
+#                            "015",
+#                           "016",
+#                            "017"
+#                           ))
+#income<-get_acs("zcta",
+#                variables=var_list,
+#                output="wide"
+#                )
+#names(income)<-tolower(names(income))
+
+#county_income <- income%>%filter(geoid%in%ziplist)
+
+#county_income <- county_income %>%
+#  rename(zip = geoid)%>%
+#  group_by(zip) %>%
+#  mutate(
+#    income_75 = ((
+#      b19001_013e +
+#        b19001_014e +
+#        b19001_015e +
+#        b19001_016e +
+#        b19001_017e 
+#    ) / b19001_001e)*100
+#  )%>%
+#  select(zip,income_75)
+
+
+#county_df<- inner_join(county_educ,county_income, by="zip")
+
+#county_df%>%
+#  select(zip,college_educ,income_75)%>%
+#  arrange(zip)->county_df
+
+
+```
+
+```{r eval=FALSE, echo=FALSE}
+library(tidycensus)
+library(tidyverse)
+options(tigris_use_cache = TRUE)
+
+orange <- get_acs(state = "CA", county = "Orange", geography = "tract", 
+                  variables = "B19013_001", geometry = TRUE)
+
+head(orange)
+```
+
+
 
 
 
