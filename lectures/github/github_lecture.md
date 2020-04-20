@@ -193,6 +193,21 @@ Organization of `github_lecture.Rmd`, which will be the basis for the Git/GitHub
     - [git merge](#git-merge)
     - [Merge conflicts](#merge-conflicts)
     - [Resolving merge conflicts](#resolving-merge-conflicts)
+- [Pull Requests](#pull-requests)
+    - [Creating a pull request ](#creating-a-pull-request)
+    - [Responding to a pull request](#responding-to-a-pull-request)
+        - [Reviewing changes](#reviewing-changes)
+        - [Line-by-line comments](#line-by-line-comments)
+        - [Code review best practices](#code-review-best-practices)
+- [Appendix](#appendix)
+    - [Organizing projects and scripts](#organizing-projects-and-scripts)
+        - [Current working directory](#current-working-directory)
+        - [RStudio project](#rstudio-project)
+        - [File paths](#file-paths)
+        - [Saving and reading data](#saving-and-reading-data)
+        - [Student Exercise](#student-exercise)
+    - [gitignore](#gitignore)
+    - [Referencing issues and pull requests in commit message](#referencing-issues-and-pull-requests-in-commit-message)
 
 # Overview of core concepts and work flow
 
@@ -638,12 +653,17 @@ ls
 
 ```
 ## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## bash_on_windows.html
+## bash_on_windows.md
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
+## lecture_4.Rmd
+## lecture_4.html
+## lecture_4.md
 ## render_toc.R
 ## text
 ```
@@ -712,12 +732,17 @@ ls
 
 ```
 ## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
+## bash_on_windows.html
+## bash_on_windows.md
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
+## lecture_4.Rmd
+## lecture_4.html
+## lecture_4.md
 ## render_toc.R
 ## text
 ```
@@ -733,12 +758,17 @@ ls -a
 ## /Users/cyouh95/Projects/RStudio/rclass2/lectures/github
 ## .
 ## ..
+## bash_on_windows.html
+## bash_on_windows.md
 ## git_lecture.Rmd
 ## git_lecture.html
 ## git_lecture.md
 ## github_lecture.Rmd
 ## github_lecture.html
 ## github_lecture.md
+## lecture_4.Rmd
+## lecture_4.html
+## lecture_4.md
 ## render_toc.R
 ## text
 ```
@@ -1141,14 +1171,14 @@ ls -la
 ```
 ## /Users/cyouh95/downloadipeds
 ## total 72
-## drwxr-xr-x    8 cyouh95  staff    272 Apr 12 23:11 .
-## drwxr-xr-x+ 102 cyouh95  staff   3468 Apr 12 23:11 ..
-## drwxr-xr-x   12 cyouh95  staff    408 Apr 12 23:11 .git
-## -rw-r--r--    1 cyouh95  staff     20 Apr 12 23:11 .gitignore
-## -rw-r--r--    1 cyouh95  staff   1073 Apr 12 23:11 LICENSE
-## -rw-r--r--    1 cyouh95  staff   4388 Apr 12 23:11 README.md
-## -rwxr-xr-x    1 cyouh95  staff   5847 Apr 12 23:11 downloadipeds.R
-## -rwxr-xr-x    1 cyouh95  staff  11754 Apr 12 23:11 ipeds_file_list.txt
+## drwxr-xr-x    8 cyouh95  staff    272 Apr 19 21:46 .
+## drwxr-xr-x+ 102 cyouh95  staff   3468 Apr 19 21:46 ..
+## drwxr-xr-x   12 cyouh95  staff    408 Apr 19 21:46 .git
+## -rw-r--r--    1 cyouh95  staff     20 Apr 19 21:46 .gitignore
+## -rw-r--r--    1 cyouh95  staff   1073 Apr 19 21:46 LICENSE
+## -rw-r--r--    1 cyouh95  staff   4388 Apr 19 21:46 README.md
+## -rwxr-xr-x    1 cyouh95  staff   5847 Apr 19 21:46 downloadipeds.R
+## -rwxr-xr-x    1 cyouh95  staff  11754 Apr 19 21:46 ipeds_file_list.txt
 ```
 
 
@@ -1408,7 +1438,7 @@ git commit -m "initial commit"
 ```
 
 ```
-## [master (root-commit) d1f860b] initial commit
+## [master (root-commit) e4c1ee0] initial commit
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -1503,9 +1533,9 @@ ls -al
 ```
 ## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
 ## total 0
-## drwxr-xr-x    3 cyouh95  staff   102 Apr 12 23:11 .
-## drwxr-xr-x+ 103 cyouh95  staff  3502 Apr 12 23:11 ..
-## drwxr-xr-x    9 cyouh95  staff   306 Apr 12 23:11 .git
+## drwxr-xr-x    3 cyouh95  staff   102 Apr 19 21:46 .
+## drwxr-xr-x+ 103 cyouh95  staff  3502 Apr 19 21:46 ..
+## drwxr-xr-x    9 cyouh95  staff   306 Apr 19 21:46 .git
 ```
 
 <br>
@@ -1747,14 +1777,12 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master (root-commit) 3e6b9db] initial commit
+## [master (root-commit) c7ced64] initial commit
 ##  3 files changed, 4 insertions(+)
 ##  create mode 100644 create_dataset.R
 ##  create mode 100644 notes/note_1.txt
 ##  create mode 100644 notes/note_2.txt
 ## |____objects
-## | |____3e
-## | | |____6b9db22f702b1d8ca361b3be5c9d8dc2883c94
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____61
@@ -1763,6 +1791,8 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____c7
+## | | |____ced641780345396965d7b8b515ffdf31f328f4
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -1813,11 +1843,11 @@ ls -al
 
 ```
 ## total 8
-## drwxr-xr-x    5 cyouh95  staff   170 Apr 12 23:11 .
-## drwxr-xr-x+ 103 cyouh95  staff  3502 Apr 12 23:11 ..
-## drwxr-xr-x   12 cyouh95  staff   408 Apr 12 23:11 .git
-## -rw-r--r--    1 cyouh95  staff    35 Apr 12 23:11 create_dataset.R
-## drwxr-xr-x    4 cyouh95  staff   136 Apr 12 23:11 notes
+## drwxr-xr-x    5 cyouh95  staff   170 Apr 19 21:46 .
+## drwxr-xr-x+ 103 cyouh95  staff  3502 Apr 19 21:46 ..
+## drwxr-xr-x   12 cyouh95  staff   408 Apr 19 21:46 .git
+## -rw-r--r--    1 cyouh95  staff    35 Apr 19 21:46 create_dataset.R
+## drwxr-xr-x    4 cyouh95  staff   136 Apr 19 21:46 notes
 ```
 
 Second, show contents of tree using `git cat-file`
@@ -1834,11 +1864,11 @@ git cat-file -p f59085d  # content
 
 ```
 ## total 8
-## drwxr-xr-x    5 cyouh95  staff   170 Apr 12 23:11 .
-## drwxr-xr-x+ 103 cyouh95  staff  3502 Apr 12 23:11 ..
-## drwxr-xr-x   12 cyouh95  staff   408 Apr 12 23:11 .git
-## -rw-r--r--    1 cyouh95  staff    35 Apr 12 23:11 create_dataset.R
-## drwxr-xr-x    4 cyouh95  staff   136 Apr 12 23:11 notes
+## drwxr-xr-x    5 cyouh95  staff   170 Apr 19 21:46 .
+## drwxr-xr-x+ 103 cyouh95  staff  3502 Apr 19 21:46 ..
+## drwxr-xr-x   12 cyouh95  staff   408 Apr 19 21:46 .git
+## -rw-r--r--    1 cyouh95  staff    35 Apr 19 21:46 create_dataset.R
+## drwxr-xr-x    4 cyouh95  staff   136 Apr 19 21:46 notes
 ## 
 ## tree
 ## 100644 blob c1cff389562e8bc123e6691a60352fdf839df113	create_dataset.R
@@ -1904,13 +1934,11 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ```
 
 ```
-## [master 08ea6cc] second commit
+## [master 45346a7] second commit
 ##  1 file changed, 1 insertion(+)
 ## |____objects
-## | |____08
-## | | |____ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
-## | |____3e
-## | | |____6b9db22f702b1d8ca361b3be5c9d8dc2883c94
+## | |____45
+## | | |____346a76f78050ab7dbfd31de30f8381c36711a6
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -1923,6 +1951,8 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____c7
+## | | |____ced641780345396965d7b8b515ffdf31f328f4
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -1945,10 +1975,10 @@ git cat-file -p $(git rev-list HEAD | tail -n 1)
 ```
 
 ```
-## 3e6b9db22f702b1d8ca361b3be5c9d8dc2883c94
+## c7ced641780345396965d7b8b515ffdf31f328f4
 ## tree f59085df29aed7826a89b23af3f67fc3ab96f643
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758316 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758316 -0700
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358015 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358015 -0700
 ## 
 ## initial commit
 ```
@@ -1969,11 +1999,11 @@ git cat-file -p $(git rev-parse HEAD)
 ```
 
 ```
-## 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
+## 45346a76f78050ab7dbfd31de30f8381c36711a6
 ## tree 524db779f0a3e3b3b353b522285c7da4830e21f1
-## parent 3e6b9db22f702b1d8ca361b3be5c9d8dc2883c94
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
+## parent c7ced641780345396965d7b8b515ffdf31f328f4
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358015 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358015 -0700
 ## 
 ## second commit
 ```
@@ -2010,10 +2040,10 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 
 ```
 ## |____objects
-## | |____08
-## | | |____ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
-## | |____3e
-## | | |____6b9db22f702b1d8ca361b3be5c9d8dc2883c94
+## | |____0d
+## | | |____91ac6adc8569d1a011a93111ed2a4881874f08
+## | |____45
+## | | |____346a76f78050ab7dbfd31de30f8381c36711a6
 ## | |____47
 ## | | |____6fb98775843929ca6c55b16b04752d973b3d2a
 ## | |____49
@@ -2024,10 +2054,10 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## | | |____08458417308ddc15d7390a2f8db50cf65ec399
 ## | |____6c
 ## | | |____f7bbf49af4f9fd5103cf9f0a3fa25226b12336
-## | |____92
-## | | |____f8e4ba58f0d260306d70863569502cefae11e3
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
+## | |____c7
+## | | |____ced641780345396965d7b8b515ffdf31f328f4
 ## | |____f5
 ## | | |____9085df29aed7826a89b23af3f67fc3ab96f643
 ## | |____info
@@ -2043,10 +2073,10 @@ git cat-file -p $(git show-ref -s v1)  # retrieves hash for v1 tag
 ```
 
 ```
-## object 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
+## object 45346a76f78050ab7dbfd31de30f8381c36711a6
 ## type commit
 ## tag v1
-## tagger cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
+## tagger cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358015 -0700
 ## 
 ## version 1.0
 ```
@@ -2058,15 +2088,15 @@ git log
 ```
 
 ```
-## commit 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
+## commit 45346a76f78050ab7dbfd31de30f8381c36711a6
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:57 2020 -0700
+## Date:   Sun Apr 19 21:46:55 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 3e6b9db22f702b1d8ca361b3be5c9d8dc2883c94
+## commit c7ced641780345396965d7b8b515ffdf31f328f4
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:56 2020 -0700
+## Date:   Sun Apr 19 21:46:55 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -2099,7 +2129,7 @@ cat .git/refs/heads/master
 ```
 
 ```
-## 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
+## 45346a76f78050ab7dbfd31de30f8381c36711a6
 ```
 
 We can use `git log` to verify that this is the hash ID of the latest commit:
@@ -2111,15 +2141,15 @@ git log
 ```
 
 ```
-## commit 08ea6cc51317b08b1c8c1e1a1c9042b2003cb58d
+## commit 45346a76f78050ab7dbfd31de30f8381c36711a6
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:57 2020 -0700
+## Date:   Sun Apr 19 21:46:55 2020 -0700
 ## 
 ##     second commit
 ## 
-## commit 3e6b9db22f702b1d8ca361b3be5c9d8dc2883c94
+## commit c7ced641780345396965d7b8b515ffdf31f328f4
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:56 2020 -0700
+## Date:   Sun Apr 19 21:46:55 2020 -0700
 ## 
 ##     initial commit
 ```
@@ -2225,7 +2255,7 @@ git status
 ```
 
 ```
-## [master (root-commit) 58c2a0b] add create_dataset.R
+## [master (root-commit) b722e91] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ## On branch master
@@ -2239,9 +2269,9 @@ git log
 ```
 
 ```
-## commit 58c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
+## commit b722e9135f574e4cd836c4b96ed1a5be44fa9c3b
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:57 2020 -0700
+## Date:   Sun Apr 19 21:46:55 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2255,7 +2285,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## 58c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
+## b722e9135f574e4cd836c4b96ed1a5be44fa9c3b
 ```
 
 
@@ -2309,10 +2339,10 @@ find .git/objects -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'
 ## |____objects
 ## | |____49
 ## | | |____0ec1c138021b8d5c196c26a2a7b3de69afc2d1
-## | |____58
-## | | |____c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
 ## | |____96
 ## | | |____6cc780d5994bc8a4ed535484cd7f8268e8e874
+## | |____b7
+## | | |____22e9135f574e4cd836c4b96ed1a5be44fa9c3b
 ## | |____c1
 ## | | |____cff389562e8bc123e6691a60352fdf839df113
 ## | |____info
@@ -2348,7 +2378,7 @@ git commit -m "modify create_dataset.R"
 ```
 
 ```
-## [master 5c9206f] modify create_dataset.R
+## [master ba31cc5] modify create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -2359,15 +2389,15 @@ git log
 ```
 
 ```
-## commit 5c9206f9170d298aef9e5f17d91ac79283fff6fb
+## commit ba31cc5d500ff20500fcdd3065452e87a07a87d8
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:57 2020 -0700
+## Date:   Sun Apr 19 21:46:56 2020 -0700
 ## 
 ##     modify create_dataset.R
 ## 
-## commit 58c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
+## commit b722e9135f574e4cd836c4b96ed1a5be44fa9c3b
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:57 2020 -0700
+## Date:   Sun Apr 19 21:46:55 2020 -0700
 ## 
 ##     add create_dataset.R
 ```
@@ -2381,7 +2411,7 @@ cat .git/refs/heads/master
 
 ```
 ## ref: refs/heads/master
-## 5c9206f9170d298aef9e5f17d91ac79283fff6fb
+## ba31cc5d500ff20500fcdd3065452e87a07a87d8
 ```
 
 
@@ -2392,9 +2422,9 @@ git cat-file -p $(git rev-parse HEAD)
 
 ```
 ## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
-## parent 58c2a0bc663a708f8d1e4ff3c2941a0d1d8593e7
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758317 -0700
+## parent b722e9135f574e4cd836c4b96ed1a5be44fa9c3b
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358016 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358016 -0700
 ## 
 ## modify create_dataset.R
 ```
@@ -2827,7 +2857,7 @@ git commit -m "add create_dataset.R"
 
 ```
 ## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) ce780b8] add create_dataset.R
+## [master (root-commit) a72ba16] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2924,7 +2954,7 @@ git commit -m "add create_dataset.R"
 
 ```
 ## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) ce780b8] add create_dataset.R
+## [master (root-commit) a72ba16] add create_dataset.R
 ##  1 file changed, 2 insertions(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -2987,7 +3017,7 @@ git commit -m "add 1st line to create_dataset.R"
 
 ```
 ## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) 10f3cf5] add 1st line to create_dataset.R
+## [master (root-commit) 6a9b6af] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3003,7 +3033,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## [master 57c3d41] add 2nd line to create_dataset.R
+## [master 68da860] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -3014,15 +3044,15 @@ git log
 ```
 
 ```
-## commit 57c3d41f78b83aec7f512b115751a6e06ccf8db6
+## commit 68da8601968184066498d552f90e7419e057e9bf
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:58 2020 -0700
+## Date:   Sun Apr 19 21:46:56 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 10f3cf528199f6c4f83d9592c9b29b485fc1f063
+## commit 6a9b6af93d61f24b726c30bae743c0b35e235b88
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:58 2020 -0700
+## Date:   Sun Apr 19 21:46:56 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3039,9 +3069,9 @@ git log
 ```
 ## Unstaged changes after reset:
 ## M	create_dataset.R
-## commit 10f3cf528199f6c4f83d9592c9b29b485fc1f063
+## commit 6a9b6af93d61f24b726c30bae743c0b35e235b88
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:58 2020 -0700
+## Date:   Sun Apr 19 21:46:56 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3087,7 +3117,7 @@ git commit -m "add 1st line to create_dataset.R"
 
 ```
 ## Initialized empty Git repository in /Users/cyouh95/my_git_repo/.git/
-## [master (root-commit) 10f3cf5] add 1st line to create_dataset.R
+## [master (root-commit) 6a9b6af] add 1st line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3103,7 +3133,7 @@ git commit -m "add 2nd line to create_dataset.R"
 ```
 
 ```
-## [master 57c3d41] add 2nd line to create_dataset.R
+## [master 68da860] add 2nd line to create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -3114,15 +3144,15 @@ git log
 ```
 
 ```
-## commit 57c3d41f78b83aec7f512b115751a6e06ccf8db6
+## commit 68da8601968184066498d552f90e7419e057e9bf
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:58 2020 -0700
+## Date:   Sun Apr 19 21:46:56 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 10f3cf528199f6c4f83d9592c9b29b485fc1f063
+## commit 6a9b6af93d61f24b726c30bae743c0b35e235b88
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:58 2020 -0700
+## Date:   Sun Apr 19 21:46:56 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3137,25 +3167,25 @@ git log
 ```
 
 ```
-## [master 2cc1d75] Revert "add 2nd line to create_dataset.R"
+## [master e316d80] Revert "add 2nd line to create_dataset.R"
 ##  1 file changed, 1 deletion(-)
-## commit 2cc1d75bb41eb6c5759b863455ce91745ff717f4
+## commit e316d80b8ca7ab631e21fd5b3b7a3574fce98abf
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:58 2020 -0700
+## Date:   Sun Apr 19 21:46:56 2020 -0700
 ## 
 ##     Revert "add 2nd line to create_dataset.R"
 ##     
-##     This reverts commit 57c3d41f78b83aec7f512b115751a6e06ccf8db6.
+##     This reverts commit 68da8601968184066498d552f90e7419e057e9bf.
 ## 
-## commit 57c3d41f78b83aec7f512b115751a6e06ccf8db6
+## commit 68da8601968184066498d552f90e7419e057e9bf
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:58 2020 -0700
+## Date:   Sun Apr 19 21:46:56 2020 -0700
 ## 
 ##     add 2nd line to create_dataset.R
 ## 
-## commit 10f3cf528199f6c4f83d9592c9b29b485fc1f063
+## commit 6a9b6af93d61f24b726c30bae743c0b35e235b88
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:58 2020 -0700
+## Date:   Sun Apr 19 21:46:56 2020 -0700
 ## 
 ##     add 1st line to create_dataset.R
 ```
@@ -3235,7 +3265,7 @@ git commit -m "import tidyverse in create_dataset.R"
 ```
 
 ```
-## [master (root-commit) 2608230] import tidyverse in create_dataset.R
+## [master (root-commit) d0bc8ec] import tidyverse in create_dataset.R
 ##  1 file changed, 1 insertion(+)
 ##  create mode 100644 create_dataset.R
 ```
@@ -3257,7 +3287,7 @@ git branch -v
 ```
 
 ```
-## * master 2608230 import tidyverse in create_dataset.R
+## * master d0bc8ec import tidyverse in create_dataset.R
 ```
 
 
@@ -3327,7 +3357,7 @@ git branch -d dev
 ```
 
 ```
-## Deleted branch dev (was 2608230).
+## Deleted branch dev (was d0bc8ec).
 ```
 
 
@@ -3468,9 +3498,9 @@ git log
 ```
 
 ```
-## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## commit d0bc8ec5a0d7f577329aa3b2b7ce46be94398fab
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3486,9 +3516,9 @@ git log
 
 ```
 ## Switched to branch 'dev'
-## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## commit d0bc8ec5a0d7f577329aa3b2b7ce46be94398fab
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3518,7 +3548,7 @@ git commit -m "manipulate mpg dataset"
 ```
 
 ```
-## [dev ff0f95d] manipulate mpg dataset
+## [dev f9d2e65] manipulate mpg dataset
 ##  1 file changed, 2 insertions(+)
 ```
 
@@ -3529,15 +3559,15 @@ git log
 ```
 
 ```
-## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## commit f9d2e65cf882b6f65f8431909414373185308ddc
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## commit d0bc8ec5a0d7f577329aa3b2b7ce46be94398fab
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3556,7 +3586,7 @@ git merge dev
 
 ```
 ## Switched to branch 'master'
-## Updating 2608230..ff0f95d
+## Updating d0bc8ec..f9d2e65
 ## Fast-forward
 ##  create_dataset.R | 2 ++
 ##  1 file changed, 2 insertions(+)
@@ -3569,15 +3599,15 @@ git log
 ```
 
 ```
-## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## commit f9d2e65cf882b6f65f8431909414373185308ddc
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## commit d0bc8ec5a0d7f577329aa3b2b7ce46be94398fab
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3595,12 +3625,12 @@ git cat-file -p $(git rev-parse HEAD)
 ```
 
 ```
-## ff0f95d50ae73c57a31ee5e413046681415b8b36
+## f9d2e65cf882b6f65f8431909414373185308ddc
 ## commit
 ## tree 6de1187f46bbf4d76cafca7c0e5d3d61db6b5a53
-## parent 2608230a883747936bfdb9c7b819de298fcda19d
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758319 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758319 -0700
+## parent d0bc8ec5a0d7f577329aa3b2b7ce46be94398fab
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358017 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358017 -0700
 ## 
 ## manipulate mpg dataset
 ```
@@ -3645,11 +3675,11 @@ git cat-file -p $(git rev-list HEAD | tail -n 1)
 ```
 
 ```
-## 2608230a883747936bfdb9c7b819de298fcda19d
+## d0bc8ec5a0d7f577329aa3b2b7ce46be94398fab
 ## commit
 ## tree cb70185218351236255cdea1297210ceeaf6e3b5
-## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758319 -0700
-## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1586758319 -0700
+## author cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358017 -0700
+## committer cyouh95 <25449416+cyouh95@users.noreply.github.com> 1587358017 -0700
 ## 
 ## import tidyverse in create_dataset.R
 ```
@@ -3668,15 +3698,15 @@ git log
 ```
 
 ```
-## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## commit f9d2e65cf882b6f65f8431909414373185308ddc
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## commit d0bc8ec5a0d7f577329aa3b2b7ce46be94398fab
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3714,7 +3744,7 @@ git commit -m "update head() on line 2"
 ```
 
 ```
-## [master eca51ac] update head() on line 2
+## [master a8eb8c7] update head() on line 2
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
@@ -3755,7 +3785,7 @@ git commit -m "add additional filter() on line 4"
 
 ```
 ## Switched to branch 'dev'
-## [dev 314965c] add additional filter() on line 4
+## [dev 1f5010d] add additional filter() on line 4
 ##  1 file changed, 1 insertion(+)
 ```
 
@@ -3832,34 +3862,34 @@ git log
 ```
 
 ```
-## commit 6728797761c8e12481d4a9f5eb838aad2b5f8d56
-## Merge: eca51ac 314965c
+## commit b0571178a99ad0f9117b756beaebc6cb87abe0f7
+## Merge: a8eb8c7 1f5010d
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:12:00 2020 -0700
+## Date:   Sun Apr 19 21:46:58 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit 314965c884e2fb922abe5becaa2fa1bdfaffbf4c
+## commit a8eb8c7e2412c19380d72c7f300aff1a80f918db
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:12:00 2020 -0700
-## 
-##     add additional filter() on line 4
-## 
-## commit eca51acd6b92fdd227f39285a4857f1780a01963
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:58 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## commit 1f5010ddf71da94250324e700a041b1477cebc0c
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:58 2020 -0700
+## 
+##     add additional filter() on line 4
+## 
+## commit f9d2e65cf882b6f65f8431909414373185308ddc
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## commit d0bc8ec5a0d7f577329aa3b2b7ce46be94398fab
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -3932,34 +3962,34 @@ git log
 ```
 
 ```
-## commit 6728797761c8e12481d4a9f5eb838aad2b5f8d56
-## Merge: eca51ac 314965c
+## commit b0571178a99ad0f9117b756beaebc6cb87abe0f7
+## Merge: a8eb8c7 1f5010d
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:12:00 2020 -0700
+## Date:   Sun Apr 19 21:46:58 2020 -0700
 ## 
 ##     Merge branch 'dev'
 ## 
-## commit 314965c884e2fb922abe5becaa2fa1bdfaffbf4c
+## commit a8eb8c7e2412c19380d72c7f300aff1a80f918db
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:12:00 2020 -0700
-## 
-##     add additional filter() on line 4
-## 
-## commit eca51acd6b92fdd227f39285a4857f1780a01963
-## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:58 2020 -0700
 ## 
 ##     update head() on line 2
 ## 
-## commit ff0f95d50ae73c57a31ee5e413046681415b8b36
+## commit 1f5010ddf71da94250324e700a041b1477cebc0c
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:58 2020 -0700
+## 
+##     add additional filter() on line 4
+## 
+## commit f9d2e65cf882b6f65f8431909414373185308ddc
+## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     manipulate mpg dataset
 ## 
-## commit 2608230a883747936bfdb9c7b819de298fcda19d
+## commit d0bc8ec5a0d7f577329aa3b2b7ce46be94398fab
 ## Author: cyouh95 <25449416+cyouh95@users.noreply.github.com>
-## Date:   Sun Apr 12 23:11:59 2020 -0700
+## Date:   Sun Apr 19 21:46:57 2020 -0700
 ## 
 ##     import tidyverse in create_dataset.R
 ```
@@ -4003,7 +4033,7 @@ git commit -m "filter for lincoln instead of audi"
 
 ```
 ## Switched to a new branch 'revision'
-## [revision 2de3b89] filter for lincoln instead of audi
+## [revision e885aa0] filter for lincoln instead of audi
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
@@ -4098,7 +4128,7 @@ git commit -m "filter for chevrolet instead of audi"
 ```
 
 ```
-## [master 6e8d570] filter for chevrolet instead of audi
+## [master c2c68b7] filter for chevrolet instead of audi
 ##  1 file changed, 1 insertion(+), 1 deletion(-)
 ```
 
@@ -4237,7 +4267,597 @@ git add create_dataset.R
 git commit -m "merge revision branch"
 ```
 
+</details>
+
+# Pull Requests
+
+What is a **pull request**?
+
+> "Pull requests let you tell others about changes you've pushed to a branch in a repository on GitHub. Once a pull request is opened, you can discuss and review the potential changes with collaborators and add follow-up commits before your changes are merged into the base branch." -- [GitHub Help](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests)
+
+- As mentioned in the [branching](#9_branching) section, there is typically one base branch (usually master) that contains all working or approved changes
+- Any development or testing is usually done on separate branches, then merged back into master once changes are finalized
+- Pull requests are essentially requests to have one branch (e.g., development branch) merged into another (e.g., master branch)
+- Pull requests are opened on GitHub
+
+<br>
+Why make a **pull request**?
+
+- In a collaborative setting, pull requests give other people a chance to review and approve your changes before they are merged to the base branch
+  - This allows for better quality control
+  - It also lets all collaborators be in agreement with what gets merged to the base branch
+- Pull requests can also be a way to keep a history of the major revisions and decisions made to the project
+
+<br>
+Types of **pull requests** ([Pull Request Tutorial](https://yangsu.github.io/pull-request-tutorial/))
+
+- Pull request from a forked repository
+  - People who don't have write permission to a repository can still contribute to it using this method
+  - Process:
+    - Fork the repository (i.e., create a copy under one's own account so they have write permission)
+    - Make changes to the forked repository
+    - Open a pull request on GitHub to have their changes merged to the original repository
+  - Alternative to pull request:
+    - Open an issue instead to request certain changes
+    - But this means someone still has to implement the change
+    - If the requester is able to make the change themselves, doing so and creating a pull request is a faster way to get the change incorporated
+- Pull request from a branch within a repository
+  - Collaborators working on the same repository can use pull requests as a way to let each other know about changes they made that they want incorporated to the main branch (typically master)
+  - Process:
+    - Create a new local branch off master to make changes to
+    - Push the branch to the remote repository
+    - Open a pull request on GitHub to have their branch merged to master
+  - Alternative to pull request:
+    - Merge your changes on the local branch directly into local master, then push to remote (see below for example)
+    - This bypasses the review and approval process that a pull request offers
+  
+We will be focusing on the second type of pull request.
+
+<br>
+<details><summary>**Example**: Alternative to pull request: Merging changes directly into master</summary>
+
+Let's say we create a new R script and add/commit that to the master branch:
+
+
+
+
+```bash
+# Create new R script
+echo "library(tidyverse)" > create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "import tidyverse library"
+```
+
+```
+## [master (root-commit) 5bf47af] import tidyverse library
+##  1 file changed, 1 insertion(+)
+##  create mode 100644 create_dataset.R
+```
+
+Then, we create a new branch and make further changes to the R script on the branch:
+
+
+```bash
+# Create and switch to new branch
+git checkout -b dev
+
+# Modify R script
+echo "mpg %>% head(5)" >> create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "preview mpg dataset"
+```
+
+```
+## Switched to a new branch 'dev'
+## 
+## [dev 9e71f6e] preview mpg dataset
+##  1 file changed, 1 insertion(+)
+```
+
+At this point, we can push this new branch to the remote if we wanted to open a pull request. But the alternative is to directly merge the changes to master:
+
+
+```bash
+# Switch back to master
+git checkout master
+
+# Merge in changes from the branch
+git merge dev
+```
+
+```
+## Switched to branch 'master'
+## Updating 5bf47af..9e71f6e
+## Fast-forward
+##  create_dataset.R | 1 +
+##  1 file changed, 1 insertion(+)
+```
+
+Then, we can push the changes to the remote's master branch, which would also be the ultimate goal of a pull request:
+
+
+```bash
+# Push to remote's master
+git push
+```
 
 </details>
+<br>
+
+## Creating a pull request 
+
+*All image credits: [GitHub Help](https://help.github.com/en)*
+
+<br>
+**Creating a topical branch**:
+
+- Create a new local branch and make your changes to it
+- After you are done, it is good practice to merge in any changes from master that your branch doesn't have
+  - This makes it easier later down the road when you are merging your branch back into master after the pull request is complete
+- Push your branch to the remote repository
+
+<br>
+**Making the pull request**:
+
+- On GitHub, select your branch and click `New pull request`:
+
+  [![](https://help.github.com/assets/images/help/pull_requests/branch-dropdown.png){width=300px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
+  
+- Add a title and (optionally) a description for your pull request. You can also `@` users/teams if you want:
+  
+  [![](https://help.github.com/assets/images/help/pull_requests/pullrequest-description.png){width=500px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
+
+- Click `Create Pull Request`:
+
+  [![](https://help.github.com/assets/images/help/pull_requests/pullrequest-send.png){width=300px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request)
+
+- Your pull request will appear under the tab `Pull requests`:
+
+  [![](https://help.github.com/assets/images/help/repository/repo-tabs-pull-requests.png)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/requesting-a-pull-request-review)
+
+<br>
+**Assigning reviewers**:
+
+- On the right-hand side of the pull request, you are also able to assign **Reviewers** or **Assignees**, similar to an issue:
+
+  ![](../../assets/images/reviewer.png)
+
+- **Reviewers** should be someone who you want to review the changes you made, while **Assignees** could be anyone else more generally involved in the pull request
+  - Reviewers will get a notification that their review is requested
+  - Whether or not the reviewer actually completes a reviews does not affect the ability to merge pull request
+  - If someone who is not assigned as reviewer reviews the changes (i.e., does one of three actions described in the next section), they will be added to the reviewers list
+- The users listed under **Reviewers** (unlike **Assignees**) will also have a status icon:
+
+  [![](https://help.github.com/assets/images/help/pull_requests/request-re-review.png)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/requesting-a-pull-request-review)
+
+  - ![](../../assets/images/reviewer_status_yellow.png): Pending review from reviewer
+  - ![](../../assets/images/reviewer_status_gray.png): Reviewer has left comments
+  - ![](../../assets/images/reviewer_status_green.png): Reviewer has approved changes
+  - ![](../../assets/images/reviewer_status_red.png): Reviewer has requested additional changes
+  - For any of the last three statuses, you can click ![](../../assets/images/reviewer_request.png) to re-request a review from the reviewer
+
+<br>
+<details><summary>**Example**: Creating a pull request</summary>
+
+Similar to the previous example, let's say we create a new R script and added/committed that to the master branch:
+
+
+
+
+```bash
+# Create new R script
+echo "library(tidyverse)" > create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "import tidyverse library"
+```
+
+```
+## [master (root-commit) 5bf47af] import tidyverse library
+##  1 file changed, 1 insertion(+)
+##  create mode 100644 create_dataset.R
+```
+
+Then, we create a new branch and make further changes to the R script on the branch:
+
+
+```bash
+# Create and switch to new branch
+git checkout -b dev
+
+# Modify R script
+echo "mpg %>% head(5)" >> create_dataset.R
+
+# Add/commit R script
+git add create_dataset.R
+git commit -m "preview mpg dataset"
+```
+
+```
+## Switched to a new branch 'dev'
+## 
+## [dev 9e71f6e] preview mpg dataset
+##  1 file changed, 1 insertion(+)
+```
+
+At this point, we can push this new branch to the remote repository. Remember to set the upstream branch if this is the first time you are pushing the branch to remote:
+
+
+```bash
+# Push branch to remote (say our remote is called `origin` here)
+git push --set-upstream origin dev
+```
+
+All the subsequent steps to open the pull request will be performed on GitHub.
+
+</details>
+<br>
+
+## Responding to a pull request
+
+There are two ultimate responses to a pull request.
+
+- **Merging** pull request:
+
+  [![](https://help.github.com/assets/images/help/pull_requests/pullrequest-mergebutton.png)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/merging-a-pull-request)
+
+- **Closing** pull request:
+
+  [![](https://help.github.com/assets/images/help/pull_requests/pullrequest-closebutton.png){width=400px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/closing-a-pull-request)
+
+But before coming to one of these decisions, you will likely want to review the changes in more detail.
+
+### Reviewing changes
+
+Under the `Files` tab, you can view all changes that would potentially be merged if the pull request is completed:
+
+[![](https://help.github.com/assets/images/help/pull_requests/pull-request-tabs-changed-files.png)](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-comparing-branches-in-pull-requests)
+
+There, you will also see a button called `Review changes` that contains three options for leaving a review:
+
+[![](https://help.github.com/assets/images/help/pull_requests/pull-request-review-statuses.png){width=500px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-reviews)
+
+<br>
+**Comment**:
+
+- Select this option to leave general feedback on the changes
+  - You must write something in the comment box in order to click `Submit review`
+- The reviewer status will be changed to ![](../../assets/images/reviewer_status_gray.png)
+- Note that simply leaving a comment on the main pull request page will not trigger this status change
+
+<br>
+**Approve**:
+
+- Select this option to approve merging the changes
+  - You do not need to write anything in the comment box in order to click `Submit review`
+- The reviewer status will be changed to ![](../../assets/images/reviewer_status_green.png)
+
+<br>
+**Request changes**:
+
+- Select this option to request further changes before merging
+  - You must write something in the comment box in order to click `Submit review`
+- The reviewer status will be changed to ![](../../assets/images/reviewer_status_red.png)
+- You will see that the merge box on the main pull request page is outlined in orange, along with a list of reviewers who requested changes:
+
+  [![](https://help.github.com/assets/images/help/pull_requests/merge_box/pr-reviews-in-merge-box.png){width=500px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-request-reviews)
+  
+- To respond to the change request from each reviewer, there are three options:
+
+  [![](https://help.github.com/assets/images/help/pull_requests/merge_box/pull-request-dismiss-review.png){width=500px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/dismissing-a-pull-request-review)
+  
+  - `Approve changes`: The reviewer can select this to resolve the change request
+    - This will turn the merge box outline from orange back to green
+    - The reviewer status will be changed to ![](../../assets/images/reviewer_status_green.png)
+    - For anyone other than the reviewer, they will see the option `See review` instead
+  - `Dismiss review`: The review can be dismissed by anyone
+    - You will be asked to enter a reason why you want to dismiss the review, which will appear as a comment on the pull request page
+    - This will turn the merge box outline from orange back to green
+    - The reviewer status will be changed to ![](../../assets/images/reviewer_status_gray.png)
+  - `Re-request review`: Another review from the reviewer can be requested
+    - The merge box outline will remain orange
+    - The reviewer status will be changed to ![](../../assets/images/reviewer_status_yellow.png)
+
+- Note that the merge box outline color and reviewer status do not affect the ability to merge the pull request
+
+
+### Line-by-line comments
+
+Under the `Files` tab, you can also make comments to specific lines of a file:
+
+  [![](https://help.github.com/assets/images/help/commits/hover-comment-icon.gif){width=500px}](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/commenting-on-a-pull-request)
+  
+<br>
+More on this next week.
+<br>
+
+### Code review best practices
+
+TBD
+
+# Appendix
+
+## Organizing projects and scripts
+
+[Organizing Lecture](https://edquant.github.io/edh7916/lessons/organizing.html) by Ben Skinner
+
+- [Organizing a project directory](https://edquant.github.io/edh7916/lessons/organizing.html#organizing-a-project-directory)
+- [Organizing a script](https://edquant.github.io/edh7916/lessons/organizing.html#organizing-a-script)
+
+See [Problem set expectations](https://github.com/Rucla-ed/rclass2/tree/master/_resources/problemset/ps_expectations.md)
+
+### Current working directory
+
+When you run R code in an `.Rmd` file, the working directory is the directory that your `.Rmd` file is in:
+
+
+```r
+getwd()
+```
+
+```
+## [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/github"
+```
+
+<br>
+When you run an `.R` script, the working directory is the directory indicated at the top of your console in RStudio:
+
+![](../../assets/images/r_console.png)
+
+- This is typically your home directory if you are not working from an RStudio project
+- If you are working from an RStudio project, your working directory would be the project directory
+
+### RStudio project
+
+How to create an **RStudio project**?
+
+- On the top right corner in RStudio, select `New Project` under the dropdown menu
+- If there's a folder you want to turn into a project, select `Existing Directory`
+- Under `Project working directory`, browse for your folder and click `Create Project`
+
+![](../../assets/images/rstudio_project.png)
+
+<br>
+Why use **RStudio project**?
+
+- Creating a RStudio project helps keep everything relative to the project directory
+  - Your R Console and R scripts will run using the project directory as the working directory
+  - Your Terminal in RStudio will start in the project directory
+  - Your file browser window (bottom right panel) will also start off in the project directory
+
+
+### File paths
+
+> We use the `file.path()` command because it is smart. Some computer operating systems use forward slashes, `/`, for their file paths; others use backslashes, `\`. Rather than try to guess or assume what operating system future users will use, we can use R's function, `file.path()`, to check the current operating system and build the paths correctly for us.
+
+*Credit: [Organizing Lecture](https://edquant.github.io/edh7916/lessons/organizing.html) by Ben Skinner*
+
+<br>
+__The `file.path()` function__:
+
+
+```r
+?file.path
+
+# SYNTAX AND DEFAULT VALUES
+file.path(..., fsep = .Platform$file.sep)
+```
+
+- Pass in each section of the file path as a separate argument
+  - Example: `file.path('.', 'lectures', 'week_1')` returns `'./lectures/week_1'`
+- You can also save this file path object in a variable
+  - Example: `lec_dir <- file.path('.', 'lectures', 'week_1')`
+
+
+<br>
+<details><summary>**Example**: Working with file paths</summary>
+
+Let's first create some folders and files on the command line:
+
+
+```bash
+# Change to root directory
+cd ~
+
+# Create new directory called `my_directory` and change into it
+mkdir my_directory
+cd my_directory
+
+# Create a directory called `notes` with a `week_1` sub-directory
+mkdir notes/
+mkdir notes/week_1
+
+# Create new files in the sub-directories
+echo "This is my first set of notes." > notes/week_1/note_1.txt
+echo "This is my second set of notes." > notes/week_1/note_2.txt
+```
+
+<br>
+Now, in R:
+
+
+```r
+# Create a file path object to store the `my_directory` directory
+proj_dir <- file.path('~', 'my_directory')
+proj_dir
+```
+
+```
+## [1] "~/my_directory"
+```
+
+```r
+# We can also use the file path object to create another file path
+note_dir <- file.path(proj_dir, 'notes', 'week_1')
+note_dir
+```
+
+```
+## [1] "~/my_directory/notes/week_1"
+```
+
+```r
+# Print out contents of the 2 notes
+cat(readLines(file.path(note_dir, 'note_1.txt')),
+    readLines(file.path(note_dir, 'note_2.txt')), sep='\n')
+```
+
+```
+## This is my first set of notes.
+## This is my second set of notes.
+```
+
+<br>
+Back on the command line, let's move the note files:
+
+
+```bash
+# Move note files into the `notes` directory rather than the sub-directory
+mv notes/week_1/*.txt notes/
+rm -rf notes/week_1
+
+ls notes/
+```
+
+```
+## note_1.txt
+## note_2.txt
+```
+
+<br>
+Back in R:
+
+
+```r
+# Notice these lines from above will no longer run since the files have moved
+cat(readLines(file.path(note_dir, 'note_1.txt')),
+    readLines(file.path(note_dir, 'note_2.txt')), sep='\n')
+```
+
+```
+## Error in file(con, "r") : cannot open the connection
+## In addition: Warning message:
+## In file(con, "r") :
+##   cannot open file '~/notes/week_1/note_1.txt': No such file or directory
+```
+
+
+```r
+# But since we saved the file path in `note_dir` instead of writing it out manually for each note,
+# we just need to change it in one place here:
+note_dir <- file.path(proj_dir, 'notes')
+note_dir
+```
+
+```
+## [1] "~/my_directory/notes"
+```
+
+```r
+# And then both these lines will run again
+cat(readLines(file.path(note_dir, 'note_1.txt')),
+    readLines(file.path(note_dir, 'note_2.txt')), sep='\n')
+```
+
+```
+## This is my first set of notes.
+## This is my second set of notes.
+```
+
+</details>
+<br>
+
+### Saving and reading data
+
+<br>
+__The `saveRDS()` and `readRDS()` functions__:
+
+
+```r
+?saveRDS
+
+# SYNTAX AND DEFAULT VALUES
+saveRDS(object, file = "", ascii = FALSE, version = NULL,
+        compress = TRUE, refhook = NULL)
+
+
+?readRDS
+
+# SYNTAX AND DEFAULT VALUES
+readRDS(file, refhook = NULL)
+```
+
+
+- `saveRDS()`: Writes a single R object to a file
+  - Example: `saveRDS(my_df, file.path(files_dir, 'my_data.RDS'))`
+    - This saves the `my_df` object to a file called `my_data.RDS` that is located inside the `files_dir`
+- `readRDS()`: Restores the saved object
+  - Example: `my_df <- readRDS(file.path(files_dir, 'my_data.RDS'))`
+    - This loads the R object stored in `my_data.RDS` (which is located inside the `files_dir`) and saves it in a variable called `my_df`
+
+
+### Student Exercise
+
+**Part 1: Create the repository**
+
+- Have one member of your team create a private repository [here](https://github.com/organizations/Rucla-ed/repositories/new)
+  - Name it `<team_name>_practice`
+  - Add a `.gitignore` file and choose `R` from the dropdown menu
+  - Invite the other members as collaborators under `Settings` > `Manage access` > `Invite teams or people`
+- All team members will clone this repository to their local machines
+
+**Part 2: Create RStudio project**
+
+- Create an RStudio project for your `<team_name>_practice` directory
+  - Notice that the working directory in both your R Console and Terminal will be set to your project directory
+- If you check `git status`, you will see that an `.Rproj` file has been generated for your project
+- For the purposes of this class, you can add `.Rproj` to `.gitignore`
+- Have a second member of your group add this to `.gitignore`, then add/commit this change and push to the remote
+- All other team members will pull this change
+
+**Part 3: Add data file**
+
+- Have the third member of your team add the data file
+  - Create a sub-directory in the repository called `data`
+  - Inside `data`, save the recruiting dataset from [here](https://github.com/Rucla-ed/rclass2/raw/master/_data/recruiting/recruit_school_somevars.RDS)
+  - Add/commit the file and push to GitHub
+- All other team members will pull this change
+
+**Part 4: Practice with file paths and reading/saving data**
+
+- Create an R script in the project directory called `<last_name>_script.R`
+- In your script, create a variable called `data_dir` that stores the path to the `data` folder  
+  - Remember that the working directory for an RStudio project is your project directory, so make sure to write `data_dir` as a path relative to that
+- Using `data_dir` and `readRDS()`, load in the recruiting dataset and save it to a variable called `df_school`
+- Perform any data manipulations you'd like to this dataset, then use `saveRDS()` to save your dataframe to a file called `data_<your_last_name>.RDS` that is located inside `data_dir`
+
+**Part 5: Collaborative setting**
+
+- Add/commit your data file and R script and push to GitHub
+- Pull your team members' changes
+- Try running your team members' R scripts. Because the file path used in the scripts is relative to the common project repository - you can run them without any problem!
+
+## .gitignore
+
+What is a `.gitignore` file?
+
+- It is a special file that tells Git what files in the repository to ignore, or not track
+- These files will no longer be listed under `Untracked files` when you check `git status`
+- More on `.gitignore` in the coming weeks, but for now, you can click `Add .gitignore` when you are creating a new repository on GitHub and select `R` from the dropdown menu:
+
+  ![](../../assets/images/gitignore.png)
+  
+*Credit: [How to Make Git Forget Tracked Files Now In gitignore](https://ardalis.com/how-to-make-git-forget-tracked-files-in-gitignore)*
+
+## Referencing issues and pull requests in commit message
+
+- You can reference an issue or pull request by including a hashtag and the issue/pull request number in the commit message: `#<issue/pr_number>`
+- These commits will appear on the issue/pull request page
+
 
 
