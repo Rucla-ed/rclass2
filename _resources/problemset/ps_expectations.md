@@ -2,6 +2,8 @@
 
 - Each team will create one repository to share
   - Rotate who will be creating the repository each week
+  - Make sure to include a `.gitignore` file in the repository
+    - You can add a `.gitignore` file (select `R` template) when creating the repository on GitHub
 - Make sure to create an RStudio project to work on the problem set
   - All file paths must be relative to this project directory
 - All work should be done on a separate branch other than master
