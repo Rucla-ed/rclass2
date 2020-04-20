@@ -487,6 +487,7 @@ __Example__: Using tidycensus (from Will Doyle [GitHub](https://github.com/wdoyl
 
 ```{r message=FALSE, eval=FALSE}
 #load package
+#install.packages("tidycensus")
 library(tidycensus)
 library(tidyverse)
 
@@ -524,6 +525,7 @@ var_list<-paste0("B15002_",c("001",
                             "034",
                             "035"))
 
+var_list
 #obtain data from acs, long version
 #educ<-get_acs(geography = 'county', 
 #              variables=var_list
@@ -536,6 +538,15 @@ educ<- get_acs(geography = 'zcta', #zip code tabulation area
               #geometry=T #not using geometry argument 
               )
 
+educ_v2<- get_acs(geography = 'zcta', #zip code tabulation area
+              variables=var_list #list of variables
+              #output="wide" #each row represents an enumeration unit and the variables are in the columns
+              #geometry=T #not using geometry argument 
+              )
+
+educ_v2 %>%
+  group_by(GEOID) %>%
+  arrange(GEOID)
 
 names(educ)<-tolower(names(educ)) #lowercase variable names
 
