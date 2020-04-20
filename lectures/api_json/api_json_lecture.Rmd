@@ -18,19 +18,6 @@ output:
     df_print: tibble # Method to be used for printing data 
 ---
 
-<!--Outline:
-Introduction to APIs
-- Conceptual example, analogy
-What and why use APIs
-- should we include stuff on web-scraping? (maybe)
-Example
-- rscorecard?
-Introduction to JSON
-Example -->
-
-
-
-
 # Introduction to APIs
 Load packages:
 ```{r, message=FALSE}
@@ -142,14 +129,11 @@ Four of the most common methods used for APIs are:
 
 ### List of Headers  
 
-[__Headers__](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) let the client and server provide additional information about an HTTP request. An HTTP header has a case-sensitive name followed by a colon `:` and its value. To view HTTP headers on [Google Chrome](https://mkyong.com/computer-tips/how-to-view-http-headers-in-google-chrome/) you could:  
+[__Headers__](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) let the client and server provide additional information about an HTTP request. An HTTP header has a case-sensitive name followed by a colon `:` and its value.  
 
-1. `Right click` on the page  
-2. Select `Inspect`  
-3. Refresh the page
-4. Under the `Network` tab, you can select any HTTP request on the left panel and view the HTTP headers on the right panel
+[![](../../assets/images/http_request.png)](https://code.tutsplus.com/tutorials/http-headers-for-dummies--net-8039) 
 
-    ![](http_headers.png){ width=70% height=300px}  
+*Credit: Burak Guzel ([HTTP Headers for Dummies](https://code.tutsplus.com/tutorials/http-headers-for-dummies--net-8039))*
 
 There are four kinds of HTTP message [headers](https://www.tutorialspoint.com/http/http_header_fields.htm):  
 
@@ -158,21 +142,6 @@ There are four kinds of HTTP message [headers](https://www.tutorialspoint.com/ht
 - __Server Response Header__: These headers only apply to response messages.  
 - __Entity Header__: These headers provide additional information about the entity-body or, if no body is present, about the resource identified by the request.  
 
-<!--
-
-In the image above we can see our class website has two kinds of HTTP messages-- General and Response. In General header provides general information about the website (e.g. Request URL, Remote Address, etc.). The Response header includes information about response messages such as the content-type, content-encoding, and date. 
-
-----
-
-FOR THE CLASS WEBSITE EXAMPLE ABOVE, THERE'S ALSO A "REQUEST HEADERS" SECTION IF YOU SCROLL DOWN. BUT ACTUALLY, I DON'T THINK THOSE SECTION HEADINGS IN THE CHROME INSPECTION TOOL NECESSARILY CORRESPONDS TO THE 4 TYPES OF HTTP HEADER FIELDS YOU'VE LISTED ABOVE.
-
-FOR EXAMPLE, ACCORDING TO THE "HTTP HEADER FIELDS" LINK ABOVE, ENTITY HEADERS INCLUDE FIELDS LIKE "Content-Length" AND "Content-Type", WHICH IN THIS CASE APPEARS UNDER THE "RESPONSE HEADERS" SECTION. BUT I THINK IF IT WERE A POST REQUEST, THE "REQUEST HEADERS" SECTION MAY INCLUDE SOME ENTITY HEADER FIELDS AS WELL.
-
-SAME GOES FOR GENERAL HEADER - FIELDS SUCH AS "Cache-Control" APPEARS UNDER BOTH THE "REQUEST HEADERS" AND "RESPONSE HEADERS" SECTIONS. SO I THINK THE 4 TYPES OF HEADER FIELDS COULD APPEAR UNDER "REQUEST HEADERS" AND/OR "RESPONSE HEADERS" SECTIONS, BUT THE "GENERAL" SECTION SEEMS TO JUST CONTAIN SOME GENERAL INFO ABOUT THE REQUEST - THEY'RE NOT ACTUALLY HEADER FIELDS.
-
-NOT SURE IF IT'S NECESSARY TO GO INTO ALL THIS DISTINCTION IN THE LECTURE THOUGH! MAYBE IT'S ENOUGH JUST TO MENTION YOU CAN FIND THE HEADER FIELDS LISTED UNDER THE NETWORK TAB WHEN YOU INSPECT? ONE THING THAT MIGHT BE WORTH MENTIONING HERE THOUGH (WHICH COULD TIE IN W/ YOUR LATER SECTION), IS THAT ONE OF THE POSSIBLE REQUEST HEADER FIELDS IS "Authorization", WHICH IS THE FIELD YOU WOULD SPECIFY IF YOU NEED TO PROVIDE AUTHORIZATION FOR AN API REQUEST.
-
--->
 
 ### Body  
 
@@ -183,7 +152,7 @@ NOT SURE IF IT'S NECESSARY TO GO INTO ALL THIS DISTINCTION IN THE LECTURE THOUGH
 
 - The response message body will depend on two things- the request method and the status code. 
 
-    [![](https://mdn.mozillademos.org/files/13821/HTTP_Request_Headers2.png){width=80%}](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)  
+    [![](https://mdn.mozillademos.org/files/13821/HTTP_Request_Headers2.png)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)  
     
 *Credit: MDN contributors ([HTTP messages)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages)*
 
@@ -396,14 +365,32 @@ What does **JSON** data look like?
 
 # Using APIs to request data  
 
-[TEXT ABOUT ACS/CENSUS AND TIDYCENSUS PACKAGE]
+__Tidycensus package__ (from tidycensus [website](https://walkerke.github.io/tidycensus/index.html))  
 
-Tidycensus package (from tidycensus [website](https://walkerke.github.io/tidycensus/index.html))
+> tidycensus is an R package that allows users to interface with the US Census Bureau’s decennial Census and five-year American Community APIs and return tidyverse-ready data frames, optionally with simple feature geometry included.  
 
+- This package allows users to interact with Census data that is pre-prepared for data exploration and manipulation using `tidyverse` and spatial exploration using `sf`. 
+
+<br>
+
+About the __US Census__ (from 2020 census [website](https://2020census.gov/en/what-is-2020-census.html))  
+
+  - The US Census is a count (of every person living in the United States) mandated by the Constitution and conducted by a nonpartisan government agency-- the U.S. Census Bureau.  
+  - This count is conducted every 10 years and provides critical information to lawmakers, business owners, researchers, teachers, etc.  
+
+[Programs](https://www.census.gov/about/what/census-at-a-glance.html)  
+
+  - Censuses: Decennial Census, Economic Census, and Census of Governments  
+  - Surveys: American Community Survey, Demographic Surveys, Economic Surveys, and Sponsered Surveys  
+    - Note: ACS is administered annually and a random sample of addressed are selected to participate.
+    
+ 
+<br>
+
+## census_api_key  
 
 Tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/tidycensus/tidycensus.pdf))  
 
-## census_api_key  
 
 `census_api_key()`: Install a Census API key in your `.Renviron` file for repeated use  
 
@@ -512,7 +499,7 @@ Tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/ti
     - `cache`: Whether you would like to cache the dataset for future access, or load the dataset from an existing cache. Defaults to FALSE.
 
 
-### tidycensus example
+## tidycensus example
 __Example__: Using tidycensus (from Will Doyle [GitHub](https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd)) 
 
 - Request an API from the Census https://api.census.gov/data/key_signup.html
@@ -592,7 +579,7 @@ head(educ)
 ## #   b15002_034m <dbl>, b15002_035e <dbl>, b15002_035m <dbl>
 ```
 
-### Student exercise
+## student exercise
 
 1. Apply for an API key here https://api.census.gov/data/key_signup.html
 2. Install packages  
@@ -663,24 +650,36 @@ county<- get_acs(geography = 'county', #zip code tabulation area
 
 
 ```{r echo=FALSE, message=FALSE, eval=FALSE}
+library(rvest)
+library(lubridate)
+library(acs)
+library(leaflet)
+library(tigris)
+options(tigris_use_cache = TRUE) # save tigris shapefiles
+library(ggplot2)
+library(forcats)
+library(tidycensus)
+library(tidyverse)
+library(mapview)
 
-#lookup_code("CA","Los Angeles") 
-#state_fips<-"06"
-#county_stub<-"037"
+lookup_code("CA","Los Angeles") 
+state_fips<-"06"
+county_stub<-"037"
 
-#county_fips<-paste0(state_fips,county_stub)
+county_fips<-paste0(state_fips,county_stub)
 
-#county_to_zip<-read_csv("http://www2.census.gov/geo/docs/maps-data/data/rel/zcta_county_rel_10.txt")
+county_to_zip<-read_csv("http://www2.census.gov/geo/docs/maps-data/data/rel/zcta_county_rel_10.txt")
+
 #easier names to work with
-#names(county_to_zip)<-tolower(names(county_to_zip))
+names(county_to_zip)<-tolower(names(county_to_zip))
 
 #Just zip codes in selected county
-#county_to_zip<-county_to_zip%>%
-#  filter(state%in%as.numeric(state_fips),county==county_stub)%>%
-#  select(zcta5,state,county)
+county_to_zip<-county_to_zip%>%
+  filter(state%in%as.numeric(state_fips),county==county_stub)%>%
+  select(zcta5,state,county)
 
 #list of zip codes
-#ziplist<-county_to_zip$zcta5
+ziplist<-county_to_zip$zcta5
 
 #data(zip_codes) 
 
@@ -721,75 +720,66 @@ educ<- get_acs(geography = 'zcta', #zip code tabulation area
 
 names(educ)<-tolower(names(educ))
 
-#educ%>%filter(geoid%in%ziplist)->county_educ #creating df of LA county zip codes
+educ%>%filter(geoid%in%ziplist)->county_educ #creating df of LA county zip codes
 
-#county_educ <- county_educ %>%
-#  rename(zip=geoid) %>%
-#  group_by(zip) %>%
-#  mutate(college_educ=((b15002_014e+
-#                         b15002_015e+
-#                         b15002_016e+
-#                         b15002_017e+
-#                         b15002_018e+
-#                         b15002_031e+
-#                         b15002_032e+
-#                        b15002_033e+
-#                         b15002_034e+
-#                         b15002_035e)/b15002_001e)*100) %>%
-#    select(zip,college_educ)
-
-
+county_educ <- county_educ %>%
+  rename(zip=geoid) %>%
+  group_by(zip) %>%
+  mutate(college_educ=((b15002_014e+
+                         b15002_015e+
+                         b15002_016e+
+                         b15002_017e+
+                         b15002_018e+
+                         b15002_031e+
+                         b15002_032e+
+                        b15002_033e+
+                         b15002_034e+
+                         b15002_035e)/b15002_001e)*100) %>%
+    select(zip,college_educ)
 
 
-#var_list<-paste0("B19001_",c("001",
-#                             "013",
-#                             "014",
-#                            "015",
-#                           "016",
-#                            "017"
-#                           ))
-#income<-get_acs("zcta",
-#                variables=var_list,
-#                output="wide"
-#                )
-#names(income)<-tolower(names(income))
-
-#county_income <- income%>%filter(geoid%in%ziplist)
-
-#county_income <- county_income %>%
-#  rename(zip = geoid)%>%
-#  group_by(zip) %>%
-#  mutate(
-#    income_75 = ((
-#      b19001_013e +
-#        b19001_014e +
-#        b19001_015e +
-#        b19001_016e +
-#        b19001_017e 
-#    ) / b19001_001e)*100
-#  )%>%
-#  select(zip,income_75)
 
 
-#county_df<- inner_join(county_educ,county_income, by="zip")
+var_list<-paste0("B19001_",c("001",
+                             "013",
+                             "014",
+                            "015",
+                           "016",
+                            "017"
+                           ))
+income<-get_acs("zcta",
+                variables=var_list,
+                output="wide"
+                )
+names(income)<-tolower(names(income))
 
-#county_df%>%
-#  select(zip,college_educ,income_75)%>%
-#  arrange(zip)->county_df
+county_income <- income%>%filter(geoid%in%ziplist)
 
+county_income <- county_income %>%
+  rename(zip = geoid)%>%
+  group_by(zip) %>%
+  mutate(
+    income_75 = ((
+      b19001_013e +
+        b19001_014e +
+        b19001_015e +
+        b19001_016e +
+        b19001_017e 
+    ) / b19001_001e)*100
+  )%>%
+  select(zip,income_75)
+
+
+county_df<- inner_join(county_educ,county_income, by="zip")
+
+county_df%>%
+  select(zip,college_educ,income_75)%>%
+  arrange(zip)->county_df
+
+#map
 
 ```
 
-```{r eval=FALSE, echo=FALSE}
-library(tidycensus)
-library(tidyverse)
-options(tigris_use_cache = TRUE)
-
-orange <- get_acs(state = "CA", county = "Orange", geography = "tract", 
-                  variables = "B19013_001", geometry = TRUE)
-
-head(orange)
-```
 
 
 
