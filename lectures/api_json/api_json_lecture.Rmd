@@ -101,10 +101,10 @@ A [__URL__](https://www.whoishostingthis.com/resources/url/) is an acronym for U
 
 A simple URL will include the protocol, the host name or address, and the resource location  
 
-- Example : http://rucla-ed.github.io/rclass2  
+- Example : https://rucla-ed.github.io/rclass2/lectures/api_json/api_json_lecture.html 
     - __http__ is the protocol  
-    - __rucla-ed.github.io__ is the domain name or address  
-    - __rclass2__ is the resource location
+    - __rucla-ed.github.io/rclass2/__ is the domain name or address  
+    - __lectures/api_json/api_json_lecture.html__ is the resource location
 
 ### Method  
 
@@ -408,27 +408,26 @@ Tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/ti
     - `overwrite` : If `TRUE`, it will overwrite an existing `CENSUS_API_KEY` that you already have in your `.Renviron` file  
     - `install` : If `TRUE`, will install the key in your `.Renviron` file for use in future sessions. Default is set to `FALSE`.
     
+    
+## load_variables  
 
-## fips_codes
-
-`fips_codes` : Dataset with FIPS codes for US states and counties  
+`load_variables`: Load variables from a decennial Census or American Community Survey dataset to search in R 
 
 - __Description__  
 
-    - `county`: County name, title-case  
-    - `county_code`: County code (3-digit, 0-padded, character)  
-    - `state`: Upper-case abbreviation of state  
-    - `state_code`: State FIPS code (2-digit, 0-padded, character)  
-    - `state_name`: Title-case name of state  
+    - Load variables from a decennial Census or American Community Survey dataset to search in R  
     
 - __Usage__  
 
-    - `data(fips_codes)`  
-
-- __Format__  
-
-    - An object of class data.frame with 3237 rows and 5 columns.  
+    - `load_variables`(year, dataset, cache = FALSE)  
     
+- __Arguments__  
+
+    - `year`: The year for which you are requesting variables. Either the year of the decennial Census, or the endyear for a 5-year ACS sample.
+    - `dataset`: One of "sf1", "sf3", "acs1", "acs3", "acs5", "acs1/profile", "acs3/profile, "acs5/profile", "acs1/subject", "acs3/subject", or "acs5/subject".
+    - `cache`: Whether you would like to cache the dataset for future access, or load the dataset from an existing cache. Defaults to FALSE.
+
+
 ## get_acs  
 
 `get_acs()`: Obtain data and feature geometry for the five-year American Community Survey  
@@ -480,24 +479,6 @@ Tidycensus documentation (from [CRAN](https://cran.r-project.org/web/packages/ti
     - `show_call`: if TRUE, display call made to Census API. This can be very useful in debugging and determining if error messages returned are due to tidycensus or the Census API. Copy to the API call into a browser and see what is returned by the API directly. Defaults to FALSE.  
     - `...`: Other keyword arguments  
     
-## load_variables  
-
-`load_variables`: Load variables from a decennial Census or American Community Survey dataset to search in R 
-
-- __Description__  
-
-    - Load variables from a decennial Census or American Community Survey dataset to search in R  
-    
-- __Usage__  
-
-    - `load_variables`(year, dataset, cache = FALSE)  
-    
-- __Arguments__  
-
-    - `year`: The year for which you are requesting variables. Either the year of the decennial Census, or the endyear for a 5-year ACS sample.
-    - `dataset`: One of "sf1", "sf3", "acs1", "acs3", "acs5", "acs1/profile", "acs3/profile, "acs5/profile", "acs1/subject", "acs3/subject", or "acs5/subject".
-    - `cache`: Whether you would like to cache the dataset for future access, or load the dataset from an existing cache. Defaults to FALSE.
-
 
 ## tidycensus example
 __Example__: Using tidycensus (from Will Doyle [GitHub](https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd)) 
@@ -508,7 +489,6 @@ __Example__: Using tidycensus (from Will Doyle [GitHub](https://github.com/wdoyl
 #load package
 library(tidycensus)
 library(tidyverse)
-options(tigris_use_cache = TRUE)
 
 
 #census_api_key("YOUR API KEY GOES HERE")
@@ -582,8 +562,8 @@ head(educ)
 ## student exercise
 
 1. Apply for an API key here https://api.census.gov/data/key_signup.html
-2. Install packages  
-    - `library(tidycensus)`, `library(tidyverse)`, and include `options(tigris_use_cache = TRUE)`  
+2. Install and/or load packages  
+    - `library(tidycensus)` and `library(tidyverse)`
 3. Follow the steps from above to load your API key, and use the `load_variables()` function to get 'acs', '2017' variables.
 4. Can use the same variables from the example above or choose your own 5 variables  
     - *hint: could use the `var_list` example from above*  
@@ -598,7 +578,6 @@ head(educ)
 #load package
 library(tidycensus)
 library(tidyverse)
-options(tigris_use_cache = TRUE)
 
 
 #census_api_key("YOUR API KEY GOES HERE")

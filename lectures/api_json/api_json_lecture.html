@@ -382,13 +382,13 @@ div.tocify {
 <p>A <a href="https://www.whoishostingthis.com/resources/url/"><strong>URL</strong></a> is an acronym for Uniform Resource Locator and it refers to the location of a “thing” or resource on the web. Usually URLs are considered “addresses” to a thing or “resource”. Most of the time, these resources are web pages, but can also be images, pictures, or documents.</p>
 <p>A simple URL will include the protocol, the host name or address, and the resource location</p>
 <ul>
-<li>Example : <a href="http://rucla-ed.github.io/rclass2" class="uri">http://rucla-ed.github.io/rclass2</a>
+<li>Example : <a href="https://rucla-ed.github.io/rclass2/lectures/api_json/api_json_lecture.html" class="uri">https://rucla-ed.github.io/rclass2/lectures/api_json/api_json_lecture.html</a>
 <ul>
 <li><strong>http</strong> is the protocol<br />
 </li>
-<li><strong>rucla-ed.github.io</strong> is the domain name or address<br />
+<li><strong>rucla-ed.github.io/rclass2/</strong> is the domain name or address<br />
 </li>
-<li><strong>rclass2</strong> is the resource location</li>
+<li><strong>lectures/api_json/api_json_lecture.html</strong> is the resource location</li>
 </ul></li>
 </ul>
 </div>
@@ -715,29 +715,23 @@ div.tocify {
 </ul></li>
 </ul>
 </div>
-<div id="fips_codes" class="section level2">
-<h2><span class="header-section-number">5.2</span> fips_codes</h2>
-<p><code>fips_codes</code> : Dataset with FIPS codes for US states and counties</p>
+<div id="load_variables" class="section level2">
+<h2><span class="header-section-number">5.2</span> load_variables</h2>
+<p><code>load_variables</code>: Load variables from a decennial Census or American Community Survey dataset to search in R</p>
 <ul>
 <li><p><strong>Description</strong></p>
 <ul>
-<li><code>county</code>: County name, title-case<br />
-</li>
-<li><code>county_code</code>: County code (3-digit, 0-padded, character)<br />
-</li>
-<li><code>state</code>: Upper-case abbreviation of state<br />
-</li>
-<li><code>state_code</code>: State FIPS code (2-digit, 0-padded, character)<br />
-</li>
-<li><code>state_name</code>: Title-case name of state</li>
+<li>Load variables from a decennial Census or American Community Survey dataset to search in R</li>
 </ul></li>
 <li><p><strong>Usage</strong></p>
 <ul>
-<li><code>data(fips_codes)</code></li>
+<li><code>load_variables</code>(year, dataset, cache = FALSE)</li>
 </ul></li>
-<li><p><strong>Format</strong></p>
+<li><p><strong>Arguments</strong></p>
 <ul>
-<li>An object of class data.frame with 3237 rows and 5 columns.</li>
+<li><code>year</code>: The year for which you are requesting variables. Either the year of the decennial Census, or the endyear for a 5-year ACS sample.</li>
+<li><code>dataset</code>: One of “sf1”, “sf3”, “acs1”, “acs3”, “acs5”, “acs1/profile”, “acs3/profile,”acs5/profile“,”acs1/subject“,”acs3/subject“, or”acs5/subject“.</li>
+<li><code>cache</code>: Whether you would like to cache the dataset for future access, or load the dataset from an existing cache. Defaults to FALSE.</li>
 </ul></li>
 </ul>
 </div>
@@ -793,28 +787,8 @@ div.tocify {
 </ul></li>
 </ul>
 </div>
-<div id="load_variables" class="section level2">
-<h2><span class="header-section-number">5.4</span> load_variables</h2>
-<p><code>load_variables</code>: Load variables from a decennial Census or American Community Survey dataset to search in R</p>
-<ul>
-<li><p><strong>Description</strong></p>
-<ul>
-<li>Load variables from a decennial Census or American Community Survey dataset to search in R</li>
-</ul></li>
-<li><p><strong>Usage</strong></p>
-<ul>
-<li><code>load_variables</code>(year, dataset, cache = FALSE)</li>
-</ul></li>
-<li><p><strong>Arguments</strong></p>
-<ul>
-<li><code>year</code>: The year for which you are requesting variables. Either the year of the decennial Census, or the endyear for a 5-year ACS sample.</li>
-<li><code>dataset</code>: One of “sf1”, “sf3”, “acs1”, “acs3”, “acs5”, “acs1/profile”, “acs3/profile,”acs5/profile“,”acs1/subject“,”acs3/subject“, or”acs5/subject“.</li>
-<li><code>cache</code>: Whether you would like to cache the dataset for future access, or load the dataset from an existing cache. Defaults to FALSE.</li>
-</ul></li>
-</ul>
-</div>
 <div id="tidycensus-example" class="section level2">
-<h2><span class="header-section-number">5.5</span> tidycensus example</h2>
+<h2><span class="header-section-number">5.4</span> tidycensus example</h2>
 <p><strong>Example</strong>: Using tidycensus (from Will Doyle <a href="https://github.com/wdoyle42/hoddatasci/blob/master/lessons/07-webscraping.Rmd">GitHub</a>)</p>
 <ul>
 <li>Request an API from the Census <a href="https://api.census.gov/data/key_signup.html" class="uri">https://api.census.gov/data/key_signup.html</a></li>
@@ -822,7 +796,6 @@ div.tocify {
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#load package</span>
 <span class="kw">library</span>(tidycensus)
 <span class="kw">library</span>(tidyverse)
-<span class="kw">options</span>(<span class="dt">tigris_use_cache =</span> <span class="ot">TRUE</span>)
 
 
 <span class="co">#census_api_key(&quot;YOUR API KEY GOES HERE&quot;)</span>
@@ -889,13 +862,12 @@ educ&lt;-<span class="st"> </span><span class="kw">get_acs</span>(<span class="d
 ## #   b15002_034m &lt;dbl&gt;, b15002_035e &lt;dbl&gt;, b15002_035m &lt;dbl&gt;</code></pre>
 </div>
 <div id="student-exercise" class="section level2">
-<h2><span class="header-section-number">5.6</span> student exercise</h2>
+<h2><span class="header-section-number">5.5</span> student exercise</h2>
 <ol style="list-style-type: decimal">
 <li>Apply for an API key here <a href="https://api.census.gov/data/key_signup.html" class="uri">https://api.census.gov/data/key_signup.html</a></li>
-<li>Install packages
+<li>Install and/or load packages
 <ul>
-<li><code>library(tidycensus)</code>, <code>library(tidyverse)</code>, and include <code>options(tigris_use_cache = TRUE)</code><br />
-</li>
+<li><code>library(tidycensus)</code> and <code>library(tidyverse)</code></li>
 </ul></li>
 <li>Follow the steps from above to load your API key, and use the <code>load_variables()</code> function to get ‘acs’, ‘2017’ variables.</li>
 <li>Can use the same variables from the example above or choose your own 5 variables
@@ -914,7 +886,6 @@ educ&lt;-<span class="st"> </span><span class="kw">get_acs</span>(<span class="d
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#load package</span>
 <span class="kw">library</span>(tidycensus)
 <span class="kw">library</span>(tidyverse)
-<span class="kw">options</span>(<span class="dt">tigris_use_cache =</span> <span class="ot">TRUE</span>)
 
 
 <span class="co">#census_api_key(&quot;YOUR API KEY GOES HERE&quot;)</span>
