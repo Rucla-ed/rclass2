@@ -1,0 +1,411 @@
+---
+title: "OJ notes on working w/ strings"
+author:
+date: 
+urlcolor: blue
+output: 
+  html_document:
+    toc: TRUE
+    toc_depth: 3
+    toc_float: true
+    number_sections: true
+    highlight: tango
+    theme: default
+    fig_caption: true
+    #fig_width = 7 #Default width (in inches) for figures
+    #fig_height = 5 #Default height (in inches) for figures
+    #html_preview: TRUE #TRUE to also generate an HTML file for the purpose of locally previewing what the document will look like on GitHub.    
+    df_print: tibble # Method to be used for printing data 
+---
+
+
+```{r}
+library(stringr) # stringr is a package containing functions to manipulate strings and is part of the tidyverse
+library(stringi) # stringi is the package that stringr is based on
+```
+
+CREATE DATA FRAME FROM R SCORECARD
+
+```{r}
+library(rscorecard)
+sc_key("fGlN6FBJikS1HPfq4Qo5aFdvHxyt4Tjz89fYIcMo")
+```
+```{r}
+dict <- sc_dict('.', limit = Inf, print_off = TRUE, return_df = TRUE)
+dict %>% head(10)
+
+sc_dict('earn', search_col = 'varname')
+sc_dict('degree', search_col = 'description')
+
+sc_dict('control', search_col = 'description')
+sc_dict('admit', search_col = 'description')
+```
+
+```{r}
+sc_init() %>% sc_select(instnm, control, stabbr, region, tuitionfee_in, tuitionfee_out, md_earn_wne_p10)
+
+#2018
+df_2018 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  # filter: private nonprofit, highest degree is at least BA
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  # choose year
+  sc_year(year = 2018) %>% sc_get()
+
+#2017
+df_2017 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  # filter: private nonprofit, highest degree is at least BA
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  # choose year
+  sc_year(year = 2017) %>% sc_get()
+
+
+df_2016 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  sc_year(year = 2016) %>% sc_get()
+
+df_2015 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  sc_year(year = 2015) %>% sc_get()
+
+df_2014 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  sc_year(year = 2014) %>% sc_get()
+
+df_2013 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  sc_year(year = 2013) %>% sc_get()
+
+df_2012 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  sc_year(year = 2012) %>% sc_get()
+
+df_2011 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  sc_year(year = 2011) %>% sc_get()
+
+df_2010 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  sc_year(year = 2010) %>% sc_get()
+
+df_2009 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  sc_year(year = 2009) %>% sc_get()
+
+df_2008 <- sc_init() %>% 
+  sc_select(unitid, opeid, opeid6, instnm, accredagency, control, highdeg, ug12mn, scugffn, adm_rate, costt4_a, tuitionfee_in, tuitionfee_out, cipcode1, ciptitle1, insturl) %>% 
+  sc_filter(control == 2, highdeg %in% c(3,4), region %in% c(1,2))  %>%
+  sc_year(year = 2008) %>% sc_get()
+```
+
+```{r}
+df_panel <- bind_rows(df_2018,df_2017,df_2016,df_2015,df_2014,df_2013,df_2012,df_2011,df_2010,df_2009,df_2008) %>% select(unitid,instnm,year,opeid,opeid6, everything()) %>% arrange(unitid, year)
+```
+
+
+```{r}
+#words
+str(words)
+```
+
+# string basics
+
+Can create strings with either single quotes or double quotes
+
+```{r}
+string1 <- "This is a string"
+string1
+str(string1)
+
+#string2 <- 'If I want to include a "quote" inside a string, I use single quotes'
+#string2 # output looks weird
+#str(string2) 
+
+#string3 <- "try putting string in double quotes and within that a 'quote' in single quotes"
+#string3
+#str(string3)
+```
+What if I wanted my string to include double quotes
+```{r, eval = FALSE}
+x <- "try putting double quote here " and see what happens"
+```
+
+## esapes
+
+https://campus.datacamp.com/courses/string-manipulation-with-stringr-in-r/string-basics?ex=4
+
+"A sequence in a string that starts with a `\` is called an __escape sequence__ and allows us to include special characters in our strings. You saw one escape sequence in the first exercise: `\"` is used to denote a double quote."
+
+
+Two ways of including double quotes in a string
+
+1. create the string with single quotes and then double quotes can be put inside the string
+1. create an escape sequence using `\` create the string w/ double quotes and inside the string write `\"` instead of `"`
+```{r}
+insert_double_quote1 <- 'If I want to include a "quote" inside a string, I use single quotes'
+insert_double_quote1
+str(insert_double_quote1)
+
+insert_double_quote2 <- "create string with double quotes and put backslash before double quote \" like that"
+insert_double_quote2
+```
+
+
+similarly two ways of including single quotes in a string
+
+1. create the string with double quotes and then single quotes can be put inside the string
+1. create the string w/ single quotes and inside the string write `\'` instead of `'`
+
+```{r}
+insert_single_quote1 <- "If I want to include a single 'quote' inside a string, I use double quotes to create the string"
+insert_single_quote1
+str(insert_single_quote1)
+
+insert_single_quote2 <- 'create string with single quotes and put backslash before double quote \' like that'
+insert_single_quote2
+str(insert_single_quote2)
+```
+## Printed representation of a string vs. raw contents of the string
+
+The __printed representation of a string__ is what you see when you simply print the object
+
+- printed representations of a string object show the escapes (e.g., the `\` backslash character)
+
+```{r}
+insert_double_quote2 <- "create string with double quotes and put backslash before double quote \" like that"
+insert_double_quote2
+```
+
+the __raw contents of a string__ (which Wickham refers to as the "string itself" as opposed to the "printed representation of the string") is how the computer reads the string [IS THIS AN OK DEFINITION?]
+
+We use the `writeLines()` function to print the "string itself"/"raw contents of a string"
+```{r}
+#?writeLines
+insert_double_quote2 <- "create string with double quotes and put backslash before double quote \" like that"
+insert_double_quote2
+writeLines(insert_double_quote2)
+```
+Note that printing the object using  `writeLines(insert_double_quote2)` omits the escape character `\` and also the double quotes at beginning and the end of the string
+
+### including a literal backslash in string
+
+If you want your string to include a literal back-slash, you'll need to use `\\` rather than `\`
+
+using one backslash `\` doesn't work
+```{r, eval=FALSE}
+backslash1 <- "some\imaginary\filepath"
+backslash1
+```
+this doesn't give us an error but is not what we want
+```{r}
+backslash2 <- "some \ imaginary \ filepath"
+backslash2
+writeLines(backslash2)
+```
+
+try using two backslashes 
+```{r}
+backslash3 <- "some\\imaginary\\filepath"
+backslash3 # printed representation of string prints the escapes
+writeLines(backslash3) # raw contents of string do not include the escapes
+
+backslash4 <- "some \\ imaginary \\ filepath"
+backslash4
+writeLines(backslash4)
+```
+Common special characters
+
+- `\`
+- `n` means newline
+- `t` means tab
+
+```{r}
+"insert newline here \n and add more text"
+
+writeLines("insert newline here \n and add more text")
+
+writeLines("insert newline here \nand add more text")
+```
+
+## multiple strings
+
+Multiple strings stored in a character vector, which can be created using `c()`
+
+```{r}
+z <- c("each","string","is separated","by quotes")
+z
+str(z)
+length(z) # number of elements in object z
+
+writeLines(z) # print raw string
+```
+
+# Basic functions in `stringr` package
+
+The `stringr` package:
+
+- The `stringr` package is part of the __Tidyverse__ 
+- `stringr` contains functions to work with strings. 
+- For many functions in the `stringr` package, there are equivalent "base R" functions. 
+- But `stringr` functions all follow the same rules, while rules often differ across different "base R" string functions. So we will focus exclusively on `stringr` functions.
+- most `stringr` functions start with `str_` (e.g., `str_length`)
+
+Description of `stringr` package from `?stringr`:
+
+> A consistent, simple and easy to use set of wrappers around the fantastic 'stringi' package. All function and argument names (and positions) are consistent, all functions deal with "NA"'s and zero length vectors in the same way, and the output from one function is easy to feed into the input of another.
+
+```{r, eval = FALSE}
+# basic info on stringr package
+?stringr
+```
+
+The `stringi` package
+
+- The `stringr` package is based on the `stringi` package. 
+- Wickham [14.7](https://r4ds.had.co.nz/strings.html#stringi) states that
+
+  > "stringr is useful when you’re learning because it exposes a minimal set of functions, which have been carefully picked to handle the most common string manipulation functions. stringi, on the other hand, is designed to be comprehensive. It contains almost every function you might ever need: stringi has 244 functions to stringr’s 49."
+
+
+## String length
+
+Syntax:
+
+- `str_length(string = )`
+- note that argument `string` must either be a character vector or something coercible to character
+- Note that `str_length()` calculates the length of a string, whereas the `length()` function, which is not part of `stringr` package, calculates the number of elements in an object
+```{r}
+?str_length
+str_length("cats")
+length("cats")
+
+
+str_length(c("cats","in","hat"))
+length(c("cats","in","hat"))
+```
+
+
+
+
+string length, applied to datasets
+
+First inspect dataset and variables as objects using Base R
+```{r}
+str(df_2018) # object is a data frame
+
+str(df_2018["instnm"]) # tibble w/ one column
+
+str(df_2018[["instnm"]]) # note that this is a character vector
+str(df_2018$instnm) # note that this is a character vector
+
+
+df_2018$instnm[1:10] # print first 10 elements
+```
+Use `str_length()` to calculate length of string variable, using Base R
+```{r}
+df_2018$instnm[1:10] # print first 10 elements
+str_length(df_2018$instnm[1:10])
+```
+
+
+
+First inspect dataset and variables as objects using Tidyverse
+```{r}
+
+df_2018 %>% select(instnm) %>% str() # object is a data_frame w/ one column
+
+df_2018 %>% select(instnm) %>% head(10) %>% str() # data frame w/ one column and 10 obs
+
+```
+
+Calculate length of `instnm` using Tidyverse
+
+- this approach does not work because `str_length()` expects the input to be a vector but here the input is a dataset
+
+```{r, eval=FALSE}
+df_2018 %>% select(instnm) %>% head(10) %>% str_length()
+```
+- but we can create a variable whose value is equal to the length of `instnm`
+```{r}
+df_2018 %>% select(instnm) %>% head(10) %>% 
+  mutate(instnm_len = str_length(instnm))
+```
+
+## Combining strings
+
+`str_c` function combines two or more strings
+
+- Syntax (with default values):
+  - `str_c(..., sep = "", collapse = NULL)`
+
+EXAMPLES
+```{r}
+str_c("b","a","d", collapse = NULL) # collapses; collapse = NULL is the default
+
+str_c(c("b","a","d"), collapse = NULL) # does not collapse
+str_c(c("b","a","d"), collapse = "") # collapses
+
+
+```
+EXAMPLE USING `letters`
+```{r}
+letters
+str(letters)
+
+str_c(letters, collapse = NULL)
+str_length(str_c(letters, collapse = NULL))
+
+str_c(letters, collapse = "")
+str_length(str_c(letters, collapse = ""))
+
+str_c(letters, collapse = ", ")
+str_length(str_c(letters, collapse = ", "))
+```
+EXAMPLE USING `letters`
+```{r}
+str_c("Letter: ", letters, sep = "", collapse = NULL)
+str_c("Letter", letters, sep = "- ", collapse = NULL)
+```
+
+
+applying `str_c` to data frame
+
+```{r}
+
+```
+
+Combining a string and a variable
+```{r}
+glimpse(df_2018)
+df_2018$instnm[1:10]
+
+str_c("inst name = ",df_2018$instnm[1:10])
+
+str_c("inst name",df_2018$instnm[1:10], sep = " is: ")
+
+df_2018 %>% select(instnm) %>%
+  mutate(instnm2 = str_c("inst name",instnm, sep = "="))
+```
+
+Combining two variables
+```{r}
+df_2018 %>% select(instnm,unitid) %>%
+  mutate(id_name = str_c(unitid,instnm, sep = " "))
+
+df_2018 %>% select(instnm,unitid) %>%
+  mutate(id_name = str_c("id=",unitid,"name=",instnm, sep = " "))
+```
+
+## Subsetting strings
+
+
+
