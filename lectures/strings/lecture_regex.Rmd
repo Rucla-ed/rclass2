@@ -1,0 +1,251 @@
+---
+title: "Using Regular Expressions"
+author: "Patricia Martin"
+output:
+  html_document:
+    fig_width: 3
+    fig_height: 2
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    smooth_scroll: true
+    fig_caption: true
+
+    
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Regular Expressions (Regex)  
+<img src="regex_image.png" width="300" height="200"/>  
+source: https://www.rexegg.com/regex-humor.html  
+\newline
+
+Regular expressions or regex are widely used across different programming languages and for many purposes. Web developers, digital marketers, and researchers use regex differently. Take the following image for example. I searched the hashtag #AcademicChatter and this feed came up. A person interested in this hashtag may stream the data from Twitter and save the file to parse later (use regex to extract text). Why might a researcher be interested in this data? Why might a digital marketer be interested in this data? **Get in your groups and take 5 minutes to discuss.** Think of both positive and negative motives for using this information and the impact it may have on certain communities (e.g. graduate students of color, untenured faculty).  
+
+<img src="academic_twitter.png" align="middle" width="65%" height="65%" />   
+
+
+## What are regular expressions?
+
+Regular expressions are "a sequence of characters that define a search pattern" [^4] similar to the [command + f] function you use to find text in a pdf or word document. You could think of regular expressions like playing a game of charades. Assume a player grabs a playing card with an image of a person reading a book. Their task is to pantomine this action (reading a book) so that other players can guess what they are doing. Through the use of physical expressions and symbols, the player with the card is helping the other players guess what playing card they got. In this analogy, the player with the playing card is you the user and the players trying to guess your card is your machine or computer. As the user, you use regular expressions or special characters to tell your computer what characters you are looking for in a text.  
+
+<img src="command_f.png" width="50%" height="300" align="left"/>
+\newline 
+<img src="charades.jpg" width="50%" height="300 align="right"/>  
+source: https://www.wikihow.it/Giocare-a-Sciarada
+
+[^4]: https://www.geeksforgeeks.org/write-regular-expressions/
+
+## Regular expressions 101
+
+Some common regular expression patterns include (not inclusive):  
+
+* Anchors  
+* Quantifiers  
+* Groups and ranges  
+* Character classes
+* POSIX  
+source: https://cheatography.com/davechild/cheat-sheets/regular-expressions/ 
+
+## Regular expression characters {.tabset .tabset-fade .tabset-pills}
+**Select each tab**
+   
+### Anchors
+
+Character  Description     
+---------- ----------------------------------------------------------  
+     ^       Start of string, or start of line in multi-line pattern        
+    \\A                                              Start of string      
+     $           End of string, or end of line in multi-line pattern    
+    \\Z                                                End of string
+    \\b                                                Word boundary
+    \\B                                            Not word boundary
+    \\<                                                Start of word
+    \\>                                                  End of word  
+
+The `grep` and `grepl` functions are part of Base R. Notice the difference between their output. `grepl` returns a logical vector (TRUE, FALSE) whereas `grep` returns numbers which represent the index location of the pattern. I created this character vector and assigned it the name `a`. There are five character objects inside this vector. The `grep` function tells R to look for the pattern where the object starts with the letter a ("^a"), returning the values 1, 2, 5.  
+```{r}
+a <- c("aabd", "aacd", "caad", "cbde", "abcb")
+
+grepl("^a", a) #Logical vector
+grep("^a", a) #indexed location 
+```
+
+Give it a try. Use the `grep` function to look for instances in this vector that end with the letter `d`. What regular expression character would you use?
+
+***
+\newline
+
+### Quantifiers
+
+
+Character  Description     Code      Result
+---------- ------------    --------  -------
+*          0 or more       {3}       Exactly 3
++          1 or more       {3,}      3 or more
+?          0 or 1          {3,5}     3, 4 or 5  
+\\         Escape character  \\s     white space
+
+
+We use quantifiers to specify the number of times we want to search for a particular pattern. 
+```{r}
+b <- c("aaa", "abc", "bca", "dd c", "abbc")
+```
+In the first `grepl` function below we use the `+` to search for patterns in the `b` vector where the beginning of a string begins with an `a` one or more times.
+```{r}
+grepl("^a+", b) #searching for pattern where objects start with a 1 or more times
+```
+The second `grepl` function is searching for the letter `a` exactly three times. 
+```{r}
+grepl("a{3}", b) #searching for pattern that has exactly 3 a's
+```
+Lastly, notice how we use two `\\` backward slashes to escape the letter `s` suggesting we are referring to white space and not the literal letter s. More on this later.
+```{r}
+grepl("\\sc", b) #searching for pattern that has a white space followed by a c
+```
+
+Give it a try, Use the `grepl` function to look for instances in this vector that have 1 or more instances of the letter `b`. What regular expression character would you use?  
+
+***  
+\newline  
+
+### Groups and ranges
+
+Character  Description     
+---------- ----------------------------------------------------------
+.          Any character except new line (\n)
+(a|b)      a or b
+(...)      Group
+(?:...)    Passive (non-capturing) group
+[abc]      Range (a or b or c)
+[^abc]     Not (a or b or c)
+[a-z]      Lower case letter from a to q
+[A-Z]      Upper case letter from A to Q
+[0-7]      Digit from 0 to 7
+\\x         Group/subpattern number "x"
+
+We use grouping characters to specify a range of characters.  
+```{r}
+c <- c("Is", "it", "Saturday", "today", "?")
+```
+
+We use parentheses and a | to search for a **or** o.
+```{r}
+grepl("(a|o)", c) #search for a or o in a pattern
+```
+
+The second `grepl` function with square brackets indicates a range. In the code below, we are searching for the letters `a`, `i`, or `o`.
+```{r}
+grepl("[aio]", c)
+```
+
+The square brackets with the range from `a-z` indicate any lowercase alphabetical letters.
+```{r}
+grepl("[a-z]", c)
+```
+
+Give it a try. Use the `grepl` function to look for instances in this vector that begin with the letter `i` or end with the letter `y`. What regular expression character would you use?  
+
+
+***  
+\newline
+
+### Character classes
+Character  Description     
+---------- ----------------------------------------------------------
+\\c         Control character
+\\s         White space
+\\S         Not white space
+\\d         Digit
+\\D         Not digit
+\\w         Word
+\\W         Not word
+\\x         Hexadecimal digit
+\\O         Octal digit
+
+```{r}
+d <- c("25 days", "Hi, my name is", "What is your name?")
+```
+
+Using the escape character followed by the letter `s` and then the letter `d`, we are searching for a white space and a letter `d`.
+```{r}
+grepl("\\sd", d) 
+```
+
+Combining some characters we learned earlier like the `^` , `+`, and the `\\s`, we are searching a character string that begins with a one or more digits followed by a white space.
+```{r}
+grepl("^\\d+\\s", d)
+```
+
+Give it a try. Use the `grepl` function to search for the word `name`.  
+
+
+***  
+\newline  
+
+### POSIX
+
+Character  Description     
+---------- ----------------------------------------------------------
+[:upper:]  Upper case letters
+[:lower:]  Lower case letters
+[:alpha:]  All letters
+[:alnum:]  Digits and letters
+[:digit:]  Digits
+[:xdigit:] Hexadecimal digits
+[:punct:]  Punctuation
+[:blank:]  Space and tab
+[:space:]  Blank characters
+[:cntrl:]  Control characters
+[:graph:]  Printed characters
+[:print:]  Printed characters and spaces
+[:word:]   Digits, letters and underscore
+
+The POSIX or “Portable Operating System Interface for uniX” is a collection of standards that define some of the functionality that a (UNIX) operating system should support [^5]. As you may have noticed, some of the functions from POSIX have similar functionality to functions we have learned. For example, `\\d` and `[:digit:]` both search for digits.  
+
+[^5]: https://www.regular-expressions.info/posix.html
+
+
+***  
+\newline  
+
+## Student exercise
+   
+Now it is time to apply what we have learned. Later on in the course we will learn how to use APIs and stream data from the internet (Twitter & LinkedIn). For the purpose of this lecture on regular expressions we will simplify our approach. We ask you to open your internet browser and google lyrics to your favorite song or song you like. In this example, we googled "all of me lyrics". We then copied the first ten lines and pasted them in a code chunk below. Notice that we separate each line by quotes followed by a comma.  
+
+<img src="all_of_me.png" width="50%" height="300"/>
+
+### Instructions
+1. Google song lyrics of your choice  
+2. Copy the fist ten lines  
+3. Paste in a code chunk  
+4. Clean up your pasted text so that every line is surrounded by quotes and separated by a comma. Do not forget to wrap that around `c()`  
+5. Assign to an object (ex. `song`)  
+
+Task:  
+For each of the common regular expression characters we reviewed (e.g. Anchors, Quantifiers, Groups and ranges, and Character classes), choose two characters and practice applying them to your lyrics. You should have 8 regular expression functions by the end of this exercise.  
+
+Ex. 
+
+```{r}
+song <- c("What would I do without your smart mouth",
+          "Drawing me in, and you kicking me out",
+          "You got my head spinning, no kidding, I can't pin you down",
+          "What's going on in that beautiful mind",
+          "I'm on your magical mystery ride",
+          "And I'm so dizzy, don't know what hit me, but I'll be alright",
+          "My head's underwater",
+          "But I'm breathing fine",
+          "You're crazy and I'm out of my mind",
+          "Cause all all all ...")
+
+
+grep("all+|dizzy", song)  
+grep("(^D|n$)", song)
+```
+
+Feel free to work in your groups or with people around you. We will be walking around the room if you have questions.  
+
