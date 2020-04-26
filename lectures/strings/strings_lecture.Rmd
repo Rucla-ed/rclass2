@@ -36,7 +36,7 @@ Resources used to create this lecture:
 
 ## Dataset we will use
 
-We will use `rtweet` to pull Twitter data from the PAC-12 universities. We will use the university admissions handle if there is one, and just the main handle if not:
+We will use `rtweet` to pull Twitter data from the PAC-12 universities. We will use the university admissions Twitter handle if there is one, or the main Twitter handle for the university if there isn't one:
 
 ```{r}
 # library(rtweet)
@@ -439,7 +439,7 @@ str_length(c(2L, 100L))
 <br>
 <details><summary>**Example**: Using `str_length()` on dataframe column</summary>
 
-Recall that the columns in a dataframe is just a vector, so we can use `str_length()` as long as the vector is coercible to character type. Let's look at the `screen_name` column from the `p12_df`:
+Recall that the columns in a dataframe are just vectors, so we can use `str_length()` as long as the vector is coercible to character type. Let's look at the `screen_name` column from the `p12_df`:
 
 ```{r}
 # `p12_df` is a dataframe object
