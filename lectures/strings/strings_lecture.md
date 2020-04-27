@@ -53,7 +53,8 @@ We will use `rtweet` to pull Twitter data from the PAC-12 universities. We will 
 # saveRDS(p12_full_df, "p12_dataset.RDS")
 
 # Load previously pulled Twitter data
-p12_full_df <- readRDS("p12_dataset.RDS")
+# p12_full_df <- readRDS("p12_dataset.RDS")
+p12_full_df <- readRDS(url("https://github.com/Rucla-ed/rclass2/raw/master/lectures/strings/p12_dataset.RDS", "rb"))
 glimpse(p12_full_df)
 ```
 
@@ -2529,7 +2530,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
 ```r
 #load packages
 library(tidyverse)
-#install.packages("rtweets")
+#install.packages("rtweet")
 library(rtweet)
 
 #Create an object called p12 that is a vector of pac 12 admissions Twitter handles

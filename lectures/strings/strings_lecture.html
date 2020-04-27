@@ -1591,8 +1591,9 @@ div.tocify {
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co"># saveRDS(p12_full_df, &quot;p12_dataset.RDS&quot;)</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co"># Load previously pulled Twitter data</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11">p12_full_df &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="st">&quot;p12_dataset.RDS&quot;</span>)</a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="kw">glimpse</span>(p12_full_df)</a></code></pre></div>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co"># p12_full_df &lt;- readRDS(&quot;p12_dataset.RDS&quot;)</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12">p12_full_df &lt;-<span class="st"> </span><span class="kw">readRDS</span>(<span class="kw">url</span>(<span class="st">&quot;https://github.com/Rucla-ed/rclass2/raw/master/lectures/strings/p12_dataset.RDS&quot;</span>, <span class="st">&quot;rb&quot;</span>))</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="kw">glimpse</span>(p12_full_df)</a></code></pre></div>
 <pre><code>## Observations: 328
 ## Variables: 90
 ## $ user_id                 &lt;chr&gt; &quot;22080148&quot;, &quot;22080148&quot;, &quot;22080148&quot;, &quot;220…
@@ -3001,7 +3002,7 @@ div.tocify {
 <h2><span class="header-section-number">6.2</span> search_tweets example</h2>
 <div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1"><span class="co">#load packages</span></a>
 <a class="sourceLine" id="cb300-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb300-3" data-line-number="3"><span class="co">#install.packages(&quot;rtweets&quot;)</span></a>
+<a class="sourceLine" id="cb300-3" data-line-number="3"><span class="co">#install.packages(&quot;rtweet&quot;)</span></a>
 <a class="sourceLine" id="cb300-4" data-line-number="4"><span class="kw">library</span>(rtweet)</a>
 <a class="sourceLine" id="cb300-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb300-6" data-line-number="6"><span class="co">#Create an object called p12 that is a vector of pac 12 admissions Twitter handles</span></a>
