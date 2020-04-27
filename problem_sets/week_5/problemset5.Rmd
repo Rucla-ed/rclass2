@@ -95,6 +95,15 @@ After months of meetings and intimidation and threats from administration, COLA 
 
     Your code should look similar to part II, question 3.  
     
+    ```{r}
+cola <- c("UCR4COLA", "uci4cola", "ucla4cola", "UCM4COLA", "payusmoreucb",
+          "SpreadtheStrike", "UCSF4COLA", "ColaUcsd", "ucsb4cola",
+          "payusmoreucsc", "ucd4cola") #twitter handles
+
+cola
+```
+ 
+    
 2. Use the `search_tweets()` function to search for (1,000) tweets from the twitter handles of the character vector, `cola`, we created above. Save the dataframe and call it `cola_df`. 
 
     Subset your dataframe and call it `cola_df2` and keep only the following variables: `user_id`, `status_id`, `created_at`, `screen_name`, `text`, `followers_count`, `friends_count`.
