@@ -25,6 +25,7 @@ Load packages:
 ```{r, message=FALSE}
 library(tidyverse)
 library(stringr)  # package for manipulating strings (part of tidyverse)
+library(lubridate)  # package for working with dates and times
 ```
 
 Resources used to create this lecture:
@@ -33,6 +34,7 @@ Resources used to create this lecture:
 - https://www.tutorialspoint.com/r/r_strings.htm
 - https://swcarpentry.github.io/r-novice-inflammation/13-supp-data-structures/
 - https://www.statmethods.net/input/datatypes.html
+- https://www.stat.berkeley.edu/~s133/dates.html
 
 ## Dataset we will use
 
@@ -205,6 +207,142 @@ df
 str(df)
 class(df)
 typeof(df)
+```
+
+</details>
+
+## Converting between classes
+
+Functions for converting between classes:
+
+- `as.logical()`: Convert to `logical`
+- `as.numeric()`: Convert to `numeric`
+- `as.integer()`: Convert to `integer`
+- `as.character()`: Convert to `character`
+- `as.list()`: Convert to `list`
+- `as.data.frame()`: Convert to `data.frame`
+
+
+<br>
+<details><summary>**Example**: Using `as.logical()` to convert to `logical`</summary>
+
+Character vector coerced to logical vector:
+
+```{r}
+# Only "TRUE"/"FALSE", "True"/"False", "T"/"F", "true"/"false" are able to be coerced to logical type
+as.logical(c("TRUE", "FALSE", "True", "False", "true", "false", "T", "F", "t", "f", ""))
+```
+
+Numeric vector coerced to logical vector:
+
+```{r}
+# 0 is treated as FALSE, while all other numeric values are treated as TRUE
+as.logical(c(0, 0.0, 1, -1, 20, 5.5))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `as.numeric()` to convert to `numeric`</summary>
+
+Logical vector coerced to numeric vector:
+
+```{r}
+# FALSE is mapped to 0 and TRUE is mapped to 1
+as.numeric(c(FALSE, TRUE))
+```
+
+Character vector coerced to numeric vector:
+
+```{r, warning = FALSE}
+# Strings containing numeric values can be coerced to numeric (leading 0's are dropped) 
+# All other characters become NA
+as.numeric(c("0", "007", "2.5", "abc", "."))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `as.integer()` to convert to `integer`</summary>
+
+Logical vector coerced to integer vector:
+
+```{r}
+# FALSE is mapped to 0 and TRUE is mapped to 1
+as.integer(c(FALSE, TRUE))
+```
+
+Character vector coerced to integer vector:
+
+```{r, warning = FALSE}
+# Strings containing numeric values can be coerced to integer (leading 0's are dropped, decimals are truncated) 
+# All other characters become NA
+as.integer(c("0", "007", "2.5", "abc", "."))
+```
+
+Numeric vector coerced to integer vector:
+
+```{r, warning = FALSE}
+# All decimal places are truncated
+as.integer(c(0, 2.1, 10.5, 8.8, -1.8))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `as.character()` to convert to `character`</summary>
+
+Logical vector coerced to character vector:
+
+```{r}
+as.character(c(FALSE, TRUE))
+```
+
+Numeric vector coerced to character vector:
+
+```{r, warning = FALSE}
+as.character(c(-5, 0, 2.5))
+```
+
+Integer vector coerced to character vector:
+
+```{r, warning = FALSE}
+as.character(c(-2L, 0L, 10L))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `as.list()` to convert to `list`</summary>
+
+Atomic vectors coerced to list:
+
+```{r}
+# Logical vector
+as.list(c(TRUE, FALSE))
+
+# Character vector
+as.list(c("a", "b", "c"))
+
+# Numeric vector
+as.list(1:3)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `as.data.frame()` to convert to `data.frame`</summary>
+
+Lists coerced to dataframe:
+
+```{r}
+# Create a list
+l <- list(A = c("x", "y", "z"), B = c(1, 2, 3))
+str(l)
+
+# Convert to class `data.frame`
+df <- as.data.frame(l, stringsAsFactors = F)
+str(df)
 ```
 
 </details>
@@ -664,6 +802,28 @@ str_sub(c("A", "AB", "ABC", "ABCD", "ABCDE")) <- "*"
 
 </details>
 
+<br>
+<details><summary>**Example**: Using `str_sub()` on dataframe column</summary>
+
+We can use `as.character()` to turn the `created_at` value to a string, then use `str_sub()` to extract out various date/time components from the string:
+
+```{r}
+p12_datetime_df <- p12_df %>% select(created_at) %>%
+  mutate(
+      dt_chr = as.character(created_at),
+      date_chr = str_sub(dt_chr, 1, 10),
+      yr_chr = str_sub(dt_chr, 1, 4),
+      mth_chr = str_sub(dt_chr, 6, 7),
+      day_chr = str_sub(dt_chr, 9, 10),
+      hr_chr = str_sub(dt_chr, -8, -7),
+      min_chr = str_sub(dt_chr, -5, -4),
+      sec_chr = str_sub(dt_chr, -2, -1)
+    )
+p12_datetime_df
+```
+
+</details>
+
 ## Other `stringr` functions
 
 Other useful `stringr` functions:
@@ -754,6 +914,444 @@ str_pad(c(95035, 90024, 5009, 5030), width = 5, side = "left", pad = "0")
 </details>
 
 
+# Dates and times
 
-# Date and times
+> "Date-time data can be frustrating to work with in R. R commands for date-times are generally unintuitive and change depending on the type of date-time object being used. Moreover, the methods we use with date-times must be robust to time zones, leap days, daylight savings times, and other time related quirks, and R lacks these capabilities in some situations. Lubridate makes it easier to do the things R does with date-times and possible to do the things R does not."
+
+*Credit: `lubridate` [documentation](https://lubridate.tidyverse.org/)*
+
+How are dates and times stored in R? (From [Dates and Times in R](https://www.stat.berkeley.edu/~s133/dates.html))
+
+- The `Date` class is used for storing dates
+  - "Internally, `Date` objects are stored as the number of days since January 1, 1970, using negative numbers for earlier dates. The `as.numeric()` function can be used to convert a `Date` object to its internal form."
+- POSIX classes can be used for storing date plus times
+  - "The `POSIXct` class stores date/time values as the number of seconds since January 1, 1970"
+  - "The `POSIXlt` class stores date/time values as a list of components (hour, min, sec, mon, etc.) making it easy to extract these parts"
+- There is no native R class for storing only time
+
+
+Why use date/time objects?
+
+- Using date/time objects makes it easier to fetch or modify various date/time components (e.g., year, month, day, day of the week)
+  - Compared to if the date/time is just stored in a string, these components are not as readily accessible and needs to be parsed
+- You can perform certain arithmetics with date/time objects (e.g., find the "difference" between date/time points)
+
+
+## Creating date/time objects
+
+### Creating date/time objects by parsing input
+
+Functions that create date/time objects **by parsing character or numeric input**:
+
+- Create `Date` object: `ymd()`, `ydm()`, `mdy()`, `myd()`, `dmy()`, `dym()`
+  - `y` stands for year, `m` stands for month, `d` stands for day
+  - Select the function that represents the order in which your date input is formatted, and the function will be able to parse your input and create a `Date` object
+- Create `POSIXct` object: `ymd_h()`, `ymd_hm()`, `ymd_hms()`, etc.
+  - `h` stands for hour, `m` stands for minute, `s` stands for second
+  - For any of the previous 6 date functions, you can append `h`, `hm`, or `hms` if you want to provide additional time information in order to create a `POSIXct` object
+  - To force a `POSIXct` object without providing any time information, you can just provide a timezone (using `tz`) to one of the date functions and it will assume midnight as the time
+  - You can use `Sys.timezone()` to get the timezone for your location
+  
+
+<br>
+<details><summary>**Example**: Creating `Date` object from character or numeric input</summary>
+
+The `lubridate` functions are flexible and can parse dates in various formats:
+
+```{r}
+d <- mdy("1/1/2020")
+d
+
+d <- mdy("1-1-2020")
+d
+
+d <- mdy("Jan. 1, 2020")
+d
+
+d <- ymd(20200101)
+d
+```
+
+<br>
+Investigate the `Date` object:
+
+```{r}
+class(d)
+typeof(d)
+
+# Number of days since January 1, 1970
+as.numeric(d)
+```
+
+</details>
+
+
+<br>
+<details><summary>**Example**: Creating `POSIXct` object from character or numeric input</summary>
+
+The `lubridate` functions are flexible and can parse AM/PM in various formats:
+
+```{r}
+dt <- mdy_h("12/31/2019 11pm")
+dt
+
+dt <- mdy_hm("12/31/2019 11:59 pm")
+dt
+
+dt <- mdy_hms("12/31/2019 11:59:59 PM")
+dt
+
+dt <- ymd_hms(20191231235959)
+dt
+```
+
+<br>
+Investigate the `POSIXct` object:
+
+```{r}
+class(dt)
+typeof(dt)
+
+# Number of seconds since January 1, 1970
+as.numeric(dt)
+```
+
+<br>
+We can also create a `POSIXct` object from a date function by providing a timezone. The time would default to midnight:
+
+```{r}
+dt <- mdy("1/1/2020", tz = "UTC")
+dt
+
+# Number of seconds since January 1, 1970
+as.numeric(dt)  # Note that this is indeed 1 sec after the previous example
+```
+
+</details>
+
+
+<br>
+<details><summary>**Example**: Creating `Date` objects from dataframe column</summary>
+
+Using the `p12_datetime_df` we created earlier, we can create `Date` objects from the `date_chr` column:
+
+```{r}
+# Use `ymd()` to parse the string stored in the `date_chr` column
+p12_datetime_df %>% select(created_at, dt_chr, date_chr) %>%
+  mutate(date_ymd = ymd(date_chr))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Creating `POSIXct` objects from dataframe column</summary>
+
+Using the `p12_datetime_df` we created earlier, we can recreate the `created_at` column (class `POSIXct`) from the `dt_chr` column (class `character`):
+
+```{r}
+# Use `ymd_hms()` to parse the string stored in the `dt_chr` column
+p12_datetime_df %>% select(created_at, dt_chr) %>%
+  mutate(datetime_ymd_hms = ymd_hms(dt_chr))
+```
+
+</details>
+
+
+### Creating date/time objects from individual components
+
+Functions that create date/time objects **from various date/time components**:
+
+- Create `Date` object: `make_date()`
+  - Syntax and default values: `make_date(year = 1970L, month = 1L, day = 1L)`
+  - All inputs are coerced to integer
+- Create `POSIXct` object: `make_datetime()`
+  - Syntax and default values: `make_datetime(year = 1970L, month = 1L, day = 1L, hour = 0L, min = 0L, sec = 0, tz = "UTC")`
+
+<br>
+<details><summary>**Example**: Creating `Date` object from individual components</summary>
+
+There are various ways to pass in the inputs to create the same `Date` object:
+
+```{r}
+d <- make_date(2020, 1, 1)
+d
+
+# Characters can be coerced to integers
+d <- make_date("2020", "01", "01")
+d
+
+# Remember that the default values for month and day would be 1L
+d <- make_date(2020)
+d
+```
+
+</details>
+
+
+<br>
+<details><summary>**Example**: Creating `POSIXct` object from individual components</summary>
+
+```{r}
+# Inputs should be numeric
+d <- make_datetime(2019, 12, 31, 23, 59, 59)
+d
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Creating `Date` objects from dataframe columns</summary>
+
+Using the `p12_datetime_df` we created earlier, we can create `Date` objects from the various date component columns:
+
+```{r}
+# Use `make_date()` to create a `Date` object from the `yr_chr`, `mth_chr`, `day_chr` fields
+p12_datetime_df %>% select(created_at, dt_chr, yr_chr, mth_chr, day_chr) %>%
+  mutate(date_make_date = make_date(yr_chr, mth_chr, day_chr))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Creating `POSIXct` objects from dataframe columns</summary>
+
+Using the `p12_datetime_df` we created earlier, we can recreate the `created_at` column (class `POSIXct`) from the various date and time component columns (class `character`):
+
+```{r}
+# Use `make_datetime()` to create a `POSIXct` object from the `yr_chr`, `mth_chr`, `day_chr`, `hr_chr`, `min_chr`, `sec_chr` fields
+# Convert inputs to integers first
+p12_datetime_df %>%
+  mutate(datetime_make_datetime = make_datetime(
+    as.integer(yr_chr), as.integer(mth_chr), as.integer(day_chr), 
+    as.integer(hr_chr), as.integer(min_chr), as.integer(sec_chr)
+  ))
+```
+
+</details>
+
+## Date/time object components
+
+Storing data using date/time objects makes it easier to **get and set** the various date/time components.
+
+- Basic accessor functions:
+  - `date()`: Date component
+  - `year()`: Year
+  - `month()`: Month
+  - `day()`: Day
+  - `hour()`: Hour
+  - `min()`: Minute
+  - `sec()`: Second
+  - `week()`: Week of the year
+  - `wday()`: Day of the week (`1` for Sunday to `7` for Saturday)
+  - `am()`: Is it in the am? (returns `TRUE` or `FALSE`)
+  - `pm()`: Is it in the pm? (returns `TRUE` or `FALSE`)
+- To **get** a date/time component, you can simply pass a date/time object to the function
+  - Syntax: `accessor_function(<date/time_object>)`
+- To **set** a date/time component, you can assign into the accessor function to change the component
+  - Syntax: `accessor_function(<date/time_object>) <- "new_component"`
+  - Note that `am()` and `pm()` can't be set. Modify the time components instead.
+
+<br>
+<details><summary>**Example**: Getting date/time components</summary>
+
+```{r}
+# Create datetime for New Year's Eve
+dt <- make_datetime(2019, 12, 31, 23, 59, 59)
+dt
+
+# Get date
+date(dt)
+
+# Get hour
+hour(dt)
+
+# Is it pm?
+pm(dt)
+
+# Day of the week (3 = Tuesday)
+wday(dt)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Setting date/time components</summary>
+
+```{r}
+# Create datetime for New Year's Eve
+dt <- make_datetime(2019, 12, 31, 23, 59, 59)
+dt
+
+# Get week of year
+week(dt)
+
+# Set week of year (move back 1 week)
+week(dt) <- week(dt) - 1
+
+# Date now moved from New Year's Eve to Christmas Eve
+dt
+
+# Set day to Christmas Day
+day(dt) <- 25
+
+# Date now moved from Christmas Eve to Christmas Day
+dt
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Getting date/time components from dataframe column</summary>
+
+Using the `p12_datetime_df` we created earlier, we can isolate the various date/time components from the `POSIXct` object in the `created_at` column:
+
+```{r}
+# The extracted date/time components will be of numeric type
+p12_datetime_df %>% select(created_at) %>%
+  mutate(
+    yr_num = year(created_at),
+    mth_num = month(created_at),
+    day_num = day(created_at),
+    hr_num = hour(created_at),
+    min_num = minute(created_at),
+    sec_num = second(created_at),
+    ampm = ifelse(am(created_at), 'AM', 'PM')  # am()/pm() returns TRUE/FALSE
+  )
+```
+
+</details>
+
+
+## Time spans
+
+![](../../assets/images/time_spans.png)
+
+3 ways to represent time spans (From [lubridate cheatsheet](https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf))
+
+- **Intervals** represent specific intervals of the timeline, bounded by start and end date-times
+  - Example: People with birthdays between the **interval** October 23 to November 22 are Scorpios
+- **Periods** track changes in clock times, which ignore time line irregularities
+  - Example: Daylight savings time ends at the beginning of November and we gain an hour - this extra hour is _ignored_ when determining the **period** between October 23 to November 22
+- **Durations** track the passage of physical time, which deviates from clock time when irregularities occur
+  - Example: Daylight savings time ends at the beginning of November and we gain an hour - this extra hour is _added_ when determining the **duration** between October 23 to November 22
+
+
+### Time spans using `lubridate`
+
+Using the `lubridate` package for time spans:
+
+- **Interval**
+  - Create an interval using `interval()` or `%--%`
+    - Syntax: `interval(<date/time_object1>, <date/time_object2>)` or `<date/time_object1> %--% <date/time_object2>`
+- **Periods**
+  - "Periods are time spans but don’t have a fixed length in seconds, instead they work with '_human_' times, like days and months." (From [R for Data Science](https://r4ds.had.co.nz/dates-and-times.html#periods))
+  - Create periods using functions whose name is the time unit pluralized (e.g., `years()`, `months()`, `weeks()`, `days()`, `hours()`, `minutes()`, `seconds()`)
+    - Example: `days(1)` creates a period of 1 day - it does not matter if this day happened to have an extra hour due to daylight savings ending, since periods do not have a physical length
+      ```{r}
+      days(1)
+      ```
+  - You can add and subtract periods
+  - You can also use `as.period()` to get period of an interval
+- **Durations**
+  - Durations keep track of the physical amount of time elapsed, so it is "stored as seconds, the only time unit with a consistent length" (From [lubridate cheatsheet](https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf))
+  - Create durations using functions whose name is the time unit prefixed with a `d` (e.g., `dyears()`, `dweeks()`, `ddays()`, `dhours()`, `dminutes()`, `dseconds()`)
+    - Example: `ddays(1)` creates a duration of `86400s`, using the standard conversion of `60` seconds in an minute, `60` minutes in an hour, and `24` hours in a day:
+      ```{r}
+      ddays(1)
+      ```
+      Notice that the output says this is equivalent to _approximately_ `1` day, since it acknowledges that not all days have `24` hours. In the case of daylight savings, one particular day may have `25` hours, so the duration of that day should be represented as:
+      ```{r}
+      ddays(1) + dhours(1)
+      ```
+  - You can add and subract durations
+  - You can also use `as.duration()` to get duration of an interval
+
+
+<br>
+<details><summary>**Example**: Working with interval</summary>
+
+```{r}
+# Use `Sys.timezone()` to get timezone for your location (time is midnight by default)
+scorpio_start <- ymd("2019-10-23", tz = Sys.timezone())
+scorpio_end <- ymd("2019-11-22", tz = Sys.timezone())
+
+# These datetime objects have class `POSIXct`
+class(scorpio_start)
+
+# Create interval for the datetimes
+scorpio_interval <- scorpio_start %--% scorpio_end  # or `interval(scorpio_start, scorpio_end)`
+scorpio_interval
+
+# The object has class `Interval`
+class(scorpio_interval)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Working with period</summary>
+
+If we use `as.period()` to get the period of `scorpio_interval`, we see that it is a period of `30` days. We do not worry about the extra `1` hour gained due to daylight savings ending:
+
+```{r}
+# Period is 30 days
+scorpio_period <- as.period(scorpio_interval)
+scorpio_period
+
+# The object has class `Period`
+class(scorpio_period)
+```
+
+<br>
+Because periods work with "human" times like days, it is more intuitive. For example, if we add a period of `30` days to the `scorpio_start` datetime object, we get the expected end datetime that is `30` days later:
+
+```{r}
+# Start datetime for Scorpio birthdays (time is midnight)
+scorpio_start
+
+# After adding 30 day period, we get the expected end datetime (time is midnight)
+scorpio_start + days(30)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Working with duration</summary>
+
+If we use `as.duration()` to get the duration of `scorpio_interval`, we see that it is a duration of `2595600` seconds. It takes into account the extra `1` hour gained due to daylight savings ending:
+
+```{r}
+# Duration is 2595600 seconds, which is equivalent to 30 24-hr days + 1 additional hour
+scorpio_duration <- as.duration(scorpio_interval)
+scorpio_duration
+
+# The object has class `Duration`
+class(scorpio_duration)
+
+# Using the standard 60s/min, 60min/hr, 24hr/day conversion,
+# confirm duration is slightly more than 30 "standard" (ie. 24-hr) days
+2595600 / (60 * 60 * 24)
+
+# Specifically, it is 30 days + 1 hour, if we define a day to have 24 hours
+seconds_to_period(scorpio_duration)
+```
+
+
+<br>
+Because durations work with physical time, when we add a duration of `30` days to the `scorpio_start` datetime object, we do not get the end datetime we'd expect:
+
+```{r}
+# Start datetime for Scorpio birthdays (time is midnight)
+scorpio_start
+
+# After adding 30 day duration, we do not get the expected end datetime
+# `ddays(30)` adds the number of seconds in 30 standard 24-hr days, but one of the days has 25 hours
+scorpio_start + ddays(30)
+
+# We need to add the additional 1 hour of physical time that elapsed during this time span
+scorpio_start + ddays(30) + dhours(1)
+```
+
+</details>
+
 
