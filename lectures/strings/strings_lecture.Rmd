@@ -68,6 +68,11 @@ What is an **object**?
   - The class of the object determines what kind of functions we can apply to it
 - Objects may be combined to form data structures
 
+[![](https://d33wubrfki0l68.cloudfront.net/1d1b4e1cf0dc5f6e80f621b0225354b0addb9578/6ee1c/diagrams/data-structures-overview.png){width=400px}](https://r4ds.had.co.nz/vectors.html)
+
+*Credit: [R for Data Science](https://r4ds.had.co.nz/vectors.html)*
+
+<br>
 Basic **data structures**:
 
 - [Atomic vectors](#atomtic-vectors)
@@ -1419,7 +1424,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
 
 ## search_tweets example
 
-```{r message=FALSE}
+```{r message=FALSE, eval=FALSE}
 #load packages
 library(tidyverse)
 #install.packages("rtweets")
