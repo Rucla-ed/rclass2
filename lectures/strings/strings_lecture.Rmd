@@ -933,7 +933,7 @@ How are dates and times stored in R? (From [Dates and Times in R](https://www.st
 Why use date/time objects?
 
 - Using date/time objects makes it easier to fetch or modify various date/time components (e.g., year, month, day, day of the week)
-  - Compared to if the date/time is just stored in a string, these components are not as readily accessible and needs to be parsed
+  - Compared to if the date/time is just stored in a string, these components are not as readily accessible and need to be parsed
 - You can perform certain arithmetics with date/time objects (e.g., find the "difference" between date/time points)
 
 
@@ -1124,7 +1124,8 @@ p12_datetime_df %>%
   mutate(datetime_make_datetime = make_datetime(
     as.integer(yr_chr), as.integer(mth_chr), as.integer(day_chr), 
     as.integer(hr_chr), as.integer(min_chr), as.integer(sec_chr)
-  ))
+  )) %>%
+  select(datetime_make_datetime, yr_chr, mth_chr, day_chr, hr_chr, min_chr, sec_chr)
 ```
 
 </details>
