@@ -1264,6 +1264,939 @@ window.buildTabsets = function(tocID) {
 };
 
 </script>
+<script>(function() {
+  // If window.HTMLWidgets is already defined, then use it; otherwise create a
+  // new object. This allows preceding code to set options that affect the
+  // initialization process (though none currently exist).
+  window.HTMLWidgets = window.HTMLWidgets || {};
+
+  // See if we're running in a viewer pane. If not, we're in a web browser.
+  var viewerMode = window.HTMLWidgets.viewerMode =
+      /\bviewer_pane=1\b/.test(window.location);
+
+  // See if we're running in Shiny mode. If not, it's a static document.
+  // Note that static widgets can appear in both Shiny and static modes, but
+  // obviously, Shiny widgets can only appear in Shiny apps/documents.
+  var shinyMode = window.HTMLWidgets.shinyMode =
+      typeof(window.Shiny) !== "undefined" && !!window.Shiny.outputBindings;
+
+  // We can't count on jQuery being available, so we implement our own
+  // version if necessary.
+  function querySelectorAll(scope, selector) {
+    if (typeof(jQuery) !== "undefined" && scope instanceof jQuery) {
+      return scope.find(selector);
+    }
+    if (scope.querySelectorAll) {
+      return scope.querySelectorAll(selector);
+    }
+  }
+
+  function asArray(value) {
+    if (value === null)
+      return [];
+    if ($.isArray(value))
+      return value;
+    return [value];
+  }
+
+  // Implement jQuery's extend
+  function extend(target /*, ... */) {
+    if (arguments.length == 1) {
+      return target;
+    }
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var prop in source) {
+        if (source.hasOwnProperty(prop)) {
+          target[prop] = source[prop];
+        }
+      }
+    }
+    return target;
+  }
+
+  // IE8 doesn't support Array.forEach.
+  function forEach(values, callback, thisArg) {
+    if (values.forEach) {
+      values.forEach(callback, thisArg);
+    } else {
+      for (var i = 0; i < values.length; i++) {
+        callback.call(thisArg, values[i], i, values);
+      }
+    }
+  }
+
+  // Replaces the specified method with the return value of funcSource.
+  //
+  // Note that funcSource should not BE the new method, it should be a function
+  // that RETURNS the new method. funcSource receives a single argument that is
+  // the overridden method, it can be called from the new method. The overridden
+  // method can be called like a regular function, it has the target permanently
+  // bound to it so "this" will work correctly.
+  function overrideMethod(target, methodName, funcSource) {
+    var superFunc = target[methodName] || function() {};
+    var superFuncBound = function() {
+      return superFunc.apply(target, arguments);
+    };
+    target[methodName] = funcSource(superFuncBound);
+  }
+
+  // Add a method to delegator that, when invoked, calls
+  // delegatee.methodName. If there is no such method on
+  // the delegatee, but there was one on delegator before
+  // delegateMethod was called, then the original version
+  // is invoked instead.
+  // For example:
+  //
+  // var a = {
+  //   method1: function() { console.log('a1'); }
+  //   method2: function() { console.log('a2'); }
+  // };
+  // var b = {
+  //   method1: function() { console.log('b1'); }
+  // };
+  // delegateMethod(a, b, "method1");
+  // delegateMethod(a, b, "method2");
+  // a.method1();
+  // a.method2();
+  //
+  // The output would be "b1", "a2".
+  function delegateMethod(delegator, delegatee, methodName) {
+    var inherited = delegator[methodName];
+    delegator[methodName] = function() {
+      var target = delegatee;
+      var method = delegatee[methodName];
+
+      // The method doesn't exist on the delegatee. Instead,
+      // call the method on the delegator, if it exists.
+      if (!method) {
+        target = delegator;
+        method = inherited;
+      }
+
+      if (method) {
+        return method.apply(target, arguments);
+      }
+    };
+  }
+
+  // Implement a vague facsimilie of jQuery's data method
+  function elementData(el, name, value) {
+    if (arguments.length == 2) {
+      return el["htmlwidget_data_" + name];
+    } else if (arguments.length == 3) {
+      el["htmlwidget_data_" + name] = value;
+      return el;
+    } else {
+      throw new Error("Wrong number of arguments for elementData: " +
+        arguments.length);
+    }
+  }
+
+  // http://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
+  function escapeRegExp(str) {
+    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+  }
+
+  function hasClass(el, className) {
+    var re = new RegExp("\\b" + escapeRegExp(className) + "\\b");
+    return re.test(el.className);
+  }
+
+  // elements - array (or array-like object) of HTML elements
+  // className - class name to test for
+  // include - if true, only return elements with given className;
+  //   if false, only return elements *without* given className
+  function filterByClass(elements, className, include) {
+    var results = [];
+    for (var i = 0; i < elements.length; i++) {
+      if (hasClass(elements[i], className) == include)
+        results.push(elements[i]);
+    }
+    return results;
+  }
+
+  function on(obj, eventName, func) {
+    if (obj.addEventListener) {
+      obj.addEventListener(eventName, func, false);
+    } else if (obj.attachEvent) {
+      obj.attachEvent(eventName, func);
+    }
+  }
+
+  function off(obj, eventName, func) {
+    if (obj.removeEventListener)
+      obj.removeEventListener(eventName, func, false);
+    else if (obj.detachEvent) {
+      obj.detachEvent(eventName, func);
+    }
+  }
+
+  // Translate array of values to top/right/bottom/left, as usual with
+  // the "padding" CSS property
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/padding
+  function unpackPadding(value) {
+    if (typeof(value) === "number")
+      value = [value];
+    if (value.length === 1) {
+      return {top: value[0], right: value[0], bottom: value[0], left: value[0]};
+    }
+    if (value.length === 2) {
+      return {top: value[0], right: value[1], bottom: value[0], left: value[1]};
+    }
+    if (value.length === 3) {
+      return {top: value[0], right: value[1], bottom: value[2], left: value[1]};
+    }
+    if (value.length === 4) {
+      return {top: value[0], right: value[1], bottom: value[2], left: value[3]};
+    }
+  }
+
+  // Convert an unpacked padding object to a CSS value
+  function paddingToCss(paddingObj) {
+    return paddingObj.top + "px " + paddingObj.right + "px " + paddingObj.bottom + "px " + paddingObj.left + "px";
+  }
+
+  // Makes a number suitable for CSS
+  function px(x) {
+    if (typeof(x) === "number")
+      return x + "px";
+    else
+      return x;
+  }
+
+  // Retrieves runtime widget sizing information for an element.
+  // The return value is either null, or an object with fill, padding,
+  // defaultWidth, defaultHeight fields.
+  function sizingPolicy(el) {
+    var sizingEl = document.querySelector("script[data-for='" + el.id + "'][type='application/htmlwidget-sizing']");
+    if (!sizingEl)
+      return null;
+    var sp = JSON.parse(sizingEl.textContent || sizingEl.text || "{}");
+    if (viewerMode) {
+      return sp.viewer;
+    } else {
+      return sp.browser;
+    }
+  }
+
+  // @param tasks Array of strings (or falsy value, in which case no-op).
+  //   Each element must be a valid JavaScript expression that yields a
+  //   function. Or, can be an array of objects with "code" and "data"
+  //   properties; in this case, the "code" property should be a string
+  //   of JS that's an expr that yields a function, and "data" should be
+  //   an object that will be added as an additional argument when that
+  //   function is called.
+  // @param target The object that will be "this" for each function
+  //   execution.
+  // @param args Array of arguments to be passed to the functions. (The
+  //   same arguments will be passed to all functions.)
+  function evalAndRun(tasks, target, args) {
+    if (tasks) {
+      forEach(tasks, function(task) {
+        var theseArgs = args;
+        if (typeof(task) === "object") {
+          theseArgs = theseArgs.concat([task.data]);
+          task = task.code;
+        }
+        var taskFunc = tryEval(task);
+        if (typeof(taskFunc) !== "function") {
+          throw new Error("Task must be a function! Source:\n" + task);
+        }
+        taskFunc.apply(target, theseArgs);
+      });
+    }
+  }
+
+  // Attempt eval() both with and without enclosing in parentheses.
+  // Note that enclosing coerces a function declaration into
+  // an expression that eval() can parse
+  // (otherwise, a SyntaxError is thrown)
+  function tryEval(code) {
+    var result = null;
+    try {
+      result = eval(code);
+    } catch(error) {
+      if (!error instanceof SyntaxError) {
+        throw error;
+      }
+      try {
+        result = eval("(" + code + ")");
+      } catch(e) {
+        if (e instanceof SyntaxError) {
+          throw error;
+        } else {
+          throw e;
+        }
+      }
+    }
+    return result;
+  }
+
+  function initSizing(el) {
+    var sizing = sizingPolicy(el);
+    if (!sizing)
+      return;
+
+    var cel = document.getElementById("htmlwidget_container");
+    if (!cel)
+      return;
+
+    if (typeof(sizing.padding) !== "undefined") {
+      document.body.style.margin = "0";
+      document.body.style.padding = paddingToCss(unpackPadding(sizing.padding));
+    }
+
+    if (sizing.fill) {
+      document.body.style.overflow = "hidden";
+      document.body.style.width = "100%";
+      document.body.style.height = "100%";
+      document.documentElement.style.width = "100%";
+      document.documentElement.style.height = "100%";
+      if (cel) {
+        cel.style.position = "absolute";
+        var pad = unpackPadding(sizing.padding);
+        cel.style.top = pad.top + "px";
+        cel.style.right = pad.right + "px";
+        cel.style.bottom = pad.bottom + "px";
+        cel.style.left = pad.left + "px";
+        el.style.width = "100%";
+        el.style.height = "100%";
+      }
+
+      return {
+        getWidth: function() { return cel.offsetWidth; },
+        getHeight: function() { return cel.offsetHeight; }
+      };
+
+    } else {
+      el.style.width = px(sizing.width);
+      el.style.height = px(sizing.height);
+
+      return {
+        getWidth: function() { return el.offsetWidth; },
+        getHeight: function() { return el.offsetHeight; }
+      };
+    }
+  }
+
+  // Default implementations for methods
+  var defaults = {
+    find: function(scope) {
+      return querySelectorAll(scope, "." + this.name);
+    },
+    renderError: function(el, err) {
+      var $el = $(el);
+
+      this.clearError(el);
+
+      // Add all these error classes, as Shiny does
+      var errClass = "shiny-output-error";
+      if (err.type !== null) {
+        // use the classes of the error condition as CSS class names
+        errClass = errClass + " " + $.map(asArray(err.type), function(type) {
+          return errClass + "-" + type;
+        }).join(" ");
+      }
+      errClass = errClass + " htmlwidgets-error";
+
+      // Is el inline or block? If inline or inline-block, just display:none it
+      // and add an inline error.
+      var display = $el.css("display");
+      $el.data("restore-display-mode", display);
+
+      if (display === "inline" || display === "inline-block") {
+        $el.hide();
+        if (err.message !== "") {
+          var errorSpan = $("<span>").addClass(errClass);
+          errorSpan.text(err.message);
+          $el.after(errorSpan);
+        }
+      } else if (display === "block") {
+        // If block, add an error just after the el, set visibility:none on the
+        // el, and position the error to be on top of the el.
+        // Mark it with a unique ID and CSS class so we can remove it later.
+        $el.css("visibility", "hidden");
+        if (err.message !== "") {
+          var errorDiv = $("<div>").addClass(errClass).css("position", "absolute")
+            .css("top", el.offsetTop)
+            .css("left", el.offsetLeft)
+            // setting width can push out the page size, forcing otherwise
+            // unnecessary scrollbars to appear and making it impossible for
+            // the element to shrink; so use max-width instead
+            .css("maxWidth", el.offsetWidth)
+            .css("height", el.offsetHeight);
+          errorDiv.text(err.message);
+          $el.after(errorDiv);
+
+          // Really dumb way to keep the size/position of the error in sync with
+          // the parent element as the window is resized or whatever.
+          var intId = setInterval(function() {
+            if (!errorDiv[0].parentElement) {
+              clearInterval(intId);
+              return;
+            }
+            errorDiv
+              .css("top", el.offsetTop)
+              .css("left", el.offsetLeft)
+              .css("maxWidth", el.offsetWidth)
+              .css("height", el.offsetHeight);
+          }, 500);
+        }
+      }
+    },
+    clearError: function(el) {
+      var $el = $(el);
+      var display = $el.data("restore-display-mode");
+      $el.data("restore-display-mode", null);
+
+      if (display === "inline" || display === "inline-block") {
+        if (display)
+          $el.css("display", display);
+        $(el.nextSibling).filter(".htmlwidgets-error").remove();
+      } else if (display === "block"){
+        $el.css("visibility", "inherit");
+        $(el.nextSibling).filter(".htmlwidgets-error").remove();
+      }
+    },
+    sizing: {}
+  };
+
+  // Called by widget bindings to register a new type of widget. The definition
+  // object can contain the following properties:
+  // - name (required) - A string indicating the binding name, which will be
+  //   used by default as the CSS classname to look for.
+  // - initialize (optional) - A function(el) that will be called once per
+  //   widget element; if a value is returned, it will be passed as the third
+  //   value to renderValue.
+  // - renderValue (required) - A function(el, data, initValue) that will be
+  //   called with data. Static contexts will cause this to be called once per
+  //   element; Shiny apps will cause this to be called multiple times per
+  //   element, as the data changes.
+  window.HTMLWidgets.widget = function(definition) {
+    if (!definition.name) {
+      throw new Error("Widget must have a name");
+    }
+    if (!definition.type) {
+      throw new Error("Widget must have a type");
+    }
+    // Currently we only support output widgets
+    if (definition.type !== "output") {
+      throw new Error("Unrecognized widget type '" + definition.type + "'");
+    }
+    // TODO: Verify that .name is a valid CSS classname
+
+    // Support new-style instance-bound definitions. Old-style class-bound
+    // definitions have one widget "object" per widget per type/class of
+    // widget; the renderValue and resize methods on such widget objects
+    // take el and instance arguments, because the widget object can't
+    // store them. New-style instance-bound definitions have one widget
+    // object per widget instance; the definition that's passed in doesn't
+    // provide renderValue or resize methods at all, just the single method
+    //   factory(el, width, height)
+    // which returns an object that has renderValue(x) and resize(w, h).
+    // This enables a far more natural programming style for the widget
+    // author, who can store per-instance state using either OO-style
+    // instance fields or functional-style closure variables (I guess this
+    // is in contrast to what can only be called C-style pseudo-OO which is
+    // what we required before).
+    if (definition.factory) {
+      definition = createLegacyDefinitionAdapter(definition);
+    }
+
+    if (!definition.renderValue) {
+      throw new Error("Widget must have a renderValue function");
+    }
+
+    // For static rendering (non-Shiny), use a simple widget registration
+    // scheme. We also use this scheme for Shiny apps/documents that also
+    // contain static widgets.
+    window.HTMLWidgets.widgets = window.HTMLWidgets.widgets || [];
+    // Merge defaults into the definition; don't mutate the original definition.
+    var staticBinding = extend({}, defaults, definition);
+    overrideMethod(staticBinding, "find", function(superfunc) {
+      return function(scope) {
+        var results = superfunc(scope);
+        // Filter out Shiny outputs, we only want the static kind
+        return filterByClass(results, "html-widget-output", false);
+      };
+    });
+    window.HTMLWidgets.widgets.push(staticBinding);
+
+    if (shinyMode) {
+      // Shiny is running. Register the definition with an output binding.
+      // The definition itself will not be the output binding, instead
+      // we will make an output binding object that delegates to the
+      // definition. This is because we foolishly used the same method
+      // name (renderValue) for htmlwidgets definition and Shiny bindings
+      // but they actually have quite different semantics (the Shiny
+      // bindings receive data that includes lots of metadata that it
+      // strips off before calling htmlwidgets renderValue). We can't
+      // just ignore the difference because in some widgets it's helpful
+      // to call this.renderValue() from inside of resize(), and if
+      // we're not delegating, then that call will go to the Shiny
+      // version instead of the htmlwidgets version.
+
+      // Merge defaults with definition, without mutating either.
+      var bindingDef = extend({}, defaults, definition);
+
+      // This object will be our actual Shiny binding.
+      var shinyBinding = new Shiny.OutputBinding();
+
+      // With a few exceptions, we'll want to simply use the bindingDef's
+      // version of methods if they are available, otherwise fall back to
+      // Shiny's defaults. NOTE: If Shiny's output bindings gain additional
+      // methods in the future, and we want them to be overrideable by
+      // HTMLWidget binding definitions, then we'll need to add them to this
+      // list.
+      delegateMethod(shinyBinding, bindingDef, "getId");
+      delegateMethod(shinyBinding, bindingDef, "onValueChange");
+      delegateMethod(shinyBinding, bindingDef, "onValueError");
+      delegateMethod(shinyBinding, bindingDef, "renderError");
+      delegateMethod(shinyBinding, bindingDef, "clearError");
+      delegateMethod(shinyBinding, bindingDef, "showProgress");
+
+      // The find, renderValue, and resize are handled differently, because we
+      // want to actually decorate the behavior of the bindingDef methods.
+
+      shinyBinding.find = function(scope) {
+        var results = bindingDef.find(scope);
+
+        // Only return elements that are Shiny outputs, not static ones
+        var dynamicResults = results.filter(".html-widget-output");
+
+        // It's possible that whatever caused Shiny to think there might be
+        // new dynamic outputs, also caused there to be new static outputs.
+        // Since there might be lots of different htmlwidgets bindings, we
+        // schedule execution for later--no need to staticRender multiple
+        // times.
+        if (results.length !== dynamicResults.length)
+          scheduleStaticRender();
+
+        return dynamicResults;
+      };
+
+      // Wrap renderValue to handle initialization, which unfortunately isn't
+      // supported natively by Shiny at the time of this writing.
+
+      shinyBinding.renderValue = function(el, data) {
+        Shiny.renderDependencies(data.deps);
+        // Resolve strings marked as javascript literals to objects
+        if (!(data.evals instanceof Array)) data.evals = [data.evals];
+        for (var i = 0; data.evals && i < data.evals.length; i++) {
+          window.HTMLWidgets.evaluateStringMember(data.x, data.evals[i]);
+        }
+        if (!bindingDef.renderOnNullValue) {
+          if (data.x === null) {
+            el.style.visibility = "hidden";
+            return;
+          } else {
+            el.style.visibility = "inherit";
+          }
+        }
+        if (!elementData(el, "initialized")) {
+          initSizing(el);
+
+          elementData(el, "initialized", true);
+          if (bindingDef.initialize) {
+            var result = bindingDef.initialize(el, el.offsetWidth,
+              el.offsetHeight);
+            elementData(el, "init_result", result);
+          }
+        }
+        bindingDef.renderValue(el, data.x, elementData(el, "init_result"));
+        evalAndRun(data.jsHooks.render, elementData(el, "init_result"), [el, data.x]);
+      };
+
+      // Only override resize if bindingDef implements it
+      if (bindingDef.resize) {
+        shinyBinding.resize = function(el, width, height) {
+          // Shiny can call resize before initialize/renderValue have been
+          // called, which doesn't make sense for widgets.
+          if (elementData(el, "initialized")) {
+            bindingDef.resize(el, width, height, elementData(el, "init_result"));
+          }
+        };
+      }
+
+      Shiny.outputBindings.register(shinyBinding, bindingDef.name);
+    }
+  };
+
+  var scheduleStaticRenderTimerId = null;
+  function scheduleStaticRender() {
+    if (!scheduleStaticRenderTimerId) {
+      scheduleStaticRenderTimerId = setTimeout(function() {
+        scheduleStaticRenderTimerId = null;
+        window.HTMLWidgets.staticRender();
+      }, 1);
+    }
+  }
+
+  // Render static widgets after the document finishes loading
+  // Statically render all elements that are of this widget's class
+  window.HTMLWidgets.staticRender = function() {
+    var bindings = window.HTMLWidgets.widgets || [];
+    forEach(bindings, function(binding) {
+      var matches = binding.find(document.documentElement);
+      forEach(matches, function(el) {
+        var sizeObj = initSizing(el, binding);
+
+        if (hasClass(el, "html-widget-static-bound"))
+          return;
+        el.className = el.className + " html-widget-static-bound";
+
+        var initResult;
+        if (binding.initialize) {
+          initResult = binding.initialize(el,
+            sizeObj ? sizeObj.getWidth() : el.offsetWidth,
+            sizeObj ? sizeObj.getHeight() : el.offsetHeight
+          );
+          elementData(el, "init_result", initResult);
+        }
+
+        if (binding.resize) {
+          var lastSize = {
+            w: sizeObj ? sizeObj.getWidth() : el.offsetWidth,
+            h: sizeObj ? sizeObj.getHeight() : el.offsetHeight
+          };
+          var resizeHandler = function(e) {
+            var size = {
+              w: sizeObj ? sizeObj.getWidth() : el.offsetWidth,
+              h: sizeObj ? sizeObj.getHeight() : el.offsetHeight
+            };
+            if (size.w === 0 && size.h === 0)
+              return;
+            if (size.w === lastSize.w && size.h === lastSize.h)
+              return;
+            lastSize = size;
+            binding.resize(el, size.w, size.h, initResult);
+          };
+
+          on(window, "resize", resizeHandler);
+
+          // This is needed for cases where we're running in a Shiny
+          // app, but the widget itself is not a Shiny output, but
+          // rather a simple static widget. One example of this is
+          // an rmarkdown document that has runtime:shiny and widget
+          // that isn't in a render function. Shiny only knows to
+          // call resize handlers for Shiny outputs, not for static
+          // widgets, so we do it ourselves.
+          if (window.jQuery) {
+            window.jQuery(document).on(
+              "shown.htmlwidgets shown.bs.tab.htmlwidgets shown.bs.collapse.htmlwidgets",
+              resizeHandler
+            );
+            window.jQuery(document).on(
+              "hidden.htmlwidgets hidden.bs.tab.htmlwidgets hidden.bs.collapse.htmlwidgets",
+              resizeHandler
+            );
+          }
+
+          // This is needed for the specific case of ioslides, which
+          // flips slides between display:none and display:block.
+          // Ideally we would not have to have ioslide-specific code
+          // here, but rather have ioslides raise a generic event,
+          // but the rmarkdown package just went to CRAN so the
+          // window to getting that fixed may be long.
+          if (window.addEventListener) {
+            // It's OK to limit this to window.addEventListener
+            // browsers because ioslides itself only supports
+            // such browsers.
+            on(document, "slideenter", resizeHandler);
+            on(document, "slideleave", resizeHandler);
+          }
+        }
+
+        var scriptData = document.querySelector("script[data-for='" + el.id + "'][type='application/json']");
+        if (scriptData) {
+          var data = JSON.parse(scriptData.textContent || scriptData.text);
+          // Resolve strings marked as javascript literals to objects
+          if (!(data.evals instanceof Array)) data.evals = [data.evals];
+          for (var k = 0; data.evals && k < data.evals.length; k++) {
+            window.HTMLWidgets.evaluateStringMember(data.x, data.evals[k]);
+          }
+          binding.renderValue(el, data.x, initResult);
+          evalAndRun(data.jsHooks.render, initResult, [el, data.x]);
+        }
+      });
+    });
+
+    invokePostRenderHandlers();
+  }
+
+
+  function has_jQuery3() {
+    if (!window.jQuery) {
+      return false;
+    }
+    var $version = window.jQuery.fn.jquery;
+    var $major_version = parseInt($version.split(".")[0]);
+    return $major_version >= 3;
+  }
+
+  /*
+  / Shiny 1.4 bumped jQuery from 1.x to 3.x which means jQuery's
+  / on-ready handler (i.e., $(fn)) is now asyncronous (i.e., it now
+  / really means $(setTimeout(fn)).
+  / https://jquery.com/upgrade-guide/3.0/#breaking-change-document-ready-handlers-are-now-asynchronous
+  /
+  / Since Shiny uses $() to schedule initShiny, shiny>=1.4 calls initShiny
+  / one tick later than it did before, which means staticRender() is
+  / called renderValue() earlier than (advanced) widget authors might be expecting.
+  / https://github.com/rstudio/shiny/issues/2630
+  /
+  / For a concrete example, leaflet has some methods (e.g., updateBounds)
+  / which reference Shiny methods registered in initShiny (e.g., setInputValue).
+  / Since leaflet is privy to this life-cycle, it knows to use setTimeout() to
+  / delay execution of those methods (until Shiny methods are ready)
+  / https://github.com/rstudio/leaflet/blob/18ec981/javascript/src/index.js#L266-L268
+  /
+  / Ideally widget authors wouldn't need to use this setTimeout() hack that
+  / leaflet uses to call Shiny methods on a staticRender(). In the long run,
+  / the logic initShiny should be broken up so that method registration happens
+  / right away, but binding happens later.
+  */
+  function maybeStaticRenderLater() {
+    if (shinyMode && has_jQuery3()) {
+      window.jQuery(window.HTMLWidgets.staticRender);
+    } else {
+      window.HTMLWidgets.staticRender();
+    }
+  }
+
+  if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded", function() {
+      document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+      maybeStaticRenderLater();
+    }, false);
+  } else if (document.attachEvent) {
+    document.attachEvent("onreadystatechange", function() {
+      if (document.readyState === "complete") {
+        document.detachEvent("onreadystatechange", arguments.callee);
+        maybeStaticRenderLater();
+      }
+    });
+  }
+
+
+  window.HTMLWidgets.getAttachmentUrl = function(depname, key) {
+    // If no key, default to the first item
+    if (typeof(key) === "undefined")
+      key = 1;
+
+    var link = document.getElementById(depname + "-" + key + "-attachment");
+    if (!link) {
+      throw new Error("Attachment " + depname + "/" + key + " not found in document");
+    }
+    return link.getAttribute("href");
+  };
+
+  window.HTMLWidgets.dataframeToD3 = function(df) {
+    var names = [];
+    var length;
+    for (var name in df) {
+        if (df.hasOwnProperty(name))
+            names.push(name);
+        if (typeof(df[name]) !== "object" || typeof(df[name].length) === "undefined") {
+            throw new Error("All fields must be arrays");
+        } else if (typeof(length) !== "undefined" && length !== df[name].length) {
+            throw new Error("All fields must be arrays of the same length");
+        }
+        length = df[name].length;
+    }
+    var results = [];
+    var item;
+    for (var row = 0; row < length; row++) {
+        item = {};
+        for (var col = 0; col < names.length; col++) {
+            item[names[col]] = df[names[col]][row];
+        }
+        results.push(item);
+    }
+    return results;
+  };
+
+  window.HTMLWidgets.transposeArray2D = function(array) {
+      if (array.length === 0) return array;
+      var newArray = array[0].map(function(col, i) {
+          return array.map(function(row) {
+              return row[i]
+          })
+      });
+      return newArray;
+  };
+  // Split value at splitChar, but allow splitChar to be escaped
+  // using escapeChar. Any other characters escaped by escapeChar
+  // will be included as usual (including escapeChar itself).
+  function splitWithEscape(value, splitChar, escapeChar) {
+    var results = [];
+    var escapeMode = false;
+    var currentResult = "";
+    for (var pos = 0; pos < value.length; pos++) {
+      if (!escapeMode) {
+        if (value[pos] === splitChar) {
+          results.push(currentResult);
+          currentResult = "";
+        } else if (value[pos] === escapeChar) {
+          escapeMode = true;
+        } else {
+          currentResult += value[pos];
+        }
+      } else {
+        currentResult += value[pos];
+        escapeMode = false;
+      }
+    }
+    if (currentResult !== "") {
+      results.push(currentResult);
+    }
+    return results;
+  }
+  // Function authored by Yihui/JJ Allaire
+  window.HTMLWidgets.evaluateStringMember = function(o, member) {
+    var parts = splitWithEscape(member, '.', '\\');
+    for (var i = 0, l = parts.length; i < l; i++) {
+      var part = parts[i];
+      // part may be a character or 'numeric' member name
+      if (o !== null && typeof o === "object" && part in o) {
+        if (i == (l - 1)) { // if we are at the end of the line then evalulate
+          if (typeof o[part] === "string")
+            o[part] = tryEval(o[part]);
+        } else { // otherwise continue to next embedded object
+          o = o[part];
+        }
+      }
+    }
+  };
+
+  // Retrieve the HTMLWidget instance (i.e. the return value of an
+  // HTMLWidget binding's initialize() or factory() function)
+  // associated with an element, or null if none.
+  window.HTMLWidgets.getInstance = function(el) {
+    return elementData(el, "init_result");
+  };
+
+  // Finds the first element in the scope that matches the selector,
+  // and returns the HTMLWidget instance (i.e. the return value of
+  // an HTMLWidget binding's initialize() or factory() function)
+  // associated with that element, if any. If no element matches the
+  // selector, or the first matching element has no HTMLWidget
+  // instance associated with it, then null is returned.
+  //
+  // The scope argument is optional, and defaults to window.document.
+  window.HTMLWidgets.find = function(scope, selector) {
+    if (arguments.length == 1) {
+      selector = scope;
+      scope = document;
+    }
+
+    var el = scope.querySelector(selector);
+    if (el === null) {
+      return null;
+    } else {
+      return window.HTMLWidgets.getInstance(el);
+    }
+  };
+
+  // Finds all elements in the scope that match the selector, and
+  // returns the HTMLWidget instances (i.e. the return values of
+  // an HTMLWidget binding's initialize() or factory() function)
+  // associated with the elements, in an array. If elements that
+  // match the selector don't have an associated HTMLWidget
+  // instance, the returned array will contain nulls.
+  //
+  // The scope argument is optional, and defaults to window.document.
+  window.HTMLWidgets.findAll = function(scope, selector) {
+    if (arguments.length == 1) {
+      selector = scope;
+      scope = document;
+    }
+
+    var nodes = scope.querySelectorAll(selector);
+    var results = [];
+    for (var i = 0; i < nodes.length; i++) {
+      results.push(window.HTMLWidgets.getInstance(nodes[i]));
+    }
+    return results;
+  };
+
+  var postRenderHandlers = [];
+  function invokePostRenderHandlers() {
+    while (postRenderHandlers.length) {
+      var handler = postRenderHandlers.shift();
+      if (handler) {
+        handler();
+      }
+    }
+  }
+
+  // Register the given callback function to be invoked after the
+  // next time static widgets are rendered.
+  window.HTMLWidgets.addPostRenderHandler = function(callback) {
+    postRenderHandlers.push(callback);
+  };
+
+  // Takes a new-style instance-bound definition, and returns an
+  // old-style class-bound definition. This saves us from having
+  // to rewrite all the logic in this file to accomodate both
+  // types of definitions.
+  function createLegacyDefinitionAdapter(defn) {
+    var result = {
+      name: defn.name,
+      type: defn.type,
+      initialize: function(el, width, height) {
+        return defn.factory(el, width, height);
+      },
+      renderValue: function(el, x, instance) {
+        return instance.renderValue(x);
+      },
+      resize: function(el, width, height, instance) {
+        return instance.resize(width, height);
+      }
+    };
+
+    if (defn.find)
+      result.find = defn.find;
+    if (defn.renderError)
+      result.renderError = defn.renderError;
+    if (defn.clearError)
+      result.clearError = defn.clearError;
+
+    return result;
+  }
+})();
+
+</script>
+<style type="text/css">.str_view ul, .str_view li {
+list-style: none;
+padding: 0;
+margin: 0.5em 0;
+font-family: monospace;
+}
+.str_view .match {
+border: 1px solid #ccc;
+background-color: #eee;
+}
+</style>
+<script>HTMLWidgets.widget({
+
+  name: 'str_view',
+
+  type: 'output',
+
+  initialize: function(el, width, height) {
+  },
+
+  renderValue: function(el, x, instance) {
+    el.innerHTML = x.html;
+  },
+
+  resize: function(el, width, height, instance) {
+  }
+
+});
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -2720,8 +3653,8 @@ div.tocify {
 <li><code>month()</code>: Month</li>
 <li><code>day()</code>: Day</li>
 <li><code>hour()</code>: Hour</li>
-<li><code>min()</code>: Minute</li>
-<li><code>sec()</code>: Second</li>
+<li><code>minute()</code>: Minute</li>
+<li><code>second()</code>: Second</li>
 <li><code>week()</code>: Week of the year</li>
 <li><code>wday()</code>: Day of the week (<code>1</code> for Sunday to <code>7</code> for Saturday)</li>
 <li><code>am()</code>: Is it in the am? (returns <code>TRUE</code> or <code>FALSE</code>)</li>
@@ -2944,8 +3877,692 @@ div.tocify {
 </div>
 </div>
 </div>
+<div id="regex-with-stringr-functions" class="section level1">
+<h1><span class="header-section-number">6</span> Regex with <code>stringr</code> functions</h1>
+<p>Using regex in <code>stringr</code> functions (From <a href="https://r4ds.had.co.nz/strings.html#other-types-of-pattern">R for Data Science</a>)</p>
+<ul>
+<li><p>When we specify a pattern in a <code>stringr</code> function, such as <code>str_view()</code>, it is automatically wrapped in a call to <code>regex()</code> (ie. <em>treated as a regular expression</em>)</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1"><span class="co"># This function call:</span></a>
+<a class="sourceLine" id="cb300-2" data-line-number="2"><span class="kw">str_view</span>(<span class="dt">string =</span> <span class="st">&quot;Turn to page 394...&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d+&quot;</span>)</a></code></pre></div>
+<div id="htmlwidget-b0d7084b0a5f50ac5869" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-b0d7084b0a5f50ac5869">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb301-1" data-line-number="1"><span class="co"># Is shorthand for:</span></a>
+<a class="sourceLine" id="cb301-2" data-line-number="2"><span class="kw">str_view</span>(<span class="dt">string =</span> <span class="st">&quot;Turn to page 394...&quot;</span>, <span class="dt">pattern =</span> <span class="kw">regex</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">d+&quot;</span>))</a></code></pre></div>
+<div id="htmlwidget-434395625bf7a6637579" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-434395625bf7a6637579">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script></li>
+<li>For simplicity, we can omit the call to <code>regex()</code></li>
+<li>But, there are additional arguments we can supply to <code>regex()</code> if we wanted
+<ul>
+<li><code>regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)</code></li>
+<li><code>ignore_case</code>: If <code>TRUE</code>, allows characters to match either their uppercase or lowercase forms</li>
+<li><code>multiline</code>: If <code>TRUE</code>, allows <code>^</code> and <code>$</code> to match the start and end of each line rather than the start and end of the complete string</li>
+<li><code>comments</code>: If <code>TRUE</code>, allows you to use comments and white space to make complex regular expressions more understandable
+<ul>
+<li>Spaces are ignored, as is everything after <code>#</code></li>
+<li>To match a literal space, you’ll need to escape it: <code>&quot;\\ &quot;</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Specifying <code>ignore_case = TRUE</code> in <code>regex()</code></summary></p>
+<p>Let’s say we have the following string:</p>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb302-1" data-line-number="1">s &lt;-<span class="st"> &quot;The assigned readings for EDUC 263</span><span class="ch">\n</span><span class="st">Page 391</span><span class="ch">\n</span><span class="st">And page 392</span><span class="ch">\n</span><span class="st">And page 393... NO WAIT! PAGE 394&quot;</span></a>
+<a class="sourceLine" id="cb302-2" data-line-number="2"><span class="kw">writeLines</span>(s)</a></code></pre></div>
+<pre><code>## The assigned readings for EDUC 263
+## Page 391
+## And page 392
+## And page 393... NO WAIT! PAGE 394</code></pre>
+<p><br> We can match all the pages mentioned using the following regex:</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb304-1" data-line-number="1"><span class="kw">str_view_all</span>(<span class="dt">string =</span> s, <span class="dt">pattern =</span> <span class="st">&quot;[Pp][Aa][Gg][Ee] </span><span class="ch">\\</span><span class="st">d+&quot;</span>)</a></code></pre></div>
+<div id="htmlwidget-882efa4b879c163cec60" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-882efa4b879c163cec60">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p><br> Equivalently, we can specify <code>ignore_case = TRUE</code> to avoid dealing with casing variations:</p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb305-1" data-line-number="1"><span class="kw">str_view_all</span>(<span class="dt">string =</span> s, <span class="dt">pattern =</span> <span class="kw">regex</span>(<span class="st">&quot;page </span><span class="ch">\\</span><span class="st">d+&quot;</span>, <span class="dt">ignore_case =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div id="htmlwidget-3e643bbe2eb2744de7bc" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3e643bbe2eb2744de7bc">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Specifying <code>multiline = TRUE</code> in <code>regex()</code></summary></p>
+<p>Continuing with the previous example string:</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb306-1" data-line-number="1"><span class="kw">writeLines</span>(s)</a></code></pre></div>
+<pre><code>## The assigned readings for EDUC 263
+## Page 391
+## And page 392
+## And page 393... NO WAIT! PAGE 394</code></pre>
+<p><br> If we wanted to match only the correct pages, we can take advantage of the fact that they are all located at the end of their line:</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb308-1" data-line-number="1"><span class="co"># When multiline = TRUE, `$` matches the end of a line instead of end of the string</span></a>
+<a class="sourceLine" id="cb308-2" data-line-number="2"><span class="kw">str_view_all</span>(<span class="dt">string =</span> s, <span class="dt">pattern =</span> <span class="kw">regex</span>(<span class="st">&quot;page </span><span class="ch">\\</span><span class="st">d+$&quot;</span>, <span class="dt">ignore_case =</span> <span class="ot">TRUE</span>, <span class="dt">multiline =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div id="htmlwidget-9fb2f35a8e2a0f7724c3" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9fb2f35a8e2a0f7724c3">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<p><br> Compared to if we did not specify <code>multiline = TRUE</code>:</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb309-1" data-line-number="1"><span class="co"># When multiline = FALSE, `$` matches the end of the string</span></a>
+<a class="sourceLine" id="cb309-2" data-line-number="2"><span class="kw">str_view_all</span>(<span class="dt">string =</span> s, <span class="dt">pattern =</span> <span class="kw">regex</span>(<span class="st">&quot;page </span><span class="ch">\\</span><span class="st">d+$&quot;</span>, <span class="dt">ignore_case =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div id="htmlwidget-eeb00c5279f51301b9ce" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-eeb00c5279f51301b9ce">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\nPage 391\nAnd page 392\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Specifying <code>comments = TRUE</code> in <code>regex()</code></summary></p>
+<p><code>comments = TRUE</code> allows us to write comments inside the <code>regex()</code> function:</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb310-1" data-line-number="1">pattern &lt;-<span class="st"> </span><span class="kw">regex</span>(<span class="st">&quot;</span></a>
+<a class="sourceLine" id="cb310-2" data-line-number="2"><span class="st">                 page</span><span class="ch">\\</span><span class="st">     # Notice how we have to use `</span><span class="ch">\\</span><span class="st"> ` for a literal space now</span></a>
+<a class="sourceLine" id="cb310-3" data-line-number="3"><span class="st">                 </span><span class="ch">\\</span><span class="st">d+       # This is to match a sequence of 1 or more digits</span></a>
+<a class="sourceLine" id="cb310-4" data-line-number="4"><span class="st">                 $          # This is to indicate the end of a line when `multiline = TRUE`</span></a>
+<a class="sourceLine" id="cb310-5" data-line-number="5"><span class="st">                 &quot;</span>, <span class="dt">ignore_case =</span> <span class="ot">TRUE</span>, <span class="dt">multiline =</span> <span class="ot">TRUE</span>, <span class="dt">comments =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb310-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb310-7" data-line-number="7"><span class="kw">str_view_all</span>(<span class="dt">string =</span> s, <span class="dt">pattern =</span> pattern)</a></code></pre></div>
+<div id="htmlwidget-a897abfb90c8dbb95fe7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a897abfb90c8dbb95fe7">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+</details>
+<div id="str_detect" class="section level2">
+<h2><span class="header-section-number">6.1</span> <code>str_detect()</code></h2>
+<p><br> <strong>The <code>str_detect()</code> function</strong>:</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb311-1" data-line-number="1">?str_detect</a>
+<a class="sourceLine" id="cb311-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb311-3" data-line-number="3"><span class="co"># SYNTAX AND DEFAULT VALUES</span></a>
+<a class="sourceLine" id="cb311-4" data-line-number="4"><span class="kw">str_detect</span>(string, pattern, <span class="dt">negate =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<ul>
+<li>Function: Detects the presence or absence of a pattern in a string
+<ul>
+<li>Returns logical vector (<code>TRUE</code> if there is a match, <code>FALSE</code> if there is not)</li>
+</ul></li>
+<li>Arguments:
+<ul>
+<li><code>string</code>: Character vector (or vector coercible to character) to search</li>
+<li><code>pattern</code>: Pattern to look for</li>
+<li><code>negate</code>: If set to <code>TRUE</code>, the returned logical vector will contain <code>TRUE</code> if there is not a match and <code>FALSE</code> if there is one</li>
+</ul></li>
+</ul>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_detect()</code> on string</summary></p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb312-1" data-line-number="1"><span class="co"># Detects if there is a digit in the string</span></a>
+<a class="sourceLine" id="cb312-2" data-line-number="2"><span class="kw">str_detect</span>(<span class="dt">string =</span> <span class="st">&quot;P. Sherman 42 Wallaby Way&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_detect()</code> on character vector</summary></p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb314-1" data-line-number="1"><span class="co"># Detects if there is a digit in each string in the vector</span></a>
+<a class="sourceLine" id="cb314-2" data-line-number="2"><span class="kw">str_detect</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;One&quot;</span>, <span class="st">&quot;25th&quot;</span>, <span class="st">&quot;3000&quot;</span>), <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] FALSE  TRUE  TRUE</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_detect()</code> on dataframe column</summary></p>
+<p>Let’s create new columns in <code>p12_df</code> called <code>is_am</code> and <code>is_pm</code> that indicates whether or not each tweet’s <code>created_at</code> time is in the AM or PM, respectively:</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb316-1" data-line-number="1">p12_df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb316-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb316-3" data-line-number="3">    <span class="co"># Returns `TRUE` if the hour is 0#, 10, or 11, `FALSE` otherwise</span></a>
+<a class="sourceLine" id="cb316-4" data-line-number="4">    <span class="dt">is_am =</span> <span class="kw">str_detect</span>(<span class="dt">string =</span> created_at, <span class="dt">pattern =</span> <span class="st">&quot; 0</span><span class="ch">\\</span><span class="st">d| 1[01]&quot;</span>),</a>
+<a class="sourceLine" id="cb316-5" data-line-number="5">    <span class="co"># Recall we can set the `negate` argument to switch the returned `TRUE`/`FALSE`</span></a>
+<a class="sourceLine" id="cb316-6" data-line-number="6">    <span class="dt">is_pm =</span> <span class="kw">str_detect</span>(<span class="dt">string =</span> created_at, <span class="dt">pattern =</span> <span class="st">&quot; 0</span><span class="ch">\\</span><span class="st">d| 1[01]&quot;</span>, <span class="dt">negate =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb316-7" data-line-number="7">  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(created_at, is_am, is_pm)</a></code></pre></div>
+<pre><code>## # A tibble: 328 x 3
+##    created_at          is_am is_pm
+##    &lt;dttm&gt;              &lt;lgl&gt; &lt;lgl&gt;
+##  1 2020-04-25 22:37:18 FALSE TRUE 
+##  2 2020-04-23 21:11:49 FALSE TRUE 
+##  3 2020-04-21 04:00:00 TRUE  FALSE
+##  4 2020-04-24 03:00:00 TRUE  FALSE
+##  5 2020-04-20 19:00:21 FALSE TRUE 
+##  6 2020-04-20 02:20:01 TRUE  FALSE
+##  7 2020-04-22 04:00:00 TRUE  FALSE
+##  8 2020-04-25 17:00:00 FALSE TRUE 
+##  9 2020-04-21 15:13:06 FALSE TRUE 
+## 10 2020-04-21 17:52:47 FALSE TRUE 
+## # … with 318 more rows</code></pre>
+<p><br> Because <code>TRUE</code> evaluates to 1 and <code>FALSE</code> evaluates to 0 in a numerical context, we could also sum the returned logical vector to see how many of the elements in the vector had a match:</p>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb318-1" data-line-number="1"><span class="co"># Number of tweets that were created in the AM</span></a>
+<a class="sourceLine" id="cb318-2" data-line-number="2">num_am_tweets &lt;-<span class="st"> </span><span class="kw">sum</span>(<span class="kw">str_detect</span>(<span class="dt">string =</span> p12_df<span class="op">$</span>created_at, <span class="dt">pattern =</span> <span class="st">&quot; 0</span><span class="ch">\\</span><span class="st">d| 1[01]&quot;</span>))</a>
+<a class="sourceLine" id="cb318-3" data-line-number="3">num_am_tweets</a></code></pre></div>
+<pre><code>## [1] 53</code></pre>
+<p><br> Additionally, we can take the average of the logical vector to get the proportion of elements in the input vector that had a match:</p>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb320-1" data-line-number="1"><span class="co"># Proportion of tweets that were created in the AM</span></a>
+<a class="sourceLine" id="cb320-2" data-line-number="2">pct_am_tweets &lt;-<span class="st"> </span><span class="kw">mean</span>(<span class="kw">str_detect</span>(<span class="dt">string =</span> p12_df<span class="op">$</span>created_at, <span class="dt">pattern =</span> <span class="st">&quot; 0</span><span class="ch">\\</span><span class="st">d| 1[01]&quot;</span>))</a>
+<a class="sourceLine" id="cb320-3" data-line-number="3">pct_am_tweets</a></code></pre></div>
+<pre><code>## [1] 0.1615854</code></pre>
+<p><br> We can also use the logical vector returned from <code>str_detect()</code> to filter <code>p12_df</code> to only include rows that had a match:</p>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb322-1" data-line-number="1"><span class="co"># Keep only rows whose tweet was created in the AM</span></a>
+<a class="sourceLine" id="cb322-2" data-line-number="2">p12_df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb322-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(<span class="dt">string =</span> created_at, <span class="dt">pattern =</span> <span class="st">&quot; 0</span><span class="ch">\\</span><span class="st">d| 1[01]&quot;</span>))</a></code></pre></div>
+<pre><code>## # A tibble: 53 x 5
+##    user_id  created_at          screen_name text                location   
+##    &lt;chr&gt;    &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;               &lt;chr&gt;      
+##  1 22080148 2020-04-21 04:00:00 WSUPullman  &quot;Darien McLaughlin… Pullman, W…
+##  2 22080148 2020-04-24 03:00:00 WSUPullman  6 houses, one pick… Pullman, W…
+##  3 22080148 2020-04-20 02:20:01 WSUPullman  Tell us one of you… Pullman, W…
+##  4 22080148 2020-04-22 04:00:00 WSUPullman  We loved seeing yo… Pullman, W…
+##  5 22080148 2020-04-24 01:58:04 WSUPullman  #WSU agricultural … Pullman, W…
+##  6 22080148 2020-04-22 02:22:03 WSUPullman  Nice 👍 https://t.c… Pullman, W…
+##  7 15988549 2020-04-20 02:52:31 CalAdmissi… @PaulineARoxas Con… Berkeley, …
+##  8 15988549 2020-04-22 03:07:00 CalAdmissi… It’s time to make … Berkeley, …
+##  9 15988549 2020-04-22 00:00:08 CalAdmissi… &quot;Are you a #Berkel… Berkeley, …
+## 10 15988549 2020-04-20 03:03:21 CalAdmissi… &quot;@N48260756 We sug… Berkeley, …
+## # … with 43 more rows</code></pre>
+</details>
+</div>
+<div id="str_subset" class="section level2">
+<h2><span class="header-section-number">6.2</span> <code>str_subset()</code></h2>
+<p><br> <strong>The <code>str_subset()</code> function</strong>:</p>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb324-1" data-line-number="1">?str_subset</a>
+<a class="sourceLine" id="cb324-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb324-3" data-line-number="3"><span class="co"># SYNTAX AND DEFAULT VALUES</span></a>
+<a class="sourceLine" id="cb324-4" data-line-number="4"><span class="kw">str_subset</span>(string, pattern, <span class="dt">negate =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<ul>
+<li>Function: Keeps strings that match a pattern
+<ul>
+<li>Returns input vector filtered to only keep elements that match the specified pattern</li>
+</ul></li>
+<li>Arguments:
+<ul>
+<li><code>string</code>: Character vector (or vector coercible to character) to search</li>
+<li><code>pattern</code>: Pattern to look for</li>
+<li><code>negate</code>: If set to <code>TRUE</code>, the returned vector will contain only elements that did not match the specified pattern</li>
+</ul></li>
+</ul>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_subset()</code> on character vector</summary></p>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb325-1" data-line-number="1"><span class="co"># Subsets the input vector to only keep elements that contains a digit</span></a>
+<a class="sourceLine" id="cb325-2" data-line-number="2"><span class="kw">str_subset</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;One&quot;</span>, <span class="st">&quot;25th&quot;</span>, <span class="st">&quot;3000&quot;</span>), <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;25th&quot; &quot;3000&quot;</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_subset()</code> on dataframe column</summary></p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb327-1" data-line-number="1"><span class="co"># Subsets the `created_at` vector of `p12_df` to only keep elements that occured in the AM</span></a>
+<a class="sourceLine" id="cb327-2" data-line-number="2"><span class="kw">str_subset</span>(<span class="dt">string =</span> p12_df<span class="op">$</span>created_at, <span class="dt">pattern =</span> <span class="st">&quot; 0</span><span class="ch">\\</span><span class="st">d| 1[01]&quot;</span>)</a></code></pre></div>
+<pre><code>##  [1] &quot;2020-04-21 04:00:00&quot; &quot;2020-04-24 03:00:00&quot; &quot;2020-04-20 02:20:01&quot;
+##  [4] &quot;2020-04-22 04:00:00&quot; &quot;2020-04-24 01:58:04&quot; &quot;2020-04-22 02:22:03&quot;
+##  [7] &quot;2020-04-20 02:52:31&quot; &quot;2020-04-22 03:07:00&quot; &quot;2020-04-22 00:00:08&quot;
+## [10] &quot;2020-04-20 03:03:21&quot; &quot;2020-04-22 00:47:00&quot; &quot;2020-04-23 06:34:00&quot;
+## [13] &quot;2020-04-23 04:06:49&quot; &quot;2020-04-19 03:32:21&quot; &quot;2020-04-20 02:53:38&quot;
+## [16] &quot;2020-04-20 02:53:14&quot; &quot;2020-04-20 03:04:11&quot; &quot;2020-04-19 03:30:14&quot;
+## [19] &quot;2020-04-20 02:58:55&quot; &quot;2020-04-19 05:37:00&quot; &quot;2020-04-21 02:34:00&quot;
+## [22] &quot;2020-04-20 00:15:07&quot; &quot;2020-04-25 04:18:29&quot; &quot;2020-04-25 00:00:01&quot;
+## [25] &quot;2020-04-21 02:33:00&quot; &quot;2020-04-24 01:00:01&quot; &quot;2020-04-23 02:38:46&quot;
+## [28] &quot;2020-04-24 04:48:28&quot; &quot;2020-04-24 01:06:33&quot; &quot;2020-04-25 04:48:08&quot;
+## [31] &quot;2020-04-22 00:10:43&quot; &quot;2020-04-21 05:58:12&quot; &quot;2020-04-24 01:41:19&quot;
+## [34] &quot;2020-04-24 01:42:44&quot; &quot;2020-04-24 01:43:11&quot; &quot;2020-04-23 02:45:24&quot;
+## [37] &quot;2020-04-20 00:44:42&quot; &quot;2020-04-24 01:41:13&quot; &quot;2020-04-25 00:26:02&quot;
+## [40] &quot;2020-04-25 00:31:23&quot; &quot;2020-04-25 00:46:40&quot; &quot;2020-04-25 00:20:36&quot;
+## [43] &quot;2020-04-20 00:09:58&quot; &quot;2020-04-20 00:09:46&quot; &quot;2020-04-20 00:10:08&quot;
+## [46] &quot;2020-04-25 00:29:12&quot; &quot;2020-04-22 01:45:02&quot; &quot;2020-04-23 02:00:14&quot;
+## [49] &quot;2020-04-25 00:34:47&quot; &quot;2020-04-24 02:11:51&quot; &quot;2020-04-25 00:05:59&quot;
+## [52] &quot;2020-04-21 04:14:11&quot; &quot;2020-04-23 02:13:21&quot;</code></pre>
+</details>
+</div>
+<div id="str_extract-and-str_extract_all" class="section level2">
+<h2><span class="header-section-number">6.3</span> <code>str_extract()</code> and <code>str_extract_all()</code></h2>
+<p><br> <strong>The <code>str_extract()</code> and <code>str_extract_all()</code> functions</strong>:</p>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb329-1" data-line-number="1">?str_extract</a>
+<a class="sourceLine" id="cb329-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb329-3" data-line-number="3"><span class="co"># SYNTAX</span></a>
+<a class="sourceLine" id="cb329-4" data-line-number="4"><span class="kw">str_extract</span>(string, pattern)</a>
+<a class="sourceLine" id="cb329-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb329-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb329-7" data-line-number="7">?str_extract_all</a>
+<a class="sourceLine" id="cb329-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb329-9" data-line-number="9"><span class="co"># SYNTAX AND DEFAULT VALUES</span></a>
+<a class="sourceLine" id="cb329-10" data-line-number="10"><span class="kw">str_extract_all</span>(string, pattern, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<ul>
+<li>Function: Extracts matching patterns from a string
+<ul>
+<li>Returns first match (<code>str_extract()</code>) or all matches (<code>str_extract_all()</code>) for input vector</li>
+</ul></li>
+<li>Arguments:
+<ul>
+<li><code>string</code>: Character vector (or vector coercible to character) to search</li>
+<li><code>pattern</code>: Pattern to look for</li>
+<li><code>simplify</code>: If set to <code>TRUE</code>, the returned matches will be in a character matrix rather than the default list of character vectors</li>
+</ul></li>
+</ul>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_extract()</code> and <code>str_extract_all()</code> on character vector</summary></p>
+<p><strong>[<code>str_extract()</code>]</strong> Extract the first occurrence of a word for each string:</p>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb330-1" data-line-number="1"><span class="co"># Extracts first match of a word</span></a>
+<a class="sourceLine" id="cb330-2" data-line-number="2"><span class="kw">str_extract</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;Three French hens&quot;</span>, <span class="st">&quot;Two turtle doves&quot;</span>, <span class="st">&quot;A partridge in a pear tree&quot;</span>),</a>
+<a class="sourceLine" id="cb330-3" data-line-number="3">            <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">w+&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Three&quot; &quot;Two&quot;   &quot;A&quot;</code></pre>
+<p><strong>[<code>str_extract_all()</code>]</strong> Extract all occurrences of a word for each string:</p>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb332-1" data-line-number="1"><span class="co"># Extracts all matches of a word, returning a list of character vectors</span></a>
+<a class="sourceLine" id="cb332-2" data-line-number="2"><span class="kw">str_extract_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;Three French hens&quot;</span>, <span class="st">&quot;Two turtle doves&quot;</span>, <span class="st">&quot;A partridge in a pear tree&quot;</span>), </a>
+<a class="sourceLine" id="cb332-3" data-line-number="3">                <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">w+&quot;</span>)</a></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;Three&quot;  &quot;French&quot; &quot;hens&quot;  
+## 
+## [[2]]
+## [1] &quot;Two&quot;    &quot;turtle&quot; &quot;doves&quot; 
+## 
+## [[3]]
+## [1] &quot;A&quot;         &quot;partridge&quot; &quot;in&quot;        &quot;a&quot;         &quot;pear&quot;      &quot;tree&quot;</code></pre>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" data-line-number="1"><span class="co"># Extracts all matches of a word, returning a character matrix</span></a>
+<a class="sourceLine" id="cb334-2" data-line-number="2"><span class="kw">str_extract_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;Three French hens&quot;</span>, <span class="st">&quot;Two turtle doves&quot;</span>, <span class="st">&quot;A partridge in a pear tree&quot;</span>), </a>
+<a class="sourceLine" id="cb334-3" data-line-number="3">                <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">w+&quot;</span>, <span class="dt">simplify =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>##      [,1]    [,2]        [,3]    [,4] [,5]   [,6]  
+## [1,] &quot;Three&quot; &quot;French&quot;    &quot;hens&quot;  &quot;&quot;   &quot;&quot;     &quot;&quot;    
+## [2,] &quot;Two&quot;   &quot;turtle&quot;    &quot;doves&quot; &quot;&quot;   &quot;&quot;     &quot;&quot;    
+## [3,] &quot;A&quot;     &quot;partridge&quot; &quot;in&quot;    &quot;a&quot;  &quot;pear&quot; &quot;tree&quot;</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_extract()</code> and <code>str_extract_all()</code> on dataframe column</summary></p>
+<p><strong>[<code>str_extract()</code>]</strong> Extract first hashtag:</p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb336-1" data-line-number="1"><span class="co"># Extracts first match of a hashtag (if there is one)</span></a>
+<a class="sourceLine" id="cb336-2" data-line-number="2">p12_df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb336-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb336-4" data-line-number="4">    <span class="dt">hashtag =</span> <span class="kw">str_extract</span>(<span class="dt">string =</span> text, <span class="dt">pattern =</span> <span class="st">&quot;#</span><span class="ch">\\</span><span class="st">S+&quot;</span>)</a>
+<a class="sourceLine" id="cb336-5" data-line-number="5">  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(text, hashtag)</a></code></pre></div>
+<pre><code>## # A tibble: 328 x 2
+##    text                                                            hashtag 
+##    &lt;chr&gt;                                                           &lt;chr&gt;   
+##  1 &quot;Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dad… #GoCougs
+##  2 Cougar Cheese. That's it. That's the tweet. 🧀#WSU #GoCougs htt… #WSU    
+##  3 &quot;Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman … #Pullman
+##  4 6 houses, one pick. Cougs, which one you got? Reply ⬇️  #WSU #… #WSU    
+##  5 Why did you choose to attend @WSUPullman?🤔 #WSU #GoCougs https… #WSU    
+##  6 Tell us one of your Bryan Clock Tower memories ⏰ 🐾 #WSU #GoCou… #WSU    
+##  7 We loved seeing your top three @WSUPullman buildings, but what… #WSU    
+##  8 &quot;Congratulations, graduates! We’re two weeks away from the #WS… #WSU    
+##  9 Learn more about this story at https://t.co/45BzKc2rFE. #WSU #… #WSU    
+## 10 &quot;Tomorrow, our @WSUEsports Team is facing off against \n@Espor… #GoCoug…
+## # … with 318 more rows</code></pre>
+<p><strong>[<code>str_extract_all()</code>]</strong> Extract all hashtags:</p>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" data-line-number="1"><span class="co"># Extracts all matches of hashtags (if there are any)</span></a>
+<a class="sourceLine" id="cb338-2" data-line-number="2">p12_df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb338-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb338-4" data-line-number="4">    <span class="dt">hashtag_vector =</span> <span class="kw">str_extract_all</span>(<span class="dt">string =</span> text, <span class="dt">pattern =</span> <span class="st">&quot;#</span><span class="ch">\\</span><span class="st">S+&quot;</span>),</a>
+<a class="sourceLine" id="cb338-5" data-line-number="5">    <span class="co"># Use `as.character()` so we can see the content of the character vector of matches</span></a>
+<a class="sourceLine" id="cb338-6" data-line-number="6">    <span class="dt">hashtags =</span> <span class="kw">as.character</span>(hashtag_vector)</a>
+<a class="sourceLine" id="cb338-7" data-line-number="7">  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(text, hashtag_vector, hashtags)</a></code></pre></div>
+<pre><code>## # A tibble: 328 x 3
+##    text                             hashtag_vector hashtags                
+##    &lt;chr&gt;                            &lt;list&gt;         &lt;chr&gt;                   
+##  1 &quot;Big Dez is headed to Indy!\n\n… &lt;chr [3]&gt;      &quot;c(\&quot;#GoCougs\&quot;, \&quot;#NFL…
+##  2 Cougar Cheese. That's it. That'… &lt;chr [2]&gt;      &quot;c(\&quot;#WSU\&quot;, \&quot;#GoCougs…
+##  3 &quot;Darien McLaughlin '19, and her… &lt;chr [3]&gt;      &quot;c(\&quot;#Pullman\&quot;, \&quot;#Cou…
+##  4 6 houses, one pick. Cougs, whic… &lt;chr [3]&gt;      &quot;c(\&quot;#WSU\&quot;, \&quot;#CougsCo…
+##  5 Why did you choose to attend @W… &lt;chr [2]&gt;      &quot;c(\&quot;#WSU\&quot;, \&quot;#GoCougs…
+##  6 Tell us one of your Bryan Clock… &lt;chr [2]&gt;      &quot;c(\&quot;#WSU\&quot;, \&quot;#GoCougs…
+##  7 We loved seeing your top three … &lt;chr [2]&gt;      &quot;c(\&quot;#WSU\&quot;, \&quot;#GoCougs…
+##  8 &quot;Congratulations, graduates! We… &lt;chr [3]&gt;      &quot;c(\&quot;#WSU\&quot;, \&quot;#CougGra…
+##  9 Learn more about this story at … &lt;chr [2]&gt;      &quot;c(\&quot;#WSU\&quot;, \&quot;#GoCougs…
+## 10 &quot;Tomorrow, our @WSUEsports Team… &lt;chr [1]&gt;      #GoCougs!               
+## # … with 318 more rows</code></pre>
+</details>
+</div>
+<div id="str_match-and-str_match_all" class="section level2">
+<h2><span class="header-section-number">6.4</span> <code>str_match()</code> and <code>str_match_all()</code></h2>
+<p><br> <strong>The <code>str_match()</code> and <code>str_match_all()</code> functions</strong>:</p>
+<div class="sourceCode" id="cb340"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb340-1" data-line-number="1">?str_match</a>
+<a class="sourceLine" id="cb340-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb340-3" data-line-number="3"><span class="co"># SYNTAX</span></a>
+<a class="sourceLine" id="cb340-4" data-line-number="4"><span class="kw">str_match</span>(string, pattern)</a>
+<a class="sourceLine" id="cb340-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb340-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb340-7" data-line-number="7">?str_match_all</a>
+<a class="sourceLine" id="cb340-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb340-9" data-line-number="9"><span class="co"># SYNTAX</span></a>
+<a class="sourceLine" id="cb340-10" data-line-number="10"><span class="kw">str_match_all</span>(string, pattern)</a></code></pre></div>
+<ul>
+<li>Function: Extracts matched groups from a string
+<ul>
+<li>Returns a character matrix containing the full match in the first column, then additional columns for matches from each capturing group</li>
+</ul></li>
+<li>Arguments:
+<ul>
+<li><code>string</code>: Character vector (or vector coercible to character) to search</li>
+<li><code>pattern</code>: Pattern to look for</li>
+</ul></li>
+</ul>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_match()</code> and <code>str_match_all()</code> on character vector</summary></p>
+<p><strong>[<code>str_match()</code>]</strong> Extract the first month, day, year for each string:</p>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" data-line-number="1"><span class="co"># Extracts first match of month, day, year</span></a>
+<a class="sourceLine" id="cb341-2" data-line-number="2"><span class="kw">str_match</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;5-1-2020&quot;</span>, <span class="st">&quot;12/25/17&quot;</span>, <span class="st">&quot;01.01.13 to 01.01.14&quot;</span>),</a>
+<a class="sourceLine" id="cb341-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d+)[-/</span><span class="ch">\\</span><span class="st">.](</span><span class="ch">\\</span><span class="st">d+)[-/</span><span class="ch">\\</span><span class="st">.](</span><span class="ch">\\</span><span class="st">d+)&quot;</span>)</a></code></pre></div>
+<pre><code>##      [,1]       [,2] [,3] [,4]  
+## [1,] &quot;5-1-2020&quot; &quot;5&quot;  &quot;1&quot;  &quot;2020&quot;
+## [2,] &quot;12/25/17&quot; &quot;12&quot; &quot;25&quot; &quot;17&quot;  
+## [3,] &quot;01.01.13&quot; &quot;01&quot; &quot;01&quot; &quot;13&quot;</code></pre>
+<p><strong>[<code>str_match_all()</code>]</strong> Extract all month, day, year for each string:</p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb343-1" data-line-number="1"><span class="co"># Extracts all matches of month, day, year</span></a>
+<a class="sourceLine" id="cb343-2" data-line-number="2"><span class="kw">str_match_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;5-1-2020&quot;</span>, <span class="st">&quot;12/25/17&quot;</span>, <span class="st">&quot;01.01.13 to 01.01.14&quot;</span>),</a>
+<a class="sourceLine" id="cb343-3" data-line-number="3">              <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d+)[-/</span><span class="ch">\\</span><span class="st">.](</span><span class="ch">\\</span><span class="st">d+)[-/</span><span class="ch">\\</span><span class="st">.](</span><span class="ch">\\</span><span class="st">d+)&quot;</span>)</a></code></pre></div>
+<pre><code>## [[1]]
+##      [,1]       [,2] [,3] [,4]  
+## [1,] &quot;5-1-2020&quot; &quot;5&quot;  &quot;1&quot;  &quot;2020&quot;
+## 
+## [[2]]
+##      [,1]       [,2] [,3] [,4]
+## [1,] &quot;12/25/17&quot; &quot;12&quot; &quot;25&quot; &quot;17&quot;
+## 
+## [[3]]
+##      [,1]       [,2] [,3] [,4]
+## [1,] &quot;01.01.13&quot; &quot;01&quot; &quot;01&quot; &quot;13&quot;
+## [2,] &quot;01.01.14&quot; &quot;01&quot; &quot;01&quot; &quot;14&quot;</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_match()</code> on dataframe column</summary></p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" data-line-number="1">datetime_regex &lt;-<span class="st"> &quot;([</span><span class="ch">\\</span><span class="st">d-]+) ([</span><span class="ch">\\</span><span class="st">d:]+)&quot;</span></a>
+<a class="sourceLine" id="cb345-2" data-line-number="2">p12_df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb345-3" data-line-number="3"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb345-4" data-line-number="4">    <span class="co"># The 1st capturing group will be in the 2nd column of the matrix returned from `str_match()`</span></a>
+<a class="sourceLine" id="cb345-5" data-line-number="5">    <span class="dt">date =</span> <span class="kw">str_match</span>(<span class="dt">string =</span> created_at, <span class="dt">pattern =</span> datetime_regex)[, <span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb345-6" data-line-number="6">    <span class="co"># The 2nd capturing group will be in the 3rd column of the matrix returned from `str_match()`</span></a>
+<a class="sourceLine" id="cb345-7" data-line-number="7">    <span class="dt">time =</span> <span class="kw">str_match</span>(<span class="dt">string =</span> created_at, <span class="dt">pattern =</span> datetime_regex)[, <span class="dv">3</span>]</a>
+<a class="sourceLine" id="cb345-8" data-line-number="8">  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(created_at, date, time)</a></code></pre></div>
+<pre><code>## # A tibble: 328 x 3
+##    created_at          date       time    
+##    &lt;dttm&gt;              &lt;chr&gt;      &lt;chr&gt;   
+##  1 2020-04-25 22:37:18 2020-04-25 22:37:18
+##  2 2020-04-23 21:11:49 2020-04-23 21:11:49
+##  3 2020-04-21 04:00:00 2020-04-21 04:00:00
+##  4 2020-04-24 03:00:00 2020-04-24 03:00:00
+##  5 2020-04-20 19:00:21 2020-04-20 19:00:21
+##  6 2020-04-20 02:20:01 2020-04-20 02:20:01
+##  7 2020-04-22 04:00:00 2020-04-22 04:00:00
+##  8 2020-04-25 17:00:00 2020-04-25 17:00:00
+##  9 2020-04-21 15:13:06 2020-04-21 15:13:06
+## 10 2020-04-21 17:52:47 2020-04-21 17:52:47
+## # … with 318 more rows</code></pre>
+</details>
+</div>
+<div id="str_replace-and-str_replace_all" class="section level2">
+<h2><span class="header-section-number">6.5</span> <code>str_replace()</code> and <code>str_replace_all()</code></h2>
+<p><br> <strong>The <code>str_replace()</code> and <code>str_replace_all()</code> functions</strong>:</p>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" data-line-number="1">?str_replace</a>
+<a class="sourceLine" id="cb347-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb347-3" data-line-number="3"><span class="co"># SYNTAX</span></a>
+<a class="sourceLine" id="cb347-4" data-line-number="4"><span class="kw">str_replace</span>(string, pattern, replacement)</a>
+<a class="sourceLine" id="cb347-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb347-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb347-7" data-line-number="7">?str_replace_all</a>
+<a class="sourceLine" id="cb347-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb347-9" data-line-number="9"><span class="co"># SYNTAX</span></a>
+<a class="sourceLine" id="cb347-10" data-line-number="10"><span class="kw">str_replace_all</span>(string, pattern, replacement)</a></code></pre></div>
+<ul>
+<li>Function: Replaces matched patterns in a string
+<ul>
+<li>Returns input vector with first match (<code>str_replace()</code>) or all matches (<code>str_replace_all()</code>) for each string replaced with specified replacement</li>
+</ul></li>
+<li>Arguments:
+<ul>
+<li><code>string</code>: Character vector (or vector coercible to character) to search</li>
+<li><code>pattern</code>: Pattern to look for</li>
+<li><code>replacement</code>: What the matched pattern should be replaced with</li>
+</ul></li>
+<li><code>str_replace_all()</code> also supports multiple replacements, where you can omit the <code>replacement</code> argument and just provide a named vector of replacements as the <code>pattern</code></li>
+</ul>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_replace()</code> and <code>str_replace_all()</code></summary></p>
+<p><strong>[<code>str_replace()</code>]</strong> Replace the first occurrence of a vowel:</p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" data-line-number="1"><span class="co"># Replace first vowel with empty string</span></a>
+<a class="sourceLine" id="cb348-2" data-line-number="2"><span class="kw">str_replace</span>(<span class="dt">string =</span> <span class="st">&quot;Thanks for the Memories&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;[aeiou]&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Thnks for the Memories&quot;</code></pre>
+<p><strong>[<code>str_replace_all()</code>]</strong> Replace all occurrences of a vowel:</p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" data-line-number="1"><span class="co"># Replace all vowels with empty strings</span></a>
+<a class="sourceLine" id="cb350-2" data-line-number="2"><span class="kw">str_replace_all</span>(<span class="dt">string =</span> <span class="st">&quot;Thanks for the Memories&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;[aeiou]&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Thnks fr th Mmrs&quot;</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using backreferences with <code>str_replace()</code> and <code>str_replace_all()</code></summary></p>
+<p><strong>[<code>str_replace()</code>]</strong> Reorders the first date that is matched:</p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" data-line-number="1"><span class="co"># Use \\1, \\2, and \\3 to refer to the capturing groups (ie. month, day, year)</span></a>
+<a class="sourceLine" id="cb352-2" data-line-number="2"><span class="kw">str_replace</span>(<span class="dt">string =</span> <span class="st">&quot;12/31/19 to 01/01/20&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d+)/(</span><span class="ch">\\</span><span class="st">d+)/(</span><span class="ch">\\</span><span class="st">d+)&quot;</span>,</a>
+<a class="sourceLine" id="cb352-3" data-line-number="3">            <span class="dt">replacement =</span> <span class="st">&quot;20</span><span class="ch">\\</span><span class="st">3-</span><span class="ch">\\</span><span class="st">1-</span><span class="ch">\\</span><span class="st">2&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;2019-12-31 to 01/01/20&quot;</code></pre>
+<p><strong>[<code>str_replace_all()</code>]</strong> Reorders all dates that are matched:</p>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" data-line-number="1"><span class="co"># Use \\1, \\2, and \\3 to refer to the capturing groups (ie. month, day, year)</span></a>
+<a class="sourceLine" id="cb354-2" data-line-number="2"><span class="kw">str_replace_all</span>(<span class="dt">string =</span> <span class="st">&quot;12/31/19 to 01/01/20&quot;</span>, <span class="dt">pattern =</span> <span class="st">&quot;(</span><span class="ch">\\</span><span class="st">d+)/(</span><span class="ch">\\</span><span class="st">d+)/(</span><span class="ch">\\</span><span class="st">d+)&quot;</span>,</a>
+<a class="sourceLine" id="cb354-3" data-line-number="3">                <span class="dt">replacement =</span> <span class="st">&quot;20</span><span class="ch">\\</span><span class="st">3-</span><span class="ch">\\</span><span class="st">1-</span><span class="ch">\\</span><span class="st">2&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;2019-12-31 to 2020-01-01&quot;</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_replace_all()</code> for multiple replacements</summary></p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" data-line-number="1"><span class="co"># Replace all occurrences of &quot;at&quot; with &quot;@&quot;, and all digits with &quot;#&quot;</span></a>
+<a class="sourceLine" id="cb356-2" data-line-number="2"><span class="kw">str_replace_all</span>(<span class="dt">string =</span> <span class="st">&quot;Tomorrow at 10:30AM&quot;</span>, <span class="dt">pattern =</span> <span class="kw">c</span>(<span class="st">&quot;at&quot;</span> =<span class="st"> &quot;@&quot;</span>, <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span> =<span class="st"> &quot;#&quot;</span>))</a></code></pre></div>
+<pre><code>## [1] &quot;Tomorrow @ ##:##AM&quot;</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_replace_all()</code> on dataframe column</summary></p>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" data-line-number="1">p12_df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb358-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb358-3" data-line-number="3">    <span class="co"># Replace all hashtags and handles from tweet with an empty string</span></a>
+<a class="sourceLine" id="cb358-4" data-line-number="4">    <span class="dt">removed_hashtags_handles =</span> <span class="kw">str_replace_all</span>(<span class="dt">string =</span> text, <span class="dt">pattern =</span> <span class="st">&quot;[@#]</span><span class="ch">\\</span><span class="st">S+&quot;</span>, <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb358-5" data-line-number="5">  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(text, removed_hashtags_handles)</a></code></pre></div>
+<pre><code>## # A tibble: 328 x 2
+##    text                              removed_hashtags_handles              
+##    &lt;chr&gt;                             &lt;chr&gt;                                 
+##  1 &quot;Big Dez is headed to Indy!\n\n#… &quot;Big Dez is headed to Indy!\n\n |  | …
+##  2 Cougar Cheese. That's it. That's… Cougar Cheese. That's it. That's the …
+##  3 &quot;Darien McLaughlin '19, and her … &quot;Darien McLaughlin '19, and her dog, …
+##  4 6 houses, one pick. Cougs, which… 6 houses, one pick. Cougs, which one …
+##  5 Why did you choose to attend @WS… Why did you choose to attend    https…
+##  6 Tell us one of your Bryan Clock … Tell us one of your Bryan Clock Tower…
+##  7 We loved seeing your top three @… We loved seeing your top three  build…
+##  8 &quot;Congratulations, graduates! We’… &quot;Congratulations, graduates! We’re tw…
+##  9 Learn more about this story at h… &quot;Learn more about this story at https…
+## 10 &quot;Tomorrow, our @WSUEsports Team … &quot;Tomorrow, our  Team is facing off ag…
+## # … with 318 more rows</code></pre>
+</details>
+</div>
+<div id="str_split" class="section level2">
+<h2><span class="header-section-number">6.6</span> <code>str_split()</code></h2>
+<p><br> <strong>The <code>str_split()</code> function</strong>:</p>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" data-line-number="1">?str_split</a>
+<a class="sourceLine" id="cb360-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb360-3" data-line-number="3"><span class="co"># SYNTAX AND DEFAULT VALUES</span></a>
+<a class="sourceLine" id="cb360-4" data-line-number="4"><span class="kw">str_split</span>(string, pattern, <span class="dt">n =</span> <span class="ot">Inf</span>, <span class="dt">simplify =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<ul>
+<li>Function: Splits a string by specified pattern
+<ul>
+<li>Returns character vector containing the split substrings</li>
+</ul></li>
+<li>Arguments:
+<ul>
+<li><code>string</code>: Character vector (or vector coercible to character) to search</li>
+<li><code>pattern</code>: Pattern to look for and split by</li>
+<li><code>n</code>: Maximum number of substrings to return</li>
+<li><code>simplify</code>: If set to <code>TRUE</code>, the returned matches will be in a character matrix rather than the default list of character vectors</li>
+</ul></li>
+</ul>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_split()</code> on character vector</summary></p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" data-line-number="1"><span class="co"># Split by comma or the word &quot;and&quot;</span></a>
+<a class="sourceLine" id="cb361-2" data-line-number="2"><span class="kw">str_split</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;The Lion, the Witch, and the Wardrobe&quot;</span>, <span class="st">&quot;Peanut butter and jelly&quot;</span>),</a>
+<a class="sourceLine" id="cb361-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;,? and |, &quot;</span>)</a></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;The Lion&quot;     &quot;the Witch&quot;    &quot;the Wardrobe&quot;
+## 
+## [[2]]
+## [1] &quot;Peanut butter&quot; &quot;jelly&quot;</code></pre>
+<p><br> We can specify <code>n</code> to control the maximum number of substrings we want to return:</p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" data-line-number="1"><span class="co"># Limit split to only return 2 substrings</span></a>
+<a class="sourceLine" id="cb363-2" data-line-number="2"><span class="kw">str_split</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;The Lion, the Witch, and the Wardrobe&quot;</span>, <span class="st">&quot;Peanut butter and jelly&quot;</span>),</a>
+<a class="sourceLine" id="cb363-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;,? and |, &quot;</span>, <span class="dt">n =</span> <span class="dv">2</span>)</a></code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;The Lion&quot;                    &quot;the Witch, and the Wardrobe&quot;
+## 
+## [[2]]
+## [1] &quot;Peanut butter&quot; &quot;jelly&quot;</code></pre>
+<p><br> We can specify <code>simplify = TRUE</code> to return a character matrix instead of a list:</p>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" data-line-number="1"><span class="co"># Return split substrings in a character matrix</span></a>
+<a class="sourceLine" id="cb365-2" data-line-number="2"><span class="kw">str_split</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;The Lion, the Witch, and the Wardrobe&quot;</span>, <span class="st">&quot;Peanut butter and jelly&quot;</span>),</a>
+<a class="sourceLine" id="cb365-3" data-line-number="3">          <span class="dt">pattern =</span> <span class="st">&quot;,? and |, &quot;</span>, <span class="dt">simplify =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>##      [,1]            [,2]        [,3]          
+## [1,] &quot;The Lion&quot;      &quot;the Witch&quot; &quot;the Wardrobe&quot;
+## [2,] &quot;Peanut butter&quot; &quot;jelly&quot;     &quot;&quot;</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_split()</code> on dataframe column</summary></p>
+<p>When we split the <code>created_at</code> field at either a hyphen or space, we can separated out the year, month, day, and time components of the string:</p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" data-line-number="1">p12_df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb367-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb367-3" data-line-number="3">    <span class="co"># Use `as.character()` so we can see the content of the character vector of splitted strings</span></a>
+<a class="sourceLine" id="cb367-4" data-line-number="4">    <span class="dt">year_month_day_time =</span> <span class="kw">as.character</span>(<span class="kw">str_split</span>(<span class="dt">string =</span> created_at, <span class="dt">pattern =</span> <span class="st">&quot;[- ]&quot;</span>))</a>
+<a class="sourceLine" id="cb367-5" data-line-number="5">  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(created_at, year_month_day_time)</a></code></pre></div>
+<pre><code>## # A tibble: 328 x 2
+##    created_at          year_month_day_time                        
+##    &lt;dttm&gt;              &lt;chr&gt;                                      
+##  1 2020-04-25 22:37:18 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;25\&quot;, \&quot;22:37:18\&quot;)&quot;
+##  2 2020-04-23 21:11:49 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;23\&quot;, \&quot;21:11:49\&quot;)&quot;
+##  3 2020-04-21 04:00:00 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;21\&quot;, \&quot;04:00:00\&quot;)&quot;
+##  4 2020-04-24 03:00:00 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;24\&quot;, \&quot;03:00:00\&quot;)&quot;
+##  5 2020-04-20 19:00:21 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;20\&quot;, \&quot;19:00:21\&quot;)&quot;
+##  6 2020-04-20 02:20:01 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;20\&quot;, \&quot;02:20:01\&quot;)&quot;
+##  7 2020-04-22 04:00:00 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;22\&quot;, \&quot;04:00:00\&quot;)&quot;
+##  8 2020-04-25 17:00:00 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;25\&quot;, \&quot;17:00:00\&quot;)&quot;
+##  9 2020-04-21 15:13:06 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;21\&quot;, \&quot;15:13:06\&quot;)&quot;
+## 10 2020-04-21 17:52:47 &quot;c(\&quot;2020\&quot;, \&quot;04\&quot;, \&quot;21\&quot;, \&quot;17:52:47\&quot;)&quot;
+## # … with 318 more rows</code></pre>
+</details>
+</div>
+<div id="str_count" class="section level2">
+<h2><span class="header-section-number">6.7</span> <code>str_count()</code></h2>
+<p><br> <strong>The <code>str_count()</code> function</strong>:</p>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" data-line-number="1">?str_count</a>
+<a class="sourceLine" id="cb369-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb369-3" data-line-number="3"><span class="co"># SYNTAX AND DEFAULT VALUES</span></a>
+<a class="sourceLine" id="cb369-4" data-line-number="4"><span class="kw">str_count</span>(string, <span class="dt">pattern =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<ul>
+<li>Function: Counts the number of matches in a string
+<ul>
+<li>Returns the number of matches</li>
+</ul></li>
+<li>Arguments:
+<ul>
+<li><code>string</code>: Character vector (or vector coercible to character) to search</li>
+<li><code>pattern</code>: Pattern to look for</li>
+</ul></li>
+</ul>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_count()</code> on character vector</summary></p>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" data-line-number="1"><span class="co"># Counts the number of digits</span></a>
+<a class="sourceLine" id="cb370-2" data-line-number="2"><span class="kw">str_count</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;H2O2&quot;</span>, <span class="st">&quot;Year 3000&quot;</span>, <span class="st">&quot;4th of July&quot;</span>), <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] 2 4 1</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_count()</code> on dataframe column</summary></p>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" data-line-number="1">p12_df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb372-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb372-3" data-line-number="3">    <span class="co"># Counts the total number of hashtags and mentions</span></a>
+<a class="sourceLine" id="cb372-4" data-line-number="4">    <span class="dt">num_hashtags_and_mentions =</span> <span class="kw">str_count</span>(<span class="dt">string =</span> text, <span class="dt">pattern =</span> <span class="st">&quot;[@#]</span><span class="ch">\\</span><span class="st">S+&quot;</span>)</a>
+<a class="sourceLine" id="cb372-5" data-line-number="5">  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(text, num_hashtags_and_mentions)</a></code></pre></div>
+<pre><code>## # A tibble: 328 x 2
+##    text                                               num_hashtags_and_men…
+##    &lt;chr&gt;                                                              &lt;int&gt;
+##  1 &quot;Big Dez is headed to Indy!\n\n#GoCougs | #NFLDra…                     5
+##  2 Cougar Cheese. That's it. That's the tweet. 🧀#WSU…                     2
+##  3 &quot;Darien McLaughlin '19, and her dog, Yuki, went o…                     4
+##  4 6 houses, one pick. Cougs, which one you got? Rep…                     3
+##  5 Why did you choose to attend @WSUPullman?🤔 #WSU #…                     3
+##  6 Tell us one of your Bryan Clock Tower memories ⏰ …                     2
+##  7 We loved seeing your top three @WSUPullman buildi…                     3
+##  8 &quot;Congratulations, graduates! We’re two weeks away…                     3
+##  9 Learn more about this story at https://t.co/45BzK…                     2
+## 10 &quot;Tomorrow, our @WSUEsports Team is facing off aga…                     5
+## # … with 318 more rows</code></pre>
+</details>
+</div>
+<div id="str_locate-and-str_locate_all" class="section level2">
+<h2><span class="header-section-number">6.8</span> <code>str_locate()</code> and <code>str_locate_all()</code></h2>
+<p><br> <strong>The <code>str_locate()</code> and <code>str_locate_all()</code> functions</strong>:</p>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" data-line-number="1">?str_locate</a>
+<a class="sourceLine" id="cb374-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb374-3" data-line-number="3"><span class="co"># SYNTAX</span></a>
+<a class="sourceLine" id="cb374-4" data-line-number="4"><span class="kw">str_locate</span>(string, pattern)</a>
+<a class="sourceLine" id="cb374-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb374-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb374-7" data-line-number="7">?str_locate_all</a>
+<a class="sourceLine" id="cb374-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb374-9" data-line-number="9"><span class="co"># SYNTAX</span></a>
+<a class="sourceLine" id="cb374-10" data-line-number="10"><span class="kw">str_locate_all</span>(string, pattern)</a></code></pre></div>
+<ul>
+<li>Function: Locates the position of patterns in a string
+<ul>
+<li>Returns an integer matrix containing the start position of match in the first column and end position of match in second column</li>
+</ul></li>
+<li>Arguments:
+<ul>
+<li><code>string</code>: Character vector (or vector coercible to character) to search</li>
+<li><code>pattern</code>: Pattern to look for</li>
+</ul></li>
+</ul>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_locate()</code> and <code>str_locate_all()</code> on character vector</summary></p>
+<p><strong>[<code>str_locate()</code>]</strong> Locate the start and end positions for first stretch of numbers:</p>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" data-line-number="1"><span class="co"># Locate positions for first stretch of numbers</span></a>
+<a class="sourceLine" id="cb375-2" data-line-number="2"><span class="kw">str_locate</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;555.123.4567&quot;</span>, <span class="st">&quot;(555) 135-7900 and (555) 246-8000&quot;</span>),</a>
+<a class="sourceLine" id="cb375-3" data-line-number="3">           <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d+&quot;</span>)</a></code></pre></div>
+<pre><code>##      start end
+## [1,]     1   3
+## [2,]     2   4</code></pre>
+<p><strong>[<code>str_locate_all()</code>]</strong> Locate the start and end positions for all stretches of numbers:</p>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" data-line-number="1"><span class="co"># Locate positions for all stretches of numbers</span></a>
+<a class="sourceLine" id="cb377-2" data-line-number="2"><span class="kw">str_locate_all</span>(<span class="dt">string =</span> <span class="kw">c</span>(<span class="st">&quot;555.123.4567&quot;</span>, <span class="st">&quot;(555) 135-7900 and (555) 246-8000&quot;</span>),</a>
+<a class="sourceLine" id="cb377-3" data-line-number="3">               <span class="dt">pattern =</span> <span class="st">&quot;</span><span class="ch">\\</span><span class="st">d+&quot;</span>)</a></code></pre></div>
+<pre><code>## [[1]]
+##      start end
+## [1,]     1   3
+## [2,]     5   7
+## [3,]     9  12
+## 
+## [[2]]
+##      start end
+## [1,]     2   4
+## [2,]     7   9
+## [3,]    11  14
+## [4,]    21  23
+## [5,]    26  28
+## [6,]    30  33</code></pre>
+</details>
+<br>
+<details>
+<p><summary><strong>Example</strong>: Using <code>str_locate()</code> on dataframe column</summary></p>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" data-line-number="1">p12_df <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb379-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb379-3" data-line-number="3">    <span class="co"># Start position of first hashtag in tweet (ie. 1st column of matrix returned from `str_locate()`)</span></a>
+<a class="sourceLine" id="cb379-4" data-line-number="4">    <span class="dt">start_of_first_hashtag =</span> <span class="kw">str_locate</span>(<span class="dt">string =</span> text, <span class="dt">pattern =</span> <span class="st">&quot;#</span><span class="ch">\\</span><span class="st">S+&quot;</span>)[, <span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb379-5" data-line-number="5">    <span class="co"># End position of first hashtag in tweet (ie. 2nd column of matrix returned from `str_locate()`)</span></a>
+<a class="sourceLine" id="cb379-6" data-line-number="6">    <span class="dt">end_of_first_hashtag =</span> <span class="kw">str_locate</span>(<span class="dt">string =</span> text, <span class="dt">pattern =</span> <span class="st">&quot;#</span><span class="ch">\\</span><span class="st">S+&quot;</span>)[, <span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb379-7" data-line-number="7">    <span class="co"># Length of first hashtag in tweet (ie. difference between start and end positions)</span></a>
+<a class="sourceLine" id="cb379-8" data-line-number="8">    <span class="dt">length_of_first_hashtag =</span> end_of_first_hashtag <span class="op">-</span><span class="st"> </span>start_of_first_hashtag</a>
+<a class="sourceLine" id="cb379-9" data-line-number="9">  ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(text, start_of_first_hashtag, end_of_first_hashtag, length_of_first_hashtag)</a></code></pre></div>
+<pre><code>## # A tibble: 328 x 4
+##    text               start_of_first_ha… end_of_first_ha… length_of_first_…
+##    &lt;chr&gt;                           &lt;int&gt;            &lt;int&gt;             &lt;int&gt;
+##  1 &quot;Big Dez is heade…                 29               36                 7
+##  2 Cougar Cheese. Th…                 46               49                 3
+##  3 &quot;Darien McLaughli…                 53               60                 7
+##  4 6 houses, one pic…                 57               60                 3
+##  5 Why did you choos…                 44               47                 3
+##  6 Tell us one of yo…                 52               55                 3
+##  7 We loved seeing y…                144              147                 3
+##  8 &quot;Congratulations,…                 59               62                 3
+##  9 Learn more about …                 57               60                 3
+## 10 &quot;Tomorrow, our @W…                266              274                 8
+## # … with 318 more rows</code></pre>
+</details>
+</div>
+</div>
 <div id="appendix" class="section level1">
-<h1><span class="header-section-number">6</span> Appendix</h1>
+<h1><span class="header-section-number">7</span> Appendix</h1>
 <p><strong>rtweet package</strong> (from rtweet <a href="https://rtweet.info/">website</a>)</p>
 <blockquote>
 <p>All you need is a Twitter account (user name and password) and you can be up in running in minutes!</p>
@@ -2957,7 +4574,7 @@ div.tocify {
 <li>This package allows users to interact with Twitter’s REST and stream APIs.</li>
 </ul>
 <div id="search_tweets-function" class="section level2">
-<h2><span class="header-section-number">6.1</span> search_tweets function</h2>
+<h2><span class="header-section-number">7.1</span> search_tweets function</h2>
 <p><code>rtweet</code> documentation (from <a href="https://cloud.r-project.org/web/packages/rtweet/rtweet.pdf">CRAN</a>)</p>
 <ul>
 <li>In the following weeks we will get an opportunity to interact more with the rtweet package and explore other <code>rwteet</code> functions. For now, let’s focus on the <code>search_tweets</code> function.</li>
@@ -2999,21 +4616,21 @@ div.tocify {
 </ul>
 </div>
 <div id="search_tweets-example" class="section level2">
-<h2><span class="header-section-number">6.2</span> search_tweets example</h2>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb300-1" data-line-number="1"><span class="co">#load packages</span></a>
-<a class="sourceLine" id="cb300-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb300-3" data-line-number="3"><span class="co">#install.packages(&quot;rtweet&quot;)</span></a>
-<a class="sourceLine" id="cb300-4" data-line-number="4"><span class="kw">library</span>(rtweet)</a>
-<a class="sourceLine" id="cb300-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb300-6" data-line-number="6"><span class="co">#Create an object called p12 that is a vector of pac 12 admissions Twitter handles</span></a>
-<a class="sourceLine" id="cb300-7" data-line-number="7">p12 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;uaadmissions&quot;</span>, <span class="st">&quot;FutureSunDevils&quot;</span>, <span class="st">&quot;caladmissions&quot;</span>, <span class="st">&quot;UCLAAdmission&quot;</span>,</a>
-<a class="sourceLine" id="cb300-8" data-line-number="8">         <span class="st">&quot;futurebuffs&quot;</span>, <span class="st">&quot;uoregon&quot;</span>, <span class="st">&quot;BeaverVIP&quot;</span>, <span class="st">&quot;USCAdmission&quot;</span>,</a>
-<a class="sourceLine" id="cb300-9" data-line-number="9">         <span class="st">&quot;engagestanford&quot;</span>, <span class="st">&quot;UtahAdmissions&quot;</span>, <span class="st">&quot;UW&quot;</span>, <span class="st">&quot;WSUPullman&quot;</span>)</a>
-<a class="sourceLine" id="cb300-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb300-11" data-line-number="11"><span class="co">#Use search_tweets to load 500 tweets using the p12 object</span></a>
-<a class="sourceLine" id="cb300-12" data-line-number="12">p12_full_df &lt;-<span class="st"> </span><span class="kw">search_tweets</span>(<span class="kw">paste0</span>(<span class="st">&quot;from:&quot;</span>, p12, <span class="dt">collapse =</span> <span class="st">&quot; OR &quot;</span>), <span class="dt">n =</span> <span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb300-13" data-line-number="13"></a>
-<a class="sourceLine" id="cb300-14" data-line-number="14"><span class="co">#saveRDS(p12_full_df, &quot;p12_dataset.RDS&quot;)</span></a></code></pre></div>
+<h2><span class="header-section-number">7.2</span> search_tweets example</h2>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" data-line-number="1"><span class="co">#load packages</span></a>
+<a class="sourceLine" id="cb381-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb381-3" data-line-number="3"><span class="co">#install.packages(&quot;rtweet&quot;)</span></a>
+<a class="sourceLine" id="cb381-4" data-line-number="4"><span class="kw">library</span>(rtweet)</a>
+<a class="sourceLine" id="cb381-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb381-6" data-line-number="6"><span class="co">#Create an object called p12 that is a vector of pac 12 admissions Twitter handles</span></a>
+<a class="sourceLine" id="cb381-7" data-line-number="7">p12 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;uaadmissions&quot;</span>, <span class="st">&quot;FutureSunDevils&quot;</span>, <span class="st">&quot;caladmissions&quot;</span>, <span class="st">&quot;UCLAAdmission&quot;</span>,</a>
+<a class="sourceLine" id="cb381-8" data-line-number="8">         <span class="st">&quot;futurebuffs&quot;</span>, <span class="st">&quot;uoregon&quot;</span>, <span class="st">&quot;BeaverVIP&quot;</span>, <span class="st">&quot;USCAdmission&quot;</span>,</a>
+<a class="sourceLine" id="cb381-9" data-line-number="9">         <span class="st">&quot;engagestanford&quot;</span>, <span class="st">&quot;UtahAdmissions&quot;</span>, <span class="st">&quot;UW&quot;</span>, <span class="st">&quot;WSUPullman&quot;</span>)</a>
+<a class="sourceLine" id="cb381-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb381-11" data-line-number="11"><span class="co">#Use search_tweets to load 500 tweets using the p12 object</span></a>
+<a class="sourceLine" id="cb381-12" data-line-number="12">p12_full_df &lt;-<span class="st"> </span><span class="kw">search_tweets</span>(<span class="kw">paste0</span>(<span class="st">&quot;from:&quot;</span>, p12, <span class="dt">collapse =</span> <span class="st">&quot; OR &quot;</span>), <span class="dt">n =</span> <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb381-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb381-14" data-line-number="14"><span class="co">#saveRDS(p12_full_df, &quot;p12_dataset.RDS&quot;)</span></a></code></pre></div>
 </div>
 </div>
 

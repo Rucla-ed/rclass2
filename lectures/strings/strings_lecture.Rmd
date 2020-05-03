@@ -1146,8 +1146,8 @@ Storing data using date/time objects makes it easier to **get and set** the vari
   - `month()`: Month
   - `day()`: Day
   - `hour()`: Hour
-  - `min()`: Minute
-  - `sec()`: Second
+  - `minute()`: Minute
+  - `second()`: Second
   - `week()`: Week of the year
   - `wday()`: Day of the week (`1` for Sunday to `7` for Saturday)
   - `am()`: Is it in the am? (returns `TRUE` or `FALSE`)
@@ -1361,7 +1361,621 @@ scorpio_start + ddays(30) + dhours(1)
 
 </details>
 
-# Appendix  
+# Regex with `stringr` functions
+
+Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.co.nz/strings.html#other-types-of-pattern))
+
+- When we specify a pattern in a `stringr` function, such as `str_view()`, it is automatically wrapped in a call to `regex()` (ie. _treated as a regular expression_)
+  ```{r}
+  # This function call:
+  str_view(string = "Turn to page 394...", pattern = "\\d+")
+  
+  # Is shorthand for:
+  str_view(string = "Turn to page 394...", pattern = regex("\\d+"))
+  ```
+- For simplicity, we can omit the call to `regex()`
+- But, there are additional arguments we can supply to `regex()` if we wanted
+  - `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)`
+  - `ignore_case`: If `TRUE`, allows characters to match either their uppercase or lowercase forms
+  - `multiline`: If `TRUE`, allows `^` and `$` to match the start and end of each line rather than the start and end of the complete string
+  - `comments`: If `TRUE`, allows you to use comments and white space to make complex regular expressions more understandable
+    - Spaces are ignored, as is everything after `#`
+    - To match a literal space, you’ll need to escape it: `"\\ "`
+
+<br>
+<details><summary>**Example**: Specifying `ignore_case = TRUE` in `regex()`</summary>
+
+Let's say we have the following string:
+
+```{r}
+s <- "The assigned readings for EDUC 263\nPage 391\nAnd page 392\nAnd page 393... NO WAIT! PAGE 394"
+writeLines(s)
+```
+
+<br>
+We can match all the pages mentioned using the following regex:
+
+```{r}
+str_view_all(string = s, pattern = "[Pp][Aa][Gg][Ee] \\d+")
+```
+
+<br>
+Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing variations:
+
+```{r}
+str_view_all(string = s, pattern = regex("page \\d+", ignore_case = TRUE))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Specifying `multiline = TRUE` in `regex()`</summary>
+
+Continuing with the previous example string:
+
+```{r}
+writeLines(s)
+```
+
+<br>
+If we wanted to match only the correct pages, we can take advantage of the fact that they are all located at the end of their line:
+
+```{r}
+# When multiline = TRUE, `$` matches the end of a line instead of end of the string
+str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE, multiline = TRUE))
+```
+
+<br>
+Compared to if we did not specify `multiline = TRUE`:
+
+```{r}
+# When multiline = FALSE, `$` matches the end of the string
+str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Specifying `comments = TRUE` in `regex()`</summary>
+
+`comments = TRUE` allows us to write comments inside the `regex()` function:
+
+```{r}
+pattern <- regex("
+                 page\\     # Notice how we have to use `\\ ` for a literal space now
+                 \\d+       # This is to match a sequence of 1 or more digits
+                 $          # This is to indicate the end of a line when `multiline = TRUE`
+                 ", ignore_case = TRUE, multiline = TRUE, comments = TRUE)
+
+str_view_all(string = s, pattern = pattern)
+```
+
+</details>
+
+
+
+## `str_detect()`
+
+<br>
+__The `str_detect()` function__:
+
+```{r, eval = FALSE}
+?str_detect
+
+# SYNTAX AND DEFAULT VALUES
+str_detect(string, pattern, negate = FALSE)
+```
+
+- Function: Detects the presence or absence of a pattern in a string
+  - Returns logical vector (`TRUE` if there is a match, `FALSE` if there is not)
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `negate`: If set to `TRUE`, the returned logical vector will contain `TRUE` if there is not a match and `FALSE` if there is one
+
+<br>
+<details><summary>**Example**: Using `str_detect()` on string</summary>
+
+```{r}
+# Detects if there is a digit in the string
+str_detect(string = "P. Sherman 42 Wallaby Way", pattern = "\\d")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_detect()` on character vector</summary>
+
+```{r}
+# Detects if there is a digit in each string in the vector
+str_detect(string = c("One", "25th", "3000"), pattern = "\\d")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_detect()` on dataframe column</summary>
+
+Let's create new columns in `p12_df` called `is_am` and `is_pm` that indicates whether or not each tweet's `created_at` time is in the AM or PM, respectively:
+
+```{r}
+p12_df %>%
+  mutate(
+    # Returns `TRUE` if the hour is 0#, 10, or 11, `FALSE` otherwise
+    is_am = str_detect(string = created_at, pattern = " 0\\d| 1[01]"),
+    # Recall we can set the `negate` argument to switch the returned `TRUE`/`FALSE`
+    is_pm = str_detect(string = created_at, pattern = " 0\\d| 1[01]", negate = TRUE)
+  ) %>% select(created_at, is_am, is_pm)
+```
+
+<br>
+Because `TRUE` evaluates to 1 and `FALSE` evaluates to 0 in a numerical context, we could also sum the returned logical vector to see how many of the elements in the vector had a match:
+
+```{r}
+# Number of tweets that were created in the AM
+num_am_tweets <- sum(str_detect(string = p12_df$created_at, pattern = " 0\\d| 1[01]"))
+num_am_tweets
+```
+
+<br>
+Additionally, we can take the average of the logical vector to get the proportion of elements in the input vector that had a match:
+
+```{r}
+# Proportion of tweets that were created in the AM
+pct_am_tweets <- mean(str_detect(string = p12_df$created_at, pattern = " 0\\d| 1[01]"))
+pct_am_tweets
+```
+
+<br>
+We can also use the logical vector returned from `str_detect()` to filter `p12_df` to only include rows that had a match:
+
+```{r}
+# Keep only rows whose tweet was created in the AM
+p12_df %>%
+  filter(str_detect(string = created_at, pattern = " 0\\d| 1[01]"))
+```
+
+</details>
+
+## `str_subset()`
+
+<br>
+__The `str_subset()` function__:
+
+```{r, eval = FALSE}
+?str_subset
+
+# SYNTAX AND DEFAULT VALUES
+str_subset(string, pattern, negate = FALSE)
+```
+
+- Function: Keeps strings that match a pattern
+  - Returns input vector filtered to only keep elements that match the specified pattern
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `negate`: If set to `TRUE`, the returned vector will contain only elements that did not match the specified pattern
+
+<br>
+<details><summary>**Example**: Using `str_subset()` on character vector</summary>
+
+```{r}
+# Subsets the input vector to only keep elements that contains a digit
+str_subset(string = c("One", "25th", "3000"), pattern = "\\d")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_subset()` on dataframe column</summary>
+
+```{r}
+# Subsets the `created_at` vector of `p12_df` to only keep elements that occured in the AM
+str_subset(string = p12_df$created_at, pattern = " 0\\d| 1[01]")
+```
+
+</details>
+
+## `str_extract()` and `str_extract_all()`
+
+<br>
+__The `str_extract()` and `str_extract_all()` functions__:
+
+```{r, eval = FALSE}
+?str_extract
+
+# SYNTAX
+str_extract(string, pattern)
+
+
+?str_extract_all
+
+# SYNTAX AND DEFAULT VALUES
+str_extract_all(string, pattern, simplify = FALSE)
+```
+
+- Function: Extracts matching patterns from a string
+  - Returns first match (`str_extract()`) or all matches (`str_extract_all()`) for input vector
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `simplify`: If set to `TRUE`, the returned matches will be in a character matrix rather than the default list of character vectors
+
+
+<br>
+<details><summary>**Example**: Using `str_extract()` and `str_extract_all()` on character vector</summary>
+
+**[`str_extract()`]** Extract the first occurrence of a word for each string:
+
+```{r}
+# Extracts first match of a word
+str_extract(string = c("Three French hens", "Two turtle doves", "A partridge in a pear tree"),
+            pattern = "\\w+")
+```
+
+**[`str_extract_all()`]** Extract all occurrences of a word for each string:
+
+```{r}
+# Extracts all matches of a word, returning a list of character vectors
+str_extract_all(string = c("Three French hens", "Two turtle doves", "A partridge in a pear tree"), 
+                pattern = "\\w+")
+
+# Extracts all matches of a word, returning a character matrix
+str_extract_all(string = c("Three French hens", "Two turtle doves", "A partridge in a pear tree"), 
+                pattern = "\\w+", simplify = TRUE)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_extract()` and `str_extract_all()` on dataframe column</summary>
+
+**[`str_extract()`]** Extract first hashtag:
+
+```{r}
+# Extracts first match of a hashtag (if there is one)
+p12_df %>% 
+  mutate(
+    hashtag = str_extract(string = text, pattern = "#\\S+")
+  ) %>% select(text, hashtag)
+```
+
+**[`str_extract_all()`]** Extract all hashtags:
+
+```{r}
+# Extracts all matches of hashtags (if there are any)
+p12_df %>% 
+  mutate(
+    hashtag_vector = str_extract_all(string = text, pattern = "#\\S+"),
+    # Use `as.character()` so we can see the content of the character vector of matches
+    hashtags = as.character(hashtag_vector)
+  ) %>% select(text, hashtag_vector, hashtags)
+```
+
+</details>
+
+## `str_match()` and `str_match_all()`
+
+<br>
+__The `str_match()` and `str_match_all()` functions__:
+
+```{r, eval = FALSE}
+?str_match
+
+# SYNTAX
+str_match(string, pattern)
+
+
+?str_match_all
+
+# SYNTAX
+str_match_all(string, pattern)
+```
+
+- Function: Extracts matched groups from a string
+  - Returns a character matrix containing the full match in the first column, then additional columns for matches from each capturing group
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+
+<br>
+<details><summary>**Example**: Using `str_match()` and `str_match_all()` on character vector</summary>
+
+**[`str_match()`]** Extract the first month, day, year for each string:
+
+```{r}
+# Extracts first match of month, day, year
+str_match(string = c("5-1-2020", "12/25/17", "01.01.13 to 01.01.14"),
+          pattern = "(\\d+)[-/\\.](\\d+)[-/\\.](\\d+)")
+```
+
+**[`str_match_all()`]** Extract all month, day, year for each string:
+
+```{r}
+# Extracts all matches of month, day, year
+str_match_all(string = c("5-1-2020", "12/25/17", "01.01.13 to 01.01.14"),
+              pattern = "(\\d+)[-/\\.](\\d+)[-/\\.](\\d+)")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_match()` on dataframe column</summary>
+
+```{r}
+datetime_regex <- "([\\d-]+) ([\\d:]+)"
+p12_df %>%
+  mutate(
+    # The 1st capturing group will be in the 2nd column of the matrix returned from `str_match()`
+    date = str_match(string = created_at, pattern = datetime_regex)[, 2],
+    # The 2nd capturing group will be in the 3rd column of the matrix returned from `str_match()`
+    time = str_match(string = created_at, pattern = datetime_regex)[, 3]
+  ) %>% select(created_at, date, time)
+```
+
+</details>
+
+
+## `str_replace()` and `str_replace_all()`
+
+<br>
+__The `str_replace()` and `str_replace_all()` functions__:
+
+```{r, eval = FALSE}
+?str_replace
+
+# SYNTAX
+str_replace(string, pattern, replacement)
+
+
+?str_replace_all
+
+# SYNTAX
+str_replace_all(string, pattern, replacement)
+```
+
+- Function: Replaces matched patterns in a string
+  - Returns input vector with first match (`str_replace()`) or all matches (`str_replace_all()`) for each string replaced with specified replacement
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `replacement`: What the matched pattern should be replaced with
+- `str_replace_all()` also supports multiple replacements, where you can omit the `replacement` argument and just provide a named vector of replacements as the `pattern`
+
+<br>
+<details><summary>**Example**: Using `str_replace()` and `str_replace_all()`</summary>
+
+**[`str_replace()`]** Replace the first occurrence of a vowel:
+
+```{r}
+# Replace first vowel with empty string
+str_replace(string = "Thanks for the Memories", pattern = "[aeiou]", replacement = "")
+```
+
+**[`str_replace_all()`]** Replace all occurrences of a vowel:
+
+```{r}
+# Replace all vowels with empty strings
+str_replace_all(string = "Thanks for the Memories", pattern = "[aeiou]", replacement = "")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using backreferences with `str_replace()` and `str_replace_all()`</summary>
+
+**[`str_replace()`]** Reorders the first date that is matched:
+
+```{r}
+# Use \\1, \\2, and \\3 to refer to the capturing groups (ie. month, day, year)
+str_replace(string = "12/31/19 to 01/01/20", pattern = "(\\d+)/(\\d+)/(\\d+)",
+            replacement = "20\\3-\\1-\\2")
+```
+
+**[`str_replace_all()`]** Reorders all dates that are matched:
+
+```{r}
+# Use \\1, \\2, and \\3 to refer to the capturing groups (ie. month, day, year)
+str_replace_all(string = "12/31/19 to 01/01/20", pattern = "(\\d+)/(\\d+)/(\\d+)",
+                replacement = "20\\3-\\1-\\2")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_replace_all()` for multiple replacements</summary>
+
+```{r}
+# Replace all occurrences of "at" with "@", and all digits with "#"
+str_replace_all(string = "Tomorrow at 10:30AM", pattern = c("at" = "@", "\\d" = "#"))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_replace_all()` on dataframe column</summary>
+
+```{r}
+p12_df %>%
+  mutate(
+    # Replace all hashtags and handles from tweet with an empty string
+    removed_hashtags_handles = str_replace_all(string = text, pattern = "[@#]\\S+", replacement = "")
+  ) %>% select(text, removed_hashtags_handles)
+```
+
+</details>
+
+
+## `str_split()`
+
+<br>
+__The `str_split()` function__:
+
+```{r, eval = FALSE}
+?str_split
+
+# SYNTAX AND DEFAULT VALUES
+str_split(string, pattern, n = Inf, simplify = FALSE)
+```
+
+- Function: Splits a string by specified pattern
+  - Returns character vector containing the split substrings
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for and split by
+  - `n`: Maximum number of substrings to return
+  - `simplify`: If set to `TRUE`, the returned matches will be in a character matrix rather than the default list of character vectors
+
+<br>
+<details><summary>**Example**: Using `str_split()` on character vector</summary>
+
+```{r}
+# Split by comma or the word "and"
+str_split(string = c("The Lion, the Witch, and the Wardrobe", "Peanut butter and jelly"),
+          pattern = ",? and |, ")
+```
+
+<br>
+We can specify `n` to control the maximum number of substrings we want to return:
+
+```{r}
+# Limit split to only return 2 substrings
+str_split(string = c("The Lion, the Witch, and the Wardrobe", "Peanut butter and jelly"),
+          pattern = ",? and |, ", n = 2)
+```
+
+<br>
+We can specify `simplify = TRUE` to return a character matrix instead of a list:
+
+```{r}
+# Return split substrings in a character matrix
+str_split(string = c("The Lion, the Witch, and the Wardrobe", "Peanut butter and jelly"),
+          pattern = ",? and |, ", simplify = TRUE)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_split()` on dataframe column</summary>
+
+When we split the `created_at` field at either a hyphen or space, we can separated out the year, month, day, and time components of the string:
+
+```{r}
+p12_df %>%
+  mutate(
+    # Use `as.character()` so we can see the content of the character vector of splitted strings
+    year_month_day_time = as.character(str_split(string = created_at, pattern = "[- ]"))
+  ) %>% select(created_at, year_month_day_time)
+```
+
+</details>
+
+## `str_count()`
+
+<br>
+__The `str_count()` function__:
+
+```{r, eval = FALSE}
+?str_count
+
+# SYNTAX AND DEFAULT VALUES
+str_count(string, pattern = "")
+```
+
+- Function: Counts the number of matches in a string
+  - Returns the number of matches
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+
+<br>
+<details><summary>**Example**: Using `str_count()` on character vector</summary>
+
+```{r}
+# Counts the number of digits
+str_count(string = c("H2O2", "Year 3000", "4th of July"), pattern = "\\d")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_count()` on dataframe column</summary>
+
+```{r}
+p12_df %>%
+  mutate(
+    # Counts the total number of hashtags and mentions
+    num_hashtags_and_mentions = str_count(string = text, pattern = "[@#]\\S+")
+  ) %>% select(text, num_hashtags_and_mentions)
+```
+
+</details>
+
+
+## `str_locate()` and `str_locate_all()`
+
+<br>
+__The `str_locate()` and `str_locate_all()` functions__:
+
+```{r, eval = FALSE}
+?str_locate
+
+# SYNTAX
+str_locate(string, pattern)
+
+
+?str_locate_all
+
+# SYNTAX
+str_locate_all(string, pattern)
+```
+
+- Function: Locates the position of patterns in a string
+  - Returns an integer matrix containing the start position of match in the first column and end position of match in second column
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+
+<br>
+<details><summary>**Example**: Using `str_locate()` and `str_locate_all()` on character vector</summary>
+
+**[`str_locate()`]** Locate the start and end positions for first stretch of numbers:
+
+```{r}
+# Locate positions for first stretch of numbers
+str_locate(string = c("555.123.4567", "(555) 135-7900 and (555) 246-8000"),
+           pattern = "\\d+")
+```
+
+**[`str_locate_all()`]** Locate the start and end positions for all stretches of numbers:
+
+```{r}
+# Locate positions for all stretches of numbers
+str_locate_all(string = c("555.123.4567", "(555) 135-7900 and (555) 246-8000"),
+               pattern = "\\d+")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_locate()` on dataframe column</summary>
+
+```{r}
+p12_df %>%
+  mutate(
+    # Start position of first hashtag in tweet (ie. 1st column of matrix returned from `str_locate()`)
+    start_of_first_hashtag = str_locate(string = text, pattern = "#\\S+")[, 1],
+    # End position of first hashtag in tweet (ie. 2nd column of matrix returned from `str_locate()`)
+    end_of_first_hashtag = str_locate(string = text, pattern = "#\\S+")[, 2],
+    # Length of first hashtag in tweet (ie. difference between start and end positions)
+    length_of_first_hashtag = end_of_first_hashtag - start_of_first_hashtag
+  ) %>% select(text, start_of_first_hashtag, end_of_first_hashtag, length_of_first_hashtag)
+```
+
+</details>
+
+
+# Appendix
 
 __rtweet package__ (from rtweet [website](https://rtweet.info/))  
 
