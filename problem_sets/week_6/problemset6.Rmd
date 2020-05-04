@@ -44,11 +44,11 @@ Create a new R script called `<last_name>_script.R` where you will do all the wo
 
 6. Subset your dataframe and call it `cola_df2` and keep only the following variables: `user_id`, `screen_name`, `created_at`, `text`.
 
-7. Create an object called `tweet_text` that is just the `text` column of `cola_df2`.
+7. Create a character vector object called `tweet_text` that is just the `text` column of `cola_df2`.
 
 # Part II: Escaping special characters in plain old strings (no regular expressions yet)
 
-1. Use the command below to pull up the help file for "Quotes". Read the section "Character constants" in this help file, which describes and identifies __special characters__, which must be "escaped" by putting a backslash `\` prior to the character. 
+1. Use the command below to pull up the help file for "Quotes". Read the section "Character constants" in this help file, which describes and identifies __special characters__. Special characters must be "escaped" by putting a backslash `\` prior to the character. 
 
     ```{r, eval= FALSE}
     ?"'"
