@@ -389,7 +389,7 @@ typeof(my_string)
 ```
 
 
-## Escape sequence and `writeLines()`
+## Special Characters
 
 > "A sequence in a string that starts with a `\` is called an **escape sequence** and allows us to include special characters in our strings."
 
@@ -513,6 +513,35 @@ writeLines(my_string)
 
 <br>
 
+### Escape special character backslashes
+
+> If \\ is used as an escape character in regular expressions, how do you match a literal \\? Well you need to escape it, creating the regular expression \\\\. To create that regular expression, you need to use a string, which also needs to escape \\ . That means to match a literal \\ you need to write "\\\\\\\\" — you need four backslashes to match one!
+
+*Credit: [R for Data Science](https://r4ds.had.co.nz/strings.html#basic-matches) Strings Chapter*
+
+The character vector below has one, two, three, and four backslashes.  
+
+- Notice once we print this vector, the single backslash returns an empty string and the three backslashes return two backslashes.
+```{r}
+backslash <- c("\ ","\\", "\\\ ", "\\\\")
+
+backslash
+```
+
+<br>
+
+- Using `writeLines()` we can see view the contents of the strings.
+```{r}
+writeLines(backslash)
+```
+
+```{r}
+text <- "This is a backslash \\"
+str_view(string = text, pattern = "\\\\")
+```
+<br>
+
+
 ### Escape special characters using Twitter data   
 
 Let's take a look at some tweets from our PAC-12 universities. 
@@ -549,166 +578,6 @@ writeLines(p12_df$text[24])
 ```
 </details>
 <br>
-
-## Special characters in regular expressions  
-
-There are special characters in regular strings as we have seen above and there are also certain characters in regex that have a special meaning (table below).
-
-> What if you really need the plus sign to be a literal plus sign and not a regex quantifier? You will need to escape it by prepending a backslash. But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a literal plus sign in a regex.
-
-*Credit: [Escaping sequences](https://stat545.com/character-vectors.html#escaping) from Stat 545*
-
-
-| STRING  <br>  *(type string that represents regex)* | REGEX <br> *(to have this appear in your regex)* | MATCHES <br> *(to match with this text)* |
-|--------------|-----------------|---------|
-| `\\.`  |    `\.`    | . |
-| `\\"`  |    `\"`   | " (double quote)|
-| `\\'`  |    `\'`   | ' (single quote)|
-| `\\!`  |    `\!`   | !  |
-| `\\?`  |    `\?`   | ?  |
-| `\\\\` |    `\\`   | \\\  |
-| `\\(`  |    `\(`   | ( |
-| `\\)`  |    `\)`   | ) |
-| `\\{`  |    `\{`   | { |
-| `\\}`  |    `\}`   |}  |
-| `\\n`  |    `\n`   | new line (return)  |
-| `\\t`  |    `\t`   | tab |
-| `\\s`  |    `\s`   |  any whitespace |
-| `\\S`  |    `\S`   |  any non-whitespace |
-| `\\d`  |    `\d`   |  any digit |
-| `\\D`  |    `\D`   |  any non-digit|
-| `\\w`  |    `\w`   |  any word character |
-| `\\W`  |    `\W`   |  any non-word character|
-| `\\b`  |    `\b`   |  word-boundary |
-| `\\B`  |    `\B`   |  non-word-boundary |
-
-
-*Credit: [Working with strings in stringr](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) Cheat sheet*
-
-
-### Escape special character backslashes
-
-> If \\ is used as an escape character in regular expressions, how do you match a literal \\? Well you need to escape it, creating the regular expression \\\\. To create that regular expression, you need to use a string, which also needs to escape \\ . That means to match a literal \\ you need to write "\\\\\\\\" — you need four backslashes to match one!
-
-*Credit: [R for Data Science](https://r4ds.had.co.nz/strings.html#basic-matches) Strings Chapter*
-
-The character vector below has one, two, three, and four backslashes.  
-
-- Notice once we print this vector, the single backslash returns an empty string and the three backslashes return two backslashes.
-```{r}
-backslash <- c("\ ","\\", "\\\ ", "\\\\")
-
-backslash
-```
-
-<br>
-
-- Using `writeLines()` we can see view the contents of the strings.
-```{r}
-writeLines(backslash)
-```
-
-```{r}
-text <- "This is a backslash \\"
-str_view(string = text, pattern = "\\\\")
-```
-<br>
-
-### `str_view` and `str_view_all`
-
-<br>
-__The `str_c()` function__:
-
-```{r, eval = FALSE}
-?str_view
-
-# SYNTAX AND DEFAULT VALUES
-str_view(string, pattern, match = NA)
-str_view_all(string, pattern, match = NA)
-```
-
-- Function: `str_view` shows the first match of a regex pattern; `str_view_all` shows all the matches of a regex pattern.
-- Arguments:
-  - `string`: Input vector. Either a character vector, or something coercible to one.
-  - `pattern`: Pattern to look for.
-      - The default interpretation is a regular expression, as described in stringi::stringi-search-regex. Control options with regex().
-  - `match`: If TRUE, shows only strings that match the pattern. If FALSE, shows only the strings that don't match the pattern. Otherwise (the default, NA) displays both matches and non-matches.
-
-<br>
-
-`str_view` will show us the first regex pattern match
-
-```{r}
-str_view(string = p12_df$text[119], pattern = ('\\"'))
-```
-
-Notice how we can see all the regex pattern matches with `str_view_all`
-```{r}
-str_view_all(string = p12_df$text[119], pattern = ('\\"'))
-```
-
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for newline </summary> 
-```{r}
-str_view_all(string = p12_df$text[119], pattern = ("\\n"))
-```
-</details>
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for period </summary> 
-```{r}
-str_view_all(string = p12_df$text[119], pattern = ("\\."))
-```
-</details>
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for white space </summary> 
-```{r}
-str_view_all(string = p12_df$text[119], pattern = ("\\s"))
-```
-</details>
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for word bound </summary> 
-```{r}
-str_view_all(string = p12_df$text[119], pattern = ("\\b"))
-```
-</details>
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for digit(s) </summary> 
-```{r}
-str_view_all(string = p12_df$text[119], pattern = ("\\d"))
-```
-</details>
-
-<br>
-
-## RegExplain Addin  
-
-> Regular expressions are tricky. RegExplain makes it easier to see what you’re doing.
-
-RegExplain is an RStudio addin that allows the user to check their regex matching functions interactively.
-
-
-*Credit: Garrick Aden-Buie ([RegExplain](https://www.garrickadenbuie.com/project/regexplain/))*
-
-
-[![](../../assets/images/regexplain.png)](https://www.garrickadenbuie.com/project/regexplain/) 
-
-
-Installation
-```{r eval=FALSE}
-devtools::install_github("gadenbuie/regexplain")
-library(regexplain)
-```
-
 
 # `stringr` package
 
@@ -1592,18 +1461,65 @@ What are regular expressions? from [Geeks for Geeks](https://www.geeksforgeeks.o
 
 *Credit: Crystal Han, Ozan Jaquette, & Karina Salazar ([Recruiting the Out-Of-State University](https://emraresearch.org/sites/default/files/2019-03/joyce_report.pdf))*
 
-\newline
+<br>
 
-- You could think of regular expressions like playing a game of charades. Assume a player grabs a playing card with an image of a person reading a book. Their task is to pantomine this action (reading a book) so that other players can guess what they are doing. Through the use of physical expressions and symbols, the player with the card is helping the other players guess what playing card they got. 
+## `str_view` and `str_view_all`
 
-    ![](../../assets/images/charades.jpg){width=55%}  
-*Credit: wikiHow staff ([How to Play Charades](https://www.wikihow.com/Play-Charades))*
+<br>
+__The `str_view()` function__:
 
-    - The player with the playing card is the __user__.
-    - The players trying to guess the user's card is your __computer__.
-    - The user uses physical expression and symbols (__regular expressions__) to tell the players (__computer__) what expression/word they have (__characters you are looking for in a text__). 
+```{r, eval = FALSE}
+?str_view
 
-[^4]: https://www.geeksforgeeks.org/write-regular-expressions/
+# SYNTAX AND DEFAULT VALUES
+str_view(string, pattern, match = NA)
+str_view_all(string, pattern, match = NA)
+```
+
+- Function: `str_view` shows the first match of a regex pattern; `str_view_all` shows all the matches of a regex pattern.
+- Arguments:
+  - `string`: Input vector. Either a character vector, or something coercible to one.
+  - `pattern`: Pattern to look for.
+      - The default interpretation is a regular expression, as described in stringi::stringi-search-regex. Control options with regex().
+  - `match`: If TRUE, shows only strings that match the pattern. If FALSE, shows only the strings that don't match the pattern. Otherwise (the default, NA) displays both matches and non-matches.
+
+<br>
+
+`str_view` will show us the first regex pattern match
+
+```{r}
+str_view(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+Notice how we can see all the regex pattern matches with `str_view_all`
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for newline </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\n"))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for period </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\."))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for white space </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\s"))
+```
+</details>
 
 
 # Regular expression characters {.tabset .tabset-fade .tabset-pills}
@@ -1615,44 +1531,73 @@ Some common regular expression patterns include (not inclusive):
 * Anchors  
 * Groups and ranges  
 
-source: https://cheatography.com/davechild/cheat-sheets/regular-expressions/ 
+*Credit: [DaveChild](https://cheatography.com/davechild/cheat-sheets/regular-expressions/) Regular Expression Cheat Sheet*
+
 
 **Select each tab**
 
 
 ## Character classes
-Character  Description     
----------- ----------------------------------------------------------
-\\s         White space
-\\S         Not white space
-\\d         Digit
-\\D         Not digit
-\\w         Word
-\\W         Not word
 
+| STRING  <br>  *(type string that represents regex)* | REGEX <br> *(to have this appear in your regex)* | MATCHES <br> *(to match with this text)* |
+|--------------|-----------------|---------|
+| `\\'`  |    `\'`   | ' (single quote)|
+| `\\"`  |    `\"`   | " (double quote)|
+| `\\\\` |    `\\`   | \\\  |
+| `\\n`  |    `\n`   | new line (return)  |
+| `\\t`  |    `\t`   | tab |
+| `\\s`  |    `\s`   |  any whitespace |
+| `\\S`  |    `\S`   |  any non-whitespace |
+| `\\d`  |    `\d`   |  any digit |
+| `\\D`  |    `\D`   |  any non-digit|
+| `\\w`  |    `\w`   |  any word character |
+| `\\W`  |    `\W`   |  any non-word character|
+| `\\b`  |    `\b`   |  word-boundary |
+| `\\B`  |    `\B`   |  non-word-boundary |
+| `\\.`  |    `\.`    | . |
+| `\\!`  |    `\!`   | !  |
+| `\\?`  |    `\?`   | ?  |
+| `\\(`  |    `\(`   | ( |
+| `\\)`  |    `\)`   | ) |
+| `\\{`  |    `\{`   | { |
+| `\\}`  |    `\}`   |}  |
+
+
+
+*Credit: [Working with strings in stringr](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) Cheat sheet*
+
+
+__Character classes and special characters in regular expressions__  
+
+[add]
+
+> What if you really need the plus sign to be a literal plus sign and not a regex quantifier? You will need to escape it by prepending a backslash. But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a literal plus sign in a regex.
+
+*Credit: [Escaping sequences](https://stat545.com/character-vectors.html#escaping) from Stat 545*
 
 ```{r}
 writeLines(p12_df$text[39])
 ```
 
-Using double backslashes `\\` followed by the letter `s` and then another double backslashes `\\` followed by the letter `w`, we are searching for a white space and a word.
+Let's search for instances of the letter "e" in a sentence followed by a space `\\s`.
 ```{r}
-str_view_all(string = p12_df$text[39], pattern = "\\s\\w")
+str_view_all(string = p12_df$text[39], pattern = "e\\s")
 ```
 
-Now let's search for non words. 
+Now let's search for literal exclamation marks `\\!`
 ```{r}
-str_view_all(string = p12_df$text[39], pattern = "\\s\\W")
+str_view_all(string = p12_df$text[39], pattern = "\\!")
 ```
 
-__Student exercise__
 
-- Using the string vector from above `p12_df$text[39]`, search for a digit followed by a word.
+<br>
 
-<details><summary>**Student exercise**: solution </summary> 
+<details><summary>**Example**: non-word character  `\\W` </summary> 
+
+- Using the string vector from above `p12_df$text[39]`, let's search for non-word characters.
 
 ```{r}
-str_view_all(string = p12_df$text[39], pattern = ("\\d\\w"))
+str_view_all(string = p12_df$text[39], pattern = ("\\W"))
 ```
 </details>
 
@@ -1678,25 +1623,26 @@ We use quantifiers to specify the number of times we want to search for a partic
 writeLines(p12_df$text[32])
 ```
 
-In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for a pattern that begins with a space and is followed by a non word one or more times. 
+In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for instances of the letters "ou" one or more times. 
 
 ```{r}
-str_view_all(string = p12_df$text[32], pattern = "\\s\\W+")
+str_view_all(string = p12_df$text[32], pattern = "ou+")
 ```
 
-Say we wanted to search for the letter t exactly 2 times in the string. 
+Now say we wanted to search for the letter t exactly 2 times in the string. 
 ```{r}
 str_view_all(string = p12_df$text[32], pattern = "t{2}")
 ```
 
-__Student exercise__
 
-- Using the string vector from above `p12_df$text[32]`, search for the beginning of a link "https://"
+<br>
 
-<details><summary>**Student exercise**: solution </summary> 
+<details><summary>**Example**: asterisk `*` </summary> 
+
+- Using the string vector from above `p12_df$text[32]`, let's search for instances of "le" zero or more times.
 
 ```{r}
-str_view_all(string = p12_df$text[32], pattern = ("https\\W*"))
+str_view_all(string = p12_df$text[32], pattern = ("le*"))
 ```
 </details>
 
@@ -1719,27 +1665,26 @@ Character  Description
  
 
 ```{r}
-writeLines(p12_df$text[8])
+writeLines(p12_df$text[20:22])
 ```
 
-Using the caret symbol `^` and a double backslashes `\\` followed by the letter `w` and then an asterik `*`, we are searching for the first word in a string. 
+Let's search for the first letter of a string that starts with the letter "T". We can use the caret symbol `^` to search for the start of the string. Next, we want to search for the letter "T".
 ```{r}
-str_view_all(string = p12_df$text[8], pattern = ("^\\w*"))
+str_view_all(string = p12_df$text[20:22], pattern = ("^T"))
 ```
 
-We could use the `\\b` word bound character followed by the `\\d` digits character and the asterik to search for digits in the text (e.g. year)
+We could use the `\\b` word bound character followed by the letter "f" to search for a word that starts with the letter "f".
 ```{r}
-str_view_all(string = p12_df$text[8], pattern = ("\\b\\d*"))
+str_view_all(string = p12_df$text[20:22], pattern = ("\\bf"))
 ```
 
-__Student exercise__
+<br>
 
-- Using the string vector from above `p12_df$text[8]`, search for word bounds followed by non words 
+<details><summary>**Example**: @ handles </summary> 
 
-<details><summary>**Student exercise**: solution </summary> 
-
+- Using the string vector from above `p12_df$text[20:22]`, search for hashtags.
 ```{r}
-str_view_all(string = p12_df$text[8], pattern = ("\\b\\W"))
+str_view_all(string = p12_df$text[20:22], pattern = ("@\\S+"))
 ```
 </details>
 
@@ -1783,11 +1728,12 @@ If we do not want any vowels we could add the caret `^` symbol to our pattern fr
 str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
 ```
 
-__Student exercise__
+<br>
 
-- Using the string vector from above `p12_df$text[10]`, search for upper case letters.
+<details><summary>**Example**: Upper case letters `[A-Z]` </summary> 
 
-<details><summary>**Student exercise**: solution </summary> 
+
+- Using the string vector from above `p12_df$text[10]`, let's search for upper case letters.
 
 ```{r}
 str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
@@ -1795,6 +1741,18 @@ str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
 </details>
 
 <br>
+
+## Backreferences
+
+Character  Description     
+---------- ----------------------------------------------------------
+\\1         Capturing group \\1 
+\\2         Capturing group \\2 
+
+
+In the previous section we talked about groups and ranges. A parentheses creates what is called a _numbered_ capturing group. "A capturing group stores the part of the string matched by the part of the regular expression inside the parentheses". For example, if we have one paraentheses `(a|e)` the capturing group would be `\\1`. If we have two parentheses
+
+*Credit: Hadley Wickham ([R for Data Science](https://r4ds.had.co.nz/strings.html#grouping-and-backreferences)) Grouping and backreferences*
 
 
 # Regex with `stringr` functions
@@ -1809,13 +1767,15 @@ Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.c
   # Is shorthand for:
   str_view(string = "Turn to page 394...", pattern = regex("\\d+"))
   ```
-- For simplicity, we can omit the call to `regex()`
-- But, there are additional arguments we can supply to `regex()` if we wanted
-  - `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)`
-  - `ignore_case`: If `TRUE`, allows characters to match either their uppercase or lowercase forms
-  - `multiline`: If `TRUE`, allows `^` and `$` to match the start and end of each line rather than the start and end of the complete string
-  - `comments`: If `TRUE`, allows you to use comments and white space to make complex regular expressions more understandable
-    - Spaces are ignored, as is everything after `#`
+  
+- For simplicity, we can omit the call to `regex()`  
+- But, there are additional arguments we can supply to `regex()` if we wanted  
+
+  - `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)`  
+  - `ignore_case`: If `TRUE`, allows characters to match either their uppercase or lowercase forms  
+  - `multiline`: If `TRUE`, allows `^` and `$` to match the start and end of each line rather than the start and end of the complete string  
+  - `comments`: If `TRUE`, allows you to use comments and white space to make complex regular expressions more understandable  
+    - Spaces are ignored, as is everything after `#`  
     - To match a literal space, you’ll need to escape it: `"\\ "`
 
 <br>
@@ -1844,49 +1804,6 @@ str_view_all(string = s, pattern = regex("page \\d+", ignore_case = TRUE))
 
 </details>
 
-<br>
-<details><summary>**Example**: Specifying `multiline = TRUE` in `regex()`</summary>
-
-Continuing with the previous example string:
-
-```{r}
-writeLines(s)
-```
-
-<br>
-If we wanted to match only the correct pages, we can take advantage of the fact that they are all located at the end of their line:
-
-```{r}
-# When multiline = TRUE, `$` matches the end of a line instead of end of the string
-str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE, multiline = TRUE))
-```
-
-<br>
-Compared to if we did not specify `multiline = TRUE`:
-
-```{r}
-# When multiline = FALSE, `$` matches the end of the string
-str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE))
-```
-
-</details>
-
-<br>
-<details><summary>**Example**: Specifying `comments = TRUE` in `regex()`</summary>
-
-`comments = TRUE` allows us to write comments inside the `regex()` function:
-
-```{r}
-pattern <- regex("
-                 page\\     # Notice how we have to use `\\ ` for a literal space now
-                 \\d+       # This is to match a sequence of 1 or more digits
-                 $          # This is to indicate the end of a line when `multiline = TRUE`
-                 ", ignore_case = TRUE, multiline = TRUE, comments = TRUE)
-
-str_view_all(string = s, pattern = pattern)
-```
-
-</details>
 
 
 
@@ -2413,6 +2330,7 @@ p12_df %>%
 
 # Appendix
 
+## `rtweet` package
 __rtweet package__ (from rtweet [website](https://rtweet.info/))  
 
 > All you need is a Twitter account (user name and password) and you can be up in running in minutes!
@@ -2422,7 +2340,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
   
 - This package allows users to interact with Twitter's REST and stream APIs.
 
-## search_tweets function
+### search_tweets function
 
 `rtweet` documentation (from [CRAN](https://cloud.r-project.org/web/packages/rtweet/rtweet.pdf))  
 
@@ -2473,7 +2391,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
     - `verbose`: Logical, indicating whether or not to include output processing/retrieval messages. Defaults to TRUE. For larger searches, messages include rough estimates for time remaining between searches. It should be noted, however, that these time estimates only describe the amount of time between searches and not the total time remaining. For large searches conducted with retryonratelimit set to TRUE, the estimated retrieval time can be estimated by dividing the number of requested tweets by 18,000 and then multiplying the quotient by 15 (token reset time, in minutes).
     - `...`: Further arguments passed as query parameters in request sent to Twitter’s REST API. To return only English language tweets, for example, use lang = "en". For more options see Twitter’s API documentation.
 
-## search_tweets example
+### search_tweets example
 
 ```{r message=FALSE, eval=FALSE}
 #load packages
@@ -2492,4 +2410,23 @@ p12_full_df <- search_tweets(paste0("from:", p12, collapse = " OR "), n = 500)
 #saveRDS(p12_full_df, "p12_dataset.RDS")
 ```
 
+
+## RegExplain Addin  
+
+> Regular expressions are tricky. RegExplain makes it easier to see what you’re doing.
+
+RegExplain is an RStudio addin that allows the user to check their regex matching functions interactively.
+
+
+*Credit: Garrick Aden-Buie ([RegExplain](https://www.garrickadenbuie.com/project/regexplain/))*
+
+
+[![](../../assets/images/regexplain.png)](https://www.garrickadenbuie.com/project/regexplain/) 
+
+
+Installation
+```{r eval=FALSE}
+devtools::install_github("gadenbuie/regexplain")
+library(regexplain)
+```
 
