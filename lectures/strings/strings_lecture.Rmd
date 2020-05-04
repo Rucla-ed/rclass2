@@ -1823,6 +1823,7 @@ str_view_all(string = p12_df$text[10], pattern = "(r|f)\\1")
 Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.co.nz/strings.html#other-types-of-pattern))
 
 - When we specify a pattern in a `stringr` function, such as `str_view()`, it is automatically wrapped in a call to `regex()` (ie. _treated as a regular expression_)
+
   ```{r}
   # This function call:
   str_view(string = "Turn to page 394...", pattern = "\\d+")
@@ -1847,22 +1848,22 @@ Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.c
 Let's say we have the following string:
 
 ```{r}
-s <- "The assigned readings for EDUC 263\nPage 391\nAnd page 392\nAnd page 393... NO WAIT! PAGE 394"
-writeLines(s)
+s <- "Yay, yay.... YAY!"
+s
 ```
 
 <br>
-We can match all the pages mentioned using the following regex:
+We can match all the yay's using the following regex:
 
 ```{r}
-str_view_all(string = s, pattern = "[Pp][Aa][Gg][Ee] \\d+")
+str_view_all(string = s, pattern = "[Yy][Aa][Yy]")
 ```
 
 <br>
 Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing variations:
 
 ```{r}
-str_view_all(string = s, pattern = regex("page \\d+", ignore_case = TRUE))
+str_view_all(string = s, pattern = regex("yay", ignore_case = TRUE))
 ```
 
 </details>
