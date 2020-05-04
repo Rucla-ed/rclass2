@@ -1576,6 +1576,12 @@ scorpio_start + ddays(30) + dhours(1)
 
 </details>
 
+# Why use Regular Expressions (Regex)  
+[![](http://a.yu8.us/xkcd-208-regular_expressions.png)](https://www.rexegg.com/regex-humor.html)  
+
+*Credit: Regex Humor ([Rex Egg](https://www.rexegg.com/regex-humor.html))*
+  
+
 # What are regular expressions? 
 
 What are regular expressions? from [Geeks for Geeks](https://www.geeksforgeeks.org/write-regular-expressions/)
