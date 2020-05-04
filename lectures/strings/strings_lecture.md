@@ -781,7 +781,7 @@ typeof(my_string)
 ```
 
 
-## Escape sequence and `writeLines()`
+## Special Characters
 
 > "A sequence in a string that starts with a `\` is called an **escape sequence** and allows us to include special characters in our strings."
 
@@ -967,6 +967,52 @@ writeLines(my_string)
 
 <br>
 
+### Escape special character backslashes
+
+> If \\ is used as an escape character in regular expressions, how do you match a literal \\? Well you need to escape it, creating the regular expression \\\\. To create that regular expression, you need to use a string, which also needs to escape \\ . That means to match a literal \\ you need to write "\\\\\\\\" — you need four backslashes to match one!
+
+*Credit: [R for Data Science](https://r4ds.had.co.nz/strings.html#basic-matches) Strings Chapter*
+
+The character vector below has one, two, three, and four backslashes.  
+
+- Notice once we print this vector, the single backslash returns an empty string and the three backslashes return two backslashes.
+
+```r
+backslash <- c("\ ","\\", "\\\ ", "\\\\")
+
+backslash
+```
+
+```
+## [1] " "    "\\"   "\\ "  "\\\\"
+```
+
+<br>
+
+- Using `writeLines()` we can see view the contents of the strings.
+
+```r
+writeLines(backslash)
+```
+
+```
+##  
+## \
+## \ 
+## \\
+```
+
+
+```r
+text <- "This is a backslash \\"
+str_view(string = text, pattern = "\\\\")
+```
+
+<!--html_preserve--><div id="htmlwidget-3e5f44293d1116cffedb" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3e5f44293d1116cffedb">{"x":{"html":"<ul>\n  <li>This is a backslash <span class='match'>\\<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<br>
+
+
 ### Escape special characters using Twitter data   
 
 Let's take a look at some tweets from our PAC-12 universities. 
@@ -1033,213 +1079,6 @@ writeLines(p12_df$text[24])
 ```
 </details>
 <br>
-
-## Special characters in regular expressions  
-
-There are special characters in regular strings as we have seen above and there are also certain characters in regex that have a special meaning (table below).
-
-> What if you really need the plus sign to be a literal plus sign and not a regex quantifier? You will need to escape it by prepending a backslash. But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a literal plus sign in a regex.
-
-*Credit: [Escaping sequences](https://stat545.com/character-vectors.html#escaping) from Stat 545*
-
-
-| STRING  <br>  *(type string that represents regex)* | REGEX <br> *(to have this appear in your regex)* | MATCHES <br> *(to match with this text)* |
-|--------------|-----------------|---------|
-| `\\.`  |    `\.`    | . |
-| `\\"`  |    `\"`   | " (double quote)|
-| `\\'`  |    `\'`   | ' (single quote)|
-| `\\!`  |    `\!`   | !  |
-| `\\?`  |    `\?`   | ?  |
-| `\\\\` |    `\\`   | \\\  |
-| `\\(`  |    `\(`   | ( |
-| `\\)`  |    `\)`   | ) |
-| `\\{`  |    `\{`   | { |
-| `\\}`  |    `\}`   |}  |
-| `\\n`  |    `\n`   | new line (return)  |
-| `\\t`  |    `\t`   | tab |
-| `\\s`  |    `\s`   |  any whitespace |
-| `\\S`  |    `\S`   |  any non-whitespace |
-| `\\d`  |    `\d`   |  any digit |
-| `\\D`  |    `\D`   |  any non-digit|
-| `\\w`  |    `\w`   |  any word character |
-| `\\W`  |    `\W`   |  any non-word character|
-| `\\b`  |    `\b`   |  word-boundary |
-| `\\B`  |    `\B`   |  non-word-boundary |
-
-
-*Credit: [Working with strings in stringr](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) Cheat sheet*
-
-
-### Escape special character backslashes
-
-> If \\ is used as an escape character in regular expressions, how do you match a literal \\? Well you need to escape it, creating the regular expression \\\\. To create that regular expression, you need to use a string, which also needs to escape \\ . That means to match a literal \\ you need to write "\\\\\\\\" — you need four backslashes to match one!
-
-*Credit: [R for Data Science](https://r4ds.had.co.nz/strings.html#basic-matches) Strings Chapter*
-
-The character vector below has one, two, three, and four backslashes.  
-
-- Notice once we print this vector, the single backslash returns an empty string and the three backslashes return two backslashes.
-
-```r
-backslash <- c("\ ","\\", "\\\ ", "\\\\")
-
-backslash
-```
-
-```
-## [1] " "    "\\"   "\\ "  "\\\\"
-```
-
-<br>
-
-- Using `writeLines()` we can see view the contents of the strings.
-
-```r
-writeLines(backslash)
-```
-
-```
-##  
-## \
-## \ 
-## \\
-```
-
-
-```r
-text <- "This is a backslash \\"
-str_view(string = text, pattern = "\\\\")
-```
-
-<!--html_preserve--><div id="htmlwidget-8859a08c5d9740846f4e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8859a08c5d9740846f4e">{"x":{"html":"<ul>\n  <li>This is a backslash <span class='match'>\\<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-<br>
-
-### `str_view` and `str_view_all`
-
-<br>
-__The `str_c()` function__:
-
-
-```r
-?str_view
-
-# SYNTAX AND DEFAULT VALUES
-str_view(string, pattern, match = NA)
-str_view_all(string, pattern, match = NA)
-```
-
-- Function: `str_view` shows the first match of a regex pattern; `str_view_all` shows all the matches of a regex pattern.
-- Arguments:
-  - `string`: Input vector. Either a character vector, or something coercible to one.
-  - `pattern`: Pattern to look for.
-      - The default interpretation is a regular expression, as described in stringi::stringi-search-regex. Control options with regex().
-  - `match`: If TRUE, shows only strings that match the pattern. If FALSE, shows only the strings that don't match the pattern. Otherwise (the default, NA) displays both matches and non-matches.
-
-<br>
-
-`str_view` will show us the first regex pattern match
-
-
-```r
-str_view(string = p12_df$text[119], pattern = ('\\"'))
-```
-
-<!--html_preserve--><div id="htmlwidget-b60387c919bac0cef96b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b60387c919bac0cef96b">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-Notice how we can see all the regex pattern matches with `str_view_all`
-
-```r
-str_view_all(string = p12_df$text[119], pattern = ('\\"'))
-```
-
-<!--html_preserve--><div id="htmlwidget-d77c9b99a209c8ea93f7" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d77c9b99a209c8ea93f7">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.<span class='match'>\"<\/span>\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for newline </summary> 
-
-```r
-str_view_all(string = p12_df$text[119], pattern = ("\\n"))
-```
-
-<!--html_preserve--><div id="htmlwidget-cdb55d03e73fb5ef3fe2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cdb55d03e73fb5ef3fe2">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-</details>
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for period </summary> 
-
-```r
-str_view_all(string = p12_df$text[119], pattern = ("\\."))
-```
-
-<!--html_preserve--><div id="htmlwidget-ad72daa0e8f79d34c12f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ad72daa0e8f79d34c12f">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals<span class='match'>.<\/span>\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t<span class='match'>.<\/span>co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-</details>
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for white space </summary> 
-
-```r
-str_view_all(string = p12_df$text[119], pattern = ("\\s"))
-```
-
-<!--html_preserve--><div id="htmlwidget-f2b966390d686f2083fb" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f2b966390d686f2083fb">{"x":{"html":"<ul>\n  <li>\"I<span class='match'> <\/span>stand<span class='match'> <\/span>with<span class='match'> <\/span>my<span class='match'> <\/span>colleagues<span class='match'> <\/span>at<span class='match'> <\/span>@UW<span class='match'> <\/span>and<span class='match'> <\/span>America's<span class='match'> <\/span>leading<span class='match'> <\/span>research<span class='match'> <\/span>universities<span class='match'> <\/span>as<span class='match'> <\/span>they<span class='match'> <\/span>take<span class='match'> <\/span>fight<span class='match'> <\/span>to<span class='match'> <\/span>Covid-19<span class='match'> <\/span>in<span class='match'> <\/span>our<span class='match'> <\/span>labs<span class='match'> <\/span>and<span class='match'> <\/span>hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam<span class='match'> <\/span>x<span class='match'> <\/span>#AlwaysCompete<span class='match'> <\/span>x<span class='match'> <\/span>#GoHuskies<span class='match'> <\/span>https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-</details>
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for word bound </summary> 
-
-```r
-str_view_all(string = p12_df$text[119], pattern = ("\\b"))
-```
-
-<!--html_preserve--><div id="htmlwidget-1aaad6bbd691846a6c06" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1aaad6bbd691846a6c06">{"x":{"html":"<ul>\n  <li>\"<span class='match'><\/span>I<span class='match'><\/span> <span class='match'><\/span>stand<span class='match'><\/span> <span class='match'><\/span>with<span class='match'><\/span> <span class='match'><\/span>my<span class='match'><\/span> <span class='match'><\/span>colleagues<span class='match'><\/span> <span class='match'><\/span>at<span class='match'><\/span> @<span class='match'><\/span>UW<span class='match'><\/span> <span class='match'><\/span>and<span class='match'><\/span> <span class='match'><\/span>America<span class='match'><\/span>'<span class='match'><\/span>s<span class='match'><\/span> <span class='match'><\/span>leading<span class='match'><\/span> <span class='match'><\/span>research<span class='match'><\/span> <span class='match'><\/span>universities<span class='match'><\/span> <span class='match'><\/span>as<span class='match'><\/span> <span class='match'><\/span>they<span class='match'><\/span> <span class='match'><\/span>take<span class='match'><\/span> <span class='match'><\/span>fight<span class='match'><\/span> <span class='match'><\/span>to<span class='match'><\/span> <span class='match'><\/span>Covid<span class='match'><\/span>-<span class='match'><\/span>19<span class='match'><\/span> <span class='match'><\/span>in<span class='match'><\/span> <span class='match'><\/span>our<span class='match'><\/span> <span class='match'><\/span>labs<span class='match'><\/span> <span class='match'><\/span>and<span class='match'><\/span> <span class='match'><\/span>hospitals<span class='match'><\/span>.\"\n\n#<span class='match'><\/span>ProudToBeOnTheirTeam<span class='match'><\/span> <span class='match'><\/span>x<span class='match'><\/span> #<span class='match'><\/span>AlwaysCompete<span class='match'><\/span> <span class='match'><\/span>x<span class='match'><\/span> #<span class='match'><\/span>GoHuskies<span class='match'><\/span> <span class='match'><\/span>https<span class='match'><\/span>://<span class='match'><\/span>t<span class='match'><\/span>.<span class='match'><\/span>co<span class='match'><\/span>/<span class='match'><\/span>4YSf4SpPe0<span class='match'><\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-</details>
-
-<br>
-
-<details><summary>**Example**: `str_view` & `str_view_all` regex for digit(s) </summary> 
-
-```r
-str_view_all(string = p12_df$text[119], pattern = ("\\d"))
-```
-
-<!--html_preserve--><div id="htmlwidget-dcadad4333cf8759152e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dcadad4333cf8759152e">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-<span class='match'>1<\/span><span class='match'>9<\/span> in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/<span class='match'>4<\/span>YSf<span class='match'>4<\/span>SpPe<span class='match'>0<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-</details>
-
-<br>
-
-## RegExplain Addin  
-
-> Regular expressions are tricky. RegExplain makes it easier to see what you’re doing.
-
-RegExplain is an RStudio addin that allows the user to check their regex matching functions interactively.
-
-
-*Credit: Garrick Aden-Buie ([RegExplain](https://www.garrickadenbuie.com/project/regexplain/))*
-
-
-[![](../../assets/images/regexplain.png)](https://www.garrickadenbuie.com/project/regexplain/) 
-
-
-Installation
-
-```r
-devtools::install_github("gadenbuie/regexplain")
-library(regexplain)
-```
-
 
 # `stringr` package
 
@@ -2764,10 +2603,54 @@ scorpio_start + ddays(30) + dhours(1)
 </details>
 
 # Why use Regular Expressions (Regex)  
+
 [![](http://a.yu8.us/xkcd-208-regular_expressions.png)](https://www.rexegg.com/regex-humor.html)  
 
 *Credit: Regex Humor ([Rex Egg](https://www.rexegg.com/regex-humor.html))*
-  
+
+
+In her popular [STAT545 class](https://stat545.com/character-vectors.html#regular-expressions-resources) Jenny Bryan, professor of statistics at University of British Columbia, describes regular expressions as:
+
+> A God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.”
+
+Yes, learning regular expressions is painful. So why are we making you do this? Because regular expressions are a  fundamental building block of data science
+
+<br>
+
+**An annoying thing people say is that data science is about trying to find the "*signal* in the *noise*"**
+
+- *Noisy data* "is data with a large amount of additional meaningless information in it called noise" [Wikipedia](https://en.wikipedia.org/wiki/Noisy_data)
+- Prior to data science revolution, quant people thought of “data” as something in columns and rows
+- The data science revolution is about creating analysis datasets from many pieces of structured, semi-structured, and unstructured data.
+- But processing all this semi-structured data requires a lot of complex (and often tedious) data manipulation. 
+
+<br>
+
+
+**Another annoying thing people say is that  "data science is 80% data cleaning and 20% analysis."** 
+
+- Excerpts from a 2014 New York Times article, ["For Big-Data Scientists, ‘Janitor Work’ Is Key Hurdle to Insights"](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html):
+
+> Much handcrafted work — what data scientists call “data wrangling,” “data munging” and “data janitor work” — is still required. Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in this more mundane labor of collecting and preparing unruly digital data, before it can be explored for useful nuggets.
+
+> “Data wrangling is a huge — and surprisingly so — part of the job,” said Monica Rogati, vice president for data science at Jawbone, whose sensor-filled wristband and software track activity, sleep and food consumption, and suggest dietary and health tips based on the numbers. “It’s something that is not appreciated by data civilians. At times, it feels like everything we do.”
+
+> “It’s an absolute myth that you can send an algorithm over raw data and have insights pop up,” said Jeffrey Heer, a professor of computer science at the University of Washington and a co-founder of Trifacta, a start-up based in San Francisco.
+
+> But if the value [of data science] comes from combining different data sets, so does the headache. Data from sensors, documents, the web and conventional databases all come in different formats. Before a software algorithm can go looking for answers, the data must be cleaned up and converted into a unified form that the algorithm can understand.
+
+> “Practically, because of the diversity of data, you spend a lot of your time being a data janitor, before you can get to the cool, sexy things that got you into the field in the first place,” said Matt Mohebbi, a data scientist and co-founder of Iodine.
+
+<br>
+
+**So why learn regular expressions? Because regular expressions are THE preeminent tool for identifying data patterns, and cleaning/transforming "noisy" data**
+
+- Most programmers I speak to talk about regular expressions as one of the most important tools for a programmer to learn
+- One could argue that regular expressions are a fundamental driver of the data science revolution, in that they are what made it possible to format and integrate diverse data sources into analysis datasets (I don't know if that is true, but it seems reasonable!)
+- For example, web-scraping is fundamentally an application of regular expressions. Grabbing data from the internet is usually very easy. The hard part is processing all that html code into something that can be analyzed.
+
+
+<br>
 
 # What are regular expressions? 
 
@@ -2779,18 +2662,86 @@ What are regular expressions? from [Geeks for Geeks](https://www.geeksforgeeks.o
 
 *Credit: Crystal Han, Ozan Jaquette, & Karina Salazar ([Recruiting the Out-Of-State University](https://emraresearch.org/sites/default/files/2019-03/joyce_report.pdf))*
 
-\newline
+<br>
 
-- You could think of regular expressions like playing a game of charades. Assume a player grabs a playing card with an image of a person reading a book. Their task is to pantomine this action (reading a book) so that other players can guess what they are doing. Through the use of physical expressions and symbols, the player with the card is helping the other players guess what playing card they got. 
+## `str_view` and `str_view_all`
 
-    ![](../../assets/images/charades.jpg){width=55%}  
-*Credit: wikiHow staff ([How to Play Charades](https://www.wikihow.com/Play-Charades))*
+<br>
+__The `str_view()` function__:
 
-    - The player with the playing card is the __user__.
-    - The players trying to guess the user's card is your __computer__.
-    - The user uses physical expression and symbols (__regular expressions__) to tell the players (__computer__) what expression/word they have (__characters you are looking for in a text__). 
 
-[^4]: https://www.geeksforgeeks.org/write-regular-expressions/
+```r
+?str_view
+
+# SYNTAX AND DEFAULT VALUES
+str_view(string, pattern, match = NA)
+str_view_all(string, pattern, match = NA)
+```
+
+- Function: `str_view` shows the first match of a regex pattern; `str_view_all` shows all the matches of a regex pattern.
+- Arguments:
+  - `string`: Input vector. Either a character vector, or something coercible to one.
+  - `pattern`: Pattern to look for.
+      - The default interpretation is a regular expression, as described in stringi::stringi-search-regex. Control options with regex().
+  - `match`: If TRUE, shows only strings that match the pattern. If FALSE, shows only the strings that don't match the pattern. Otherwise (the default, NA) displays both matches and non-matches.
+
+<br>
+
+`str_view` will show us the first regex pattern match
+
+
+```r
+str_view(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+<!--html_preserve--><div id="htmlwidget-c18010dd5ad2688cf5d1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c18010dd5ad2688cf5d1">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+Notice how we can see all the regex pattern matches with `str_view_all`
+
+```r
+str_view_all(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+<!--html_preserve--><div id="htmlwidget-bb5b9946c4d0a5b84cc3" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bb5b9946c4d0a5b84cc3">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.<span class='match'>\"<\/span>\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for newline </summary> 
+
+```r
+str_view_all(string = p12_df$text[119], pattern = ("\\n"))
+```
+
+<!--html_preserve--><div id="htmlwidget-2aa04c28e946de73483a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2aa04c28e946de73483a">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for period </summary> 
+
+```r
+str_view_all(string = p12_df$text[119], pattern = ("\\."))
+```
+
+<!--html_preserve--><div id="htmlwidget-a6e07d7b6a409612b549" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a6e07d7b6a409612b549">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals<span class='match'>.<\/span>\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t<span class='match'>.<\/span>co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for white space </summary> 
+
+```r
+str_view_all(string = p12_df$text[119], pattern = ("\\s"))
+```
+
+<!--html_preserve--><div id="htmlwidget-514fc53d3ea4b6828731" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-514fc53d3ea4b6828731">{"x":{"html":"<ul>\n  <li>\"I<span class='match'> <\/span>stand<span class='match'> <\/span>with<span class='match'> <\/span>my<span class='match'> <\/span>colleagues<span class='match'> <\/span>at<span class='match'> <\/span>@UW<span class='match'> <\/span>and<span class='match'> <\/span>America's<span class='match'> <\/span>leading<span class='match'> <\/span>research<span class='match'> <\/span>universities<span class='match'> <\/span>as<span class='match'> <\/span>they<span class='match'> <\/span>take<span class='match'> <\/span>fight<span class='match'> <\/span>to<span class='match'> <\/span>Covid-19<span class='match'> <\/span>in<span class='match'> <\/span>our<span class='match'> <\/span>labs<span class='match'> <\/span>and<span class='match'> <\/span>hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam<span class='match'> <\/span>x<span class='match'> <\/span>#AlwaysCompete<span class='match'> <\/span>x<span class='match'> <\/span>#GoHuskies<span class='match'> <\/span>https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
 
 
 # Regular expression characters {.tabset .tabset-fade .tabset-pills}
@@ -2802,21 +2753,49 @@ Some common regular expression patterns include (not inclusive):
 * Anchors  
 * Groups and ranges  
 
-source: https://cheatography.com/davechild/cheat-sheets/regular-expressions/ 
+*Credit: [DaveChild](https://cheatography.com/davechild/cheat-sheets/regular-expressions/) Regular Expression Cheat Sheet*
+
 
 **Select each tab**
 
 
 ## Character classes
-Character  Description     
----------- ----------------------------------------------------------
-\\s         White space
-\\S         Not white space
-\\d         Digit
-\\D         Not digit
-\\w         Word
-\\W         Not word
 
+| STRING  <br>  *(type string that represents regex)* | REGEX <br> *(to have this appear in your regex)* | MATCHES <br> *(to match with this text)* |
+|--------------|-----------------|---------|
+| `\\'`  |    `\'`   | ' (single quote)|
+| `\\"`  |    `\"`   | " (double quote)|
+| `\\\\` |    `\\`   | \\\  |
+| `\\n`  |    `\n`   | new line (return)  |
+| `\\t`  |    `\t`   | tab |
+| `\\s`  |    `\s`   |  any whitespace |
+| `\\S`  |    `\S`   |  any non-whitespace |
+| `\\d`  |    `\d`   |  any digit |
+| `\\D`  |    `\D`   |  any non-digit|
+| `\\w`  |    `\w`   |  any word character |
+| `\\W`  |    `\W`   |  any non-word character|
+| `\\b`  |    `\b`   |  word-boundary |
+| `\\B`  |    `\B`   |  non-word-boundary |
+| `\\.`  |    `\.`    | . |
+| `\\!`  |    `\!`   | !  |
+| `\\?`  |    `\?`   | ?  |
+| `\\(`  |    `\(`   | ( |
+| `\\)`  |    `\)`   | ) |
+| `\\{`  |    `\{`   | { |
+| `\\}`  |    `\}`   |}  |
+
+
+
+*Credit: [Working with strings in stringr](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) Cheat sheet*
+
+
+__Character classes and special characters in regular expressions__  
+
+[add]
+
+> What if you really need the plus sign to be a literal plus sign and not a regex quantifier? You will need to escape it by prepending a backslash. But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a literal plus sign in a regex.
+
+*Credit: [Escaping sequences](https://stat545.com/character-vectors.html#escaping) from Stat 545*
 
 
 ```r
@@ -2829,37 +2808,38 @@ writeLines(p12_df$text[39])
 ## Here’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day! https://t.co/2fO2hRnmPb
 ```
 
-Using double backslashes `\\` followed by the letter `s` and then another double backslashes `\\` followed by the letter `w`, we are searching for a white space and a word.
+Let's search for instances of the letter "e" in a sentence followed by a space `\\s`.
 
 ```r
-str_view_all(string = p12_df$text[39], pattern = "\\s\\w")
+str_view_all(string = p12_df$text[39], pattern = "e\\s")
 ```
 
-<!--html_preserve--><div id="htmlwidget-758182a0744ec6ecdec8" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-758182a0744ec6ecdec8">{"x":{"html":"<ul>\n  <li>Meet<span class='match'> L<\/span>uke! “No<span class='match'> m<\/span>atter<span class='match'> w<\/span>here<span class='match'> y<\/span>ou’re<span class='match'> f<\/span>rom, @UCBerkeley<span class='match'> i<\/span>s<span class='match'> a<\/span><span class='match'> p<\/span>lace<span class='match'> t<\/span>hat<span class='match'> w<\/span>ill<span class='match'> t<\/span>ake<span class='match'> y<\/span>ou<span class='match'> o<\/span>ut<span class='match'> o<\/span>f<span class='match'> y<\/span>our<span class='match'> c<\/span>omfort<span class='match'> z<\/span>one<span class='match'> a<\/span>nd<span class='match'> s<\/span>hape<span class='match'> y<\/span>ou<span class='match'> i<\/span>nto<span class='match'> y<\/span>our<span class='match'> b<\/span>est<span class='match'> s<\/span>elf” #IamBerkeley \n<span class='match'>\nH<\/span>ere’s<span class='match'> L<\/span>uke<span class='match'> o<\/span>n<span class='match'> h<\/span>is<span class='match'> f<\/span>irst<span class='match'> d<\/span>ay<span class='match'> a<\/span>t<span class='match'> B<\/span>erkeley<span class='match'> i<\/span>n<span class='match'> h<\/span>is<span class='match'> d<\/span>orm,<span class='match'> p<\/span>osing<span class='match'> w<\/span>ith<span class='match'> t<\/span>he<span class='match'> a<\/span>xe<span class='match'> a<\/span>fter<span class='match'> o<\/span>ur<span class='match'> b<\/span>ig<span class='match'> f<\/span>ootball<span class='match'> g<\/span>ame<span class='match'> w<\/span>in<span class='match'> a<\/span>nd<span class='match'> p<\/span>resent<span class='match'> d<\/span>ay!<span class='match'> h<\/span>ttps://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-3920344639a5bf388816" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3920344639a5bf388816">{"x":{"html":"<ul>\n  <li>Meet Luke! “No matter wher<span class='match'>e <\/span>you’r<span class='match'>e <\/span>from, @UCBerkeley is a plac<span class='match'>e <\/span>that will tak<span class='match'>e <\/span>you out of your comfort zon<span class='match'>e <\/span>and shap<span class='match'>e <\/span>you into your best self” #IamBerkeley \n\nHere’s Luk<span class='match'>e <\/span>on his first day at Berkeley in his dorm, posing with th<span class='match'>e <\/span>ax<span class='match'>e <\/span>after our big football gam<span class='match'>e <\/span>win and present day! https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
-Now let's search for non words. 
+Now let's search for literal exclamation marks `\\!`
 
 ```r
-str_view_all(string = p12_df$text[39], pattern = "\\s\\W")
+str_view_all(string = p12_df$text[39], pattern = "\\!")
 ```
 
-<!--html_preserve--><div id="htmlwidget-ba58287cb318bdf032f2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ba58287cb318bdf032f2">{"x":{"html":"<ul>\n  <li>Meet Luke!<span class='match'> “<\/span>No matter where you’re from,<span class='match'> @<\/span>UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self”<span class='match'> #<\/span>IamBerkeley<span class='match'> \n<\/span>\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day! https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-d3a4c19e5a140cd74dd2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d3a4c19e5a140cd74dd2">{"x":{"html":"<ul>\n  <li>Meet Luke<span class='match'>!<\/span> “No matter where you’re from, @UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self” #IamBerkeley \n\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day<span class='match'>!<\/span> https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
-__Student exercise__
 
-- Using the string vector from above `p12_df$text[39]`, search for a digit followed by a word.
+<br>
 
-<details><summary>**Student exercise**: solution </summary> 
+<details><summary>**Example**: non-word character  `\\W` </summary> 
+
+- Using the string vector from above `p12_df$text[39]`, let's search for non-word characters.
 
 
 ```r
-str_view_all(string = p12_df$text[39], pattern = ("\\d\\w"))
+str_view_all(string = p12_df$text[39], pattern = ("\\W"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-0b4838085eed15f7b00b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0b4838085eed15f7b00b">{"x":{"html":"<ul>\n  <li>Meet Luke! “No matter where you’re from, @UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self” #IamBerkeley \n\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day! https://t.co/<span class='match'>2f<\/span>O<span class='match'>2h<\/span>RnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-71f9584d63d8bcf4ed03" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-71f9584d63d8bcf4ed03">{"x":{"html":"<ul>\n  <li>Meet<span class='match'> <\/span>Luke<span class='match'>!<\/span><span class='match'> <\/span><span class='match'>“<\/span>No<span class='match'> <\/span>matter<span class='match'> <\/span>where<span class='match'> <\/span>you<span class='match'>’<\/span>re<span class='match'> <\/span>from<span class='match'>,<\/span><span class='match'> <\/span><span class='match'>@<\/span>UCBerkeley<span class='match'> <\/span>is<span class='match'> <\/span>a<span class='match'> <\/span>place<span class='match'> <\/span>that<span class='match'> <\/span>will<span class='match'> <\/span>take<span class='match'> <\/span>you<span class='match'> <\/span>out<span class='match'> <\/span>of<span class='match'> <\/span>your<span class='match'> <\/span>comfort<span class='match'> <\/span>zone<span class='match'> <\/span>and<span class='match'> <\/span>shape<span class='match'> <\/span>you<span class='match'> <\/span>into<span class='match'> <\/span>your<span class='match'> <\/span>best<span class='match'> <\/span>self<span class='match'>”<\/span><span class='match'> <\/span><span class='match'>#<\/span>IamBerkeley<span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>\n<\/span>Here<span class='match'>’<\/span>s<span class='match'> <\/span>Luke<span class='match'> <\/span>on<span class='match'> <\/span>his<span class='match'> <\/span>first<span class='match'> <\/span>day<span class='match'> <\/span>at<span class='match'> <\/span>Berkeley<span class='match'> <\/span>in<span class='match'> <\/span>his<span class='match'> <\/span>dorm<span class='match'>,<\/span><span class='match'> <\/span>posing<span class='match'> <\/span>with<span class='match'> <\/span>the<span class='match'> <\/span>axe<span class='match'> <\/span>after<span class='match'> <\/span>our<span class='match'> <\/span>big<span class='match'> <\/span>football<span class='match'> <\/span>game<span class='match'> <\/span>win<span class='match'> <\/span>and<span class='match'> <\/span>present<span class='match'> <\/span>day<span class='match'>!<\/span><span class='match'> <\/span>https<span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span>t<span class='match'>.<\/span>co<span class='match'>/<\/span>2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -2892,38 +2872,39 @@ writeLines(p12_df$text[32])
 ## 💻 https://t.co/YukY37REyd
 ```
 
-In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for a pattern that begins with a space and is followed by a non word one or more times. 
+In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for instances of the letters "ou" one or more times. 
 
 
 ```r
-str_view_all(string = p12_df$text[32], pattern = "\\s\\W+")
+str_view_all(string = p12_df$text[32], pattern = "ou+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-98491066b7804f86dbae" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-98491066b7804f86dbae">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to<span class='match'> @<\/span>UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision<span class='match'> &<\/span>amp; officially become a<span class='match'> #<\/span>BerkeleyBound student!<span class='match'> \n\n🕑 <\/span>2pm today<span class='match'>\n💻 <\/span>https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-bd47dc9e2af9de125f2e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bd47dc9e2af9de125f2e">{"x":{"html":"<ul>\n  <li>Curi<span class='match'>ou<\/span>s as to what y<span class='match'>ou<\/span>r next steps are after being admitted to @UCBerkeley? Join us alongside New Student Services to learn more ab<span class='match'>ou<\/span>t what y<span class='match'>ou<\/span> sh<span class='match'>ou<\/span>ld be considering as y<span class='match'>ou<\/span> make y<span class='match'>ou<\/span>r decision &amp; officially become a #BerkeleyB<span class='match'>ou<\/span>nd student! \n\n🕑 2pm today\n💻 https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
-Say we wanted to search for the letter t exactly 2 times in the string. 
+Now say we wanted to search for the letter t exactly 2 times in the string. 
 
 ```r
 str_view_all(string = p12_df$text[32], pattern = "t{2}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-57c0a2e091bf3548b8b4" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-57c0a2e091bf3548b8b4">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admi<span class='match'>tt<\/span>ed to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 h<span class='match'>tt<\/span>ps://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-d1638663b96aeaea097b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d1638663b96aeaea097b">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admi<span class='match'>tt<\/span>ed to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 h<span class='match'>tt<\/span>ps://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
-__Student exercise__
 
-- Using the string vector from above `p12_df$text[32]`, search for the beginning of a link "https://"
+<br>
 
-<details><summary>**Student exercise**: solution </summary> 
+<details><summary>**Example**: asterisk `*` </summary> 
+
+- Using the string vector from above `p12_df$text[32]`, let's search for instances of "le" zero or more times.
 
 
 ```r
-str_view_all(string = p12_df$text[32], pattern = ("https\\W*"))
+str_view_all(string = p12_df$text[32], pattern = ("le*"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-2d58ea087e3bc788b974" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2d58ea087e3bc788b974">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 <span class='match'>https://<\/span>t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-037651b33df307f90379" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-037651b33df307f90379">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to @UCBerke<span class='match'>le<\/span>y? Join us a<span class='match'>l<\/span>ongside New Student Services to <span class='match'>le<\/span>arn more about what you shou<span class='match'>l<\/span>d be considering as you make your decision &amp; officia<span class='match'>l<\/span><span class='match'>l<\/span>y become a #Berke<span class='match'>le<\/span>yBound student! \n\n🕑 2pm today\n💻 https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -2946,46 +2927,47 @@ Character  Description
 
 
 ```r
-writeLines(p12_df$text[8])
+writeLines(p12_df$text[20:22])
 ```
 
 ```
-## Congratulations, graduates! We’re two weeks away from the #WSU system-wide celebration! ➡️ https://t.co/RR4CnI0Ceq 
+## In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F
+## The lab experience continues…just in a different form. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816
+## This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs
 ## 
-## Class of 2020, share your college memories, pictures &amp; videos using #CougGrad! You might see them on screen during the May 9 webcast. 👩‍🎓👨‍🎓🎓 #GoCougs https://t.co/675EQ3xcRe
+## Story ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO
 ```
 
-Using the caret symbol `^` and a double backslashes `\\` followed by the letter `w` and then an asterik `*`, we are searching for the first word in a string. 
+Let's search for the first letter of a string that starts with the letter "T". We can use the caret symbol `^` to search for the start of the string. Next, we want to search for the letter "T".
 
 ```r
-str_view_all(string = p12_df$text[8], pattern = ("^\\w*"))
+str_view_all(string = p12_df$text[20:22], pattern = ("^T"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-4e1fc248683f49ec8ac2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4e1fc248683f49ec8ac2">{"x":{"html":"<ul>\n  <li><span class='match'>Congratulations<\/span>, graduates! We’re two weeks away from the #WSU system-wide celebration! ➡️ https://t.co/RR4CnI0Ceq \n\nClass of 2020, share your college memories, pictures &amp; videos using #CougGrad! You might see them on screen during the May 9 webcast. 👩‍🎓👨‍🎓🎓 #GoCougs https://t.co/675EQ3xcRe<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-782f357fc9b59877da72" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-782f357fc9b59877da72">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li><span class='match'>T<\/span>he lab experience continues…just in a different form. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li><span class='match'>T<\/span>his pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
-We could use the `\\b` word bound character followed by the `\\d` digits character and the asterik to search for digits in the text (e.g. year)
+We could use the `\\b` word bound character followed by the letter "f" to search for a word that starts with the letter "f".
 
 ```r
-str_view_all(string = p12_df$text[8], pattern = ("\\b\\d*"))
+str_view_all(string = p12_df$text[20:22], pattern = ("\\bf"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-b64e386a2cc96a7b24b4" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b64e386a2cc96a7b24b4">{"x":{"html":"<ul>\n  <li><span class='match'><\/span>Congratulations<span class='match'><\/span>, <span class='match'><\/span>graduates<span class='match'><\/span>! <span class='match'><\/span>We<span class='match'><\/span>’<span class='match'><\/span>re<span class='match'><\/span> <span class='match'><\/span>two<span class='match'><\/span> <span class='match'><\/span>weeks<span class='match'><\/span> <span class='match'><\/span>away<span class='match'><\/span> <span class='match'><\/span>from<span class='match'><\/span> <span class='match'><\/span>the<span class='match'><\/span> #<span class='match'><\/span>WSU<span class='match'><\/span> <span class='match'><\/span>system<span class='match'><\/span>-<span class='match'><\/span>wide<span class='match'><\/span> <span class='match'><\/span>celebration<span class='match'><\/span>! ➡️ <span class='match'><\/span>https<span class='match'><\/span>://<span class='match'><\/span>t<span class='match'><\/span>.<span class='match'><\/span>co<span class='match'><\/span>/<span class='match'><\/span>RR4CnI0Ceq<span class='match'><\/span> \n\n<span class='match'><\/span>Class<span class='match'><\/span> <span class='match'><\/span>of<span class='match'><\/span> <span class='match'>2020<\/span><span class='match'><\/span>, <span class='match'><\/span>share<span class='match'><\/span> <span class='match'><\/span>your<span class='match'><\/span> <span class='match'><\/span>college<span class='match'><\/span> <span class='match'><\/span>memories<span class='match'><\/span>, <span class='match'><\/span>pictures<span class='match'><\/span> &<span class='match'><\/span>amp<span class='match'><\/span>; <span class='match'><\/span>videos<span class='match'><\/span> <span class='match'><\/span>using<span class='match'><\/span> #<span class='match'><\/span>CougGrad<span class='match'><\/span>! <span class='match'><\/span>You<span class='match'><\/span> <span class='match'><\/span>might<span class='match'><\/span> <span class='match'><\/span>see<span class='match'><\/span> <span class='match'><\/span>them<span class='match'><\/span> <span class='match'><\/span>on<span class='match'><\/span> <span class='match'><\/span>screen<span class='match'><\/span> <span class='match'><\/span>during<span class='match'><\/span> <span class='match'><\/span>the<span class='match'><\/span> <span class='match'><\/span>May<span class='match'><\/span> <span class='match'>9<\/span><span class='match'><\/span> <span class='match'><\/span>webcast<span class='match'><\/span>. 👩‍🎓👨‍🎓🎓 #<span class='match'><\/span>GoCougs<span class='match'><\/span> <span class='match'><\/span>https<span class='match'><\/span>://<span class='match'><\/span>t<span class='match'><\/span>.<span class='match'><\/span>co<span class='match'><\/span>/<span class='match'>675<\/span>EQ3xcRe<span class='match'><\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-2cf5860c86f276920425" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2cf5860c86f276920425">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need <span class='match'>f<\/span>or hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li>The lab experience continues…just in a different <span class='match'>f<\/span>orm. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li>This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
-__Student exercise__
+<br>
 
-- Using the string vector from above `p12_df$text[8]`, search for word bounds followed by non words 
+<details><summary>**Example**: @ handles </summary> 
 
-<details><summary>**Student exercise**: solution </summary> 
-
+- Using the string vector from above `p12_df$text[20:22]`, search for hashtags.
 
 ```r
-str_view_all(string = p12_df$text[8], pattern = ("\\b\\W"))
+str_view_all(string = p12_df$text[20:22], pattern = ("@\\S+"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-acb6f0fae5d5a99a9f34" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-acb6f0fae5d5a99a9f34">{"x":{"html":"<ul>\n  <li>Congratulations<span class='match'>,<\/span> graduates<span class='match'>!<\/span> We<span class='match'>’<\/span>re<span class='match'> <\/span>two<span class='match'> <\/span>weeks<span class='match'> <\/span>away<span class='match'> <\/span>from<span class='match'> <\/span>the<span class='match'> <\/span>#WSU<span class='match'> <\/span>system<span class='match'>-<\/span>wide<span class='match'> <\/span>celebration<span class='match'>!<\/span> ➡️ https<span class='match'>:<\/span>//t<span class='match'>.<\/span>co<span class='match'>/<\/span>RR4CnI0Ceq<span class='match'> <\/span>\n\nClass<span class='match'> <\/span>of<span class='match'> <\/span>2020<span class='match'>,<\/span> share<span class='match'> <\/span>your<span class='match'> <\/span>college<span class='match'> <\/span>memories<span class='match'>,<\/span> pictures<span class='match'> <\/span>&amp<span class='match'>;<\/span> videos<span class='match'> <\/span>using<span class='match'> <\/span>#CougGrad<span class='match'>!<\/span> You<span class='match'> <\/span>might<span class='match'> <\/span>see<span class='match'> <\/span>them<span class='match'> <\/span>on<span class='match'> <\/span>screen<span class='match'> <\/span>during<span class='match'> <\/span>the<span class='match'> <\/span>May<span class='match'> <\/span>9<span class='match'> <\/span>webcast<span class='match'>.<\/span> 👩‍🎓👨‍🎓🎓 #GoCougs<span class='match'> <\/span>https<span class='match'>:<\/span>//t<span class='match'>.<\/span>co<span class='match'>/<\/span>675EQ3xcRe<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-7b5f9516b7123369043c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7b5f9516b7123369043c">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li>The lab experience continues…just in a different form. <span class='match'>@CASatWSU<\/span> instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li>This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester <span class='match'>@WSUNursing<\/span> students explain to <span class='match'>@WSU_Cougar_Pres<\/span> how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -3027,8 +3009,8 @@ Say we wanted to search for the letter a or o.
 str_view_all(string = p12_df$text[10], pattern = ("(a|o)"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-4550b40be56b3a2e1844" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4550b40be56b3a2e1844">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span>ur @WSUEsp<span class='match'>o<\/span>rts Te<span class='match'>a<\/span>m is f<span class='match'>a<\/span>cing <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span>inst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f the Electr<span class='match'>o<\/span>nic G<span class='match'>a<\/span>ming Feder<span class='match'>a<\/span>ti<span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ffici<span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>wer Series virtu<span class='match'>a<\/span>l t<span class='match'>o<\/span>urn<span class='match'>a<\/span>ment!\nTune int<span class='match'>o<\/span> the <span class='match'>a<\/span>cti<span class='match'>o<\/span>n live <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOjeTM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span>ugs! https://t.c<span class='match'>o<\/span>/5u8EDG<span class='match'>a<\/span>iFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-c082395768324cfe1bc2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c082395768324cfe1bc2">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span>ur @WSUEsp<span class='match'>o<\/span>rts Te<span class='match'>a<\/span>m is f<span class='match'>a<\/span>cing <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span>inst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f the Electr<span class='match'>o<\/span>nic G<span class='match'>a<\/span>ming Feder<span class='match'>a<\/span>ti<span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ffici<span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>wer Series virtu<span class='match'>a<\/span>l t<span class='match'>o<\/span>urn<span class='match'>a<\/span>ment!\nTune int<span class='match'>o<\/span> the <span class='match'>a<\/span>cti<span class='match'>o<\/span>n live <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOjeTM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span>ugs! https://t.c<span class='match'>o<\/span>/5u8EDG<span class='match'>a<\/span>iFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 What about vowels? We use the square brackets to indicate a range.
 
@@ -3036,8 +3018,8 @@ What about vowels? We use the square brackets to indicate a range.
 str_view_all(string = p12_df$text[10], pattern = ("[aeiou]"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-09feab9babff29b0cd0b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-09feab9babff29b0cd0b">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span><span class='match'>u<\/span>r @WSUEsp<span class='match'>o<\/span>rts T<span class='match'>e<\/span><span class='match'>a<\/span>m <span class='match'>i<\/span>s f<span class='match'>a<\/span>c<span class='match'>i<\/span>ng <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span><span class='match'>i<\/span>nst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f th<span class='match'>e<\/span> El<span class='match'>e<\/span>ctr<span class='match'>o<\/span>n<span class='match'>i<\/span>c G<span class='match'>a<\/span>m<span class='match'>i<\/span>ng F<span class='match'>e<\/span>d<span class='match'>e<\/span>r<span class='match'>a<\/span>t<span class='match'>i<\/span><span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ff<span class='match'>i<\/span>c<span class='match'>i<\/span><span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>w<span class='match'>e<\/span>r S<span class='match'>e<\/span>r<span class='match'>i<\/span><span class='match'>e<\/span>s v<span class='match'>i<\/span>rt<span class='match'>u<\/span><span class='match'>a<\/span>l t<span class='match'>o<\/span><span class='match'>u<\/span>rn<span class='match'>a<\/span>m<span class='match'>e<\/span>nt!\nT<span class='match'>u<\/span>n<span class='match'>e<\/span> <span class='match'>i<\/span>nt<span class='match'>o<\/span> th<span class='match'>e<\/span> <span class='match'>a<\/span>ct<span class='match'>i<\/span><span class='match'>o<\/span>n l<span class='match'>i<\/span>v<span class='match'>e<\/span> <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOj<span class='match'>e<\/span>TM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span><span class='match'>u<\/span>gs! https://t.c<span class='match'>o<\/span>/5<span class='match'>u<\/span>8EDG<span class='match'>a<\/span><span class='match'>i<\/span>FH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-929e28e16cddcc070557" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-929e28e16cddcc070557">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span><span class='match'>u<\/span>r @WSUEsp<span class='match'>o<\/span>rts T<span class='match'>e<\/span><span class='match'>a<\/span>m <span class='match'>i<\/span>s f<span class='match'>a<\/span>c<span class='match'>i<\/span>ng <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span><span class='match'>i<\/span>nst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f th<span class='match'>e<\/span> El<span class='match'>e<\/span>ctr<span class='match'>o<\/span>n<span class='match'>i<\/span>c G<span class='match'>a<\/span>m<span class='match'>i<\/span>ng F<span class='match'>e<\/span>d<span class='match'>e<\/span>r<span class='match'>a<\/span>t<span class='match'>i<\/span><span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ff<span class='match'>i<\/span>c<span class='match'>i<\/span><span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>w<span class='match'>e<\/span>r S<span class='match'>e<\/span>r<span class='match'>i<\/span><span class='match'>e<\/span>s v<span class='match'>i<\/span>rt<span class='match'>u<\/span><span class='match'>a<\/span>l t<span class='match'>o<\/span><span class='match'>u<\/span>rn<span class='match'>a<\/span>m<span class='match'>e<\/span>nt!\nT<span class='match'>u<\/span>n<span class='match'>e<\/span> <span class='match'>i<\/span>nt<span class='match'>o<\/span> th<span class='match'>e<\/span> <span class='match'>a<\/span>ct<span class='match'>i<\/span><span class='match'>o<\/span>n l<span class='match'>i<\/span>v<span class='match'>e<\/span> <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOj<span class='match'>e<\/span>TM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span><span class='match'>u<\/span>gs! https://t.c<span class='match'>o<\/span>/5<span class='match'>u<\/span>8EDG<span class='match'>a<\/span><span class='match'>i<\/span>FH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 If we do not want any vowels we could add the caret `^` symbol to our pattern from above. 
 
@@ -3045,25 +3027,57 @@ If we do not want any vowels we could add the caret `^` symbol to our pattern fr
 str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-f79da476cb2d401e28ad" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f79da476cb2d401e28ad">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>,<\/span><span class='match'> <\/span>ou<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>T<\/span>ea<span class='match'>m<\/span><span class='match'> <\/span>i<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>f<\/span>a<span class='match'>c<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'>f<\/span><span class='match'> <\/span>a<span class='match'>g<\/span>ai<span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>t<\/span><span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>@<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'>_<\/span><span class='match'>W<\/span><span class='match'>A<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'> <\/span>a<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>p<\/span>a<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span><span class='match'>E<\/span><span class='match'>l<\/span>e<span class='match'>c<\/span><span class='match'>t<\/span><span class='match'>r<\/span>o<span class='match'>n<\/span>i<span class='match'>c<\/span><span class='match'> <\/span><span class='match'>G<\/span>a<span class='match'>m<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span><span class='match'>F<\/span>e<span class='match'>d<\/span>e<span class='match'>r<\/span>a<span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'>'<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>@<\/span>o<span class='match'>f<\/span><span class='match'>f<\/span>i<span class='match'>c<\/span>ia<span class='match'>l<\/span><span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span>o<span class='match'>w<\/span>e<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>S<\/span>e<span class='match'>r<\/span>ie<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>v<\/span>i<span class='match'>r<\/span><span class='match'>t<\/span>ua<span class='match'>l<\/span><span class='match'> <\/span><span class='match'>t<\/span>ou<span class='match'>r<\/span><span class='match'>n<\/span>a<span class='match'>m<\/span>e<span class='match'>n<\/span><span class='match'>t<\/span><span class='match'>!<\/span><span class='match'>\n<\/span><span class='match'>T<\/span>u<span class='match'>n<\/span>e<span class='match'> <\/span>i<span class='match'>n<\/span><span class='match'>t<\/span>o<span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span>a<span class='match'>c<\/span><span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'> <\/span><span class='match'>l<\/span>i<span class='match'>v<\/span>e<span class='match'> <\/span>a<span class='match'>t<\/span><span class='match'> <\/span><span class='match'>5<\/span><span class='match'>:<\/span><span class='match'>2<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>U<\/span><span class='match'>W<\/span><span class='match'>)<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>6<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>T<\/span><span class='match'> <\/span><span class='match'>t<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>:<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>z<\/span><span class='match'>O<\/span><span class='match'>j<\/span>e<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>\n<\/span><span class='match'>#<\/span><span class='match'>G<\/span>o<span class='match'>C<\/span>ou<span class='match'>g<\/span><span class='match'>s<\/span><span class='match'>!<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>5<\/span>u<span class='match'>8<\/span><span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-a8c22bc2ec159a1056e3" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a8c22bc2ec159a1056e3">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>,<\/span><span class='match'> <\/span>ou<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>T<\/span>ea<span class='match'>m<\/span><span class='match'> <\/span>i<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>f<\/span>a<span class='match'>c<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'>f<\/span><span class='match'> <\/span>a<span class='match'>g<\/span>ai<span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>t<\/span><span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>@<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'>_<\/span><span class='match'>W<\/span><span class='match'>A<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'> <\/span>a<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>p<\/span>a<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span><span class='match'>E<\/span><span class='match'>l<\/span>e<span class='match'>c<\/span><span class='match'>t<\/span><span class='match'>r<\/span>o<span class='match'>n<\/span>i<span class='match'>c<\/span><span class='match'> <\/span><span class='match'>G<\/span>a<span class='match'>m<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span><span class='match'>F<\/span>e<span class='match'>d<\/span>e<span class='match'>r<\/span>a<span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'>'<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>@<\/span>o<span class='match'>f<\/span><span class='match'>f<\/span>i<span class='match'>c<\/span>ia<span class='match'>l<\/span><span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span>o<span class='match'>w<\/span>e<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>S<\/span>e<span class='match'>r<\/span>ie<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>v<\/span>i<span class='match'>r<\/span><span class='match'>t<\/span>ua<span class='match'>l<\/span><span class='match'> <\/span><span class='match'>t<\/span>ou<span class='match'>r<\/span><span class='match'>n<\/span>a<span class='match'>m<\/span>e<span class='match'>n<\/span><span class='match'>t<\/span><span class='match'>!<\/span><span class='match'>\n<\/span><span class='match'>T<\/span>u<span class='match'>n<\/span>e<span class='match'> <\/span>i<span class='match'>n<\/span><span class='match'>t<\/span>o<span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span>a<span class='match'>c<\/span><span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'> <\/span><span class='match'>l<\/span>i<span class='match'>v<\/span>e<span class='match'> <\/span>a<span class='match'>t<\/span><span class='match'> <\/span><span class='match'>5<\/span><span class='match'>:<\/span><span class='match'>2<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>U<\/span><span class='match'>W<\/span><span class='match'>)<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>6<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>T<\/span><span class='match'> <\/span><span class='match'>t<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>:<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>z<\/span><span class='match'>O<\/span><span class='match'>j<\/span>e<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>\n<\/span><span class='match'>#<\/span><span class='match'>G<\/span>o<span class='match'>C<\/span>ou<span class='match'>g<\/span><span class='match'>s<\/span><span class='match'>!<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>5<\/span>u<span class='match'>8<\/span><span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
-__Student exercise__
+<br>
 
-- Using the string vector from above `p12_df$text[10]`, search for upper case letters.
+<details><summary>**Example**: Upper case letters `[A-Z]` </summary> 
 
-<details><summary>**Student exercise**: solution </summary> 
+
+- Using the string vector from above `p12_df$text[10]`, let's search for upper case letters.
 
 
 ```r
 str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-e11bd895e28b201d0795" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e11bd895e28b201d0795">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>omorrow, our @<span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span>sports <span class='match'>T<\/span>eam is facing off against \n@<span class='match'>E<\/span>sports_<span class='match'>W<\/span><span class='match'>A<\/span> and @<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span> as part of the <span class='match'>E<\/span>lectronic <span class='match'>G<\/span>aming <span class='match'>F<\/span>ederation's (@official<span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span>) <span class='match'>P<\/span>ower <span class='match'>S<\/span>eries virtual tournament!\n<span class='match'>T<\/span>une into the action live at 5:20 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>U<\/span><span class='match'>W<\/span>) and 6 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span>) <span class='match'>P<\/span><span class='match'>T<\/span> tomorrow: https://t.co/tz<span class='match'>O<\/span>je<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span>\n#<span class='match'>G<\/span>o<span class='match'>C<\/span>ougs! https://t.co/5u8<span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-bf6e8bcdfb3a308a0d5b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf6e8bcdfb3a308a0d5b">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>omorrow, our @<span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span>sports <span class='match'>T<\/span>eam is facing off against \n@<span class='match'>E<\/span>sports_<span class='match'>W<\/span><span class='match'>A<\/span> and @<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span> as part of the <span class='match'>E<\/span>lectronic <span class='match'>G<\/span>aming <span class='match'>F<\/span>ederation's (@official<span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span>) <span class='match'>P<\/span>ower <span class='match'>S<\/span>eries virtual tournament!\n<span class='match'>T<\/span>une into the action live at 5:20 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>U<\/span><span class='match'>W<\/span>) and 6 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span>) <span class='match'>P<\/span><span class='match'>T<\/span> tomorrow: https://t.co/tz<span class='match'>O<\/span>je<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span>\n#<span class='match'>G<\/span>o<span class='match'>C<\/span>ougs! https://t.co/5u8<span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
+
+## Backreferences
+
+Character  Description     
+---------- ----------------------------------------------------------
+\\1         Capturing group 1 
+\\2         Capturing group 2 
+
+
+In the previous section we talked about groups and ranges. A parentheses creates what is called a _numbered_ capturing group. "A capturing group stores the part of the string matched by the part of the regular expression inside the parentheses". For example, if we have one paraentheses `(a|e)` we can refer to the same text as previously matched by this capturing group with backreferences, like \\1.
+
+
+```r
+writeLines(p12_df$text[40])
+```
+
+```
+## Once again, congratulations to the transfer class of 2022! Please check out our link tree on our bio for more information, and check out our website as well. We are here to help you get started 😎 Woohoo! @ UC… https://t.co/JrcjzGQhOB
+```
+
+
+
+```r
+str_view_all(string = p12_df$text[10], pattern = ("(a|e)\\1"))
+```
+
+<!--html_preserve--><div id="htmlwidget-73b84b044cc9e3181587" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-73b84b044cc9e3181587">{"x":{"html":"<ul>\n  <li>Tomorrow, our @WSUEsports Team is facing off against \n@Esports_WA and @SJSU as part of the Electronic Gaming Federation's (@officialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomorrow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
+*Credit: Hadley Wickham ([R for Data Science](https://r4ds.had.co.nz/strings.html#grouping-and-backreferences)) Grouping and backreferences*
 
 
 # Regex with `stringr` functions
@@ -3077,23 +3091,25 @@ Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.c
   str_view(string = "Turn to page 394...", pattern = "\\d+")
   ```
   
-  <!--html_preserve--><div id="htmlwidget-40a5540152405d7a1d5a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-  <script type="application/json" data-for="htmlwidget-40a5540152405d7a1d5a">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  <!--html_preserve--><div id="htmlwidget-ca1604f783776a5c320f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-ca1604f783776a5c320f">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
   
   ```r
   # Is shorthand for:
   str_view(string = "Turn to page 394...", pattern = regex("\\d+"))
   ```
   
-  <!--html_preserve--><div id="htmlwidget-c263efa2563a486e629e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-  <script type="application/json" data-for="htmlwidget-c263efa2563a486e629e">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-- For simplicity, we can omit the call to `regex()`
-- But, there are additional arguments we can supply to `regex()` if we wanted
-  - `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)`
-  - `ignore_case`: If `TRUE`, allows characters to match either their uppercase or lowercase forms
-  - `multiline`: If `TRUE`, allows `^` and `$` to match the start and end of each line rather than the start and end of the complete string
-  - `comments`: If `TRUE`, allows you to use comments and white space to make complex regular expressions more understandable
-    - Spaces are ignored, as is everything after `#`
+  <!--html_preserve--><div id="htmlwidget-c6c87949f488a8e7ed84" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-c6c87949f488a8e7ed84">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  
+- For simplicity, we can omit the call to `regex()`  
+- But, there are additional arguments we can supply to `regex()` if we wanted  
+
+  - `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)`  
+  - `ignore_case`: If `TRUE`, allows characters to match either their uppercase or lowercase forms  
+  - `multiline`: If `TRUE`, allows `^` and `$` to match the start and end of each line rather than the start and end of the complete string  
+  - `comments`: If `TRUE`, allows you to use comments and white space to make complex regular expressions more understandable  
+    - Spaces are ignored, as is everything after `#`  
     - To match a literal space, you’ll need to escape it: `"\\ "`
 
 <br>
@@ -3122,8 +3138,8 @@ We can match all the pages mentioned using the following regex:
 str_view_all(string = s, pattern = "[Pp][Aa][Gg][Ee] \\d+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-fa157b017c0f7854f06a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fa157b017c0f7854f06a">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-6ae3cb1c303ed4ce71cd" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6ae3cb1c303ed4ce71cd">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 <br>
 Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing variations:
@@ -3133,74 +3149,11 @@ Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing v
 str_view_all(string = s, pattern = regex("page \\d+", ignore_case = TRUE))
 ```
 
-<!--html_preserve--><div id="htmlwidget-aa7b69693a1f1508d067" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aa7b69693a1f1508d067">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-40e8b7b4dccafb4b5c81" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-40e8b7b4dccafb4b5c81">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 </details>
 
-<br>
-<details><summary>**Example**: Specifying `multiline = TRUE` in `regex()`</summary>
-
-Continuing with the previous example string:
-
-
-```r
-writeLines(s)
-```
-
-```
-## The assigned readings for EDUC 263
-## Page 391
-## And page 392
-## And page 393... NO WAIT! PAGE 394
-```
-
-<br>
-If we wanted to match only the correct pages, we can take advantage of the fact that they are all located at the end of their line:
-
-
-```r
-# When multiline = TRUE, `$` matches the end of a line instead of end of the string
-str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE, multiline = TRUE))
-```
-
-<!--html_preserve--><div id="htmlwidget-7e430fb78408791e0ed1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7e430fb78408791e0ed1">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-<br>
-Compared to if we did not specify `multiline = TRUE`:
-
-
-```r
-# When multiline = FALSE, `$` matches the end of the string
-str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE))
-```
-
-<!--html_preserve--><div id="htmlwidget-f795d27d9753e21cc628" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f795d27d9753e21cc628">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\nPage 391\nAnd page 392\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-</details>
-
-<br>
-<details><summary>**Example**: Specifying `comments = TRUE` in `regex()`</summary>
-
-`comments = TRUE` allows us to write comments inside the `regex()` function:
-
-
-```r
-pattern <- regex("
-                 page\\     # Notice how we have to use `\\ ` for a literal space now
-                 \\d+       # This is to match a sequence of 1 or more digits
-                 $          # This is to indicate the end of a line when `multiline = TRUE`
-                 ", ignore_case = TRUE, multiline = TRUE, comments = TRUE)
-
-str_view_all(string = s, pattern = pattern)
-```
-
-<!--html_preserve--><div id="htmlwidget-7e0bd8e28416ba8831d0" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7e0bd8e28416ba8831d0">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-</details>
 
 
 
@@ -4074,6 +4027,7 @@ p12_df %>%
 
 # Appendix
 
+## `rtweet` package
 __rtweet package__ (from rtweet [website](https://rtweet.info/))  
 
 > All you need is a Twitter account (user name and password) and you can be up in running in minutes!
@@ -4083,7 +4037,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
   
 - This package allows users to interact with Twitter's REST and stream APIs.
 
-## search_tweets function
+### search_tweets function
 
 `rtweet` documentation (from [CRAN](https://cloud.r-project.org/web/packages/rtweet/rtweet.pdf))  
 
@@ -4134,7 +4088,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
     - `verbose`: Logical, indicating whether or not to include output processing/retrieval messages. Defaults to TRUE. For larger searches, messages include rough estimates for time remaining between searches. It should be noted, however, that these time estimates only describe the amount of time between searches and not the total time remaining. For large searches conducted with retryonratelimit set to TRUE, the estimated retrieval time can be estimated by dividing the number of requested tweets by 18,000 and then multiplying the quotient by 15 (token reset time, in minutes).
     - `...`: Further arguments passed as query parameters in request sent to Twitter’s REST API. To return only English language tweets, for example, use lang = "en". For more options see Twitter’s API documentation.
 
-## search_tweets example
+### search_tweets example
 
 
 ```r
@@ -4154,4 +4108,24 @@ p12_full_df <- search_tweets(paste0("from:", p12, collapse = " OR "), n = 500)
 #saveRDS(p12_full_df, "p12_dataset.RDS")
 ```
 
+
+## RegExplain Addin  
+
+> Regular expressions are tricky. RegExplain makes it easier to see what you’re doing.
+
+RegExplain is an RStudio addin that allows the user to check their regex matching functions interactively.
+
+
+*Credit: Garrick Aden-Buie ([RegExplain](https://www.garrickadenbuie.com/project/regexplain/))*
+
+
+[![](../../assets/images/regexplain.png)](https://www.garrickadenbuie.com/project/regexplain/) 
+
+
+Installation
+
+```r
+devtools::install_github("gadenbuie/regexplain")
+library(regexplain)
+```
 
