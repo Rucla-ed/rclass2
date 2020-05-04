@@ -1577,10 +1577,54 @@ scorpio_start + ddays(30) + dhours(1)
 </details>
 
 # Why use Regular Expressions (Regex)  
+
 [![](http://a.yu8.us/xkcd-208-regular_expressions.png)](https://www.rexegg.com/regex-humor.html)  
 
 *Credit: Regex Humor ([Rex Egg](https://www.rexegg.com/regex-humor.html))*
-  
+
+
+In her popular [STAT545 class](https://stat545.com/character-vectors.html#regular-expressions-resources) Jenny Bryan, professor of statistics at University of British Columbia, describes regular expressions as:
+
+> A God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.”
+
+Yes, learning regular expressions is painful. So why are we making you do this? Because regular expressions are a  fundamental building block of data science
+
+<br>
+
+**An annoying thing people say is that data science is about trying to find the "*signal* in the *noise*"**
+
+- *Noisy data* "is data with a large amount of additional meaningless information in it called noise" [Wikipedia](https://en.wikipedia.org/wiki/Noisy_data)
+- Prior to data science revolution, quant people thought of “data” as something in columns and rows
+- The data science revolution is about creating analysis datasets from many pieces of structured, semi-structured, and unstructured data.
+- But processing all this semi-structured data requires a lot of complex (and often tedious) data manipulation. 
+
+<br>
+
+
+**Another annoying thing people say is that  "data science is 80% data cleaning and 20% analysis."** 
+
+- Excerpts from a 2014 New York Times article, ["For Big-Data Scientists, ‘Janitor Work’ Is Key Hurdle to Insights"](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html):
+
+> Much handcrafted work — what data scientists call “data wrangling,” “data munging” and “data janitor work” — is still required. Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in this more mundane labor of collecting and preparing unruly digital data, before it can be explored for useful nuggets.
+
+> “Data wrangling is a huge — and surprisingly so — part of the job,” said Monica Rogati, vice president for data science at Jawbone, whose sensor-filled wristband and software track activity, sleep and food consumption, and suggest dietary and health tips based on the numbers. “It’s something that is not appreciated by data civilians. At times, it feels like everything we do.”
+
+> “It’s an absolute myth that you can send an algorithm over raw data and have insights pop up,” said Jeffrey Heer, a professor of computer science at the University of Washington and a co-founder of Trifacta, a start-up based in San Francisco.
+
+> But if the value [of data science] comes from combining different data sets, so does the headache. Data from sensors, documents, the web and conventional databases all come in different formats. Before a software algorithm can go looking for answers, the data must be cleaned up and converted into a unified form that the algorithm can understand.
+
+> “Practically, because of the diversity of data, you spend a lot of your time being a data janitor, before you can get to the cool, sexy things that got you into the field in the first place,” said Matt Mohebbi, a data scientist and co-founder of Iodine.
+
+<br>
+
+**So why learn regular expressions? Because regular expressions are THE preeminent tool for identifying data patterns, and cleaning/transforming "noisy" data**
+
+- Most programmers I speak to talk about regular expressions as one of the most important tools for a programmer to learn
+- One could argue that regular expressions are a fundamental driver of the data science revolution, in that they are what made it possible to format and integrate diverse data sources into analysis datasets (I don't know if that is true, but it seems reasonable!)
+- For example, web-scraping is fundamentally an application of regular expressions. Grabbing data from the internet is usually very easy. The hard part is processing all that html code into something that can be analyzed.
+
+
+<br>
 
 # What are regular expressions? 
 

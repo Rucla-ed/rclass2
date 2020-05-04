@@ -59,98 +59,98 @@ glimpse(p12_full_df)
 ```
 
 ```
-## Rows: 328
-## Columns: 90
-## $ user_id                 <chr> "22080148", "22080148", "22080148", "22080148…
-## $ status_id               <chr> "1254177694599675904", "1253431405993840646",…
-## $ created_at              <dttm> 2020-04-25 22:37:18, 2020-04-23 21:11:49, 20…
-## $ screen_name             <chr> "WSUPullman", "WSUPullman", "WSUPullman", "WS…
-## $ text                    <chr> "Big Dez is headed to Indy!\n\n#GoCougs | #NF…
-## $ source                  <chr> "Twitter for iPhone", "Twitter Web App", "Twi…
-## $ display_text_width      <dbl> 125, 58, 246, 83, 56, 64, 156, 271, 69, 140, …
-## $ reply_to_status_id      <chr> NA, NA, NA, NA, NA, NA, NA, NA, "125261586265…
-## $ reply_to_user_id        <chr> NA, NA, NA, NA, NA, NA, NA, NA, "22080148", N…
-## $ reply_to_screen_name    <chr> NA, NA, NA, NA, NA, NA, NA, NA, "WSUPullman",…
-## $ is_quote                <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL…
-## $ is_retweet              <lgl> TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS…
-## $ favorite_count          <int> 0, 322, 30, 55, 186, 53, 22, 44, 11, 0, 69, 4…
-## $ retweet_count           <int> 230, 32, 1, 5, 0, 3, 2, 6, 2, 6, 3, 4, 5, 5, …
-## $ quote_count             <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-## $ reply_count             <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-## $ hashtags                <list> [<"GoCougs", "NFLDraft2020", "NFLCougs">, <"…
-## $ symbols                 <list> [NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-## $ urls_url                <list> [NA, NA, NA, NA, NA, NA, NA, "commencement.w…
-## $ urls_t.co               <list> [NA, NA, NA, NA, NA, NA, NA, "https://t.co/R…
-## $ urls_expanded_url       <list> [NA, NA, NA, NA, NA, NA, NA, "https://commen…
-## $ media_url               <list> ["http://pbs.twimg.com/ext_tw_video_thumb/12…
-## $ media_t.co              <list> ["https://t.co/NdGsvXnij7", "https://t.co/0O…
-## $ media_expanded_url      <list> ["https://twitter.com/WSUCougarFB/status/125…
-## $ media_type              <list> ["photo", "photo", "photo", "photo", "photo"…
-## $ ext_media_url           <list> ["http://pbs.twimg.com/ext_tw_video_thumb/12…
-## $ ext_media_t.co          <list> ["https://t.co/NdGsvXnij7", "https://t.co/0O…
-## $ ext_media_expanded_url  <list> ["https://twitter.com/WSUCougarFB/status/125…
-## $ ext_media_type          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-## $ mentions_user_id        <list> [<"1250265324", "1409024796", "180884045">, …
-## $ mentions_screen_name    <list> [<"WSUCougarFB", "dadpat7", "Colts">, NA, "W…
-## $ lang                    <chr> "en", "en", "en", "en", "en", "en", "en", "en…
-## $ quoted_status_id        <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "1252…
-## $ quoted_text             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "My W…
-## $ quoted_created_at       <dttm> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2020…
-## $ quoted_source           <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Twit…
-## $ quoted_favorite_count   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 209, …
-## $ quoted_retweet_count    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 6, NA…
-## $ quoted_user_id          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "4394…
-## $ quoted_screen_name      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "madd…
-## $ quoted_name             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Madd…
-## $ quoted_followers_count  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 629, …
-## $ quoted_friends_count    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 382, …
-## $ quoted_statuses_count   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 8881,…
-## $ quoted_location         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Seat…
-## $ quoted_description      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "WSU …
-## $ quoted_verified         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, FALSE…
-## $ retweet_status_id       <chr> "1254159118996127746", NA, NA, NA, NA, NA, NA…
-## $ retweet_text            <chr> "Big Dez is headed to Indy!\n\n#GoCougs | #NF…
-## $ retweet_created_at      <dttm> 2020-04-25 21:23:29, NA, NA, NA, NA, NA, NA,…
-## $ retweet_source          <chr> "Twitter for iPhone", NA, NA, NA, NA, NA, NA,…
-## $ retweet_favorite_count  <int> 1402, NA, NA, NA, NA, NA, NA, NA, NA, 26, NA,…
-## $ retweet_retweet_count   <int> 230, NA, NA, NA, NA, NA, NA, NA, NA, 6, NA, N…
-## $ retweet_user_id         <chr> "1250265324", NA, NA, NA, NA, NA, NA, NA, NA,…
-## $ retweet_screen_name     <chr> "WSUCougarFB", NA, NA, NA, NA, NA, NA, NA, NA…
-## $ retweet_name            <chr> "Washington State Football", NA, NA, NA, NA, …
-## $ retweet_followers_count <int> 77527, NA, NA, NA, NA, NA, NA, NA, NA, 996, N…
-## $ retweet_friends_count   <int> 1448, NA, NA, NA, NA, NA, NA, NA, NA, 316, NA…
-## $ retweet_statuses_count  <int> 15363, NA, NA, NA, NA, NA, NA, NA, NA, 1666, …
-## $ retweet_location        <chr> "Pullman, WA", NA, NA, NA, NA, NA, NA, NA, NA…
-## $ retweet_description     <chr> "Official Twitter home of Washington State Co…
-## $ retweet_verified        <lgl> TRUE, NA, NA, NA, NA, NA, NA, NA, NA, FALSE, …
-## $ place_url               <chr> NA, NA, NA, NA, NA, "https://api.twitter.com/…
-## $ place_name              <chr> NA, NA, NA, NA, NA, "Pullman", NA, NA, NA, NA…
-## $ place_full_name         <chr> NA, NA, NA, NA, NA, "Pullman, WA", NA, NA, NA…
-## $ place_type              <chr> NA, NA, NA, NA, NA, "city", NA, NA, NA, NA, "…
-## $ country                 <chr> NA, NA, NA, NA, NA, "United States", NA, NA, …
-## $ country_code            <chr> NA, NA, NA, NA, NA, "US", NA, NA, NA, NA, "US…
-## $ geo_coords              <list> [<NA, NA>, <NA, NA>, <NA, NA>, <NA, NA>, <NA…
-## $ coords_coords           <list> [<NA, NA>, <NA, NA>, <NA, NA>, <NA, NA>, <NA…
-## $ bbox_coords             <list> [<NA, NA, NA, NA, NA, NA, NA, NA>, <NA, NA, …
-## $ status_url              <chr> "https://twitter.com/WSUPullman/status/125417…
-## $ name                    <chr> "WSU Pullman", "WSU Pullman", "WSU Pullman", …
-## $ location                <chr> "Pullman, Washington USA", "Pullman, Washingt…
-## $ description             <chr> "We are an award-winning research university …
-## $ url                     <chr> "http://t.co/VxKZH9BuMS", "http://t.co/VxKZH9…
-## $ protected               <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL…
-## $ followers_count         <int> 43914, 43914, 43914, 43914, 43914, 43914, 439…
-## $ friends_count           <int> 9717, 9717, 9717, 9717, 9717, 9717, 9717, 971…
-## $ listed_count            <int> 556, 556, 556, 556, 556, 556, 556, 556, 556, …
-## $ statuses_count          <int> 15234, 15234, 15234, 15234, 15234, 15234, 152…
-## $ favourites_count        <int> 20124, 20124, 20124, 20124, 20124, 20124, 201…
-## $ account_created_at      <dttm> 2009-02-26 23:39:34, 2009-02-26 23:39:34, 20…
-## $ verified                <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
-## $ profile_url             <chr> "http://t.co/VxKZH9BuMS", "http://t.co/VxKZH9…
-## $ profile_expanded_url    <chr> "http://www.wsu.edu", "http://www.wsu.edu", "…
-## $ account_lang            <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-## $ profile_banner_url      <chr> "https://pbs.twimg.com/profile_banners/220801…
-## $ profile_background_url  <chr> "http://abs.twimg.com/images/themes/theme5/bg…
-## $ profile_image_url       <chr> "http://pbs.twimg.com/profile_images/57650290…
+## Observations: 328
+## Variables: 90
+## $ user_id                 <chr> "22080148", "22080148", "22080148", "220801...
+## $ status_id               <chr> "1254177694599675904", "1253431405993840646...
+## $ created_at              <dttm> 2020-04-25 22:37:18, 2020-04-23 21:11:49, ...
+## $ screen_name             <chr> "WSUPullman", "WSUPullman", "WSUPullman", "...
+## $ text                    <chr> "Big Dez is headed to Indy!\n\n#GoCougs | #...
+## $ source                  <chr> "Twitter for iPhone", "Twitter Web App", "T...
+## $ display_text_width      <dbl> 125, 58, 246, 83, 56, 64, 156, 271, 69, 140...
+## $ reply_to_status_id      <chr> NA, NA, NA, NA, NA, NA, NA, NA, "1252615862...
+## $ reply_to_user_id        <chr> NA, NA, NA, NA, NA, NA, NA, NA, "22080148",...
+## $ reply_to_screen_name    <chr> NA, NA, NA, NA, NA, NA, NA, NA, "WSUPullman...
+## $ is_quote                <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F...
+## $ is_retweet              <lgl> TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FA...
+## $ favorite_count          <int> 0, 322, 30, 55, 186, 53, 22, 44, 11, 0, 69,...
+## $ retweet_count           <int> 230, 32, 1, 5, 0, 3, 2, 6, 2, 6, 3, 4, 5, 5...
+## $ quote_count             <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ reply_count             <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ hashtags                <list> [<"GoCougs", "NFLDraft2020", "NFLCougs">, ...
+## $ symbols                 <list> [NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N...
+## $ urls_url                <list> [NA, NA, NA, NA, NA, NA, NA, "commencement...
+## $ urls_t.co               <list> [NA, NA, NA, NA, NA, NA, NA, "https://t.co...
+## $ urls_expanded_url       <list> [NA, NA, NA, NA, NA, NA, NA, "https://comm...
+## $ media_url               <list> ["http://pbs.twimg.com/ext_tw_video_thumb/...
+## $ media_t.co              <list> ["https://t.co/NdGsvXnij7", "https://t.co/...
+## $ media_expanded_url      <list> ["https://twitter.com/WSUCougarFB/status/1...
+## $ media_type              <list> ["photo", "photo", "photo", "photo", "phot...
+## $ ext_media_url           <list> ["http://pbs.twimg.com/ext_tw_video_thumb/...
+## $ ext_media_t.co          <list> ["https://t.co/NdGsvXnij7", "https://t.co/...
+## $ ext_media_expanded_url  <list> ["https://twitter.com/WSUCougarFB/status/1...
+## $ ext_media_type          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ mentions_user_id        <list> [<"1250265324", "1409024796", "180884045">...
+## $ mentions_screen_name    <list> [<"WSUCougarFB", "dadpat7", "Colts">, NA, ...
+## $ lang                    <chr> "en", "en", "en", "en", "en", "en", "en", "...
+## $ quoted_status_id        <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "12...
+## $ quoted_text             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "My...
+## $ quoted_created_at       <dttm> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 20...
+## $ quoted_source           <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Tw...
+## $ quoted_favorite_count   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 209...
+## $ quoted_retweet_count    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 6, ...
+## $ quoted_user_id          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "43...
+## $ quoted_screen_name      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "ma...
+## $ quoted_name             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Ma...
+## $ quoted_followers_count  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 629...
+## $ quoted_friends_count    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 382...
+## $ quoted_statuses_count   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 888...
+## $ quoted_location         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Se...
+## $ quoted_description      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "WS...
+## $ quoted_verified         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, FAL...
+## $ retweet_status_id       <chr> "1254159118996127746", NA, NA, NA, NA, NA, ...
+## $ retweet_text            <chr> "Big Dez is headed to Indy!\n\n#GoCougs | #...
+## $ retweet_created_at      <dttm> 2020-04-25 21:23:29, NA, NA, NA, NA, NA, N...
+## $ retweet_source          <chr> "Twitter for iPhone", NA, NA, NA, NA, NA, N...
+## $ retweet_favorite_count  <int> 1402, NA, NA, NA, NA, NA, NA, NA, NA, 26, N...
+## $ retweet_retweet_count   <int> 230, NA, NA, NA, NA, NA, NA, NA, NA, 6, NA,...
+## $ retweet_user_id         <chr> "1250265324", NA, NA, NA, NA, NA, NA, NA, N...
+## $ retweet_screen_name     <chr> "WSUCougarFB", NA, NA, NA, NA, NA, NA, NA, ...
+## $ retweet_name            <chr> "Washington State Football", NA, NA, NA, NA...
+## $ retweet_followers_count <int> 77527, NA, NA, NA, NA, NA, NA, NA, NA, 996,...
+## $ retweet_friends_count   <int> 1448, NA, NA, NA, NA, NA, NA, NA, NA, 316, ...
+## $ retweet_statuses_count  <int> 15363, NA, NA, NA, NA, NA, NA, NA, NA, 1666...
+## $ retweet_location        <chr> "Pullman, WA", NA, NA, NA, NA, NA, NA, NA, ...
+## $ retweet_description     <chr> "Official Twitter home of Washington State ...
+## $ retweet_verified        <lgl> TRUE, NA, NA, NA, NA, NA, NA, NA, NA, FALSE...
+## $ place_url               <chr> NA, NA, NA, NA, NA, "https://api.twitter.co...
+## $ place_name              <chr> NA, NA, NA, NA, NA, "Pullman", NA, NA, NA, ...
+## $ place_full_name         <chr> NA, NA, NA, NA, NA, "Pullman, WA", NA, NA, ...
+## $ place_type              <chr> NA, NA, NA, NA, NA, "city", NA, NA, NA, NA,...
+## $ country                 <chr> NA, NA, NA, NA, NA, "United States", NA, NA...
+## $ country_code            <chr> NA, NA, NA, NA, NA, "US", NA, NA, NA, NA, "...
+## $ geo_coords              <list> [<NA, NA>, <NA, NA>, <NA, NA>, <NA, NA>, <...
+## $ coords_coords           <list> [<NA, NA>, <NA, NA>, <NA, NA>, <NA, NA>, <...
+## $ bbox_coords             <list> [<NA, NA, NA, NA, NA, NA, NA, NA>, <NA, NA...
+## $ status_url              <chr> "https://twitter.com/WSUPullman/status/1254...
+## $ name                    <chr> "WSU Pullman", "WSU Pullman", "WSU Pullman"...
+## $ location                <chr> "Pullman, Washington USA", "Pullman, Washin...
+## $ description             <chr> "We are an award-winning research universit...
+## $ url                     <chr> "http://t.co/VxKZH9BuMS", "http://t.co/VxKZ...
+## $ protected               <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F...
+## $ followers_count         <int> 43914, 43914, 43914, 43914, 43914, 43914, 4...
+## $ friends_count           <int> 9717, 9717, 9717, 9717, 9717, 9717, 9717, 9...
+## $ listed_count            <int> 556, 556, 556, 556, 556, 556, 556, 556, 556...
+## $ statuses_count          <int> 15234, 15234, 15234, 15234, 15234, 15234, 1...
+## $ favourites_count        <int> 20124, 20124, 20124, 20124, 20124, 20124, 2...
+## $ account_created_at      <dttm> 2009-02-26 23:39:34, 2009-02-26 23:39:34, ...
+## $ verified                <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, T...
+## $ profile_url             <chr> "http://t.co/VxKZH9BuMS", "http://t.co/VxKZ...
+## $ profile_expanded_url    <chr> "http://www.wsu.edu", "http://www.wsu.edu",...
+## $ account_lang            <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,...
+## $ profile_banner_url      <chr> "https://pbs.twimg.com/profile_banners/2208...
+## $ profile_background_url  <chr> "http://abs.twimg.com/images/themes/theme5/...
+## $ profile_image_url       <chr> "http://pbs.twimg.com/profile_images/576502...
 ```
 
 ```r
@@ -162,12 +162,12 @@ head(p12_df)
 ## # A tibble: 6 x 5
 ##   user_id  created_at          screen_name text                     location    
 ##   <chr>    <dttm>              <chr>       <chr>                    <chr>       
-## 1 22080148 2020-04-25 22:37:18 WSUPullman  "Big Dez is headed to I… Pullman, Wa…
-## 2 22080148 2020-04-23 21:11:49 WSUPullman  "Cougar Cheese. That's … Pullman, Wa…
-## 3 22080148 2020-04-21 04:00:00 WSUPullman  "Darien McLaughlin '19,… Pullman, Wa…
-## 4 22080148 2020-04-24 03:00:00 WSUPullman  "6 houses, one pick. Co… Pullman, Wa…
-## 5 22080148 2020-04-20 19:00:21 WSUPullman  "Why did you choose to … Pullman, Wa…
-## 6 22080148 2020-04-20 02:20:01 WSUPullman  "Tell us one of your Br… Pullman, Wa…
+## 1 22080148 2020-04-25 22:37:18 WSUPullman  "Big Dez is headed to I~ Pullman, Wa~
+## 2 22080148 2020-04-23 21:11:49 WSUPullman  "Cougar Cheese. That's ~ Pullman, Wa~
+## 3 22080148 2020-04-21 04:00:00 WSUPullman  "Darien McLaughlin '19,~ Pullman, Wa~
+## 4 22080148 2020-04-24 03:00:00 WSUPullman  6 houses, one pick. Cou~ Pullman, Wa~
+## 5 22080148 2020-04-20 19:00:21 WSUPullman  "Why did you choose to ~ Pullman, Wa~
+## 6 22080148 2020-04-20 02:20:01 WSUPullman  "Tell us one of your Br~ Pullman, Wa~
 ```
 
 
@@ -980,9 +980,9 @@ p12_df$text[1:3]
 ```
 
 ```
-## [1] "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 | @Colts | #NFLCougs https://t.co/NdGsvXnij7"                                                                                                                                                                                  
-## [2] "Cougar Cheese. That's it. That's the tweet. \U0001f9c0#WSU #GoCougs https://t.co/0OWGvQlRZs"                                                                                                                                                                                                     
-## [3] "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge who was leading the way.\U0001f6b6‍♀️\U0001f415\n\nTweet a pic of how you are social distancing w/ the hashtag #CougsContain &amp; tag @WSUPullman #GoCougs https://t.co/EltXDy1tPt"
+## [1] "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 | @Colts | #NFLCougs https://t.co/NdGsvXnij7"                                                                                                                                                                
+## [2] "Cougar Cheese. That's it. That's the tweet. <U+0001F9C0>#WSU #GoCougs https://t.co/0OWGvQlRZs"                                                                                                                                                                                 
+## [3] "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge who was leading the way.<U+0001F6B6><U+200D><U+2640><U+FE0F><U+0001F415>\n\nTweet a pic of how you are social distancing w/ the hashtag #CougsContain &amp; tag @WSUPullman #GoCougs https://t.co/EltXDy1tPt"
 ```
 
 
@@ -996,8 +996,8 @@ writeLines(p12_df$text[1:3])
 ## Big Dez is headed to Indy!
 ## 
 ## #GoCougs | #NFLDraft2020 | @dadpat7 | @Colts | #NFLCougs https://t.co/NdGsvXnij7
-## Cougar Cheese. That's it. That's the tweet. 🧀#WSU #GoCougs https://t.co/0OWGvQlRZs
-## Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge who was leading the way.🚶‍♀️🐕
+## Cougar Cheese. That's it. That's the tweet. <U+0001F9C0>#WSU #GoCougs https://t.co/0OWGvQlRZs
+## Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge who was leading the way.<U+0001F6B6><U+200D><U+2640><U+FE0F><U+0001F415>
 ## 
 ## Tweet a pic of how you are social distancing w/ the hashtag #CougsContain &amp; tag @WSUPullman #GoCougs https://t.co/EltXDy1tPt
 ```
@@ -1111,8 +1111,8 @@ text <- "This is a backslash \\"
 str_view(string = text, pattern = "\\\\")
 ```
 
-<!--html_preserve--><div id="htmlwidget-8859a08c5d9740846f4e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8859a08c5d9740846f4e">{"x":{"html":"<ul>\n  <li>This is a backslash <span class='match'>\\<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-b4bf47fc3e7b54eaad05" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b4bf47fc3e7b54eaad05">{"x":{"html":"<ul>\n  <li>This is a backslash <span class='match'>\\<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <br>
 
 ### `str_view` and `str_view_all`
@@ -1145,8 +1145,8 @@ str_view_all(string, pattern, match = NA)
 str_view(string = p12_df$text[119], pattern = ('\\"'))
 ```
 
-<!--html_preserve--><div id="htmlwidget-b60387c919bac0cef96b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b60387c919bac0cef96b">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-36062650eebf790d11f9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-36062650eebf790d11f9">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Notice how we can see all the regex pattern matches with `str_view_all`
 
@@ -1154,8 +1154,8 @@ Notice how we can see all the regex pattern matches with `str_view_all`
 str_view_all(string = p12_df$text[119], pattern = ('\\"'))
 ```
 
-<!--html_preserve--><div id="htmlwidget-d77c9b99a209c8ea93f7" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d77c9b99a209c8ea93f7">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.<span class='match'>\"<\/span>\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-01428213122648e9007d" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-01428213122648e9007d">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.<span class='match'>\"<\/span>\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 <br>
@@ -1166,8 +1166,8 @@ str_view_all(string = p12_df$text[119], pattern = ('\\"'))
 str_view_all(string = p12_df$text[119], pattern = ("\\n"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-cdb55d03e73fb5ef3fe2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cdb55d03e73fb5ef3fe2">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-824f19c440de9999b23b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-824f19c440de9999b23b">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -1178,8 +1178,8 @@ str_view_all(string = p12_df$text[119], pattern = ("\\n"))
 str_view_all(string = p12_df$text[119], pattern = ("\\."))
 ```
 
-<!--html_preserve--><div id="htmlwidget-ad72daa0e8f79d34c12f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ad72daa0e8f79d34c12f">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals<span class='match'>.<\/span>\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t<span class='match'>.<\/span>co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-d92527236bd33ffa0fd4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d92527236bd33ffa0fd4">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals<span class='match'>.<\/span>\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t<span class='match'>.<\/span>co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -1190,8 +1190,8 @@ str_view_all(string = p12_df$text[119], pattern = ("\\."))
 str_view_all(string = p12_df$text[119], pattern = ("\\s"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-f2b966390d686f2083fb" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f2b966390d686f2083fb">{"x":{"html":"<ul>\n  <li>\"I<span class='match'> <\/span>stand<span class='match'> <\/span>with<span class='match'> <\/span>my<span class='match'> <\/span>colleagues<span class='match'> <\/span>at<span class='match'> <\/span>@UW<span class='match'> <\/span>and<span class='match'> <\/span>America's<span class='match'> <\/span>leading<span class='match'> <\/span>research<span class='match'> <\/span>universities<span class='match'> <\/span>as<span class='match'> <\/span>they<span class='match'> <\/span>take<span class='match'> <\/span>fight<span class='match'> <\/span>to<span class='match'> <\/span>Covid-19<span class='match'> <\/span>in<span class='match'> <\/span>our<span class='match'> <\/span>labs<span class='match'> <\/span>and<span class='match'> <\/span>hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam<span class='match'> <\/span>x<span class='match'> <\/span>#AlwaysCompete<span class='match'> <\/span>x<span class='match'> <\/span>#GoHuskies<span class='match'> <\/span>https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-d176bb60f4b178fe9a5a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d176bb60f4b178fe9a5a">{"x":{"html":"<ul>\n  <li>\"I<span class='match'> <\/span>stand<span class='match'> <\/span>with<span class='match'> <\/span>my<span class='match'> <\/span>colleagues<span class='match'> <\/span>at<span class='match'> <\/span>@UW<span class='match'> <\/span>and<span class='match'> <\/span>America's<span class='match'> <\/span>leading<span class='match'> <\/span>research<span class='match'> <\/span>universities<span class='match'> <\/span>as<span class='match'> <\/span>they<span class='match'> <\/span>take<span class='match'> <\/span>fight<span class='match'> <\/span>to<span class='match'> <\/span>Covid-19<span class='match'> <\/span>in<span class='match'> <\/span>our<span class='match'> <\/span>labs<span class='match'> <\/span>and<span class='match'> <\/span>hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam<span class='match'> <\/span>x<span class='match'> <\/span>#AlwaysCompete<span class='match'> <\/span>x<span class='match'> <\/span>#GoHuskies<span class='match'> <\/span>https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -1202,8 +1202,8 @@ str_view_all(string = p12_df$text[119], pattern = ("\\s"))
 str_view_all(string = p12_df$text[119], pattern = ("\\b"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-1aaad6bbd691846a6c06" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1aaad6bbd691846a6c06">{"x":{"html":"<ul>\n  <li>\"<span class='match'><\/span>I<span class='match'><\/span> <span class='match'><\/span>stand<span class='match'><\/span> <span class='match'><\/span>with<span class='match'><\/span> <span class='match'><\/span>my<span class='match'><\/span> <span class='match'><\/span>colleagues<span class='match'><\/span> <span class='match'><\/span>at<span class='match'><\/span> @<span class='match'><\/span>UW<span class='match'><\/span> <span class='match'><\/span>and<span class='match'><\/span> <span class='match'><\/span>America<span class='match'><\/span>'<span class='match'><\/span>s<span class='match'><\/span> <span class='match'><\/span>leading<span class='match'><\/span> <span class='match'><\/span>research<span class='match'><\/span> <span class='match'><\/span>universities<span class='match'><\/span> <span class='match'><\/span>as<span class='match'><\/span> <span class='match'><\/span>they<span class='match'><\/span> <span class='match'><\/span>take<span class='match'><\/span> <span class='match'><\/span>fight<span class='match'><\/span> <span class='match'><\/span>to<span class='match'><\/span> <span class='match'><\/span>Covid<span class='match'><\/span>-<span class='match'><\/span>19<span class='match'><\/span> <span class='match'><\/span>in<span class='match'><\/span> <span class='match'><\/span>our<span class='match'><\/span> <span class='match'><\/span>labs<span class='match'><\/span> <span class='match'><\/span>and<span class='match'><\/span> <span class='match'><\/span>hospitals<span class='match'><\/span>.\"\n\n#<span class='match'><\/span>ProudToBeOnTheirTeam<span class='match'><\/span> <span class='match'><\/span>x<span class='match'><\/span> #<span class='match'><\/span>AlwaysCompete<span class='match'><\/span> <span class='match'><\/span>x<span class='match'><\/span> #<span class='match'><\/span>GoHuskies<span class='match'><\/span> <span class='match'><\/span>https<span class='match'><\/span>://<span class='match'><\/span>t<span class='match'><\/span>.<span class='match'><\/span>co<span class='match'><\/span>/<span class='match'><\/span>4YSf4SpPe0<span class='match'><\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-37113d96539d6770f9da" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-37113d96539d6770f9da">{"x":{"html":"<ul>\n  <li>\"<span class='match'><\/span>I<span class='match'><\/span> <span class='match'><\/span>stand<span class='match'><\/span> <span class='match'><\/span>with<span class='match'><\/span> <span class='match'><\/span>my<span class='match'><\/span> <span class='match'><\/span>colleagues<span class='match'><\/span> <span class='match'><\/span>at<span class='match'><\/span> @<span class='match'><\/span>UW<span class='match'><\/span> <span class='match'><\/span>and<span class='match'><\/span> <span class='match'><\/span>America<span class='match'><\/span>'<span class='match'><\/span>s<span class='match'><\/span> <span class='match'><\/span>leading<span class='match'><\/span> <span class='match'><\/span>research<span class='match'><\/span> <span class='match'><\/span>universities<span class='match'><\/span> <span class='match'><\/span>as<span class='match'><\/span> <span class='match'><\/span>they<span class='match'><\/span> <span class='match'><\/span>take<span class='match'><\/span> <span class='match'><\/span>fight<span class='match'><\/span> <span class='match'><\/span>to<span class='match'><\/span> <span class='match'><\/span>Covid<span class='match'><\/span>-<span class='match'><\/span>19<span class='match'><\/span> <span class='match'><\/span>in<span class='match'><\/span> <span class='match'><\/span>our<span class='match'><\/span> <span class='match'><\/span>labs<span class='match'><\/span> <span class='match'><\/span>and<span class='match'><\/span> <span class='match'><\/span>hospitals<span class='match'><\/span>.\"\n\n#<span class='match'><\/span>ProudToBeOnTheirTeam<span class='match'><\/span> <span class='match'><\/span>x<span class='match'><\/span> #<span class='match'><\/span>AlwaysCompete<span class='match'><\/span> <span class='match'><\/span>x<span class='match'><\/span> #<span class='match'><\/span>GoHuskies<span class='match'><\/span> <span class='match'><\/span>https<span class='match'><\/span>://<span class='match'><\/span>t<span class='match'><\/span>.<span class='match'><\/span>co<span class='match'><\/span>/<span class='match'><\/span>4YSf4SpPe0<span class='match'><\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -1214,8 +1214,8 @@ str_view_all(string = p12_df$text[119], pattern = ("\\b"))
 str_view_all(string = p12_df$text[119], pattern = ("\\d"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-dcadad4333cf8759152e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dcadad4333cf8759152e">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-<span class='match'>1<\/span><span class='match'>9<\/span> in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/<span class='match'>4<\/span>YSf<span class='match'>4<\/span>SpPe<span class='match'>0<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-439cf386630199421427" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-439cf386630199421427">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-<span class='match'>1<\/span><span class='match'>9<\/span> in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/<span class='match'>4<\/span>YSf<span class='match'>4<\/span>SpPe<span class='match'>0<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -1374,12 +1374,12 @@ str(p12_df)
 ```
 
 ```
-## tibble [328 × 5] (S3: tbl_df/tbl/data.frame)
-##  $ user_id    : chr [1:328] "22080148" "22080148" "22080148" "22080148" ...
-##  $ created_at : POSIXct[1:328], format: "2020-04-25 22:37:18" "2020-04-23 21:11:49" ...
-##  $ screen_name: chr [1:328] "WSUPullman" "WSUPullman" "WSUPullman" "WSUPullman" ...
-##  $ text       : chr [1:328] "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 | @Colts | #NFLCougs https://t.co/NdGsvXnij7" "Cougar Cheese. That's it. That's the tweet. \U0001f9c0#WSU #GoCougs https://t.co/0OWGvQlRZs" "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge "| __truncated__ "6 houses, one pick. Cougs, which one you got? Reply \u2b07️  #WSU #CougsContain #GoCougs https://t.co/lNDx7r71b2" ...
-##  $ location   : chr [1:328] "Pullman, Washington USA" "Pullman, Washington USA" "Pullman, Washington USA" "Pullman, Washington USA" ...
+## Classes 'tbl_df', 'tbl' and 'data.frame':	328 obs. of  5 variables:
+##  $ user_id    : chr  "22080148" "22080148" "22080148" "22080148" ...
+##  $ created_at : POSIXct, format: "2020-04-25 22:37:18" "2020-04-23 21:11:49" ...
+##  $ screen_name: chr  "WSUPullman" "WSUPullman" "WSUPullman" "WSUPullman" ...
+##  $ text       : chr  "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 | @Colts | #NFLCougs https://t.co/NdGsvXnij7" "Cougar Cheese. That's it. That's the tweet. <U+0001F9C0>#WSU #GoCougs https://t.co/0OWGvQlRZs" "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge "| __truncated__ "6 houses, one pick. Cougs, which one you got? Reply <U+2B07><U+FE0F>  #WSU #CougsContain #GoCougs https://t.co/lNDx7r71b2" ...
+##  $ location   : chr  "Pullman, Washington USA" "Pullman, Washington USA" "Pullman, Washington USA" "Pullman, Washington USA" ...
 ```
 
 ```r
@@ -1799,17 +1799,17 @@ p12_datetime_df
 ## # A tibble: 328 x 9
 ##    created_at          dt_chr date_chr yr_chr mth_chr day_chr hr_chr min_chr
 ##    <dttm>              <chr>  <chr>    <chr>  <chr>   <chr>   <chr>  <chr>  
-##  1 2020-04-25 22:37:18 2020-… 2020-04… 2020   04      25      22     37     
-##  2 2020-04-23 21:11:49 2020-… 2020-04… 2020   04      23      21     11     
-##  3 2020-04-21 04:00:00 2020-… 2020-04… 2020   04      21      04     00     
-##  4 2020-04-24 03:00:00 2020-… 2020-04… 2020   04      24      03     00     
-##  5 2020-04-20 19:00:21 2020-… 2020-04… 2020   04      20      19     00     
-##  6 2020-04-20 02:20:01 2020-… 2020-04… 2020   04      20      02     20     
-##  7 2020-04-22 04:00:00 2020-… 2020-04… 2020   04      22      04     00     
-##  8 2020-04-25 17:00:00 2020-… 2020-04… 2020   04      25      17     00     
-##  9 2020-04-21 15:13:06 2020-… 2020-04… 2020   04      21      15     13     
-## 10 2020-04-21 17:52:47 2020-… 2020-04… 2020   04      21      17     52     
-## # … with 318 more rows, and 1 more variable: sec_chr <chr>
+##  1 2020-04-25 22:37:18 2020-~ 2020-04~ 2020   04      25      22     37     
+##  2 2020-04-23 21:11:49 2020-~ 2020-04~ 2020   04      23      21     11     
+##  3 2020-04-21 04:00:00 2020-~ 2020-04~ 2020   04      21      04     00     
+##  4 2020-04-24 03:00:00 2020-~ 2020-04~ 2020   04      24      03     00     
+##  5 2020-04-20 19:00:21 2020-~ 2020-04~ 2020   04      20      19     00     
+##  6 2020-04-20 02:20:01 2020-~ 2020-04~ 2020   04      20      02     20     
+##  7 2020-04-22 04:00:00 2020-~ 2020-04~ 2020   04      22      04     00     
+##  8 2020-04-25 17:00:00 2020-~ 2020-04~ 2020   04      25      17     00     
+##  9 2020-04-21 15:13:06 2020-~ 2020-04~ 2020   04      21      15     13     
+## 10 2020-04-21 17:52:47 2020-~ 2020-04~ 2020   04      21      17     52     
+## # ... with 318 more rows, and 1 more variable: sec_chr <chr>
 ```
 
 </details>
@@ -1933,7 +1933,7 @@ str_trim(c("\nABC ", " XYZ\t"), side = "left")
 ```
 
 ```
-## [1] "ABC "  "XYZ\t"
+## [1] "ABC " "XYZ\t"
 ```
 
 ```r
@@ -2200,7 +2200,7 @@ p12_datetime_df %>% select(created_at, dt_chr, date_chr) %>%
 ##  8 2020-04-25 17:00:00 2020-04-25 17:00:00 2020-04-25 2020-04-25
 ##  9 2020-04-21 15:13:06 2020-04-21 15:13:06 2020-04-21 2020-04-21
 ## 10 2020-04-21 17:52:47 2020-04-21 17:52:47 2020-04-21 2020-04-21
-## # … with 318 more rows
+## # ... with 318 more rows
 ```
 
 </details>
@@ -2231,7 +2231,7 @@ p12_datetime_df %>% select(created_at, dt_chr) %>%
 ##  8 2020-04-25 17:00:00 2020-04-25 17:00:00 2020-04-25 17:00:00
 ##  9 2020-04-21 15:13:06 2020-04-21 15:13:06 2020-04-21 15:13:06
 ## 10 2020-04-21 17:52:47 2020-04-21 17:52:47 2020-04-21 17:52:47
-## # … with 318 more rows
+## # ... with 318 more rows
 ```
 
 </details>
@@ -2327,7 +2327,7 @@ p12_datetime_df %>% select(created_at, dt_chr, yr_chr, mth_chr, day_chr) %>%
 ##  8 2020-04-25 17:00:00 2020-04-25 17:00:00 2020   04      25      2020-04-25    
 ##  9 2020-04-21 15:13:06 2020-04-21 15:13:06 2020   04      21      2020-04-21    
 ## 10 2020-04-21 17:52:47 2020-04-21 17:52:47 2020   04      21      2020-04-21    
-## # … with 318 more rows
+## # ... with 318 more rows
 ```
 
 </details>
@@ -2363,7 +2363,7 @@ p12_datetime_df %>%
 ##  8 2020-04-25 17:00:00    2020   04      25      17     00      00     
 ##  9 2020-04-21 15:13:06    2020   04      21      15     13      06     
 ## 10 2020-04-21 17:52:47    2020   04      21      17     52      47     
-## # … with 318 more rows
+## # ... with 318 more rows
 ```
 
 </details>
@@ -2525,7 +2525,7 @@ p12_datetime_df %>% select(created_at) %>%
 ##  8 2020-04-25 17:00:00   2020       4      25     17       0       0 PM   
 ##  9 2020-04-21 15:13:06   2020       4      21     15      13       6 PM   
 ## 10 2020-04-21 17:52:47   2020       4      21     17      52      47 PM   
-## # … with 318 more rows
+## # ... with 318 more rows
 ```
 
 </details>
@@ -2764,10 +2764,54 @@ scorpio_start + ddays(30) + dhours(1)
 </details>
 
 # Why use Regular Expressions (Regex)  
+
 [![](http://a.yu8.us/xkcd-208-regular_expressions.png)](https://www.rexegg.com/regex-humor.html)  
 
 *Credit: Regex Humor ([Rex Egg](https://www.rexegg.com/regex-humor.html))*
-  
+
+
+In her popular [STAT545 class](https://stat545.com/character-vectors.html#regular-expressions-resources) Jenny Bryan, professor of statistics at University of British Columbia, describes regular expressions as:
+
+> A God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.”
+
+Yes, learning regular expressions is painful. So why are we making you do this? Because regular expressions are a  fundamental building block of data science
+
+<br>
+
+**An annoying thing people say is that data science is about trying to find the "*signal* in the *noise*"**
+
+- *Noisy data* "is data with a large amount of additional meaningless information in it called noise" [Wikipedia](https://en.wikipedia.org/wiki/Noisy_data)
+- Prior to data science revolution, quant people thought of “data” as something in columns and rows
+- The data science revolution is about creating analysis datasets from many pieces of structured, semi-structured, and unstructured data.
+- But processing all this semi-structured data requires a lot of complex (and often tedious) data manipulation. 
+
+<br>
+
+
+**Another annoying thing people say is that  "data science is 80% data cleaning and 20% analysis."** 
+
+- Excerpts from a 2014 New York Times article, ["For Big-Data Scientists, ‘Janitor Work’ Is Key Hurdle to Insights"](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html):
+
+> Much handcrafted work — what data scientists call “data wrangling,” “data munging” and “data janitor work” — is still required. Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in this more mundane labor of collecting and preparing unruly digital data, before it can be explored for useful nuggets.
+
+> “Data wrangling is a huge — and surprisingly so — part of the job,” said Monica Rogati, vice president for data science at Jawbone, whose sensor-filled wristband and software track activity, sleep and food consumption, and suggest dietary and health tips based on the numbers. “It’s something that is not appreciated by data civilians. At times, it feels like everything we do.”
+
+> “It’s an absolute myth that you can send an algorithm over raw data and have insights pop up,” said Jeffrey Heer, a professor of computer science at the University of Washington and a co-founder of Trifacta, a start-up based in San Francisco.
+
+> But if the value [of data science] comes from combining different data sets, so does the headache. Data from sensors, documents, the web and conventional databases all come in different formats. Before a software algorithm can go looking for answers, the data must be cleaned up and converted into a unified form that the algorithm can understand.
+
+> “Practically, because of the diversity of data, you spend a lot of your time being a data janitor, before you can get to the cool, sexy things that got you into the field in the first place,” said Matt Mohebbi, a data scientist and co-founder of Iodine.
+
+<br>
+
+**So why learn regular expressions? Because regular expressions are THE preeminent tool for identifying data patterns, and cleaning/transforming "noisy" data**
+
+- Most programmers I speak to talk about regular expressions as one of the most important tools for a programmer to learn
+- One could argue that regular expressions are a fundamental driver of the data science revolution, in that they are what made it possible to format and integrate diverse data sources into analysis datasets (I don't know if that is true, but it seems reasonable!)
+- For example, web-scraping is fundamentally an application of regular expressions. Grabbing data from the internet is usually very easy. The hard part is processing all that html code into something that can be analyzed.
+
+
+<br>
 
 # What are regular expressions? 
 
@@ -2835,8 +2879,8 @@ Using double backslashes `\\` followed by the letter `s` and then another double
 str_view_all(string = p12_df$text[39], pattern = "\\s\\w")
 ```
 
-<!--html_preserve--><div id="htmlwidget-758182a0744ec6ecdec8" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-758182a0744ec6ecdec8">{"x":{"html":"<ul>\n  <li>Meet<span class='match'> L<\/span>uke! “No<span class='match'> m<\/span>atter<span class='match'> w<\/span>here<span class='match'> y<\/span>ou’re<span class='match'> f<\/span>rom, @UCBerkeley<span class='match'> i<\/span>s<span class='match'> a<\/span><span class='match'> p<\/span>lace<span class='match'> t<\/span>hat<span class='match'> w<\/span>ill<span class='match'> t<\/span>ake<span class='match'> y<\/span>ou<span class='match'> o<\/span>ut<span class='match'> o<\/span>f<span class='match'> y<\/span>our<span class='match'> c<\/span>omfort<span class='match'> z<\/span>one<span class='match'> a<\/span>nd<span class='match'> s<\/span>hape<span class='match'> y<\/span>ou<span class='match'> i<\/span>nto<span class='match'> y<\/span>our<span class='match'> b<\/span>est<span class='match'> s<\/span>elf” #IamBerkeley \n<span class='match'>\nH<\/span>ere’s<span class='match'> L<\/span>uke<span class='match'> o<\/span>n<span class='match'> h<\/span>is<span class='match'> f<\/span>irst<span class='match'> d<\/span>ay<span class='match'> a<\/span>t<span class='match'> B<\/span>erkeley<span class='match'> i<\/span>n<span class='match'> h<\/span>is<span class='match'> d<\/span>orm,<span class='match'> p<\/span>osing<span class='match'> w<\/span>ith<span class='match'> t<\/span>he<span class='match'> a<\/span>xe<span class='match'> a<\/span>fter<span class='match'> o<\/span>ur<span class='match'> b<\/span>ig<span class='match'> f<\/span>ootball<span class='match'> g<\/span>ame<span class='match'> w<\/span>in<span class='match'> a<\/span>nd<span class='match'> p<\/span>resent<span class='match'> d<\/span>ay!<span class='match'> h<\/span>ttps://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-77920b18767302f9f884" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-77920b18767302f9f884">{"x":{"html":"<ul>\n  <li>Meet<span class='match'> L<\/span>uke! “No<span class='match'> m<\/span>atter<span class='match'> w<\/span>here<span class='match'> y<\/span>ou’re<span class='match'> f<\/span>rom, @UCBerkeley<span class='match'> i<\/span>s<span class='match'> a<\/span><span class='match'> p<\/span>lace<span class='match'> t<\/span>hat<span class='match'> w<\/span>ill<span class='match'> t<\/span>ake<span class='match'> y<\/span>ou<span class='match'> o<\/span>ut<span class='match'> o<\/span>f<span class='match'> y<\/span>our<span class='match'> c<\/span>omfort<span class='match'> z<\/span>one<span class='match'> a<\/span>nd<span class='match'> s<\/span>hape<span class='match'> y<\/span>ou<span class='match'> i<\/span>nto<span class='match'> y<\/span>our<span class='match'> b<\/span>est<span class='match'> s<\/span>elf” #IamBerkeley \n<span class='match'>\nH<\/span>ere’s<span class='match'> L<\/span>uke<span class='match'> o<\/span>n<span class='match'> h<\/span>is<span class='match'> f<\/span>irst<span class='match'> d<\/span>ay<span class='match'> a<\/span>t<span class='match'> B<\/span>erkeley<span class='match'> i<\/span>n<span class='match'> h<\/span>is<span class='match'> d<\/span>orm,<span class='match'> p<\/span>osing<span class='match'> w<\/span>ith<span class='match'> t<\/span>he<span class='match'> a<\/span>xe<span class='match'> a<\/span>fter<span class='match'> o<\/span>ur<span class='match'> b<\/span>ig<span class='match'> f<\/span>ootball<span class='match'> g<\/span>ame<span class='match'> w<\/span>in<span class='match'> a<\/span>nd<span class='match'> p<\/span>resent<span class='match'> d<\/span>ay!<span class='match'> h<\/span>ttps://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Now let's search for non words. 
 
@@ -2844,8 +2888,8 @@ Now let's search for non words.
 str_view_all(string = p12_df$text[39], pattern = "\\s\\W")
 ```
 
-<!--html_preserve--><div id="htmlwidget-ba58287cb318bdf032f2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ba58287cb318bdf032f2">{"x":{"html":"<ul>\n  <li>Meet Luke!<span class='match'> “<\/span>No matter where you’re from,<span class='match'> @<\/span>UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self”<span class='match'> #<\/span>IamBerkeley<span class='match'> \n<\/span>\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day! https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-22227720a1f298e18c9e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-22227720a1f298e18c9e">{"x":{"html":"<ul>\n  <li>Meet Luke!<span class='match'> “<\/span>No matter where you’re from,<span class='match'> @<\/span>UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self”<span class='match'> #<\/span>IamBerkeley<span class='match'> \n<\/span>\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day! https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 __Student exercise__
 
@@ -2858,8 +2902,8 @@ __Student exercise__
 str_view_all(string = p12_df$text[39], pattern = ("\\d\\w"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-0b4838085eed15f7b00b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0b4838085eed15f7b00b">{"x":{"html":"<ul>\n  <li>Meet Luke! “No matter where you’re from, @UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self” #IamBerkeley \n\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day! https://t.co/<span class='match'>2f<\/span>O<span class='match'>2h<\/span>RnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-c184bba82a2210536e02" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c184bba82a2210536e02">{"x":{"html":"<ul>\n  <li>Meet Luke! “No matter where you’re from, @UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self” #IamBerkeley \n\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day! https://t.co/<span class='match'>2f<\/span>O<span class='match'>2h<\/span>RnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -2888,8 +2932,8 @@ writeLines(p12_df$text[32])
 ```
 ## Curious as to what your next steps are after being admitted to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! 
 ## 
-## 🕑 2pm today
-## 💻 https://t.co/YukY37REyd
+## <U+0001F551> 2pm today
+## <U+0001F4BB> https://t.co/YukY37REyd
 ```
 
 In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for a pattern that begins with a space and is followed by a non word one or more times. 
@@ -2899,8 +2943,8 @@ In the `str_view_all` function below we use the `+` to search for a pattern one 
 str_view_all(string = p12_df$text[32], pattern = "\\s\\W+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-98491066b7804f86dbae" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-98491066b7804f86dbae">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to<span class='match'> @<\/span>UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision<span class='match'> &<\/span>amp; officially become a<span class='match'> #<\/span>BerkeleyBound student!<span class='match'> \n\n🕑 <\/span>2pm today<span class='match'>\n💻 <\/span>https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-5780170032f5ffdf271b" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5780170032f5ffdf271b">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to<span class='match'> @<\/span>UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision<span class='match'> &<\/span>amp; officially become a<span class='match'> #<\/span>BerkeleyBound student!<span class='match'> \n\n🕑 <\/span>2pm today<span class='match'>\n💻 <\/span>https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Say we wanted to search for the letter t exactly 2 times in the string. 
 
@@ -2908,8 +2952,8 @@ Say we wanted to search for the letter t exactly 2 times in the string.
 str_view_all(string = p12_df$text[32], pattern = "t{2}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-57c0a2e091bf3548b8b4" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-57c0a2e091bf3548b8b4">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admi<span class='match'>tt<\/span>ed to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 h<span class='match'>tt<\/span>ps://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-9b93f04c90c1ec4f7999" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9b93f04c90c1ec4f7999">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admi<span class='match'>tt<\/span>ed to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 h<span class='match'>tt<\/span>ps://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 __Student exercise__
 
@@ -2922,8 +2966,8 @@ __Student exercise__
 str_view_all(string = p12_df$text[32], pattern = ("https\\W*"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-2d58ea087e3bc788b974" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2d58ea087e3bc788b974">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 <span class='match'>https://<\/span>t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-dda3861d25a199e25604" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dda3861d25a199e25604">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 <span class='match'>https://<\/span>t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -2950,9 +2994,9 @@ writeLines(p12_df$text[8])
 ```
 
 ```
-## Congratulations, graduates! We’re two weeks away from the #WSU system-wide celebration! ➡️ https://t.co/RR4CnI0Ceq 
+## Congratulations, graduates! We’re two weeks away from the #WSU system-wide celebration! <U+27A1><U+FE0F> https://t.co/RR4CnI0Ceq 
 ## 
-## Class of 2020, share your college memories, pictures &amp; videos using #CougGrad! You might see them on screen during the May 9 webcast. 👩‍🎓👨‍🎓🎓 #GoCougs https://t.co/675EQ3xcRe
+## Class of 2020, share your college memories, pictures &amp; videos using #CougGrad! You might see them on screen during the May 9 webcast. <U+0001F469><U+200D><U+0001F393><U+0001F468><U+200D><U+0001F393><U+0001F393> #GoCougs https://t.co/675EQ3xcRe
 ```
 
 Using the caret symbol `^` and a double backslashes `\\` followed by the letter `w` and then an asterik `*`, we are searching for the first word in a string. 
@@ -2961,8 +3005,8 @@ Using the caret symbol `^` and a double backslashes `\\` followed by the letter 
 str_view_all(string = p12_df$text[8], pattern = ("^\\w*"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-4e1fc248683f49ec8ac2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4e1fc248683f49ec8ac2">{"x":{"html":"<ul>\n  <li><span class='match'>Congratulations<\/span>, graduates! We’re two weeks away from the #WSU system-wide celebration! ➡️ https://t.co/RR4CnI0Ceq \n\nClass of 2020, share your college memories, pictures &amp; videos using #CougGrad! You might see them on screen during the May 9 webcast. 👩‍🎓👨‍🎓🎓 #GoCougs https://t.co/675EQ3xcRe<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-b56e76a03c7c70730349" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b56e76a03c7c70730349">{"x":{"html":"<ul>\n  <li><span class='match'>Congratulations<\/span>, graduates! We’re two weeks away from the #WSU system-wide celebration! ➡️ https://t.co/RR4CnI0Ceq \n\nClass of 2020, share your college memories, pictures &amp; videos using #CougGrad! You might see them on screen during the May 9 webcast. 👩‍🎓👨‍🎓🎓 #GoCougs https://t.co/675EQ3xcRe<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 We could use the `\\b` word bound character followed by the `\\d` digits character and the asterik to search for digits in the text (e.g. year)
 
@@ -2970,8 +3014,8 @@ We could use the `\\b` word bound character followed by the `\\d` digits charact
 str_view_all(string = p12_df$text[8], pattern = ("\\b\\d*"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-b64e386a2cc96a7b24b4" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b64e386a2cc96a7b24b4">{"x":{"html":"<ul>\n  <li><span class='match'><\/span>Congratulations<span class='match'><\/span>, <span class='match'><\/span>graduates<span class='match'><\/span>! <span class='match'><\/span>We<span class='match'><\/span>’<span class='match'><\/span>re<span class='match'><\/span> <span class='match'><\/span>two<span class='match'><\/span> <span class='match'><\/span>weeks<span class='match'><\/span> <span class='match'><\/span>away<span class='match'><\/span> <span class='match'><\/span>from<span class='match'><\/span> <span class='match'><\/span>the<span class='match'><\/span> #<span class='match'><\/span>WSU<span class='match'><\/span> <span class='match'><\/span>system<span class='match'><\/span>-<span class='match'><\/span>wide<span class='match'><\/span> <span class='match'><\/span>celebration<span class='match'><\/span>! ➡️ <span class='match'><\/span>https<span class='match'><\/span>://<span class='match'><\/span>t<span class='match'><\/span>.<span class='match'><\/span>co<span class='match'><\/span>/<span class='match'><\/span>RR4CnI0Ceq<span class='match'><\/span> \n\n<span class='match'><\/span>Class<span class='match'><\/span> <span class='match'><\/span>of<span class='match'><\/span> <span class='match'>2020<\/span><span class='match'><\/span>, <span class='match'><\/span>share<span class='match'><\/span> <span class='match'><\/span>your<span class='match'><\/span> <span class='match'><\/span>college<span class='match'><\/span> <span class='match'><\/span>memories<span class='match'><\/span>, <span class='match'><\/span>pictures<span class='match'><\/span> &<span class='match'><\/span>amp<span class='match'><\/span>; <span class='match'><\/span>videos<span class='match'><\/span> <span class='match'><\/span>using<span class='match'><\/span> #<span class='match'><\/span>CougGrad<span class='match'><\/span>! <span class='match'><\/span>You<span class='match'><\/span> <span class='match'><\/span>might<span class='match'><\/span> <span class='match'><\/span>see<span class='match'><\/span> <span class='match'><\/span>them<span class='match'><\/span> <span class='match'><\/span>on<span class='match'><\/span> <span class='match'><\/span>screen<span class='match'><\/span> <span class='match'><\/span>during<span class='match'><\/span> <span class='match'><\/span>the<span class='match'><\/span> <span class='match'><\/span>May<span class='match'><\/span> <span class='match'>9<\/span><span class='match'><\/span> <span class='match'><\/span>webcast<span class='match'><\/span>. 👩‍🎓👨‍🎓🎓 #<span class='match'><\/span>GoCougs<span class='match'><\/span> <span class='match'><\/span>https<span class='match'><\/span>://<span class='match'><\/span>t<span class='match'><\/span>.<span class='match'><\/span>co<span class='match'><\/span>/<span class='match'>675<\/span>EQ3xcRe<span class='match'><\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-91f58d0126d759755843" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91f58d0126d759755843">{"x":{"html":"<ul>\n  <li><span class='match'><\/span>Congratulations<span class='match'><\/span>, <span class='match'><\/span>graduates<span class='match'><\/span>! <span class='match'><\/span>We<span class='match'><\/span>’<span class='match'><\/span>re<span class='match'><\/span> <span class='match'><\/span>two<span class='match'><\/span> <span class='match'><\/span>weeks<span class='match'><\/span> <span class='match'><\/span>away<span class='match'><\/span> <span class='match'><\/span>from<span class='match'><\/span> <span class='match'><\/span>the<span class='match'><\/span> #<span class='match'><\/span>WSU<span class='match'><\/span> <span class='match'><\/span>system<span class='match'><\/span>-<span class='match'><\/span>wide<span class='match'><\/span> <span class='match'><\/span>celebration<span class='match'><\/span>! ➡️ <span class='match'><\/span>https<span class='match'><\/span>://<span class='match'><\/span>t<span class='match'><\/span>.<span class='match'><\/span>co<span class='match'><\/span>/<span class='match'><\/span>RR4CnI0Ceq<span class='match'><\/span> \n\n<span class='match'><\/span>Class<span class='match'><\/span> <span class='match'><\/span>of<span class='match'><\/span> <span class='match'>2020<\/span><span class='match'><\/span>, <span class='match'><\/span>share<span class='match'><\/span> <span class='match'><\/span>your<span class='match'><\/span> <span class='match'><\/span>college<span class='match'><\/span> <span class='match'><\/span>memories<span class='match'><\/span>, <span class='match'><\/span>pictures<span class='match'><\/span> &<span class='match'><\/span>amp<span class='match'><\/span>; <span class='match'><\/span>videos<span class='match'><\/span> <span class='match'><\/span>using<span class='match'><\/span> #<span class='match'><\/span>CougGrad<span class='match'><\/span>! <span class='match'><\/span>You<span class='match'><\/span> <span class='match'><\/span>might<span class='match'><\/span> <span class='match'><\/span>see<span class='match'><\/span> <span class='match'><\/span>them<span class='match'><\/span> <span class='match'><\/span>on<span class='match'><\/span> <span class='match'><\/span>screen<span class='match'><\/span> <span class='match'><\/span>during<span class='match'><\/span> <span class='match'><\/span>the<span class='match'><\/span> <span class='match'><\/span>May<span class='match'><\/span> <span class='match'>9<\/span><span class='match'><\/span> <span class='match'><\/span>webcast<span class='match'><\/span>. 👩‍🎓👨‍🎓🎓 #<span class='match'><\/span>GoCougs<span class='match'><\/span> <span class='match'><\/span>https<span class='match'><\/span>://<span class='match'><\/span>t<span class='match'><\/span>.<span class='match'><\/span>co<span class='match'><\/span>/<span class='match'>675<\/span>EQ3xcRe<span class='match'><\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 __Student exercise__
 
@@ -2984,8 +3028,8 @@ __Student exercise__
 str_view_all(string = p12_df$text[8], pattern = ("\\b\\W"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-acb6f0fae5d5a99a9f34" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-acb6f0fae5d5a99a9f34">{"x":{"html":"<ul>\n  <li>Congratulations<span class='match'>,<\/span> graduates<span class='match'>!<\/span> We<span class='match'>’<\/span>re<span class='match'> <\/span>two<span class='match'> <\/span>weeks<span class='match'> <\/span>away<span class='match'> <\/span>from<span class='match'> <\/span>the<span class='match'> <\/span>#WSU<span class='match'> <\/span>system<span class='match'>-<\/span>wide<span class='match'> <\/span>celebration<span class='match'>!<\/span> ➡️ https<span class='match'>:<\/span>//t<span class='match'>.<\/span>co<span class='match'>/<\/span>RR4CnI0Ceq<span class='match'> <\/span>\n\nClass<span class='match'> <\/span>of<span class='match'> <\/span>2020<span class='match'>,<\/span> share<span class='match'> <\/span>your<span class='match'> <\/span>college<span class='match'> <\/span>memories<span class='match'>,<\/span> pictures<span class='match'> <\/span>&amp<span class='match'>;<\/span> videos<span class='match'> <\/span>using<span class='match'> <\/span>#CougGrad<span class='match'>!<\/span> You<span class='match'> <\/span>might<span class='match'> <\/span>see<span class='match'> <\/span>them<span class='match'> <\/span>on<span class='match'> <\/span>screen<span class='match'> <\/span>during<span class='match'> <\/span>the<span class='match'> <\/span>May<span class='match'> <\/span>9<span class='match'> <\/span>webcast<span class='match'>.<\/span> 👩‍🎓👨‍🎓🎓 #GoCougs<span class='match'> <\/span>https<span class='match'>:<\/span>//t<span class='match'>.<\/span>co<span class='match'>/<\/span>675EQ3xcRe<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-a73324c7d7599024f1fc" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a73324c7d7599024f1fc">{"x":{"html":"<ul>\n  <li>Congratulations<span class='match'>,<\/span> graduates<span class='match'>!<\/span> We<span class='match'>’<\/span>re<span class='match'> <\/span>two<span class='match'> <\/span>weeks<span class='match'> <\/span>away<span class='match'> <\/span>from<span class='match'> <\/span>the<span class='match'> <\/span>#WSU<span class='match'> <\/span>system<span class='match'>-<\/span>wide<span class='match'> <\/span>celebration<span class='match'>!<\/span> ➡️ https<span class='match'>:<\/span>//t<span class='match'>.<\/span>co<span class='match'>/<\/span>RR4CnI0Ceq<span class='match'> <\/span>\n\nClass<span class='match'> <\/span>of<span class='match'> <\/span>2020<span class='match'>,<\/span> share<span class='match'> <\/span>your<span class='match'> <\/span>college<span class='match'> <\/span>memories<span class='match'>,<\/span> pictures<span class='match'> <\/span>&amp<span class='match'>;<\/span> videos<span class='match'> <\/span>using<span class='match'> <\/span>#CougGrad<span class='match'>!<\/span> You<span class='match'> <\/span>might<span class='match'> <\/span>see<span class='match'> <\/span>them<span class='match'> <\/span>on<span class='match'> <\/span>screen<span class='match'> <\/span>during<span class='match'> <\/span>the<span class='match'> <\/span>May<span class='match'> <\/span>9<span class='match'> <\/span>webcast<span class='match'>.<\/span> 👩‍🎓👨‍🎓🎓 #GoCougs<span class='match'> <\/span>https<span class='match'>:<\/span>//t<span class='match'>.<\/span>co<span class='match'>/<\/span>675EQ3xcRe<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -3027,8 +3071,8 @@ Say we wanted to search for the letter a or o.
 str_view_all(string = p12_df$text[10], pattern = ("(a|o)"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-4550b40be56b3a2e1844" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-4550b40be56b3a2e1844">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span>ur @WSUEsp<span class='match'>o<\/span>rts Te<span class='match'>a<\/span>m is f<span class='match'>a<\/span>cing <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span>inst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f the Electr<span class='match'>o<\/span>nic G<span class='match'>a<\/span>ming Feder<span class='match'>a<\/span>ti<span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ffici<span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>wer Series virtu<span class='match'>a<\/span>l t<span class='match'>o<\/span>urn<span class='match'>a<\/span>ment!\nTune int<span class='match'>o<\/span> the <span class='match'>a<\/span>cti<span class='match'>o<\/span>n live <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOjeTM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span>ugs! https://t.c<span class='match'>o<\/span>/5u8EDG<span class='match'>a<\/span>iFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f2cf084adbd2e2b9342e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f2cf084adbd2e2b9342e">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span>ur @WSUEsp<span class='match'>o<\/span>rts Te<span class='match'>a<\/span>m is f<span class='match'>a<\/span>cing <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span>inst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f the Electr<span class='match'>o<\/span>nic G<span class='match'>a<\/span>ming Feder<span class='match'>a<\/span>ti<span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ffici<span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>wer Series virtu<span class='match'>a<\/span>l t<span class='match'>o<\/span>urn<span class='match'>a<\/span>ment!\nTune int<span class='match'>o<\/span> the <span class='match'>a<\/span>cti<span class='match'>o<\/span>n live <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOjeTM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span>ugs! https://t.c<span class='match'>o<\/span>/5u8EDG<span class='match'>a<\/span>iFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 What about vowels? We use the square brackets to indicate a range.
 
@@ -3036,8 +3080,8 @@ What about vowels? We use the square brackets to indicate a range.
 str_view_all(string = p12_df$text[10], pattern = ("[aeiou]"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-09feab9babff29b0cd0b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-09feab9babff29b0cd0b">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span><span class='match'>u<\/span>r @WSUEsp<span class='match'>o<\/span>rts T<span class='match'>e<\/span><span class='match'>a<\/span>m <span class='match'>i<\/span>s f<span class='match'>a<\/span>c<span class='match'>i<\/span>ng <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span><span class='match'>i<\/span>nst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f th<span class='match'>e<\/span> El<span class='match'>e<\/span>ctr<span class='match'>o<\/span>n<span class='match'>i<\/span>c G<span class='match'>a<\/span>m<span class='match'>i<\/span>ng F<span class='match'>e<\/span>d<span class='match'>e<\/span>r<span class='match'>a<\/span>t<span class='match'>i<\/span><span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ff<span class='match'>i<\/span>c<span class='match'>i<\/span><span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>w<span class='match'>e<\/span>r S<span class='match'>e<\/span>r<span class='match'>i<\/span><span class='match'>e<\/span>s v<span class='match'>i<\/span>rt<span class='match'>u<\/span><span class='match'>a<\/span>l t<span class='match'>o<\/span><span class='match'>u<\/span>rn<span class='match'>a<\/span>m<span class='match'>e<\/span>nt!\nT<span class='match'>u<\/span>n<span class='match'>e<\/span> <span class='match'>i<\/span>nt<span class='match'>o<\/span> th<span class='match'>e<\/span> <span class='match'>a<\/span>ct<span class='match'>i<\/span><span class='match'>o<\/span>n l<span class='match'>i<\/span>v<span class='match'>e<\/span> <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOj<span class='match'>e<\/span>TM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span><span class='match'>u<\/span>gs! https://t.c<span class='match'>o<\/span>/5<span class='match'>u<\/span>8EDG<span class='match'>a<\/span><span class='match'>i<\/span>FH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f129f032025091b1d648" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f129f032025091b1d648">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span><span class='match'>u<\/span>r @WSUEsp<span class='match'>o<\/span>rts T<span class='match'>e<\/span><span class='match'>a<\/span>m <span class='match'>i<\/span>s f<span class='match'>a<\/span>c<span class='match'>i<\/span>ng <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span><span class='match'>i<\/span>nst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f th<span class='match'>e<\/span> El<span class='match'>e<\/span>ctr<span class='match'>o<\/span>n<span class='match'>i<\/span>c G<span class='match'>a<\/span>m<span class='match'>i<\/span>ng F<span class='match'>e<\/span>d<span class='match'>e<\/span>r<span class='match'>a<\/span>t<span class='match'>i<\/span><span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ff<span class='match'>i<\/span>c<span class='match'>i<\/span><span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>w<span class='match'>e<\/span>r S<span class='match'>e<\/span>r<span class='match'>i<\/span><span class='match'>e<\/span>s v<span class='match'>i<\/span>rt<span class='match'>u<\/span><span class='match'>a<\/span>l t<span class='match'>o<\/span><span class='match'>u<\/span>rn<span class='match'>a<\/span>m<span class='match'>e<\/span>nt!\nT<span class='match'>u<\/span>n<span class='match'>e<\/span> <span class='match'>i<\/span>nt<span class='match'>o<\/span> th<span class='match'>e<\/span> <span class='match'>a<\/span>ct<span class='match'>i<\/span><span class='match'>o<\/span>n l<span class='match'>i<\/span>v<span class='match'>e<\/span> <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOj<span class='match'>e<\/span>TM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span><span class='match'>u<\/span>gs! https://t.c<span class='match'>o<\/span>/5<span class='match'>u<\/span>8EDG<span class='match'>a<\/span><span class='match'>i<\/span>FH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 If we do not want any vowels we could add the caret `^` symbol to our pattern from above. 
 
@@ -3045,8 +3089,8 @@ If we do not want any vowels we could add the caret `^` symbol to our pattern fr
 str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-f79da476cb2d401e28ad" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f79da476cb2d401e28ad">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>,<\/span><span class='match'> <\/span>ou<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>T<\/span>ea<span class='match'>m<\/span><span class='match'> <\/span>i<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>f<\/span>a<span class='match'>c<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'>f<\/span><span class='match'> <\/span>a<span class='match'>g<\/span>ai<span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>t<\/span><span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>@<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'>_<\/span><span class='match'>W<\/span><span class='match'>A<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'> <\/span>a<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>p<\/span>a<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span><span class='match'>E<\/span><span class='match'>l<\/span>e<span class='match'>c<\/span><span class='match'>t<\/span><span class='match'>r<\/span>o<span class='match'>n<\/span>i<span class='match'>c<\/span><span class='match'> <\/span><span class='match'>G<\/span>a<span class='match'>m<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span><span class='match'>F<\/span>e<span class='match'>d<\/span>e<span class='match'>r<\/span>a<span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'>'<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>@<\/span>o<span class='match'>f<\/span><span class='match'>f<\/span>i<span class='match'>c<\/span>ia<span class='match'>l<\/span><span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span>o<span class='match'>w<\/span>e<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>S<\/span>e<span class='match'>r<\/span>ie<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>v<\/span>i<span class='match'>r<\/span><span class='match'>t<\/span>ua<span class='match'>l<\/span><span class='match'> <\/span><span class='match'>t<\/span>ou<span class='match'>r<\/span><span class='match'>n<\/span>a<span class='match'>m<\/span>e<span class='match'>n<\/span><span class='match'>t<\/span><span class='match'>!<\/span><span class='match'>\n<\/span><span class='match'>T<\/span>u<span class='match'>n<\/span>e<span class='match'> <\/span>i<span class='match'>n<\/span><span class='match'>t<\/span>o<span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span>a<span class='match'>c<\/span><span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'> <\/span><span class='match'>l<\/span>i<span class='match'>v<\/span>e<span class='match'> <\/span>a<span class='match'>t<\/span><span class='match'> <\/span><span class='match'>5<\/span><span class='match'>:<\/span><span class='match'>2<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>U<\/span><span class='match'>W<\/span><span class='match'>)<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>6<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>T<\/span><span class='match'> <\/span><span class='match'>t<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>:<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>z<\/span><span class='match'>O<\/span><span class='match'>j<\/span>e<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>\n<\/span><span class='match'>#<\/span><span class='match'>G<\/span>o<span class='match'>C<\/span>ou<span class='match'>g<\/span><span class='match'>s<\/span><span class='match'>!<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>5<\/span>u<span class='match'>8<\/span><span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f13bd61d19540d4201de" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f13bd61d19540d4201de">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>,<\/span><span class='match'> <\/span>ou<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>T<\/span>ea<span class='match'>m<\/span><span class='match'> <\/span>i<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>f<\/span>a<span class='match'>c<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'>f<\/span><span class='match'> <\/span>a<span class='match'>g<\/span>ai<span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>t<\/span><span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>@<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'>_<\/span><span class='match'>W<\/span><span class='match'>A<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'> <\/span>a<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>p<\/span>a<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span><span class='match'>E<\/span><span class='match'>l<\/span>e<span class='match'>c<\/span><span class='match'>t<\/span><span class='match'>r<\/span>o<span class='match'>n<\/span>i<span class='match'>c<\/span><span class='match'> <\/span><span class='match'>G<\/span>a<span class='match'>m<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span><span class='match'>F<\/span>e<span class='match'>d<\/span>e<span class='match'>r<\/span>a<span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'>'<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>@<\/span>o<span class='match'>f<\/span><span class='match'>f<\/span>i<span class='match'>c<\/span>ia<span class='match'>l<\/span><span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span>o<span class='match'>w<\/span>e<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>S<\/span>e<span class='match'>r<\/span>ie<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>v<\/span>i<span class='match'>r<\/span><span class='match'>t<\/span>ua<span class='match'>l<\/span><span class='match'> <\/span><span class='match'>t<\/span>ou<span class='match'>r<\/span><span class='match'>n<\/span>a<span class='match'>m<\/span>e<span class='match'>n<\/span><span class='match'>t<\/span><span class='match'>!<\/span><span class='match'>\n<\/span><span class='match'>T<\/span>u<span class='match'>n<\/span>e<span class='match'> <\/span>i<span class='match'>n<\/span><span class='match'>t<\/span>o<span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span>a<span class='match'>c<\/span><span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'> <\/span><span class='match'>l<\/span>i<span class='match'>v<\/span>e<span class='match'> <\/span>a<span class='match'>t<\/span><span class='match'> <\/span><span class='match'>5<\/span><span class='match'>:<\/span><span class='match'>2<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>U<\/span><span class='match'>W<\/span><span class='match'>)<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>6<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>T<\/span><span class='match'> <\/span><span class='match'>t<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>:<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>z<\/span><span class='match'>O<\/span><span class='match'>j<\/span>e<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>\n<\/span><span class='match'>#<\/span><span class='match'>G<\/span>o<span class='match'>C<\/span>ou<span class='match'>g<\/span><span class='match'>s<\/span><span class='match'>!<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>5<\/span>u<span class='match'>8<\/span><span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 __Student exercise__
 
@@ -3059,8 +3103,8 @@ __Student exercise__
 str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-e11bd895e28b201d0795" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e11bd895e28b201d0795">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>omorrow, our @<span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span>sports <span class='match'>T<\/span>eam is facing off against \n@<span class='match'>E<\/span>sports_<span class='match'>W<\/span><span class='match'>A<\/span> and @<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span> as part of the <span class='match'>E<\/span>lectronic <span class='match'>G<\/span>aming <span class='match'>F<\/span>ederation's (@official<span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span>) <span class='match'>P<\/span>ower <span class='match'>S<\/span>eries virtual tournament!\n<span class='match'>T<\/span>une into the action live at 5:20 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>U<\/span><span class='match'>W<\/span>) and 6 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span>) <span class='match'>P<\/span><span class='match'>T<\/span> tomorrow: https://t.co/tz<span class='match'>O<\/span>je<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span>\n#<span class='match'>G<\/span>o<span class='match'>C<\/span>ougs! https://t.co/5u8<span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f834a3e9440c9d773bb1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f834a3e9440c9d773bb1">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>omorrow, our @<span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span>sports <span class='match'>T<\/span>eam is facing off against \n@<span class='match'>E<\/span>sports_<span class='match'>W<\/span><span class='match'>A<\/span> and @<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span> as part of the <span class='match'>E<\/span>lectronic <span class='match'>G<\/span>aming <span class='match'>F<\/span>ederation's (@official<span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span>) <span class='match'>P<\/span>ower <span class='match'>S<\/span>eries virtual tournament!\n<span class='match'>T<\/span>une into the action live at 5:20 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>U<\/span><span class='match'>W<\/span>) and 6 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span>) <span class='match'>P<\/span><span class='match'>T<\/span> tomorrow: https://t.co/tz<span class='match'>O<\/span>je<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span>\n#<span class='match'>G<\/span>o<span class='match'>C<\/span>ougs! https://t.co/5u8<span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -3077,16 +3121,16 @@ Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.c
   str_view(string = "Turn to page 394...", pattern = "\\d+")
   ```
   
-  <!--html_preserve--><div id="htmlwidget-40a5540152405d7a1d5a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-  <script type="application/json" data-for="htmlwidget-40a5540152405d7a1d5a">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  <!--html_preserve--><div id="htmlwidget-721909e1a2ac6bb66988" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-721909e1a2ac6bb66988">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
   
   ```r
   # Is shorthand for:
   str_view(string = "Turn to page 394...", pattern = regex("\\d+"))
   ```
   
-  <!--html_preserve--><div id="htmlwidget-c263efa2563a486e629e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-  <script type="application/json" data-for="htmlwidget-c263efa2563a486e629e">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  <!--html_preserve--><div id="htmlwidget-6acbba18c80fb34ad2b0" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-6acbba18c80fb34ad2b0">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 - For simplicity, we can omit the call to `regex()`
 - But, there are additional arguments we can supply to `regex()` if we wanted
   - `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)`
@@ -3122,8 +3166,8 @@ We can match all the pages mentioned using the following regex:
 str_view_all(string = s, pattern = "[Pp][Aa][Gg][Ee] \\d+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-fa157b017c0f7854f06a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fa157b017c0f7854f06a">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-12c7f0d3e9628a3c97ab" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-12c7f0d3e9628a3c97ab">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 <br>
 Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing variations:
@@ -3133,8 +3177,8 @@ Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing v
 str_view_all(string = s, pattern = regex("page \\d+", ignore_case = TRUE))
 ```
 
-<!--html_preserve--><div id="htmlwidget-aa7b69693a1f1508d067" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-aa7b69693a1f1508d067">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-ae0e98cad1ac9e7ca69c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ae0e98cad1ac9e7ca69c">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 </details>
 
@@ -3164,8 +3208,8 @@ If we wanted to match only the correct pages, we can take advantage of the fact 
 str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE, multiline = TRUE))
 ```
 
-<!--html_preserve--><div id="htmlwidget-7e430fb78408791e0ed1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7e430fb78408791e0ed1">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f662d58df08cb3182c5f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f662d58df08cb3182c5f">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 <br>
 Compared to if we did not specify `multiline = TRUE`:
@@ -3176,8 +3220,8 @@ Compared to if we did not specify `multiline = TRUE`:
 str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE))
 ```
 
-<!--html_preserve--><div id="htmlwidget-f795d27d9753e21cc628" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f795d27d9753e21cc628">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\nPage 391\nAnd page 392\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-21ccfde0fb94b447db0c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-21ccfde0fb94b447db0c">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\nPage 391\nAnd page 392\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 </details>
 
@@ -3197,8 +3241,8 @@ pattern <- regex("
 str_view_all(string = s, pattern = pattern)
 ```
 
-<!--html_preserve--><div id="htmlwidget-7e0bd8e28416ba8831d0" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7e0bd8e28416ba8831d0">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-0b1969c9caea90a2cca1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0b1969c9caea90a2cca1">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 </details>
 
@@ -3284,7 +3328,7 @@ p12_df %>%
 ##  8 2020-04-25 17:00:00 FALSE TRUE 
 ##  9 2020-04-21 15:13:06 FALSE TRUE 
 ## 10 2020-04-21 17:52:47 FALSE TRUE 
-## # … with 318 more rows
+## # ... with 318 more rows
 ```
 
 <br>
@@ -3329,17 +3373,17 @@ p12_df %>%
 ## # A tibble: 53 x 5
 ##    user_id  created_at          screen_name  text                    location   
 ##    <chr>    <dttm>              <chr>        <chr>                   <chr>      
-##  1 22080148 2020-04-21 04:00:00 WSUPullman   "Darien McLaughlin '19… Pullman, W…
-##  2 22080148 2020-04-24 03:00:00 WSUPullman   "6 houses, one pick. C… Pullman, W…
-##  3 22080148 2020-04-20 02:20:01 WSUPullman   "Tell us one of your B… Pullman, W…
-##  4 22080148 2020-04-22 04:00:00 WSUPullman   "We loved seeing your … Pullman, W…
-##  5 22080148 2020-04-24 01:58:04 WSUPullman   "#WSU agricultural sci… Pullman, W…
-##  6 22080148 2020-04-22 02:22:03 WSUPullman   "Nice 👍 https://t.co/2… Pullman, W…
-##  7 15988549 2020-04-20 02:52:31 CalAdmissio… "@PaulineARoxas Congra… Berkeley, …
-##  8 15988549 2020-04-22 03:07:00 CalAdmissio… "It’s time to make thi… Berkeley, …
-##  9 15988549 2020-04-22 00:00:08 CalAdmissio… "Are you a #BerkeleyBo… Berkeley, …
-## 10 15988549 2020-04-20 03:03:21 CalAdmissio… "@N48260756 We suggest… Berkeley, …
-## # … with 43 more rows
+##  1 22080148 2020-04-21 04:00:00 WSUPullman   "Darien McLaughlin '19~ Pullman, W~
+##  2 22080148 2020-04-24 03:00:00 WSUPullman   6 houses, one pick. Co~ Pullman, W~
+##  3 22080148 2020-04-20 02:20:01 WSUPullman   "Tell us one of your B~ Pullman, W~
+##  4 22080148 2020-04-22 04:00:00 WSUPullman   We loved seeing your t~ Pullman, W~
+##  5 22080148 2020-04-24 01:58:04 WSUPullman   #WSU agricultural scie~ Pullman, W~
+##  6 22080148 2020-04-22 02:22:03 WSUPullman   "Nice \U0001f44d https~ Pullman, W~
+##  7 15988549 2020-04-20 02:52:31 CalAdmissio~ @PaulineARoxas Congrat~ Berkeley, ~
+##  8 15988549 2020-04-22 03:07:00 CalAdmissio~ "It’s time to make thi~ Berkeley, ~
+##  9 15988549 2020-04-22 00:00:08 CalAdmissio~ "Are you a #BerkeleyBo~ Berkeley, ~
+## 10 15988549 2020-04-20 03:03:21 CalAdmissio~ "@N48260756 We suggest~ Berkeley, ~
+## # ... with 43 more rows
 ```
 
 </details>
@@ -3507,17 +3551,17 @@ p12_df %>%
 ## # A tibble: 328 x 2
 ##    text                                                                 hashtag 
 ##    <chr>                                                                <chr>   
-##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 … #GoCougs
-##  2 "Cougar Cheese. That's it. That's the tweet. 🧀#WSU #GoCougs https:/… #WSU    
-##  3 "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman dista… #Pullman
-##  4 "6 houses, one pick. Cougs, which one you got? Reply ⬇️  #WSU #Coug… #WSU    
-##  5 "Why did you choose to attend @WSUPullman?🤔 #WSU #GoCougs https://t… #WSU    
-##  6 "Tell us one of your Bryan Clock Tower memories ⏰ 🐾 #WSU #GoCougs h… #WSU    
-##  7 "We loved seeing your top three @WSUPullman buildings, but what are… #WSU    
-##  8 "Congratulations, graduates! We’re two weeks away from the #WSU sys… #WSU    
-##  9 "Learn more about this story at https://t.co/45BzKc2rFE. #WSU #GoCo… #WSU    
-## 10 "Tomorrow, our @WSUEsports Team is facing off against \n@Esports_WA… #GoCoug…
-## # … with 318 more rows
+##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 ~ #GoCougs
+##  2 "Cougar Cheese. That's it. That's the tweet. \U0001f9c0#WSU #GoCoug~ #WSU    
+##  3 "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman dista~ #Pullman
+##  4 6 houses, one pick. Cougs, which one you got? Reply <U+2B07><U+FE0F>  #WSU #Cougs~ #WSU    
+##  5 "Why did you choose to attend @WSUPullman?\U0001f914 #WSU #GoCougs ~ #WSU    
+##  6 "Tell us one of your Bryan Clock Tower memories <U+23F0> \U0001f43e #WSU #~ #WSU    
+##  7 We loved seeing your top three @WSUPullman buildings, but what are ~ #WSU    
+##  8 "Congratulations, graduates! We’re two weeks away from the #WSU sys~ #WSU    
+##  9 Learn more about this story at https://t.co/45BzKc2rFE. #WSU #GoCou~ #WSU    
+## 10 "Tomorrow, our @WSUEsports Team is facing off against \n@Esports_WA~ #GoCoug~
+## # ... with 318 more rows
 ```
 
 **[`str_extract_all()`]** Extract all hashtags:
@@ -3537,17 +3581,17 @@ p12_df %>%
 ## # A tibble: 328 x 3
 ##    text                                 hashtag_vector hashtags                 
 ##    <chr>                                <list>         <chr>                    
-##  1 "Big Dez is headed to Indy!\n\n#GoC… <chr [3]>      "c(\"#GoCougs\", \"#NFLD…
-##  2 "Cougar Cheese. That's it. That's t… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
-##  3 "Darien McLaughlin '19, and her dog… <chr [3]>      "c(\"#Pullman\", \"#Coug…
-##  4 "6 houses, one pick. Cougs, which o… <chr [3]>      "c(\"#WSU\", \"#CougsCon…
-##  5 "Why did you choose to attend @WSUP… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
-##  6 "Tell us one of your Bryan Clock To… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
-##  7 "We loved seeing your top three @WS… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
-##  8 "Congratulations, graduates! We’re … <chr [3]>      "c(\"#WSU\", \"#CougGrad…
-##  9 "Learn more about this story at htt… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
-## 10 "Tomorrow, our @WSUEsports Team is … <chr [1]>      "#GoCougs!"              
-## # … with 318 more rows
+##  1 "Big Dez is headed to Indy!\n\n#GoC~ <chr [3]>      "c(\"#GoCougs\", \"#NFLD~
+##  2 "Cougar Cheese. That's it. That's t~ <chr [2]>      "c(\"#WSU\", \"#GoCougs\~
+##  3 "Darien McLaughlin '19, and her dog~ <chr [3]>      "c(\"#Pullman\", \"#Coug~
+##  4 6 houses, one pick. Cougs, which on~ <chr [3]>      "c(\"#WSU\", \"#CougsCon~
+##  5 "Why did you choose to attend @WSUP~ <chr [2]>      "c(\"#WSU\", \"#GoCougs\~
+##  6 "Tell us one of your Bryan Clock To~ <chr [2]>      "c(\"#WSU\", \"#GoCougs\~
+##  7 We loved seeing your top three @WSU~ <chr [2]>      "c(\"#WSU\", \"#GoCougs\~
+##  8 "Congratulations, graduates! We’re ~ <chr [3]>      "c(\"#WSU\", \"#CougGrad~
+##  9 Learn more about this story at http~ <chr [2]>      "c(\"#WSU\", \"#GoCougs\~
+## 10 "Tomorrow, our @WSUEsports Team is ~ <chr [1]>      #GoCougs!                
+## # ... with 318 more rows
 ```
 
 </details>
@@ -3651,7 +3695,7 @@ p12_df %>%
 ##  8 2020-04-25 17:00:00 2020-04-25 17:00:00
 ##  9 2020-04-21 15:13:06 2020-04-21 15:13:06
 ## 10 2020-04-21 17:52:47 2020-04-21 17:52:47
-## # … with 318 more rows
+## # ... with 318 more rows
 ```
 
 </details>
@@ -3775,17 +3819,17 @@ p12_df %>%
 ## # A tibble: 328 x 2
 ##    text                                removed_hashtags_handles                 
 ##    <chr>                               <chr>                                    
-##  1 "Big Dez is headed to Indy!\n\n#Go… "Big Dez is headed to Indy!\n\n |  |  | …
-##  2 "Cougar Cheese. That's it. That's … "Cougar Cheese. That's it. That's the tw…
-##  3 "Darien McLaughlin '19, and her do… "Darien McLaughlin '19, and her dog, Yuk…
-##  4 "6 houses, one pick. Cougs, which … "6 houses, one pick. Cougs, which one yo…
-##  5 "Why did you choose to attend @WSU… "Why did you choose to attend    https:/…
-##  6 "Tell us one of your Bryan Clock T… "Tell us one of your Bryan Clock Tower m…
-##  7 "We loved seeing your top three @W… "We loved seeing your top three  buildin…
-##  8 "Congratulations, graduates! We’re… "Congratulations, graduates! We’re two w…
-##  9 "Learn more about this story at ht… "Learn more about this story at https://…
-## 10 "Tomorrow, our @WSUEsports Team is… "Tomorrow, our  Team is facing off again…
-## # … with 318 more rows
+##  1 "Big Dez is headed to Indy!\n\n#Go~ "Big Dez is headed to Indy!\n\n |  |  | ~
+##  2 "Cougar Cheese. That's it. That's ~ "Cougar Cheese. That's it. That's the tw~
+##  3 "Darien McLaughlin '19, and her do~ "Darien McLaughlin '19, and her dog, Yuk~
+##  4 6 houses, one pick. Cougs, which o~ 6 houses, one pick. Cougs, which one you~
+##  5 "Why did you choose to attend @WSU~ Why did you choose to attend    https://~
+##  6 "Tell us one of your Bryan Clock T~ "Tell us one of your Bryan Clock Tower m~
+##  7 We loved seeing your top three @WS~ We loved seeing your top three  building~
+##  8 "Congratulations, graduates! We’re~ "Congratulations, graduates! We’re two w~
+##  9 Learn more about this story at htt~ "Learn more about this story at https://~
+## 10 "Tomorrow, our @WSUEsports Team is~ "Tomorrow, our  Team is facing off again~
+## # ... with 318 more rows
 ```
 
 </details>
@@ -3894,7 +3938,7 @@ p12_df %>%
 ##  8 2020-04-25 17:00:00 "c(\"2020\", \"04\", \"25\", \"17:00:00\")"
 ##  9 2020-04-21 15:13:06 "c(\"2020\", \"04\", \"21\", \"15:13:06\")"
 ## 10 2020-04-21 17:52:47 "c(\"2020\", \"04\", \"21\", \"17:52:47\")"
-## # … with 318 more rows
+## # ... with 318 more rows
 ```
 
 </details>
@@ -3947,19 +3991,19 @@ p12_df %>%
 
 ```
 ## # A tibble: 328 x 2
-##    text                                                   num_hashtags_and_ment…
+##    text                                                   num_hashtags_and_ment~
 ##    <chr>                                                                   <int>
-##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft20…                      5
-##  2 "Cougar Cheese. That's it. That's the tweet. 🧀#WSU #G…                      2
-##  3 "Darien McLaughlin '19, and her dog, Yuki, went on a …                      4
-##  4 "6 houses, one pick. Cougs, which one you got? Reply …                      3
-##  5 "Why did you choose to attend @WSUPullman?🤔 #WSU #GoC…                      3
-##  6 "Tell us one of your Bryan Clock Tower memories ⏰ 🐾 #…                      2
-##  7 "We loved seeing your top three @WSUPullman buildings…                      3
-##  8 "Congratulations, graduates! We’re two weeks away fro…                      3
-##  9 "Learn more about this story at https://t.co/45BzKc2r…                      2
-## 10 "Tomorrow, our @WSUEsports Team is facing off against…                      5
-## # … with 318 more rows
+##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft20~                      5
+##  2 "Cougar Cheese. That's it. That's the tweet. \U0001f9~                      2
+##  3 "Darien McLaughlin '19, and her dog, Yuki, went on a ~                      4
+##  4 6 houses, one pick. Cougs, which one you got? Reply <U+2B07>~                      3
+##  5 "Why did you choose to attend @WSUPullman?\U0001f914 ~                      3
+##  6 "Tell us one of your Bryan Clock Tower memories <U+23F0> \U0~                      2
+##  7 We loved seeing your top three @WSUPullman buildings,~                      3
+##  8 "Congratulations, graduates! We’re two weeks away fro~                      3
+##  9 Learn more about this story at https://t.co/45BzKc2rF~                      2
+## 10 "Tomorrow, our @WSUEsports Team is facing off against~                      5
+## # ... with 318 more rows
 ```
 
 </details>
@@ -4054,19 +4098,19 @@ p12_df %>%
 
 ```
 ## # A tibble: 328 x 4
-##    text                   start_of_first_ha… end_of_first_has… length_of_first_…
+##    text                   start_of_first_ha~ end_of_first_has~ length_of_first_~
 ##    <chr>                               <int>             <int>             <int>
-##  1 "Big Dez is headed to…                 29                36                 7
-##  2 "Cougar Cheese. That'…                 46                49                 3
-##  3 "Darien McLaughlin '1…                 53                60                 7
-##  4 "6 houses, one pick. …                 57                60                 3
-##  5 "Why did you choose t…                 44                47                 3
-##  6 "Tell us one of your …                 52                55                 3
-##  7 "We loved seeing your…                144               147                 3
-##  8 "Congratulations, gra…                 59                62                 3
-##  9 "Learn more about thi…                 57                60                 3
-## 10 "Tomorrow, our @WSUEs…                266               274                 8
-## # … with 318 more rows
+##  1 "Big Dez is headed to~                 29                36                 7
+##  2 "Cougar Cheese. That'~                 46                49                 3
+##  3 "Darien McLaughlin '1~                 53                60                 7
+##  4 6 houses, one pick. C~                 57                60                 3
+##  5 "Why did you choose t~                 44                47                 3
+##  6 "Tell us one of your ~                 52                55                 3
+##  7 We loved seeing your ~                144               147                 3
+##  8 "Congratulations, gra~                 59                62                 3
+##  9 Learn more about this~                 57                60                 3
+## 10 "Tomorrow, our @WSUEs~                266               274                 8
+## # ... with 318 more rows
 ```
 
 </details>
