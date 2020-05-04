@@ -18,19 +18,6 @@ output:
     df_print: tibble # Method to be used for printing data 
 ---
 
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-<!--
-TO DO:
-- "NEED TO KNOW SECTION"
-    - REVIEW OF SPECIAL CHARACTERS IN NON-REGEX WAY
-    - REVIEW OF SPECIAL CHARACTERS USING REGEX
-- INTRODUCE STRING_VIEW & STRING_VIEW_ALL
-- INTRODUCE REGEXPLAIN ADDIN
-- INTRODUCE REGEX COMMON PATTERNS
--->
 # Introduction
 Load packages:
 ```{r, message=FALSE}
@@ -143,6 +130,7 @@ writeLines(my_string)
 
 <br>
 
+
 ### Escape special characters using Twitter data   
 
 Let's take a look at some tweets from our PAC-12 universities. 
@@ -161,23 +149,33 @@ writeLines(p12_df$text[1:3])
 ```
 
 <br>
+<details><summary>**Example**: Escaping double quotes using Twitter data </summary>  
 
 - Using Twitter data you may encounter a lot of strings with double quotes.
 
     - In the example below, our string includes special characters `\"` and `\n` to escape the double quotes and the newline character. 
 ```{r}
 #Twitter example of \" double quotes special characters
-p12_df$text[107]
+p12_df$text[24]
 ```
 
 - Using `writeLines()` we can see the contents of the strings as they would be read, rather than as R stores them.  
 
     - We no longer see the escaped characters `\"` or `\n`
 ```{r}
-writeLines(p12_df$text[107])
+writeLines(p12_df$text[24])
 ```
+</details>
+<br>
 
 ## Special characters in regular expressions  
+
+There are special characters in regular strings as we have seen above and there are also certain characters in regex that have a special meaning (table below).
+
+> What if you really need the plus sign to be a literal plus sign and not a regex quantifier? You will need to escape it by prepending a backslash. But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a literal plus sign in a regex.
+
+*Credit: [Escaping sequences](https://stat545.com/character-vectors.html#escaping) from Stat 545*
+
 
 | STRING  <br>  *(type string that represents regex)* | REGEX <br> *(to have this appear in your regex)* | MATCHES <br> *(to match with this text)* |
 |--------------|-----------------|---------|
@@ -205,6 +203,36 @@ writeLines(p12_df$text[107])
 
 *Credit: [Working with strings in stringr](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) Cheat sheet*
 
+
+### Escape special character backslashes
+
+> If \\ is used as an escape character in regular expressions, how do you match a literal \\? Well you need to escape it, creating the regular expression \\\\. To create that regular expression, you need to use a string, which also needs to escape \\ . That means to match a literal \\ you need to write "\\\\\\\\" — you need four backslashes to match one!
+
+*Credit: [R for Data Science](https://r4ds.had.co.nz/strings.html#basic-matches) Strings Chapter*
+
+The character vector below has one, two, three, and four backslashes.  
+
+- Notice once we print this vector, the single backslash returns an empty string and the three backslashes return two backslashes.
+```{r}
+backslash <- c("\ ","\\", "\\\ ", "\\\\")
+
+backslash
+```
+
+<br>
+
+- Using `writeLines()` we can see view the contents of the strings.
+```{r}
+writeLines(backslash)
+```
+
+```{r}
+text <- "This is a backslash \\"
+str_view(string = text, pattern = "\\\\")
+```
+
+
+
 ### `str_view` and `str_view_all`
 
 <br>
@@ -225,32 +253,81 @@ str_view_all(string, pattern, match = NA)
       - The default interpretation is a regular expression, as described in stringi::stringi-search-regex. Control options with regex().
   - `match`: If TRUE, shows only strings that match the pattern. If FALSE, shows only the strings that don't match the pattern. Otherwise (the default, NA) displays both matches and non-matches.
 
+<br>
+
+`str_view` will show us the first regex pattern match
 
 ```{r}
-str_view(p12_df$text[107], regex('\\"'))
+str_view(string = p12_df$text[119], pattern = ('\\"'))
 ```
 
+Notice how we can see all the regex pattern matches with `str_view_all`
 ```{r}
-str_view(p12_df$text[107], "\\n")
+str_view_all(string = p12_df$text[119], pattern = ('\\"'))
 ```
 
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for newline </summary> 
 ```{r}
-str_view_all(p12_df$text[107], "\\.")
+str_view_all(string = p12_df$text[119], pattern = ("\\n"))
 ```
+</details>
 
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for period </summary> 
 ```{r}
-str_view_all(p12_df$text[107], "\\s")
+str_view_all(string = p12_df$text[119], pattern = ("\\."))
 ```
+</details>
 
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for white space </summary> 
 ```{r}
-str_view_all(p12_df$text[107], "\\b")
+str_view_all(string = p12_df$text[119], pattern = ("\\s"))
 ```
+</details>
 
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for word bound </summary> 
 ```{r}
-str_view_all(p12_df$text[107], "\\d")
+str_view_all(string = p12_df$text[119], pattern = ("\\b"))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for digit(s) </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\d"))
+```
+</details>
+
+<br>
+
+## RegExplain Addin  
+
+> Regular expressions are tricky. RegExplain makes it easier to see what you’re doing.
+
+RegExplain is an RStudio addin that allows the user to check their regex matching functions interactively.
+
+
+*Credit: Garrick Aden-Buie ([RegExplain](https://www.garrickadenbuie.com/project/regexplain/))*
+
+
+[![](../../assets/images/regexplain.png)](https://www.garrickadenbuie.com/project/regexplain/) 
+
+
+Installation
+```{r eval=FALSE}
+devtools::install_github("gadenbuie/regexplain")
+library(regexplain)
 ```
 
-## RegExplain Addin
 
 # What are regular expressions? 
 
@@ -281,8 +358,8 @@ What are regular expressions? from [Geeks for Geeks](https://www.geeksforgeeks.o
 Some common regular expression patterns include (not inclusive):  
 
 * Character classes
+* Quantifiers 
 * Anchors  
-* Quantifiers  
 * Groups and ranges  
 
 source: https://cheatography.com/davechild/cheat-sheets/regular-expressions/ 
@@ -293,61 +370,44 @@ source: https://cheatography.com/davechild/cheat-sheets/regular-expressions/
 ## Character classes
 Character  Description     
 ---------- ----------------------------------------------------------
-\\c         Control character
 \\s         White space
 \\S         Not white space
 \\d         Digit
 \\D         Not digit
 \\w         Word
 \\W         Not word
-\\x         Hexadecimal digit
-\\O         Octal digit
+
 
 ```{r}
-d <- c("25 days", "Hi, my name is", "What is your name?")
+writeLines(p12_df$text[39])
 ```
 
-Using the escape character followed by the letter `s` and then the letter `d`, we are searching for a white space and a letter `d`.
+Using double backslashes `\\` followed by the letter `s` and then another double backslashes `\\` followed by the letter `w`, we are searching for a white space and a word.
 ```{r}
-grepl("\\sd", d) 
+str_view_all(string = p12_df$text[39], pattern = "\\s\\w")
 ```
 
-Combining some characters we learned earlier like the `^` , `+`, and the `\\s`, we are searching a character string that begins with a one or more digits followed by a white space.
+Now let's search for non words. 
 ```{r}
-grepl("^\\d+\\s", d)
+str_view_all(string = p12_df$text[39], pattern = "\\s\\W")
 ```
 
-Give it a try. Use the `grepl` function to search for the word `name`.  
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[39]`, search for a digit followed by a word.
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[39], pattern = ("\\d\\w"))
+```
+</details>
+
+<br>
 
 
 ***  
-\newline  
-
-## Anchors
-
-Character  Description     
----------- ----------------------------------------------------------  
-     ^       Start of string, or start of line in multi-line pattern        
-    \\A                                              Start of string      
-     $           End of string, or end of line in multi-line pattern    
-    \\Z                                                End of string
-    \\b                                                Word boundary
-    \\B                                            Not word boundary
-    \\<                                                Start of word
-    \\>                                                  End of word  
-
-The `grep` and `grepl` functions are part of Base R. Notice the difference between their output. `grepl` returns a logical vector (TRUE, FALSE) whereas `grep` returns numbers which represent the index location of the pattern. I created this character vector and assigned it the name `a`. There are five character objects inside this vector. The `grep` function tells R to look for the pattern where the object starts with the letter a ("^a"), returning the values 1, 2, 5.  
-```{r}
-a <- c("aabd", "aacd", "caad", "cbde", "abcb")
-
-grepl("^a", a) #Logical vector
-grep("^a", a) #indexed location 
-```
-
-Give it a try. Use the `grep` function to look for instances in this vector that end with the letter `d`. What regular expression character would you use?
-
-***
-\newline
+\newline 
 
 ## Quantifiers
 
@@ -362,25 +422,79 @@ Character  Description     Code      Result
 
 We use quantifiers to specify the number of times we want to search for a particular pattern. 
 ```{r}
-b <- c("aaa", "abc", "bca", "dd c", "abbc")
-```
-In the first `grepl` function below we use the `+` to search for patterns in the `b` vector where the beginning of a string begins with an `a` one or more times.
-```{r}
-grepl("^a+", b) #searching for pattern where objects start with a 1 or more times
-```
-The second `grepl` function is searching for the letter `a` exactly three times. 
-```{r}
-grepl("a{3}", b) #searching for pattern that has exactly 3 a's
-```
-Lastly, notice how we use two `\\` backward slashes to escape the letter `s` suggesting we are referring to white space and not the literal letter s. More on this later.
-```{r}
-grepl("\\sc", b) #searching for pattern that has a white space followed by a c
+writeLines(p12_df$text[32])
 ```
 
-Give it a try, Use the `grepl` function to look for instances in this vector that have 1 or more instances of the letter `b`. What regular expression character would you use?  
+In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for a pattern that begins with a space and is followed by a non word one or more times. 
+
+```{r}
+str_view_all(string = p12_df$text[32], pattern = "\\s\\W+")
+```
+
+Say we wanted to search for the letter t exactly 2 times in the string. 
+```{r}
+str_view_all(string = p12_df$text[32], pattern = "t{2}")
+```
+
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[32]`, search for the beginning of a link "https://"
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[32], pattern = ("https\\W*"))
+```
+</details>
+
+<br>
 
 ***  
-\newline  
+\newline 
+
+## Anchors
+
+Character  Description     
+---------- ----------------------------------------------------------  
+     ^       Start of string, or start of line in multi-line pattern        
+    \\A                                              Start of string      
+     $           End of string, or end of line in multi-line pattern    
+    \\Z                                                End of string
+    \\b                                                Word boundary
+    \\B                                            Not word boundary
+
+ 
+
+```{r}
+writeLines(p12_df$text[8])
+```
+
+Using the caret symbol `^` and a double backslashes `\\` followed by the letter `w` and then an asterik `*`, we are searching for the first word in a string. 
+```{r}
+str_view_all(string = p12_df$text[8], pattern = ("^\\w*"))
+```
+
+We could use the `\\b` word bound character followed by the `\\d` digits character and the asterik to search for digits in the text (e.g. year)
+```{r}
+str_view_all(string = p12_df$text[8], pattern = ("\\b\\d*"))
+```
+
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[8]`, search for word bounds followed by non words 
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[8], pattern = ("\\b\\W"))
+```
+</details>
+
+<br>
+
+***
+\newline
+
 
 ## Groups and ranges
 
@@ -389,36 +503,45 @@ Character  Description
 .          Any character except new line (\n)
 (a|b)      a or b
 (...)      Group
-(?:...)    Passive (non-capturing) group
 [abc]      Range (a or b or c)
 [^abc]     Not (a or b or c)
 [a-z]      Lower case letter from a to q
 [A-Z]      Upper case letter from A to Q
 [0-7]      Digit from 0 to 7
-\\x         Group/subpattern number "x"
+
 
 We use grouping characters to specify a range of characters.  
 ```{r}
-c <- c("Is", "it", "Saturday", "today", "?")
+writeLines(p12_df$text[10])
 ```
 
-We use parentheses and a | to search for a **or** o.
+Say we wanted to search for the letter a or o. 
 ```{r}
-grepl("(a|o)", c) #search for a or o in a pattern
+str_view_all(string = p12_df$text[10], pattern = ("(a|o)"))
 ```
 
-The second `grepl` function with square brackets indicates a range. In the code below, we are searching for the letters `a`, `i`, or `o`.
+What about vowels? We use the square brackets to indicate a range.
 ```{r}
-grepl("[aio]", c)
+str_view_all(string = p12_df$text[10], pattern = ("[aeiou]"))
 ```
 
-The square brackets with the range from `a-z` indicate any lowercase alphabetical letters.
+If we do not want any vowels we could add the caret `^` symbol to our pattern from above. 
 ```{r}
-grepl("[a-z]", c)
+str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
 ```
 
-Give it a try. Use the `grepl` function to look for instances in this vector that begin with the letter `i` or end with the letter `y`. What regular expression character would you use?  
+__Student exercise__
 
+- Using the string vector from above `p12_df$text[10]`, search for upper case letters.
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
+```
+</details>
+
+<br>
 
 ***  
 \newline
