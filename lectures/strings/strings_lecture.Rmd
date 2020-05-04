@@ -464,6 +464,22 @@ writeLines(my_string)
 </details>
 
 <br>
+<details><summary>**Example**: Escaping double quotes within double quotes </summary>
+
+```{r}
+my_string <- "I called my mom and she said \"Echale ganas!\""
+my_string
+```
+
+Using `writeLines()` shows us only the content of the string without the backslashes:
+
+```{r}
+writeLines(my_string)
+```
+</details>
+
+
+<br>
 <details><summary>**Example**: Escaping backslashes</summary>
 
 To include a literal backslash in the string, we need to escape the backslash with another backslash:
@@ -494,6 +510,205 @@ Use `writeLines()` to see the escaped string:
 writeLines(my_string)
 ```
 </details>
+
+<br>
+
+### Escape special characters using Twitter data   
+
+Let's take a look at some tweets from our PAC-12 universities. 
+
+- Let's start by grabbing observations 1-3 from the `text` column.
+
+```{r}
+#Twitter example of \n newline special characters
+p12_df$text[1:3]
+```
+
+
+- Using `writeLines()` we can see the contents of the strings as they would be read, rather than as R stores them.
+```{r}
+writeLines(p12_df$text[1:3])
+```
+
+<br>
+<details><summary>**Example**: Escaping double quotes using Twitter data </summary>  
+
+- Using Twitter data you may encounter a lot of strings with double quotes.
+
+    - In the example below, our string includes special characters `\"` and `\n` to escape the double quotes and the newline character. 
+```{r}
+#Twitter example of \" double quotes special characters
+p12_df$text[24]
+```
+
+- Using `writeLines()` we can see the contents of the strings as they would be read, rather than as R stores them.  
+
+    - We no longer see the escaped characters `\"` or `\n`
+```{r}
+writeLines(p12_df$text[24])
+```
+</details>
+<br>
+
+## Special characters in regular expressions  
+
+There are special characters in regular strings as we have seen above and there are also certain characters in regex that have a special meaning (table below).
+
+> What if you really need the plus sign to be a literal plus sign and not a regex quantifier? You will need to escape it by prepending a backslash. But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a literal plus sign in a regex.
+
+*Credit: [Escaping sequences](https://stat545.com/character-vectors.html#escaping) from Stat 545*
+
+
+| STRING  <br>  *(type string that represents regex)* | REGEX <br> *(to have this appear in your regex)* | MATCHES <br> *(to match with this text)* |
+|--------------|-----------------|---------|
+| `\\.`  |    `\.`    | . |
+| `\\"`  |    `\"`   | " (double quote)|
+| `\\'`  |    `\'`   | ' (single quote)|
+| `\\!`  |    `\!`   | !  |
+| `\\?`  |    `\?`   | ?  |
+| `\\\\` |    `\\`   | \\\  |
+| `\\(`  |    `\(`   | ( |
+| `\\)`  |    `\)`   | ) |
+| `\\{`  |    `\{`   | { |
+| `\\}`  |    `\}`   |}  |
+| `\\n`  |    `\n`   | new line (return)  |
+| `\\t`  |    `\t`   | tab |
+| `\\s`  |    `\s`   |  any whitespace |
+| `\\S`  |    `\S`   |  any non-whitespace |
+| `\\d`  |    `\d`   |  any digit |
+| `\\D`  |    `\D`   |  any non-digit|
+| `\\w`  |    `\w`   |  any word character |
+| `\\W`  |    `\W`   |  any non-word character|
+| `\\b`  |    `\b`   |  word-boundary |
+| `\\B`  |    `\B`   |  non-word-boundary |
+
+
+*Credit: [Working with strings in stringr](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) Cheat sheet*
+
+
+### Escape special character backslashes
+
+> If \\ is used as an escape character in regular expressions, how do you match a literal \\? Well you need to escape it, creating the regular expression \\\\. To create that regular expression, you need to use a string, which also needs to escape \\ . That means to match a literal \\ you need to write "\\\\\\\\" — you need four backslashes to match one!
+
+*Credit: [R for Data Science](https://r4ds.had.co.nz/strings.html#basic-matches) Strings Chapter*
+
+The character vector below has one, two, three, and four backslashes.  
+
+- Notice once we print this vector, the single backslash returns an empty string and the three backslashes return two backslashes.
+```{r}
+backslash <- c("\ ","\\", "\\\ ", "\\\\")
+
+backslash
+```
+
+<br>
+
+- Using `writeLines()` we can see view the contents of the strings.
+```{r}
+writeLines(backslash)
+```
+
+```{r}
+text <- "This is a backslash \\"
+str_view(string = text, pattern = "\\\\")
+```
+<br>
+
+### `str_view` and `str_view_all`
+
+<br>
+__The `str_c()` function__:
+
+```{r, eval = FALSE}
+?str_view
+
+# SYNTAX AND DEFAULT VALUES
+str_view(string, pattern, match = NA)
+str_view_all(string, pattern, match = NA)
+```
+
+- Function: `str_view` shows the first match of a regex pattern; `str_view_all` shows all the matches of a regex pattern.
+- Arguments:
+  - `string`: Input vector. Either a character vector, or something coercible to one.
+  - `pattern`: Pattern to look for.
+      - The default interpretation is a regular expression, as described in stringi::stringi-search-regex. Control options with regex().
+  - `match`: If TRUE, shows only strings that match the pattern. If FALSE, shows only the strings that don't match the pattern. Otherwise (the default, NA) displays both matches and non-matches.
+
+<br>
+
+`str_view` will show us the first regex pattern match
+
+```{r}
+str_view(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+Notice how we can see all the regex pattern matches with `str_view_all`
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for newline </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\n"))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for period </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\."))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for white space </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\s"))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for word bound </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\b"))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for digit(s) </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\d"))
+```
+</details>
+
+<br>
+
+## RegExplain Addin  
+
+> Regular expressions are tricky. RegExplain makes it easier to see what you’re doing.
+
+RegExplain is an RStudio addin that allows the user to check their regex matching functions interactively.
+
+
+*Credit: Garrick Aden-Buie ([RegExplain](https://www.garrickadenbuie.com/project/regexplain/))*
+
+
+[![](../../assets/images/regexplain.png)](https://www.garrickadenbuie.com/project/regexplain/) 
+
+
+Installation
+```{r eval=FALSE}
+devtools::install_github("gadenbuie/regexplain")
+library(regexplain)
+```
+
 
 # `stringr` package
 
@@ -1360,6 +1575,221 @@ scorpio_start + ddays(30) + dhours(1)
 ```
 
 </details>
+
+# What are regular expressions? 
+
+What are regular expressions? from [Geeks for Geeks](https://www.geeksforgeeks.org/write-regular-expressions/)
+
+- Regular expressions are "a sequence of characters that define a search pattern" similar to the [command + f] function you use to find text in a pdf or word document. 
+    
+    ![](../../assets/images/command_f.png){width=60%}
+
+*Credit: Crystal Han, Ozan Jaquette, & Karina Salazar ([Recruiting the Out-Of-State University](https://emraresearch.org/sites/default/files/2019-03/joyce_report.pdf))*
+
+\newline
+
+- You could think of regular expressions like playing a game of charades. Assume a player grabs a playing card with an image of a person reading a book. Their task is to pantomine this action (reading a book) so that other players can guess what they are doing. Through the use of physical expressions and symbols, the player with the card is helping the other players guess what playing card they got. 
+
+    ![](../../assets/images/charades.jpg){width=55%}  
+*Credit: wikiHow staff ([How to Play Charades](https://www.wikihow.com/Play-Charades))*
+
+    - The player with the playing card is the __user__.
+    - The players trying to guess the user's card is your __computer__.
+    - The user uses physical expression and symbols (__regular expressions__) to tell the players (__computer__) what expression/word they have (__characters you are looking for in a text__). 
+
+[^4]: https://www.geeksforgeeks.org/write-regular-expressions/
+
+
+# Regular expression characters {.tabset .tabset-fade .tabset-pills}
+
+Some common regular expression patterns include (not inclusive):  
+
+* Character classes
+* Quantifiers 
+* Anchors  
+* Groups and ranges  
+
+source: https://cheatography.com/davechild/cheat-sheets/regular-expressions/ 
+
+**Select each tab**
+
+
+## Character classes
+Character  Description     
+---------- ----------------------------------------------------------
+\\s         White space
+\\S         Not white space
+\\d         Digit
+\\D         Not digit
+\\w         Word
+\\W         Not word
+
+
+```{r}
+writeLines(p12_df$text[39])
+```
+
+Using double backslashes `\\` followed by the letter `s` and then another double backslashes `\\` followed by the letter `w`, we are searching for a white space and a word.
+```{r}
+str_view_all(string = p12_df$text[39], pattern = "\\s\\w")
+```
+
+Now let's search for non words. 
+```{r}
+str_view_all(string = p12_df$text[39], pattern = "\\s\\W")
+```
+
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[39]`, search for a digit followed by a word.
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[39], pattern = ("\\d\\w"))
+```
+</details>
+
+<br>
+
+
+***  
+\newline 
+
+## Quantifiers
+
+
+Character  Description     Code      Result
+---------- ------------    --------  -------
+*          0 or more       {3}       Exactly 3
++          1 or more       {3,}      3 or more
+?          0 or 1          {3,5}     3, 4 or 5  
+\\         Escape character  \\s     white space
+
+
+We use quantifiers to specify the number of times we want to search for a particular pattern. 
+```{r}
+writeLines(p12_df$text[32])
+```
+
+In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for a pattern that begins with a space and is followed by a non word one or more times. 
+
+```{r}
+str_view_all(string = p12_df$text[32], pattern = "\\s\\W+")
+```
+
+Say we wanted to search for the letter t exactly 2 times in the string. 
+```{r}
+str_view_all(string = p12_df$text[32], pattern = "t{2}")
+```
+
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[32]`, search for the beginning of a link "https://"
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[32], pattern = ("https\\W*"))
+```
+</details>
+
+<br>
+
+***  
+\newline 
+
+## Anchors
+
+Character  Description     
+---------- ----------------------------------------------------------  
+     ^       Start of string, or start of line in multi-line pattern        
+    \\A                                              Start of string      
+     $           End of string, or end of line in multi-line pattern    
+    \\Z                                                End of string
+    \\b                                                Word boundary
+    \\B                                            Not word boundary
+
+ 
+
+```{r}
+writeLines(p12_df$text[8])
+```
+
+Using the caret symbol `^` and a double backslashes `\\` followed by the letter `w` and then an asterik `*`, we are searching for the first word in a string. 
+```{r}
+str_view_all(string = p12_df$text[8], pattern = ("^\\w*"))
+```
+
+We could use the `\\b` word bound character followed by the `\\d` digits character and the asterik to search for digits in the text (e.g. year)
+```{r}
+str_view_all(string = p12_df$text[8], pattern = ("\\b\\d*"))
+```
+
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[8]`, search for word bounds followed by non words 
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[8], pattern = ("\\b\\W"))
+```
+</details>
+
+<br>
+
+***
+\newline
+
+
+## Groups and ranges
+
+Character  Description     
+---------- ----------------------------------------------------------
+.          Any character except new line (\n)
+(a|b)      a or b
+(...)      Group
+[abc]      Range (a or b or c)
+[^abc]     Not (a or b or c)
+[a-z]      Lower case letter from a to q
+[A-Z]      Upper case letter from A to Q
+[0-7]      Digit from 0 to 7
+
+
+We use grouping characters to specify a range of characters.  
+```{r}
+writeLines(p12_df$text[10])
+```
+
+Say we wanted to search for the letter a or o. 
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("(a|o)"))
+```
+
+What about vowels? We use the square brackets to indicate a range.
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("[aeiou]"))
+```
+
+If we do not want any vowels we could add the caret `^` symbol to our pattern from above. 
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
+```
+
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[10]`, search for upper case letters.
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
+```
+</details>
+
+<br>
+
 
 # Regex with `stringr` functions
 
