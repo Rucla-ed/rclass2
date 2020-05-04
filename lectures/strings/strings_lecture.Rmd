@@ -1790,11 +1790,25 @@ str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
 
 Character  Description     
 ---------- ----------------------------------------------------------
-\\1         Capturing group \\1 
-\\2         Capturing group \\2 
+\\1         Capturing group 1 
+\\2         Capturing group 2 
 
 
-In the previous section we talked about groups and ranges. A parentheses creates what is called a _numbered_ capturing group. "A capturing group stores the part of the string matched by the part of the regular expression inside the parentheses". For example, if we have one paraentheses `(a|e)` the capturing group would be `\\1`. If we have two parentheses
+In the previous section we talked about groups and ranges. A parentheses creates what is called a _numbered_ capturing group. "A capturing group stores the part of the string matched by the part of the regular expression inside the parentheses". For example, if we have one paraentheses `(a)` we can refer to the same text as previously matched by this capturing group with backreferences, like \\1.
+
+```{r}
+writeLines(p12_df$text[40])
+```
+
+
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("(f)\\1"))
+
+```
+
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("(r|f)\\1"))
+```
 
 *Credit: Hadley Wickham ([R for Data Science](https://r4ds.had.co.nz/strings.html#grouping-and-backreferences)) Grouping and backreferences*
 
