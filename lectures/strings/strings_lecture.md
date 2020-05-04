@@ -59,98 +59,98 @@ glimpse(p12_full_df)
 ```
 
 ```
-## Observations: 328
-## Variables: 90
-## $ user_id                 <chr> "22080148", "22080148", "22080148", "220…
-## $ status_id               <chr> "1254177694599675904", "1253431405993840…
-## $ created_at              <dttm> 2020-04-25 22:37:18, 2020-04-23 21:11:4…
-## $ screen_name             <chr> "WSUPullman", "WSUPullman", "WSUPullman"…
-## $ text                    <chr> "Big Dez is headed to Indy!\n\n#GoCougs …
-## $ source                  <chr> "Twitter for iPhone", "Twitter Web App",…
-## $ display_text_width      <dbl> 125, 58, 246, 83, 56, 64, 156, 271, 69, …
-## $ reply_to_status_id      <chr> NA, NA, NA, NA, NA, NA, NA, NA, "1252615…
-## $ reply_to_user_id        <chr> NA, NA, NA, NA, NA, NA, NA, NA, "2208014…
-## $ reply_to_screen_name    <chr> NA, NA, NA, NA, NA, NA, NA, NA, "WSUPull…
-## $ is_quote                <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…
-## $ is_retweet              <lgl> TRUE, FALSE, FALSE, FALSE, FALSE, FALSE,…
-## $ favorite_count          <int> 0, 322, 30, 55, 186, 53, 22, 44, 11, 0, …
-## $ retweet_count           <int> 230, 32, 1, 5, 0, 3, 2, 6, 2, 6, 3, 4, 5…
-## $ quote_count             <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ reply_count             <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ hashtags                <list> [<"GoCougs", "NFLDraft2020", "NFLCougs"…
-## $ symbols                 <list> [NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-## $ urls_url                <list> [NA, NA, NA, NA, NA, NA, NA, "commencem…
-## $ urls_t.co               <list> [NA, NA, NA, NA, NA, NA, NA, "https://t…
-## $ urls_expanded_url       <list> [NA, NA, NA, NA, NA, NA, NA, "https://c…
-## $ media_url               <list> ["http://pbs.twimg.com/ext_tw_video_thu…
-## $ media_t.co              <list> ["https://t.co/NdGsvXnij7", "https://t.…
-## $ media_expanded_url      <list> ["https://twitter.com/WSUCougarFB/statu…
-## $ media_type              <list> ["photo", "photo", "photo", "photo", "p…
-## $ ext_media_url           <list> ["http://pbs.twimg.com/ext_tw_video_thu…
-## $ ext_media_t.co          <list> ["https://t.co/NdGsvXnij7", "https://t.…
-## $ ext_media_expanded_url  <list> ["https://twitter.com/WSUCougarFB/statu…
-## $ ext_media_type          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ mentions_user_id        <list> [<"1250265324", "1409024796", "18088404…
-## $ mentions_screen_name    <list> [<"WSUCougarFB", "dadpat7", "Colts">, N…
-## $ lang                    <chr> "en", "en", "en", "en", "en", "en", "en"…
-## $ quoted_status_id        <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_text             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_created_at       <dttm> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-## $ quoted_source           <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_favorite_count   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_retweet_count    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_user_id          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_screen_name      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_name             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_followers_count  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_friends_count    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_statuses_count   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_location         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_description      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ quoted_verified         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ retweet_status_id       <chr> "1254159118996127746", NA, NA, NA, NA, N…
-## $ retweet_text            <chr> "Big Dez is headed to Indy!\n\n#GoCougs …
-## $ retweet_created_at      <dttm> 2020-04-25 21:23:29, NA, NA, NA, NA, NA…
-## $ retweet_source          <chr> "Twitter for iPhone", NA, NA, NA, NA, NA…
-## $ retweet_favorite_count  <int> 1402, NA, NA, NA, NA, NA, NA, NA, NA, 26…
-## $ retweet_retweet_count   <int> 230, NA, NA, NA, NA, NA, NA, NA, NA, 6, …
-## $ retweet_user_id         <chr> "1250265324", NA, NA, NA, NA, NA, NA, NA…
-## $ retweet_screen_name     <chr> "WSUCougarFB", NA, NA, NA, NA, NA, NA, N…
-## $ retweet_name            <chr> "Washington State Football", NA, NA, NA,…
-## $ retweet_followers_count <int> 77527, NA, NA, NA, NA, NA, NA, NA, NA, 9…
-## $ retweet_friends_count   <int> 1448, NA, NA, NA, NA, NA, NA, NA, NA, 31…
-## $ retweet_statuses_count  <int> 15363, NA, NA, NA, NA, NA, NA, NA, NA, 1…
-## $ retweet_location        <chr> "Pullman, WA", NA, NA, NA, NA, NA, NA, N…
-## $ retweet_description     <chr> "Official Twitter home of Washington Sta…
-## $ retweet_verified        <lgl> TRUE, NA, NA, NA, NA, NA, NA, NA, NA, FA…
-## $ place_url               <chr> NA, NA, NA, NA, NA, "https://api.twitter…
-## $ place_name              <chr> NA, NA, NA, NA, NA, "Pullman", NA, NA, N…
-## $ place_full_name         <chr> NA, NA, NA, NA, NA, "Pullman, WA", NA, N…
-## $ place_type              <chr> NA, NA, NA, NA, NA, "city", NA, NA, NA, …
-## $ country                 <chr> NA, NA, NA, NA, NA, "United States", NA,…
-## $ country_code            <chr> NA, NA, NA, NA, NA, "US", NA, NA, NA, NA…
-## $ geo_coords              <list> [<NA, NA>, <NA, NA>, <NA, NA>, <NA, NA>…
-## $ coords_coords           <list> [<NA, NA>, <NA, NA>, <NA, NA>, <NA, NA>…
-## $ bbox_coords             <list> [<NA, NA, NA, NA, NA, NA, NA, NA>, <NA,…
-## $ status_url              <chr> "https://twitter.com/WSUPullman/status/1…
-## $ name                    <chr> "WSU Pullman", "WSU Pullman", "WSU Pullm…
-## $ location                <chr> "Pullman, Washington USA", "Pullman, Was…
-## $ description             <chr> "We are an award-winning research univer…
-## $ url                     <chr> "http://t.co/VxKZH9BuMS", "http://t.co/V…
-## $ protected               <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE…
-## $ followers_count         <int> 43914, 43914, 43914, 43914, 43914, 43914…
-## $ friends_count           <int> 9717, 9717, 9717, 9717, 9717, 9717, 9717…
-## $ listed_count            <int> 556, 556, 556, 556, 556, 556, 556, 556, …
-## $ statuses_count          <int> 15234, 15234, 15234, 15234, 15234, 15234…
-## $ favourites_count        <int> 20124, 20124, 20124, 20124, 20124, 20124…
-## $ account_created_at      <dttm> 2009-02-26 23:39:34, 2009-02-26 23:39:3…
-## $ verified                <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE…
-## $ profile_url             <chr> "http://t.co/VxKZH9BuMS", "http://t.co/V…
-## $ profile_expanded_url    <chr> "http://www.wsu.edu", "http://www.wsu.ed…
-## $ account_lang            <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-## $ profile_banner_url      <chr> "https://pbs.twimg.com/profile_banners/2…
-## $ profile_background_url  <chr> "http://abs.twimg.com/images/themes/them…
-## $ profile_image_url       <chr> "http://pbs.twimg.com/profile_images/576…
+## Rows: 328
+## Columns: 90
+## $ user_id                 <chr> "22080148", "22080148", "22080148", "22080148…
+## $ status_id               <chr> "1254177694599675904", "1253431405993840646",…
+## $ created_at              <dttm> 2020-04-25 22:37:18, 2020-04-23 21:11:49, 20…
+## $ screen_name             <chr> "WSUPullman", "WSUPullman", "WSUPullman", "WS…
+## $ text                    <chr> "Big Dez is headed to Indy!\n\n#GoCougs | #NF…
+## $ source                  <chr> "Twitter for iPhone", "Twitter Web App", "Twi…
+## $ display_text_width      <dbl> 125, 58, 246, 83, 56, 64, 156, 271, 69, 140, …
+## $ reply_to_status_id      <chr> NA, NA, NA, NA, NA, NA, NA, NA, "125261586265…
+## $ reply_to_user_id        <chr> NA, NA, NA, NA, NA, NA, NA, NA, "22080148", N…
+## $ reply_to_screen_name    <chr> NA, NA, NA, NA, NA, NA, NA, NA, "WSUPullman",…
+## $ is_quote                <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL…
+## $ is_retweet              <lgl> TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS…
+## $ favorite_count          <int> 0, 322, 30, 55, 186, 53, 22, 44, 11, 0, 69, 4…
+## $ retweet_count           <int> 230, 32, 1, 5, 0, 3, 2, 6, 2, 6, 3, 4, 5, 5, …
+## $ quote_count             <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ reply_count             <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ hashtags                <list> [<"GoCougs", "NFLDraft2020", "NFLCougs">, <"…
+## $ symbols                 <list> [NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ urls_url                <list> [NA, NA, NA, NA, NA, NA, NA, "commencement.w…
+## $ urls_t.co               <list> [NA, NA, NA, NA, NA, NA, NA, "https://t.co/R…
+## $ urls_expanded_url       <list> [NA, NA, NA, NA, NA, NA, NA, "https://commen…
+## $ media_url               <list> ["http://pbs.twimg.com/ext_tw_video_thumb/12…
+## $ media_t.co              <list> ["https://t.co/NdGsvXnij7", "https://t.co/0O…
+## $ media_expanded_url      <list> ["https://twitter.com/WSUCougarFB/status/125…
+## $ media_type              <list> ["photo", "photo", "photo", "photo", "photo"…
+## $ ext_media_url           <list> ["http://pbs.twimg.com/ext_tw_video_thumb/12…
+## $ ext_media_t.co          <list> ["https://t.co/NdGsvXnij7", "https://t.co/0O…
+## $ ext_media_expanded_url  <list> ["https://twitter.com/WSUCougarFB/status/125…
+## $ ext_media_type          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ mentions_user_id        <list> [<"1250265324", "1409024796", "180884045">, …
+## $ mentions_screen_name    <list> [<"WSUCougarFB", "dadpat7", "Colts">, NA, "W…
+## $ lang                    <chr> "en", "en", "en", "en", "en", "en", "en", "en…
+## $ quoted_status_id        <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "1252…
+## $ quoted_text             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "My W…
+## $ quoted_created_at       <dttm> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2020…
+## $ quoted_source           <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Twit…
+## $ quoted_favorite_count   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 209, …
+## $ quoted_retweet_count    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 6, NA…
+## $ quoted_user_id          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "4394…
+## $ quoted_screen_name      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "madd…
+## $ quoted_name             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Madd…
+## $ quoted_followers_count  <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 629, …
+## $ quoted_friends_count    <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 382, …
+## $ quoted_statuses_count   <int> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 8881,…
+## $ quoted_location         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Seat…
+## $ quoted_description      <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "WSU …
+## $ quoted_verified         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, FALSE…
+## $ retweet_status_id       <chr> "1254159118996127746", NA, NA, NA, NA, NA, NA…
+## $ retweet_text            <chr> "Big Dez is headed to Indy!\n\n#GoCougs | #NF…
+## $ retweet_created_at      <dttm> 2020-04-25 21:23:29, NA, NA, NA, NA, NA, NA,…
+## $ retweet_source          <chr> "Twitter for iPhone", NA, NA, NA, NA, NA, NA,…
+## $ retweet_favorite_count  <int> 1402, NA, NA, NA, NA, NA, NA, NA, NA, 26, NA,…
+## $ retweet_retweet_count   <int> 230, NA, NA, NA, NA, NA, NA, NA, NA, 6, NA, N…
+## $ retweet_user_id         <chr> "1250265324", NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ retweet_screen_name     <chr> "WSUCougarFB", NA, NA, NA, NA, NA, NA, NA, NA…
+## $ retweet_name            <chr> "Washington State Football", NA, NA, NA, NA, …
+## $ retweet_followers_count <int> 77527, NA, NA, NA, NA, NA, NA, NA, NA, 996, N…
+## $ retweet_friends_count   <int> 1448, NA, NA, NA, NA, NA, NA, NA, NA, 316, NA…
+## $ retweet_statuses_count  <int> 15363, NA, NA, NA, NA, NA, NA, NA, NA, 1666, …
+## $ retweet_location        <chr> "Pullman, WA", NA, NA, NA, NA, NA, NA, NA, NA…
+## $ retweet_description     <chr> "Official Twitter home of Washington State Co…
+## $ retweet_verified        <lgl> TRUE, NA, NA, NA, NA, NA, NA, NA, NA, FALSE, …
+## $ place_url               <chr> NA, NA, NA, NA, NA, "https://api.twitter.com/…
+## $ place_name              <chr> NA, NA, NA, NA, NA, "Pullman", NA, NA, NA, NA…
+## $ place_full_name         <chr> NA, NA, NA, NA, NA, "Pullman, WA", NA, NA, NA…
+## $ place_type              <chr> NA, NA, NA, NA, NA, "city", NA, NA, NA, NA, "…
+## $ country                 <chr> NA, NA, NA, NA, NA, "United States", NA, NA, …
+## $ country_code            <chr> NA, NA, NA, NA, NA, "US", NA, NA, NA, NA, "US…
+## $ geo_coords              <list> [<NA, NA>, <NA, NA>, <NA, NA>, <NA, NA>, <NA…
+## $ coords_coords           <list> [<NA, NA>, <NA, NA>, <NA, NA>, <NA, NA>, <NA…
+## $ bbox_coords             <list> [<NA, NA, NA, NA, NA, NA, NA, NA>, <NA, NA, …
+## $ status_url              <chr> "https://twitter.com/WSUPullman/status/125417…
+## $ name                    <chr> "WSU Pullman", "WSU Pullman", "WSU Pullman", …
+## $ location                <chr> "Pullman, Washington USA", "Pullman, Washingt…
+## $ description             <chr> "We are an award-winning research university …
+## $ url                     <chr> "http://t.co/VxKZH9BuMS", "http://t.co/VxKZH9…
+## $ protected               <lgl> FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FAL…
+## $ followers_count         <int> 43914, 43914, 43914, 43914, 43914, 43914, 439…
+## $ friends_count           <int> 9717, 9717, 9717, 9717, 9717, 9717, 9717, 971…
+## $ listed_count            <int> 556, 556, 556, 556, 556, 556, 556, 556, 556, …
+## $ statuses_count          <int> 15234, 15234, 15234, 15234, 15234, 15234, 152…
+## $ favourites_count        <int> 20124, 20124, 20124, 20124, 20124, 20124, 201…
+## $ account_created_at      <dttm> 2009-02-26 23:39:34, 2009-02-26 23:39:34, 20…
+## $ verified                <lgl> TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRU…
+## $ profile_url             <chr> "http://t.co/VxKZH9BuMS", "http://t.co/VxKZH9…
+## $ profile_expanded_url    <chr> "http://www.wsu.edu", "http://www.wsu.edu", "…
+## $ account_lang            <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+## $ profile_banner_url      <chr> "https://pbs.twimg.com/profile_banners/220801…
+## $ profile_background_url  <chr> "http://abs.twimg.com/images/themes/theme5/bg…
+## $ profile_image_url       <chr> "http://pbs.twimg.com/profile_images/57650290…
 ```
 
 ```r
@@ -160,14 +160,14 @@ head(p12_df)
 
 ```
 ## # A tibble: 6 x 5
-##   user_id  created_at          screen_name text                 location   
-##   <chr>    <dttm>              <chr>       <chr>                <chr>      
-## 1 22080148 2020-04-25 22:37:18 WSUPullman  "Big Dez is headed … Pullman, W…
-## 2 22080148 2020-04-23 21:11:49 WSUPullman  Cougar Cheese. That… Pullman, W…
-## 3 22080148 2020-04-21 04:00:00 WSUPullman  "Darien McLaughlin … Pullman, W…
-## 4 22080148 2020-04-24 03:00:00 WSUPullman  6 houses, one pick.… Pullman, W…
-## 5 22080148 2020-04-20 19:00:21 WSUPullman  Why did you choose … Pullman, W…
-## 6 22080148 2020-04-20 02:20:01 WSUPullman  Tell us one of your… Pullman, W…
+##   user_id  created_at          screen_name text                     location    
+##   <chr>    <dttm>              <chr>       <chr>                    <chr>       
+## 1 22080148 2020-04-25 22:37:18 WSUPullman  "Big Dez is headed to I… Pullman, Wa…
+## 2 22080148 2020-04-23 21:11:49 WSUPullman  "Cougar Cheese. That's … Pullman, Wa…
+## 3 22080148 2020-04-21 04:00:00 WSUPullman  "Darien McLaughlin '19,… Pullman, Wa…
+## 4 22080148 2020-04-24 03:00:00 WSUPullman  "6 houses, one pick. Co… Pullman, Wa…
+## 5 22080148 2020-04-20 19:00:21 WSUPullman  "Why did you choose to … Pullman, Wa…
+## 6 22080148 2020-04-20 02:20:01 WSUPullman  "Tell us one of your Br… Pullman, Wa…
 ```
 
 
@@ -1072,12 +1072,12 @@ str(p12_df)
 ```
 
 ```
-## Classes 'tbl_df', 'tbl' and 'data.frame':	328 obs. of  5 variables:
-##  $ user_id    : chr  "22080148" "22080148" "22080148" "22080148" ...
-##  $ created_at : POSIXct, format: "2020-04-25 22:37:18" "2020-04-23 21:11:49" ...
-##  $ screen_name: chr  "WSUPullman" "WSUPullman" "WSUPullman" "WSUPullman" ...
-##  $ text       : chr  "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 | @Colts | #NFLCougs https://t.co/NdGsvXnij7" "Cougar Cheese. That's it. That's the tweet. \U0001f9c0#WSU #GoCougs https://t.co/0OWGvQlRZs" "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge "| __truncated__ "6 houses, one pick. Cougs, which one you got? Reply \u2b07️  #WSU #CougsContain #GoCougs https://t.co/lNDx7r71b2" ...
-##  $ location   : chr  "Pullman, Washington USA" "Pullman, Washington USA" "Pullman, Washington USA" "Pullman, Washington USA" ...
+## tibble [328 × 5] (S3: tbl_df/tbl/data.frame)
+##  $ user_id    : chr [1:328] "22080148" "22080148" "22080148" "22080148" ...
+##  $ created_at : POSIXct[1:328], format: "2020-04-25 22:37:18" "2020-04-23 21:11:49" ...
+##  $ screen_name: chr [1:328] "WSUPullman" "WSUPullman" "WSUPullman" "WSUPullman" ...
+##  $ text       : chr [1:328] "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 | @Colts | #NFLCougs https://t.co/NdGsvXnij7" "Cougar Cheese. That's it. That's the tweet. \U0001f9c0#WSU #GoCougs https://t.co/0OWGvQlRZs" "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge "| __truncated__ "6 houses, one pick. Cougs, which one you got? Reply \u2b07️  #WSU #CougsContain #GoCougs https://t.co/lNDx7r71b2" ...
+##  $ location   : chr [1:328] "Pullman, Washington USA" "Pullman, Washington USA" "Pullman, Washington USA" "Pullman, Washington USA" ...
 ```
 
 ```r
@@ -1099,10 +1099,9 @@ unique(p12_df$screen_name)
 ```
 
 ```
-##  [1] "WSUPullman"      "CalAdmissions"   "UW"             
-##  [4] "USCAdmission"    "uoregon"         "FutureSunDevils"
-##  [7] "UCLAAdmission"   "UtahAdmissions"  "futurebuffs"    
-## [10] "uaadmissions"    "BeaverVIP"
+##  [1] "WSUPullman"      "CalAdmissions"   "UW"              "USCAdmission"   
+##  [5] "uoregon"         "FutureSunDevils" "UCLAAdmission"   "UtahAdmissions" 
+##  [9] "futurebuffs"     "uaadmissions"    "BeaverVIP"
 ```
 
 ```r
@@ -1496,19 +1495,19 @@ p12_datetime_df
 
 ```
 ## # A tibble: 328 x 9
-##    created_at          dt_chr date_chr yr_chr mth_chr day_chr hr_chr
-##    <dttm>              <chr>  <chr>    <chr>  <chr>   <chr>   <chr> 
-##  1 2020-04-25 22:37:18 2020-… 2020-04… 2020   04      25      22    
-##  2 2020-04-23 21:11:49 2020-… 2020-04… 2020   04      23      21    
-##  3 2020-04-21 04:00:00 2020-… 2020-04… 2020   04      21      04    
-##  4 2020-04-24 03:00:00 2020-… 2020-04… 2020   04      24      03    
-##  5 2020-04-20 19:00:21 2020-… 2020-04… 2020   04      20      19    
-##  6 2020-04-20 02:20:01 2020-… 2020-04… 2020   04      20      02    
-##  7 2020-04-22 04:00:00 2020-… 2020-04… 2020   04      22      04    
-##  8 2020-04-25 17:00:00 2020-… 2020-04… 2020   04      25      17    
-##  9 2020-04-21 15:13:06 2020-… 2020-04… 2020   04      21      15    
-## 10 2020-04-21 17:52:47 2020-… 2020-04… 2020   04      21      17    
-## # … with 318 more rows, and 2 more variables: min_chr <chr>, sec_chr <chr>
+##    created_at          dt_chr date_chr yr_chr mth_chr day_chr hr_chr min_chr
+##    <dttm>              <chr>  <chr>    <chr>  <chr>   <chr>   <chr>  <chr>  
+##  1 2020-04-25 22:37:18 2020-… 2020-04… 2020   04      25      22     37     
+##  2 2020-04-23 21:11:49 2020-… 2020-04… 2020   04      23      21     11     
+##  3 2020-04-21 04:00:00 2020-… 2020-04… 2020   04      21      04     00     
+##  4 2020-04-24 03:00:00 2020-… 2020-04… 2020   04      24      03     00     
+##  5 2020-04-20 19:00:21 2020-… 2020-04… 2020   04      20      19     00     
+##  6 2020-04-20 02:20:01 2020-… 2020-04… 2020   04      20      02     20     
+##  7 2020-04-22 04:00:00 2020-… 2020-04… 2020   04      22      04     00     
+##  8 2020-04-25 17:00:00 2020-… 2020-04… 2020   04      25      17     00     
+##  9 2020-04-21 15:13:06 2020-… 2020-04… 2020   04      21      15     13     
+## 10 2020-04-21 17:52:47 2020-… 2020-04… 2020   04      21      17     52     
+## # … with 318 more rows, and 1 more variable: sec_chr <chr>
 ```
 
 </details>
@@ -2014,18 +2013,18 @@ p12_datetime_df %>% select(created_at, dt_chr, yr_chr, mth_chr, day_chr) %>%
 
 ```
 ## # A tibble: 328 x 6
-##    created_at          dt_chr         yr_chr mth_chr day_chr date_make_date
-##    <dttm>              <chr>          <chr>  <chr>   <chr>   <date>        
-##  1 2020-04-25 22:37:18 2020-04-25 22… 2020   04      25      2020-04-25    
-##  2 2020-04-23 21:11:49 2020-04-23 21… 2020   04      23      2020-04-23    
-##  3 2020-04-21 04:00:00 2020-04-21 04… 2020   04      21      2020-04-21    
-##  4 2020-04-24 03:00:00 2020-04-24 03… 2020   04      24      2020-04-24    
-##  5 2020-04-20 19:00:21 2020-04-20 19… 2020   04      20      2020-04-20    
-##  6 2020-04-20 02:20:01 2020-04-20 02… 2020   04      20      2020-04-20    
-##  7 2020-04-22 04:00:00 2020-04-22 04… 2020   04      22      2020-04-22    
-##  8 2020-04-25 17:00:00 2020-04-25 17… 2020   04      25      2020-04-25    
-##  9 2020-04-21 15:13:06 2020-04-21 15… 2020   04      21      2020-04-21    
-## 10 2020-04-21 17:52:47 2020-04-21 17… 2020   04      21      2020-04-21    
+##    created_at          dt_chr              yr_chr mth_chr day_chr date_make_date
+##    <dttm>              <chr>               <chr>  <chr>   <chr>   <date>        
+##  1 2020-04-25 22:37:18 2020-04-25 22:37:18 2020   04      25      2020-04-25    
+##  2 2020-04-23 21:11:49 2020-04-23 21:11:49 2020   04      23      2020-04-23    
+##  3 2020-04-21 04:00:00 2020-04-21 04:00:00 2020   04      21      2020-04-21    
+##  4 2020-04-24 03:00:00 2020-04-24 03:00:00 2020   04      24      2020-04-24    
+##  5 2020-04-20 19:00:21 2020-04-20 19:00:21 2020   04      20      2020-04-20    
+##  6 2020-04-20 02:20:01 2020-04-20 02:20:01 2020   04      20      2020-04-20    
+##  7 2020-04-22 04:00:00 2020-04-22 04:00:00 2020   04      22      2020-04-22    
+##  8 2020-04-25 17:00:00 2020-04-25 17:00:00 2020   04      25      2020-04-25    
+##  9 2020-04-21 15:13:06 2020-04-21 15:13:06 2020   04      21      2020-04-21    
+## 10 2020-04-21 17:52:47 2020-04-21 17:52:47 2020   04      21      2020-04-21    
 ## # … with 318 more rows
 ```
 
@@ -2473,16 +2472,16 @@ Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.c
   str_view(string = "Turn to page 394...", pattern = "\\d+")
   ```
   
-  <!--html_preserve--><div id="htmlwidget-b0d7084b0a5f50ac5869" style="width:960px;height:100%;" class="str_view html-widget"></div>
-  <script type="application/json" data-for="htmlwidget-b0d7084b0a5f50ac5869">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  <!--html_preserve--><div id="htmlwidget-c8749841f025cd58b613" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-c8749841f025cd58b613">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
   
   ```r
   # Is shorthand for:
   str_view(string = "Turn to page 394...", pattern = regex("\\d+"))
   ```
   
-  <!--html_preserve--><div id="htmlwidget-434395625bf7a6637579" style="width:960px;height:100%;" class="str_view html-widget"></div>
-  <script type="application/json" data-for="htmlwidget-434395625bf7a6637579">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  <!--html_preserve--><div id="htmlwidget-a5e4167335fa31ea3fa1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-a5e4167335fa31ea3fa1">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 - For simplicity, we can omit the call to `regex()`
 - But, there are additional arguments we can supply to `regex()` if we wanted
   - `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)`
@@ -2518,8 +2517,8 @@ We can match all the pages mentioned using the following regex:
 str_view_all(string = s, pattern = "[Pp][Aa][Gg][Ee] \\d+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-882efa4b879c163cec60" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-882efa4b879c163cec60">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-6742015664f43c85c772" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6742015664f43c85c772">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 <br>
 Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing variations:
@@ -2529,8 +2528,8 @@ Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing v
 str_view_all(string = s, pattern = regex("page \\d+", ignore_case = TRUE))
 ```
 
-<!--html_preserve--><div id="htmlwidget-3e643bbe2eb2744de7bc" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3e643bbe2eb2744de7bc">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-b1ad91bbd33faa7a74af" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b1ad91bbd33faa7a74af">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd <span class='match'>page 393<\/span>... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 </details>
 
@@ -2560,8 +2559,8 @@ If we wanted to match only the correct pages, we can take advantage of the fact 
 str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE, multiline = TRUE))
 ```
 
-<!--html_preserve--><div id="htmlwidget-9fb2f35a8e2a0f7724c3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9fb2f35a8e2a0f7724c3">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-5ceb846026fdf87eb2dd" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5ceb846026fdf87eb2dd">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 <br>
 Compared to if we did not specify `multiline = TRUE`:
@@ -2572,8 +2571,8 @@ Compared to if we did not specify `multiline = TRUE`:
 str_view_all(string = s, pattern = regex("page \\d+$", ignore_case = TRUE))
 ```
 
-<!--html_preserve--><div id="htmlwidget-eeb00c5279f51301b9ce" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eeb00c5279f51301b9ce">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\nPage 391\nAnd page 392\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f6ce45474f50ca062b43" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f6ce45474f50ca062b43">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\nPage 391\nAnd page 392\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 </details>
 
@@ -2593,8 +2592,8 @@ pattern <- regex("
 str_view_all(string = s, pattern = pattern)
 ```
 
-<!--html_preserve--><div id="htmlwidget-a897abfb90c8dbb95fe7" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a897abfb90c8dbb95fe7">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-e8ac7a330e1d1ad07f78" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e8ac7a330e1d1ad07f78">{"x":{"html":"<ul>\n  <li>The assigned readings for EDUC 263\n<span class='match'>Page 391<\/span>\nAnd <span class='match'>page 392<\/span>\nAnd page 393... NO WAIT! <span class='match'>PAGE 394<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 </details>
 
@@ -2723,18 +2722,18 @@ p12_df %>%
 
 ```
 ## # A tibble: 53 x 5
-##    user_id  created_at          screen_name text                location   
-##    <chr>    <dttm>              <chr>       <chr>               <chr>      
-##  1 22080148 2020-04-21 04:00:00 WSUPullman  "Darien McLaughlin… Pullman, W…
-##  2 22080148 2020-04-24 03:00:00 WSUPullman  6 houses, one pick… Pullman, W…
-##  3 22080148 2020-04-20 02:20:01 WSUPullman  Tell us one of you… Pullman, W…
-##  4 22080148 2020-04-22 04:00:00 WSUPullman  We loved seeing yo… Pullman, W…
-##  5 22080148 2020-04-24 01:58:04 WSUPullman  #WSU agricultural … Pullman, W…
-##  6 22080148 2020-04-22 02:22:03 WSUPullman  Nice 👍 https://t.c… Pullman, W…
-##  7 15988549 2020-04-20 02:52:31 CalAdmissi… @PaulineARoxas Con… Berkeley, …
-##  8 15988549 2020-04-22 03:07:00 CalAdmissi… It’s time to make … Berkeley, …
-##  9 15988549 2020-04-22 00:00:08 CalAdmissi… "Are you a #Berkel… Berkeley, …
-## 10 15988549 2020-04-20 03:03:21 CalAdmissi… "@N48260756 We sug… Berkeley, …
+##    user_id  created_at          screen_name  text                    location   
+##    <chr>    <dttm>              <chr>        <chr>                   <chr>      
+##  1 22080148 2020-04-21 04:00:00 WSUPullman   "Darien McLaughlin '19… Pullman, W…
+##  2 22080148 2020-04-24 03:00:00 WSUPullman   "6 houses, one pick. C… Pullman, W…
+##  3 22080148 2020-04-20 02:20:01 WSUPullman   "Tell us one of your B… Pullman, W…
+##  4 22080148 2020-04-22 04:00:00 WSUPullman   "We loved seeing your … Pullman, W…
+##  5 22080148 2020-04-24 01:58:04 WSUPullman   "#WSU agricultural sci… Pullman, W…
+##  6 22080148 2020-04-22 02:22:03 WSUPullman   "Nice 👍 https://t.co/2… Pullman, W…
+##  7 15988549 2020-04-20 02:52:31 CalAdmissio… "@PaulineARoxas Congra… Berkeley, …
+##  8 15988549 2020-04-22 03:07:00 CalAdmissio… "It’s time to make thi… Berkeley, …
+##  9 15988549 2020-04-22 00:00:08 CalAdmissio… "Are you a #BerkeleyBo… Berkeley, …
+## 10 15988549 2020-04-20 03:03:21 CalAdmissio… "@N48260756 We suggest… Berkeley, …
 ## # … with 43 more rows
 ```
 
@@ -2765,7 +2764,7 @@ str_subset(string, pattern, negate = FALSE)
 
 
 ```r
-# Subsets the input vector to only keep elements that contains a digit
+# Subsets the input vector to only keep elements that contain a digit
 str_subset(string = c("One", "25th", "3000"), pattern = "\\d")
 ```
 
@@ -2901,18 +2900,18 @@ p12_df %>%
 
 ```
 ## # A tibble: 328 x 2
-##    text                                                            hashtag 
-##    <chr>                                                           <chr>   
-##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dad… #GoCougs
-##  2 Cougar Cheese. That's it. That's the tweet. 🧀#WSU #GoCougs htt… #WSU    
-##  3 "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman … #Pullman
-##  4 6 houses, one pick. Cougs, which one you got? Reply ⬇️  #WSU #… #WSU    
-##  5 Why did you choose to attend @WSUPullman?🤔 #WSU #GoCougs https… #WSU    
-##  6 Tell us one of your Bryan Clock Tower memories ⏰ 🐾 #WSU #GoCou… #WSU    
-##  7 We loved seeing your top three @WSUPullman buildings, but what… #WSU    
-##  8 "Congratulations, graduates! We’re two weeks away from the #WS… #WSU    
-##  9 Learn more about this story at https://t.co/45BzKc2rFE. #WSU #… #WSU    
-## 10 "Tomorrow, our @WSUEsports Team is facing off against \n@Espor… #GoCoug…
+##    text                                                                 hashtag 
+##    <chr>                                                                <chr>   
+##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 … #GoCougs
+##  2 "Cougar Cheese. That's it. That's the tweet. 🧀#WSU #GoCougs https:/… #WSU    
+##  3 "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman dista… #Pullman
+##  4 "6 houses, one pick. Cougs, which one you got? Reply ⬇️  #WSU #Coug… #WSU    
+##  5 "Why did you choose to attend @WSUPullman?🤔 #WSU #GoCougs https://t… #WSU    
+##  6 "Tell us one of your Bryan Clock Tower memories ⏰ 🐾 #WSU #GoCougs h… #WSU    
+##  7 "We loved seeing your top three @WSUPullman buildings, but what are… #WSU    
+##  8 "Congratulations, graduates! We’re two weeks away from the #WSU sys… #WSU    
+##  9 "Learn more about this story at https://t.co/45BzKc2rFE. #WSU #GoCo… #WSU    
+## 10 "Tomorrow, our @WSUEsports Team is facing off against \n@Esports_WA… #GoCoug…
 ## # … with 318 more rows
 ```
 
@@ -2931,18 +2930,18 @@ p12_df %>%
 
 ```
 ## # A tibble: 328 x 3
-##    text                             hashtag_vector hashtags                
-##    <chr>                            <list>         <chr>                   
-##  1 "Big Dez is headed to Indy!\n\n… <chr [3]>      "c(\"#GoCougs\", \"#NFL…
-##  2 Cougar Cheese. That's it. That'… <chr [2]>      "c(\"#WSU\", \"#GoCougs…
-##  3 "Darien McLaughlin '19, and her… <chr [3]>      "c(\"#Pullman\", \"#Cou…
-##  4 6 houses, one pick. Cougs, whic… <chr [3]>      "c(\"#WSU\", \"#CougsCo…
-##  5 Why did you choose to attend @W… <chr [2]>      "c(\"#WSU\", \"#GoCougs…
-##  6 Tell us one of your Bryan Clock… <chr [2]>      "c(\"#WSU\", \"#GoCougs…
-##  7 We loved seeing your top three … <chr [2]>      "c(\"#WSU\", \"#GoCougs…
-##  8 "Congratulations, graduates! We… <chr [3]>      "c(\"#WSU\", \"#CougGra…
-##  9 Learn more about this story at … <chr [2]>      "c(\"#WSU\", \"#GoCougs…
-## 10 "Tomorrow, our @WSUEsports Team… <chr [1]>      #GoCougs!               
+##    text                                 hashtag_vector hashtags                 
+##    <chr>                                <list>         <chr>                    
+##  1 "Big Dez is headed to Indy!\n\n#GoC… <chr [3]>      "c(\"#GoCougs\", \"#NFLD…
+##  2 "Cougar Cheese. That's it. That's t… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
+##  3 "Darien McLaughlin '19, and her dog… <chr [3]>      "c(\"#Pullman\", \"#Coug…
+##  4 "6 houses, one pick. Cougs, which o… <chr [3]>      "c(\"#WSU\", \"#CougsCon…
+##  5 "Why did you choose to attend @WSUP… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
+##  6 "Tell us one of your Bryan Clock To… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
+##  7 "We loved seeing your top three @WS… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
+##  8 "Congratulations, graduates! We’re … <chr [3]>      "c(\"#WSU\", \"#CougGrad…
+##  9 "Learn more about this story at htt… <chr [2]>      "c(\"#WSU\", \"#GoCougs\…
+## 10 "Tomorrow, our @WSUEsports Team is … <chr [1]>      "#GoCougs!"              
 ## # … with 318 more rows
 ```
 
@@ -3169,18 +3168,18 @@ p12_df %>%
 
 ```
 ## # A tibble: 328 x 2
-##    text                              removed_hashtags_handles              
-##    <chr>                             <chr>                                 
-##  1 "Big Dez is headed to Indy!\n\n#… "Big Dez is headed to Indy!\n\n |  | …
-##  2 Cougar Cheese. That's it. That's… Cougar Cheese. That's it. That's the …
-##  3 "Darien McLaughlin '19, and her … "Darien McLaughlin '19, and her dog, …
-##  4 6 houses, one pick. Cougs, which… 6 houses, one pick. Cougs, which one …
-##  5 Why did you choose to attend @WS… Why did you choose to attend    https…
-##  6 Tell us one of your Bryan Clock … Tell us one of your Bryan Clock Tower…
-##  7 We loved seeing your top three @… We loved seeing your top three  build…
-##  8 "Congratulations, graduates! We’… "Congratulations, graduates! We’re tw…
-##  9 Learn more about this story at h… "Learn more about this story at https…
-## 10 "Tomorrow, our @WSUEsports Team … "Tomorrow, our  Team is facing off ag…
+##    text                                removed_hashtags_handles                 
+##    <chr>                               <chr>                                    
+##  1 "Big Dez is headed to Indy!\n\n#Go… "Big Dez is headed to Indy!\n\n |  |  | …
+##  2 "Cougar Cheese. That's it. That's … "Cougar Cheese. That's it. That's the tw…
+##  3 "Darien McLaughlin '19, and her do… "Darien McLaughlin '19, and her dog, Yuk…
+##  4 "6 houses, one pick. Cougs, which … "6 houses, one pick. Cougs, which one yo…
+##  5 "Why did you choose to attend @WSU… "Why did you choose to attend    https:/…
+##  6 "Tell us one of your Bryan Clock T… "Tell us one of your Bryan Clock Tower m…
+##  7 "We loved seeing your top three @W… "We loved seeing your top three  buildin…
+##  8 "Congratulations, graduates! We’re… "Congratulations, graduates! We’re two w…
+##  9 "Learn more about this story at ht… "Learn more about this story at https://…
+## 10 "Tomorrow, our @WSUEsports Team is… "Tomorrow, our  Team is facing off again…
 ## # … with 318 more rows
 ```
 
@@ -3343,18 +3342,18 @@ p12_df %>%
 
 ```
 ## # A tibble: 328 x 2
-##    text                                               num_hashtags_and_men…
-##    <chr>                                                              <int>
-##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDra…                     5
-##  2 Cougar Cheese. That's it. That's the tweet. 🧀#WSU…                     2
-##  3 "Darien McLaughlin '19, and her dog, Yuki, went o…                     4
-##  4 6 houses, one pick. Cougs, which one you got? Rep…                     3
-##  5 Why did you choose to attend @WSUPullman?🤔 #WSU #…                     3
-##  6 Tell us one of your Bryan Clock Tower memories ⏰ …                     2
-##  7 We loved seeing your top three @WSUPullman buildi…                     3
-##  8 "Congratulations, graduates! We’re two weeks away…                     3
-##  9 Learn more about this story at https://t.co/45BzK…                     2
-## 10 "Tomorrow, our @WSUEsports Team is facing off aga…                     5
+##    text                                                   num_hashtags_and_ment…
+##    <chr>                                                                   <int>
+##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft20…                      5
+##  2 "Cougar Cheese. That's it. That's the tweet. 🧀#WSU #G…                      2
+##  3 "Darien McLaughlin '19, and her dog, Yuki, went on a …                      4
+##  4 "6 houses, one pick. Cougs, which one you got? Reply …                      3
+##  5 "Why did you choose to attend @WSUPullman?🤔 #WSU #GoC…                      3
+##  6 "Tell us one of your Bryan Clock Tower memories ⏰ 🐾 #…                      2
+##  7 "We loved seeing your top three @WSUPullman buildings…                      3
+##  8 "Congratulations, graduates! We’re two weeks away fro…                      3
+##  9 "Learn more about this story at https://t.co/45BzKc2r…                      2
+## 10 "Tomorrow, our @WSUEsports Team is facing off against…                      5
 ## # … with 318 more rows
 ```
 
@@ -3450,18 +3449,18 @@ p12_df %>%
 
 ```
 ## # A tibble: 328 x 4
-##    text               start_of_first_ha… end_of_first_ha… length_of_first_…
-##    <chr>                           <int>            <int>             <int>
-##  1 "Big Dez is heade…                 29               36                 7
-##  2 Cougar Cheese. Th…                 46               49                 3
-##  3 "Darien McLaughli…                 53               60                 7
-##  4 6 houses, one pic…                 57               60                 3
-##  5 Why did you choos…                 44               47                 3
-##  6 Tell us one of yo…                 52               55                 3
-##  7 We loved seeing y…                144              147                 3
-##  8 "Congratulations,…                 59               62                 3
-##  9 Learn more about …                 57               60                 3
-## 10 "Tomorrow, our @W…                266              274                 8
+##    text                   start_of_first_ha… end_of_first_has… length_of_first_…
+##    <chr>                               <int>             <int>             <int>
+##  1 "Big Dez is headed to…                 29                36                 7
+##  2 "Cougar Cheese. That'…                 46                49                 3
+##  3 "Darien McLaughlin '1…                 53                60                 7
+##  4 "6 houses, one pick. …                 57                60                 3
+##  5 "Why did you choose t…                 44                47                 3
+##  6 "Tell us one of your …                 52                55                 3
+##  7 "We loved seeing your…                144               147                 3
+##  8 "Congratulations, gra…                 59                62                 3
+##  9 "Learn more about thi…                 57                60                 3
+## 10 "Tomorrow, our @WSUEs…                266               274                 8
 ## # … with 318 more rows
 ```
 

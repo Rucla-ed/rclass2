@@ -1560,7 +1560,7 @@ str_subset(string, pattern, negate = FALSE)
 <details><summary>**Example**: Using `str_subset()` on character vector</summary>
 
 ```{r}
-# Subsets the input vector to only keep elements that contains a digit
+# Subsets the input vector to only keep elements that contain a digit
 str_subset(string = c("One", "25th", "3000"), pattern = "\\d")
 ```
 
