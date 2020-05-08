@@ -389,7 +389,7 @@ typeof(my_string)
 ```
 
 
-## Escape sequence and `writeLines()`
+## Special Characters
 
 > "A sequence in a string that starts with a `\` is called an **escape sequence** and allows us to include special characters in our strings."
 
@@ -403,6 +403,7 @@ Common **special characters**:
 - `\n`: newline
 - `\t`: tab
 
+These characters followed by a backslash `\` take on a new meaning. The `n` by itself is just an `n`. When you add a backslash to the `\n` you are escaping it and making it a special character where `\n` now represents a newline.
 
 <br>
 __The `writeLines()` function__:
@@ -464,6 +465,22 @@ writeLines(my_string)
 </details>
 
 <br>
+<details><summary>**Example**: Escaping double quotes within double quotes </summary>
+
+```{r}
+my_string <- "I called my mom and she said \"Echale ganas!\""
+my_string
+```
+
+Using `writeLines()` shows us only the content of the string without the backslashes:
+
+```{r}
+writeLines(my_string)
+```
+</details>
+
+
+<br>
 <details><summary>**Example**: Escaping backslashes</summary>
 
 To include a literal backslash in the string, we need to escape the backslash with another backslash:
@@ -494,6 +511,45 @@ Use `writeLines()` to see the escaped string:
 writeLines(my_string)
 ```
 </details>
+
+<br>
+
+### Escape special characters using Twitter data   
+
+Let's take a look at some tweets from our PAC-12 universities. 
+
+- Let's start by grabbing observations 1-3 from the `text` column.
+
+```{r}
+#Twitter example of \n newline special characters
+p12_df$text[1:3]
+```
+
+
+- Using `writeLines()` we can see the contents of the strings as they would be read, rather than as R stores them.
+```{r}
+writeLines(p12_df$text[1:3])
+```
+
+<br>
+<details><summary>**Example**: Escaping double quotes using Twitter data </summary>  
+
+- Using Twitter data you may encounter a lot of strings with double quotes.
+
+    - In the example below, our string includes special characters `\"` and `\n` to escape the double quotes and the newline character. 
+```{r}
+#Twitter example of \" double quotes special characters
+p12_df$text[24]
+```
+
+- Using `writeLines()` we can see the contents of the strings as they would be read, rather than as R stores them.  
+
+    - We no longer see the escaped characters `\"` or `\n`
+```{r}
+writeLines(p12_df$text[24])
+```
+</details>
+<br>
 
 # `stringr` package
 
@@ -1146,8 +1202,8 @@ Storing data using date/time objects makes it easier to **get and set** the vari
   - `month()`: Month
   - `day()`: Day
   - `hour()`: Hour
-  - `min()`: Minute
-  - `sec()`: Second
+  - `minute()`: Minute
+  - `second()`: Second
   - `week()`: Week of the year
   - `wday()`: Day of the week (`1` for Sunday to `7` for Saturday)
   - `am()`: Is it in the am? (returns `TRUE` or `FALSE`)
@@ -1361,8 +1417,984 @@ scorpio_start + ddays(30) + dhours(1)
 
 </details>
 
-# Appendix  
+# Why use Regular Expressions (Regex)  
 
+[![](http://a.yu8.us/xkcd-208-regular_expressions.png)](https://www.rexegg.com/regex-humor.html)  
+
+*Credit: Regex Humor ([Rex Egg](https://www.rexegg.com/regex-humor.html))*
+
+
+In her popular [STAT545 class](https://stat545.com/character-vectors.html#regular-expressions-resources) Jenny Bryan, professor of statistics at University of British Columbia, describes regular expressions as:
+
+> A God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.”
+
+Yes, learning regular expressions is painful. So why are we making you do this? Because regular expressions are a  fundamental building block of data science
+
+<br>
+
+**An annoying thing people say is that data science is about trying to find the "*signal* in the *noise*"**
+
+- *Noisy data* "is data with a large amount of additional meaningless information in it called noise" [Wikipedia](https://en.wikipedia.org/wiki/Noisy_data)
+- Prior to data science revolution, quant people thought of “data” as something in columns and rows
+- The data science revolution is about creating analysis datasets from many pieces of structured, semi-structured, and unstructured data.
+- But processing all this semi-structured data requires a lot of complex (and often tedious) data manipulation. 
+
+<br>
+
+
+**Another annoying thing people say is that  "data science is 80% data cleaning and 20% analysis."** 
+
+- Excerpts from a 2014 New York Times article, ["For Big-Data Scientists, ‘Janitor Work’ Is Key Hurdle to Insights"](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html):
+
+> Much handcrafted work — what data scientists call “data wrangling,” “data munging” and “data janitor work” — is still required. Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in this more mundane labor of collecting and preparing unruly digital data, before it can be explored for useful nuggets.
+
+> “Data wrangling is a huge — and surprisingly so — part of the job,” said Monica Rogati, vice president for data science at Jawbone, whose sensor-filled wristband and software track activity, sleep and food consumption, and suggest dietary and health tips based on the numbers. “It’s something that is not appreciated by data civilians. At times, it feels like everything we do.”
+
+> “It’s an absolute myth that you can send an algorithm over raw data and have insights pop up,” said Jeffrey Heer, a professor of computer science at the University of Washington and a co-founder of Trifacta, a start-up based in San Francisco.
+
+> But if the value [of data science] comes from combining different data sets, so does the headache. Data from sensors, documents, the web and conventional databases all come in different formats. Before a software algorithm can go looking for answers, the data must be cleaned up and converted into a unified form that the algorithm can understand.
+
+> “Practically, because of the diversity of data, you spend a lot of your time being a data janitor, before you can get to the cool, sexy things that got you into the field in the first place,” said Matt Mohebbi, a data scientist and co-founder of Iodine.
+
+<br>
+
+**So why learn regular expressions? Because regular expressions are THE preeminent tool for identifying data patterns, and cleaning/transforming "noisy" data**
+
+- Most programmers I speak to talk about regular expressions as one of the most important tools for a programmer to learn
+- One could argue that regular expressions are a fundamental driver of the data science revolution, in that they are what made it possible to format and integrate diverse data sources into analysis datasets (I don't know if that is true, but it seems reasonable!)
+- For example, web-scraping is fundamentally an application of regular expressions. Grabbing data from the internet is usually very easy. The hard part is processing all that html code into something that can be analyzed.
+
+
+<br>
+
+# What are regular expressions? 
+
+What are regular expressions? from [Geeks for Geeks](https://www.geeksforgeeks.org/write-regular-expressions/)
+
+- Regular expressions are an efficient way to match different patterns in strings, similar to the [command + f] function you use to find text in a pdf or word document. 
+    
+    ![](../../assets/images/command_f.png){width=60%}
+
+*Credit: Crystal Han, Ozan Jaquette, & Karina Salazar ([Recruiting the Out-Of-State University](https://emraresearch.org/sites/default/files/2019-03/joyce_report.pdf))*
+
+<br>
+
+## `str_view` and `str_view_all`
+
+<br>
+__The `str_view()` function__:
+
+```{r, eval = FALSE}
+?str_view
+
+# SYNTAX AND DEFAULT VALUES
+str_view(string, pattern, match = NA)
+str_view_all(string, pattern, match = NA)
+```
+
+- Function: `str_view` shows the first match of a regex pattern; `str_view_all` shows all the matches of a regex pattern.
+- Arguments:
+  - `string`: Input vector. Either a character vector, or something coercible to one.
+  - `pattern`: Pattern to look for.
+      - The default interpretation is a regular expression, as described in stringi::stringi-search-regex. Control options with regex().
+  - `match`: If TRUE, shows only strings that match the pattern. If FALSE, shows only the strings that don't match the pattern. Otherwise (the default, NA) displays both matches and non-matches.
+
+<br>
+
+`str_view` will show us the first regex pattern match
+
+```{r}
+str_view(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+Notice how we can see all the regex pattern matches with `str_view_all`
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for newline </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\n"))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for period </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\."))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for white space </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\s"))
+```
+</details>
+
+<br>
+
+## Escape special character backslashes
+
+> If \\ is used as an escape character in regular expressions, how do you match a literal \\? Well you need to escape it, creating the regular expression \\\\. To create that regular expression, you need to use a string, which also needs to escape \\ . That means to match a literal \\ you need to write "\\\\\\\\" — you need four backslashes to match one!
+
+*Credit: [R for Data Science](https://r4ds.had.co.nz/strings.html#basic-matches) Strings Chapter*
+
+The character vector below has one, two, three, and four backslashes.  
+
+- Notice once we print this vector, the single backslash returns an empty string and the three backslashes return two backslashes.
+```{r}
+backslash <- c("\ ","\\", "\\\ ", "\\\\")
+
+backslash
+```
+
+<br>
+
+- Using `writeLines()` we can see view the contents of the strings.
+```{r}
+writeLines(backslash)
+```
+
+```{r}
+text <- "This is a backslash \\"
+str_view(string = text, pattern = "\\\\")
+```
+<br>
+
+
+
+# Regular expression characters {.tabset .tabset-fade .tabset-pills}
+
+Some common regular expression patterns include (not inclusive):  
+
+* Character classes
+* Quantifiers 
+* Anchors  
+* Groups and ranges
+* Backreferences
+
+*Credit: [DaveChild](https://cheatography.com/davechild/cheat-sheets/regular-expressions/) Regular Expression Cheat Sheet*
+
+
+**Select each tab**
+
+
+## Character classes
+
+| STRING  <br>  *(type string that represents regex)* | REGEX <br> *(to have this appear in your regex)* | MATCHES <br> *(to match with this text)* |
+|--------------|-----------------|---------|
+| `\\'`  |    `\'`   | ' (single quote)|
+| `\\"`  |    `\"`   | " (double quote)|
+| `\\\\` |    `\\`   | \\\  |
+| `\\n`  |    `\n`   | new line (return)  |
+| `\\t`  |    `\t`   | tab |
+| `\\s`  |    `\s`   |  any whitespace |
+| `\\S`  |    `\S`   |  any non-whitespace |
+| `\\d`  |    `\d`   |  any digit |
+| `\\D`  |    `\D`   |  any non-digit|
+| `\\w`  |    `\w`   |  any word character |
+| `\\W`  |    `\W`   |  any non-word character|
+| `\\b`  |    `\b`   |  word-boundary |
+| `\\B`  |    `\B`   |  non-word-boundary |
+| `\\.`  |    `\.`    | . |
+| `\\!`  |    `\!`   | !  |
+| `\\?`  |    `\?`   | ?  |
+| `\\(`  |    `\(`   | ( |
+| `\\)`  |    `\)`   | ) |
+| `\\{`  |    `\{`   | { |
+| `\\}`  |    `\}`   |}  |
+
+
+
+*Credit: [Working with strings in stringr](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) Cheat sheet*
+
+
+__Character classes and special characters in regular expressions__  
+
+There are certain characters in regex that have special meaning. If you want to search for a digit (number) you need to escape the letter `d` with a backslash, like `\d`. The escaped character now can be interpreted as a regular expression. "But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a [digit] in a regex."
+
+*Credit: [Escaping sequences](https://stat545.com/character-vectors.html#escaping) from Stat 545*
+
+```{r}
+writeLines(p12_df$text[39])
+```
+
+Let's search for instances of the letter "e" in a sentence followed by a space `\\s`.
+```{r}
+str_view_all(string = p12_df$text[39], pattern = "e\\s")
+```
+
+Now let's search for literal exclamation marks `\\!`
+```{r}
+str_view_all(string = p12_df$text[39], pattern = "\\!")
+```
+
+
+<br>
+
+<details><summary>**Example**: non-word character  `\\W` </summary> 
+
+- Using the string vector from above `p12_df$text[39]`, let's search for non-word characters.
+
+```{r}
+str_view_all(string = p12_df$text[39], pattern = ("\\W"))
+```
+</details>
+
+<br>
+
+
+***  
+\newline 
+
+## Quantifiers
+
+
+Character  Description     Code      Result
+---------- ------------    --------  -------
+*          0 or more       {3}       Exactly 3
++          1 or more       {3,}      3 or more
+?          0 or 1          {3,5}     3, 4 or 5  
+\\\\       Escape character  \\\\s     white space
+
+
+We use quantifiers to specify the number of times we want to search for a particular pattern. 
+```{r}
+writeLines(p12_df$text[32])
+```
+
+In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for instances of the letters "ou" one or more times. 
+
+```{r}
+str_view_all(string = p12_df$text[32], pattern = "ou+")
+```
+
+Now say we wanted to search for the letter t exactly 2 times in the string. 
+```{r}
+str_view_all(string = p12_df$text[32], pattern = "t{2}")
+```
+
+
+<br>
+
+<details><summary>**Example**: asterisk `*` </summary> 
+
+- Using the string vector from above `p12_df$text[32]`, let's search for instances of "le" zero or more times.
+
+```{r}
+str_view_all(string = p12_df$text[32], pattern = ("le*"))
+```
+</details>
+
+<br>
+
+***  
+\newline 
+
+## Anchors
+
+Character  Description     
+---------- ----------------------------------------------------------  
+     ^       Start of string, or start of line in multi-line pattern        
+     $           End of string, or end of line in multi-line pattern    
+    \\b                                                Word boundary
+    \\B                                            Not word boundary
+
+ 
+
+```{r}
+writeLines(p12_df$text[20:22])
+```
+
+Let's search for the first letter of a string that starts with the letter "T". We can use the caret symbol `^` to search for the start of the string. Next, we want to search for the letter "T".
+```{r}
+str_view_all(string = p12_df$text[20:22], pattern = ("^T"))
+```
+
+We could use the `\\b` word bound character followed by the letter "f" to search for a word that starts with the letter "f".
+```{r}
+str_view_all(string = p12_df$text[20:22], pattern = ("\\bf"))
+```
+
+<br>
+
+<details><summary>**Example**: @ handles </summary> 
+
+- Using the string vector from above `p12_df$text[20:22]`, search for Twitter handles.
+```{r}
+str_view_all(string = p12_df$text[20:22], pattern = ("@\\S+"))
+```
+</details>
+
+<br>
+
+***
+\newline
+
+
+## Groups and ranges
+
+Character  Description     
+---------- ----------------------------------------------------------
+.          Any character except new line (\\n)
+(a|b)      a or b
+(...)      Group
+[abc]      Range (a or b or c)
+[^abc]     Not (a or b or c)
+[a-z]      Lower case letter from a to z
+[A-Z]      Upper case letter from A to Z
+[0-7]      Digit from 0 to 7
+
+
+We use grouping characters to specify a range of characters.  
+```{r}
+writeLines(p12_df$text[10])
+```
+
+Say we wanted to search for the letter a or o. 
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("(a|o)"))
+```
+
+What about vowels? We use the square brackets to indicate a range.
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("[aeiou]"))
+```
+
+If we do not want any vowels we could add the caret `^` symbol to our pattern from above. 
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
+```
+
+<br>
+
+<details><summary>**Example**: Upper case letters `[A-Z]` </summary> 
+
+
+- Using the string vector from above `p12_df$text[10]`, let's search for upper case letters.
+
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
+```
+</details>
+
+<br>
+
+## Backreferences
+
+Character  Description     
+---------- ----------------------------------------------------------
+\\\\1         Part of the string matched by capturing group 1
+\\\\2         Part of the string matched by capturing group 2
+...         ...
+
+In the previous section we talked about groups and ranges. A parentheses creates what is called a _numbered_ capturing group. "A capturing group stores the part of the string matched by the part of the regular expression inside the parentheses". For example, if we have one parentheses `(a)` we can refer to the same text as previously matched by this capturing group with backreferences, like \\\\1.
+
+*Credit: Hadley Wickham ([R for Data Science](https://r4ds.had.co.nz/strings.html#grouping-and-backreferences)) Grouping and backreferences*
+
+```{r}
+writeLines(p12_df$text[40])
+```
+
+Our capturing group (what is in the first and only parenthesis) has the letter `f`. In the first pattern, we are searching for any `f's` in the text. When we add the backreference `\\1` we are now searching for the text matched by our capturing group. In other words, we are searching for `ff`.  
+```{r}
+
+str_view_all(string = p12_df$text[10], pattern = "(f)")
+
+str_view_all(string = p12_df$text[10], pattern = "(f)\\1")
+
+```
+
+Below we are searching for `r` or `f`. When we add the backreference `\\1` we are now searching for the text matched by our capturing group. In other words, we are searching for `rr` or `ff`.  
+```{r}
+str_view_all(string = p12_df$text[10], pattern = "(r|f)")
+str_view_all(string = p12_df$text[10], pattern = "(r|f)\\1")
+```
+
+
+# Regex with `stringr` functions
+
+Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.co.nz/strings.html#other-types-of-pattern))
+
+- When we specify a pattern in a `stringr` function, such as `str_view()`, it is automatically wrapped in a call to `regex()` (ie. _treated as a regular expression_)
+
+  ```{r}
+  # This function call:
+  str_view(string = "Turn to page 394...", pattern = "\\d+")
+  
+  # Is shorthand for:
+  str_view(string = "Turn to page 394...", pattern = regex("\\d+"))
+  ```
+  
+- For simplicity, we can omit the call to `regex()`  
+- But, there are additional arguments we can supply to `regex()` if we wanted  
+
+  - `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)`  
+  - `ignore_case`: If `TRUE`, allows characters to match either their uppercase or lowercase forms  
+  - `multiline`: If `TRUE`, allows `^` and `$` to match the start and end of each line rather than the start and end of the complete string  
+  - `comments`: If `TRUE`, allows you to use comments and white space to make complex regular expressions more understandable  
+    - Spaces are ignored, as is everything after `#`  
+    - To match a literal space, you’ll need to escape it: `"\\ "`
+
+<br>
+<details><summary>**Example**: Specifying `ignore_case = TRUE` in `regex()`</summary>
+
+Let's say we have the following string:
+
+```{r}
+s <- "Yay, yay.... YAY!"
+s
+```
+
+<br>
+We can match all the yay's using the following regex:
+
+```{r}
+str_view_all(string = s, pattern = "[Yy][Aa][Yy]")
+```
+
+<br>
+Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing variations:
+
+```{r}
+str_view_all(string = s, pattern = regex("yay", ignore_case = TRUE))
+```
+
+</details>
+
+
+
+
+## `str_detect()`
+
+<br>
+__The `str_detect()` function__:
+
+```{r, eval = FALSE}
+?str_detect
+
+# SYNTAX AND DEFAULT VALUES
+str_detect(string, pattern, negate = FALSE)
+```
+
+- Function: Detects the presence or absence of a pattern in a string
+  - Returns logical vector (`TRUE` if there is a match, `FALSE` if there is not)
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `negate`: If set to `TRUE`, the returned logical vector will contain `TRUE` if there is not a match and `FALSE` if there is one
+
+<br>
+<details><summary>**Example**: Using `str_detect()` on string</summary>
+
+```{r}
+# Detects if there is a digit in the string
+str_detect(string = "P. Sherman 42 Wallaby Way", pattern = "\\d")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_detect()` on character vector</summary>
+
+```{r}
+# Detects if there is a digit in each string in the vector
+str_detect(string = c("One", "25th", "3000"), pattern = "\\d")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_detect()` on dataframe column</summary>
+
+Let's create new columns in `p12_df` called `is_am` and `is_pm` that indicates whether or not each tweet's `created_at` time is in the AM or PM, respectively:
+
+```{r}
+p12_df %>%
+  mutate(
+    # Returns `TRUE` if the hour is 0#, 10, or 11, `FALSE` otherwise
+    is_am = str_detect(string = created_at, pattern = " 0\\d| 1[01]"),
+    # Recall we can set the `negate` argument to switch the returned `TRUE`/`FALSE`
+    is_pm = str_detect(string = created_at, pattern = " 0\\d| 1[01]", negate = TRUE)
+  ) %>% select(created_at, is_am, is_pm)
+```
+
+<br>
+Because `TRUE` evaluates to 1 and `FALSE` evaluates to 0 in a numerical context, we could also sum the returned logical vector to see how many of the elements in the vector had a match:
+
+```{r}
+# Number of tweets that were created in the AM
+num_am_tweets <- sum(str_detect(string = p12_df$created_at, pattern = " 0\\d| 1[01]"))
+num_am_tweets
+```
+
+<br>
+Additionally, we can take the average of the logical vector to get the proportion of elements in the input vector that had a match:
+
+```{r}
+# Proportion of tweets that were created in the AM
+pct_am_tweets <- mean(str_detect(string = p12_df$created_at, pattern = " 0\\d| 1[01]"))
+pct_am_tweets
+```
+
+<br>
+We can also use the logical vector returned from `str_detect()` to filter `p12_df` to only include rows that had a match:
+
+```{r}
+# Keep only rows whose tweet was created in the AM
+p12_df %>%
+  filter(str_detect(string = created_at, pattern = " 0\\d| 1[01]"))
+```
+
+</details>
+
+## `str_subset()`
+
+<br>
+__The `str_subset()` function__:
+
+```{r, eval = FALSE}
+?str_subset
+
+# SYNTAX AND DEFAULT VALUES
+str_subset(string, pattern, negate = FALSE)
+```
+
+- Function: Keeps strings that match a pattern
+  - Returns input vector filtered to only keep elements that match the specified pattern
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `negate`: If set to `TRUE`, the returned vector will contain only elements that did not match the specified pattern
+
+<br>
+<details><summary>**Example**: Using `str_subset()` on character vector</summary>
+
+```{r}
+# Subsets the input vector to only keep elements that contain a digit
+str_subset(string = c("One", "25th", "3000"), pattern = "\\d")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_subset()` on dataframe column</summary>
+
+```{r}
+# Subsets the `created_at` vector of `p12_df` to only keep elements that occured in the AM
+str_subset(string = p12_df$created_at, pattern = " 0\\d| 1[01]")
+```
+
+</details>
+
+## `str_extract()` and `str_extract_all()`
+
+<br>
+__The `str_extract()` and `str_extract_all()` functions__:
+
+```{r, eval = FALSE}
+?str_extract
+
+# SYNTAX
+str_extract(string, pattern)
+
+
+?str_extract_all
+
+# SYNTAX AND DEFAULT VALUES
+str_extract_all(string, pattern, simplify = FALSE)
+```
+
+- Function: Extracts matching patterns from a string
+  - Returns first match (`str_extract()`) or all matches (`str_extract_all()`) for input vector
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `simplify`: If set to `TRUE`, the returned matches will be in a character matrix rather than the default list of character vectors
+
+
+<br>
+<details><summary>**Example**: Using `str_extract()` and `str_extract_all()` on character vector</summary>
+
+**[`str_extract()`]** Extract the first occurrence of a word for each string:
+
+```{r}
+# Extracts first match of a word
+str_extract(string = c("Three French hens", "Two turtle doves", "A partridge in a pear tree"),
+            pattern = "\\w+")
+```
+
+**[`str_extract_all()`]** Extract all occurrences of a word for each string:
+
+```{r}
+# Extracts all matches of a word, returning a list of character vectors
+str_extract_all(string = c("Three French hens", "Two turtle doves", "A partridge in a pear tree"), 
+                pattern = "\\w+")
+
+# Extracts all matches of a word, returning a character matrix
+str_extract_all(string = c("Three French hens", "Two turtle doves", "A partridge in a pear tree"), 
+                pattern = "\\w+", simplify = TRUE)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_extract()` and `str_extract_all()` on dataframe column</summary>
+
+**[`str_extract()`]** Extract first hashtag:
+
+```{r}
+# Extracts first match of a hashtag (if there is one)
+p12_df %>% 
+  mutate(
+    hashtag = str_extract(string = text, pattern = "#\\S+")
+  ) %>% select(text, hashtag)
+```
+
+**[`str_extract_all()`]** Extract all hashtags:
+
+```{r}
+# Extracts all matches of hashtags (if there are any)
+p12_df %>% 
+  mutate(
+    hashtag_vector = str_extract_all(string = text, pattern = "#\\S+"),
+    # Use `as.character()` so we can see the content of the character vector of matches
+    hashtags = as.character(hashtag_vector)
+  ) %>% select(text, hashtag_vector, hashtags)
+```
+
+</details>
+
+## `str_match()` and `str_match_all()`
+
+<br>
+__The `str_match()` and `str_match_all()` functions__:
+
+```{r, eval = FALSE}
+?str_match
+
+# SYNTAX
+str_match(string, pattern)
+
+
+?str_match_all
+
+# SYNTAX
+str_match_all(string, pattern)
+```
+
+- Function: Extracts matched groups from a string
+  - Returns a character matrix containing the full match in the first column, then additional columns for matches from each capturing group
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+
+<br>
+<details><summary>**Example**: Using `str_match()` and `str_match_all()` on character vector</summary>
+
+**[`str_match()`]** Extract the first month, day, year for each string:
+
+```{r}
+# Extracts first match of month, day, year
+str_match(string = c("5-1-2020", "12/25/17", "01.01.13 to 01.01.14"),
+          pattern = "(\\d+)[-/\\.](\\d+)[-/\\.](\\d+)")
+```
+
+**[`str_match_all()`]** Extract all month, day, year for each string:
+
+```{r}
+# Extracts all matches of month, day, year
+str_match_all(string = c("5-1-2020", "12/25/17", "01.01.13 to 01.01.14"),
+              pattern = "(\\d+)[-/\\.](\\d+)[-/\\.](\\d+)")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_match()` on dataframe column</summary>
+
+```{r}
+datetime_regex <- "([\\d-]+) ([\\d:]+)"
+p12_df %>%
+  mutate(
+    # The 1st capturing group will be in the 2nd column of the matrix returned from `str_match()`
+    date = str_match(string = created_at, pattern = datetime_regex)[, 2],
+    # The 2nd capturing group will be in the 3rd column of the matrix returned from `str_match()`
+    time = str_match(string = created_at, pattern = datetime_regex)[, 3]
+  ) %>% select(created_at, date, time)
+```
+
+</details>
+
+
+## `str_replace()` and `str_replace_all()`
+
+<br>
+__The `str_replace()` and `str_replace_all()` functions__:
+
+```{r, eval = FALSE}
+?str_replace
+
+# SYNTAX
+str_replace(string, pattern, replacement)
+
+
+?str_replace_all
+
+# SYNTAX
+str_replace_all(string, pattern, replacement)
+```
+
+- Function: Replaces matched patterns in a string
+  - Returns input vector with first match (`str_replace()`) or all matches (`str_replace_all()`) for each string replaced with specified replacement
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `replacement`: What the matched pattern should be replaced with
+- `str_replace_all()` also supports multiple replacements, where you can omit the `replacement` argument and just provide a named vector of replacements as the `pattern`
+
+<br>
+<details><summary>**Example**: Using `str_replace()` and `str_replace_all()`</summary>
+
+**[`str_replace()`]** Replace the first occurrence of a vowel:
+
+```{r}
+# Replace first vowel with empty string
+str_replace(string = "Thanks for the Memories", pattern = "[aeiou]", replacement = "")
+```
+
+**[`str_replace_all()`]** Replace all occurrences of a vowel:
+
+```{r}
+# Replace all vowels with empty strings
+str_replace_all(string = "Thanks for the Memories", pattern = "[aeiou]", replacement = "")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using backreferences with `str_replace()` and `str_replace_all()`</summary>
+
+**[`str_replace()`]** Reorders the first date that is matched:
+
+```{r}
+# Use \\1, \\2, and \\3 to refer to the capturing groups (ie. month, day, year)
+str_replace(string = "12/31/19 to 01/01/20", pattern = "(\\d+)/(\\d+)/(\\d+)",
+            replacement = "20\\3-\\1-\\2")
+```
+
+**[`str_replace_all()`]** Reorders all dates that are matched:
+
+```{r}
+# Use \\1, \\2, and \\3 to refer to the capturing groups (ie. month, day, year)
+str_replace_all(string = "12/31/19 to 01/01/20", pattern = "(\\d+)/(\\d+)/(\\d+)",
+                replacement = "20\\3-\\1-\\2")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_replace_all()` for multiple replacements</summary>
+
+```{r}
+# Replace all occurrences of "at" with "@", and all digits with "#"
+str_replace_all(string = "Tomorrow at 10:30AM", pattern = c("at" = "@", "\\d" = "#"))
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_replace_all()` on dataframe column</summary>
+
+```{r}
+p12_df %>%
+  mutate(
+    # Replace all hashtags and handles from tweet with an empty string
+    removed_hashtags_handles = str_replace_all(string = text, pattern = "[@#]\\S+", replacement = "")
+  ) %>% select(text, removed_hashtags_handles)
+```
+
+</details>
+
+
+## `str_split()`
+
+<br>
+__The `str_split()` function__:
+
+```{r, eval = FALSE}
+?str_split
+
+# SYNTAX AND DEFAULT VALUES
+str_split(string, pattern, n = Inf, simplify = FALSE)
+```
+
+- Function: Splits a string by specified pattern
+  - Returns character vector containing the split substrings
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for and split by
+  - `n`: Maximum number of substrings to return
+  - `simplify`: If set to `TRUE`, the returned matches will be in a character matrix rather than the default list of character vectors
+
+<br>
+<details><summary>**Example**: Using `str_split()` on character vector</summary>
+
+```{r}
+# Split by comma or the word "and"
+str_split(string = c("The Lion, the Witch, and the Wardrobe", "Peanut butter and jelly"),
+          pattern = ",? and |, ")
+```
+
+<br>
+We can specify `n` to control the maximum number of substrings we want to return:
+
+```{r}
+# Limit split to only return 2 substrings
+str_split(string = c("The Lion, the Witch, and the Wardrobe", "Peanut butter and jelly"),
+          pattern = ",? and |, ", n = 2)
+```
+
+<br>
+We can specify `simplify = TRUE` to return a character matrix instead of a list:
+
+```{r}
+# Return split substrings in a character matrix
+str_split(string = c("The Lion, the Witch, and the Wardrobe", "Peanut butter and jelly"),
+          pattern = ",? and |, ", simplify = TRUE)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_split()` on dataframe column</summary>
+
+When we split the `created_at` field at either a hyphen or space, we can separated out the year, month, day, and time components of the string:
+
+```{r}
+p12_df %>%
+  mutate(
+    # Use `as.character()` so we can see the content of the character vector of splitted strings
+    year_month_day_time = as.character(str_split(string = created_at, pattern = "[- ]"))
+  ) %>% select(created_at, year_month_day_time)
+```
+
+</details>
+
+## `str_count()`
+
+<br>
+__The `str_count()` function__:
+
+```{r, eval = FALSE}
+?str_count
+
+# SYNTAX AND DEFAULT VALUES
+str_count(string, pattern = "")
+```
+
+- Function: Counts the number of matches in a string
+  - Returns the number of matches
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+
+<br>
+<details><summary>**Example**: Using `str_count()` on character vector</summary>
+
+```{r}
+# Counts the number of digits
+str_count(string = c("H2O2", "Year 3000", "4th of July"), pattern = "\\d")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_count()` on dataframe column</summary>
+
+```{r}
+p12_df %>%
+  mutate(
+    # Counts the total number of hashtags and mentions
+    num_hashtags_and_mentions = str_count(string = text, pattern = "[@#]\\S+")
+  ) %>% select(text, num_hashtags_and_mentions)
+```
+
+</details>
+
+
+## `str_locate()` and `str_locate_all()`
+
+<br>
+__The `str_locate()` and `str_locate_all()` functions__:
+
+```{r, eval = FALSE}
+?str_locate
+
+# SYNTAX
+str_locate(string, pattern)
+
+
+?str_locate_all
+
+# SYNTAX
+str_locate_all(string, pattern)
+```
+
+- Function: Locates the position of patterns in a string
+  - Returns an integer matrix containing the start position of match in the first column and end position of match in second column
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+
+<br>
+<details><summary>**Example**: Using `str_locate()` and `str_locate_all()` on character vector</summary>
+
+**[`str_locate()`]** Locate the start and end positions for first stretch of numbers:
+
+```{r}
+# Locate positions for first stretch of numbers
+str_locate(string = c("555.123.4567", "(555) 135-7900 and (555) 246-8000"),
+           pattern = "\\d+")
+```
+
+**[`str_locate_all()`]** Locate the start and end positions for all stretches of numbers:
+
+```{r}
+# Locate positions for all stretches of numbers
+str_locate_all(string = c("555.123.4567", "(555) 135-7900 and (555) 246-8000"),
+               pattern = "\\d+")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_locate()` on dataframe column</summary>
+
+```{r}
+p12_df %>%
+  mutate(
+    # Start position of first hashtag in tweet (ie. 1st column of matrix returned from `str_locate()`)
+    start_of_first_hashtag = str_locate(string = text, pattern = "#\\S+")[, 1],
+    # End position of first hashtag in tweet (ie. 2nd column of matrix returned from `str_locate()`)
+    end_of_first_hashtag = str_locate(string = text, pattern = "#\\S+")[, 2],
+    # Length of first hashtag in tweet (ie. difference between start and end positions)
+    length_of_first_hashtag = end_of_first_hashtag - start_of_first_hashtag
+  ) %>% select(text, start_of_first_hashtag, end_of_first_hashtag, length_of_first_hashtag)
+```
+
+</details>
+
+
+# Appendix
+
+## `rtweet` package
 __rtweet package__ (from rtweet [website](https://rtweet.info/))  
 
 > All you need is a Twitter account (user name and password) and you can be up in running in minutes!
@@ -1372,7 +2404,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
   
 - This package allows users to interact with Twitter's REST and stream APIs.
 
-## search_tweets function
+### search_tweets function
 
 `rtweet` documentation (from [CRAN](https://cloud.r-project.org/web/packages/rtweet/rtweet.pdf))  
 
@@ -1423,7 +2455,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
     - `verbose`: Logical, indicating whether or not to include output processing/retrieval messages. Defaults to TRUE. For larger searches, messages include rough estimates for time remaining between searches. It should be noted, however, that these time estimates only describe the amount of time between searches and not the total time remaining. For large searches conducted with retryonratelimit set to TRUE, the estimated retrieval time can be estimated by dividing the number of requested tweets by 18,000 and then multiplying the quotient by 15 (token reset time, in minutes).
     - `...`: Further arguments passed as query parameters in request sent to Twitter’s REST API. To return only English language tweets, for example, use lang = "en". For more options see Twitter’s API documentation.
 
-## search_tweets example
+### search_tweets example
 
 ```{r message=FALSE, eval=FALSE}
 #load packages
@@ -1442,4 +2474,23 @@ p12_full_df <- search_tweets(paste0("from:", p12, collapse = " OR "), n = 500)
 #saveRDS(p12_full_df, "p12_dataset.RDS")
 ```
 
+
+## RegExplain Addin  
+
+> Regular expressions are tricky. RegExplain makes it easier to see what you’re doing.
+
+RegExplain is an RStudio addin that allows the user to check their regex matching functions interactively.
+
+
+*Credit: Garrick Aden-Buie ([RegExplain](https://www.garrickadenbuie.com/project/regexplain/))*
+
+
+[![](../../assets/images/regexplain.png)](https://www.garrickadenbuie.com/project/regexplain/) 
+
+
+Installation
+```{r eval=FALSE}
+devtools::install_github("gadenbuie/regexplain")
+library(regexplain)
+```
 

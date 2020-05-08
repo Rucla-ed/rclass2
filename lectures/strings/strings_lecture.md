@@ -781,7 +781,7 @@ typeof(my_string)
 ```
 
 
-## Escape sequence and `writeLines()`
+## Special Characters
 
 > "A sequence in a string that starts with a `\` is called an **escape sequence** and allows us to include special characters in our strings."
 
@@ -795,6 +795,7 @@ Common **special characters**:
 - `\n`: newline
 - `\t`: tab
 
+These characters followed by a backslash `\` take on a new meaning. The `n` by itself is just an `n`. When you add a backslash to the `\n` you are escaping it and making it a special character where `\n` now represents a newline.
 
 <br>
 __The `writeLines()` function__:
@@ -887,6 +888,32 @@ writeLines(my_string)
 </details>
 
 <br>
+<details><summary>**Example**: Escaping double quotes within double quotes </summary>
+
+
+```r
+my_string <- "I called my mom and she said \"Echale ganas!\""
+my_string
+```
+
+```
+## [1] "I called my mom and she said \"Echale ganas!\""
+```
+
+Using `writeLines()` shows us only the content of the string without the backslashes:
+
+
+```r
+writeLines(my_string)
+```
+
+```
+## I called my mom and she said "Echale ganas!"
+```
+</details>
+
+
+<br>
 <details><summary>**Example**: Escaping backslashes</summary>
 
 To include a literal backslash in the string, we need to escape the backslash with another backslash:
@@ -938,6 +965,75 @@ writeLines(my_string)
 ## C	D
 ```
 </details>
+
+<br>
+
+### Escape special characters using Twitter data   
+
+Let's take a look at some tweets from our PAC-12 universities. 
+
+- Let's start by grabbing observations 1-3 from the `text` column.
+
+
+```r
+#Twitter example of \n newline special characters
+p12_df$text[1:3]
+```
+
+```
+## [1] "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dadpat7 | @Colts | #NFLCougs https://t.co/NdGsvXnij7"                                                                                                                                                                                  
+## [2] "Cougar Cheese. That's it. That's the tweet. \U0001f9c0#WSU #GoCougs https://t.co/0OWGvQlRZs"                                                                                                                                                                                                     
+## [3] "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge who was leading the way.\U0001f6b6‍♀️\U0001f415\n\nTweet a pic of how you are social distancing w/ the hashtag #CougsContain &amp; tag @WSUPullman #GoCougs https://t.co/EltXDy1tPt"
+```
+
+
+- Using `writeLines()` we can see the contents of the strings as they would be read, rather than as R stores them.
+
+```r
+writeLines(p12_df$text[1:3])
+```
+
+```
+## Big Dez is headed to Indy!
+## 
+## #GoCougs | #NFLDraft2020 | @dadpat7 | @Colts | #NFLCougs https://t.co/NdGsvXnij7
+## Cougar Cheese. That's it. That's the tweet. 🧀#WSU #GoCougs https://t.co/0OWGvQlRZs
+## Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman distance walk this weekend. We will let you judge who was leading the way.🚶‍♀️🐕
+## 
+## Tweet a pic of how you are social distancing w/ the hashtag #CougsContain &amp; tag @WSUPullman #GoCougs https://t.co/EltXDy1tPt
+```
+
+<br>
+<details><summary>**Example**: Escaping double quotes using Twitter data </summary>  
+
+- Using Twitter data you may encounter a lot of strings with double quotes.
+
+    - In the example below, our string includes special characters `\"` and `\n` to escape the double quotes and the newline character. 
+
+```r
+#Twitter example of \" double quotes special characters
+p12_df$text[24]
+```
+
+```
+## [1] "\"I really am glad that inside Engineering Student Services, I’ve been able to connect with my ESS advisor and professional development advisors there.\"\n-Alexandro Garcia, Civil &amp; Environmental Engineering, 3rd year\n#imaberkeleyengineer #iamberkeley #voicesofberkeleyengineering https://t.co/ToVEynIUWH"
+```
+
+- Using `writeLines()` we can see the contents of the strings as they would be read, rather than as R stores them.  
+
+    - We no longer see the escaped characters `\"` or `\n`
+
+```r
+writeLines(p12_df$text[24])
+```
+
+```
+## "I really am glad that inside Engineering Student Services, I’ve been able to connect with my ESS advisor and professional development advisors there."
+## -Alexandro Garcia, Civil &amp; Environmental Engineering, 3rd year
+## #imaberkeleyengineer #iamberkeley #voicesofberkeleyengineering https://t.co/ToVEynIUWH
+```
+</details>
+<br>
 
 # `stringr` package
 
@@ -2077,8 +2173,8 @@ Storing data using date/time objects makes it easier to **get and set** the vari
   - `month()`: Month
   - `day()`: Day
   - `hour()`: Hour
-  - `min()`: Minute
-  - `sec()`: Second
+  - `minute()`: Minute
+  - `second()`: Second
   - `week()`: Week of the year
   - `wday()`: Day of the week (`1` for Sunday to `7` for Saturday)
   - `am()`: Is it in the am? (returns `TRUE` or `FALSE`)
@@ -2462,8 +2558,1497 @@ scorpio_start + ddays(30) + dhours(1)
 
 </details>
 
-# Appendix  
+# Why use Regular Expressions (Regex)  
 
+[![](http://a.yu8.us/xkcd-208-regular_expressions.png)](https://www.rexegg.com/regex-humor.html)  
+
+*Credit: Regex Humor ([Rex Egg](https://www.rexegg.com/regex-humor.html))*
+
+
+In her popular [STAT545 class](https://stat545.com/character-vectors.html#regular-expressions-resources) Jenny Bryan, professor of statistics at University of British Columbia, describes regular expressions as:
+
+> A God-awful and powerful language for expressing patterns to match in text or for search-and-replace. Frequently described as “write only”, because regular expressions are easier to write than to read/understand. And they are not particularly easy to write.”
+
+Yes, learning regular expressions is painful. So why are we making you do this? Because regular expressions are a  fundamental building block of data science
+
+<br>
+
+**An annoying thing people say is that data science is about trying to find the "*signal* in the *noise*"**
+
+- *Noisy data* "is data with a large amount of additional meaningless information in it called noise" [Wikipedia](https://en.wikipedia.org/wiki/Noisy_data)
+- Prior to data science revolution, quant people thought of “data” as something in columns and rows
+- The data science revolution is about creating analysis datasets from many pieces of structured, semi-structured, and unstructured data.
+- But processing all this semi-structured data requires a lot of complex (and often tedious) data manipulation. 
+
+<br>
+
+
+**Another annoying thing people say is that  "data science is 80% data cleaning and 20% analysis."** 
+
+- Excerpts from a 2014 New York Times article, ["For Big-Data Scientists, ‘Janitor Work’ Is Key Hurdle to Insights"](https://www.nytimes.com/2014/08/18/technology/for-big-data-scientists-hurdle-to-insights-is-janitor-work.html):
+
+> Much handcrafted work — what data scientists call “data wrangling,” “data munging” and “data janitor work” — is still required. Data scientists, according to interviews and expert estimates, spend from 50 percent to 80 percent of their time mired in this more mundane labor of collecting and preparing unruly digital data, before it can be explored for useful nuggets.
+
+> “Data wrangling is a huge — and surprisingly so — part of the job,” said Monica Rogati, vice president for data science at Jawbone, whose sensor-filled wristband and software track activity, sleep and food consumption, and suggest dietary and health tips based on the numbers. “It’s something that is not appreciated by data civilians. At times, it feels like everything we do.”
+
+> “It’s an absolute myth that you can send an algorithm over raw data and have insights pop up,” said Jeffrey Heer, a professor of computer science at the University of Washington and a co-founder of Trifacta, a start-up based in San Francisco.
+
+> But if the value [of data science] comes from combining different data sets, so does the headache. Data from sensors, documents, the web and conventional databases all come in different formats. Before a software algorithm can go looking for answers, the data must be cleaned up and converted into a unified form that the algorithm can understand.
+
+> “Practically, because of the diversity of data, you spend a lot of your time being a data janitor, before you can get to the cool, sexy things that got you into the field in the first place,” said Matt Mohebbi, a data scientist and co-founder of Iodine.
+
+<br>
+
+**So why learn regular expressions? Because regular expressions are THE preeminent tool for identifying data patterns, and cleaning/transforming "noisy" data**
+
+- Most programmers I speak to talk about regular expressions as one of the most important tools for a programmer to learn
+- One could argue that regular expressions are a fundamental driver of the data science revolution, in that they are what made it possible to format and integrate diverse data sources into analysis datasets (I don't know if that is true, but it seems reasonable!)
+- For example, web-scraping is fundamentally an application of regular expressions. Grabbing data from the internet is usually very easy. The hard part is processing all that html code into something that can be analyzed.
+
+
+<br>
+
+# What are regular expressions? 
+
+What are regular expressions? from [Geeks for Geeks](https://www.geeksforgeeks.org/write-regular-expressions/)
+
+- Regular expressions are an efficient way to match different patterns in strings, similar to the [command + f] function you use to find text in a pdf or word document. 
+    
+    ![](../../assets/images/command_f.png){width=60%}
+
+*Credit: Crystal Han, Ozan Jaquette, & Karina Salazar ([Recruiting the Out-Of-State University](https://emraresearch.org/sites/default/files/2019-03/joyce_report.pdf))*
+
+<br>
+
+## `str_view` and `str_view_all`
+
+<br>
+__The `str_view()` function__:
+
+
+```r
+?str_view
+
+# SYNTAX AND DEFAULT VALUES
+str_view(string, pattern, match = NA)
+str_view_all(string, pattern, match = NA)
+```
+
+- Function: `str_view` shows the first match of a regex pattern; `str_view_all` shows all the matches of a regex pattern.
+- Arguments:
+  - `string`: Input vector. Either a character vector, or something coercible to one.
+  - `pattern`: Pattern to look for.
+      - The default interpretation is a regular expression, as described in stringi::stringi-search-regex. Control options with regex().
+  - `match`: If TRUE, shows only strings that match the pattern. If FALSE, shows only the strings that don't match the pattern. Otherwise (the default, NA) displays both matches and non-matches.
+
+<br>
+
+`str_view` will show us the first regex pattern match
+
+
+```r
+str_view(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+<!--html_preserve--><div id="htmlwidget-766f9099ea838bc94112" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-766f9099ea838bc94112">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+Notice how we can see all the regex pattern matches with `str_view_all`
+
+```r
+str_view_all(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+<!--html_preserve--><div id="htmlwidget-0ef2ab39d4f8ebeca2e4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0ef2ab39d4f8ebeca2e4">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.<span class='match'>\"<\/span>\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for newline </summary> 
+
+```r
+str_view_all(string = p12_df$text[119], pattern = ("\\n"))
+```
+
+<!--html_preserve--><div id="htmlwidget-60a411c2604399690779" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-60a411c2604399690779">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for period </summary> 
+
+```r
+str_view_all(string = p12_df$text[119], pattern = ("\\."))
+```
+
+<!--html_preserve--><div id="htmlwidget-cc1d9aeb46afda1533a9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cc1d9aeb46afda1533a9">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals<span class='match'>.<\/span>\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t<span class='match'>.<\/span>co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for white space </summary> 
+
+```r
+str_view_all(string = p12_df$text[119], pattern = ("\\s"))
+```
+
+<!--html_preserve--><div id="htmlwidget-afc5d78b2d2cf3c6d4a0" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-afc5d78b2d2cf3c6d4a0">{"x":{"html":"<ul>\n  <li>\"I<span class='match'> <\/span>stand<span class='match'> <\/span>with<span class='match'> <\/span>my<span class='match'> <\/span>colleagues<span class='match'> <\/span>at<span class='match'> <\/span>@UW<span class='match'> <\/span>and<span class='match'> <\/span>America's<span class='match'> <\/span>leading<span class='match'> <\/span>research<span class='match'> <\/span>universities<span class='match'> <\/span>as<span class='match'> <\/span>they<span class='match'> <\/span>take<span class='match'> <\/span>fight<span class='match'> <\/span>to<span class='match'> <\/span>Covid-19<span class='match'> <\/span>in<span class='match'> <\/span>our<span class='match'> <\/span>labs<span class='match'> <\/span>and<span class='match'> <\/span>hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam<span class='match'> <\/span>x<span class='match'> <\/span>#AlwaysCompete<span class='match'> <\/span>x<span class='match'> <\/span>#GoHuskies<span class='match'> <\/span>https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
+
+<br>
+
+## Escape special character backslashes
+
+> If \\ is used as an escape character in regular expressions, how do you match a literal \\? Well you need to escape it, creating the regular expression \\\\. To create that regular expression, you need to use a string, which also needs to escape \\ . That means to match a literal \\ you need to write "\\\\\\\\" — you need four backslashes to match one!
+
+*Credit: [R for Data Science](https://r4ds.had.co.nz/strings.html#basic-matches) Strings Chapter*
+
+The character vector below has one, two, three, and four backslashes.  
+
+- Notice once we print this vector, the single backslash returns an empty string and the three backslashes return two backslashes.
+
+```r
+backslash <- c("\ ","\\", "\\\ ", "\\\\")
+
+backslash
+```
+
+```
+## [1] " "    "\\"   "\\ "  "\\\\"
+```
+
+<br>
+
+- Using `writeLines()` we can see view the contents of the strings.
+
+```r
+writeLines(backslash)
+```
+
+```
+##  
+## \
+## \ 
+## \\
+```
+
+
+```r
+text <- "This is a backslash \\"
+str_view(string = text, pattern = "\\\\")
+```
+
+<!--html_preserve--><div id="htmlwidget-233aacf5c4a57785bc25" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-233aacf5c4a57785bc25">{"x":{"html":"<ul>\n  <li>This is a backslash <span class='match'>\\<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<br>
+
+
+
+# Regular expression characters {.tabset .tabset-fade .tabset-pills}
+
+Some common regular expression patterns include (not inclusive):  
+
+* Character classes
+* Quantifiers 
+* Anchors  
+* Groups and ranges
+* Backreferences
+
+*Credit: [DaveChild](https://cheatography.com/davechild/cheat-sheets/regular-expressions/) Regular Expression Cheat Sheet*
+
+
+**Select each tab**
+
+
+## Character classes
+
+| STRING  <br>  *(type string that represents regex)* | REGEX <br> *(to have this appear in your regex)* | MATCHES <br> *(to match with this text)* |
+|--------------|-----------------|---------|
+| `\\'`  |    `\'`   | ' (single quote)|
+| `\\"`  |    `\"`   | " (double quote)|
+| `\\\\` |    `\\`   | \\\  |
+| `\\n`  |    `\n`   | new line (return)  |
+| `\\t`  |    `\t`   | tab |
+| `\\s`  |    `\s`   |  any whitespace |
+| `\\S`  |    `\S`   |  any non-whitespace |
+| `\\d`  |    `\d`   |  any digit |
+| `\\D`  |    `\D`   |  any non-digit|
+| `\\w`  |    `\w`   |  any word character |
+| `\\W`  |    `\W`   |  any non-word character|
+| `\\b`  |    `\b`   |  word-boundary |
+| `\\B`  |    `\B`   |  non-word-boundary |
+| `\\.`  |    `\.`    | . |
+| `\\!`  |    `\!`   | !  |
+| `\\?`  |    `\?`   | ?  |
+| `\\(`  |    `\(`   | ( |
+| `\\)`  |    `\)`   | ) |
+| `\\{`  |    `\{`   | { |
+| `\\}`  |    `\}`   |}  |
+
+
+
+*Credit: [Working with strings in stringr](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) Cheat sheet*
+
+
+__Character classes and special characters in regular expressions__  
+
+There are certain characters in regex that have special meaning. If you want to search for a digit (number) you need to escape the letter `d` with a backslash, like `\d`. The escaped character now can be interpreted as a regular expression. "But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a [digit] in a regex."
+
+*Credit: [Escaping sequences](https://stat545.com/character-vectors.html#escaping) from Stat 545*
+
+
+```r
+writeLines(p12_df$text[39])
+```
+
+```
+## Meet Luke! “No matter where you’re from, @UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self” #IamBerkeley 
+## 
+## Here’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day! https://t.co/2fO2hRnmPb
+```
+
+Let's search for instances of the letter "e" in a sentence followed by a space `\\s`.
+
+```r
+str_view_all(string = p12_df$text[39], pattern = "e\\s")
+```
+
+<!--html_preserve--><div id="htmlwidget-8eb1457d83d0fe0a13d2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8eb1457d83d0fe0a13d2">{"x":{"html":"<ul>\n  <li>Meet Luke! “No matter wher<span class='match'>e <\/span>you’r<span class='match'>e <\/span>from, @UCBerkeley is a plac<span class='match'>e <\/span>that will tak<span class='match'>e <\/span>you out of your comfort zon<span class='match'>e <\/span>and shap<span class='match'>e <\/span>you into your best self” #IamBerkeley \n\nHere’s Luk<span class='match'>e <\/span>on his first day at Berkeley in his dorm, posing with th<span class='match'>e <\/span>ax<span class='match'>e <\/span>after our big football gam<span class='match'>e <\/span>win and present day! https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+Now let's search for literal exclamation marks `\\!`
+
+```r
+str_view_all(string = p12_df$text[39], pattern = "\\!")
+```
+
+<!--html_preserve--><div id="htmlwidget-f2e022d14d9e621845f7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f2e022d14d9e621845f7">{"x":{"html":"<ul>\n  <li>Meet Luke<span class='match'>!<\/span> “No matter where you’re from, @UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self” #IamBerkeley \n\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day<span class='match'>!<\/span> https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
+<br>
+
+<details><summary>**Example**: non-word character  `\\W` </summary> 
+
+- Using the string vector from above `p12_df$text[39]`, let's search for non-word characters.
+
+
+```r
+str_view_all(string = p12_df$text[39], pattern = ("\\W"))
+```
+
+<!--html_preserve--><div id="htmlwidget-10f457661b7168f35660" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-10f457661b7168f35660">{"x":{"html":"<ul>\n  <li>Meet<span class='match'> <\/span>Luke<span class='match'>!<\/span><span class='match'> <\/span><span class='match'>“<\/span>No<span class='match'> <\/span>matter<span class='match'> <\/span>where<span class='match'> <\/span>you<span class='match'>’<\/span>re<span class='match'> <\/span>from<span class='match'>,<\/span><span class='match'> <\/span><span class='match'>@<\/span>UCBerkeley<span class='match'> <\/span>is<span class='match'> <\/span>a<span class='match'> <\/span>place<span class='match'> <\/span>that<span class='match'> <\/span>will<span class='match'> <\/span>take<span class='match'> <\/span>you<span class='match'> <\/span>out<span class='match'> <\/span>of<span class='match'> <\/span>your<span class='match'> <\/span>comfort<span class='match'> <\/span>zone<span class='match'> <\/span>and<span class='match'> <\/span>shape<span class='match'> <\/span>you<span class='match'> <\/span>into<span class='match'> <\/span>your<span class='match'> <\/span>best<span class='match'> <\/span>self<span class='match'>”<\/span><span class='match'> <\/span><span class='match'>#<\/span>IamBerkeley<span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>\n<\/span>Here<span class='match'>’<\/span>s<span class='match'> <\/span>Luke<span class='match'> <\/span>on<span class='match'> <\/span>his<span class='match'> <\/span>first<span class='match'> <\/span>day<span class='match'> <\/span>at<span class='match'> <\/span>Berkeley<span class='match'> <\/span>in<span class='match'> <\/span>his<span class='match'> <\/span>dorm<span class='match'>,<\/span><span class='match'> <\/span>posing<span class='match'> <\/span>with<span class='match'> <\/span>the<span class='match'> <\/span>axe<span class='match'> <\/span>after<span class='match'> <\/span>our<span class='match'> <\/span>big<span class='match'> <\/span>football<span class='match'> <\/span>game<span class='match'> <\/span>win<span class='match'> <\/span>and<span class='match'> <\/span>present<span class='match'> <\/span>day<span class='match'>!<\/span><span class='match'> <\/span>https<span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span>t<span class='match'>.<\/span>co<span class='match'>/<\/span>2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
+
+<br>
+
+
+***  
+\newline 
+
+## Quantifiers
+
+
+Character  Description     Code      Result
+---------- ------------    --------  -------
+*          0 or more       {3}       Exactly 3
++          1 or more       {3,}      3 or more
+?          0 or 1          {3,5}     3, 4 or 5  
+\\\\       Escape character  \\\\s     white space
+
+
+We use quantifiers to specify the number of times we want to search for a particular pattern. 
+
+```r
+writeLines(p12_df$text[32])
+```
+
+```
+## Curious as to what your next steps are after being admitted to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! 
+## 
+## 🕑 2pm today
+## 💻 https://t.co/YukY37REyd
+```
+
+In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for instances of the letters "ou" one or more times. 
+
+
+```r
+str_view_all(string = p12_df$text[32], pattern = "ou+")
+```
+
+<!--html_preserve--><div id="htmlwidget-06e9ce446376c08d4be4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-06e9ce446376c08d4be4">{"x":{"html":"<ul>\n  <li>Curi<span class='match'>ou<\/span>s as to what y<span class='match'>ou<\/span>r next steps are after being admitted to @UCBerkeley? Join us alongside New Student Services to learn more ab<span class='match'>ou<\/span>t what y<span class='match'>ou<\/span> sh<span class='match'>ou<\/span>ld be considering as y<span class='match'>ou<\/span> make y<span class='match'>ou<\/span>r decision &amp; officially become a #BerkeleyB<span class='match'>ou<\/span>nd student! \n\n🕑 2pm today\n💻 https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+Now say we wanted to search for the letter t exactly 2 times in the string. 
+
+```r
+str_view_all(string = p12_df$text[32], pattern = "t{2}")
+```
+
+<!--html_preserve--><div id="htmlwidget-f0cdedcf124ab82a75f5" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f0cdedcf124ab82a75f5">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admi<span class='match'>tt<\/span>ed to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 h<span class='match'>tt<\/span>ps://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
+<br>
+
+<details><summary>**Example**: asterisk `*` </summary> 
+
+- Using the string vector from above `p12_df$text[32]`, let's search for instances of "le" zero or more times.
+
+
+```r
+str_view_all(string = p12_df$text[32], pattern = ("le*"))
+```
+
+<!--html_preserve--><div id="htmlwidget-57044cd5fb353b6db5f3" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-57044cd5fb353b6db5f3">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to @UCBerke<span class='match'>le<\/span>y? Join us a<span class='match'>l<\/span>ongside New Student Services to <span class='match'>le<\/span>arn more about what you shou<span class='match'>l<\/span>d be considering as you make your decision &amp; officia<span class='match'>l<\/span><span class='match'>l<\/span>y become a #Berke<span class='match'>le<\/span>yBound student! \n\n🕑 2pm today\n💻 https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
+
+<br>
+
+***  
+\newline 
+
+## Anchors
+
+Character  Description     
+---------- ----------------------------------------------------------  
+     ^       Start of string, or start of line in multi-line pattern        
+     $           End of string, or end of line in multi-line pattern    
+    \\b                                                Word boundary
+    \\B                                            Not word boundary
+
+ 
+
+
+```r
+writeLines(p12_df$text[20:22])
+```
+
+```
+## In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F
+## The lab experience continues…just in a different form. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816
+## This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs
+## 
+## Story ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO
+```
+
+Let's search for the first letter of a string that starts with the letter "T". We can use the caret symbol `^` to search for the start of the string. Next, we want to search for the letter "T".
+
+```r
+str_view_all(string = p12_df$text[20:22], pattern = ("^T"))
+```
+
+<!--html_preserve--><div id="htmlwidget-a2d5eadef73a77628126" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a2d5eadef73a77628126">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li><span class='match'>T<\/span>he lab experience continues…just in a different form. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li><span class='match'>T<\/span>his pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+We could use the `\\b` word bound character followed by the letter "f" to search for a word that starts with the letter "f".
+
+```r
+str_view_all(string = p12_df$text[20:22], pattern = ("\\bf"))
+```
+
+<!--html_preserve--><div id="htmlwidget-71fc4536ba6a87fd9b4f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-71fc4536ba6a87fd9b4f">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need <span class='match'>f<\/span>or hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li>The lab experience continues…just in a different <span class='match'>f<\/span>orm. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li>This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+<br>
+
+<details><summary>**Example**: @ handles </summary> 
+
+- Using the string vector from above `p12_df$text[20:22]`, search for Twitter handles.
+
+```r
+str_view_all(string = p12_df$text[20:22], pattern = ("@\\S+"))
+```
+
+<!--html_preserve--><div id="htmlwidget-baecd1d3f9740b29c9a6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-baecd1d3f9740b29c9a6">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li>The lab experience continues…just in a different form. <span class='match'>@CASatWSU<\/span> instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li>This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester <span class='match'>@WSUNursing<\/span> students explain to <span class='match'>@WSU_Cougar_Pres<\/span> how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
+
+<br>
+
+***
+\newline
+
+
+## Groups and ranges
+
+Character  Description     
+---------- ----------------------------------------------------------
+.          Any character except new line (\\n)
+(a|b)      a or b
+(...)      Group
+[abc]      Range (a or b or c)
+[^abc]     Not (a or b or c)
+[a-z]      Lower case letter from a to z
+[A-Z]      Upper case letter from A to Z
+[0-7]      Digit from 0 to 7
+
+
+We use grouping characters to specify a range of characters.  
+
+```r
+writeLines(p12_df$text[10])
+```
+
+```
+## Tomorrow, our @WSUEsports Team is facing off against 
+## @Esports_WA and @SJSU as part of the Electronic Gaming Federation's (@officialEGF) Power Series virtual tournament!
+## Tune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomorrow: https://t.co/tzOjeTMaSU
+## #GoCougs! https://t.co/5u8EDGaiFH
+```
+
+Say we wanted to search for the letter a or o. 
+
+```r
+str_view_all(string = p12_df$text[10], pattern = ("(a|o)"))
+```
+
+<!--html_preserve--><div id="htmlwidget-b58283853a642cf27aa2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b58283853a642cf27aa2">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span>ur @WSUEsp<span class='match'>o<\/span>rts Te<span class='match'>a<\/span>m is f<span class='match'>a<\/span>cing <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span>inst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f the Electr<span class='match'>o<\/span>nic G<span class='match'>a<\/span>ming Feder<span class='match'>a<\/span>ti<span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ffici<span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>wer Series virtu<span class='match'>a<\/span>l t<span class='match'>o<\/span>urn<span class='match'>a<\/span>ment!\nTune int<span class='match'>o<\/span> the <span class='match'>a<\/span>cti<span class='match'>o<\/span>n live <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOjeTM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span>ugs! https://t.c<span class='match'>o<\/span>/5u8EDG<span class='match'>a<\/span>iFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+What about vowels? We use the square brackets to indicate a range.
+
+```r
+str_view_all(string = p12_df$text[10], pattern = ("[aeiou]"))
+```
+
+<!--html_preserve--><div id="htmlwidget-305f401cb96e8bafe45a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-305f401cb96e8bafe45a">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span><span class='match'>u<\/span>r @WSUEsp<span class='match'>o<\/span>rts T<span class='match'>e<\/span><span class='match'>a<\/span>m <span class='match'>i<\/span>s f<span class='match'>a<\/span>c<span class='match'>i<\/span>ng <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span><span class='match'>i<\/span>nst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f th<span class='match'>e<\/span> El<span class='match'>e<\/span>ctr<span class='match'>o<\/span>n<span class='match'>i<\/span>c G<span class='match'>a<\/span>m<span class='match'>i<\/span>ng F<span class='match'>e<\/span>d<span class='match'>e<\/span>r<span class='match'>a<\/span>t<span class='match'>i<\/span><span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ff<span class='match'>i<\/span>c<span class='match'>i<\/span><span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>w<span class='match'>e<\/span>r S<span class='match'>e<\/span>r<span class='match'>i<\/span><span class='match'>e<\/span>s v<span class='match'>i<\/span>rt<span class='match'>u<\/span><span class='match'>a<\/span>l t<span class='match'>o<\/span><span class='match'>u<\/span>rn<span class='match'>a<\/span>m<span class='match'>e<\/span>nt!\nT<span class='match'>u<\/span>n<span class='match'>e<\/span> <span class='match'>i<\/span>nt<span class='match'>o<\/span> th<span class='match'>e<\/span> <span class='match'>a<\/span>ct<span class='match'>i<\/span><span class='match'>o<\/span>n l<span class='match'>i<\/span>v<span class='match'>e<\/span> <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOj<span class='match'>e<\/span>TM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span><span class='match'>u<\/span>gs! https://t.c<span class='match'>o<\/span>/5<span class='match'>u<\/span>8EDG<span class='match'>a<\/span><span class='match'>i<\/span>FH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+If we do not want any vowels we could add the caret `^` symbol to our pattern from above. 
+
+```r
+str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
+```
+
+<!--html_preserve--><div id="htmlwidget-0a9e431666dc4ccf62df" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0a9e431666dc4ccf62df">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>,<\/span><span class='match'> <\/span>ou<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>T<\/span>ea<span class='match'>m<\/span><span class='match'> <\/span>i<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>f<\/span>a<span class='match'>c<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'>f<\/span><span class='match'> <\/span>a<span class='match'>g<\/span>ai<span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>t<\/span><span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>@<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'>_<\/span><span class='match'>W<\/span><span class='match'>A<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'> <\/span>a<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>p<\/span>a<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span><span class='match'>E<\/span><span class='match'>l<\/span>e<span class='match'>c<\/span><span class='match'>t<\/span><span class='match'>r<\/span>o<span class='match'>n<\/span>i<span class='match'>c<\/span><span class='match'> <\/span><span class='match'>G<\/span>a<span class='match'>m<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span><span class='match'>F<\/span>e<span class='match'>d<\/span>e<span class='match'>r<\/span>a<span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'>'<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>@<\/span>o<span class='match'>f<\/span><span class='match'>f<\/span>i<span class='match'>c<\/span>ia<span class='match'>l<\/span><span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span>o<span class='match'>w<\/span>e<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>S<\/span>e<span class='match'>r<\/span>ie<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>v<\/span>i<span class='match'>r<\/span><span class='match'>t<\/span>ua<span class='match'>l<\/span><span class='match'> <\/span><span class='match'>t<\/span>ou<span class='match'>r<\/span><span class='match'>n<\/span>a<span class='match'>m<\/span>e<span class='match'>n<\/span><span class='match'>t<\/span><span class='match'>!<\/span><span class='match'>\n<\/span><span class='match'>T<\/span>u<span class='match'>n<\/span>e<span class='match'> <\/span>i<span class='match'>n<\/span><span class='match'>t<\/span>o<span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span>a<span class='match'>c<\/span><span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'> <\/span><span class='match'>l<\/span>i<span class='match'>v<\/span>e<span class='match'> <\/span>a<span class='match'>t<\/span><span class='match'> <\/span><span class='match'>5<\/span><span class='match'>:<\/span><span class='match'>2<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>U<\/span><span class='match'>W<\/span><span class='match'>)<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>6<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>T<\/span><span class='match'> <\/span><span class='match'>t<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>:<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>z<\/span><span class='match'>O<\/span><span class='match'>j<\/span>e<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>\n<\/span><span class='match'>#<\/span><span class='match'>G<\/span>o<span class='match'>C<\/span>ou<span class='match'>g<\/span><span class='match'>s<\/span><span class='match'>!<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>5<\/span>u<span class='match'>8<\/span><span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+<br>
+
+<details><summary>**Example**: Upper case letters `[A-Z]` </summary> 
+
+
+- Using the string vector from above `p12_df$text[10]`, let's search for upper case letters.
+
+
+```r
+str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
+```
+
+<!--html_preserve--><div id="htmlwidget-33091b5ca2990ca6fc75" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-33091b5ca2990ca6fc75">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>omorrow, our @<span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span>sports <span class='match'>T<\/span>eam is facing off against \n@<span class='match'>E<\/span>sports_<span class='match'>W<\/span><span class='match'>A<\/span> and @<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span> as part of the <span class='match'>E<\/span>lectronic <span class='match'>G<\/span>aming <span class='match'>F<\/span>ederation's (@official<span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span>) <span class='match'>P<\/span>ower <span class='match'>S<\/span>eries virtual tournament!\n<span class='match'>T<\/span>une into the action live at 5:20 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>U<\/span><span class='match'>W<\/span>) and 6 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span>) <span class='match'>P<\/span><span class='match'>T<\/span> tomorrow: https://t.co/tz<span class='match'>O<\/span>je<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span>\n#<span class='match'>G<\/span>o<span class='match'>C<\/span>ougs! https://t.co/5u8<span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+</details>
+
+<br>
+
+## Backreferences
+
+Character  Description     
+---------- ----------------------------------------------------------
+\\\\1         Part of the string matched by capturing group 1
+\\\\2         Part of the string matched by capturing group 2
+...         ...
+
+In the previous section we talked about groups and ranges. A parentheses creates what is called a _numbered_ capturing group. "A capturing group stores the part of the string matched by the part of the regular expression inside the parentheses". For example, if we have one parentheses `(a)` we can refer to the same text as previously matched by this capturing group with backreferences, like \\\\1.
+
+*Credit: Hadley Wickham ([R for Data Science](https://r4ds.had.co.nz/strings.html#grouping-and-backreferences)) Grouping and backreferences*
+
+
+```r
+writeLines(p12_df$text[40])
+```
+
+```
+## Once again, congratulations to the transfer class of 2022! Please check out our link tree on our bio for more information, and check out our website as well. We are here to help you get started 😎 Woohoo! @ UC… https://t.co/JrcjzGQhOB
+```
+
+Our capturing group (what is in the first and only parenthesis) has the letter `f`. In the first pattern, we are searching for any `f's` in the text. When we add the backreference `\\1` we are now searching for the text matched by our capturing group. In other words, we are searching for `ff`.  
+
+```r
+str_view_all(string = p12_df$text[10], pattern = "(f)")
+```
+
+<!--html_preserve--><div id="htmlwidget-36d965e4f67cff1f11e4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-36d965e4f67cff1f11e4">{"x":{"html":"<ul>\n  <li>Tomorrow, our @WSUEsports Team is <span class='match'>f<\/span>acing o<span class='match'>f<\/span><span class='match'>f<\/span> against \n@Esports_WA and @SJSU as part o<span class='match'>f<\/span> the Electronic Gaming Federation's (@o<span class='match'>f<\/span><span class='match'>f<\/span>icialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomorrow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+```r
+str_view_all(string = p12_df$text[10], pattern = "(f)\\1")
+```
+
+<!--html_preserve--><div id="htmlwidget-a8213d6108b23bd4354e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a8213d6108b23bd4354e">{"x":{"html":"<ul>\n  <li>Tomorrow, our @WSUEsports Team is facing o<span class='match'>ff<\/span> against \n@Esports_WA and @SJSU as part of the Electronic Gaming Federation's (@o<span class='match'>ff<\/span>icialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomorrow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+Below we are searching for `r` or `f`. When we add the backreference `\\1` we are now searching for the text matched by our capturing group. In other words, we are searching for `rr` or `ff`.  
+
+```r
+str_view_all(string = p12_df$text[10], pattern = "(r|f)")
+```
+
+<!--html_preserve--><div id="htmlwidget-dcb6b27ffafff60c27f7" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dcb6b27ffafff60c27f7">{"x":{"html":"<ul>\n  <li>Tomo<span class='match'>r<\/span><span class='match'>r<\/span>ow, ou<span class='match'>r<\/span> @WSUEspo<span class='match'>r<\/span>ts Team is <span class='match'>f<\/span>acing o<span class='match'>f<\/span><span class='match'>f<\/span> against \n@Espo<span class='match'>r<\/span>ts_WA and @SJSU as pa<span class='match'>r<\/span>t o<span class='match'>f<\/span> the Elect<span class='match'>r<\/span>onic Gaming Fede<span class='match'>r<\/span>ation's (@o<span class='match'>f<\/span><span class='match'>f<\/span>icialEGF) Powe<span class='match'>r<\/span> Se<span class='match'>r<\/span>ies vi<span class='match'>r<\/span>tual tou<span class='match'>r<\/span>nament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomo<span class='match'>r<\/span><span class='match'>r<\/span>ow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+```r
+str_view_all(string = p12_df$text[10], pattern = "(r|f)\\1")
+```
+
+<!--html_preserve--><div id="htmlwidget-950ac663def028dbe165" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-950ac663def028dbe165">{"x":{"html":"<ul>\n  <li>Tomo<span class='match'>rr<\/span>ow, our @WSUEsports Team is facing o<span class='match'>ff<\/span> against \n@Esports_WA and @SJSU as part of the Electronic Gaming Federation's (@o<span class='match'>ff<\/span>icialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomo<span class='match'>rr<\/span>ow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
+# Regex with `stringr` functions
+
+Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.co.nz/strings.html#other-types-of-pattern))
+
+- When we specify a pattern in a `stringr` function, such as `str_view()`, it is automatically wrapped in a call to `regex()` (ie. _treated as a regular expression_)
+
+  
+  ```r
+  # This function call:
+  str_view(string = "Turn to page 394...", pattern = "\\d+")
+  ```
+  
+  <!--html_preserve--><div id="htmlwidget-e9490f733a8b6eb8a34e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-e9490f733a8b6eb8a34e">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  
+  ```r
+  # Is shorthand for:
+  str_view(string = "Turn to page 394...", pattern = regex("\\d+"))
+  ```
+  
+  <!--html_preserve--><div id="htmlwidget-a4d120194e6c4ad4a39d" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-a4d120194e6c4ad4a39d">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  
+- For simplicity, we can omit the call to `regex()`  
+- But, there are additional arguments we can supply to `regex()` if we wanted  
+
+  - `regex(pattern, ignore_case = FALSE, multiline = FALSE, comments = FALSE, ...)`  
+  - `ignore_case`: If `TRUE`, allows characters to match either their uppercase or lowercase forms  
+  - `multiline`: If `TRUE`, allows `^` and `$` to match the start and end of each line rather than the start and end of the complete string  
+  - `comments`: If `TRUE`, allows you to use comments and white space to make complex regular expressions more understandable  
+    - Spaces are ignored, as is everything after `#`  
+    - To match a literal space, you’ll need to escape it: `"\\ "`
+
+<br>
+<details><summary>**Example**: Specifying `ignore_case = TRUE` in `regex()`</summary>
+
+Let's say we have the following string:
+
+
+```r
+s <- "Yay, yay.... YAY!"
+s
+```
+
+```
+## [1] "Yay, yay.... YAY!"
+```
+
+<br>
+We can match all the yay's using the following regex:
+
+
+```r
+str_view_all(string = s, pattern = "[Yy][Aa][Yy]")
+```
+
+<!--html_preserve--><div id="htmlwidget-91807f53cdc1f5eff2c8" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-91807f53cdc1f5eff2c8">{"x":{"html":"<ul>\n  <li><span class='match'>Yay<\/span>, <span class='match'>yay<\/span>.... <span class='match'>YAY<\/span>!<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+<br>
+Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing variations:
+
+
+```r
+str_view_all(string = s, pattern = regex("yay", ignore_case = TRUE))
+```
+
+<!--html_preserve--><div id="htmlwidget-f549bba220ef8d03db3a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f549bba220ef8d03db3a">{"x":{"html":"<ul>\n  <li><span class='match'>Yay<\/span>, <span class='match'>yay<\/span>.... <span class='match'>YAY<\/span>!<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+</details>
+
+
+
+
+## `str_detect()`
+
+<br>
+__The `str_detect()` function__:
+
+
+```r
+?str_detect
+
+# SYNTAX AND DEFAULT VALUES
+str_detect(string, pattern, negate = FALSE)
+```
+
+- Function: Detects the presence or absence of a pattern in a string
+  - Returns logical vector (`TRUE` if there is a match, `FALSE` if there is not)
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `negate`: If set to `TRUE`, the returned logical vector will contain `TRUE` if there is not a match and `FALSE` if there is one
+
+<br>
+<details><summary>**Example**: Using `str_detect()` on string</summary>
+
+
+```r
+# Detects if there is a digit in the string
+str_detect(string = "P. Sherman 42 Wallaby Way", pattern = "\\d")
+```
+
+```
+## [1] TRUE
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_detect()` on character vector</summary>
+
+
+```r
+# Detects if there is a digit in each string in the vector
+str_detect(string = c("One", "25th", "3000"), pattern = "\\d")
+```
+
+```
+## [1] FALSE  TRUE  TRUE
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_detect()` on dataframe column</summary>
+
+Let's create new columns in `p12_df` called `is_am` and `is_pm` that indicates whether or not each tweet's `created_at` time is in the AM or PM, respectively:
+
+
+```r
+p12_df %>%
+  mutate(
+    # Returns `TRUE` if the hour is 0#, 10, or 11, `FALSE` otherwise
+    is_am = str_detect(string = created_at, pattern = " 0\\d| 1[01]"),
+    # Recall we can set the `negate` argument to switch the returned `TRUE`/`FALSE`
+    is_pm = str_detect(string = created_at, pattern = " 0\\d| 1[01]", negate = TRUE)
+  ) %>% select(created_at, is_am, is_pm)
+```
+
+```
+## # A tibble: 328 x 3
+##    created_at          is_am is_pm
+##    <dttm>              <lgl> <lgl>
+##  1 2020-04-25 22:37:18 FALSE TRUE 
+##  2 2020-04-23 21:11:49 FALSE TRUE 
+##  3 2020-04-21 04:00:00 TRUE  FALSE
+##  4 2020-04-24 03:00:00 TRUE  FALSE
+##  5 2020-04-20 19:00:21 FALSE TRUE 
+##  6 2020-04-20 02:20:01 TRUE  FALSE
+##  7 2020-04-22 04:00:00 TRUE  FALSE
+##  8 2020-04-25 17:00:00 FALSE TRUE 
+##  9 2020-04-21 15:13:06 FALSE TRUE 
+## 10 2020-04-21 17:52:47 FALSE TRUE 
+## # … with 318 more rows
+```
+
+<br>
+Because `TRUE` evaluates to 1 and `FALSE` evaluates to 0 in a numerical context, we could also sum the returned logical vector to see how many of the elements in the vector had a match:
+
+
+```r
+# Number of tweets that were created in the AM
+num_am_tweets <- sum(str_detect(string = p12_df$created_at, pattern = " 0\\d| 1[01]"))
+num_am_tweets
+```
+
+```
+## [1] 53
+```
+
+<br>
+Additionally, we can take the average of the logical vector to get the proportion of elements in the input vector that had a match:
+
+
+```r
+# Proportion of tweets that were created in the AM
+pct_am_tweets <- mean(str_detect(string = p12_df$created_at, pattern = " 0\\d| 1[01]"))
+pct_am_tweets
+```
+
+```
+## [1] 0.1615854
+```
+
+<br>
+We can also use the logical vector returned from `str_detect()` to filter `p12_df` to only include rows that had a match:
+
+
+```r
+# Keep only rows whose tweet was created in the AM
+p12_df %>%
+  filter(str_detect(string = created_at, pattern = " 0\\d| 1[01]"))
+```
+
+```
+## # A tibble: 53 x 5
+##    user_id  created_at          screen_name text                location   
+##    <chr>    <dttm>              <chr>       <chr>               <chr>      
+##  1 22080148 2020-04-21 04:00:00 WSUPullman  "Darien McLaughlin… Pullman, W…
+##  2 22080148 2020-04-24 03:00:00 WSUPullman  6 houses, one pick… Pullman, W…
+##  3 22080148 2020-04-20 02:20:01 WSUPullman  Tell us one of you… Pullman, W…
+##  4 22080148 2020-04-22 04:00:00 WSUPullman  We loved seeing yo… Pullman, W…
+##  5 22080148 2020-04-24 01:58:04 WSUPullman  #WSU agricultural … Pullman, W…
+##  6 22080148 2020-04-22 02:22:03 WSUPullman  Nice 👍 https://t.c… Pullman, W…
+##  7 15988549 2020-04-20 02:52:31 CalAdmissi… @PaulineARoxas Con… Berkeley, …
+##  8 15988549 2020-04-22 03:07:00 CalAdmissi… It’s time to make … Berkeley, …
+##  9 15988549 2020-04-22 00:00:08 CalAdmissi… "Are you a #Berkel… Berkeley, …
+## 10 15988549 2020-04-20 03:03:21 CalAdmissi… "@N48260756 We sug… Berkeley, …
+## # … with 43 more rows
+```
+
+</details>
+
+## `str_subset()`
+
+<br>
+__The `str_subset()` function__:
+
+
+```r
+?str_subset
+
+# SYNTAX AND DEFAULT VALUES
+str_subset(string, pattern, negate = FALSE)
+```
+
+- Function: Keeps strings that match a pattern
+  - Returns input vector filtered to only keep elements that match the specified pattern
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `negate`: If set to `TRUE`, the returned vector will contain only elements that did not match the specified pattern
+
+<br>
+<details><summary>**Example**: Using `str_subset()` on character vector</summary>
+
+
+```r
+# Subsets the input vector to only keep elements that contain a digit
+str_subset(string = c("One", "25th", "3000"), pattern = "\\d")
+```
+
+```
+## [1] "25th" "3000"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_subset()` on dataframe column</summary>
+
+
+```r
+# Subsets the `created_at` vector of `p12_df` to only keep elements that occured in the AM
+str_subset(string = p12_df$created_at, pattern = " 0\\d| 1[01]")
+```
+
+```
+##  [1] "2020-04-21 04:00:00" "2020-04-24 03:00:00" "2020-04-20 02:20:01"
+##  [4] "2020-04-22 04:00:00" "2020-04-24 01:58:04" "2020-04-22 02:22:03"
+##  [7] "2020-04-20 02:52:31" "2020-04-22 03:07:00" "2020-04-22 00:00:08"
+## [10] "2020-04-20 03:03:21" "2020-04-22 00:47:00" "2020-04-23 06:34:00"
+## [13] "2020-04-23 04:06:49" "2020-04-19 03:32:21" "2020-04-20 02:53:38"
+## [16] "2020-04-20 02:53:14" "2020-04-20 03:04:11" "2020-04-19 03:30:14"
+## [19] "2020-04-20 02:58:55" "2020-04-19 05:37:00" "2020-04-21 02:34:00"
+## [22] "2020-04-20 00:15:07" "2020-04-25 04:18:29" "2020-04-25 00:00:01"
+## [25] "2020-04-21 02:33:00" "2020-04-24 01:00:01" "2020-04-23 02:38:46"
+## [28] "2020-04-24 04:48:28" "2020-04-24 01:06:33" "2020-04-25 04:48:08"
+## [31] "2020-04-22 00:10:43" "2020-04-21 05:58:12" "2020-04-24 01:41:19"
+## [34] "2020-04-24 01:42:44" "2020-04-24 01:43:11" "2020-04-23 02:45:24"
+## [37] "2020-04-20 00:44:42" "2020-04-24 01:41:13" "2020-04-25 00:26:02"
+## [40] "2020-04-25 00:31:23" "2020-04-25 00:46:40" "2020-04-25 00:20:36"
+## [43] "2020-04-20 00:09:58" "2020-04-20 00:09:46" "2020-04-20 00:10:08"
+## [46] "2020-04-25 00:29:12" "2020-04-22 01:45:02" "2020-04-23 02:00:14"
+## [49] "2020-04-25 00:34:47" "2020-04-24 02:11:51" "2020-04-25 00:05:59"
+## [52] "2020-04-21 04:14:11" "2020-04-23 02:13:21"
+```
+
+</details>
+
+## `str_extract()` and `str_extract_all()`
+
+<br>
+__The `str_extract()` and `str_extract_all()` functions__:
+
+
+```r
+?str_extract
+
+# SYNTAX
+str_extract(string, pattern)
+
+
+?str_extract_all
+
+# SYNTAX AND DEFAULT VALUES
+str_extract_all(string, pattern, simplify = FALSE)
+```
+
+- Function: Extracts matching patterns from a string
+  - Returns first match (`str_extract()`) or all matches (`str_extract_all()`) for input vector
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `simplify`: If set to `TRUE`, the returned matches will be in a character matrix rather than the default list of character vectors
+
+
+<br>
+<details><summary>**Example**: Using `str_extract()` and `str_extract_all()` on character vector</summary>
+
+**[`str_extract()`]** Extract the first occurrence of a word for each string:
+
+
+```r
+# Extracts first match of a word
+str_extract(string = c("Three French hens", "Two turtle doves", "A partridge in a pear tree"),
+            pattern = "\\w+")
+```
+
+```
+## [1] "Three" "Two"   "A"
+```
+
+**[`str_extract_all()`]** Extract all occurrences of a word for each string:
+
+
+```r
+# Extracts all matches of a word, returning a list of character vectors
+str_extract_all(string = c("Three French hens", "Two turtle doves", "A partridge in a pear tree"), 
+                pattern = "\\w+")
+```
+
+```
+## [[1]]
+## [1] "Three"  "French" "hens"  
+## 
+## [[2]]
+## [1] "Two"    "turtle" "doves" 
+## 
+## [[3]]
+## [1] "A"         "partridge" "in"        "a"         "pear"      "tree"
+```
+
+```r
+# Extracts all matches of a word, returning a character matrix
+str_extract_all(string = c("Three French hens", "Two turtle doves", "A partridge in a pear tree"), 
+                pattern = "\\w+", simplify = TRUE)
+```
+
+```
+##      [,1]    [,2]        [,3]    [,4] [,5]   [,6]  
+## [1,] "Three" "French"    "hens"  ""   ""     ""    
+## [2,] "Two"   "turtle"    "doves" ""   ""     ""    
+## [3,] "A"     "partridge" "in"    "a"  "pear" "tree"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_extract()` and `str_extract_all()` on dataframe column</summary>
+
+**[`str_extract()`]** Extract first hashtag:
+
+
+```r
+# Extracts first match of a hashtag (if there is one)
+p12_df %>% 
+  mutate(
+    hashtag = str_extract(string = text, pattern = "#\\S+")
+  ) %>% select(text, hashtag)
+```
+
+```
+## # A tibble: 328 x 2
+##    text                                                            hashtag 
+##    <chr>                                                           <chr>   
+##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDraft2020 | @dad… #GoCougs
+##  2 Cougar Cheese. That's it. That's the tweet. 🧀#WSU #GoCougs htt… #WSU    
+##  3 "Darien McLaughlin '19, and her dog, Yuki, went on a #Pullman … #Pullman
+##  4 6 houses, one pick. Cougs, which one you got? Reply ⬇️  #WSU #… #WSU    
+##  5 Why did you choose to attend @WSUPullman?🤔 #WSU #GoCougs https… #WSU    
+##  6 Tell us one of your Bryan Clock Tower memories ⏰ 🐾 #WSU #GoCou… #WSU    
+##  7 We loved seeing your top three @WSUPullman buildings, but what… #WSU    
+##  8 "Congratulations, graduates! We’re two weeks away from the #WS… #WSU    
+##  9 Learn more about this story at https://t.co/45BzKc2rFE. #WSU #… #WSU    
+## 10 "Tomorrow, our @WSUEsports Team is facing off against \n@Espor… #GoCoug…
+## # … with 318 more rows
+```
+
+**[`str_extract_all()`]** Extract all hashtags:
+
+
+```r
+# Extracts all matches of hashtags (if there are any)
+p12_df %>% 
+  mutate(
+    hashtag_vector = str_extract_all(string = text, pattern = "#\\S+"),
+    # Use `as.character()` so we can see the content of the character vector of matches
+    hashtags = as.character(hashtag_vector)
+  ) %>% select(text, hashtag_vector, hashtags)
+```
+
+```
+## # A tibble: 328 x 3
+##    text                             hashtag_vector hashtags                
+##    <chr>                            <list>         <chr>                   
+##  1 "Big Dez is headed to Indy!\n\n… <chr [3]>      "c(\"#GoCougs\", \"#NFL…
+##  2 Cougar Cheese. That's it. That'… <chr [2]>      "c(\"#WSU\", \"#GoCougs…
+##  3 "Darien McLaughlin '19, and her… <chr [3]>      "c(\"#Pullman\", \"#Cou…
+##  4 6 houses, one pick. Cougs, whic… <chr [3]>      "c(\"#WSU\", \"#CougsCo…
+##  5 Why did you choose to attend @W… <chr [2]>      "c(\"#WSU\", \"#GoCougs…
+##  6 Tell us one of your Bryan Clock… <chr [2]>      "c(\"#WSU\", \"#GoCougs…
+##  7 We loved seeing your top three … <chr [2]>      "c(\"#WSU\", \"#GoCougs…
+##  8 "Congratulations, graduates! We… <chr [3]>      "c(\"#WSU\", \"#CougGra…
+##  9 Learn more about this story at … <chr [2]>      "c(\"#WSU\", \"#GoCougs…
+## 10 "Tomorrow, our @WSUEsports Team… <chr [1]>      #GoCougs!               
+## # … with 318 more rows
+```
+
+</details>
+
+## `str_match()` and `str_match_all()`
+
+<br>
+__The `str_match()` and `str_match_all()` functions__:
+
+
+```r
+?str_match
+
+# SYNTAX
+str_match(string, pattern)
+
+
+?str_match_all
+
+# SYNTAX
+str_match_all(string, pattern)
+```
+
+- Function: Extracts matched groups from a string
+  - Returns a character matrix containing the full match in the first column, then additional columns for matches from each capturing group
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+
+<br>
+<details><summary>**Example**: Using `str_match()` and `str_match_all()` on character vector</summary>
+
+**[`str_match()`]** Extract the first month, day, year for each string:
+
+
+```r
+# Extracts first match of month, day, year
+str_match(string = c("5-1-2020", "12/25/17", "01.01.13 to 01.01.14"),
+          pattern = "(\\d+)[-/\\.](\\d+)[-/\\.](\\d+)")
+```
+
+```
+##      [,1]       [,2] [,3] [,4]  
+## [1,] "5-1-2020" "5"  "1"  "2020"
+## [2,] "12/25/17" "12" "25" "17"  
+## [3,] "01.01.13" "01" "01" "13"
+```
+
+**[`str_match_all()`]** Extract all month, day, year for each string:
+
+
+```r
+# Extracts all matches of month, day, year
+str_match_all(string = c("5-1-2020", "12/25/17", "01.01.13 to 01.01.14"),
+              pattern = "(\\d+)[-/\\.](\\d+)[-/\\.](\\d+)")
+```
+
+```
+## [[1]]
+##      [,1]       [,2] [,3] [,4]  
+## [1,] "5-1-2020" "5"  "1"  "2020"
+## 
+## [[2]]
+##      [,1]       [,2] [,3] [,4]
+## [1,] "12/25/17" "12" "25" "17"
+## 
+## [[3]]
+##      [,1]       [,2] [,3] [,4]
+## [1,] "01.01.13" "01" "01" "13"
+## [2,] "01.01.14" "01" "01" "14"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_match()` on dataframe column</summary>
+
+
+```r
+datetime_regex <- "([\\d-]+) ([\\d:]+)"
+p12_df %>%
+  mutate(
+    # The 1st capturing group will be in the 2nd column of the matrix returned from `str_match()`
+    date = str_match(string = created_at, pattern = datetime_regex)[, 2],
+    # The 2nd capturing group will be in the 3rd column of the matrix returned from `str_match()`
+    time = str_match(string = created_at, pattern = datetime_regex)[, 3]
+  ) %>% select(created_at, date, time)
+```
+
+```
+## # A tibble: 328 x 3
+##    created_at          date       time    
+##    <dttm>              <chr>      <chr>   
+##  1 2020-04-25 22:37:18 2020-04-25 22:37:18
+##  2 2020-04-23 21:11:49 2020-04-23 21:11:49
+##  3 2020-04-21 04:00:00 2020-04-21 04:00:00
+##  4 2020-04-24 03:00:00 2020-04-24 03:00:00
+##  5 2020-04-20 19:00:21 2020-04-20 19:00:21
+##  6 2020-04-20 02:20:01 2020-04-20 02:20:01
+##  7 2020-04-22 04:00:00 2020-04-22 04:00:00
+##  8 2020-04-25 17:00:00 2020-04-25 17:00:00
+##  9 2020-04-21 15:13:06 2020-04-21 15:13:06
+## 10 2020-04-21 17:52:47 2020-04-21 17:52:47
+## # … with 318 more rows
+```
+
+</details>
+
+
+## `str_replace()` and `str_replace_all()`
+
+<br>
+__The `str_replace()` and `str_replace_all()` functions__:
+
+
+```r
+?str_replace
+
+# SYNTAX
+str_replace(string, pattern, replacement)
+
+
+?str_replace_all
+
+# SYNTAX
+str_replace_all(string, pattern, replacement)
+```
+
+- Function: Replaces matched patterns in a string
+  - Returns input vector with first match (`str_replace()`) or all matches (`str_replace_all()`) for each string replaced with specified replacement
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+  - `replacement`: What the matched pattern should be replaced with
+- `str_replace_all()` also supports multiple replacements, where you can omit the `replacement` argument and just provide a named vector of replacements as the `pattern`
+
+<br>
+<details><summary>**Example**: Using `str_replace()` and `str_replace_all()`</summary>
+
+**[`str_replace()`]** Replace the first occurrence of a vowel:
+
+
+```r
+# Replace first vowel with empty string
+str_replace(string = "Thanks for the Memories", pattern = "[aeiou]", replacement = "")
+```
+
+```
+## [1] "Thnks for the Memories"
+```
+
+**[`str_replace_all()`]** Replace all occurrences of a vowel:
+
+
+```r
+# Replace all vowels with empty strings
+str_replace_all(string = "Thanks for the Memories", pattern = "[aeiou]", replacement = "")
+```
+
+```
+## [1] "Thnks fr th Mmrs"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using backreferences with `str_replace()` and `str_replace_all()`</summary>
+
+**[`str_replace()`]** Reorders the first date that is matched:
+
+
+```r
+# Use \\1, \\2, and \\3 to refer to the capturing groups (ie. month, day, year)
+str_replace(string = "12/31/19 to 01/01/20", pattern = "(\\d+)/(\\d+)/(\\d+)",
+            replacement = "20\\3-\\1-\\2")
+```
+
+```
+## [1] "2019-12-31 to 01/01/20"
+```
+
+**[`str_replace_all()`]** Reorders all dates that are matched:
+
+
+```r
+# Use \\1, \\2, and \\3 to refer to the capturing groups (ie. month, day, year)
+str_replace_all(string = "12/31/19 to 01/01/20", pattern = "(\\d+)/(\\d+)/(\\d+)",
+                replacement = "20\\3-\\1-\\2")
+```
+
+```
+## [1] "2019-12-31 to 2020-01-01"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_replace_all()` for multiple replacements</summary>
+
+
+```r
+# Replace all occurrences of "at" with "@", and all digits with "#"
+str_replace_all(string = "Tomorrow at 10:30AM", pattern = c("at" = "@", "\\d" = "#"))
+```
+
+```
+## [1] "Tomorrow @ ##:##AM"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_replace_all()` on dataframe column</summary>
+
+
+```r
+p12_df %>%
+  mutate(
+    # Replace all hashtags and handles from tweet with an empty string
+    removed_hashtags_handles = str_replace_all(string = text, pattern = "[@#]\\S+", replacement = "")
+  ) %>% select(text, removed_hashtags_handles)
+```
+
+```
+## # A tibble: 328 x 2
+##    text                              removed_hashtags_handles              
+##    <chr>                             <chr>                                 
+##  1 "Big Dez is headed to Indy!\n\n#… "Big Dez is headed to Indy!\n\n |  | …
+##  2 Cougar Cheese. That's it. That's… Cougar Cheese. That's it. That's the …
+##  3 "Darien McLaughlin '19, and her … "Darien McLaughlin '19, and her dog, …
+##  4 6 houses, one pick. Cougs, which… 6 houses, one pick. Cougs, which one …
+##  5 Why did you choose to attend @WS… Why did you choose to attend    https…
+##  6 Tell us one of your Bryan Clock … Tell us one of your Bryan Clock Tower…
+##  7 We loved seeing your top three @… We loved seeing your top three  build…
+##  8 "Congratulations, graduates! We’… "Congratulations, graduates! We’re tw…
+##  9 Learn more about this story at h… "Learn more about this story at https…
+## 10 "Tomorrow, our @WSUEsports Team … "Tomorrow, our  Team is facing off ag…
+## # … with 318 more rows
+```
+
+</details>
+
+
+## `str_split()`
+
+<br>
+__The `str_split()` function__:
+
+
+```r
+?str_split
+
+# SYNTAX AND DEFAULT VALUES
+str_split(string, pattern, n = Inf, simplify = FALSE)
+```
+
+- Function: Splits a string by specified pattern
+  - Returns character vector containing the split substrings
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for and split by
+  - `n`: Maximum number of substrings to return
+  - `simplify`: If set to `TRUE`, the returned matches will be in a character matrix rather than the default list of character vectors
+
+<br>
+<details><summary>**Example**: Using `str_split()` on character vector</summary>
+
+
+```r
+# Split by comma or the word "and"
+str_split(string = c("The Lion, the Witch, and the Wardrobe", "Peanut butter and jelly"),
+          pattern = ",? and |, ")
+```
+
+```
+## [[1]]
+## [1] "The Lion"     "the Witch"    "the Wardrobe"
+## 
+## [[2]]
+## [1] "Peanut butter" "jelly"
+```
+
+<br>
+We can specify `n` to control the maximum number of substrings we want to return:
+
+
+```r
+# Limit split to only return 2 substrings
+str_split(string = c("The Lion, the Witch, and the Wardrobe", "Peanut butter and jelly"),
+          pattern = ",? and |, ", n = 2)
+```
+
+```
+## [[1]]
+## [1] "The Lion"                    "the Witch, and the Wardrobe"
+## 
+## [[2]]
+## [1] "Peanut butter" "jelly"
+```
+
+<br>
+We can specify `simplify = TRUE` to return a character matrix instead of a list:
+
+
+```r
+# Return split substrings in a character matrix
+str_split(string = c("The Lion, the Witch, and the Wardrobe", "Peanut butter and jelly"),
+          pattern = ",? and |, ", simplify = TRUE)
+```
+
+```
+##      [,1]            [,2]        [,3]          
+## [1,] "The Lion"      "the Witch" "the Wardrobe"
+## [2,] "Peanut butter" "jelly"     ""
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_split()` on dataframe column</summary>
+
+When we split the `created_at` field at either a hyphen or space, we can separated out the year, month, day, and time components of the string:
+
+
+```r
+p12_df %>%
+  mutate(
+    # Use `as.character()` so we can see the content of the character vector of splitted strings
+    year_month_day_time = as.character(str_split(string = created_at, pattern = "[- ]"))
+  ) %>% select(created_at, year_month_day_time)
+```
+
+```
+## # A tibble: 328 x 2
+##    created_at          year_month_day_time                        
+##    <dttm>              <chr>                                      
+##  1 2020-04-25 22:37:18 "c(\"2020\", \"04\", \"25\", \"22:37:18\")"
+##  2 2020-04-23 21:11:49 "c(\"2020\", \"04\", \"23\", \"21:11:49\")"
+##  3 2020-04-21 04:00:00 "c(\"2020\", \"04\", \"21\", \"04:00:00\")"
+##  4 2020-04-24 03:00:00 "c(\"2020\", \"04\", \"24\", \"03:00:00\")"
+##  5 2020-04-20 19:00:21 "c(\"2020\", \"04\", \"20\", \"19:00:21\")"
+##  6 2020-04-20 02:20:01 "c(\"2020\", \"04\", \"20\", \"02:20:01\")"
+##  7 2020-04-22 04:00:00 "c(\"2020\", \"04\", \"22\", \"04:00:00\")"
+##  8 2020-04-25 17:00:00 "c(\"2020\", \"04\", \"25\", \"17:00:00\")"
+##  9 2020-04-21 15:13:06 "c(\"2020\", \"04\", \"21\", \"15:13:06\")"
+## 10 2020-04-21 17:52:47 "c(\"2020\", \"04\", \"21\", \"17:52:47\")"
+## # … with 318 more rows
+```
+
+</details>
+
+## `str_count()`
+
+<br>
+__The `str_count()` function__:
+
+
+```r
+?str_count
+
+# SYNTAX AND DEFAULT VALUES
+str_count(string, pattern = "")
+```
+
+- Function: Counts the number of matches in a string
+  - Returns the number of matches
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+
+<br>
+<details><summary>**Example**: Using `str_count()` on character vector</summary>
+
+
+```r
+# Counts the number of digits
+str_count(string = c("H2O2", "Year 3000", "4th of July"), pattern = "\\d")
+```
+
+```
+## [1] 2 4 1
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_count()` on dataframe column</summary>
+
+
+```r
+p12_df %>%
+  mutate(
+    # Counts the total number of hashtags and mentions
+    num_hashtags_and_mentions = str_count(string = text, pattern = "[@#]\\S+")
+  ) %>% select(text, num_hashtags_and_mentions)
+```
+
+```
+## # A tibble: 328 x 2
+##    text                                               num_hashtags_and_men…
+##    <chr>                                                              <int>
+##  1 "Big Dez is headed to Indy!\n\n#GoCougs | #NFLDra…                     5
+##  2 Cougar Cheese. That's it. That's the tweet. 🧀#WSU…                     2
+##  3 "Darien McLaughlin '19, and her dog, Yuki, went o…                     4
+##  4 6 houses, one pick. Cougs, which one you got? Rep…                     3
+##  5 Why did you choose to attend @WSUPullman?🤔 #WSU #…                     3
+##  6 Tell us one of your Bryan Clock Tower memories ⏰ …                     2
+##  7 We loved seeing your top three @WSUPullman buildi…                     3
+##  8 "Congratulations, graduates! We’re two weeks away…                     3
+##  9 Learn more about this story at https://t.co/45BzK…                     2
+## 10 "Tomorrow, our @WSUEsports Team is facing off aga…                     5
+## # … with 318 more rows
+```
+
+</details>
+
+
+## `str_locate()` and `str_locate_all()`
+
+<br>
+__The `str_locate()` and `str_locate_all()` functions__:
+
+
+```r
+?str_locate
+
+# SYNTAX
+str_locate(string, pattern)
+
+
+?str_locate_all
+
+# SYNTAX
+str_locate_all(string, pattern)
+```
+
+- Function: Locates the position of patterns in a string
+  - Returns an integer matrix containing the start position of match in the first column and end position of match in second column
+- Arguments:
+  - `string`: Character vector (or vector coercible to character) to search
+  - `pattern`: Pattern to look for
+
+<br>
+<details><summary>**Example**: Using `str_locate()` and `str_locate_all()` on character vector</summary>
+
+**[`str_locate()`]** Locate the start and end positions for first stretch of numbers:
+
+
+```r
+# Locate positions for first stretch of numbers
+str_locate(string = c("555.123.4567", "(555) 135-7900 and (555) 246-8000"),
+           pattern = "\\d+")
+```
+
+```
+##      start end
+## [1,]     1   3
+## [2,]     2   4
+```
+
+**[`str_locate_all()`]** Locate the start and end positions for all stretches of numbers:
+
+
+```r
+# Locate positions for all stretches of numbers
+str_locate_all(string = c("555.123.4567", "(555) 135-7900 and (555) 246-8000"),
+               pattern = "\\d+")
+```
+
+```
+## [[1]]
+##      start end
+## [1,]     1   3
+## [2,]     5   7
+## [3,]     9  12
+## 
+## [[2]]
+##      start end
+## [1,]     2   4
+## [2,]     7   9
+## [3,]    11  14
+## [4,]    21  23
+## [5,]    26  28
+## [6,]    30  33
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_locate()` on dataframe column</summary>
+
+
+```r
+p12_df %>%
+  mutate(
+    # Start position of first hashtag in tweet (ie. 1st column of matrix returned from `str_locate()`)
+    start_of_first_hashtag = str_locate(string = text, pattern = "#\\S+")[, 1],
+    # End position of first hashtag in tweet (ie. 2nd column of matrix returned from `str_locate()`)
+    end_of_first_hashtag = str_locate(string = text, pattern = "#\\S+")[, 2],
+    # Length of first hashtag in tweet (ie. difference between start and end positions)
+    length_of_first_hashtag = end_of_first_hashtag - start_of_first_hashtag
+  ) %>% select(text, start_of_first_hashtag, end_of_first_hashtag, length_of_first_hashtag)
+```
+
+```
+## # A tibble: 328 x 4
+##    text               start_of_first_ha… end_of_first_ha… length_of_first_…
+##    <chr>                           <int>            <int>             <int>
+##  1 "Big Dez is heade…                 29               36                 7
+##  2 Cougar Cheese. Th…                 46               49                 3
+##  3 "Darien McLaughli…                 53               60                 7
+##  4 6 houses, one pic…                 57               60                 3
+##  5 Why did you choos…                 44               47                 3
+##  6 Tell us one of yo…                 52               55                 3
+##  7 We loved seeing y…                144              147                 3
+##  8 "Congratulations,…                 59               62                 3
+##  9 Learn more about …                 57               60                 3
+## 10 "Tomorrow, our @W…                266              274                 8
+## # … with 318 more rows
+```
+
+</details>
+
+
+# Appendix
+
+## `rtweet` package
 __rtweet package__ (from rtweet [website](https://rtweet.info/))  
 
 > All you need is a Twitter account (user name and password) and you can be up in running in minutes!
@@ -2473,7 +4058,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
   
 - This package allows users to interact with Twitter's REST and stream APIs.
 
-## search_tweets function
+### search_tweets function
 
 `rtweet` documentation (from [CRAN](https://cloud.r-project.org/web/packages/rtweet/rtweet.pdf))  
 
@@ -2524,7 +4109,7 @@ __rtweet package__ (from rtweet [website](https://rtweet.info/))
     - `verbose`: Logical, indicating whether or not to include output processing/retrieval messages. Defaults to TRUE. For larger searches, messages include rough estimates for time remaining between searches. It should be noted, however, that these time estimates only describe the amount of time between searches and not the total time remaining. For large searches conducted with retryonratelimit set to TRUE, the estimated retrieval time can be estimated by dividing the number of requested tweets by 18,000 and then multiplying the quotient by 15 (token reset time, in minutes).
     - `...`: Further arguments passed as query parameters in request sent to Twitter’s REST API. To return only English language tweets, for example, use lang = "en". For more options see Twitter’s API documentation.
 
-## search_tweets example
+### search_tweets example
 
 
 ```r
@@ -2544,4 +4129,24 @@ p12_full_df <- search_tweets(paste0("from:", p12, collapse = " OR "), n = 500)
 #saveRDS(p12_full_df, "p12_dataset.RDS")
 ```
 
+
+## RegExplain Addin  
+
+> Regular expressions are tricky. RegExplain makes it easier to see what you’re doing.
+
+RegExplain is an RStudio addin that allows the user to check their regex matching functions interactively.
+
+
+*Credit: Garrick Aden-Buie ([RegExplain](https://www.garrickadenbuie.com/project/regexplain/))*
+
+
+[![](../../assets/images/regexplain.png)](https://www.garrickadenbuie.com/project/regexplain/) 
+
+
+Installation
+
+```r
+devtools::install_github("gadenbuie/regexplain")
+library(regexplain)
+```
 
