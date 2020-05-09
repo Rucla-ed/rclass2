@@ -19,6 +19,10 @@ output:
     
 ---
 
+```{r}
+library(tidyverse)
+library(rvest)
+```
 
 # appendix
 
@@ -155,7 +159,148 @@ Student exercise
 
 - Spend 5-10 minutes playing with a simple HTML document on the [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
 
+### regex and html THIS SECTION IS CHICKEN SCRATCH
 
+Play with some simple html
+
+```{r}
+html_char <- "<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>"
+
+
+html_char
+
+#str_view_all(string = html_char, pattern = "<")
+str_match(string = html_char, pattern = "<")
+str_match_all(string = html_char, pattern = "<")
+
+str_extract(string = html_char, pattern = "<")
+
+
+```
+```{r}
+str_extract_all(string = html_char, pattern = "</")
+str_count(string = html_char, pattern = "</")
+
+# extract all tag names
+html_char
+str_extract_all(string = html_char, pattern = "</\\w+>")
+
+#exctract contents
+str_extract_all(string = html_char, pattern = ">.+<")
+str_extract_all(string = html_char, pattern = "(?<=>).+<") # without leading carrot
+str_extract_all(string = html_char, pattern = ">.+(?=<)") # without trailing carrot
+str_extract_all(string = html_char, pattern = "(?<=>).+(?=<)") # without leading or trailing carrot
+
+
+str_extract_all(string = html_char, pattern = "</\\w+>.+")
+str_extract_all(string = html_char, pattern = "</(\\w+)|(\\w+)>")
+
+```
+
+```{r}
+str_view_all(string = html_char, pattern = "<")
+str_view_all(string = as.character(html_char), pattern = "html")
+
+```
+
+```{r}
+html1 <- read_html(x = "<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>")
+
+
+attributes(html1)
+str(html1)
+html1
+html1[[2]]
+
+h <- as_list(read_html("<body><p id = 'a'></p><p class = 'c d'></p></body>"))
+str(h)
+str(h[[1]])
+
+html_structure(h)
+
+x <- as_list(read_xml("<foo><bar id='a'/><bar id='b'/></foo>"))
+str(x)
+x
+```
+
+Investigate `html1` 
+```{r}
+x <- html_text(x = html1, trim = FALSE)
+str(x)
+
+#Print html1
+as.character(html1[[2]])
+temp <- html[[2]]
+temp
+#writeLines html1
+writeLines(html1)
+
+#investigate html1
+str(html1)
+length(html1)
+#str_length(html1)
+```
+Some basic regex
+```{r}
+html1
+
+str_view_all(string = print(html1), pattern = "\\n")
+
+
+```
+
+
+```{r, eval = FALSE}
+some_html <- "<!DOCTYPE html>
+<html>
+<head>
+  <title>Page title (in head tag)</title>
+</head>
+<body>
+  <h1>Title of level 1 heading</h1>
+  <p>My first paragraph.</p>
+  <p>My second paragraph.</p>
+  <p>Add some bold text <strong>right here</strong></p>
+  <p>Add some italics text <em>right here</em></p>
+  <p>Include a hyperlink tag within a paragraph tag. this book looks interesting : <a href="https://bookdown.org/rdpeng/rprogdatascience/">R Programming for Data Science</a></p>  
+  <p>Include another hyperlink tag within a paragraph tag. chapter on <a href="https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html">Regular Expressions</a></p>    
+  <p> put a button inside this paragraph <button>I am a button!</button></p>
+  <p>Here are some items in a list, but items not placed within an unordered list </p>
+
+    <li> text you want in item</li>
+  <li> text you want in another item</li>
+  
+  <p>Here are some items in an unordered list</p>
+  <ul>
+    <li> first item in unordered list </li>
+    <li> second item in unordered list </li>
+  </ul>
+</body>
+</html>"
+
+```
 
 ### Cascading style sheets (CSS)
 
@@ -217,14 +362,11 @@ Lots of resources to learn CSS on the web
   
 Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
 ```{r, eval = FALSE}
-
 <!DOCTYPE html>
 <html>
 <head>
   <title>Page title (in head tag)</title>
-  
 <style>
-
   h1 {
   	color: red;
   	background: rgb(58,58, 58)
@@ -238,43 +380,30 @@ Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.as
   	font-family: Helvetica Neue, Helvetica, Arial, sans-serif
   }
   button {
-  
   	background: gray;
   	border: none;
   	color: white;
   }
 </style>
-  
 </head>
 <body>
-
   <h1>Title of level 1 heading</h1>
-  
   <p>My first paragraph.</p>
   <p>My second paragraph.</p>
   <p>Add some bold text <strong>right here</strong></p>
   <p>Add some italics text <em>right here</em></p>
-  
-
   <p>Include a hyperlink tag within a paragraph tag. this book looks interesting : <a href="https://bookdown.org/rdpeng/rprogdatascience/">R Programming for Data Science</a></p>  
-  
   <p>Include another hyperlink tag within a paragraph tag. chapter on <a href="https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html">Regular Expressions</a></p>    
   <p> put a button inside this paragraph <button>I am a button!</button></p>
-  
   <p>Here are some items in a list, but items not placed within an unordered list </p>
-  
   <li> text you want in item</li>
   <li> text you want in another item</li>
-  
   <p>Here are some items in an unordered list</p>
-  
   <ul>
   <li> first item in unordered list </li>
   <li> second item in unordered list </li>
   </ul>
-
 </body>
-  
 </html>
 ```
 
