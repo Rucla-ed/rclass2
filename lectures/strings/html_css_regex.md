@@ -136,24 +136,15 @@ Some common attributes you may encounter:
 
 *Credit: [HTML attributes](https://www.w3schools.com/html/html_attributes.asp) from W3schools*
 
+<br>
 
+### Class
+### Id
 
+### Student exercise
 
-Lots of wonderful resources on the web to learn HTML!
+- Spend 5-10 minutes playing with the simple HTML text below. 
 
-- Use this website to create/modify html code and view the result after it is compiled
-    - [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
-- Can put hyperlinks within HTML using the `<a>` tag
-  - Syntax: `<a href="url">text you want for link</a>`
-  - Example: `<a href="https://www.w3schools.com/html/">Visit our HTML tutorial</a>`
-  - [See](https://www.w3schools.com/html/html_links.asp)
-- Html cheat sheets [CRYSTAL/PATRICIA - CHANGE IF YOU KNOW OF BETTER CHEAT SHEETS. I JUST GRABBED FIRST ONES]
-  - [Link to HTML cheat sheet (PDF)](https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf)
-
-<!-- - [Link to another HTML cheat sheet (jpg)](https://i.pinimg.com/originals/90/d2/64/90d26403328832df18ebd8b5f47f08fa.jpg), which is also shown in image below
-
-[![](https://i.pinimg.com/originals/90/d2/64/90d26403328832df18ebd8b5f47f08fa.jpg)](https://www.pinterest.com/pin/191332684147746741/)
--->
 
 Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
 
@@ -195,9 +186,21 @@ Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.as
 </html>
 ```
 
-Student exercise
+<br>
 
-- Spend 5-10 minutes playing with a simple HTML document on the [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
+## HTML Resources
+
+Lots of wonderful resources on the web to learn HTML!
+
+- Use this website to create/modify html code and view the result after it is compiled
+    - [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
+- Html cheat sheets 
+    - [Link to HTML cheat sheet (PDF)](https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf)
+    - [Link to another HTML cheat sheet ](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png), (shown below) 
+
+[![](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png)](https://sharethis.com/best-practices/2020/02/best-html-and-css-cheat-sheets/)
+
+
 
 
 <!--
@@ -364,15 +367,15 @@ str_extract_all(string = html_char, pattern = "</(\\w+)|(\\w+)>")
 str_view_all(string = html_char, pattern = "<")
 ```
 
-<!--html_preserve--><div id="htmlwidget-d4afc8d51d5ab585d72e" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d4afc8d51d5ab585d72e">{"x":{"html":"<ul>\n  <li><span class='match'><<\/span>!DOCTYPE html>\n<span class='match'><<\/span>html>\n<span class='match'><<\/span>head>\n<span class='match'><<\/span>title>Page Title<span class='match'><<\/span>/title>\n<span class='match'><<\/span>/head>\n<span class='match'><<\/span>body>\n\n<span class='match'><<\/span>h1>This is a Heading<span class='match'><<\/span>/h1>\n<span class='match'><<\/span>p>This is a paragraph.<span class='match'><<\/span>/p>\n\n<span class='match'><<\/span>/body>\n<span class='match'><<\/span>/html><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-71b014ab967b93229aa8" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-71b014ab967b93229aa8">{"x":{"html":"<ul>\n  <li><span class='match'><<\/span>!DOCTYPE html>\n<span class='match'><<\/span>html>\n<span class='match'><<\/span>head>\n<span class='match'><<\/span>title>Page Title<span class='match'><<\/span>/title>\n<span class='match'><<\/span>/head>\n<span class='match'><<\/span>body>\n\n<span class='match'><<\/span>h1>This is a Heading<span class='match'><<\/span>/h1>\n<span class='match'><<\/span>p>This is a paragraph.<span class='match'><<\/span>/p>\n\n<span class='match'><<\/span>/body>\n<span class='match'><<\/span>/html><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_view_all(string = as.character(html_char), pattern = "html")
 ```
 
-<!--html_preserve--><div id="htmlwidget-c253208435e0e12824b1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c253208435e0e12824b1">{"x":{"html":"<ul>\n  <li><!DOCTYPE <span class='match'>html<\/span>>\n<<span class='match'>html<\/span>>\n<head>\n<title>Page Title<\/title>\n<\/head>\n<body>\n\n<h1>This is a Heading<\/h1>\n<p>This is a paragraph.<\/p>\n\n<\/body>\n<\/<span class='match'>html<\/span>><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-0e8bc5f482aa16804c6a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-0e8bc5f482aa16804c6a">{"x":{"html":"<ul>\n  <li><!DOCTYPE <span class='match'>html<\/span>>\n<<span class='match'>html<\/span>>\n<head>\n<title>Page Title<\/title>\n<\/head>\n<body>\n\n<h1>This is a Heading<\/h1>\n<p>This is a paragraph.<\/p>\n\n<\/body>\n<\/<span class='match'>html<\/span>><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 ```r
