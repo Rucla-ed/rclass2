@@ -18,14 +18,33 @@ output:
     keep_md: true # may be helpful for storing on github
     
 ---
+Load packages:
 
+```r
+library(tidyverse)
+library(rvest)
+```
+
+<!--
+HTML
+  - markup language [DONE]
+  - youtube video [DONE]
+  - HTML basics 
+    - elements [DONE]
+        - tags
+        - attributes
+  - HTML resources
+  - Paste code in html editor
+  - Short student exercise
+  
+-->
 
 # appendix
 
 appendix
 
 
-## HTML and CSS
+## HTML
 
 __Markup language__
 
@@ -34,83 +53,107 @@ __Markup language__
 __Hypertext Markup Language (HTML)__
 
 - HTML is a markup language for the creation of websites
-- HTML puts the content on the webpage, but does not "style" the page (e.g., fonts, colors, background)
 
-__Cascading style sheets (CSS)__
+    - HTML puts the content on the webpage, but does not "style" the page (e.g., fonts, colors, background)
+    - CSS (**C**ascading **S**tyle **S**heets) adds style to the webpage (e.g., fonts, colors, etc.).
+    - Javascript adds functionality to the webpage
 
-> "Cascading style sheets are used to format the layout of Web pages. They can be used to define text styles, table sizes, and other aspects of Web pages" [CSS](https://techterms.com/definition/css)
+## Hypertext Basics  
 
-### Hypertext markup language (HTML)
+- Watch this __excellent__ 12-minute introductory HTML tutorial by LearnCode.academy
+    - Link: [“HTML Tutorial for beginners”](https://www.youtube.com/watch?v=RjHflb-QgVc)
 
-Hypertext markup language (HTML) puts the content on the webpage, but does not "style" the page (e.g., fonts, colors, background)
+### Tags 
+
+- HTML tags are element names HTML surrounded by angle brackets
+    - Tags usually come in pairs (e.g. `<p>` and `</p>`)
+    - The first tag is the start tag and the second tag is the end tag.
+    
+*Credit: [HTML introduction](https://www.w3schools.com/html/html_intro.asp) from W3schools*   
+
+<br>
+Some common HTML tags (not inclusive): 
+
+Tag                Description    
+------------------ ------------------  
+\<h1\> - \<h6\>    Heading     
+\<p\>              Paragraph          
+\<div\>            Division
+\<strong\>         Bold
+\<em\>             Italics
+\<li\>             List item
+\<ul\>             Unordered list
+\<ol\>             Ordered list
+\<table\>          Table (consists of \<tr\>, \<td\>, & \<th\> elements)
+\<tr\>             Table row
+\<td\>             Table data/cell 
+\<th\>             Table header 
 
 <br>
 
-1-minute overview of HTML [NOTES FROM YOUTUBE VIDEO CUT OR CLEAN UP]
+### Elements  
 
-```r
-overview
-HTML puts the content on the page, but does not style the page
-CSS = cascading style sheets, which add style (e.g., fonts, colors, etc.) to the content
-Javascript : to add Functionality 
-Page where you can see what html code looks like when run
-https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default 
-*all* of HTML consists of the following things:
-Tags
-Tagnames
-attributes
-Indentation and whitespace in your html script
-Both are about making script readable for programmer
-Html doesn’t care about white space
-Html recognizes the first space in between words but not 2nd through 1 million-th space
-Indenting is to make the script more readable; they don’t do anything
+- HTML consists of a series of elements  
+- Elements are defined by a start tag, some content, and an end tag.
 
+`<tagname> Content </tagname>`
 
-Tags 
-Everything in html is considered a “tag”
-Anything between opening tag and closing tag is considered inside of a tag
-Can have tags inside of tags inside of tags inside of “body”
-Tag can have one or more attributes
-Attributes come after the tag name
-Tag is what the thing is; attributes describe things about that tag
-E.g., 
-Example of tag called “frank”
-<frank height=”300” intelligence=”high” /
-Tag names
-<html>
-Must have <html> tag
-<head> tag [goes inside html tag
-<body tag>
-Example of these three tag names in action
-<!DOCTYPE html>
-<html>
-<head></head>
-<body>
+*Credit: [HTML elements](https://www.w3schools.com/html/html_elements.asp) from W3schools*
+
+<br>
+
+Start tag  Element Content     End tag
+---------- ------------------  --------
+\<h1\>      First heading      \</h1\>
+\<h2\>      Second heading     \</h2\>
+\<p\>       Paragraph          \</p\>
+
+<br>
 
 
-</body>
-</html>
-Note that <head> and <body> are inside the <html> tag
-<title> tag would go in the “head”
-```
+### Attributes  
+
+- Attributed in HTML elements are optional, but all HTML elements can have attributes.
+- Attributes are used to provide additional information about an element  
+- Attributes are __always__ specified in the start tag
+- Attributes usually come in name/value pairs like: name="value"
+
+Some common attributes you may encounter:
+
+- The `href` attribute defined by an `<a>` tag.
+
+    `<a href="https://www.w3schools.com">This is a link</a>`
+
+- The `src` attribute defined by the `<img>` tag. 
+
+    `<img src="html_cheatsheet.jpg">`
+    
+- You can add more than one attribute to an element.
+
+    `<img src="html_cheatsheet.jpg" width="200" height="300">`
+
+
+
+*Credit: [HTML attributes](https://www.w3schools.com/html/html_attributes.asp) from W3schools*
+
+
+
 
 Lots of wonderful resources on the web to learn HTML!
 
 - Use this website to create/modify html code and view the result after it is compiled
     - [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
-- Wath this __excellent__ 12-minute introductory HTML tutorial by LearnCode.academy
-  - Link: [“HTML Tutorial for beginners”](https://www.youtube.com/watch?v=RjHflb-QgVc)
-  - URL: https://www.youtube.com/watch?v=RjHflb-QgVc
 - Can put hyperlinks within HTML using the `<a>` tag
   - Syntax: `<a href="url">text you want for link</a>`
   - Example: `<a href="https://www.w3schools.com/html/">Visit our HTML tutorial</a>`
   - [See](https://www.w3schools.com/html/html_links.asp)
 - Html cheat sheets [CRYSTAL/PATRICIA - CHANGE IF YOU KNOW OF BETTER CHEAT SHEETS. I JUST GRABBED FIRST ONES]
   - [Link to HTML cheat sheet (PDF)](https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf)
-  - [Link to another HTML cheat sheet (jpg)](https://i.pinimg.com/originals/90/d2/64/90d26403328832df18ebd8b5f47f08fa.jpg), which is also shown in image below
+
+<!-- - [Link to another HTML cheat sheet (jpg)](https://i.pinimg.com/originals/90/d2/64/90d26403328832df18ebd8b5f47f08fa.jpg), which is also shown in image below
 
 [![](https://i.pinimg.com/originals/90/d2/64/90d26403328832df18ebd8b5f47f08fa.jpg)](https://www.pinterest.com/pin/191332684147746741/)
-
+-->
 
 Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
 
@@ -157,125 +200,269 @@ Student exercise
 - Spend 5-10 minutes playing with a simple HTML document on the [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
 
 
+<!--
+### regex and html THIS SECTION IS CHICKEN SCRATCH
 
-### Cascading style sheets (CSS)
-
-> "Cascading style sheets are used to format the layout of Web pages. They can be used to define text styles, table sizes, and other aspects of Web pages" [CSS](https://techterms.com/definition/css)
-
-1-minute overview of CSS   [NOTES FROM YOUTUBE VIDEO CUT OR CLEAN UP]
-
-- Two basic ways to add style to HTML tags
-  - Can use a “style” tag
-  - Add CSS style directly in script that contains html code
-  - Can use “link” tag
-  - Link tag allows you to move CSS out of html into its own file
-  - Programmers usually  use this appraoch because allows you to create separate CSS scripts of styles and then apply them to 
-- Style tag
-  - <style> contents of style tag here </style>
-  - Anything inside open and closing style tag is not html
-- A __CSS rule__ consists of three things
-  - A __selector__
-    - A selector defines Which html tag(s) to add style to
-    - Within a single selector can change multiple properties 
-  - A __property__
-    - Which style element to change (e.g., color, opacity, background)
-  - A __value))
-  - Value to apply to style element (e.g., color: red;)
-- Looks like this:
+Play with some simple html
 
 
 ```r
-selector {
+html_char <- "<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>"
 
 
-	property: value;
-	property: value; 
-}
-Selector
-Choose which tag you would like to apply style to
-E.g., add style to <h1>
-h1 {
+html_char
+```
+
+```
+## [1] "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<h1>This is a Heading</h1>\n<p>This is a paragraph.</p>\n\n</body>\n</html>"
+```
+
+```r
+#str_view_all(string = html_char, pattern = "<")
+str_match(string = html_char, pattern = ">")
+```
+
+```
+##      [,1]
+## [1,] ">"
+```
+
+```r
+str_match_all(string = html_char, pattern = "<")
+```
+
+```
+## [[1]]
+##       [,1]
+##  [1,] "<" 
+##  [2,] "<" 
+##  [3,] "<" 
+##  [4,] "<" 
+##  [5,] "<" 
+##  [6,] "<" 
+##  [7,] "<" 
+##  [8,] "<" 
+##  [9,] "<" 
+## [10,] "<" 
+## [11,] "<" 
+## [12,] "<" 
+## [13,] "<"
+```
+
+```r
+str_extract(string = html_char, pattern = ">")
+```
+
+```
+## [1] ">"
+```
+
+```r
+str_extract_all(string = html_char, pattern = "</")
+```
+
+```
+## [[1]]
+## [1] "</" "</" "</" "</" "</" "</"
+```
+
+```r
+str_count(string = html_char, pattern = "</")
+```
+
+```
+## [1] 6
+```
+
+```r
+# extract all tag names
+html_char
+```
+
+```
+## [1] "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<h1>This is a Heading</h1>\n<p>This is a paragraph.</p>\n\n</body>\n</html>"
+```
+
+```r
+str_extract_all(string = html_char, pattern = "</\\w+>")
+```
+
+```
+## [[1]]
+## [1] "</title>" "</head>"  "</h1>"    "</p>"     "</body>"  "</html>"
+```
+
+```r
+#exctract contents
+str_extract_all(string = html_char, pattern = ">.+<")
+```
+
+```
+## [[1]]
+## [1] ">Page Title<"           ">This is a Heading<"    ">This is a paragraph.<"
+```
+
+```r
+str_extract_all(string = html_char, pattern = "(?<=>).+<") # without leading carrot
+```
+
+```
+## [[1]]
+## [1] "Page Title<"           "This is a Heading<"    "This is a paragraph.<"
+```
+
+```r
+str_extract_all(string = html_char, pattern = ">.+(?=<)") # without trailing carrot
+```
+
+```
+## [[1]]
+## [1] ">Page Title"           ">This is a Heading"    ">This is a paragraph."
+```
+
+```r
+str_extract_all(string = html_char, pattern = "(?<=>).+(?=<)") # without leading or trailing carrot
+```
+
+```
+## [[1]]
+## [1] "Page Title"           "This is a Heading"    "This is a paragraph."
+```
+
+```r
+str_extract_all(string = html_char, pattern = "</\\w+>.+")
+```
+
+```
+## [[1]]
+## character(0)
+```
+
+```r
+str_extract_all(string = html_char, pattern = "</(\\w+)|(\\w+)>")
+```
+
+```
+## [[1]]
+##  [1] "html>"   "html>"   "head>"   "title>"  "</title" "</head"  "body>"  
+##  [8] "h1>"     "</h1"    "p>"      "</p"     "</body"  "</html"
+```
 
 
-	property: value;
-	property: value; 
-}
-Property
-E.g., “color” is a property and “red” is a value
+```r
+str_view_all(string = html_char, pattern = "<")
+```
+
+<!--html_preserve--><div id="htmlwidget-d4afc8d51d5ab585d72e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d4afc8d51d5ab585d72e">{"x":{"html":"<ul>\n  <li><span class='match'><<\/span>!DOCTYPE html>\n<span class='match'><<\/span>html>\n<span class='match'><<\/span>head>\n<span class='match'><<\/span>title>Page Title<span class='match'><<\/span>/title>\n<span class='match'><<\/span>/head>\n<span class='match'><<\/span>body>\n\n<span class='match'><<\/span>h1>This is a Heading<span class='match'><<\/span>/h1>\n<span class='match'><<\/span>p>This is a paragraph.<span class='match'><<\/span>/p>\n\n<span class='match'><<\/span>/body>\n<span class='match'><<\/span>/html><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+```r
+str_view_all(string = as.character(html_char), pattern = "html")
+```
+
+<!--html_preserve--><div id="htmlwidget-c253208435e0e12824b1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c253208435e0e12824b1">{"x":{"html":"<ul>\n  <li><!DOCTYPE <span class='match'>html<\/span>>\n<<span class='match'>html<\/span>>\n<head>\n<title>Page Title<\/title>\n<\/head>\n<body>\n\n<h1>This is a Heading<\/h1>\n<p>This is a paragraph.<\/p>\n\n<\/body>\n<\/<span class='match'>html<\/span>><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
+```r
+html1 <- read_html(x = "<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>This is a Heading</h1>
+<p>This is a paragraph.</p>
+
+</body>
+</html>")
+
+
+attributes(html1)
+str(html1)
+html1
+html1[[2]]
+
+h <- as_list(read_html("<body><p id = 'a'></p><p class = 'c d'></p></body>"))
+str(h)
+str(h[[1]])
+
+html_structure(h)
+
+x <- as_list(read_xml("<foo><bar id='a'/><bar id='b'/></foo>"))
+str(x)
+x
+```
+
+Investigate `html1` 
+
+```r
+x <- html_text(x = html1, trim = FALSE)
+str(x)
+
+#Print html1
+as.character(html1[[2]])
+temp <- html[[2]]
+temp
+#writeLines html1
+writeLines(html1)
+
+#investigate html1
+str(html1)
+length(html1)
+#str_length(html1)
+```
+Some basic regex
+
+```r
+html1
+
+str_view_all(string = print(html1), pattern = "\\n")
 ```
 
 
 
-Lots of resources to learn CSS on the web
-
-- Wath this 7-minute introductory CSS tutorial by LearnCode.academy
-  - Link: [“HTML CSS Tutorial for Beginners”](https://www.youtube.com/watch?v=J35jug1uHzE&list=PLoYCgNOIyGABDU532eesybur5HPBVfC1G&index=4&t=10s)
-  - URL: https://www.youtube.com/watch?v=J35jug1uHzE&list=PLoYCgNOIyGABDU532eesybur5HPBVfC1G&index=4&t=10s
-- CSS cheat sheets [CRYSTAL/PATRICIA - CHANGE IF YOU KNOW OF BETTER CHEAT SHEETS. I JUST GRABBED FIRST ONES]
-  - [Link CSS cheat sheet (jpg)](https://i.pinimg.com/originals/90/d2/64/90d26403328832df18ebd8b5f47f08fa.jpg), which is also shown in image below
-
-[![](https://i.pinimg.com/474x/9c/24/6e/9c246e9c9c4fd7224e93d2fdc2453722--custom-computers-design-web.jpg)](https://www.pinterest.com/pin/218495019393515946/)  
-  
-Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
-
 ```r
-<!DOCTYPE html>
+some_html <- "<!DOCTYPE html>
 <html>
 <head>
   <title>Page title (in head tag)</title>
-  
-<style>
-
-  h1 {
-  	color: red;
-  	background: rgb(58,58, 58)
-  }
-  p {
-  	color: green;
-  }
-  body {
-  	Background: rgb(60, 60, 60);
-  	color: white;
-  	font-family: Helvetica Neue, Helvetica, Arial, sans-serif
-  }
-  button {
-  
-  	background: gray;
-  	border: none;
-  	color: white;
-  }
-</style>
-  
 </head>
 <body>
-
   <h1>Title of level 1 heading</h1>
-  
   <p>My first paragraph.</p>
   <p>My second paragraph.</p>
   <p>Add some bold text <strong>right here</strong></p>
   <p>Add some italics text <em>right here</em></p>
-  
-
   <p>Include a hyperlink tag within a paragraph tag. this book looks interesting : <a href="https://bookdown.org/rdpeng/rprogdatascience/">R Programming for Data Science</a></p>  
-  
   <p>Include another hyperlink tag within a paragraph tag. chapter on <a href="https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html">Regular Expressions</a></p>    
   <p> put a button inside this paragraph <button>I am a button!</button></p>
-  
   <p>Here are some items in a list, but items not placed within an unordered list </p>
-  
-  <li> text you want in item</li>
+
+    <li> text you want in item</li>
   <li> text you want in another item</li>
   
   <p>Here are some items in an unordered list</p>
-  
   <ul>
-  <li> first item in unordered list </li>
-  <li> second item in unordered list </li>
+    <li> first item in unordered list </li>
+    <li> second item in unordered list </li>
   </ul>
-
 </body>
-  
-</html>
+</html>"
 ```
+-->
+
+
 
