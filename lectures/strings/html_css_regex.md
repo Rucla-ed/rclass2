@@ -39,124 +39,152 @@ HTML
   
 -->
 
-# appendix
+# HTML
 
-appendix
+__Markup Language__
 
+> "A markup language is a computer language that uses tags to define elements within a document. It is human-readable, meaning markup files contain standard words, rather than typical programming syntax." 
 
-## HTML
+*Credit: [Markup Language](https://techterms.com/definition/markup_language) from TechTerms*
 
-__Markup language__
-
-> "A markup language is a computer language that uses tags to define elements within a document. It is human-readable, meaning markup files contain standard words, rather than typical programming syntax." [Markup language](https://techterms.com/definition/markup_language)
-
+<br>
 __Hypertext Markup Language (HTML)__
 
 - HTML is a markup language for the creation of websites
-
     - HTML puts the content on the webpage, but does not "style" the page (e.g., fonts, colors, background)
-    - CSS (**C**ascading **S**tyle **S**heets) adds style to the webpage (e.g., fonts, colors, etc.).
+    - CSS (**C**ascading **S**tyle **S**heets) adds style to the webpage (e.g., fonts, colors, etc.)
     - Javascript adds functionality to the webpage
 
-## Hypertext Basics  
+## HTML Basics  
+
+__Intro to HTML (and CSS)__
 
 - Watch this __excellent__ 12-minute introductory HTML tutorial by LearnCode.academy
-    - Link: [“HTML Tutorial for beginners”](https://www.youtube.com/watch?v=RjHflb-QgVc)
+    - Link: [HTML Tutorial for beginners](https://www.youtube.com/watch?v=RjHflb-QgVc)
+- Watch this 7-minute introductory CSS tutorial by LearnCode.academy
+    - Link: [HTML CSS Tutorial for Beginners](https://youtu.be/J35jug1uHzE)
 
-### Tags 
+<br>
+__A Simple HTML Document__ (From [w3schools](https://www.w3schools.com/html/html_intro.asp))
 
-- HTML tags are element names HTML surrounded by angle brackets
+- HTML consists of a series of **elements**
+  - Elements are defined by a start tag, some content, and an end tag:
+    - `<tagname> Content </tagname>`
+  - Elements can be nested within one another
+- Components of a basic HTML document:
+  - Begin with `<!DOCTYPE html>` to indicate it is an HTML document
+  - The `<html>` element is the root element of an HTML page, where all other elements are nested
+  - The `<head>` element contains meta information about the document (ie. not displayed on webpage)
+  - The `<body>` element contains the visible page content
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+
+</body>
+</html>
+```
+
+<br>
+
+## Tags
+
+What are **HTML tags**?
+
+- HTML tags are element names surrounded by angle brackets
     - Tags usually come in pairs (e.g. `<p>` and `</p>`)
-    - The first tag is the start tag and the second tag is the end tag.
+    - The first tag is the start tag and the second tag is the end tag
     
 *Credit: [HTML introduction](https://www.w3schools.com/html/html_intro.asp) from W3schools*   
 
 <br>
-Some common HTML tags (not inclusive): 
+Some **common HTML tags** (_not inclusive_): 
 
 Tag                Description    
 ------------------ ------------------  
 \<h1\> - \<h6\>    Heading     
-\<p\>              Paragraph          
-\<div\>            Division
+\<p\>              Paragraph
+\<a\>              Link
+\<img\>            Image
+\<div\>            Division (can think of it as a container to group other elements)
 \<strong\>         Bold
 \<em\>             Italics
-\<li\>             List item
-\<ul\>             Unordered list
-\<ol\>             Ordered list
+\<ul\>             Unordered list (consists of \<li\> elements)
+\<ol\>             Ordered list (consists of \<li\> elements)
+&nbsp;&nbsp;\<li\> &nbsp;&nbsp;&nbsp;&nbsp;List item
 \<table\>          Table (consists of \<tr\>, \<td\>, & \<th\> elements)
-\<tr\>             Table row
-\<td\>             Table data/cell 
-\<th\>             Table header 
-
-<br>
-
-### Elements  
-
-- HTML consists of a series of elements  
-- Elements are defined by a start tag, some content, and an end tag.
-
-`<tagname> Content </tagname>`
-
-*Credit: [HTML elements](https://www.w3schools.com/html/html_elements.asp) from W3schools*
-
-<br>
-
-Start tag  Element Content     End tag
----------- ------------------  --------
-\<h1\>      First heading      \</h1\>
-\<h2\>      Second heading     \</h2\>
-\<p\>       Paragraph          \</p\>
+&nbsp;&nbsp;\<tr\> &nbsp;&nbsp;Table row
+&nbsp;&nbsp;\<td\> &nbsp;&nbsp;Table data/cell 
+&nbsp;&nbsp;\<th\> &nbsp;&nbsp;Table header 
 
 <br>
 
 
-### Attributes  
+## Attributes  
 
-- Attributed in HTML elements are optional, but all HTML elements can have attributes.
+What are **attributes**?
+
+- Attributed in HTML elements are optional, but all HTML elements can have attributes
 - Attributes are used to provide additional information about an element  
 - Attributes are __always__ specified in the start tag
-- Attributes usually come in name/value pairs like: name="value"
-
-Some common attributes you may encounter:
-
-- The `href` attribute defined by an `<a>` tag.
-
-    `<a href="https://www.w3schools.com">This is a link</a>`
-
-- The `src` attribute defined by the `<img>` tag. 
-
-    `<img src="html_cheatsheet.jpg">`
-    
-- You can add more than one attribute to an element.
-
-    `<img src="html_cheatsheet.jpg" width="200" height="300">`
-
-
+- Attributes usually come in name/value pairs like: `name="value"`
 
 *Credit: [HTML attributes](https://www.w3schools.com/html/html_attributes.asp) from W3schools*
+
+<br>
+Some **common attributes** you may encounter:
+
+- The `href` attribute for an `<a>` tag (_specifies url to link to_):
+  ```
+  <a href="https://www.w3schools.com">This is a link</a>
+  ```
+- The `src` attribute defined by the `<img>` tag (_specifies image to display_):
+  ```
+  <img src="html_cheatsheet.jpg">
+  ```
+- You can add more than one attribute to an element:
+  ```
+  <img src="html_cheatsheet.jpg" width="200" height="300">
+  ```
+- The `class` and `id` attributes are also commonly added to elements to be able to identify and select for them
 
 <br>
 
 ### Class  
 
-- The class attribute can specify one or more class names for an HTML element. 
-- Elements with the same class attribute will get the same style (CSS)  
-    - You can use a `.` followed by the class attribute in CSS (more from GeekstoGeeks [here](https://www.geeksforgeeks.org/html-class-attribute/?ref=lbp)).
+- The `class` attribute can specify one or more class names for an HTML element
+- An element can be identified by its class
+- You can select for an element by its class using `.` followed by the class name (more from GeekstoGeeks [here](https://www.geeksforgeeks.org/html-class-attribute/?ref=lbp))
+  - For example, this can be used in CSS to select for and style all elements with a specific class
 
-    `<div class="countries">`  
-    `<h3>United States</h3>`  
-    `<p class="place">Washington D.C </p>`  
-    `<img src="https://cdn.aarp.net/content/dam/aarp/travel/destination-guides/2018/03/1140-trv-dst-dc-main.imgcache.revd66f01d4a19adcecdb09fdacd4471fa8.jpg">`
-    `</div>`
+__HTML__:
+
+
+```html
+<div class="countries">
+  <h3>United States</h3>
+  <p class="place">Washington D.C.</p>
+  <img src="https://cdn.aarp.net/content/dam/aarp/travel/destination-guides/2018/03/1140-trv-dst-dc-main.imgcache.revd66f01d4a19adcecdb09fdacd4471fa8.jpg">
+</div>
     
-    
-    `<div class="countries">`  
-    `<h3>Mexico</h3>`  
-    `<p class="place">Guadalajara</p>`  
-    `<img src="https://cityofguadalajara.com/wp-content/uploads/2016/11/Centro-Historico-de-Guadalajara-800x288.jpg">`
-    `</div>`
+<div class="countries">
+  <h3>Mexico</h3>
+  <p class="place">Guadalajara</p>
+  <img src="https://cityofguadalajara.com/wp-content/uploads/2016/11/Centro-Historico-de-Guadalajara-800x288.jpg">
+</div>
+```
  
+__CSS__:
+ 
+
+```css
 <style>   
 .countries {
   background-color: #e6e6e6;
@@ -168,8 +196,29 @@ Some common attributes you may encounter:
 .place {
   color: black;
 }
+</style>
+```
 
+__Result__:
 
+<style>
+.countries {
+  background-color: #e6e6e6;
+  color: #336699;
+  margin: 10px;
+  padding: 15px;
+  display: inline-block;
+}
+
+.place {
+  color: black;
+}
+
+.countries img {
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+}
 </style>
 
 <div class="countries">
@@ -190,47 +239,57 @@ Some common attributes you may encounter:
 
 ### Id  
 
-- The HTML id attribute is used to specify one unique HTML element within the HTML document.
-- The id attribute can be used in CSS and it is identified by a `#` followed by the id (more from GeekstoGeeks [here](https://www.w3schools.com/html/html_id.asp)).
+- The `id` attribute is used to specify one unique HTML element within the HTML document
+- An element can be identified by its id
+- You can select for an element by its id using `#` followed by the id name (more from GeekstoGeeks [here](https://www.w3schools.com/html/html_id.asp))
+  - For example, this can be used in CSS to select for and style a specific element with a certain id
 
-The syntax is:  
+__HTML__:
 
-`<style>`
-`#myHeader {
+
+```html
+<div id="banner">My Banner</div>
+```
+
+__CSS__:
+
+
+```css
+<style>
+#banner {
   background-color: #e6e6e6;
-  color: black;
-  padding: 40px;
+  font-size: 40px;
+  padding: 20px;
   text-align: center;
-}` 
-`</style>`
+}
+</style>
+```
 
-`<h1 id="myHeader">My Header</h1>`
+__Result__:
 
 <style>
-#myHeader {
+#banner {
   background-color: #e6e6e6;
-  color: black;
-  padding: 40px;
+  font-size: 40px;
+  padding: 20px;
   text-align: center;
 }
 </style>
 
-<h1 id="myHeader">This is my Header</h1>
+<div id="banner">My Banner</div>
 
 *Credit: [HTML Id](https://www.w3schools.com/html/html_id.asp) from W3schools*
 
 
 <br>
 
+## Student Exercise
 
-### Student exercise
+- Spend 5-10 minutes playing with the simple HTML text below
+- Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
 
-- Spend 5-10 minutes playing with the simple HTML text below. 
 
-
-Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
-
-```r
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -274,14 +333,14 @@ Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.as
 
 Lots of wonderful resources on the web to learn HTML!
 
-- Use this website to create/modify html code and view the result after it is compiled
+- Use this website to create/modify HTML code and view the result after it is compiled
     - [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
-- Html cheat sheets 
+- HTML cheat sheets 
     - [Link to HTML cheat sheet (PDF)](https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf)
     - [Link to another HTML cheat sheet ](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png), (shown below) 
 
-[![](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png)](https://sharethis.com/best-practices/2020/02/best-html-and-css-cheat-sheets/)
 
+[![](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png)](https://sharethis.com/best-practices/2020/02/best-html-and-css-cheat-sheets/)
 
 
 
