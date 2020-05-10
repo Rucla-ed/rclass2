@@ -80,16 +80,30 @@ as.character(html)
 <br>
 <details><summary>**Example**: Using `read_html()` to scrape the page `https://corona.help/`</summary>
 
+CRYSTAL - BEFORE WE APPLY READ_HTML TO THE PAGE, CAN WE SHOW STUDENTS HOW TO EXAMINE THE HTML USING THEIR BROWSER?
+
+- FIRST LET'S LOOK AT THE WEBPAGE
+- SECOND, LET'S HAVE THEM "INSPECT PAGE" AND "VIEW PAGE SOURCE"
+  - WHAT DO THESE TWO THINGS MEAN? WHAT IS DIFFERENCE BETWEEN INSPECT PAGE AND VIEW PAGE SOURCE?
+    - https://medium.com/@codebyamir/view-source-vs-inspect-element-ca52f06110a0
+    - DO YOU RECOMMEND ONE VS. THE OTHER?
+  - HOW DO YOU DO THESE TWO THINGS? IN PC, YOU RIGHT-CLICK. WHAT ABOUT MAC?
+  - 
+
 ```{r}
 corona <- read_html("https://corona.help/")
 
 # View object
+str(corona)
 corona
 ```
 
 ```{r, eval=FALSE}
 # View raw HTML
 as.character(corona)
+
+str(as.character(corona))
+typeof(as.character(corona))
 ```
 
 </details>
@@ -114,21 +128,28 @@ html_nodes(x, css, xpath)
 - Arguments:
   - `x`: An `rvest` `xml_document`/`xml_node` object (use `read_html()` to get this)
   - `css`: Selector (can select by HTML tag name, its attributes, etc.)
+    - CRYSTAL - CAN WE PROVIDE AN INTUITIVE DESCRIPTION OF WHAT A CSS SELECTOR IS?
+    - POSSIBLE TO SELECT RIGHT HTML TAG NAME/ATTRIBUTES ETC WITHOUT USING SELECTORGADGET OR SOMETHING LIKE THAT?
 - Output:
   - `html_node()` returns the first element that it finds as an `rvest` `xml_node` object
+    - CRYSTAL - RE-STATE WHAT AN XML_NODE OBJECT IS
   - `html_nodes()` returns all elements that it finds as an `rvest` `xml_nodeset` object
+    - CRYSTAL - RE-STATE WHAT AN XML_NODESET OBJECT IS
   - Again, you can view the raw HTML using `as.character()`
+    - CRYSTAL - ADD EXAMPLE SYNTAX
 
 <br>
 <details><summary>**Example**: Using `html_node()` and `html_nodes()` I</summary>
 
 Remember that the input to `html_node()`/`html_nodes()` should be an `rvest` `xml_document`/`xml_node` object, which we can obtain from `read_html()`:
 
+CRYSTAL - `html_node()` and `html_nodes()` assume we know which elements are in the xml_node/nodeset object. how do we find out which elements are in the node/nodeset object?
 ```{r}
 html <- read_html("<p>Paragraph #1</p><p>Paragraph #2</p><p>Paragraph #3</p>")
 
 # View class of object
 class(html)
+html
 ```
 
 <br>
@@ -174,6 +195,10 @@ all_p <- html %>% html_nodes('p')
 
 Let's revisit the HTML we scraped from `https://corona.help/` in the previous example:
 
+- imagine that our goal is to create a dataframe containing the table "Totals by country" [CRYSTAL - IS THIS WHAT WE ARE TRYING TO TELL THE STUDENTS?]
+- IS THERE A WAY THAT WE CAN VIEW THE HTML CODE ASSOCIATED W/ THE TABLE ON THE https://corona.help/ website?
+- GIVE SOME BASIC INTUITION/OVERVIEW OF GENERAL PROCESS OF SCRAPING AN HTML TABLE
+
 ```{r}
 # Scraped HTML is stored in this `xml_document`/`xml_node` object
 class(corona)
@@ -186,10 +211,25 @@ Select for the `table` element on that page using `html_node()`:
 # Since this table is the only table on the page, we can just use `html_node()`
 corona_table <- corona %>% html_node('table')
 corona_table
+class(corona_table)
 ```
 
 <br>
+Can use `as.character(corona_table)` to print raw html code of `corona_table` [output omitted]
+```{r}
+as.character(corona_table)
+```
+CRYSTAL - HOW COME THIS DOESN'T WORK TO PRINT THE BODY OF THE HTML TABLE?
+```{r, eval = FALSE}
+corona_table
+as.character(corona_table[2])
+```
+
+
+<br>
 Select for all rows in the table (ie. `tr` element) using `html_nodes()`:
+
+- CRYSTAL - IS IT ALWAYS THE CASE THAT WE SELECT/SCRAPE HTML TABLES BY ROWS RATHER THAN BY COLUMNS? IF SO, LET'S SAY THAT AND SAY WHY IF THERE IS A SUPER BRIEF EXPLANATION
 
 ```{r}
 # We can chain `html_node()`/`html_nodes()` functions
@@ -198,8 +238,11 @@ corona_rows <- corona %>% html_node('table') %>% html_nodes('tr')
 # Alternatively, we can use `table tr` as the selector to select all `tr` elements within a `table`
 corona_rows <- corona %>% html_nodes('table tr')
 
-# View first few rows
-head(corona_rows)
+# investigate object
+head(corona_rows) # View first few rows
+typeof(corona_rows)
+class(corona_rows)
+length(corona_rows) # number of elements
 ```
 
 </details>
@@ -208,25 +251,43 @@ head(corona_rows)
 
 Below are some examples using the Coronavirus data from https://corona.help/. Recall that we have selected for all rows in the data table on that page:
 
+CRYSTAL - CAN YOU GIVE AN OVERALL SUMMARY OF WHAT WE ARE TRYING TO DO W/ THE TABLE (E.G., CREATE DATAFRAME OF DATA FROM TABLE). WE CAN SAY WE ARE NOT DOING IT MOST EFFICIENT WAY CUZ POSSIBLE CUZ THE GOAL IS TO PRACTICE REGEX.
+
 ```{r}
 # View first few rows
 head(corona_rows)
+corona_rows[1:5] # first five rows
+corona_rows[c(1)] # header row
+corona_rows[1] # header row
 ```
 
 Let's convert this to raw HTML using `as.character()` to practice writing regular expressions:
 
 ```{r}
-# Convert rows to raw HTML (skip header row)
-rows <- as.character(corona_rows)[-c(1)]
+# Convert rows to raw HTML
+rows <- as.character(corona_rows)[-c(1)] # [-c(1)] means skip header row
 
-# View first few rows as raw HTML
-writeLines(head(rows, 2))
+# investgate object named rows, which is a character vector
+typeof(rows)
+class(rows)
+length(rows)
+
+## View first few rows as raw HTML
+  # note that printing via writeLines() is much prettier than printing via print()
+  writeLines(head(rows, 2)) 
+  
+  #printing via print()
+  #head(rows, 2)
 ```
 
 <br>
 <details><summary>**Example**: Using `str_subset()` to subset rows</summary>
 
+FOR ALL OF THESE EXAMPLES BELOW [WHICH ARE EXCELLENT!]: IN THE CODE, PROVIDE A LINE OR TWO THAT USES FUNCTIONS LIKE STR_DETECT TO INVESTIGATE/IDENTIFY MATCHES BEFORE USING FUNCTIONS LIKE SUBSET, EXTRACT, ETC. TO CREATE THE OBJECT. 
+
 Subset rows by country name:
+
+- reminder: `str_subset` keeps elements of character vector for which `str_detect` is `TRUE` (i.e., keeps elements where the pattern "matches")
 
 ```{r}
 subset_by_country <- str_subset(string = rows, pattern = 'United \\w+')
@@ -237,6 +298,8 @@ writeLines(subset_by_country)
 
 <br>
 <details><summary>**Example**: Using `str_extract()` to extract link for each row</summary>
+
+CRYSTAL - SHOW HOW STUDENTS WOULD INVESTIGATE/KNOW THAT ALL LINKS FOLLOW THE SAME PATTERN
 
 Since all links follow the same pattern, we can use regex to extract this info:
 
@@ -252,6 +315,8 @@ head(links)
 <br>
 <details><summary>**Example**: Using `str_match()` to extract country for each row</summary>
 
+SHOW HOW STUDENTS CAN INVESTIGATE TO KNOW PATTERNS NECESSARY TO EXRACT COUNTRY
+
 Since all countries are in a `div` element with the same attributes, we can use the following regex to extract the country name:
 
 ```{r}
@@ -265,6 +330,8 @@ head(countries)
 
 <br>
 <details><summary>**Example**: Using `str_match_all()` to extract number deaths and critical for each row</summary>
+
+SHOW HOW STUDENTS CAN INVESTIGATE TO KNOW PATTERNS
 
 Since both the number of deaths and critical are in a `td` element with the same `class` attribute, we can use the following regex to extract both numbers:
 
