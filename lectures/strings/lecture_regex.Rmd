@@ -1,85 +1,415 @@
 ---
-title: "Using Regular Expressions"
-author: "Patricia Martin"
-output:
+title: "Introduction to Regular expressions"
+author:
+date: 
+urlcolor: blue
+output: 
   html_document:
-    fig_width: 3
-    fig_height: 2
-    toc: true
-    toc_depth: 2
+    toc: TRUE
+    toc_depth: 3
     toc_float: true
-    smooth_scroll: true
+    number_sections: true
+    highlight: tango
+    theme: default
     fig_caption: true
-
-    
+    #fig_width = 7 #Default width (in inches) for figures
+    #fig_height = 5 #Default height (in inches) for figures
+    #html_preview: TRUE #TRUE to also generate an HTML file for the purpose of locally previewing what the document will look like on GitHub.    
+    df_print: tibble # Method to be used for printing data 
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+# Introduction
+Load packages:
+```{r, message=FALSE}
+library(tidyverse)
+library(stringr)
+library(rtweet)
 ```
 
-## Regular Expressions (Regex)  
-<img src="regex_image.png" width="300" height="200"/>  
-source: https://www.rexegg.com/regex-humor.html  
+Resources used to create this lecture:  
+
+- https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf 
+- https://stat545.com/character-vectors.html#regular-expressions-with-stringr
+
+## Dataset we will use 
+
+We will be using Twitter data from the PAC-12 universities. This data was pulled from Twitter using the `rtweet` package. We will use the university admissions Twitter handle if there is one, or the main Twitter handle for the university if there isn't one:
+
+```{r}
+#Code to pull data from Twitter
+# library(rtweet)
+# 
+# p12 <- c("uaadmissions", "FutureSunDevils", "caladmissions", "UCLAAdmission",
+#          "futurebuffs", "uoregon", "BeaverVIP", "USCAdmission",
+#          "engagestanford", "UtahAdmissions", "UW", "WSUPullman")
+# p12_full_df <- search_tweets(paste0("from:", p12, collapse = " OR "), n = 500)
+#
+# saveRDS(p12_full_df, "p12_dataset.RDS")
+
+# Load previously pulled Twitter data
+# p12_full_df <- readRDS("p12_dataset.RDS")
+
+p12_full_df <- readRDS(url("https://github.com/Rucla-ed/rclass2/raw/master/lectures/strings/p12_dataset.RDS", "rb"))
+#glimpse(p12_full_df)
+
+#Subset dataframe to a few variables
+p12_df <- p12_full_df %>% select("user_id", "created_at", "screen_name", "text", "location")
+head(p12_df)
+```
+
+
+## Why use Regular Expressions (Regex)  
+[![](http://a.yu8.us/xkcd-208-regular_expressions.png)](https://www.rexegg.com/regex-humor.html)  
+
+*Credit: Regex Humor ([Rex Egg](https://www.rexegg.com/regex-humor.html))*
+  
 \newline
 
-Regular expressions or regex are widely used across different programming languages and for many purposes. Web developers, digital marketers, and researchers use regex differently. Take the following image for example. I searched the hashtag #AcademicChatter and this feed came up. A person interested in this hashtag may stream the data from Twitter and save the file to parse later (use regex to extract text). Why might a researcher be interested in this data? Why might a digital marketer be interested in this data? **Get in your groups and take 5 minutes to discuss.** Think of both positive and negative motives for using this information and the impact it may have on certain communities (e.g. graduate students of color, untenured faculty).  
+# First things first
 
-<img src="academic_twitter.png" align="middle" width="65%" height="65%" />   
+## Special characters  
+
+Recall from the lecture on strings we talked about special characters and escape sequences.
+
+> "A sequence in a string that starts with a `\` is called an **escape sequence** and allows us to include special characters in our strings."
+
+*Credit: [Escape sequences](https://campus.datacamp.com/courses/string-manipulation-with-stringr-in-r/string-basics?ex=4) from DataCamp*
+
+Common **special characters**:
+
+- `\'`: literal single quote
+- `\"`: literal double quote
+- `\\`: literal backslash
+- `\n`: newline
+- `\t`: tab
+
+<br>
+__The `writeLines()` function__:
+
+```{r, eval = FALSE}
+?writeLines
+
+# SYNTAX AND DEFAULT VALUES
+writeLines(text, con = stdout(), sep = "\n", useBytes = FALSE)
+```
+
+- "`writeLines()` displays quotes and backslashes as they would be read, rather than as R stores them." (From [writeLines](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/writeLines) documentation)
+- When we include **escape sequences** in the string, it is helpful to use `writeLines()` to see how the escaped string looks
+- `writeLines()` will also output the string without showing the outer pair of double quotes that R uses to store it, so we only see the content of the string
+
+<br>
+<details><summary>**Example**: Escaping backslashes </summary>
+
+```{r}
+my_string <- "This backslash \\"
+my_string
+```
+
+Using `writeLines()` shows us only the content of the string without the second backslash:
+
+```{r}
+writeLines(my_string)
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: Escaping double quotes </summary>
+
+```{r}
+my_string <- "I called my mom and she said \"Echale ganas!\""
+my_string
+```
+
+Using `writeLines()` shows us only the content of the string without the backslashes:
+
+```{r}
+writeLines(my_string)
+```
+</details>
+
+<br>
 
 
-## What are regular expressions?
+### Escape special characters using Twitter data   
 
-Regular expressions are "a sequence of characters that define a search pattern" [^4] similar to the [command + f] function you use to find text in a pdf or word document. You could think of regular expressions like playing a game of charades. Assume a player grabs a playing card with an image of a person reading a book. Their task is to pantomine this action (reading a book) so that other players can guess what they are doing. Through the use of physical expressions and symbols, the player with the card is helping the other players guess what playing card they got. In this analogy, the player with the playing card is you the user and the players trying to guess your card is your machine or computer. As the user, you use regular expressions or special characters to tell your computer what characters you are looking for in a text.  
+Let's take a look at some tweets from our PAC-12 universities. 
 
-<img src="command_f.png" width="50%" height="300" align="left"/>
-\newline 
-<img src="charades.jpg" width="50%" height="300 align="right"/>  
-source: https://www.wikihow.it/Giocare-a-Sciarada
+- Let's start by grabbing observations 1-3 from the `text` column.
+
+```{r}
+#Twitter example of \n newline special characters
+p12_df$text[1:3]
+```
+
+
+- Using `writeLines()` we can see the contents of the strings as they would be read, rather than as R stores them.
+```{r}
+writeLines(p12_df$text[1:3])
+```
+
+<br>
+<details><summary>**Example**: Escaping double quotes using Twitter data </summary>  
+
+- Using Twitter data you may encounter a lot of strings with double quotes.
+
+    - In the example below, our string includes special characters `\"` and `\n` to escape the double quotes and the newline character. 
+```{r}
+#Twitter example of \" double quotes special characters
+p12_df$text[24]
+```
+
+- Using `writeLines()` we can see the contents of the strings as they would be read, rather than as R stores them.  
+
+    - We no longer see the escaped characters `\"` or `\n`
+```{r}
+writeLines(p12_df$text[24])
+```
+</details>
+<br>
+
+## Special characters in regular expressions  
+
+There are special characters in regular strings as we have seen above and there are also certain characters in regex that have a special meaning (table below).
+
+> What if you really need the plus sign to be a literal plus sign and not a regex quantifier? You will need to escape it by prepending a backslash. But wait … there’s more! Before a regex is interpreted as a regular expression, it is also interpreted by R as a string. And backslash is used to escape there as well. So, in the end, you need to preprend two backslashes in order to match a literal plus sign in a regex.
+
+*Credit: [Escaping sequences](https://stat545.com/character-vectors.html#escaping) from Stat 545*
+
+
+| STRING  <br>  *(type string that represents regex)* | REGEX <br> *(to have this appear in your regex)* | MATCHES <br> *(to match with this text)* |
+|--------------|-----------------|---------|
+| `\\.`  |    `\.`    | . |
+| `\\"`  |    `\"`   | " (double quote)|
+| `\\'`  |    `\'`   | ' (single quote)|
+| `\\!`  |    `\!`   | !  |
+| `\\?`  |    `\?`   | ?  |
+| `\\\\` |    `\\`   | \\\  |
+| `\\(`  |    `\(`   | ( |
+| `\\)`  |    `\)`   | ) |
+| `\\{`  |    `\{`   | { |
+| `\\}`  |    `\}`   |}  |
+| `\\n`  |    `\n`   | new line (return)  |
+| `\\t`  |    `\t`   | tab |
+| `\\s`  |    `\s`   |  any whitespace |
+| `\\S`  |    `\S`   |  any non-whitespace |
+| `\\d`  |    `\d`   |  any digit |
+| `\\D`  |    `\D`   |  any non-digit|
+| `\\w`  |    `\w`   |  any word character |
+| `\\W`  |    `\W`   |  any non-word character|
+| `\\b`  |    `\b`   |  word-boundary |
+| `\\B`  |    `\B`   |  non-word-boundary |
+
+
+*Credit: [Working with strings in stringr](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf) Cheat sheet*
+
+
+### Escape special character backslashes
+
+> If \\ is used as an escape character in regular expressions, how do you match a literal \\? Well you need to escape it, creating the regular expression \\\\. To create that regular expression, you need to use a string, which also needs to escape \\ . That means to match a literal \\ you need to write "\\\\\\\\" — you need four backslashes to match one!
+
+*Credit: [R for Data Science](https://r4ds.had.co.nz/strings.html#basic-matches) Strings Chapter*
+
+The character vector below has one, two, three, and four backslashes.  
+
+- Notice once we print this vector, the single backslash returns an empty string and the three backslashes return two backslashes.
+```{r}
+backslash <- c("\ ","\\", "\\\ ", "\\\\")
+
+backslash
+```
+
+<br>
+
+- Using `writeLines()` we can see view the contents of the strings.
+```{r}
+writeLines(backslash)
+```
+
+```{r}
+text <- "This is a backslash \\"
+str_view(string = text, pattern = "\\\\")
+```
+
+
+
+### `str_view` and `str_view_all`
+
+<br>
+__The `str_c()` function__:
+
+```{r, eval = FALSE}
+?str_view
+
+# SYNTAX AND DEFAULT VALUES
+str_view(string, pattern, match = NA)
+str_view_all(string, pattern, match = NA)
+```
+
+- Function: `str_view` shows the first match of a regex pattern; `str_view_all` shows all the matches of a regex pattern.
+- Arguments:
+  - `string`: Input vector. Either a character vector, or something coercible to one.
+  - `pattern`: Pattern to look for.
+      - The default interpretation is a regular expression, as described in stringi::stringi-search-regex. Control options with regex().
+  - `match`: If TRUE, shows only strings that match the pattern. If FALSE, shows only the strings that don't match the pattern. Otherwise (the default, NA) displays both matches and non-matches.
+
+<br>
+
+`str_view` will show us the first regex pattern match
+
+```{r}
+str_view(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+Notice how we can see all the regex pattern matches with `str_view_all`
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ('\\"'))
+```
+
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for newline </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\n"))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for period </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\."))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for white space </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\s"))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for word bound </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\b"))
+```
+</details>
+
+<br>
+
+<details><summary>**Example**: `str_view` & `str_view_all` regex for digit(s) </summary> 
+```{r}
+str_view_all(string = p12_df$text[119], pattern = ("\\d"))
+```
+</details>
+
+<br>
+
+## RegExplain Addin  
+
+> Regular expressions are tricky. RegExplain makes it easier to see what you’re doing.
+
+RegExplain is an RStudio addin that allows the user to check their regex matching functions interactively.
+
+
+*Credit: Garrick Aden-Buie ([RegExplain](https://www.garrickadenbuie.com/project/regexplain/))*
+
+
+[![](../../assets/images/regexplain.png)](https://www.garrickadenbuie.com/project/regexplain/) 
+
+
+Installation
+```{r eval=FALSE}
+devtools::install_github("gadenbuie/regexplain")
+library(regexplain)
+```
+
+
+# What are regular expressions? 
+
+What are regular expressions? from [Geeks for Geeks](https://www.geeksforgeeks.org/write-regular-expressions/)
+
+- Regular expressions are "a sequence of characters that define a search pattern" similar to the [command + f] function you use to find text in a pdf or word document. 
+    
+    ![](../../assets/images/command_f.png){width=60%}
+
+*Credit: Crystal Han, Ozan Jaquette, & Karina Salazar ([Recruiting the Out-Of-State University](https://emraresearch.org/sites/default/files/2019-03/joyce_report.pdf))*
+
+\newline
+
+- You could think of regular expressions like playing a game of charades. Assume a player grabs a playing card with an image of a person reading a book. Their task is to pantomine this action (reading a book) so that other players can guess what they are doing. Through the use of physical expressions and symbols, the player with the card is helping the other players guess what playing card they got. 
+
+    ![](../../assets/images/charades.jpg){width=55%}  
+*Credit: wikiHow staff ([How to Play Charades](https://www.wikihow.com/Play-Charades))*
+
+    - The player with the playing card is the __user__.
+    - The players trying to guess the user's card is your __computer__.
+    - The user uses physical expression and symbols (__regular expressions__) to tell the players (__computer__) what expression/word they have (__characters you are looking for in a text__). 
 
 [^4]: https://www.geeksforgeeks.org/write-regular-expressions/
 
-## Regular expressions 101
+
+# Regular expression characters {.tabset .tabset-fade .tabset-pills}
 
 Some common regular expression patterns include (not inclusive):  
 
-* Anchors  
-* Quantifiers  
-* Groups and ranges  
 * Character classes
-* POSIX  
+* Quantifiers 
+* Anchors  
+* Groups and ranges  
+
 source: https://cheatography.com/davechild/cheat-sheets/regular-expressions/ 
 
-## Regular expression characters {.tabset .tabset-fade .tabset-pills}
 **Select each tab**
-   
-### Anchors
 
+
+## Character classes
 Character  Description     
----------- ----------------------------------------------------------  
-     ^       Start of string, or start of line in multi-line pattern        
-    \\A                                              Start of string      
-     $           End of string, or end of line in multi-line pattern    
-    \\Z                                                End of string
-    \\b                                                Word boundary
-    \\B                                            Not word boundary
-    \\<                                                Start of word
-    \\>                                                  End of word  
+---------- ----------------------------------------------------------
+\\s         White space
+\\S         Not white space
+\\d         Digit
+\\D         Not digit
+\\w         Word
+\\W         Not word
 
-The `grep` and `grepl` functions are part of Base R. Notice the difference between their output. `grepl` returns a logical vector (TRUE, FALSE) whereas `grep` returns numbers which represent the index location of the pattern. I created this character vector and assigned it the name `a`. There are five character objects inside this vector. The `grep` function tells R to look for the pattern where the object starts with the letter a ("^a"), returning the values 1, 2, 5.  
+
 ```{r}
-a <- c("aabd", "aacd", "caad", "cbde", "abcb")
-
-grepl("^a", a) #Logical vector
-grep("^a", a) #indexed location 
+writeLines(p12_df$text[39])
 ```
 
-Give it a try. Use the `grep` function to look for instances in this vector that end with the letter `d`. What regular expression character would you use?
+Using double backslashes `\\` followed by the letter `s` and then another double backslashes `\\` followed by the letter `w`, we are searching for a white space and a word.
+```{r}
+str_view_all(string = p12_df$text[39], pattern = "\\s\\w")
+```
 
-***
-\newline
+Now let's search for non words. 
+```{r}
+str_view_all(string = p12_df$text[39], pattern = "\\s\\W")
+```
 
-### Quantifiers
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[39]`, search for a digit followed by a word.
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[39], pattern = ("\\d\\w"))
+```
+</details>
+
+<br>
+
+
+***  
+\newline 
+
+## Quantifiers
 
 
 Character  Description     Code      Result
@@ -92,160 +422,132 @@ Character  Description     Code      Result
 
 We use quantifiers to specify the number of times we want to search for a particular pattern. 
 ```{r}
-b <- c("aaa", "abc", "bca", "dd c", "abbc")
-```
-In the first `grepl` function below we use the `+` to search for patterns in the `b` vector where the beginning of a string begins with an `a` one or more times.
-```{r}
-grepl("^a+", b) #searching for pattern where objects start with a 1 or more times
-```
-The second `grepl` function is searching for the letter `a` exactly three times. 
-```{r}
-grepl("a{3}", b) #searching for pattern that has exactly 3 a's
-```
-Lastly, notice how we use two `\\` backward slashes to escape the letter `s` suggesting we are referring to white space and not the literal letter s. More on this later.
-```{r}
-grepl("\\sc", b) #searching for pattern that has a white space followed by a c
+writeLines(p12_df$text[32])
 ```
 
-Give it a try, Use the `grepl` function to look for instances in this vector that have 1 or more instances of the letter `b`. What regular expression character would you use?  
+In the `str_view_all` function below we use the `+` to search for a pattern one or more times. Say we want to search for a pattern that begins with a space and is followed by a non word one or more times. 
+
+```{r}
+str_view_all(string = p12_df$text[32], pattern = "\\s\\W+")
+```
+
+Say we wanted to search for the letter t exactly 2 times in the string. 
+```{r}
+str_view_all(string = p12_df$text[32], pattern = "t{2}")
+```
+
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[32]`, search for the beginning of a link "https://"
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[32], pattern = ("https\\W*"))
+```
+</details>
+
+<br>
 
 ***  
-\newline  
+\newline 
 
-### Groups and ranges
+## Anchors
+
+Character  Description     
+---------- ----------------------------------------------------------  
+     ^       Start of string, or start of line in multi-line pattern        
+    \\A                                              Start of string      
+     $           End of string, or end of line in multi-line pattern    
+    \\Z                                                End of string
+    \\b                                                Word boundary
+    \\B                                            Not word boundary
+
+ 
+
+```{r}
+writeLines(p12_df$text[8])
+```
+
+Using the caret symbol `^` and a double backslashes `\\` followed by the letter `w` and then an asterik `*`, we are searching for the first word in a string. 
+```{r}
+str_view_all(string = p12_df$text[8], pattern = ("^\\w*"))
+```
+
+We could use the `\\b` word bound character followed by the `\\d` digits character and the asterik to search for digits in the text (e.g. year)
+```{r}
+str_view_all(string = p12_df$text[8], pattern = ("\\b\\d*"))
+```
+
+__Student exercise__
+
+- Using the string vector from above `p12_df$text[8]`, search for word bounds followed by non words 
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[8], pattern = ("\\b\\W"))
+```
+</details>
+
+<br>
+
+***
+\newline
+
+
+## Groups and ranges
 
 Character  Description     
 ---------- ----------------------------------------------------------
 .          Any character except new line (\n)
 (a|b)      a or b
 (...)      Group
-(?:...)    Passive (non-capturing) group
 [abc]      Range (a or b or c)
 [^abc]     Not (a or b or c)
 [a-z]      Lower case letter from a to q
 [A-Z]      Upper case letter from A to Q
 [0-7]      Digit from 0 to 7
-\\x         Group/subpattern number "x"
+
 
 We use grouping characters to specify a range of characters.  
 ```{r}
-c <- c("Is", "it", "Saturday", "today", "?")
+writeLines(p12_df$text[10])
 ```
 
-We use parentheses and a | to search for a **or** o.
+Say we wanted to search for the letter a or o. 
 ```{r}
-grepl("(a|o)", c) #search for a or o in a pattern
+str_view_all(string = p12_df$text[10], pattern = ("(a|o)"))
 ```
 
-The second `grepl` function with square brackets indicates a range. In the code below, we are searching for the letters `a`, `i`, or `o`.
+What about vowels? We use the square brackets to indicate a range.
 ```{r}
-grepl("[aio]", c)
+str_view_all(string = p12_df$text[10], pattern = ("[aeiou]"))
 ```
 
-The square brackets with the range from `a-z` indicate any lowercase alphabetical letters.
+If we do not want any vowels we could add the caret `^` symbol to our pattern from above. 
 ```{r}
-grepl("[a-z]", c)
+str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
 ```
 
-Give it a try. Use the `grepl` function to look for instances in this vector that begin with the letter `i` or end with the letter `y`. What regular expression character would you use?  
+__Student exercise__
 
+- Using the string vector from above `p12_df$text[10]`, search for upper case letters.
+
+<details><summary>**Student exercise**: solution </summary> 
+
+```{r}
+str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
+```
+</details>
+
+<br>
 
 ***  
 \newline
 
-### Character classes
-Character  Description     
----------- ----------------------------------------------------------
-\\c         Control character
-\\s         White space
-\\S         Not white space
-\\d         Digit
-\\D         Not digit
-\\w         Word
-\\W         Not word
-\\x         Hexadecimal digit
-\\O         Octal digit
-
-```{r}
-d <- c("25 days", "Hi, my name is", "What is your name?")
-```
-
-Using the escape character followed by the letter `s` and then the letter `d`, we are searching for a white space and a letter `d`.
-```{r}
-grepl("\\sd", d) 
-```
-
-Combining some characters we learned earlier like the `^` , `+`, and the `\\s`, we are searching a character string that begins with a one or more digits followed by a white space.
-```{r}
-grepl("^\\d+\\s", d)
-```
-
-Give it a try. Use the `grepl` function to search for the word `name`.  
 
 
-***  
-\newline  
-
-### POSIX
-
-Character  Description     
----------- ----------------------------------------------------------
-[:upper:]  Upper case letters
-[:lower:]  Lower case letters
-[:alpha:]  All letters
-[:alnum:]  Digits and letters
-[:digit:]  Digits
-[:xdigit:] Hexadecimal digits
-[:punct:]  Punctuation
-[:blank:]  Space and tab
-[:space:]  Blank characters
-[:cntrl:]  Control characters
-[:graph:]  Printed characters
-[:print:]  Printed characters and spaces
-[:word:]   Digits, letters and underscore
-
-The POSIX or “Portable Operating System Interface for uniX” is a collection of standards that define some of the functionality that a (UNIX) operating system should support [^5]. As you may have noticed, some of the functions from POSIX have similar functionality to functions we have learned. For example, `\\d` and `[:digit:]` both search for digits.  
-
-[^5]: https://www.regular-expressions.info/posix.html
 
 
-***  
-\newline  
-
-## Student exercise
-   
-Now it is time to apply what we have learned. Later on in the course we will learn how to use APIs and stream data from the internet (Twitter & LinkedIn). For the purpose of this lecture on regular expressions we will simplify our approach. We ask you to open your internet browser and google lyrics to your favorite song or song you like. In this example, we googled "all of me lyrics". We then copied the first ten lines and pasted them in a code chunk below. Notice that we separate each line by quotes followed by a comma.  
-
-<img src="all_of_me.png" width="50%" height="300"/>
-
-### Instructions
-1. Google song lyrics of your choice  
-2. Copy the fist ten lines  
-3. Paste in a code chunk  
-4. Clean up your pasted text so that every line is surrounded by quotes and separated by a comma. Do not forget to wrap that around `c()`  
-5. Assign to an object (ex. `song`)  
-
-Task:  
-For each of the common regular expression characters we reviewed (e.g. Anchors, Quantifiers, Groups and ranges, and Character classes), choose two characters and practice applying them to your lyrics. You should have 8 regular expression functions by the end of this exercise.  
-
-Ex. 
-
-```{r}
-song <- c("What would I do without your smart mouth",
-          "Drawing me in, and you kicking me out",
-          "You got my head spinning, no kidding, I can't pin you down",
-          "What's going on in that beautiful mind",
-          "I'm on your magical mystery ride",
-          "And I'm so dizzy, don't know what hit me, but I'll be alright",
-          "My head's underwater",
-          "But I'm breathing fine",
-          "You're crazy and I'm out of my mind",
-          "Cause all all all ...")
-
-
-grep("all+|dizzy", song)  
-grep("(^D|n$)", song)
-```
-
-Feel free to work in your groups or with people around you. We will be walking around the room if you have questions.  
 
