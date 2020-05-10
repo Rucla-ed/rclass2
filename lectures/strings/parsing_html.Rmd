@@ -30,7 +30,19 @@ library(tidyverse)
 library(rvest)
 ```
 
-## Scraping HTML
+Why use the `rvest` package?
+
+- `rvest` makes it easy to parse HTML
+- First, we use the `read_html()` function to [read in the HTML](#reading-html) and convert it to an `xml_document`/`xml_node` object
+- A **node** is just an HTML **element**
+- HTML is made up of nested elements, so once we've read in the HTML to a `xml_node` object, we can easily traverse the nested nodes (ie. children elements) and [parse the HTML](#parsing-html)
+- `rvest` comes with many helpful functions to search and extract various parts of the HTML
+  - `html_node()`/`html_nodes()`: Search and extract node(s) (ie. HTML elements)
+  - `html_text()`: Extract the content between HTML tags
+  - `html_attr()`/`html_attrs()`: Extract the attribute(s) of HTML tags
+
+
+## Reading HTML
 
 __The `read_html()` function__:
 
@@ -101,7 +113,7 @@ html_nodes(x, css, xpath)
 
 - Arguments:
   - `x`: An `rvest` `xml_document`/`xml_node` object (use `read_html()` to get this)
-  - `css`: Selector (can search by HTML tag name, its attributes, etc.)
+  - `css`: Selector (can select by HTML tag name, its attributes, etc.)
 - Output:
   - `html_node()` returns the first element that it finds as an `rvest` `xml_node` object
   - `html_nodes()` returns all elements that it finds as an `rvest` `xml_nodeset` object

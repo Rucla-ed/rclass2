@@ -1572,8 +1572,21 @@ div.tocify {
 <p><em>Source: <code>rvest</code> package documentation</em></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(rvest)</a></code></pre></div>
-<div id="scraping-html" class="section level2">
-<h2><span class="header-section-number">1.1</span> Scraping HTML</h2>
+<p>Why use the <code>rvest</code> package?</p>
+<ul>
+<li><code>rvest</code> makes it easy to parse HTML</li>
+<li>First, we use the <code>read_html()</code> function to <a href="#reading-html">read in the HTML</a> and convert it to an <code>xml_document</code>/<code>xml_node</code> object</li>
+<li>A <strong>node</strong> is just an HTML <strong>element</strong></li>
+<li>HTML is made up of nested elements, so once we’ve read in the HTML to a <code>xml_node</code> object, we can easily traverse the nested nodes (ie. children elements) and <a href="#parsing-html">parse the HTML</a></li>
+<li><code>rvest</code> comes with many helpful functions to search and extract various parts of the HTML
+<ul>
+<li><code>html_node()</code>/<code>html_nodes()</code>: Search and extract node(s) (ie. HTML elements)</li>
+<li><code>html_text()</code>: Extract the content between HTML tags</li>
+<li><code>html_attr()</code>/<code>html_attrs()</code>: Extract the attribute(s) of HTML tags</li>
+</ul></li>
+</ul>
+<div id="reading-html" class="section level2">
+<h2><span class="header-section-number">1.1</span> Reading HTML</h2>
 <p><strong>The <code>read_html()</code> function</strong>:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">?read_html</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
@@ -1639,7 +1652,7 @@ div.tocify {
 <li>Arguments:
 <ul>
 <li><code>x</code>: An <code>rvest</code> <code>xml_document</code>/<code>xml_node</code> object (use <code>read_html()</code> to get this)</li>
-<li><code>css</code>: Selector (can search by HTML tag name, its attributes, etc.)</li>
+<li><code>css</code>: Selector (can select by HTML tag name, its attributes, etc.)</li>
 </ul></li>
 <li>Output:
 <ul>
@@ -1708,8 +1721,8 @@ div.tocify {
 ## [1] &lt;tr&gt;\n&lt;th&gt;COUNTRY&lt;/th&gt;\n                          &lt;th&gt;INFECTED&lt;/th&gt;\ ...
 ## [2] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-states&quot;&gt;\n     ...
 ## [3] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/spain&quot;&gt;\n             ...
-## [4] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/italy&quot;&gt;\n             ...
-## [5] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-kingdom&quot;&gt;\n    ...
+## [4] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-kingdom&quot;&gt;\n    ...
+## [5] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/italy&quot;&gt;\n             ...
 ## [6] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/russia&quot;&gt;\n            ...</code></pre>
 </details>
 <div id="practicing-regex" class="section level3">
@@ -1721,8 +1734,8 @@ div.tocify {
 ## [1] &lt;tr&gt;\n&lt;th&gt;COUNTRY&lt;/th&gt;\n                          &lt;th&gt;INFECTED&lt;/th&gt;\ ...
 ## [2] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-states&quot;&gt;\n     ...
 ## [3] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/spain&quot;&gt;\n             ...
-## [4] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/italy&quot;&gt;\n             ...
-## [5] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-kingdom&quot;&gt;\n    ...
+## [4] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-kingdom&quot;&gt;\n    ...
+## [5] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/italy&quot;&gt;\n             ...
 ## [6] &lt;tr&gt;\n&lt;td&gt;&lt;a href=&quot;https://corona.help/country/russia&quot;&gt;\n            ...</code></pre>
 <p>Let’s convert this to raw HTML using <code>as.character()</code> to practice writing regular expressions:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1"><span class="co"># Convert rows to raw HTML (skip header row)</span></a>
@@ -1734,15 +1747,15 @@ div.tocify {
 ## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-states&quot;&gt;
 ##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;United States&lt;/div&gt;
 ##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;1,347,309&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;306&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;80,037&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;5&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;238,078&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;885&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;1,029,194&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;16,816&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;8,918,263&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;1,356,629&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;9,626&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;80,422&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;390&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;240,616&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;3,423&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;1,035,591&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;16,494&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;9,192,236&lt;/td&gt;
 ## 
 ##                           
 ##                         &lt;/tr&gt;
@@ -1751,14 +1764,14 @@ div.tocify {
 ## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/spain&quot;&gt;
 ##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;Spain&lt;/div&gt;
 ##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;262,783&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;26,478&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;173,157&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;63,148&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;1,741&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;264,663&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;1,880&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;26,621&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;143&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;176,439&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;3,282&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;61,603&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;1,650&lt;/td&gt;
 ##                           &lt;td class=&quot;text-warning&quot;&gt;2,467,761&lt;/td&gt;
 ## 
 ##                           
@@ -1773,15 +1786,15 @@ div.tocify {
 ## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-states&quot;&gt;
 ##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;United States&lt;/div&gt;
 ##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;1,347,309&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;306&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;80,037&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;5&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;238,078&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;885&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;1,029,194&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;16,816&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;8,918,263&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;1,356,629&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;9,626&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;80,422&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;390&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;240,616&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;3,423&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;1,035,591&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;16,494&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;9,192,236&lt;/td&gt;
 ## 
 ##                           
 ##                         &lt;/tr&gt;
@@ -1790,15 +1803,15 @@ div.tocify {
 ## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-kingdom&quot;&gt;
 ##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;United Kingdom&lt;/div&gt;
 ##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;216,398&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;31,658&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;924&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;183,816&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;220,322&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;3,924&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;31,926&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;268&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;925&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;1&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;187,471&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;1,559&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;1,728,443&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;1,821,280&lt;/td&gt;
 ## 
 ##                           
 ##                         &lt;/tr&gt;
@@ -1807,13 +1820,13 @@ div.tocify {
 ## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-arab-emirates&quot;&gt;
 ##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;United Arab Emirates&lt;/div&gt;
 ##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;17,417&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;185&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;4,295&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;12,937&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;18,198&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;781&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;198&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;13&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;4,804&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;509&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;13,196&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;1&lt;/td&gt;
 ##                           &lt;td class=&quot;text-warning&quot;&gt;1,200,000&lt;/td&gt;
 ## 
@@ -1830,8 +1843,8 @@ div.tocify {
 <a class="sourceLine" id="cb36-4" data-line-number="4"><span class="kw">head</span>(links)</a></code></pre></div>
 <pre><code>## [1] &quot;https://corona.help/country/united-states&quot; 
 ## [2] &quot;https://corona.help/country/spain&quot;         
-## [3] &quot;https://corona.help/country/italy&quot;         
-## [4] &quot;https://corona.help/country/united-kingdom&quot;
+## [3] &quot;https://corona.help/country/united-kingdom&quot;
+## [4] &quot;https://corona.help/country/italy&quot;         
 ## [5] &quot;https://corona.help/country/russia&quot;        
 ## [6] &quot;https://corona.help/country/france&quot;</code></pre>
 </details>
@@ -1846,15 +1859,15 @@ div.tocify {
 <pre><code>##      [,1]                                                        
 ## [1,] &quot;&lt;div style=\&quot;height:100%;width:100%\&quot;&gt;United States&lt;/div&gt;&quot; 
 ## [2,] &quot;&lt;div style=\&quot;height:100%;width:100%\&quot;&gt;Spain&lt;/div&gt;&quot;         
-## [3,] &quot;&lt;div style=\&quot;height:100%;width:100%\&quot;&gt;Italy&lt;/div&gt;&quot;         
-## [4,] &quot;&lt;div style=\&quot;height:100%;width:100%\&quot;&gt;United Kingdom&lt;/div&gt;&quot;
+## [3,] &quot;&lt;div style=\&quot;height:100%;width:100%\&quot;&gt;United Kingdom&lt;/div&gt;&quot;
+## [4,] &quot;&lt;div style=\&quot;height:100%;width:100%\&quot;&gt;Italy&lt;/div&gt;&quot;         
 ## [5,] &quot;&lt;div style=\&quot;height:100%;width:100%\&quot;&gt;Russia&lt;/div&gt;&quot;        
 ## [6,] &quot;&lt;div style=\&quot;height:100%;width:100%\&quot;&gt;France&lt;/div&gt;&quot;        
 ##      [,2]            
 ## [1,] &quot;United States&quot; 
 ## [2,] &quot;Spain&quot;         
-## [3,] &quot;Italy&quot;         
-## [4,] &quot;United Kingdom&quot;
+## [3,] &quot;United Kingdom&quot;
+## [4,] &quot;Italy&quot;         
 ## [5,] &quot;Russia&quot;        
 ## [6,] &quot;France&quot;</code></pre>
 </details>
@@ -1868,32 +1881,32 @@ div.tocify {
 <a class="sourceLine" id="cb40-4" data-line-number="4"><span class="kw">head</span>(num_danger)</a></code></pre></div>
 <pre><code>## [[1]]
 ##      [,1]                                    [,2]    
-## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;80,037&lt;/td&gt;&quot; &quot;80,037&quot;
-## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;16,816&lt;/td&gt;&quot; &quot;16,816&quot;
+## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;80,422&lt;/td&gt;&quot; &quot;80,422&quot;
+## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;16,494&lt;/td&gt;&quot; &quot;16,494&quot;
 ## 
 ## [[2]]
 ##      [,1]                                    [,2]    
-## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;26,478&lt;/td&gt;&quot; &quot;26,478&quot;
-## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;1,741&lt;/td&gt;&quot;  &quot;1,741&quot; 
+## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;26,621&lt;/td&gt;&quot; &quot;26,621&quot;
+## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;1,650&lt;/td&gt;&quot;  &quot;1,650&quot; 
 ## 
 ## [[3]]
 ##      [,1]                                    [,2]    
-## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;30,395&lt;/td&gt;&quot; &quot;30,395&quot;
-## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;1,034&lt;/td&gt;&quot;  &quot;1,034&quot; 
+## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;31,926&lt;/td&gt;&quot; &quot;31,926&quot;
+## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;1,559&lt;/td&gt;&quot;  &quot;1,559&quot; 
 ## 
 ## [[4]]
 ##      [,1]                                    [,2]    
-## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;31,658&lt;/td&gt;&quot; &quot;31,658&quot;
-## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;1,559&lt;/td&gt;&quot;  &quot;1,559&quot; 
+## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;30,560&lt;/td&gt;&quot; &quot;30,560&quot;
+## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;1,027&lt;/td&gt;&quot;  &quot;1,027&quot; 
 ## 
 ## [[5]]
 ##      [,1]                                   [,2]   
-## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;1,827&lt;/td&gt;&quot; &quot;1,827&quot;
+## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;1,915&lt;/td&gt;&quot; &quot;1,915&quot;
 ## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;2,300&lt;/td&gt;&quot; &quot;2,300&quot;
 ## 
 ## [[6]]
 ##      [,1]                                    [,2]    
-## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;26,310&lt;/td&gt;&quot; &quot;26,310&quot;
+## [1,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;26,380&lt;/td&gt;&quot; &quot;26,380&quot;
 ## [2,] &quot;&lt;td class=\&quot;text-danger\&quot;&gt;2,812&lt;/td&gt;&quot;  &quot;2,812&quot;</code></pre>
 </details>
 <br>
@@ -1908,15 +1921,15 @@ div.tocify {
 ## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-states&quot;&gt;
 ##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;United States&lt;/div&gt;
 ##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;1,347k&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;306&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;1,356k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;9k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;80k&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;5&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;238k&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;885&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;1,029k&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;390&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;240k&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;3k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;1,035k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;16k&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;8,918k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;9,192k&lt;/td&gt;
 ## 
 ##                           
 ##                         &lt;/tr&gt;
@@ -1925,32 +1938,15 @@ div.tocify {
 ## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/spain&quot;&gt;
 ##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;Spain&lt;/div&gt;
 ##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;262k&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;0&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;264k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;1k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;26k&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;173k&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;63k&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;143&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;176k&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;3k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;61k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;1k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-warning&quot;&gt;2,467k&lt;/td&gt;
-## 
-##                           
-##                         &lt;/tr&gt;
-## 
-## &lt;tr&gt;
-## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/italy&quot;&gt;
-##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;Italy&lt;/div&gt;
-##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;218k&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;30k&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;103k&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;84k&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger&quot;&gt;1k&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;2,514k&lt;/td&gt;
 ## 
 ##                           
 ##                         &lt;/tr&gt;
@@ -1959,15 +1955,32 @@ div.tocify {
 ## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/united-kingdom&quot;&gt;
 ##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;United Kingdom&lt;/div&gt;
 ##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;216k&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;0&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;220k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;3k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;31k&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;924&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;183k&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;268&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;925&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;1&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;187k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;1k&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;1,728k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;1,821k&lt;/td&gt;
+## 
+##                           
+##                         &lt;/tr&gt;
+## 
+## &lt;tr&gt;
+## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/italy&quot;&gt;
+##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;Italy&lt;/div&gt;
+##                             &lt;/a&gt;&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;219k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;802&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;30k&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;165&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;105k&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;2k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;83k&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger&quot;&gt;1k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;2,565k&lt;/td&gt;
 ## 
 ##                           
 ##                         &lt;/tr&gt;
@@ -1976,15 +1989,15 @@ div.tocify {
 ## &lt;td&gt;&lt;a href=&quot;https://corona.help/country/russia&quot;&gt;
 ##                               &lt;div style=&quot;height:100%;width:100%&quot;&gt;Russia&lt;/div&gt;
 ##                             &lt;/a&gt;&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;198k&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;0&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;209k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;11k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;1k&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-success&quot;&gt;31k&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;0&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;164k&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;88&lt;/td&gt;
+##                           &lt;td class=&quot;text-success&quot;&gt;34k&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;2k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;173k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;2k&lt;/td&gt;
-##                           &lt;td class=&quot;text-warning&quot;&gt;5,221k&lt;/td&gt;
+##                           &lt;td class=&quot;text-warning&quot;&gt;5,448k&lt;/td&gt;
 ## 
 ##                           
 ##                         &lt;/tr&gt;
@@ -1996,9 +2009,9 @@ div.tocify {
 ##                           &lt;td class=&quot;text-warning&quot;&gt;176k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-warning text-bold-700&quot;&gt;0&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;26k&lt;/td&gt;
-##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;0&lt;/td&gt;
+##                           &lt;td class=&quot;text-danger text-bold-700&quot;&gt;70&lt;/td&gt;
 ##                           &lt;td class=&quot;text-success&quot;&gt;56k&lt;/td&gt;
-##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;0&lt;/td&gt;
+##                           &lt;td class=&quot;text-success text-bold-700&quot;&gt;179&lt;/td&gt;
 ##                           &lt;td class=&quot;text-warning&quot;&gt;94k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-danger&quot;&gt;2k&lt;/td&gt;
 ##                           &lt;td class=&quot;text-warning&quot;&gt;1,384k&lt;/td&gt;
