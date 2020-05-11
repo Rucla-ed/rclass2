@@ -2586,7 +2586,9 @@ __Result__:
 <img src="https://cityofguadalajara.com/wp-content/uploads/2016/11/Centro-Historico-de-Guadalajara-800x288.jpg">
 </div>
 
-*Credit: [HTML Classes](https://www.w3schools.com/html/html_classes.asp) from W3schools*
+*Credit: [HTML Classes](https://www.w3schools.com/html/html_classes.asp) from W3schools*  
+
+*Image Credit: [Washington D.C](https://www.aarp.org/travel/destinations/united-states/washington-dc/) from AARP and [Guadalajara](https://cityofguadalajara.com/guadalajara/guadalajara/) from City of Guadalajara*
 
 
 ### Id  
