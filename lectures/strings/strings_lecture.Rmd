@@ -2587,9 +2587,7 @@ __Result__:
 <img src="https://cityofguadalajara.com/wp-content/uploads/2016/11/Centro-Historico-de-Guadalajara-800x288.jpg">
 </div>
 
-*Credit: [HTML Classes](https://www.w3schools.com/html/html_classes.asp) from W3schools*  
-
-*Image Credit: [Washington D.C](https://www.aarp.org/travel/destinations/united-states/washington-dc/) from AARP and [Guadalajara](https://cityofguadalajara.com/guadalajara/guadalajara/) from City of Guadalajara*
+*Credit: [HTML Classes](https://www.w3schools.com/html/html_classes.asp) from W3schools*
 
 
 ### `id`
@@ -2694,13 +2692,19 @@ Lots of wonderful resources on the web to learn HTML!
 
 [![](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png)](https://sharethis.com/best-practices/2020/02/best-html-and-css-cheat-sheets/)
 
-# Web scraping using `rvest` package
+# Web scraping using `rvest`
 
-> Wrappers around the `xml2` and `httr` packages to make it easy to download, then manipulate, HTML and XML.
+__The `rvest` package__
 
-*Source: `rvest` package documentation*
+> `rvest` helps you scrape information from web pages. It is designed to work with magrittr to make it easy to express common web scraping tasks, inspired by libraries like beautiful soup.
 
-Why use the `rvest` package?
+- *Source: `rvest` [webpage](http://rvest.tidyverse.org/)*
+
+> [`rvest` package contains] Wrappers around the `xml2` and `httr` packages to make it easy to download, then manipulate, HTML and XML.
+
+- *Source: `rvest` package documentation*
+
+__Why use the `rvest` package?__
 
 - `rvest` makes it easy to parse HTML
 - First, we use the `read_html()` function to [read in the HTML](#reading-html) and convert it to an `xml_document`/`xml_node` object
@@ -2807,8 +2811,10 @@ html_nodes(x, css, xpath)
 - Output:
   - `html_node()` returns the first element that it finds as an `rvest` `xml_node` object
     - Recall that a node is just an HTML element
+    - CRYSTAL - WHAT IS AN XML_NODE OBJECT?
   - `html_nodes()` returns all elements that it finds as an `rvest` `xml_nodeset` object
     - All elements that are selected will be returned in a nodeset
+    - CRYSTAL - WHAT IS AN XML_NODESET OBJECT?
   - Again, you can view the raw HTML using `as.character()`
     - Syntax: `as.character(html_node(...))`
 
@@ -3158,5 +3164,3 @@ Installation
 devtools::install_github("gadenbuie/regexplain")
 library(regexplain)
 ```
-
-
