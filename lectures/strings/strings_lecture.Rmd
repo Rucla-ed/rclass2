@@ -2429,6 +2429,7 @@ __A Simple HTML Document__ (From [w3schools](https://www.w3schools.com/html/html
   - Begin with `<!DOCTYPE html>` to indicate it is an HTML document
   - The `<html>` element is the root element of an HTML page, where all other elements are nested
   - The `<head>` element contains meta information about the document (ie. not displayed on webpage)
+    - Including CSS style to apply to html content
   - The `<body>` element contains the visible page content
 
 ```
@@ -2486,7 +2487,7 @@ Tag                Description
 What are **attributes**?
 
 - Attributed in HTML elements are optional, but all HTML elements can have attributes
-- Attributes are used to provide additional information about an element  
+- Attributes are used to specify additional characteristics of elements
 - Attributes are __always__ specified in the start tag
 - Attributes usually come in name/value pairs like: `name="value"`
 
@@ -2589,7 +2590,7 @@ __Result__:
 *Credit: [HTML Classes](https://www.w3schools.com/html/html_classes.asp) from W3schools*
 
 
-### Id  
+### `id`
 
 - The `id` attribute is used to specify one unique HTML element within the HTML document
 - An element can be identified by its id
@@ -2635,7 +2636,7 @@ __Result__:
 
 ## Student Exercise
 
-- Spend 5-10 minutes playing with the simple HTML text below
+- Spend 5-10 minutes playing with the simple HTML text below; experiment with whichever additional elements/tags/attributes/etc you want
 - Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
 
 ```{html, eval=FALSE}
@@ -2691,7 +2692,7 @@ Lots of wonderful resources on the web to learn HTML!
 
 [![](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png)](https://sharethis.com/best-practices/2020/02/best-html-and-css-cheat-sheets/)
 
-# `rvest` package
+# Web scraping using `rvest` package
 
 > Wrappers around the `xml2` and `httr` packages to make it easy to download, then manipulate, HTML and XML.
 
