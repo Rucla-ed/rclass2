@@ -27,6 +27,7 @@ Load packages:
 library(tidyverse)
 library(stringr)  # package for manipulating strings (part of tidyverse)
 library(lubridate)  # package for working with dates and times
+library(rvest)  # package for reading and manipulating HTML
 ```
 
 Resources used to create this lecture:
@@ -2650,8 +2651,8 @@ str_view_all(string, pattern, match = NA)
 str_view(string = p12_df$text[119], pattern = ('\\"'))
 ```
 
-<!--html_preserve--><div id="htmlwidget-9e1512df423e078018ec" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9e1512df423e078018ec">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-d2101d96214057dffda4" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d2101d96214057dffda4">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Notice how we can see all the regex pattern matches with `str_view_all`
 
@@ -2659,8 +2660,8 @@ Notice how we can see all the regex pattern matches with `str_view_all`
 str_view_all(string = p12_df$text[119], pattern = ('\\"'))
 ```
 
-<!--html_preserve--><div id="htmlwidget-d3693e6736e58fd1fb16" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d3693e6736e58fd1fb16">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.<span class='match'>\"<\/span>\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-3fdd6ec811a15b70a694" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3fdd6ec811a15b70a694">{"x":{"html":"<ul>\n  <li><span class='match'>\"<\/span>I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.<span class='match'>\"<\/span>\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 <br>
@@ -2671,8 +2672,8 @@ str_view_all(string = p12_df$text[119], pattern = ('\\"'))
 str_view_all(string = p12_df$text[119], pattern = ("\\n"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-d455462c497f8424c085" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d455462c497f8424c085">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-31d3950e3043808b6057" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-31d3950e3043808b6057">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -2683,8 +2684,8 @@ str_view_all(string = p12_df$text[119], pattern = ("\\n"))
 str_view_all(string = p12_df$text[119], pattern = ("\\."))
 ```
 
-<!--html_preserve--><div id="htmlwidget-2913a5b51682ba08954c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2913a5b51682ba08954c">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals<span class='match'>.<\/span>\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t<span class='match'>.<\/span>co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-67c3c8271a7375404d6d" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-67c3c8271a7375404d6d">{"x":{"html":"<ul>\n  <li>\"I stand with my colleagues at @UW and America's leading research universities as they take fight to Covid-19 in our labs and hospitals<span class='match'>.<\/span>\"\n\n#ProudToBeOnTheirTeam x #AlwaysCompete x #GoHuskies https://t<span class='match'>.<\/span>co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -2695,8 +2696,8 @@ str_view_all(string = p12_df$text[119], pattern = ("\\."))
 str_view_all(string = p12_df$text[119], pattern = ("\\s"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-375350fe391f046b0b9c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-375350fe391f046b0b9c">{"x":{"html":"<ul>\n  <li>\"I<span class='match'> <\/span>stand<span class='match'> <\/span>with<span class='match'> <\/span>my<span class='match'> <\/span>colleagues<span class='match'> <\/span>at<span class='match'> <\/span>@UW<span class='match'> <\/span>and<span class='match'> <\/span>America's<span class='match'> <\/span>leading<span class='match'> <\/span>research<span class='match'> <\/span>universities<span class='match'> <\/span>as<span class='match'> <\/span>they<span class='match'> <\/span>take<span class='match'> <\/span>fight<span class='match'> <\/span>to<span class='match'> <\/span>Covid-19<span class='match'> <\/span>in<span class='match'> <\/span>our<span class='match'> <\/span>labs<span class='match'> <\/span>and<span class='match'> <\/span>hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam<span class='match'> <\/span>x<span class='match'> <\/span>#AlwaysCompete<span class='match'> <\/span>x<span class='match'> <\/span>#GoHuskies<span class='match'> <\/span>https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f4477c6f0ea6daecdb13" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f4477c6f0ea6daecdb13">{"x":{"html":"<ul>\n  <li>\"I<span class='match'> <\/span>stand<span class='match'> <\/span>with<span class='match'> <\/span>my<span class='match'> <\/span>colleagues<span class='match'> <\/span>at<span class='match'> <\/span>@UW<span class='match'> <\/span>and<span class='match'> <\/span>America's<span class='match'> <\/span>leading<span class='match'> <\/span>research<span class='match'> <\/span>universities<span class='match'> <\/span>as<span class='match'> <\/span>they<span class='match'> <\/span>take<span class='match'> <\/span>fight<span class='match'> <\/span>to<span class='match'> <\/span>Covid-19<span class='match'> <\/span>in<span class='match'> <\/span>our<span class='match'> <\/span>labs<span class='match'> <\/span>and<span class='match'> <\/span>hospitals.\"<span class='match'>\n<\/span><span class='match'>\n<\/span>#ProudToBeOnTheirTeam<span class='match'> <\/span>x<span class='match'> <\/span>#AlwaysCompete<span class='match'> <\/span>x<span class='match'> <\/span>#GoHuskies<span class='match'> <\/span>https://t.co/4YSf4SpPe0<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -2742,8 +2743,8 @@ text <- "This is a backslash \\"
 str_view(string = text, pattern = "\\\\")
 ```
 
-<!--html_preserve--><div id="htmlwidget-d0179bf6d9ed54aac238" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d0179bf6d9ed54aac238">{"x":{"html":"<ul>\n  <li>This is a backslash <span class='match'>\\<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-8e11b586940eb015a7c6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8e11b586940eb015a7c6">{"x":{"html":"<ul>\n  <li>This is a backslash <span class='match'>\\<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 <br>
 
 
@@ -2817,8 +2818,8 @@ Let's search for instances of the letter "e" in a sentence followed by a space `
 str_view_all(string = p12_df$text[39], pattern = "e\\s")
 ```
 
-<!--html_preserve--><div id="htmlwidget-91452cf447171aa0849f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-91452cf447171aa0849f">{"x":{"html":"<ul>\n  <li>Meet Luke! “No matter wher<span class='match'>e <\/span>you’r<span class='match'>e <\/span>from, @UCBerkeley is a plac<span class='match'>e <\/span>that will tak<span class='match'>e <\/span>you out of your comfort zon<span class='match'>e <\/span>and shap<span class='match'>e <\/span>you into your best self” #IamBerkeley \n\nHere’s Luk<span class='match'>e <\/span>on his first day at Berkeley in his dorm, posing with th<span class='match'>e <\/span>ax<span class='match'>e <\/span>after our big football gam<span class='match'>e <\/span>win and present day! https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-824feae35e57b7646782" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-824feae35e57b7646782">{"x":{"html":"<ul>\n  <li>Meet Luke! “No matter wher<span class='match'>e <\/span>you’r<span class='match'>e <\/span>from, @UCBerkeley is a plac<span class='match'>e <\/span>that will tak<span class='match'>e <\/span>you out of your comfort zon<span class='match'>e <\/span>and shap<span class='match'>e <\/span>you into your best self” #IamBerkeley \n\nHere’s Luk<span class='match'>e <\/span>on his first day at Berkeley in his dorm, posing with th<span class='match'>e <\/span>ax<span class='match'>e <\/span>after our big football gam<span class='match'>e <\/span>win and present day! https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Now let's search for literal exclamation marks `\\!`
 
@@ -2826,8 +2827,8 @@ Now let's search for literal exclamation marks `\\!`
 str_view_all(string = p12_df$text[39], pattern = "\\!")
 ```
 
-<!--html_preserve--><div id="htmlwidget-86c1ee86c8522c9a2857" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-86c1ee86c8522c9a2857">{"x":{"html":"<ul>\n  <li>Meet Luke<span class='match'>!<\/span> “No matter where you’re from, @UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self” #IamBerkeley \n\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day<span class='match'>!<\/span> https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-22c7539bd736b99f5b48" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-22c7539bd736b99f5b48">{"x":{"html":"<ul>\n  <li>Meet Luke<span class='match'>!<\/span> “No matter where you’re from, @UCBerkeley is a place that will take you out of your comfort zone and shape you into your best self” #IamBerkeley \n\nHere’s Luke on his first day at Berkeley in his dorm, posing with the axe after our big football game win and present day<span class='match'>!<\/span> https://t.co/2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 <br>
@@ -2841,8 +2842,8 @@ str_view_all(string = p12_df$text[39], pattern = "\\!")
 str_view_all(string = p12_df$text[39], pattern = ("\\W"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-517161bd1ea7cbf4d102" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-517161bd1ea7cbf4d102">{"x":{"html":"<ul>\n  <li>Meet<span class='match'> <\/span>Luke<span class='match'>!<\/span><span class='match'> <\/span><span class='match'>“<\/span>No<span class='match'> <\/span>matter<span class='match'> <\/span>where<span class='match'> <\/span>you<span class='match'>’<\/span>re<span class='match'> <\/span>from<span class='match'>,<\/span><span class='match'> <\/span><span class='match'>@<\/span>UCBerkeley<span class='match'> <\/span>is<span class='match'> <\/span>a<span class='match'> <\/span>place<span class='match'> <\/span>that<span class='match'> <\/span>will<span class='match'> <\/span>take<span class='match'> <\/span>you<span class='match'> <\/span>out<span class='match'> <\/span>of<span class='match'> <\/span>your<span class='match'> <\/span>comfort<span class='match'> <\/span>zone<span class='match'> <\/span>and<span class='match'> <\/span>shape<span class='match'> <\/span>you<span class='match'> <\/span>into<span class='match'> <\/span>your<span class='match'> <\/span>best<span class='match'> <\/span>self<span class='match'>”<\/span><span class='match'> <\/span><span class='match'>#<\/span>IamBerkeley<span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>\n<\/span>Here<span class='match'>’<\/span>s<span class='match'> <\/span>Luke<span class='match'> <\/span>on<span class='match'> <\/span>his<span class='match'> <\/span>first<span class='match'> <\/span>day<span class='match'> <\/span>at<span class='match'> <\/span>Berkeley<span class='match'> <\/span>in<span class='match'> <\/span>his<span class='match'> <\/span>dorm<span class='match'>,<\/span><span class='match'> <\/span>posing<span class='match'> <\/span>with<span class='match'> <\/span>the<span class='match'> <\/span>axe<span class='match'> <\/span>after<span class='match'> <\/span>our<span class='match'> <\/span>big<span class='match'> <\/span>football<span class='match'> <\/span>game<span class='match'> <\/span>win<span class='match'> <\/span>and<span class='match'> <\/span>present<span class='match'> <\/span>day<span class='match'>!<\/span><span class='match'> <\/span>https<span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span>t<span class='match'>.<\/span>co<span class='match'>/<\/span>2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-979c4bf777b330fec52c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-979c4bf777b330fec52c">{"x":{"html":"<ul>\n  <li>Meet<span class='match'> <\/span>Luke<span class='match'>!<\/span><span class='match'> <\/span><span class='match'>“<\/span>No<span class='match'> <\/span>matter<span class='match'> <\/span>where<span class='match'> <\/span>you<span class='match'>’<\/span>re<span class='match'> <\/span>from<span class='match'>,<\/span><span class='match'> <\/span><span class='match'>@<\/span>UCBerkeley<span class='match'> <\/span>is<span class='match'> <\/span>a<span class='match'> <\/span>place<span class='match'> <\/span>that<span class='match'> <\/span>will<span class='match'> <\/span>take<span class='match'> <\/span>you<span class='match'> <\/span>out<span class='match'> <\/span>of<span class='match'> <\/span>your<span class='match'> <\/span>comfort<span class='match'> <\/span>zone<span class='match'> <\/span>and<span class='match'> <\/span>shape<span class='match'> <\/span>you<span class='match'> <\/span>into<span class='match'> <\/span>your<span class='match'> <\/span>best<span class='match'> <\/span>self<span class='match'>”<\/span><span class='match'> <\/span><span class='match'>#<\/span>IamBerkeley<span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>\n<\/span>Here<span class='match'>’<\/span>s<span class='match'> <\/span>Luke<span class='match'> <\/span>on<span class='match'> <\/span>his<span class='match'> <\/span>first<span class='match'> <\/span>day<span class='match'> <\/span>at<span class='match'> <\/span>Berkeley<span class='match'> <\/span>in<span class='match'> <\/span>his<span class='match'> <\/span>dorm<span class='match'>,<\/span><span class='match'> <\/span>posing<span class='match'> <\/span>with<span class='match'> <\/span>the<span class='match'> <\/span>axe<span class='match'> <\/span>after<span class='match'> <\/span>our<span class='match'> <\/span>big<span class='match'> <\/span>football<span class='match'> <\/span>game<span class='match'> <\/span>win<span class='match'> <\/span>and<span class='match'> <\/span>present<span class='match'> <\/span>day<span class='match'>!<\/span><span class='match'> <\/span>https<span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span>t<span class='match'>.<\/span>co<span class='match'>/<\/span>2fO2hRnmPb<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -2882,8 +2883,8 @@ In the `str_view_all` function below we use the `+` to search for a pattern one 
 str_view_all(string = p12_df$text[32], pattern = "ou+")
 ```
 
-<!--html_preserve--><div id="htmlwidget-e9cf23986c3bf3cd6c27" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e9cf23986c3bf3cd6c27">{"x":{"html":"<ul>\n  <li>Curi<span class='match'>ou<\/span>s as to what y<span class='match'>ou<\/span>r next steps are after being admitted to @UCBerkeley? Join us alongside New Student Services to learn more ab<span class='match'>ou<\/span>t what y<span class='match'>ou<\/span> sh<span class='match'>ou<\/span>ld be considering as y<span class='match'>ou<\/span> make y<span class='match'>ou<\/span>r decision &amp; officially become a #BerkeleyB<span class='match'>ou<\/span>nd student! \n\n🕑 2pm today\n💻 https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-74c2bfd4e29301bbabf1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-74c2bfd4e29301bbabf1">{"x":{"html":"<ul>\n  <li>Curi<span class='match'>ou<\/span>s as to what y<span class='match'>ou<\/span>r next steps are after being admitted to @UCBerkeley? Join us alongside New Student Services to learn more ab<span class='match'>ou<\/span>t what y<span class='match'>ou<\/span> sh<span class='match'>ou<\/span>ld be considering as y<span class='match'>ou<\/span> make y<span class='match'>ou<\/span>r decision &amp; officially become a #BerkeleyB<span class='match'>ou<\/span>nd student! \n\n🕑 2pm today\n💻 https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Now say we wanted to search for the letter t exactly 2 times in the string. 
 
@@ -2891,8 +2892,8 @@ Now say we wanted to search for the letter t exactly 2 times in the string.
 str_view_all(string = p12_df$text[32], pattern = "t{2}")
 ```
 
-<!--html_preserve--><div id="htmlwidget-512dea33d5bd9c33e624" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-512dea33d5bd9c33e624">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admi<span class='match'>tt<\/span>ed to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 h<span class='match'>tt<\/span>ps://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-148fc584fa59c1d00bcb" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-148fc584fa59c1d00bcb">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admi<span class='match'>tt<\/span>ed to @UCBerkeley? Join us alongside New Student Services to learn more about what you should be considering as you make your decision &amp; officially become a #BerkeleyBound student! \n\n🕑 2pm today\n💻 h<span class='match'>tt<\/span>ps://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 <br>
@@ -2906,8 +2907,8 @@ str_view_all(string = p12_df$text[32], pattern = "t{2}")
 str_view_all(string = p12_df$text[32], pattern = ("le*"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-2eb9123455287cd1d80a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2eb9123455287cd1d80a">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to @UCBerke<span class='match'>le<\/span>y? Join us a<span class='match'>l<\/span>ongside New Student Services to <span class='match'>le<\/span>arn more about what you shou<span class='match'>l<\/span>d be considering as you make your decision &amp; officia<span class='match'>l<\/span><span class='match'>l<\/span>y become a #Berke<span class='match'>le<\/span>yBound student! \n\n🕑 2pm today\n💻 https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-27d78d7f221cbc39b5fb" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-27d78d7f221cbc39b5fb">{"x":{"html":"<ul>\n  <li>Curious as to what your next steps are after being admitted to @UCBerke<span class='match'>le<\/span>y? Join us a<span class='match'>l<\/span>ongside New Student Services to <span class='match'>le<\/span>arn more about what you shou<span class='match'>l<\/span>d be considering as you make your decision &amp; officia<span class='match'>l<\/span><span class='match'>l<\/span>y become a #Berke<span class='match'>le<\/span>yBound student! \n\n🕑 2pm today\n💻 https://t.co/YukY37REyd<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -2945,8 +2946,8 @@ Let's search for the first letter of a string that starts with the letter "T". W
 str_view_all(string = p12_df$text[20:22], pattern = ("^T"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-5e0f83d6c3531520134c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5e0f83d6c3531520134c">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li><span class='match'>T<\/span>he lab experience continues…just in a different form. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li><span class='match'>T<\/span>his pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-60deaac669d28ed4c55f" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-60deaac669d28ed4c55f">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li><span class='match'>T<\/span>he lab experience continues…just in a different form. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li><span class='match'>T<\/span>his pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 We could use the `\\b` word bound character followed by the letter "f" to search for a word that starts with the letter "f".
 
@@ -2954,8 +2955,8 @@ We could use the `\\b` word bound character followed by the letter "f" to search
 str_view_all(string = p12_df$text[20:22], pattern = ("\\bf"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-f29fb6ce682bb7a02fda" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f29fb6ce682bb7a02fda">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need <span class='match'>f<\/span>or hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li>The lab experience continues…just in a different <span class='match'>f<\/span>orm. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li>This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-36110cde9e4d510ee89c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-36110cde9e4d510ee89c">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need <span class='match'>f<\/span>or hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li>The lab experience continues…just in a different <span class='match'>f<\/span>orm. @CASatWSU instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li>This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester @WSUNursing students explain to @WSU_Cougar_Pres how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 <br>
 
@@ -2967,8 +2968,8 @@ str_view_all(string = p12_df$text[20:22], pattern = ("\\bf"))
 str_view_all(string = p12_df$text[20:22], pattern = ("@\\S+"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-70de25ab023cf23a6c9c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-70de25ab023cf23a6c9c">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li>The lab experience continues…just in a different form. <span class='match'>@CASatWSU<\/span> instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li>This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester <span class='match'>@WSUNursing<\/span> students explain to <span class='match'>@WSU_Cougar_Pres<\/span> how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-24e3d5c5c175c79de71e" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-24e3d5c5c175c79de71e">{"x":{"html":"<ul>\n  <li>In response to the overwhelming need for hand sanitizer to help combat the #COVID19 pandemic, #WSU is now brewing its own #FDA-approved “Cougar Clean”. #WSUTogether #GoCougs https://t.co/HUoBPydU8F<\/li>\n  <li>The lab experience continues…just in a different form. <span class='match'>@CASatWSU<\/span> instructor Anya Rasmussen, Ph.D., sent mini electricity lab kits to the students in her Physics 150 class. They are using them to construct electromagnets in Zoom breakout rooms. #CougsContain #GoCougs https://t.co/po72Cgk816<\/li>\n  <li>This pandemic can can take away clinical experiences but it can’t take away compassion and care. First-semester <span class='match'>@WSUNursing<\/span> students explain to <span class='match'>@WSU_Cougar_Pres<\/span> how they are making a difference with ☎ outreach. #WSUTogether #WSU #GoCougs\n\nStory ➡ https://t.co/dSl1hcJqdM https://t.co/gb8pxEoHYO<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -3010,8 +3011,8 @@ Say we wanted to search for the letter a or o.
 str_view_all(string = p12_df$text[10], pattern = ("(a|o)"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-967f00ddf763d4697ea5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-967f00ddf763d4697ea5">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span>ur @WSUEsp<span class='match'>o<\/span>rts Te<span class='match'>a<\/span>m is f<span class='match'>a<\/span>cing <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span>inst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f the Electr<span class='match'>o<\/span>nic G<span class='match'>a<\/span>ming Feder<span class='match'>a<\/span>ti<span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ffici<span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>wer Series virtu<span class='match'>a<\/span>l t<span class='match'>o<\/span>urn<span class='match'>a<\/span>ment!\nTune int<span class='match'>o<\/span> the <span class='match'>a<\/span>cti<span class='match'>o<\/span>n live <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOjeTM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span>ugs! https://t.c<span class='match'>o<\/span>/5u8EDG<span class='match'>a<\/span>iFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-9c8a75e5940b683c86b9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9c8a75e5940b683c86b9">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span>ur @WSUEsp<span class='match'>o<\/span>rts Te<span class='match'>a<\/span>m is f<span class='match'>a<\/span>cing <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span>inst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f the Electr<span class='match'>o<\/span>nic G<span class='match'>a<\/span>ming Feder<span class='match'>a<\/span>ti<span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ffici<span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>wer Series virtu<span class='match'>a<\/span>l t<span class='match'>o<\/span>urn<span class='match'>a<\/span>ment!\nTune int<span class='match'>o<\/span> the <span class='match'>a<\/span>cti<span class='match'>o<\/span>n live <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOjeTM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span>ugs! https://t.c<span class='match'>o<\/span>/5u8EDG<span class='match'>a<\/span>iFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 What about vowels? We use the square brackets to indicate a range.
 
@@ -3019,8 +3020,8 @@ What about vowels? We use the square brackets to indicate a range.
 str_view_all(string = p12_df$text[10], pattern = ("[aeiou]"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-c51d6b0441a1e499f88f" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c51d6b0441a1e499f88f">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span><span class='match'>u<\/span>r @WSUEsp<span class='match'>o<\/span>rts T<span class='match'>e<\/span><span class='match'>a<\/span>m <span class='match'>i<\/span>s f<span class='match'>a<\/span>c<span class='match'>i<\/span>ng <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span><span class='match'>i<\/span>nst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f th<span class='match'>e<\/span> El<span class='match'>e<\/span>ctr<span class='match'>o<\/span>n<span class='match'>i<\/span>c G<span class='match'>a<\/span>m<span class='match'>i<\/span>ng F<span class='match'>e<\/span>d<span class='match'>e<\/span>r<span class='match'>a<\/span>t<span class='match'>i<\/span><span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ff<span class='match'>i<\/span>c<span class='match'>i<\/span><span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>w<span class='match'>e<\/span>r S<span class='match'>e<\/span>r<span class='match'>i<\/span><span class='match'>e<\/span>s v<span class='match'>i<\/span>rt<span class='match'>u<\/span><span class='match'>a<\/span>l t<span class='match'>o<\/span><span class='match'>u<\/span>rn<span class='match'>a<\/span>m<span class='match'>e<\/span>nt!\nT<span class='match'>u<\/span>n<span class='match'>e<\/span> <span class='match'>i<\/span>nt<span class='match'>o<\/span> th<span class='match'>e<\/span> <span class='match'>a<\/span>ct<span class='match'>i<\/span><span class='match'>o<\/span>n l<span class='match'>i<\/span>v<span class='match'>e<\/span> <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOj<span class='match'>e<\/span>TM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span><span class='match'>u<\/span>gs! https://t.c<span class='match'>o<\/span>/5<span class='match'>u<\/span>8EDG<span class='match'>a<\/span><span class='match'>i<\/span>FH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-f3d11f985e6d95cc1b29" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f3d11f985e6d95cc1b29">{"x":{"html":"<ul>\n  <li>T<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w, <span class='match'>o<\/span><span class='match'>u<\/span>r @WSUEsp<span class='match'>o<\/span>rts T<span class='match'>e<\/span><span class='match'>a<\/span>m <span class='match'>i<\/span>s f<span class='match'>a<\/span>c<span class='match'>i<\/span>ng <span class='match'>o<\/span>ff <span class='match'>a<\/span>g<span class='match'>a<\/span><span class='match'>i<\/span>nst \n@Esp<span class='match'>o<\/span>rts_WA <span class='match'>a<\/span>nd @SJSU <span class='match'>a<\/span>s p<span class='match'>a<\/span>rt <span class='match'>o<\/span>f th<span class='match'>e<\/span> El<span class='match'>e<\/span>ctr<span class='match'>o<\/span>n<span class='match'>i<\/span>c G<span class='match'>a<\/span>m<span class='match'>i<\/span>ng F<span class='match'>e<\/span>d<span class='match'>e<\/span>r<span class='match'>a<\/span>t<span class='match'>i<\/span><span class='match'>o<\/span>n's (@<span class='match'>o<\/span>ff<span class='match'>i<\/span>c<span class='match'>i<\/span><span class='match'>a<\/span>lEGF) P<span class='match'>o<\/span>w<span class='match'>e<\/span>r S<span class='match'>e<\/span>r<span class='match'>i<\/span><span class='match'>e<\/span>s v<span class='match'>i<\/span>rt<span class='match'>u<\/span><span class='match'>a<\/span>l t<span class='match'>o<\/span><span class='match'>u<\/span>rn<span class='match'>a<\/span>m<span class='match'>e<\/span>nt!\nT<span class='match'>u<\/span>n<span class='match'>e<\/span> <span class='match'>i<\/span>nt<span class='match'>o<\/span> th<span class='match'>e<\/span> <span class='match'>a<\/span>ct<span class='match'>i<\/span><span class='match'>o<\/span>n l<span class='match'>i<\/span>v<span class='match'>e<\/span> <span class='match'>a<\/span>t 5:20 PM (UW) <span class='match'>a<\/span>nd 6 PM (SJSU) PT t<span class='match'>o<\/span>m<span class='match'>o<\/span>rr<span class='match'>o<\/span>w: https://t.c<span class='match'>o<\/span>/tzOj<span class='match'>e<\/span>TM<span class='match'>a<\/span>SU\n#G<span class='match'>o<\/span>C<span class='match'>o<\/span><span class='match'>u<\/span>gs! https://t.c<span class='match'>o<\/span>/5<span class='match'>u<\/span>8EDG<span class='match'>a<\/span><span class='match'>i<\/span>FH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 If we do not want any vowels we could add the caret `^` symbol to our pattern from above. 
 
@@ -3028,8 +3029,8 @@ If we do not want any vowels we could add the caret `^` symbol to our pattern fr
 str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-f55d3d677ba54a5498e0" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f55d3d677ba54a5498e0">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>,<\/span><span class='match'> <\/span>ou<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>T<\/span>ea<span class='match'>m<\/span><span class='match'> <\/span>i<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>f<\/span>a<span class='match'>c<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'>f<\/span><span class='match'> <\/span>a<span class='match'>g<\/span>ai<span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>t<\/span><span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>@<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'>_<\/span><span class='match'>W<\/span><span class='match'>A<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'> <\/span>a<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>p<\/span>a<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span><span class='match'>E<\/span><span class='match'>l<\/span>e<span class='match'>c<\/span><span class='match'>t<\/span><span class='match'>r<\/span>o<span class='match'>n<\/span>i<span class='match'>c<\/span><span class='match'> <\/span><span class='match'>G<\/span>a<span class='match'>m<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span><span class='match'>F<\/span>e<span class='match'>d<\/span>e<span class='match'>r<\/span>a<span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'>'<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>@<\/span>o<span class='match'>f<\/span><span class='match'>f<\/span>i<span class='match'>c<\/span>ia<span class='match'>l<\/span><span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span>o<span class='match'>w<\/span>e<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>S<\/span>e<span class='match'>r<\/span>ie<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>v<\/span>i<span class='match'>r<\/span><span class='match'>t<\/span>ua<span class='match'>l<\/span><span class='match'> <\/span><span class='match'>t<\/span>ou<span class='match'>r<\/span><span class='match'>n<\/span>a<span class='match'>m<\/span>e<span class='match'>n<\/span><span class='match'>t<\/span><span class='match'>!<\/span><span class='match'>\n<\/span><span class='match'>T<\/span>u<span class='match'>n<\/span>e<span class='match'> <\/span>i<span class='match'>n<\/span><span class='match'>t<\/span>o<span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span>a<span class='match'>c<\/span><span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'> <\/span><span class='match'>l<\/span>i<span class='match'>v<\/span>e<span class='match'> <\/span>a<span class='match'>t<\/span><span class='match'> <\/span><span class='match'>5<\/span><span class='match'>:<\/span><span class='match'>2<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>U<\/span><span class='match'>W<\/span><span class='match'>)<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>6<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>T<\/span><span class='match'> <\/span><span class='match'>t<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>:<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>z<\/span><span class='match'>O<\/span><span class='match'>j<\/span>e<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>\n<\/span><span class='match'>#<\/span><span class='match'>G<\/span>o<span class='match'>C<\/span>ou<span class='match'>g<\/span><span class='match'>s<\/span><span class='match'>!<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>5<\/span>u<span class='match'>8<\/span><span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-8734015256fc9cac3918" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8734015256fc9cac3918">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>,<\/span><span class='match'> <\/span>ou<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>T<\/span>ea<span class='match'>m<\/span><span class='match'> <\/span>i<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>f<\/span>a<span class='match'>c<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'>f<\/span><span class='match'> <\/span>a<span class='match'>g<\/span>ai<span class='match'>n<\/span><span class='match'>s<\/span><span class='match'>t<\/span><span class='match'> <\/span><span class='match'>\n<\/span><span class='match'>@<\/span><span class='match'>E<\/span><span class='match'>s<\/span><span class='match'>p<\/span>o<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'>s<\/span><span class='match'>_<\/span><span class='match'>W<\/span><span class='match'>A<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>@<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'> <\/span>a<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>p<\/span>a<span class='match'>r<\/span><span class='match'>t<\/span><span class='match'> <\/span>o<span class='match'>f<\/span><span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span><span class='match'>E<\/span><span class='match'>l<\/span>e<span class='match'>c<\/span><span class='match'>t<\/span><span class='match'>r<\/span>o<span class='match'>n<\/span>i<span class='match'>c<\/span><span class='match'> <\/span><span class='match'>G<\/span>a<span class='match'>m<\/span>i<span class='match'>n<\/span><span class='match'>g<\/span><span class='match'> <\/span><span class='match'>F<\/span>e<span class='match'>d<\/span>e<span class='match'>r<\/span>a<span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'>'<\/span><span class='match'>s<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>@<\/span>o<span class='match'>f<\/span><span class='match'>f<\/span>i<span class='match'>c<\/span>ia<span class='match'>l<\/span><span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span>o<span class='match'>w<\/span>e<span class='match'>r<\/span><span class='match'> <\/span><span class='match'>S<\/span>e<span class='match'>r<\/span>ie<span class='match'>s<\/span><span class='match'> <\/span><span class='match'>v<\/span>i<span class='match'>r<\/span><span class='match'>t<\/span>ua<span class='match'>l<\/span><span class='match'> <\/span><span class='match'>t<\/span>ou<span class='match'>r<\/span><span class='match'>n<\/span>a<span class='match'>m<\/span>e<span class='match'>n<\/span><span class='match'>t<\/span><span class='match'>!<\/span><span class='match'>\n<\/span><span class='match'>T<\/span>u<span class='match'>n<\/span>e<span class='match'> <\/span>i<span class='match'>n<\/span><span class='match'>t<\/span>o<span class='match'> <\/span><span class='match'>t<\/span><span class='match'>h<\/span>e<span class='match'> <\/span>a<span class='match'>c<\/span><span class='match'>t<\/span>io<span class='match'>n<\/span><span class='match'> <\/span><span class='match'>l<\/span>i<span class='match'>v<\/span>e<span class='match'> <\/span>a<span class='match'>t<\/span><span class='match'> <\/span><span class='match'>5<\/span><span class='match'>:<\/span><span class='match'>2<\/span><span class='match'>0<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>U<\/span><span class='match'>W<\/span><span class='match'>)<\/span><span class='match'> <\/span>a<span class='match'>n<\/span><span class='match'>d<\/span><span class='match'> <\/span><span class='match'>6<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>M<\/span><span class='match'> <\/span><span class='match'>(<\/span><span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>)<\/span><span class='match'> <\/span><span class='match'>P<\/span><span class='match'>T<\/span><span class='match'> <\/span><span class='match'>t<\/span>o<span class='match'>m<\/span>o<span class='match'>r<\/span><span class='match'>r<\/span>o<span class='match'>w<\/span><span class='match'>:<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>z<\/span><span class='match'>O<\/span><span class='match'>j<\/span>e<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>\n<\/span><span class='match'>#<\/span><span class='match'>G<\/span>o<span class='match'>C<\/span>ou<span class='match'>g<\/span><span class='match'>s<\/span><span class='match'>!<\/span><span class='match'> <\/span><span class='match'>h<\/span><span class='match'>t<\/span><span class='match'>t<\/span><span class='match'>p<\/span><span class='match'>s<\/span><span class='match'>:<\/span><span class='match'>/<\/span><span class='match'>/<\/span><span class='match'>t<\/span><span class='match'>.<\/span><span class='match'>c<\/span>o<span class='match'>/<\/span><span class='match'>5<\/span>u<span class='match'>8<\/span><span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 <br>
 
@@ -3043,8 +3044,8 @@ str_view_all(string = p12_df$text[10], pattern = ("[^aeiou]"))
 str_view_all(string = p12_df$text[10], pattern = ("[A-Z]"))
 ```
 
-<!--html_preserve--><div id="htmlwidget-5d464e7d60d841cd62c2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5d464e7d60d841cd62c2">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>omorrow, our @<span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span>sports <span class='match'>T<\/span>eam is facing off against \n@<span class='match'>E<\/span>sports_<span class='match'>W<\/span><span class='match'>A<\/span> and @<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span> as part of the <span class='match'>E<\/span>lectronic <span class='match'>G<\/span>aming <span class='match'>F<\/span>ederation's (@official<span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span>) <span class='match'>P<\/span>ower <span class='match'>S<\/span>eries virtual tournament!\n<span class='match'>T<\/span>une into the action live at 5:20 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>U<\/span><span class='match'>W<\/span>) and 6 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span>) <span class='match'>P<\/span><span class='match'>T<\/span> tomorrow: https://t.co/tz<span class='match'>O<\/span>je<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span>\n#<span class='match'>G<\/span>o<span class='match'>C<\/span>ougs! https://t.co/5u8<span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-9d967a5f99fc76ecefc9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9d967a5f99fc76ecefc9">{"x":{"html":"<ul>\n  <li><span class='match'>T<\/span>omorrow, our @<span class='match'>W<\/span><span class='match'>S<\/span><span class='match'>U<\/span><span class='match'>E<\/span>sports <span class='match'>T<\/span>eam is facing off against \n@<span class='match'>E<\/span>sports_<span class='match'>W<\/span><span class='match'>A<\/span> and @<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span> as part of the <span class='match'>E<\/span>lectronic <span class='match'>G<\/span>aming <span class='match'>F<\/span>ederation's (@official<span class='match'>E<\/span><span class='match'>G<\/span><span class='match'>F<\/span>) <span class='match'>P<\/span>ower <span class='match'>S<\/span>eries virtual tournament!\n<span class='match'>T<\/span>une into the action live at 5:20 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>U<\/span><span class='match'>W<\/span>) and 6 <span class='match'>P<\/span><span class='match'>M<\/span> (<span class='match'>S<\/span><span class='match'>J<\/span><span class='match'>S<\/span><span class='match'>U<\/span>) <span class='match'>P<\/span><span class='match'>T<\/span> tomorrow: https://t.co/tz<span class='match'>O<\/span>je<span class='match'>T<\/span><span class='match'>M<\/span>a<span class='match'>S<\/span><span class='match'>U<\/span>\n#<span class='match'>G<\/span>o<span class='match'>C<\/span>ougs! https://t.co/5u8<span class='match'>E<\/span><span class='match'>D<\/span><span class='match'>G<\/span>ai<span class='match'>F<\/span><span class='match'>H<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 </details>
 
 <br>
@@ -3076,15 +3077,15 @@ Our capturing group (what is in the first and only parenthesis) has the letter `
 str_view_all(string = p12_df$text[10], pattern = "(f)")
 ```
 
-<!--html_preserve--><div id="htmlwidget-815188bc01e6db3a71ea" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-815188bc01e6db3a71ea">{"x":{"html":"<ul>\n  <li>Tomorrow, our @WSUEsports Team is <span class='match'>f<\/span>acing o<span class='match'>f<\/span><span class='match'>f<\/span> against \n@Esports_WA and @SJSU as part o<span class='match'>f<\/span> the Electronic Gaming Federation's (@o<span class='match'>f<\/span><span class='match'>f<\/span>icialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomorrow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-d184800e159fb6374208" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d184800e159fb6374208">{"x":{"html":"<ul>\n  <li>Tomorrow, our @WSUEsports Team is <span class='match'>f<\/span>acing o<span class='match'>f<\/span><span class='match'>f<\/span> against \n@Esports_WA and @SJSU as part o<span class='match'>f<\/span> the Electronic Gaming Federation's (@o<span class='match'>f<\/span><span class='match'>f<\/span>icialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomorrow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_view_all(string = p12_df$text[10], pattern = "(f)\\1")
 ```
 
-<!--html_preserve--><div id="htmlwidget-b6ab9c318e5348b21d81" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b6ab9c318e5348b21d81">{"x":{"html":"<ul>\n  <li>Tomorrow, our @WSUEsports Team is facing o<span class='match'>ff<\/span> against \n@Esports_WA and @SJSU as part of the Electronic Gaming Federation's (@o<span class='match'>ff<\/span>icialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomorrow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-772c657e9175146d17da" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-772c657e9175146d17da">{"x":{"html":"<ul>\n  <li>Tomorrow, our @WSUEsports Team is facing o<span class='match'>ff<\/span> against \n@Esports_WA and @SJSU as part of the Electronic Gaming Federation's (@o<span class='match'>ff<\/span>icialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomorrow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 Below we are searching for `r` or `f`. When we add the backreference `\\1` we are now searching for the text matched by our capturing group. In other words, we are searching for `rr` or `ff`.  
 
@@ -3092,15 +3093,15 @@ Below we are searching for `r` or `f`. When we add the backreference `\\1` we ar
 str_view_all(string = p12_df$text[10], pattern = "(r|f)")
 ```
 
-<!--html_preserve--><div id="htmlwidget-020b1b9efdcfeff177f1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-020b1b9efdcfeff177f1">{"x":{"html":"<ul>\n  <li>Tomo<span class='match'>r<\/span><span class='match'>r<\/span>ow, ou<span class='match'>r<\/span> @WSUEspo<span class='match'>r<\/span>ts Team is <span class='match'>f<\/span>acing o<span class='match'>f<\/span><span class='match'>f<\/span> against \n@Espo<span class='match'>r<\/span>ts_WA and @SJSU as pa<span class='match'>r<\/span>t o<span class='match'>f<\/span> the Elect<span class='match'>r<\/span>onic Gaming Fede<span class='match'>r<\/span>ation's (@o<span class='match'>f<\/span><span class='match'>f<\/span>icialEGF) Powe<span class='match'>r<\/span> Se<span class='match'>r<\/span>ies vi<span class='match'>r<\/span>tual tou<span class='match'>r<\/span>nament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomo<span class='match'>r<\/span><span class='match'>r<\/span>ow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-d78c292f8fc735c473a6" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d78c292f8fc735c473a6">{"x":{"html":"<ul>\n  <li>Tomo<span class='match'>r<\/span><span class='match'>r<\/span>ow, ou<span class='match'>r<\/span> @WSUEspo<span class='match'>r<\/span>ts Team is <span class='match'>f<\/span>acing o<span class='match'>f<\/span><span class='match'>f<\/span> against \n@Espo<span class='match'>r<\/span>ts_WA and @SJSU as pa<span class='match'>r<\/span>t o<span class='match'>f<\/span> the Elect<span class='match'>r<\/span>onic Gaming Fede<span class='match'>r<\/span>ation's (@o<span class='match'>f<\/span><span class='match'>f<\/span>icialEGF) Powe<span class='match'>r<\/span> Se<span class='match'>r<\/span>ies vi<span class='match'>r<\/span>tual tou<span class='match'>r<\/span>nament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomo<span class='match'>r<\/span><span class='match'>r<\/span>ow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_view_all(string = p12_df$text[10], pattern = "(r|f)\\1")
 ```
 
-<!--html_preserve--><div id="htmlwidget-515e58896c01ed371a57" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-515e58896c01ed371a57">{"x":{"html":"<ul>\n  <li>Tomo<span class='match'>rr<\/span>ow, our @WSUEsports Team is facing o<span class='match'>ff<\/span> against \n@Esports_WA and @SJSU as part of the Electronic Gaming Federation's (@o<span class='match'>ff<\/span>icialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomo<span class='match'>rr<\/span>ow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-2d5f36b3141cc4c4f5a9" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2d5f36b3141cc4c4f5a9">{"x":{"html":"<ul>\n  <li>Tomo<span class='match'>rr<\/span>ow, our @WSUEsports Team is facing o<span class='match'>ff<\/span> against \n@Esports_WA and @SJSU as part of the Electronic Gaming Federation's (@o<span class='match'>ff<\/span>icialEGF) Power Series virtual tournament!\nTune into the action live at 5:20 PM (UW) and 6 PM (SJSU) PT tomo<span class='match'>rr<\/span>ow: https://t.co/tzOjeTMaSU\n#GoCougs! https://t.co/5u8EDGaiFH<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 
 # Regex with `stringr` functions
@@ -3115,16 +3116,16 @@ Using regex in `stringr` functions (From [R for Data Science](https://r4ds.had.c
   str_view(string = "Turn to page 394...", pattern = "\\d+")
   ```
   
-  <!--html_preserve--><div id="htmlwidget-b5b2c288aeea184bc12b" style="width:960px;height:100%;" class="str_view html-widget"></div>
-  <script type="application/json" data-for="htmlwidget-b5b2c288aeea184bc12b">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  <!--html_preserve--><div id="htmlwidget-3c0435b12b13689ea1c0" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-3c0435b12b13689ea1c0">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
   
   ```r
   # Is shorthand for:
   str_view(string = "Turn to page 394...", pattern = regex("\\d+"))
   ```
   
-  <!--html_preserve--><div id="htmlwidget-5e3df43125e7dbefaea1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-  <script type="application/json" data-for="htmlwidget-5e3df43125e7dbefaea1">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+  <!--html_preserve--><div id="htmlwidget-7c5a428fc72e0fbbf8ea" style="width:960px;height:100%;" class="str_view html-widget"></div>
+  <script type="application/json" data-for="htmlwidget-7c5a428fc72e0fbbf8ea">{"x":{"html":"<ul>\n  <li>Turn to page <span class='match'>394<\/span>...<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
   
 - For simplicity, we can omit the call to `regex()`  
 - But, there are additional arguments we can supply to `regex()` if we wanted  
@@ -3159,8 +3160,8 @@ We can match all the yay's using the following regex:
 str_view_all(string = s, pattern = "[Yy][Aa][Yy]")
 ```
 
-<!--html_preserve--><div id="htmlwidget-a78a586b28b222adb8bf" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a78a586b28b222adb8bf">{"x":{"html":"<ul>\n  <li><span class='match'>Yay<\/span>, <span class='match'>yay<\/span>.... <span class='match'>YAY<\/span>!<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-fe3c0f49d5b483e4ec3c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fe3c0f49d5b483e4ec3c">{"x":{"html":"<ul>\n  <li><span class='match'>Yay<\/span>, <span class='match'>yay<\/span>.... <span class='match'>YAY<\/span>!<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 <br>
 Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing variations:
@@ -3170,8 +3171,8 @@ Equivalently, we can specify `ignore_case = TRUE` to avoid dealing with casing v
 str_view_all(string = s, pattern = regex("yay", ignore_case = TRUE))
 ```
 
-<!--html_preserve--><div id="htmlwidget-d81318a7e566dbc76c58" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d81318a7e566dbc76c58">{"x":{"html":"<ul>\n  <li><span class='match'>Yay<\/span>, <span class='match'>yay<\/span>.... <span class='match'>YAY<\/span>!<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-a411fb1e55d648904054" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a411fb1e55d648904054">{"x":{"html":"<ul>\n  <li><span class='match'>Yay<\/span>, <span class='match'>yay<\/span>.... <span class='match'>YAY<\/span>!<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 </details>
 
@@ -4046,6 +4047,1123 @@ p12_df %>%
 </details>
 
 
+# HTML
+
+__Markup Language__
+
+> "A markup language is a computer language that uses tags to define elements within a document. It is human-readable, meaning markup files contain standard words, rather than typical programming syntax." 
+
+*Credit: [Markup Language](https://techterms.com/definition/markup_language) from TechTerms*
+
+<br>
+__Hypertext Markup Language (HTML)__
+
+- HTML is a markup language for the creation of websites
+    - HTML puts the content on the webpage, but does not "style" the page (e.g., fonts, colors, background)
+    - CSS (**C**ascading **S**tyle **S**heets) adds style to the webpage (e.g., fonts, colors, etc.)
+    - Javascript adds functionality to the webpage
+
+## HTML Basics  
+
+__Intro to HTML (and CSS)__
+
+- Watch this __excellent__ 12-minute introductory HTML tutorial by LearnCode.academy
+    - Link: [HTML Tutorial for beginners](https://www.youtube.com/watch?v=RjHflb-QgVc)
+- Watch this 7-minute introductory CSS tutorial by LearnCode.academy
+    - Link: [HTML CSS Tutorial for Beginners](https://youtu.be/J35jug1uHzE)
+
+<br>
+__A Simple HTML Document__ (From [w3schools](https://www.w3schools.com/html/html_intro.asp))
+
+- HTML consists of a series of **elements**
+  - Elements are defined by a start tag, some content, and an end tag:
+    - `<tagname> Content </tagname>`
+  - Elements can be nested within one another
+- Components of a basic HTML document:
+  - Begin with `<!DOCTYPE html>` to indicate it is an HTML document
+  - The `<html>` element is the root element of an HTML page, where all other elements are nested
+  - The `<head>` element contains meta information about the document (ie. not displayed on webpage)
+  - The `<body>` element contains the visible page content
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+
+</body>
+</html>
+```
+
+<br>
+
+## Tags
+
+What are **HTML tags**?
+
+- HTML tags are element names surrounded by angle brackets
+    - Tags usually come in pairs (e.g. `<p>` and `</p>`)
+    - The first tag is the start tag and the second tag is the end tag
+    
+*Credit: [HTML introduction](https://www.w3schools.com/html/html_intro.asp) from W3schools*   
+
+<br>
+Some **common HTML tags** (_not inclusive_): 
+
+Tag                Description    
+------------------ ------------------  
+\<h1\> - \<h6\>    Heading     
+\<p\>              Paragraph
+\<a\>              Link
+\<img\>            Image
+\<div\>            Division (can think of it as a container to group other elements)
+\<strong\>         Bold
+\<em\>             Italics
+\<ul\>             Unordered list (consists of \<li\> elements)
+\<ol\>             Ordered list (consists of \<li\> elements)
+&nbsp;&nbsp;\<li\> &nbsp;&nbsp;&nbsp;&nbsp;List item
+\<table\>          Table (consists of \<tr\>, \<td\>, & \<th\> elements)
+&nbsp;&nbsp;\<tr\> &nbsp;&nbsp;Table row
+&nbsp;&nbsp;\<td\> &nbsp;&nbsp;Table data/cell 
+&nbsp;&nbsp;\<th\> &nbsp;&nbsp;Table header 
+
+<br>
+
+
+## Attributes  
+
+What are **attributes**?
+
+- Attributed in HTML elements are optional, but all HTML elements can have attributes
+- Attributes are used to provide additional information about an element  
+- Attributes are __always__ specified in the start tag
+- Attributes usually come in name/value pairs like: `name="value"`
+
+*Credit: [HTML attributes](https://www.w3schools.com/html/html_attributes.asp) from W3schools*
+
+<br>
+Some **common attributes** you may encounter:
+
+- The `href` attribute for an `<a>` tag (_specifies url to link to_):
+  ```
+  <a href="https://www.w3schools.com">This is a link</a>
+  ```
+- The `src` attribute for an `<img>` tag (_specifies image to display_):
+  ```
+  <img src="html_cheatsheet.jpg">
+  ```
+- You can add more than one attribute to an element:
+  ```
+  <img src="html_cheatsheet.jpg" width="200" height="300">
+  ```
+- The `class` and `id` attributes are also commonly added to elements to be able to identify and select for them
+
+<br>
+
+### Class  
+
+- The `class` attribute can specify one or more class names for an HTML element
+- An element can be identified by its class
+- You can select for an element by its class using `.` followed by the class name (more from GeekstoGeeks [here](https://www.geeksforgeeks.org/html-class-attribute/?ref=lbp))
+  - For example, this can be used in CSS to select for and style all elements with a specific class
+
+__HTML__:
+
+
+```html
+<div class="countries">
+  <h3>United States</h3>
+  <p class="place">Washington D.C.</p>
+  <img src="https://cdn.aarp.net/content/dam/aarp/travel/destination-guides/2018/03/1140-trv-dst-dc-main.imgcache.revd66f01d4a19adcecdb09fdacd4471fa8.jpg">
+</div>
+    
+<div class="countries">
+  <h3>Mexico</h3>
+  <p class="place">Guadalajara</p>
+  <img src="https://cityofguadalajara.com/wp-content/uploads/2016/11/Centro-Historico-de-Guadalajara-800x288.jpg">
+</div>
+```
+ 
+__CSS__:
+ 
+
+```css
+<style>   
+.countries {
+  background-color: #e6e6e6;
+  color: #336699;
+  margin: 10px;
+  padding: 15px;
+}
+
+.place {
+  color: black;
+}
+</style>
+```
+
+__Result__:
+
+<style>
+.countries {
+  background-color: #e6e6e6;
+  color: #336699;
+  margin: 10px;
+  padding: 15px;
+  display: inline-block;
+}
+
+.place {
+  color: black;
+}
+
+.countries img {
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+}
+</style>
+
+<div class="countries">
+<h3>United States</h3>
+<p class="place">Washington D.C </p>
+<img src="https://cdn.aarp.net/content/dam/aarp/travel/destination-guides/2018/03/1140-trv-dst-dc-main.imgcache.revd66f01d4a19adcecdb09fdacd4471fa8.jpg">
+</div>
+
+
+<div class="countries">
+<h3>Mexico</h3>
+<p class="place">Guadalajara</p>
+<img src="https://cityofguadalajara.com/wp-content/uploads/2016/11/Centro-Historico-de-Guadalajara-800x288.jpg">
+</div>
+
+*Credit: [HTML Classes](https://www.w3schools.com/html/html_classes.asp) from W3schools*
+
+
+### Id  
+
+- The `id` attribute is used to specify one unique HTML element within the HTML document
+- An element can be identified by its id
+- You can select for an element by its id using `#` followed by the id name (more from GeekstoGeeks [here](https://www.w3schools.com/html/html_id.asp))
+  - For example, this can be used in CSS to select for and style a specific element with a certain id
+
+__HTML__:
+
+
+```html
+<div id="banner">My Banner</div>
+```
+
+__CSS__:
+
+
+```css
+<style>
+#banner {
+  background-color: #e6e6e6;
+  font-size: 40px;
+  padding: 20px;
+  text-align: center;
+}
+</style>
+```
+
+__Result__:
+
+<style>
+#banner {
+  background-color: #e6e6e6;
+  font-size: 40px;
+  padding: 20px;
+  text-align: center;
+}
+</style>
+
+<div id="banner">My Banner</div>
+
+*Credit: [HTML Id](https://www.w3schools.com/html/html_id.asp) from W3schools*
+
+
+<br>
+
+## Student Exercise
+
+- Spend 5-10 minutes playing with the simple HTML text below
+- Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
+
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Page title (in head tag)</title>
+</head>
+<body>
+
+  <h1>Title of level 1 heading</h1>
+  
+  <p>My first paragraph.</p>
+  <p>My second paragraph.</p>
+  <p>Add some bold text <strong>right here</strong></p>
+  <p>Add some italics text <em>right here</em></p>
+  
+
+  <p>Include a hyperlink tag within a paragraph tag. this book looks interesting : <a href="https://bookdown.org/rdpeng/rprogdatascience/">R Programming for Data Science</a></p>  
+  
+  <p>Include another hyperlink tag within a paragraph tag. chapter on <a href="https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html">Regular Expressions</a></p>    
+  <p> put a button inside this paragraph <button>I am a button!</button></p>
+  
+  <p>Here are some items in a list, but items not placed within an unordered list </p>
+  
+  <li> text you want in item</li>
+  <li> text you want in another item</li>
+  
+  <p>Here are some items in an unordered list</p>
+  
+  <ul>
+  <li> first item in unordered list </li>
+  <li> second item in unordered list </li>
+  </ul>
+
+</body>
+  
+</html>
+```
+
+<br>
+
+## HTML Resources
+
+Lots of wonderful resources on the web to learn HTML!
+
+- Use this website to create/modify HTML code and view the result after it is compiled
+    - [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
+- HTML cheat sheets 
+    - [Link to HTML cheat sheet (PDF)](https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf)
+    - [Link to another HTML cheat sheet ](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png), (shown below) 
+
+
+[![](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png)](https://sharethis.com/best-practices/2020/02/best-html-and-css-cheat-sheets/)
+
+# `rvest` package
+
+> Wrappers around the `xml2` and `httr` packages to make it easy to download, then manipulate, HTML and XML.
+
+*Source: `rvest` package documentation*
+
+Why use the `rvest` package?
+
+- `rvest` makes it easy to parse HTML
+- First, we use the `read_html()` function to [read in the HTML](#reading-html) and convert it to an `xml_document`/`xml_node` object
+- A **node** is just an HTML **element**
+- HTML is made up of nested elements, so once we've read in the HTML to a `xml_node` object, we can easily traverse the nested nodes (ie. children elements) and [parse the HTML](#parsing-html)
+- `rvest` comes with many helpful functions to search and extract various parts of the HTML
+  - `html_node()`/`html_nodes()`: Search and extract node(s) (ie. HTML elements)
+  - `html_text()`: Extract the content between HTML tags
+  - `html_attr()`/`html_attrs()`: Extract the attribute(s) of HTML tags
+
+
+## Reading HTML
+
+__The `read_html()` function__:
+
+
+```r
+?read_html
+
+# SYNTAX AND DEFAULT VALUES
+read_html(x, encoding = "", ..., options = c("RECOVER", "NOERROR", "NOBLANKS"))
+```
+
+- Arguments:
+  - `x`: The input can be a string containing HTML or url to the webpage you want to scrape
+- Output:
+  - The HTML that is read in will be returned as an `rvest` `xml_document`/`xml_node` object and can be easily parsed
+  - You can also view the raw HTML using `as.character()`
+  
+__Scraping HTML from a webpage__:
+
+- Navigate to the webpage (e.g., https://corona.help/) in your browser
+  - If possible, use Google Chrome or Mozilla Firefox
+- View the HTML of the page by right clicking > `View Page Source`
+  - This will be the raw HTML that is scraped when we use `read_html()`
+- When you right click, you may notice another option called `Inspect` (Chrome) or `Inspect Element` (Firefox) that will pop up a side panel
+  - This can be helpful for visualizing the HTML elements on the page
+  - You can also click on this side panel and hit `ctrl` + `f` (Windows) or `cmd` + `f` (Macs) to search for elements using a selector
+  - But note that the HTML you see here might not be the same as what you see in `View Page Source` (i.e., _what is scraped_), since it also reflects changes made to the HTML _after_ the page was loaded (e.g., _by JavaScript_)
+
+<br>
+<details><summary>**Example**: Using `read_html()` to read in HTML from string</summary>
+
+
+```r
+html <- read_html("<h1>This is a heading.</h1><p>This is a paragraph.</p>")
+
+# View object
+html
+```
+
+```
+## {html_document}
+## <html>
+## [1] <body>\n<h1>This is a heading.</h1>\n<p>This is a paragraph.</p>\n</ ...
+```
+
+```r
+# View class of object
+class(html)
+```
+
+```
+## [1] "xml_document" "xml_node"
+```
+
+```r
+# View raw HTML
+as.character(html)
+```
+
+```
+## [1] "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\n<h1>This is a heading.</h1>\n<p>This is a paragraph.</p>\n</body></html>\n"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `read_html()` to scrape the page `https://corona.help/`</summary>
+
+
+
+```r
+corona <- read_html("https://corona.help/")
+
+# View object
+corona
+```
+
+```
+## {html_document}
+## <html class="loading" lang="en" data-textdirection="ltr">
+## [1] <head>\n<meta http-equiv="Content-Type" content="text/html; charset= ...
+## [2] <body class="horizontal-layout horizontal-menu dark-layout 2-columns ...
+```
+
+```r
+# View class of object
+class(corona)
+```
+
+```
+## [1] "xml_document" "xml_node"
+```
+
+
+```r
+# View raw HTML [output omitted]
+as.character(corona)
+```
+
+
+```r
+# Inspect raw HTML
+str(as.character(corona))
+```
+
+```
+##  chr "<!DOCTYPE html>\n<html class=\"loading\" lang=\"en\" data-textdirection=\"ltr\">\n<!-- BEGIN: Head--><head>\n<m"| __truncated__
+```
+
+</details>
+
+## Parsing HTML
+
+__The `html_node()` and `html_nodes()` functions__:
+
+
+```r
+?html_node
+
+# SYNTAX
+html_node(x, css, xpath)
+
+
+?html_nodes
+
+# SYNTAX
+html_nodes(x, css, xpath)
+```
+
+- Arguments:
+  - `x`: An `rvest` `xml_document`/`xml_node` object (use `read_html()` to get this)
+  - `css`: Selector (can select by HTML tag name, its attributes, etc.)
+- Output:
+  - `html_node()` returns the first element that it finds as an `rvest` `xml_node` object
+    - Recall that a node is just an HTML element
+  - `html_nodes()` returns all elements that it finds as an `rvest` `xml_nodeset` object
+    - All elements that are selected will be returned in a nodeset
+  - Again, you can view the raw HTML using `as.character()`
+    - Syntax: `as.character(html_node(...))`
+
+__Selecting for HTML elements__:
+
+- HTML elements can be selected in many ways
+  - Selecting by tagname: `'p'`, `'table'`, etc.
+  - Selecting by class using `.`: `'.my-class'`
+  - Selecting by id using `#`: `'#my-id'`
+  - Selecting nested elements: `'table tr'` (_selects all rows within a table_)
+- You can test your selector in your browser
+  - Right click and select `Inspect` (Chrome) or `Inspect Element` (Firefox) to bring up a side panel
+  - Hit `ctrl` + `f` (Windows) or `cmd` + `f` (Macs) and enter your selector to search for elements
+
+
+<br>
+<details><summary>**Example**: Using `html_node()` and `html_nodes()` I</summary>
+
+Remember that the input to `html_node()`/`html_nodes()` should be an `rvest` `xml_document`/`xml_node` object, which we can obtain from `read_html()`:
+
+
+```r
+html <- read_html("<p>Paragraph #1</p><p>Paragraph #2</p><p>Paragraph #3</p>")
+
+# View class of object
+class(html)
+```
+
+```
+## [1] "xml_document" "xml_node"
+```
+
+```r
+# View raw HTML to see what elements are there
+as.character(html)
+```
+
+```
+## [1] "<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\" \"http://www.w3.org/TR/REC-html40/loose.dtd\">\n<html><body>\n<p>Paragraph #1</p>\n<p>Paragraph #2</p>\n<p>Paragraph #3</p>\n</body></html>\n"
+```
+
+<br>
+If we search for the `<p>` element using `html_node()`, it will return the first result:
+
+
+```r
+first_p <- html_node(html, 'p')
+
+# View class of object
+class(first_p)
+```
+
+```
+## [1] "xml_node"
+```
+
+```r
+# View raw HTML
+as.character(first_p)
+```
+
+```
+## [1] "<p>Paragraph #1</p>\n"
+```
+
+<br>
+If we search for the `<p>` element using `html_nodes()`, it will return all results:
+
+
+```r
+all_p <- html_nodes(html, 'p')
+
+# View class of object
+class(all_p)
+```
+
+```
+## [1] "xml_nodeset"
+```
+
+```r
+# View raw HTML
+as.character(all_p)
+```
+
+```
+## [1] "<p>Paragraph #1</p>\n" "<p>Paragraph #2</p>\n" "<p>Paragraph #3</p>"
+```
+
+<br>
+Note that we could also use `%>%`:
+
+
+```r
+# These are equivalent to the above
+first_p <- html %>% html_node('p')
+all_p <- html %>% html_nodes('p')
+```
+
+</details>
+
+
+<br>
+<details><summary>**Example**: Using `html_node()` and `html_nodes()` II</summary>
+
+
+Let's revisit the HTML we scraped from https://corona.help/ in the previous example
+
+  - We will try selecting for the "Total by country" table off of that page
+  - In your browser, right click > `View Page Source` to check that the `table` element is indeed in the scraped HTML
+  - Then, you can right click the table on the page and inspect it to better visualize the elements
+
+
+
+```r
+# Scraped HTML is stored in this `xml_document`/`xml_node` object
+class(corona)
+```
+
+```
+## [1] "xml_document" "xml_node"
+```
+
+<br>
+Select for the `<table>` element on that page using `html_node()`:
+
+
+```r
+# Since this table is the only table on the page, we can just use `html_node()`
+corona_table <- corona %>% html_node('table')
+corona_table
+```
+
+```
+## {html_node}
+## <table class="table table-striped table-hover-animation mb-0" id="table">
+## [1] <thead id="thead"><tr>\n<th>COUNTRY</th>\n                           ...
+## [2] <tbody>\n<tr>\n<td><a href="https://corona.help/country/united-state ...
+```
+
+```r
+# View class of object
+class(corona_table)
+```
+
+```
+## [1] "xml_node"
+```
+
+
+```r
+# View raw HTML of `corona_table` [output omitted]
+as.character(corona_table)
+```
+
+<br>
+Select all rows in the table (i.e., `<tr>` elements) using `html_nodes()`
+
+- It makes sense to select by row (rather than column) because each row usually represent an observation
+- The way HTML tables are structured also makes it easier to extract information by row because each `<tr>` element (i.e., row) has `<th>`/`<td>` elements (i.e., column cells) nested within it, and not the other way around
+- But if you wanted to select a certain column, there are ways to do that as well (e.g., `table tr td:nth-child(1)` selects the first cell in each row a.k.a. the first column in table)
+
+
+
+```r
+# We can chain `html_node()`/`html_nodes()` functions
+corona_rows <- corona %>% html_node('table') %>% html_nodes('tr')
+
+# Alternatively, we can use `table tr` as the selector to select all `tr` elements within a `table`
+corona_rows <- corona %>% html_nodes('table tr')
+
+# Investigate object
+head(corona_rows) # View first few rows
+```
+
+```
+## {xml_nodeset (6)}
+## [1] <tr>\n<th>COUNTRY</th>\n                          <th>INFECTED</th>\ ...
+## [2] <tr>\n<td><a href="https://corona.help/country/united-states">\n     ...
+## [3] <tr>\n<td><a href="https://corona.help/country/spain">\n             ...
+## [4] <tr>\n<td><a href="https://corona.help/country/united-kingdom">\n    ...
+## [5] <tr>\n<td><a href="https://corona.help/country/italy">\n             ...
+## [6] <tr>\n<td><a href="https://corona.help/country/russia">\n            ...
+```
+
+```r
+typeof(corona_rows)
+```
+
+```
+## [1] "list"
+```
+
+```r
+class(corona_rows)
+```
+
+```
+## [1] "xml_nodeset"
+```
+
+```r
+length(corona_rows) # Number of elements
+```
+
+```
+## [1] 218
+```
+
+</details>
+
+<br>
+
+### Practicing regex
+
+The following examples use the Coronavirus data from https://corona.help/
+
+  - Recall that we have selected for all rows in the data table on that page in the previous example
+  - If we wanted to try and create a dataframe out of this table, we could further select each cell in the table (i.e., `<td>` elements from each row), but this would involve loops which will be covered in a later lecture
+  - For now, we will be practicing parsing data from each row using regex
+
+View `corona_rows` we selected from previous example:
+
+
+```r
+# View first few rows
+head(corona_rows)
+```
+
+```
+## {xml_nodeset (6)}
+## [1] <tr>\n<th>COUNTRY</th>\n                          <th>INFECTED</th>\ ...
+## [2] <tr>\n<td><a href="https://corona.help/country/united-states">\n     ...
+## [3] <tr>\n<td><a href="https://corona.help/country/spain">\n             ...
+## [4] <tr>\n<td><a href="https://corona.help/country/united-kingdom">\n    ...
+## [5] <tr>\n<td><a href="https://corona.help/country/italy">\n             ...
+## [6] <tr>\n<td><a href="https://corona.help/country/russia">\n            ...
+```
+
+```r
+corona_rows[1:5] # first five rows
+```
+
+```
+## {xml_nodeset (5)}
+## [1] <tr>\n<th>COUNTRY</th>\n                          <th>INFECTED</th>\ ...
+## [2] <tr>\n<td><a href="https://corona.help/country/united-states">\n     ...
+## [3] <tr>\n<td><a href="https://corona.help/country/spain">\n             ...
+## [4] <tr>\n<td><a href="https://corona.help/country/united-kingdom">\n    ...
+## [5] <tr>\n<td><a href="https://corona.help/country/italy">\n             ...
+```
+
+```r
+corona_rows[c(1)] # header row
+```
+
+```
+## {xml_nodeset (1)}
+## [1] <tr>\n<th>COUNTRY</th>\n                          <th>INFECTED</th>\ ...
+```
+
+```r
+corona_rows[1] # header row
+```
+
+```
+## {xml_nodeset (1)}
+## [1] <tr>\n<th>COUNTRY</th>\n                          <th>INFECTED</th>\ ...
+```
+
+<br>
+Let's convert this to raw HTML using `as.character()` to practice writing regular expressions. Refer back to this output to help you determine what pattern you want to match:
+
+
+```r
+# Convert rows to raw HTML
+rows <- as.character(corona_rows)[-c(1)] # [-c(1)] means skip header row
+
+# View first few rows as raw HTML
+writeLines(head(rows, 2))  # printing via writeLines() is much prettier than printing via print()
+```
+
+```
+## <tr>
+## <td><a href="https://corona.help/country/united-states">
+##                               <div style="height:100%;width:100%">United States</div>
+##                             </a></td>
+##                           <td class="text-warning">1,367,638</td>
+##                           <td class="text-warning text-bold-700">844</td>
+##                           <td class="text-danger">80,787</td>
+##                           <td class="text-danger text-bold-700">30</td>
+##                           <td class="text-success">256,336</td>
+##                           <td class="text-success text-bold-700">682</td>
+##                           <td class="text-warning">1,030,515</td>
+##                           <td class="text-danger">16,514</td>
+##                           <td class="text-warning">9,444,525</td>
+## 
+##                           
+##                         </tr>
+## 
+## <tr>
+## <td><a href="https://corona.help/country/spain">
+##                               <div style="height:100%;width:100%">Spain</div>
+##                             </a></td>
+##                           <td class="text-warning">264,663</td>
+##                           <td class="text-warning text-bold-700">0</td>
+##                           <td class="text-danger">26,621</td>
+##                           <td class="text-danger text-bold-700">0</td>
+##                           <td class="text-success">176,439</td>
+##                           <td class="text-success text-bold-700">0</td>
+##                           <td class="text-warning">61,603</td>
+##                           <td class="text-danger">1,650</td>
+##                           <td class="text-warning">2,467,761</td>
+## 
+##                           
+##                         </tr>
+```
+
+```r
+# Investgate object named `rows`, which is a character vector
+typeof(rows)
+```
+
+```
+## [1] "character"
+```
+
+```r
+class(rows)
+```
+
+```
+## [1] "character"
+```
+
+```r
+length(rows)
+```
+
+```
+## [1] 217
+```
+
+<br>
+<details><summary>**Example**: Using `str_subset()` to subset rows</summary>
+
+Let's filter for rows whose country name starts with `'United'`. First, preview what our regular expression matches using `str_view()`:
+
+
+```r
+str_view_all(string = head(rows), pattern = 'United \\w+')
+```
+
+<!--html_preserve--><div id="htmlwidget-f292eb04cacbc40a1457" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f292eb04cacbc40a1457">{"x":{"html":"<ul>\n  <li><tr>\n<td><a href=\"https://corona.help/country/united-states\">\n                              <div style=\"height:100%;width:100%\"><span class='match'>United States<\/span><\/div>\n                            <\/a><\/td>\n                          <td class=\"text-warning\">1,367,638<\/td>\n                          <td class=\"text-warning text-bold-700\">844<\/td>\n                          <td class=\"text-danger\">80,787<\/td>\n                          <td class=\"text-danger text-bold-700\">30<\/td>\n                          <td class=\"text-success\">256,336<\/td>\n                          <td class=\"text-success text-bold-700\">682<\/td>\n                          <td class=\"text-warning\">1,030,515<\/td>\n                          <td class=\"text-danger\">16,514<\/td>\n                          <td class=\"text-warning\">9,444,525<\/td>\n\n                          \n                        <\/tr>\n<\/li>\n  <li><tr>\n<td><a href=\"https://corona.help/country/spain\">\n                              <div style=\"height:100%;width:100%\">Spain<\/div>\n                            <\/a><\/td>\n                          <td class=\"text-warning\">264,663<\/td>\n                          <td class=\"text-warning text-bold-700\">0<\/td>\n                          <td class=\"text-danger\">26,621<\/td>\n                          <td class=\"text-danger text-bold-700\">0<\/td>\n                          <td class=\"text-success\">176,439<\/td>\n                          <td class=\"text-success text-bold-700\">0<\/td>\n                          <td class=\"text-warning\">61,603<\/td>\n                          <td class=\"text-danger\">1,650<\/td>\n                          <td class=\"text-warning\">2,467,761<\/td>\n\n                          \n                        <\/tr>\n<\/li>\n  <li><tr>\n<td><a href=\"https://corona.help/country/united-kingdom\">\n                              <div style=\"height:100%;width:100%\"><span class='match'>United Kingdom<\/span><\/div>\n                            <\/a><\/td>\n                          <td class=\"text-warning\">220,322<\/td>\n                          <td class=\"text-warning text-bold-700\">0<\/td>\n                          <td class=\"text-danger\">31,926<\/td>\n                          <td class=\"text-danger text-bold-700\">0<\/td>\n                          <td class=\"text-success\">925<\/td>\n                          <td class=\"text-success text-bold-700\">0<\/td>\n                          <td class=\"text-warning\">187,471<\/td>\n                          <td class=\"text-danger\">1,559<\/td>\n                          <td class=\"text-warning\">1,821,280<\/td>\n\n                          \n                        <\/tr>\n<\/li>\n  <li><tr>\n<td><a href=\"https://corona.help/country/italy\">\n                              <div style=\"height:100%;width:100%\">Italy<\/div>\n                            <\/a><\/td>\n                          <td class=\"text-warning\">219,070<\/td>\n                          <td class=\"text-warning text-bold-700\">0<\/td>\n                          <td class=\"text-danger\">30,560<\/td>\n                          <td class=\"text-danger text-bold-700\">0<\/td>\n                          <td class=\"text-success\">105,186<\/td>\n                          <td class=\"text-success text-bold-700\">0<\/td>\n                          <td class=\"text-warning\">83,324<\/td>\n                          <td class=\"text-danger\">1,027<\/td>\n                          <td class=\"text-warning\">2,565,912<\/td>\n\n                          \n                        <\/tr>\n<\/li>\n  <li><tr>\n<td><a href=\"https://corona.help/country/russia\">\n                              <div style=\"height:100%;width:100%\">Russia<\/div>\n                            <\/a><\/td>\n                          <td class=\"text-warning\">209,688<\/td>\n                          <td class=\"text-warning text-bold-700\">0<\/td>\n                          <td class=\"text-danger\">1,915<\/td>\n                          <td class=\"text-danger text-bold-700\">0<\/td>\n                          <td class=\"text-success\">34,306<\/td>\n                          <td class=\"text-success text-bold-700\">0<\/td>\n                          <td class=\"text-warning\">173,467<\/td>\n                          <td class=\"text-danger\">2,300<\/td>\n                          <td class=\"text-warning\">5,448,463<\/td>\n\n                          \n                        <\/tr>\n<\/li>\n  <li><tr>\n<td><a href=\"https://corona.help/country/france\">\n                              <div style=\"height:100%;width:100%\">France<\/div>\n                            <\/a><\/td>\n                          <td class=\"text-warning\">176,970<\/td>\n                          <td class=\"text-warning text-bold-700\">0<\/td>\n                          <td class=\"text-danger\">26,380<\/td>\n                          <td class=\"text-danger text-bold-700\">0<\/td>\n                          <td class=\"text-success\">56,217<\/td>\n                          <td class=\"text-success text-bold-700\">0<\/td>\n                          <td class=\"text-warning\">94,373<\/td>\n                          <td class=\"text-danger\">2,776<\/td>\n                          <td class=\"text-warning\">1,384,633<\/td>\n\n                          \n                        <\/tr>\n<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+
+
+Inspect the output from `str_detect()`, which returns `TRUE` if there is a match and `FALSE` if not. For example, we see there is a `TRUE` for the first element (United States) and third element (United Kingdom):
+
+
+```r
+str_detect(string = head(rows), pattern = 'United \\w+')
+```
+
+```
+## [1]  TRUE FALSE  TRUE FALSE FALSE FALSE
+```
+
+Finally, subset rows by country name using `str_subset()`, which keeps elements of character vector for which `str_detect()` is `TRUE` (i.e., keeps elements where the pattern "matches"):
+
+
+```r
+subset_by_country <- str_subset(string = rows, pattern = 'United \\w+')
+writeLines(subset_by_country)
+```
+
+```
+## <tr>
+## <td><a href="https://corona.help/country/united-states">
+##                               <div style="height:100%;width:100%">United States</div>
+##                             </a></td>
+##                           <td class="text-warning">1,367,638</td>
+##                           <td class="text-warning text-bold-700">844</td>
+##                           <td class="text-danger">80,787</td>
+##                           <td class="text-danger text-bold-700">30</td>
+##                           <td class="text-success">256,336</td>
+##                           <td class="text-success text-bold-700">682</td>
+##                           <td class="text-warning">1,030,515</td>
+##                           <td class="text-danger">16,514</td>
+##                           <td class="text-warning">9,444,525</td>
+## 
+##                           
+##                         </tr>
+## 
+## <tr>
+## <td><a href="https://corona.help/country/united-kingdom">
+##                               <div style="height:100%;width:100%">United Kingdom</div>
+##                             </a></td>
+##                           <td class="text-warning">220,322</td>
+##                           <td class="text-warning text-bold-700">0</td>
+##                           <td class="text-danger">31,926</td>
+##                           <td class="text-danger text-bold-700">0</td>
+##                           <td class="text-success">925</td>
+##                           <td class="text-success text-bold-700">0</td>
+##                           <td class="text-warning">187,471</td>
+##                           <td class="text-danger">1,559</td>
+##                           <td class="text-warning">1,821,280</td>
+## 
+##                           
+##                         </tr>
+## 
+## <tr>
+## <td><a href="https://corona.help/country/united-arab-emirates">
+##                               <div style="height:100%;width:100%">United Arab Emirates</div>
+##                             </a></td>
+##                           <td class="text-warning">18,198</td>
+##                           <td class="text-warning text-bold-700">0</td>
+##                           <td class="text-danger">198</td>
+##                           <td class="text-danger text-bold-700">0</td>
+##                           <td class="text-success">4,804</td>
+##                           <td class="text-success text-bold-700">0</td>
+##                           <td class="text-warning">13,196</td>
+##                           <td class="text-danger">1</td>
+##                           <td class="text-warning">1,200,000</td>
+## 
+##                           
+##                         </tr>
+```
+
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_extract()` to extract link for each row</summary>
+
+Since all links follow the same pattern, we can use regex to extract this info:
+
+
+```r
+links <- str_extract(string = rows, pattern = 'https://corona.help/country/[-a-z]+')
+
+# View first few links
+head(links)
+```
+
+```
+## [1] "https://corona.help/country/united-states" 
+## [2] "https://corona.help/country/spain"         
+## [3] "https://corona.help/country/united-kingdom"
+## [4] "https://corona.help/country/italy"         
+## [5] "https://corona.help/country/russia"        
+## [6] "https://corona.help/country/france"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_match()` to extract country for each row</summary>
+
+Since all countries are in a `div` element with the same attributes, we can use the following regex to extract the country name:
+
+
+```r
+countries <- str_match(string = rows, pattern = '<div style="height:100%;width:100%">([\\w ]+)</div>')
+
+# View first few countries
+# We used a capturing group to extract the country name from between the tags
+head(countries)
+```
+
+```
+##      [,1]                                                        
+## [1,] "<div style=\"height:100%;width:100%\">United States</div>" 
+## [2,] "<div style=\"height:100%;width:100%\">Spain</div>"         
+## [3,] "<div style=\"height:100%;width:100%\">United Kingdom</div>"
+## [4,] "<div style=\"height:100%;width:100%\">Italy</div>"         
+## [5,] "<div style=\"height:100%;width:100%\">Russia</div>"        
+## [6,] "<div style=\"height:100%;width:100%\">France</div>"        
+##      [,2]            
+## [1,] "United States" 
+## [2,] "Spain"         
+## [3,] "United Kingdom"
+## [4,] "Italy"         
+## [5,] "Russia"        
+## [6,] "France"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_match_all()` to extract number deaths and critical for each row</summary>
+
+Since both the number of deaths and critical are in a `<td>` element with the same `class` attribute, we can use the following regex to extract both numbers:
+
+
+```r
+num_danger <- str_match_all(string = rows, pattern = '<td class="text-danger">([\\d,]+)</td>')
+
+# View matches for first few rows
+# We used a capturing group to extract the numbers from between the tags
+head(num_danger)
+```
+
+```
+## [[1]]
+##      [,1]                                    [,2]    
+## [1,] "<td class=\"text-danger\">80,787</td>" "80,787"
+## [2,] "<td class=\"text-danger\">16,514</td>" "16,514"
+## 
+## [[2]]
+##      [,1]                                    [,2]    
+## [1,] "<td class=\"text-danger\">26,621</td>" "26,621"
+## [2,] "<td class=\"text-danger\">1,650</td>"  "1,650" 
+## 
+## [[3]]
+##      [,1]                                    [,2]    
+## [1,] "<td class=\"text-danger\">31,926</td>" "31,926"
+## [2,] "<td class=\"text-danger\">1,559</td>"  "1,559" 
+## 
+## [[4]]
+##      [,1]                                    [,2]    
+## [1,] "<td class=\"text-danger\">30,560</td>" "30,560"
+## [2,] "<td class=\"text-danger\">1,027</td>"  "1,027" 
+## 
+## [[5]]
+##      [,1]                                   [,2]   
+## [1,] "<td class=\"text-danger\">1,915</td>" "1,915"
+## [2,] "<td class=\"text-danger\">2,300</td>" "2,300"
+## 
+## [[6]]
+##      [,1]                                    [,2]    
+## [1,] "<td class=\"text-danger\">26,380</td>" "26,380"
+## [2,] "<td class=\"text-danger\">2,776</td>"  "2,776"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using `str_replace_all()` to convert numeric values to thousands for each row</summary>
+
+Rewrite all numeric values greater than one thousand in terms of `k`:
+
+
+```r
+num_to_k <- str_replace_all(string = rows, pattern = '>([\\d,]+),\\d{3}<', replacement = '>\\1k<')
+
+# View replacements for first few rows
+writeLines(head(num_to_k))
+```
+
+```
+## <tr>
+## <td><a href="https://corona.help/country/united-states">
+##                               <div style="height:100%;width:100%">United States</div>
+##                             </a></td>
+##                           <td class="text-warning">1,367k</td>
+##                           <td class="text-warning text-bold-700">844</td>
+##                           <td class="text-danger">80k</td>
+##                           <td class="text-danger text-bold-700">30</td>
+##                           <td class="text-success">256k</td>
+##                           <td class="text-success text-bold-700">682</td>
+##                           <td class="text-warning">1,030k</td>
+##                           <td class="text-danger">16k</td>
+##                           <td class="text-warning">9,444k</td>
+## 
+##                           
+##                         </tr>
+## 
+## <tr>
+## <td><a href="https://corona.help/country/spain">
+##                               <div style="height:100%;width:100%">Spain</div>
+##                             </a></td>
+##                           <td class="text-warning">264k</td>
+##                           <td class="text-warning text-bold-700">0</td>
+##                           <td class="text-danger">26k</td>
+##                           <td class="text-danger text-bold-700">0</td>
+##                           <td class="text-success">176k</td>
+##                           <td class="text-success text-bold-700">0</td>
+##                           <td class="text-warning">61k</td>
+##                           <td class="text-danger">1k</td>
+##                           <td class="text-warning">2,467k</td>
+## 
+##                           
+##                         </tr>
+## 
+## <tr>
+## <td><a href="https://corona.help/country/united-kingdom">
+##                               <div style="height:100%;width:100%">United Kingdom</div>
+##                             </a></td>
+##                           <td class="text-warning">220k</td>
+##                           <td class="text-warning text-bold-700">0</td>
+##                           <td class="text-danger">31k</td>
+##                           <td class="text-danger text-bold-700">0</td>
+##                           <td class="text-success">925</td>
+##                           <td class="text-success text-bold-700">0</td>
+##                           <td class="text-warning">187k</td>
+##                           <td class="text-danger">1k</td>
+##                           <td class="text-warning">1,821k</td>
+## 
+##                           
+##                         </tr>
+## 
+## <tr>
+## <td><a href="https://corona.help/country/italy">
+##                               <div style="height:100%;width:100%">Italy</div>
+##                             </a></td>
+##                           <td class="text-warning">219k</td>
+##                           <td class="text-warning text-bold-700">0</td>
+##                           <td class="text-danger">30k</td>
+##                           <td class="text-danger text-bold-700">0</td>
+##                           <td class="text-success">105k</td>
+##                           <td class="text-success text-bold-700">0</td>
+##                           <td class="text-warning">83k</td>
+##                           <td class="text-danger">1k</td>
+##                           <td class="text-warning">2,565k</td>
+## 
+##                           
+##                         </tr>
+## 
+## <tr>
+## <td><a href="https://corona.help/country/russia">
+##                               <div style="height:100%;width:100%">Russia</div>
+##                             </a></td>
+##                           <td class="text-warning">209k</td>
+##                           <td class="text-warning text-bold-700">0</td>
+##                           <td class="text-danger">1k</td>
+##                           <td class="text-danger text-bold-700">0</td>
+##                           <td class="text-success">34k</td>
+##                           <td class="text-success text-bold-700">0</td>
+##                           <td class="text-warning">173k</td>
+##                           <td class="text-danger">2k</td>
+##                           <td class="text-warning">5,448k</td>
+## 
+##                           
+##                         </tr>
+## 
+## <tr>
+## <td><a href="https://corona.help/country/france">
+##                               <div style="height:100%;width:100%">France</div>
+##                             </a></td>
+##                           <td class="text-warning">176k</td>
+##                           <td class="text-warning text-bold-700">0</td>
+##                           <td class="text-danger">26k</td>
+##                           <td class="text-danger text-bold-700">0</td>
+##                           <td class="text-success">56k</td>
+##                           <td class="text-success text-bold-700">0</td>
+##                           <td class="text-warning">94k</td>
+##                           <td class="text-danger">2k</td>
+##                           <td class="text-warning">1,384k</td>
+## 
+##                           
+##                         </tr>
+```
+
+</details>
+
+
+
 # Appendix
 
 
@@ -4150,4 +5268,5 @@ Installation
 devtools::install_github("gadenbuie/regexplain")
 library(regexplain)
 ```
+
 
