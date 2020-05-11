@@ -39,116 +39,257 @@ HTML
   
 -->
 
-# appendix
+# HTML
 
-appendix
+__Markup Language__
 
+> "A markup language is a computer language that uses tags to define elements within a document. It is human-readable, meaning markup files contain standard words, rather than typical programming syntax." 
 
-## HTML
+*Credit: [Markup Language](https://techterms.com/definition/markup_language) from TechTerms*
 
-__Markup language__
-
-> "A markup language is a computer language that uses tags to define elements within a document. It is human-readable, meaning markup files contain standard words, rather than typical programming syntax." [Markup language](https://techterms.com/definition/markup_language)
-
+<br>
 __Hypertext Markup Language (HTML)__
 
 - HTML is a markup language for the creation of websites
-
     - HTML puts the content on the webpage, but does not "style" the page (e.g., fonts, colors, background)
-    - CSS (**C**ascading **S**tyle **S**heets) adds style to the webpage (e.g., fonts, colors, etc.).
+    - CSS (**C**ascading **S**tyle **S**heets) adds style to the webpage (e.g., fonts, colors, etc.)
     - Javascript adds functionality to the webpage
 
-## Hypertext Basics  
+## HTML Basics  
+
+__Intro to HTML (and CSS)__
 
 - Watch this __excellent__ 12-minute introductory HTML tutorial by LearnCode.academy
-    - Link: [“HTML Tutorial for beginners”](https://www.youtube.com/watch?v=RjHflb-QgVc)
+    - Link: [HTML Tutorial for beginners](https://www.youtube.com/watch?v=RjHflb-QgVc)
+- Watch this 7-minute introductory CSS tutorial by LearnCode.academy
+    - Link: [HTML CSS Tutorial for Beginners](https://youtu.be/J35jug1uHzE)
 
-### Tags 
+<br>
+__A Simple HTML Document__ (From [w3schools](https://www.w3schools.com/html/html_intro.asp))
 
-- HTML tags are element names HTML surrounded by angle brackets
+- HTML consists of a series of **elements**
+  - Elements are defined by a start tag, some content, and an end tag:
+    - `<tagname> Content </tagname>`
+  - Elements can be nested within one another
+- Components of a basic HTML document:
+  - Begin with `<!DOCTYPE html>` to indicate it is an HTML document
+  - The `<html>` element is the root element of an HTML page, where all other elements are nested
+  - The `<head>` element contains meta information about the document (ie. not displayed on webpage)
+  - The `<body>` element contains the visible page content
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<h1>My First Heading</h1>
+<p>My first paragraph.</p>
+
+</body>
+</html>
+```
+
+<br>
+
+## Tags
+
+What are **HTML tags**?
+
+- HTML tags are element names surrounded by angle brackets
     - Tags usually come in pairs (e.g. `<p>` and `</p>`)
-    - The first tag is the start tag and the second tag is the end tag.
+    - The first tag is the start tag and the second tag is the end tag
     
 *Credit: [HTML introduction](https://www.w3schools.com/html/html_intro.asp) from W3schools*   
 
 <br>
-Some common HTML tags (not inclusive): 
+Some **common HTML tags** (_not inclusive_): 
 
 Tag                Description    
 ------------------ ------------------  
 \<h1\> - \<h6\>    Heading     
-\<p\>              Paragraph          
-\<div\>            Division
+\<p\>              Paragraph
+\<a\>              Link
+\<img\>            Image
+\<div\>            Division (can think of it as a container to group other elements)
 \<strong\>         Bold
 \<em\>             Italics
-\<li\>             List item
-\<ul\>             Unordered list
-\<ol\>             Ordered list
+\<ul\>             Unordered list (consists of \<li\> elements)
+\<ol\>             Ordered list (consists of \<li\> elements)
+&nbsp;&nbsp;\<li\> &nbsp;&nbsp;&nbsp;&nbsp;List item
 \<table\>          Table (consists of \<tr\>, \<td\>, & \<th\> elements)
-\<tr\>             Table row
-\<td\>             Table data/cell 
-\<th\>             Table header 
-
-<br>
-
-### Elements  
-
-- HTML consists of a series of elements  
-- Elements are defined by a start tag, some content, and an end tag.
-
-`<tagname> Content </tagname>`
-
-*Credit: [HTML elements](https://www.w3schools.com/html/html_elements.asp) from W3schools*
-
-<br>
-
-Start tag  Element Content     End tag
----------- ------------------  --------
-\<h1\>      First heading      \</h1\>
-\<h2\>      Second heading     \</h2\>
-\<p\>       Paragraph          \</p\>
+&nbsp;&nbsp;\<tr\> &nbsp;&nbsp;Table row
+&nbsp;&nbsp;\<td\> &nbsp;&nbsp;Table data/cell 
+&nbsp;&nbsp;\<th\> &nbsp;&nbsp;Table header 
 
 <br>
 
 
-### Attributes  
+## Attributes  
 
-- Attributed in HTML elements are optional, but all HTML elements can have attributes.
+What are **attributes**?
+
+- Attributed in HTML elements are optional, but all HTML elements can have attributes
 - Attributes are used to provide additional information about an element  
 - Attributes are __always__ specified in the start tag
-- Attributes usually come in name/value pairs like: name="value"
-
-Some common attributes you may encounter:
-
-- The `href` attribute defined by an `<a>` tag.
-
-    `<a href="https://www.w3schools.com">This is a link</a>`
-
-- The `src` attribute defined by the `<img>` tag. 
-
-    `<img src="html_cheatsheet.jpg">`
-    
-- You can add more than one attribute to an element.
-
-    `<img src="html_cheatsheet.jpg" width="200" height="300">`
-
-
+- Attributes usually come in name/value pairs like: `name="value"`
 
 *Credit: [HTML attributes](https://www.w3schools.com/html/html_attributes.asp) from W3schools*
 
 <br>
+Some **common attributes** you may encounter:
 
-### Class
-### Id
+- The `href` attribute for an `<a>` tag (_specifies url to link to_):
+  ```
+  <a href="https://www.w3schools.com">This is a link</a>
+  ```
+- The `src` attribute defined by the `<img>` tag (_specifies image to display_):
+  ```
+  <img src="html_cheatsheet.jpg">
+  ```
+- You can add more than one attribute to an element:
+  ```
+  <img src="html_cheatsheet.jpg" width="200" height="300">
+  ```
+- The `class` and `id` attributes are also commonly added to elements to be able to identify and select for them
 
-### Student exercise
+<br>
 
-- Spend 5-10 minutes playing with the simple HTML text below. 
+### Class  
+
+- The `class` attribute can specify one or more class names for an HTML element
+- An element can be identified by its class
+- You can select for an element by its class using `.` followed by the class name (more from GeekstoGeeks [here](https://www.geeksforgeeks.org/html-class-attribute/?ref=lbp))
+  - For example, this can be used in CSS to select for and style all elements with a specific class
+
+__HTML__:
 
 
-Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
+```html
+<div class="countries">
+  <h3>United States</h3>
+  <p class="place">Washington D.C.</p>
+  <img src="https://cdn.aarp.net/content/dam/aarp/travel/destination-guides/2018/03/1140-trv-dst-dc-main.imgcache.revd66f01d4a19adcecdb09fdacd4471fa8.jpg">
+</div>
+    
+<div class="countries">
+  <h3>Mexico</h3>
+  <p class="place">Guadalajara</p>
+  <img src="https://cityofguadalajara.com/wp-content/uploads/2016/11/Centro-Historico-de-Guadalajara-800x288.jpg">
+</div>
+```
+ 
+__CSS__:
+ 
 
-```r
+```css
+<style>   
+.countries {
+  background-color: #e6e6e6;
+  color: #336699;
+  margin: 10px;
+  padding: 15px;
+}
+
+.place {
+  color: black;
+}
+</style>
+```
+
+__Result__:
+
+<style>
+.countries {
+  background-color: #e6e6e6;
+  color: #336699;
+  margin: 10px;
+  padding: 15px;
+  display: inline-block;
+}
+
+.place {
+  color: black;
+}
+
+.countries img {
+  width: 200px;
+  height: 100px;
+  overflow: hidden;
+}
+</style>
+
+<div class="countries">
+<h3>United States</h3>
+<p class="place">Washington D.C </p>
+<img src="https://cdn.aarp.net/content/dam/aarp/travel/destination-guides/2018/03/1140-trv-dst-dc-main.imgcache.revd66f01d4a19adcecdb09fdacd4471fa8.jpg">
+</div>
+
+
+<div class="countries">
+<h3>Mexico</h3>
+<p class="place">Guadalajara</p>
+<img src="https://cityofguadalajara.com/wp-content/uploads/2016/11/Centro-Historico-de-Guadalajara-800x288.jpg">
+</div>
+
+*Credit: [HTML Classes](https://www.w3schools.com/html/html_classes.asp) from W3schools*
+
+
+### Id  
+
+- The `id` attribute is used to specify one unique HTML element within the HTML document
+- An element can be identified by its id
+- You can select for an element by its id using `#` followed by the id name (more from GeekstoGeeks [here](https://www.w3schools.com/html/html_id.asp))
+  - For example, this can be used in CSS to select for and style a specific element with a certain id
+
+__HTML__:
+
+
+```html
+<div id="banner">My Banner</div>
+```
+
+__CSS__:
+
+
+```css
+<style>
+#banner {
+  background-color: #e6e6e6;
+  font-size: 40px;
+  padding: 20px;
+  text-align: center;
+}
+</style>
+```
+
+__Result__:
+
+<style>
+#banner {
+  background-color: #e6e6e6;
+  font-size: 40px;
+  padding: 20px;
+  text-align: center;
+}
+</style>
+
+<div id="banner">My Banner</div>
+
+*Credit: [HTML Id](https://www.w3schools.com/html/html_id.asp) from W3schools*
+
+
+<br>
+
+## Student Exercise
+
+- Spend 5-10 minutes playing with the simple HTML text below
+- Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default) and click __Run__
+
+
+```html
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,280 +333,14 @@ Paste the below code into [TryIt Editor](https://www.w3schools.com/html/tryit.as
 
 Lots of wonderful resources on the web to learn HTML!
 
-- Use this website to create/modify html code and view the result after it is compiled
+- Use this website to create/modify HTML code and view the result after it is compiled
     - [TryIt Editor](https://www.w3schools.com/html/tryit.asp?filename=tryhtml_default)
-- Html cheat sheets 
+- HTML cheat sheets 
     - [Link to HTML cheat sheet (PDF)](https://web.stanford.edu/group/csp/cs21/htmlcheatsheet.pdf)
     - [Link to another HTML cheat sheet ](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png), (shown below) 
 
+
 [![](http://www.cheat-sheets.org/saved-copy/html-cheat-sheet.png)](https://sharethis.com/best-practices/2020/02/best-html-and-css-cheat-sheets/)
-
-
-
-
-<!--
-### regex and html THIS SECTION IS CHICKEN SCRATCH
-
-Play with some simple html
-
-
-```r
-html_char <- "<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-</head>
-<body>
-
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
-
-</body>
-</html>"
-
-
-html_char
-```
-
-```
-## [1] "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<h1>This is a Heading</h1>\n<p>This is a paragraph.</p>\n\n</body>\n</html>"
-```
-
-```r
-#str_view_all(string = html_char, pattern = "<")
-str_match(string = html_char, pattern = ">")
-```
-
-```
-##      [,1]
-## [1,] ">"
-```
-
-```r
-str_match_all(string = html_char, pattern = "<")
-```
-
-```
-## [[1]]
-##       [,1]
-##  [1,] "<" 
-##  [2,] "<" 
-##  [3,] "<" 
-##  [4,] "<" 
-##  [5,] "<" 
-##  [6,] "<" 
-##  [7,] "<" 
-##  [8,] "<" 
-##  [9,] "<" 
-## [10,] "<" 
-## [11,] "<" 
-## [12,] "<" 
-## [13,] "<"
-```
-
-```r
-str_extract(string = html_char, pattern = ">")
-```
-
-```
-## [1] ">"
-```
-
-```r
-str_extract_all(string = html_char, pattern = "</")
-```
-
-```
-## [[1]]
-## [1] "</" "</" "</" "</" "</" "</"
-```
-
-```r
-str_count(string = html_char, pattern = "</")
-```
-
-```
-## [1] 6
-```
-
-```r
-# extract all tag names
-html_char
-```
-
-```
-## [1] "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<h1>This is a Heading</h1>\n<p>This is a paragraph.</p>\n\n</body>\n</html>"
-```
-
-```r
-str_extract_all(string = html_char, pattern = "</\\w+>")
-```
-
-```
-## [[1]]
-## [1] "</title>" "</head>"  "</h1>"    "</p>"     "</body>"  "</html>"
-```
-
-```r
-#exctract contents
-str_extract_all(string = html_char, pattern = ">.+<")
-```
-
-```
-## [[1]]
-## [1] ">Page Title<"           ">This is a Heading<"    ">This is a paragraph.<"
-```
-
-```r
-str_extract_all(string = html_char, pattern = "(?<=>).+<") # without leading carrot
-```
-
-```
-## [[1]]
-## [1] "Page Title<"           "This is a Heading<"    "This is a paragraph.<"
-```
-
-```r
-str_extract_all(string = html_char, pattern = ">.+(?=<)") # without trailing carrot
-```
-
-```
-## [[1]]
-## [1] ">Page Title"           ">This is a Heading"    ">This is a paragraph."
-```
-
-```r
-str_extract_all(string = html_char, pattern = "(?<=>).+(?=<)") # without leading or trailing carrot
-```
-
-```
-## [[1]]
-## [1] "Page Title"           "This is a Heading"    "This is a paragraph."
-```
-
-```r
-str_extract_all(string = html_char, pattern = "</\\w+>.+")
-```
-
-```
-## [[1]]
-## character(0)
-```
-
-```r
-str_extract_all(string = html_char, pattern = "</(\\w+)|(\\w+)>")
-```
-
-```
-## [[1]]
-##  [1] "html>"   "html>"   "head>"   "title>"  "</title" "</head"  "body>"  
-##  [8] "h1>"     "</h1"    "p>"      "</p"     "</body"  "</html"
-```
-
-
-```r
-str_view_all(string = html_char, pattern = "<")
-```
-
-<!--html_preserve--><div id="htmlwidget-71b014ab967b93229aa8" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-71b014ab967b93229aa8">{"x":{"html":"<ul>\n  <li><span class='match'><<\/span>!DOCTYPE html>\n<span class='match'><<\/span>html>\n<span class='match'><<\/span>head>\n<span class='match'><<\/span>title>Page Title<span class='match'><<\/span>/title>\n<span class='match'><<\/span>/head>\n<span class='match'><<\/span>body>\n\n<span class='match'><<\/span>h1>This is a Heading<span class='match'><<\/span>/h1>\n<span class='match'><<\/span>p>This is a paragraph.<span class='match'><<\/span>/p>\n\n<span class='match'><<\/span>/body>\n<span class='match'><<\/span>/html><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-```r
-str_view_all(string = as.character(html_char), pattern = "html")
-```
-
-<!--html_preserve--><div id="htmlwidget-0e8bc5f482aa16804c6a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0e8bc5f482aa16804c6a">{"x":{"html":"<ul>\n  <li><!DOCTYPE <span class='match'>html<\/span>>\n<<span class='match'>html<\/span>>\n<head>\n<title>Page Title<\/title>\n<\/head>\n<body>\n\n<h1>This is a Heading<\/h1>\n<p>This is a paragraph.<\/p>\n\n<\/body>\n<\/<span class='match'>html<\/span>><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
-
-
-```r
-html1 <- read_html(x = "<!DOCTYPE html>
-<html>
-<head>
-<title>Page Title</title>
-</head>
-<body>
-
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
-
-</body>
-</html>")
-
-
-attributes(html1)
-str(html1)
-html1
-html1[[2]]
-
-h <- as_list(read_html("<body><p id = 'a'></p><p class = 'c d'></p></body>"))
-str(h)
-str(h[[1]])
-
-html_structure(h)
-
-x <- as_list(read_xml("<foo><bar id='a'/><bar id='b'/></foo>"))
-str(x)
-x
-```
-
-Investigate `html1` 
-
-```r
-x <- html_text(x = html1, trim = FALSE)
-str(x)
-
-#Print html1
-as.character(html1[[2]])
-temp <- html[[2]]
-temp
-#writeLines html1
-writeLines(html1)
-
-#investigate html1
-str(html1)
-length(html1)
-#str_length(html1)
-```
-Some basic regex
-
-```r
-html1
-
-str_view_all(string = print(html1), pattern = "\\n")
-```
-
-
-
-```r
-some_html <- "<!DOCTYPE html>
-<html>
-<head>
-  <title>Page title (in head tag)</title>
-</head>
-<body>
-  <h1>Title of level 1 heading</h1>
-  <p>My first paragraph.</p>
-  <p>My second paragraph.</p>
-  <p>Add some bold text <strong>right here</strong></p>
-  <p>Add some italics text <em>right here</em></p>
-  <p>Include a hyperlink tag within a paragraph tag. this book looks interesting : <a href="https://bookdown.org/rdpeng/rprogdatascience/">R Programming for Data Science</a></p>  
-  <p>Include another hyperlink tag within a paragraph tag. chapter on <a href="https://bookdown.org/rdpeng/rprogdatascience/regular-expressions.html">Regular Expressions</a></p>    
-  <p> put a button inside this paragraph <button>I am a button!</button></p>
-  <p>Here are some items in a list, but items not placed within an unordered list </p>
-
-    <li> text you want in item</li>
-  <li> text you want in another item</li>
-  
-  <p>Here are some items in an unordered list</p>
-  <ul>
-    <li> first item in unordered list </li>
-    <li> second item in unordered list </li>
-  </ul>
-</body>
-</html>"
-```
--->
 
 
 
