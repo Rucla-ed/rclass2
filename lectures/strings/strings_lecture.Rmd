@@ -1480,7 +1480,7 @@ What are regular expressions? from [Geeks for Geeks](https://www.geeksforgeeks.o
 
 <br>
 
-## `str_view` and `str_view_all`
+## `str_view()` and `str_view_all()`
 
 <br>
 __The `str_view()` function__:
@@ -1648,10 +1648,8 @@ str_view_all(string = p12_df$text[39], pattern = ("\\W"))
 ```
 </details>
 
-<br>
 
-
-***  
+***
 \newline 
 
 ## Quantifiers
