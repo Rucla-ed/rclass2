@@ -2475,9 +2475,9 @@ Tag                Description
 \<ol\>             Ordered list (consists of \<li\> elements)
 &nbsp;&nbsp;\<li\> &nbsp;&nbsp;&nbsp;&nbsp;List item
 \<table\>          Table (consists of \<tr\>, \<td\>, & \<th\> elements)
-&nbsp;&nbsp;\<tr\> &nbsp;&nbsp;Table row
-&nbsp;&nbsp;\<td\> &nbsp;&nbsp;Table data/cell 
-&nbsp;&nbsp;\<th\> &nbsp;&nbsp;Table header 
+&nbsp;&nbsp;\<tr\> &nbsp;&nbsp;&nbsp;&nbsp;Table row
+&nbsp;&nbsp;\<td\> &nbsp;&nbsp;&nbsp;&nbsp;Table data/cell 
+&nbsp;&nbsp;\<th\> &nbsp;&nbsp;&nbsp;&nbsp;Table header 
 
 <br>
 
@@ -2512,7 +2512,7 @@ Some **common attributes** you may encounter:
 
 <br>
 
-### Class  
+### `class`  
 
 - The `class` attribute can specify one or more class names for an HTML element
 - An element can be identified by its class
@@ -2811,10 +2811,8 @@ html_nodes(x, css, xpath)
 - Output:
   - `html_node()` returns the first element that it finds as an `rvest` `xml_node` object
     - Recall that a node is just an HTML element
-    - CRYSTAL - WHAT IS AN XML_NODE OBJECT?
   - `html_nodes()` returns all elements that it finds as an `rvest` `xml_nodeset` object
     - All elements that are selected will be returned in a nodeset
-    - CRYSTAL - WHAT IS AN XML_NODESET OBJECT?
   - Again, you can view the raw HTML using `as.character()`
     - Syntax: `as.character(html_node(...))`
 
