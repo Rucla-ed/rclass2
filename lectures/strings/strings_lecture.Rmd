@@ -1648,10 +1648,8 @@ str_view_all(string = p12_df$text[39], pattern = ("\\W"))
 ```
 </details>
 
-<br>
 
-
-***  
+***
 \newline 
 
 ## Quantifiers
