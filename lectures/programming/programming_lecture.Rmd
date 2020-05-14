@@ -142,7 +142,7 @@ str(list_c)
 
 A __data frame__ is a list with the following characteristics:
 
-- All the elements must be __vectors__ with the same __length__
+- All the elements (i.e., variables) must be __vectors__ (or __lists__) with the same __length__
 - Data frames are __augmented lists__ because they have additional __attributes__
 
 ```{r}
@@ -157,15 +157,13 @@ typeof(df_a)
 attributes(df_a)
 ```
 
-### Identify vector type
+### Identify and coerce vector type
 
 Identifying vector __type__, Grolemund and Wickham:
 
 - "Sometimes you want to do different things based on the type of vector. One option is to use `typeof()`. Another is to use a test function which returns a `TRUE` or `FALSE`"
 
 [NOTE TO CRYSTAL/PATRICIA/OZAN] - REPLACE ALL `is_*` functions with `is.*` functions because `is_*` have been deprecated. NOTE THAT `is_*` AND `is.*` DIFFER BECAUSE `is_*` WAS MEANT TO CAPTURE OBJECT TYPE WHILE `is.*` IS A SOME COMBINATION OF TYPE AND CLASS (I THINK), SO CONTENT OF BELOW SUB-SECTION WILL HAVE TO BE MODIFIED]
-
-`is_*()` functions are provided by `purrr` package within `Tidyverse`:
 
 Function | logical | int | dbl | chr | list
 ---------|---------|-----|-----|-----|-----
@@ -179,79 +177,10 @@ Function | logical | int | dbl | chr | list
 `is_vector()` |X  |X |X |X |X
 
 ```{r}
-is_numeric(c(5,6,7))
+is.numeric(c(5,6,7))
 ```
 
-Recall that elements of a vector must have the same type
-
-- If vector contains elements of different type, type will be most "complex"
-- From simplest to most complex: logical, integer, double, character
-
-```{r, results="hide"}
-is_logical(c(TRUE,TRUE,NA))
-is_logical(c(TRUE,TRUE,NA,1))
-
-typeof(c(TRUE,1L))
-is_integer(c(TRUE,1L))
-
-typeof(c(TRUE,1L,1.5,"b"))
-is_character(c(TRUE,1L,1.5,"b"))
-```
-
-\medskip
-Comparing `is_*()` vs. `is.*()` functions
-
-- `is_*()` functions (e.g., `is_numeric()`) identifies vector __type__
-    - They are the `TRUE/FALSE` versions of `typeof()` function
-- `is.*()` functions (e.g., `is.numeric()`) refer to both __type__ and __class__
-    - Review: __class__ is an object __attribute__ that defines how object can be treated by object oriented programming language (e.g., which functions you can apply)
-    - Recall that R functions care about __class__, not __type__
-
-\medskip
-```{r, results="hide", warning= FALSE}
-df_event %>% select(instnm,univ_id,event_date,med_inc,titlei_status_pub) %>% str()
-```
-
-Variable = `univ_id`
-```{r, results="hide", warning= FALSE}
-typeof(df_event$univ_id)
-class(df_event$univ_id)
-is_numeric(df_event$univ_id)
-is.numeric(df_event$univ_id)
-```
-Variable = `event_date`
-```{r, results="hide", warning= FALSE}
-typeof(df_event$event_date)
-class(df_event$event_date)
-is_numeric(df_event$event_date)
-is.numeric(df_event$event_date)
-```
-
-Comparing `is_*()` vs. `is.*()` functions
-
-- `is_*()` functions (e.g., `is_numeric()`) identifies vector __type__
-- `is.*()` functions (e.g., `is.numeric()`) refer to both __type__ and __class__
-
-\medskip
-Variable = `med_inc`
-```{r, results="hide", warning= FALSE}
-typeof(df_event$med_inc)
-class(df_event$med_inc)
-is_numeric(df_event$med_inc)
-is.numeric(df_event$med_inc)
-```
-
-Variable = `titlei_status_pub`
-```{r, results="hide", warning= FALSE}
-typeof(df_event$titlei_status_pub)
-class(df_event$titlei_status_pub)
-is_numeric(df_event$titlei_status_pub)
-is.numeric(df_event$titlei_status_pub)
-```
-
-### Coerce vector type
-
-Functions for converting between classes:
+Functions for converting/coercing between vector types:
 
 - `as.logical()`: Convert to `logical`
 - `as.numeric()`: Convert to `numeric`
@@ -303,9 +232,9 @@ Subsetting operators can be used to select/exclude elements (e.g., variables, ob
 - there are three subsetting operators: `[]`, `$` , `[[]]` 
 - these operators function differently based on vector types (e.g, atomic vectors, lists, data frames)
 
-#### Wichham refers to number of "dimensions" in R objects
+Wichham refers to number of "dimensions" in R objects
 
-An atomic vector is a 1-dimensional object that contains n elements
+- An atomic vector is a 1-dimensional object that contains n elements
 ```{r}
 x <- c(1.1, 2.2, 3.3, 4.4, 5.5)
 str(x)
@@ -632,11 +561,19 @@ str(list_a[[1]])
 
 Wickham "Advanced R" chapter 4.3 [[LINK HERE](https://adv-r.hadley.nz/subsetting.html#subset-single)] uses "Train Metaphor" to differentiate list vs. contents of list
 
+> If list x is a train carrying objects, then x[[5]] is the object in car 5; x[4:6] is a train of cars 4-6.
+
+[![](https://d33wubrfki0l68.cloudfront.net/1f648d451974f0ed313347b78ba653891cf59b21/8185b/diagrams/subsetting/train.png)](https://adv-r.hadley.nz/subsetting.html#subset-single)
+
 The list is the entire train. Create a list with three elements (three "carriages")
 ```{r}
 list_a <- list(1:3, "a", 4:6)
 str(list_a)
 ```
+
+
+[![](https://d33wubrfki0l68.cloudfront.net/aea9600956ff6fbbc29d8bd49124cca46c5cb95c/28eaa/diagrams/subsetting/train-single.png)](https://adv-r.hadley.nz/subsetting.html#subset-single)
+
 When extracting element(s) of a list you have two options:
 
 1. Extracting elements using `[]` always returns a smaller list (smaller train)
@@ -1203,7 +1140,18 @@ z[[1]]
 \medskip 
 Definition: __length__ of an object is its number of elements
 
+- Create data frame `df_bama`
 ```{r}
+#load(url("https://github.com/ozanj/rclass/raw/master/data/recruiting/recruit_event_somevars.RData"))
+
+df_bama <- df_event %>% arrange(univ_id,event_date) %>% 
+  select(instnm,univ_id,event_date,event_type,event_state,zip,med_inc) %>% 
+  filter(row_number()<6)
+
+str(df_bama)
+
+```
+
 typeof(df_bama); length(df_bama)
 ```
 
@@ -2050,6 +1998,12 @@ df; df_z
 df_bama_z <- z_score(df_bama)
 df_bama; df_bama_z
 ```
+
+## Practice:
+
+SOMETHING TO ADD; USE REGULAR EXPRESSIONS TO GRAB URL OF DATA
+
+Maybe for loops, get website for each college/university from ipeds, filter by org characteristics, and then loop through each website and calculate some shit. 
 
 ## Practice: How well do public universities cover in-state public high schools?
 
