@@ -1078,16 +1078,9 @@ Many different object classes exist in R
 
 ## Names and values
 
-TEXT
+## Prereq functions/concepts
 
-# Iteration
-
-DEFINE ITERATION
-
-THEN DEFINE LOOPS AS MOST COMMON WAY TO ITERATE
-
-
-## Prerequisite concepts that are important for loops
+Several functions and concepts are used frequently when creating loops and/or functions
 
 ### Sequences
 
@@ -1150,10 +1143,10 @@ df_bama <- df_event %>% arrange(univ_id,event_date) %>%
 
 str(df_bama)
 
-```
-
 typeof(df_bama); length(df_bama)
 ```
+
+
 
 Once list length known, isolate element contents based on position number using `[]` or `[[]]`
 
@@ -1193,6 +1186,109 @@ length(df_bama)
 1:length(df_bama)
 seq(2,length(df_bama))
 ```
+
+
+### File paths
+
+Working directory
+
+- When you run an R code chunk in a .Rmd file, the default working directory is the folder where the .Rmd is saved
+```{r}
+getwd()
+```
+- When you create a "Project" the default working directory in the R console and in an R script is the directory where the project is saved.
+
+When you will be working with both .Rmd files and with R scripts and/or the R console, it is helpful to create a project in the same directory where the .Rmd files live. This way, the default working directory is the same regardless of whether you are using .Rmd, .R script, or the R console
+
+#### Create and delete directories
+
+`dir.create()` creates new directories
+
+- Syntax (with defaults): 
+  - `dir.create(path, showWarnings = TRUE, recursive = FALSE)`
+- Arguments  
+  - `path`: "a character vector containing a single path name"
+  - `showWarnings`: "logical; should the warnings on failure be shown?" default equals `TRUE`
+  - `recursive`: "Should elements of the path other than the last be created?"
+    - That is, will `dir.create()` create the file path `new_directory/new_sub_directory` if neither `new_directory` nor `new_sub_directory` exist?
+    - default equals `FALSE`
+- Note:
+  - if directory you create already exists, you will get a warning, but this won't cause the code to stop running
+  - specify `showWarnings = FALSE` to omit warnings
+<br>
+
+Let's create a new sub-directory named "data" within our current working directory
+
+
+```{r}
+getwd()
+
+list.files()
+
+#delete directory if it exists [comment out]
+  unlink(x = "data", recursive = TRUE) # recursive = TRUE allows you to delete existing directory
+
+
+#create directory
+dir.create(path = "data", showWarnings = FALSE) # showWarnings = FALSE omits warnings if directory already exists
+list.files()
+```
+
+`unlink()` deletes the file(s) or directories specified by argument `x`
+
+- Syntax (with defaults):
+  - `unlink(x, recursive = FALSE, force = FALSE)`
+- Arguments:
+  - `x`:	"a character vector with the names of the file(s) or directories to be deleted."
+  - `recursive`: "logical. Should directories be deleted recursively?"
+    - __NOTE__: "If recursive = `FALSE` directories are not deleted, not even empty ones."
+  - `force`: "logical. Should permissions be changed (if possible) to allow the file or directory to be removed?"
+
+
+#### `file.path()` creates file paths
+
+
+Use the `file.path()` argument to change file paths and/or to create objects representing file paths you will use
+
+What Ben Skinner says in [his R programming course](https://edquant.github.io/past/2020/spring/edh7916/lessons/organizing.html)
+
+> Rather than hard-coding / rewriting all the paths in the script, we can save the paths in an object. We use the file.path() command because it is smart. Some computer operating systems use forward slashes, `/`, for their file paths; others use backslashes, `\`. Rather than try to guess or assume what operating system future users will use, we can use R’s function, file.path(), to check the current operating system and build the paths correctly for us.
+
+`file.path()` function: 
+
+- Description:
+  - "Construct the path to a file from components in a platform-independent way" (from `file.path()` help file)
+- Syntax:
+  - `file.path(..., fsep = .Platform$file.sep)`
+- Arguments
+  - `...` (the `dot-dot-dot` argument): character vectors separates by commas that represent each layer of the file path
+  - `fsep`: the "path separator to use" 
+    - the default value (`fsep = .Platform$file.sep`) will get this right
+
+Let's create an object representing the sub-directory `data` we just created
+```{r}
+#create object representing file path
+data_dir <- file.path(".", "data")
+data_dir
+
+getwd()
+
+#change working directory to "data" sub-directory
+setwd(file.path(data_dir))
+getwd()
+```
+Note that working directory for R code chunks resets to folder where .Rmd file is saved
+```{r}
+getwd()
+```
+
+# Iteration
+
+DEFINE ITERATION
+
+THEN DEFINE LOOPS AS MOST COMMON WAY TO ITERATE
+
+
 
 ## Loop basics
 

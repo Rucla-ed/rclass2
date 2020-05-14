@@ -2756,17 +2756,12 @@ div.tocify {
 </div>
 <div id="names-and-values" class="section level2">
 <h2><span class="header-section-number">2.4</span> Names and values</h2>
-<p>TEXT</p>
 </div>
-</div>
-<div id="iteration" class="section level1">
-<h1><span class="header-section-number">3</span> Iteration</h1>
-<p>DEFINE ITERATION</p>
-<p>THEN DEFINE LOOPS AS MOST COMMON WAY TO ITERATE</p>
-<div id="prerequisite-concepts-that-are-important-for-loops" class="section level2">
-<h2><span class="header-section-number">3.1</span> Prerequisite concepts that are important for loops</h2>
+<div id="prereq-functionsconcepts" class="section level2">
+<h2><span class="header-section-number">2.5</span> Prereq functions/concepts</h2>
+<p>Several functions and concepts are used frequently when creating loops and/or functions</p>
 <div id="sequences" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> Sequences</h3>
+<h3><span class="header-section-number">2.5.1</span> Sequences</h3>
 <p>(Loose) definition</p>
 <ul>
 <li>a sequence is a list of numbers in ascending or descending order</li>
@@ -2793,7 +2788,7 @@ div.tocify {
 <pre><code>## [1] 100 110 120 130 140 150</code></pre>
 </div>
 <div id="length-of-atomic-vectors" class="section level3">
-<h3><span class="header-section-number">3.1.2</span> Length of atomic vectors</h3>
+<h3><span class="header-section-number">2.5.2</span> Length of atomic vectors</h3>
 
 <p>Definition: <strong>length</strong> of an object is its number of elements</p>
 
@@ -2816,7 +2811,7 @@ div.tocify {
 <pre><code>## [1] &quot;1&quot;</code></pre>
 </div>
 <div id="length-of-lists" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> Length of lists</h3>
+<h3><span class="header-section-number">2.5.3</span> Length of lists</h3>
 
 <p>Definition: <strong>length</strong> of an object is its number of elements</p>
 <ul>
@@ -2837,57 +2832,174 @@ div.tocify {
 ##  $ event_state: chr  &quot;TX&quot; &quot;AL&quot; &quot;AL&quot; &quot;TX&quot; ...
 ##  $ zip        : chr  &quot;75001&quot; &quot;35010&quot; &quot;35044&quot; &quot;75244&quot; ...
 ##  $ med_inc    : num  77380 39134 38272 89203 127972</code></pre>
-<p>typeof(df_bama); length(df_bama)</p>
-<pre><code>
-Once list length known, isolate element contents based on position number using `[]` or `[[]]`
-
-- subset one element of list with `[]` yields list w/ length==1
-
-```r
-typeof(df_bama[7]); length(df_bama[7])</code></pre>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb331-1" title="1"><span class="kw">typeof</span>(df_bama); <span class="kw">length</span>(df_bama)</a></code></pre></div>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<pre><code>## [1] 7</code></pre>
+<p>Once list length known, isolate element contents based on position number using <code>[]</code> or <code>[[]]</code></p>
+<ul>
+<li>subset one element of list with <code>[]</code> yields list w/ length==1</li>
+</ul>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1"><span class="kw">typeof</span>(df_bama[<span class="dv">7</span>]); <span class="kw">length</span>(df_bama[<span class="dv">7</span>])</a></code></pre></div>
 <pre><code>## [1] &quot;list&quot;</code></pre>
 <pre><code>## [1] 1</code></pre>
 <ul>
 <li>subset one element of list with <code>[[]]</code> yields vector w length== # rows</li>
 </ul>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb334-1" title="1">df_bama[[<span class="dv">7</span>]]; <span class="kw">typeof</span>(df_bama[[<span class="dv">7</span>]]); <span class="kw">length</span>(df_bama[[<span class="dv">7</span>]])</a></code></pre></div>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb337-1" title="1">df_bama[[<span class="dv">7</span>]]; <span class="kw">typeof</span>(df_bama[[<span class="dv">7</span>]]); <span class="kw">length</span>(df_bama[[<span class="dv">7</span>]])</a></code></pre></div>
 <pre><code>## [1]  77380  39134  38272  89203 127972</code></pre>
 <pre><code>## [1] &quot;double&quot;</code></pre>
 <pre><code>## [1] 5</code></pre>
 <p>subset one element of list with <code>$</code> is same as <code>[[]]</code></p>
-<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb338-1" title="1">df_bama<span class="op">$</span>med_inc; <span class="kw">typeof</span>(df_bama<span class="op">$</span>med_inc); <span class="kw">length</span>(df_bama<span class="op">$</span>med_inc)</a></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb341-1" title="1">df_bama<span class="op">$</span>med_inc; <span class="kw">typeof</span>(df_bama<span class="op">$</span>med_inc); <span class="kw">length</span>(df_bama<span class="op">$</span>med_inc)</a></code></pre></div>
 <pre><code>## [1]  77380  39134  38272  89203 127972</code></pre>
 <pre><code>## [1] &quot;double&quot;</code></pre>
 <pre><code>## [1] 5</code></pre>
 </div>
 <div id="combine-sequences-and-length" class="section level3">
-<h3><span class="header-section-number">3.1.4</span> Combine sequences and length</h3>
+<h3><span class="header-section-number">2.5.4</span> Combine sequences and length</h3>
 
 <p>When writing loops, very common to create a sequence from 1 to the length (i.e., number of elements) of an object</p>
 <p>Here, we do this with a vector object</p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;d&quot;</span>,<span class="st">&quot;e&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb345-1" title="1">(x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>,<span class="st">&quot;c&quot;</span>,<span class="st">&quot;d&quot;</span>,<span class="st">&quot;e&quot;</span>))</a></code></pre></div>
 <pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot; &quot;d&quot; &quot;e&quot;</code></pre>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb344-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb347-1" title="1"><span class="kw">length</span>(x)</a></code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb346-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb349-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(x)</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb348-1" title="1"><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">1</span>,<span class="dt">to=</span><span class="kw">length</span>(x),<span class="dt">by=</span><span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb351-1" title="1"><span class="kw">seq</span>(<span class="dt">from=</span><span class="dv">1</span>,<span class="dt">to=</span><span class="kw">length</span>(x),<span class="dt">by=</span><span class="dv">1</span>)</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5</code></pre>
 <p>Can do same thing with list object</p>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb350-1" title="1"><span class="kw">length</span>(df_bama)</a></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb353-1" title="1"><span class="kw">length</span>(df_bama)</a></code></pre></div>
 <pre><code>## [1] 7</code></pre>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb352-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df_bama)</a></code></pre></div>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb355-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df_bama)</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4 5 6 7</code></pre>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb354-1" title="1"><span class="kw">seq</span>(<span class="dv">2</span>,<span class="kw">length</span>(df_bama))</a></code></pre></div>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb357-1" title="1"><span class="kw">seq</span>(<span class="dv">2</span>,<span class="kw">length</span>(df_bama))</a></code></pre></div>
 <pre><code>## [1] 2 3 4 5 6 7</code></pre>
 </div>
+<div id="file-paths" class="section level3">
+<h3><span class="header-section-number">2.5.5</span> File paths</h3>
+<p>Working directory</p>
+<ul>
+<li>When you run an R code chunk in a .Rmd file, the default working directory is the folder where the .Rmd is saved</li>
+</ul>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb359-1" title="1"><span class="kw">getwd</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/ozanj/Documents/rclass2/lectures/programming&quot;</code></pre>
+<ul>
+<li>When you create a “Project” the default working directory in the R console and in an R script is the directory where the project is saved.</li>
+</ul>
+<p>When you will be working with both .Rmd files and with R scripts and/or the R console, it is helpful to create a project in the same directory where the .Rmd files live. This way, the default working directory is the same regardless of whether you are using .Rmd, .R script, or the R console</p>
+<div id="create-and-delete-directories" class="section level4">
+<h4><span class="header-section-number">2.5.5.1</span> Create and delete directories</h4>
+<p><code>dir.create()</code> creates new directories</p>
+<ul>
+<li>Syntax (with defaults):
+<ul>
+<li><code>dir.create(path, showWarnings = TRUE, recursive = FALSE)</code></li>
+</ul></li>
+<li>Arguments
+<ul>
+<li><code>path</code>: “a character vector containing a single path name”</li>
+<li><code>showWarnings</code>: “logical; should the warnings on failure be shown?” default equals <code>TRUE</code></li>
+<li><code>recursive</code>: “Should elements of the path other than the last be created?”
+<ul>
+<li>That is, will <code>dir.create()</code> create the file path <code>new_directory/new_sub_directory</code> if neither <code>new_directory</code> nor <code>new_sub_directory</code> exist?</li>
+<li>default equals <code>FALSE</code></li>
+</ul></li>
+</ul></li>
+<li>Note:
+<ul>
+<li>if directory you create already exists, you will get a warning, but this won’t cause the code to stop running</li>
+<li>specify <code>showWarnings = FALSE</code> to omit warnings <br></li>
+</ul></li>
+</ul>
+<p>Let’s create a new sub-directory named “data” within our current working directory</p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb361-1" title="1"><span class="kw">getwd</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/ozanj/Documents/rclass2/lectures/programming&quot;</code></pre>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb363-1" title="1"><span class="kw">list.files</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;data&quot;                     &quot;loop_examples.Rmd&quot;       
+## [3] &quot;programming.Rproj&quot;        &quot;programming_lecture.html&quot;
+## [5] &quot;programming_lecture.md&quot;   &quot;programming_lecture.Rmd&quot;</code></pre>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb365-1" title="1"><span class="co">#delete directory if it exists [comment out]</span></a>
+<a class="sourceLine" id="cb365-2" title="2">  <span class="kw">unlink</span>(<span class="dt">x =</span> <span class="st">&quot;data&quot;</span>, <span class="dt">recursive =</span> <span class="ot">TRUE</span>) <span class="co"># recursive = TRUE allows you to delete existing directory</span></a>
+<a class="sourceLine" id="cb365-3" title="3"></a>
+<a class="sourceLine" id="cb365-4" title="4"></a>
+<a class="sourceLine" id="cb365-5" title="5"><span class="co">#create directory</span></a>
+<a class="sourceLine" id="cb365-6" title="6"><span class="kw">dir.create</span>(<span class="dt">path =</span> <span class="st">&quot;data&quot;</span>, <span class="dt">showWarnings =</span> <span class="ot">FALSE</span>) <span class="co"># showWarnings = FALSE omits warnings if directory already exists</span></a>
+<a class="sourceLine" id="cb365-7" title="7"><span class="kw">list.files</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;data&quot;                     &quot;loop_examples.Rmd&quot;       
+## [3] &quot;programming.Rproj&quot;        &quot;programming_lecture.html&quot;
+## [5] &quot;programming_lecture.md&quot;   &quot;programming_lecture.Rmd&quot;</code></pre>
+<p><code>unlink()</code> deletes the file(s) or directories specified by argument <code>x</code></p>
+<ul>
+<li>Syntax (with defaults):
+<ul>
+<li><code>unlink(x, recursive = FALSE, force = FALSE)</code></li>
+</ul></li>
+<li>Arguments:
+<ul>
+<li><code>x</code>: “a character vector with the names of the file(s) or directories to be deleted.”</li>
+<li><code>recursive</code>: “logical. Should directories be deleted recursively?”
+<ul>
+<li><strong>NOTE</strong>: “If recursive = <code>FALSE</code> directories are not deleted, not even empty ones.”</li>
+</ul></li>
+<li><code>force</code>: “logical. Should permissions be changed (if possible) to allow the file or directory to be removed?”</li>
+</ul></li>
+</ul>
 </div>
+<div id="file.path-creates-file-paths" class="section level4">
+<h4><span class="header-section-number">2.5.5.2</span> <code>file.path()</code> creates file paths</h4>
+<p>Use the <code>file.path()</code> argument to change file paths and/or to create objects representing file paths you will use</p>
+<p>What Ben Skinner says in <a href="https://edquant.github.io/past/2020/spring/edh7916/lessons/organizing.html">his R programming course</a></p>
+<blockquote>
+<p>Rather than hard-coding / rewriting all the paths in the script, we can save the paths in an object. We use the file.path() command because it is smart. Some computer operating systems use forward slashes, <code>/</code>, for their file paths; others use backslashes, <code>\</code>. Rather than try to guess or assume what operating system future users will use, we can use R’s function, file.path(), to check the current operating system and build the paths correctly for us.</p>
+</blockquote>
+<p><code>file.path()</code> function:</p>
+<ul>
+<li>Description:
+<ul>
+<li>“Construct the path to a file from components in a platform-independent way” (from <code>file.path()</code> help file)</li>
+</ul></li>
+<li>Syntax:
+<ul>
+<li><code>file.path(..., fsep = .Platform$file.sep)</code></li>
+</ul></li>
+<li>Arguments
+<ul>
+<li><code>...</code> (the <code>dot-dot-dot</code> argument): character vectors separates by commas that represent each layer of the file path</li>
+<li><code>fsep</code>: the “path separator to use”
+<ul>
+<li>the default value (<code>fsep = .Platform$file.sep</code>) will get this right</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Let’s create an object representing the sub-directory <code>data</code> we just created</p>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb367-1" title="1"><span class="co">#create object representing file path</span></a>
+<a class="sourceLine" id="cb367-2" title="2">data_dir &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;.&quot;</span>, <span class="st">&quot;data&quot;</span>)</a>
+<a class="sourceLine" id="cb367-3" title="3">data_dir</a></code></pre></div>
+<pre><code>## [1] &quot;./data&quot;</code></pre>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb369-1" title="1"><span class="kw">getwd</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/ozanj/Documents/rclass2/lectures/programming&quot;</code></pre>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb371-1" title="1"><span class="co">#change working directory to &quot;data&quot; sub-directory</span></a>
+<a class="sourceLine" id="cb371-2" title="2"><span class="kw">setwd</span>(<span class="kw">file.path</span>(data_dir))</a>
+<a class="sourceLine" id="cb371-3" title="3"><span class="kw">getwd</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/ozanj/Documents/rclass2/lectures/programming/data&quot;</code></pre>
+<p>Note that working directory for R code chunks resets to folder where .Rmd file is saved</p>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb373-1" title="1"><span class="kw">getwd</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/ozanj/Documents/rclass2/lectures/programming&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="iteration" class="section level1">
+<h1><span class="header-section-number">3</span> Iteration</h1>
+<p>DEFINE ITERATION</p>
+<p>THEN DEFINE LOOPS AS MOST COMMON WAY TO ITERATE</p>
 <div id="loop-basics" class="section level2">
-<h2><span class="header-section-number">3.2</span> Loop basics</h2>
+<h2><span class="header-section-number">3.1</span> Loop basics</h2>
 
 <p>What are loops?: <strong>Loops</strong> execute some set of commands multiple times</p>
 <div id="simple-loop-example" class="section level3">
-<h3><span class="header-section-number">3.2.1</span> Simple loop example</h3>
+<h3><span class="header-section-number">3.1.1</span> Simple loop example</h3>
 
 <p>What are loops?: <strong>Loops</strong> execute some set of commands multiple times</p>
 <ul>
@@ -2899,11 +3011,11 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>Create loop that prints each value of vector <code>c(1,2,3,4)</code>, one at a time</li>
 </ul>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb356-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb375-1" title="1"><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## [1] 1 2 3 4</code></pre>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb358-1" title="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) { <span class="co"># Loop sequence</span></a>
-<a class="sourceLine" id="cb358-2" title="2">  <span class="kw">print</span>(i) <span class="co"># Loop body</span></a>
-<a class="sourceLine" id="cb358-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb377-1" title="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) { <span class="co"># Loop sequence</span></a>
+<a class="sourceLine" id="cb377-2" title="2">  <span class="kw">print</span>(i) <span class="co"># Loop body</span></a>
+<a class="sourceLine" id="cb377-3" title="3">}</a></code></pre></div>
 <pre><code>## [1] 1
 ## [1] 2
 ## [1] 3
@@ -2914,10 +3026,10 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 </ul>
 </div>
 <div id="components-of-a-loop" class="section level3">
-<h3><span class="header-section-number">3.2.2</span> Components of a loop</h3>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb360-1" title="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) { <span class="co"># Loop sequence</span></a>
-<a class="sourceLine" id="cb360-2" title="2">  <span class="kw">print</span>(i) <span class="co"># Loop body</span></a>
-<a class="sourceLine" id="cb360-3" title="3">}</a></code></pre></div>
+<h3><span class="header-section-number">3.1.2</span> Components of a loop</h3>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb379-1" title="1"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)) { <span class="co"># Loop sequence</span></a>
+<a class="sourceLine" id="cb379-2" title="2">  <span class="kw">print</span>(i) <span class="co"># Loop body</span></a>
+<a class="sourceLine" id="cb379-3" title="3">}</a></code></pre></div>
 <pre><code>## [1] 1
 ## [1] 2
 ## [1] 3
@@ -2942,7 +3054,7 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 </ol>
 </div>
 <div id="using-cat-to-print-value-of-sequence-var-for-each-iteration" class="section level3">
-<h3><span class="header-section-number">3.2.3</span> Using <code>cat()</code> to print value of sequence var for each iteration</h3>
+<h3><span class="header-section-number">3.1.3</span> Using <code>cat()</code> to print value of sequence var for each iteration</h3>
 
 <p><strong>When building a loop, I always include a line like <code>cat(&quot;z=&quot;,z, fill=TRUE)</code> to help me understand what loop is doing</strong></p>
 
@@ -2950,54 +3062,54 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>Writing name of sequence var object (here <code>z</code>) and seeing value of sequence var object for each iteration helps me understand loop better</li>
 </ul>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb362-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) { <span class="co"># Loop sequence</span></a>
-<a class="sourceLine" id="cb362-2" title="2">  <span class="kw">print</span>(z) <span class="co"># Loop body</span></a>
-<a class="sourceLine" id="cb362-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb381-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) { <span class="co"># Loop sequence</span></a>
+<a class="sourceLine" id="cb381-2" title="2">  <span class="kw">print</span>(z) <span class="co"># Loop body</span></a>
+<a class="sourceLine" id="cb381-3" title="3">}</a></code></pre></div>
 <pre><code>## [1] 1
 ## [1] 2
 ## [1] 3</code></pre>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb364-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) { <span class="co"># Loop sequence</span></a>
-<a class="sourceLine" id="cb364-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># &quot;fill=TRUE&quot; forces line break after each iteration</span></a>
-<a class="sourceLine" id="cb364-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb383-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) { <span class="co"># Loop sequence</span></a>
+<a class="sourceLine" id="cb383-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># &quot;fill=TRUE&quot; forces line break after each iteration</span></a>
+<a class="sourceLine" id="cb383-3" title="3">}</a></code></pre></div>
 <pre><code>## object z= 1
 ## object z= 2
 ## object z= 3</code></pre>
 <p>Without <code>fill=TRUE</code> [not recommended]</p>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb366-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) { <span class="co"># Loop sequence</span></a>
-<a class="sourceLine" id="cb366-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z) <span class="co"># &quot;Loop body</span></a>
-<a class="sourceLine" id="cb366-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb385-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) { <span class="co"># Loop sequence</span></a>
+<a class="sourceLine" id="cb385-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z) <span class="co"># &quot;Loop body</span></a>
+<a class="sourceLine" id="cb385-3" title="3">}</a></code></pre></div>
 <pre><code>## object z= 1object z= 2object z= 3</code></pre>
 </div>
 <div id="components-of-a-loop-1" class="section level3">
-<h3><span class="header-section-number">3.2.4</span> Components of a loop</h3>
+<h3><span class="header-section-number">3.1.4</span> Components of a loop</h3>
 
 <p>Note that these three loops all do the same thing</p>
 <ul>
 <li><strong>Loop body</strong> is the same in each loop</li>
 <li><strong>Loop sequence</strong> written slightly differently in each loop</li>
 </ul>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb368-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) { <span class="co"># Loop sequence</span></a>
-<a class="sourceLine" id="cb368-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># Loop body</span></a>
-<a class="sourceLine" id="cb368-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb387-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) { <span class="co"># Loop sequence</span></a>
+<a class="sourceLine" id="cb387-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># Loop body</span></a>
+<a class="sourceLine" id="cb387-3" title="3">}</a></code></pre></div>
 <pre><code>## object z= 1
 ## object z= 2
 ## object z= 3</code></pre>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb370-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) { <span class="co"># Loop sequence</span></a>
-<a class="sourceLine" id="cb370-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># Loop body</span></a>
-<a class="sourceLine" id="cb370-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb389-1" title="1"><span class="cf">for</span>(z <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) { <span class="co"># Loop sequence</span></a>
+<a class="sourceLine" id="cb389-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># Loop body</span></a>
+<a class="sourceLine" id="cb389-3" title="3">}</a></code></pre></div>
 <pre><code>## object z= 1
 ## object z= 2
 ## object z= 3</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb372-1" title="1">num_sequence &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></a>
-<a class="sourceLine" id="cb372-2" title="2"><span class="cf">for</span>(z <span class="cf">in</span> num_sequence) { <span class="co"># Loop sequence</span></a>
-<a class="sourceLine" id="cb372-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># Loop body</span></a>
-<a class="sourceLine" id="cb372-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb391-1" title="1">num_sequence &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></a>
+<a class="sourceLine" id="cb391-2" title="2"><span class="cf">for</span>(z <span class="cf">in</span> num_sequence) { <span class="co"># Loop sequence</span></a>
+<a class="sourceLine" id="cb391-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;object z=&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># Loop body</span></a>
+<a class="sourceLine" id="cb391-4" title="4">}</a></code></pre></div>
 <pre><code>## object z= 1
 ## object z= 2
 ## object z= 3</code></pre>
 </div>
 <div id="student-exercise" class="section level3">
-<h3><span class="header-section-number">3.2.5</span> Student exercise</h3>
+<h3><span class="header-section-number">3.1.5</span> Student exercise</h3>
 <p>Try on your own or just follow along.</p>
 
 <p><strong>Task</strong></p>
@@ -3016,19 +3128,19 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <p>Note: multiple correct ways to complete this task</p>
 </div>
 <div id="student-exercise-solution" class="section level3">
-<h3><span class="header-section-number">3.2.6</span> Student exercise [SOLUTION]</h3>
+<h3><span class="header-section-number">3.1.6</span> Student exercise [SOLUTION]</h3>
 <ol style="list-style-type: decimal">
 <li>Create a numeric vector that has year of birth of members of your family (you decide who to include)</li>
 <li>Write a loop that calculates current year minus birth year and prints this number for each member of your family</li>
 </ol>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb374-1" title="1">birth_years &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1944</span>,<span class="dv">1950</span>,<span class="dv">1981</span>,<span class="dv">2016</span>)</a>
-<a class="sourceLine" id="cb374-2" title="2">birth_years</a></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb393-1" title="1">birth_years &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1944</span>,<span class="dv">1950</span>,<span class="dv">1981</span>,<span class="dv">2016</span>)</a>
+<a class="sourceLine" id="cb393-2" title="2">birth_years</a></code></pre></div>
 <pre><code>## [1] 1944 1950 1981 2016</code></pre>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb376-1" title="1"><span class="cf">for</span>(y <span class="cf">in</span> birth_years) { <span class="co"># Loop sequence</span></a>
-<a class="sourceLine" id="cb376-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object y=&quot;</span>,y, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># Loop body</span></a>
-<a class="sourceLine" id="cb376-3" title="3">  z &lt;-<span class="st"> </span><span class="dv">2018</span><span class="op">-</span>y</a>
-<a class="sourceLine" id="cb376-4" title="4">  <span class="kw">cat</span>(<span class="st">&quot;value of&quot;</span>,y,<span class="st">&quot;minus&quot;</span>,<span class="dv">2018</span>,<span class="st">&quot;is&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb376-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb395-1" title="1"><span class="cf">for</span>(y <span class="cf">in</span> birth_years) { <span class="co"># Loop sequence</span></a>
+<a class="sourceLine" id="cb395-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;object y=&quot;</span>,y, <span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># Loop body</span></a>
+<a class="sourceLine" id="cb395-3" title="3">  z &lt;-<span class="st"> </span><span class="dv">2018</span><span class="op">-</span>y</a>
+<a class="sourceLine" id="cb395-4" title="4">  <span class="kw">cat</span>(<span class="st">&quot;value of&quot;</span>,y,<span class="st">&quot;minus&quot;</span>,<span class="dv">2018</span>,<span class="st">&quot;is&quot;</span>,z, <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb395-5" title="5">}</a></code></pre></div>
 <pre><code>## object y= 1944
 ## value of 1944 minus 2018 is 74
 ## object y= 1950
@@ -3127,16 +3239,16 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>Create named vector</li>
 </ul>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb378-1" title="1">vec=<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>=<span class="dv">5</span>,<span class="st">&quot;b&quot;</span>=<span class="op">-</span><span class="dv">10</span>,<span class="st">&quot;c&quot;</span>=<span class="dv">30</span>)</a>
-<a class="sourceLine" id="cb378-2" title="2">vec</a></code></pre></div>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb397-1" title="1">vec=<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>=<span class="dv">5</span>,<span class="st">&quot;b&quot;</span>=<span class="op">-</span><span class="dv">10</span>,<span class="st">&quot;c&quot;</span>=<span class="dv">30</span>)</a>
+<a class="sourceLine" id="cb397-2" title="2">vec</a></code></pre></div>
 <pre><code>##   a   b   c 
 ##   5 -10  30</code></pre>
 <ul>
 <li>Create data frame with fictitious data, 3 columns (vars) and 4 rows (obs)</li>
 </ul>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb380-1" title="1"><span class="kw">set.seed</span>(<span class="dv">12345</span>) <span class="co"># so we all get the same variable values</span></a>
-<a class="sourceLine" id="cb380-2" title="2">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">4</span>),<span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">4</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">4</span>))</a>
-<a class="sourceLine" id="cb380-3" title="3"><span class="kw">str</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb399-1" title="1"><span class="kw">set.seed</span>(<span class="dv">12345</span>) <span class="co"># so we all get the same variable values</span></a>
+<a class="sourceLine" id="cb399-2" title="2">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">4</span>),<span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">4</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb399-3" title="3"><span class="kw">str</span>(df)</a></code></pre></div>
 <pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    4 obs. of  3 variables:
 ##  $ a: num  0.586 0.709 -0.109 -0.453
 ##  $ b: num  0.606 -1.818 0.63 -0.276
@@ -3158,14 +3270,14 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <li>value of <code>i</code> is equal to the contents of the <code>ith</code> element of the object</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb382-1" title="1">vec <span class="co"># print atomic vector object</span></a></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" title="1">vec <span class="co"># print atomic vector object</span></a></code></pre></div>
 <pre><code>##   a   b   c 
 ##   5 -10  30</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb384-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> vec) {</a>
-<a class="sourceLine" id="cb384-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i, <span class="dt">fill=</span><span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb384-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;object i has: type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="st">&quot;; length=&quot;</span>,<span class="kw">length</span>(i),<span class="st">&quot;; class=&quot;</span>,<span class="kw">class</span>(i),</a>
-<a class="sourceLine" id="cb384-4" title="4">      <span class="st">&quot;; attributes=&quot;</span>,<span class="kw">attributes</span>(i),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># &quot;\n&quot; adds line break</span></a>
-<a class="sourceLine" id="cb384-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb403-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> vec) {</a>
+<a class="sourceLine" id="cb403-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i, <span class="dt">fill=</span><span class="ot">TRUE</span>) </a>
+<a class="sourceLine" id="cb403-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;object i has: type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="st">&quot;; length=&quot;</span>,<span class="kw">length</span>(i),<span class="st">&quot;; class=&quot;</span>,<span class="kw">class</span>(i),</a>
+<a class="sourceLine" id="cb403-4" title="4">      <span class="st">&quot;; attributes=&quot;</span>,<span class="kw">attributes</span>(i),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># &quot;\n&quot; adds line break</span></a>
+<a class="sourceLine" id="cb403-5" title="5">}</a></code></pre></div>
 <pre><code>## value of object i= 5
 ## object i has: type=double; length=1; class=numeric; attributes=
 ## 
@@ -3186,7 +3298,7 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 </ul></li>
 <li>in <strong>body</strong>: value of <code>i</code> is equal to <strong>contents</strong> of <code>ith</code> element of object</li>
 </ul>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb386-1" title="1">df <span class="co"># print list/data frame object</span></a></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb405-1" title="1">df <span class="co"># print list/data frame object</span></a></code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##        a      b      c
 ##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -3194,13 +3306,13 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 ## 2  0.709 -1.82  -0.919
 ## 3 -0.109  0.630 -0.116
 ## 4 -0.453 -0.276  1.82</code></pre>
-<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb388-1" title="1"><span class="co">#class(df) </span></a>
-<a class="sourceLine" id="cb388-2" title="2"><span class="co">#attributes(df)</span></a>
-<a class="sourceLine" id="cb388-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> df) {</a>
-<a class="sourceLine" id="cb388-4" title="4">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i, <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb388-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;object type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="st">&quot;; length=&quot;</span>,<span class="kw">length</span>(i),<span class="st">&quot;; class=&quot;</span>,<span class="kw">class</span>(i),</a>
-<a class="sourceLine" id="cb388-6" title="6">      <span class="st">&quot;; attributes=&quot;</span>,<span class="kw">attributes</span>(i),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb388-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" title="1"><span class="co">#class(df) </span></a>
+<a class="sourceLine" id="cb407-2" title="2"><span class="co">#attributes(df)</span></a>
+<a class="sourceLine" id="cb407-3" title="3"><span class="cf">for</span> (i <span class="cf">in</span> df) {</a>
+<a class="sourceLine" id="cb407-4" title="4">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i, <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb407-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;object type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="st">&quot;; length=&quot;</span>,<span class="kw">length</span>(i),<span class="st">&quot;; class=&quot;</span>,<span class="kw">class</span>(i),</a>
+<a class="sourceLine" id="cb407-6" title="6">      <span class="st">&quot;; attributes=&quot;</span>,<span class="kw">attributes</span>(i),<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb407-7" title="7">}</a></code></pre></div>
 <pre><code>## value of object i= 0.5855288 0.709466 -0.1093033 -0.4534972
 ## object type=double; length=4; class=numeric; attributes=
 ## 
@@ -3217,7 +3329,7 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>calculate mean value of each element of list object <code>df</code></li>
 </ul>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb390-1" title="1">df <span class="co"># print list/data frame object</span></a></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1">df <span class="co"># print list/data frame object</span></a></code></pre></div>
 <pre><code>## # A tibble: 4 x 3
 ##        a      b      c
 ##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
@@ -3225,12 +3337,12 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 ## 2  0.709 -1.82  -0.919
 ## 3 -0.109  0.630 -0.116
 ## 4 -0.453 -0.276  1.82</code></pre>
-<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb392-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> df) {</a>
-<a class="sourceLine" id="cb392-2" title="2">  <span class="co"># sequence</span></a>
-<a class="sourceLine" id="cb392-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i, <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb392-4" title="4">  <span class="kw">cat</span>(<span class="st">&quot;mean value of object i=&quot;</span>,<span class="kw">mean</span>(i, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb392-5" title="5">  </a>
-<a class="sourceLine" id="cb392-6" title="6">} </a></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> df) {</a>
+<a class="sourceLine" id="cb411-2" title="2">  <span class="co"># sequence</span></a>
+<a class="sourceLine" id="cb411-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i, <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb411-4" title="4">  <span class="kw">cat</span>(<span class="st">&quot;mean value of object i=&quot;</span>,<span class="kw">mean</span>(i, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb411-5" title="5">  </a>
+<a class="sourceLine" id="cb411-6" title="6">} </a></code></pre></div>
 <pre><code>## value of object i= 0.5855288 0.709466 -0.1093033 -0.4534972
 ## mean value of object i= 0.1830486 
 ## 
@@ -3264,16 +3376,16 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 </ul></li>
 </ul>
 <p>Example: Object= atomic vector</p>
-<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb394-1" title="1">vec  <span class="co"># print atomic vector object</span></a></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1">vec  <span class="co"># print atomic vector object</span></a></code></pre></div>
 <pre><code>##   a   b   c 
 ##   5 -10  30</code></pre>
-<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb396-1" title="1"><span class="kw">names</span>(vec)</a></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="kw">names</span>(vec)</a></code></pre></div>
 <pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
-<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb398-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(vec)) {</a>
-<a class="sourceLine" id="cb398-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;value of object i=&quot;</span>,i,<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb398-3" title="3">  <span class="kw">print</span>(<span class="kw">str</span>(vec[i])) <span class="co"># &quot;Access element contents using []&quot;</span></a>
-<a class="sourceLine" id="cb398-4" title="4">  <span class="kw">print</span>(<span class="kw">str</span>(vec[[i]])) <span class="co"># &quot;Access element contents using [[]]&quot;</span></a>
-<a class="sourceLine" id="cb398-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(vec)) {</a>
+<a class="sourceLine" id="cb417-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;value of object i=&quot;</span>,i,<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb417-3" title="3">  <span class="kw">print</span>(<span class="kw">str</span>(vec[i])) <span class="co"># &quot;Access element contents using []&quot;</span></a>
+<a class="sourceLine" id="cb417-4" title="4">  <span class="kw">print</span>(<span class="kw">str</span>(vec[[i]])) <span class="co"># &quot;Access element contents using [[]]&quot;</span></a>
+<a class="sourceLine" id="cb417-5" title="5">}</a></code></pre></div>
 </div>
 <div id="approach-2-loop-over-names-of-object-elements-object-list" class="section level3">
 <h3><span class="header-section-number">5.2.2</span> Approach 2: loop over names of object elements [object = list]</h3>
@@ -3296,36 +3408,36 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 </ul>
 
 <p>Example, object is a list</p>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb399-1" title="1"><span class="kw">names</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="kw">names</span>(df)</a></code></pre></div>
 <pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb401-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(df)) {</a>
-<a class="sourceLine" id="cb401-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;value of object i=&quot;</span>,i,<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb401-3" title="3">  <span class="kw">print</span>(<span class="kw">str</span>(df[i])) <span class="co"># &quot;Access element contents using []&quot;</span></a>
-<a class="sourceLine" id="cb401-4" title="4">  <span class="kw">print</span>(<span class="kw">str</span>(df[[i]])) <span class="co"># &quot;Access element contents using [[]]&quot;</span></a>
-<a class="sourceLine" id="cb401-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(df)) {</a>
+<a class="sourceLine" id="cb420-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;value of object i=&quot;</span>,i,<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb420-3" title="3">  <span class="kw">print</span>(<span class="kw">str</span>(df[i])) <span class="co"># &quot;Access element contents using []&quot;</span></a>
+<a class="sourceLine" id="cb420-4" title="4">  <span class="kw">print</span>(<span class="kw">str</span>(df[[i]])) <span class="co"># &quot;Access element contents using [[]]&quot;</span></a>
+<a class="sourceLine" id="cb420-5" title="5">}</a></code></pre></div>
 </div>
 <div id="approach-2-loop-over-names-of-elements-in-object" class="section level3">
 <h3><span class="header-section-number">5.2.3</span> Approach 2: loop over names of elements in object</h3>
 
 <p><strong>Example task</strong>: calculate mean value of each element of list object <code>df</code>, using <code>[[]]</code> to access element contents</p>
-<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb402-1" title="1"><span class="kw">str</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1"><span class="kw">str</span>(df)</a></code></pre></div>
 <pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    4 obs. of  3 variables:
 ##  $ a: num  0.586 0.709 -0.109 -0.453
 ##  $ b: num  0.606 -1.818 0.63 -0.276
 ##  $ c: num  -0.284 -0.919 -0.116 1.817</code></pre>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb404-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(df)) {</a>
-<a class="sourceLine" id="cb404-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[[i]], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb404-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(df)) {</a>
+<a class="sourceLine" id="cb423-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[[i]], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb423-3" title="3">}</a></code></pre></div>
 <pre><code>## mean of element named a is 0.1830486
 ## mean of element named b is -0.2145385
 ## mean of element named c is 0.1243956</code></pre>
 <p>What if we try to complete task using , <code>[]</code> to access element contents?</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb406-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(df)) {</a>
-<a class="sourceLine" id="cb406-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[i],<span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb406-3" title="3">  <span class="co">#print(typeof(df[i]))</span></a>
-<a class="sourceLine" id="cb406-4" title="4">  <span class="co">#print(class(df[i]))  </span></a>
-<a class="sourceLine" id="cb406-5" title="5">}</a>
-<a class="sourceLine" id="cb406-6" title="6"><span class="co">#?mean # mean function only works for particular *classes* of objects</span></a></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">names</span>(df)) {</a>
+<a class="sourceLine" id="cb425-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[i],<span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb425-3" title="3">  <span class="co">#print(typeof(df[i]))</span></a>
+<a class="sourceLine" id="cb425-4" title="4">  <span class="co">#print(class(df[i]))  </span></a>
+<a class="sourceLine" id="cb425-5" title="5">}</a>
+<a class="sourceLine" id="cb425-6" title="6"><span class="co">#?mean # mean function only works for particular *classes* of objects</span></a></code></pre></div>
 </div>
 </div>
 <div id="loop-over-element-position-number" class="section level2">
@@ -3337,34 +3449,34 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li><strong>sequence</strong> syntax: <code>for (i in 1:length(object_name))</code></li>
 </ul>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb407-1" title="1">vec <span class="co"># print named atomic vector vec</span></a></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">vec <span class="co"># print named atomic vector vec</span></a></code></pre></div>
 <pre><code>##   a   b   c 
 ##   5 -10  30</code></pre>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb409-1" title="1"><span class="kw">length</span>(vec)</a></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="kw">length</span>(vec)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb411-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vec)</a></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vec)</a></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb413-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vec)) { <span class="co"># loop sequence</span></a>
-<a class="sourceLine" id="cb413-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># loop body</span></a>
-<a class="sourceLine" id="cb413-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vec)) { <span class="co"># loop sequence</span></a>
+<a class="sourceLine" id="cb432-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>) <span class="co"># loop body</span></a>
+<a class="sourceLine" id="cb432-3" title="3">}</a></code></pre></div>
 <pre><code>## value of object i= 1
 ## value of object i= 2
 ## value of object i= 3</code></pre>
 <p>Note: These two approaches yield same result as above</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) {</a>
-<a class="sourceLine" id="cb415-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb415-3" title="3">}</a>
-<a class="sourceLine" id="cb415-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
-<a class="sourceLine" id="cb415-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb415-6" title="6">}</a></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) {</a>
+<a class="sourceLine" id="cb434-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb434-3" title="3">}</a>
+<a class="sourceLine" id="cb434-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {</a>
+<a class="sourceLine" id="cb434-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb434-6" title="6">}</a></code></pre></div>
 </div>
 <div id="approach-3-loop-over-numeric-indices-of-element-position-1" class="section level3">
 <h3><span class="header-section-number">5.3.2</span> Approach 3: Loop over numeric indices of element position</h3>
 
 <p>Loop over element position number: Simple sequence syntax</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb416-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vec)) {</a>
-<a class="sourceLine" id="cb416-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb416-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vec)) {</a>
+<a class="sourceLine" id="cb435-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb435-3" title="3">}</a></code></pre></div>
 <pre><code>## value of object i= 1
 ## value of object i= 2
 ## value of object i= 3</code></pre>
@@ -3372,13 +3484,13 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li><code>seq_along(x)</code> function returns a sequence from 1 value of <code>length(x)</code></li>
 </ul>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1"><span class="kw">length</span>(vec)</a></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1"><span class="kw">length</span>(vec)</a></code></pre></div>
 <pre><code>## [1] 3</code></pre>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1"><span class="kw">seq_along</span>(vec)</a></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1"><span class="kw">seq_along</span>(vec)</a></code></pre></div>
 <pre><code>## [1] 1 2 3</code></pre>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(vec)) {</a>
-<a class="sourceLine" id="cb422-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb422-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(vec)) {</a>
+<a class="sourceLine" id="cb441-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb441-3" title="3">}</a></code></pre></div>
 <pre><code>## value of object i= 1
 ## value of object i= 2
 ## value of object i= 3</code></pre>
@@ -3390,22 +3502,22 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li><code>seq_along</code> handles zero-length vectors correctly, and is therefore the “safe” version of <code>1:length(object_name)</code></li>
 </ul>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1"><span class="co"># create vector of length=0</span></a>
-<a class="sourceLine" id="cb424-2" title="2">y &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, <span class="dv">0</span>) </a>
-<a class="sourceLine" id="cb424-3" title="3"><span class="kw">length</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1"><span class="co"># create vector of length=0</span></a>
+<a class="sourceLine" id="cb443-2" title="2">y &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, <span class="dv">0</span>) </a>
+<a class="sourceLine" id="cb443-3" title="3"><span class="kw">length</span>(y)</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1"><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(y)</a></code></pre></div>
 <pre><code>## [1] 1 0</code></pre>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(y)) {</a>
-<a class="sourceLine" id="cb428-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb428-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(y)) {</a>
+<a class="sourceLine" id="cb447-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb447-3" title="3">}</a></code></pre></div>
 <pre><code>## value of object i= 1
 ## value of object i= 0</code></pre>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1"><span class="kw">seq_along</span>(y)</a></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1"><span class="kw">seq_along</span>(y)</a></code></pre></div>
 <pre><code>## integer(0)</code></pre>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(y)) {</a>
-<a class="sourceLine" id="cb432-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb432-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(y)) {</a>
+<a class="sourceLine" id="cb451-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;value of object i=&quot;</span>,i,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb451-3" title="3">}</a></code></pre></div>
 <p>Personally, I find <code>1:length(object_name)</code> much more intuitive</p>
 </div>
 <div id="approach-3-loop-over-numeric-indices-of-element-position-2" class="section level3">
@@ -3427,30 +3539,30 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 </ul></li>
 </ul>
 <p><strong>Example, object is atomic vector</strong></p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" title="1">vec</a></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" title="1">vec</a></code></pre></div>
 <pre><code>##   a   b   c 
 ##   5 -10  30</code></pre>
-<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vec)) {</a>
-<a class="sourceLine" id="cb435-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;value of object i=&quot;</span>,i,<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb435-3" title="3">  <span class="kw">print</span>(<span class="kw">str</span>(vec[i])) <span class="co"># &quot;Access element contents using []&quot;</span></a>
-<a class="sourceLine" id="cb435-4" title="4">  <span class="kw">print</span>(<span class="kw">str</span>(vec[[i]])) <span class="co"># &quot;Access element contents using [[]]&quot;</span></a>
-<a class="sourceLine" id="cb435-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(vec)) {</a>
+<a class="sourceLine" id="cb454-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;value of object i=&quot;</span>,i,<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb454-3" title="3">  <span class="kw">print</span>(<span class="kw">str</span>(vec[i])) <span class="co"># &quot;Access element contents using []&quot;</span></a>
+<a class="sourceLine" id="cb454-4" title="4">  <span class="kw">print</span>(<span class="kw">str</span>(vec[[i]])) <span class="co"># &quot;Access element contents using [[]]&quot;</span></a>
+<a class="sourceLine" id="cb454-5" title="5">}</a></code></pre></div>
 </div>
 <div id="approach-3-loop-over-numeric-indices-of-element-position-3" class="section level3">
 <h3><span class="header-section-number">5.3.5</span> Approach 3: Loop over numeric indices of element position</h3>
 <p><strong>Example, object is a list</strong></p>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" title="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" title="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dt">n=</span><span class="dv">3</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 3
 ##        a      b      c
 ##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ## 1  0.586  0.606 -0.284
 ## 2  0.709 -1.82  -0.919
 ## 3 -0.109  0.630 -0.116</code></pre>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df)) {</a>
-<a class="sourceLine" id="cb438-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;value of object i=&quot;</span>,i,<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb438-3" title="3">  <span class="kw">print</span>(<span class="kw">str</span>(df[i])) <span class="co"># &quot;Access element contents using []&quot;</span></a>
-<a class="sourceLine" id="cb438-4" title="4">  <span class="kw">print</span>(<span class="kw">str</span>(df[[i]])) <span class="co"># &quot;Access element contents using [[]]&quot;</span></a>
-<a class="sourceLine" id="cb438-5" title="5">}</a></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(df)) {</a>
+<a class="sourceLine" id="cb457-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;value of object i=&quot;</span>,i,<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(i),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb457-3" title="3">  <span class="kw">print</span>(<span class="kw">str</span>(df[i])) <span class="co"># &quot;Access element contents using []&quot;</span></a>
+<a class="sourceLine" id="cb457-4" title="4">  <span class="kw">print</span>(<span class="kw">str</span>(df[[i]])) <span class="co"># &quot;Access element contents using [[]]&quot;</span></a>
+<a class="sourceLine" id="cb457-5" title="5">}</a></code></pre></div>
 </div>
 <div id="approach-3-loop-over-numeric-indices-of-element-position-4" class="section level3">
 <h3><span class="header-section-number">5.3.6</span> Approach 3: Loop over numeric indices of element position</h3>
@@ -3458,19 +3570,19 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>Calculate mean value of each element of list object <code>df</code>, using <code>for (i in seq_along(df))</code> to create sequence and using <code>[[]]</code> to access element contents</li>
 </ul>
-<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
-<a class="sourceLine" id="cb439-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[[i]], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb439-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb458-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
+<a class="sourceLine" id="cb458-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[[i]], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb458-3" title="3">}</a></code></pre></div>
 <pre><code>## mean of element named 1 is 0.1830486
 ## mean of element named 2 is -0.2145385
 ## mean of element named 3 is 0.1243956</code></pre>
 <p>What happens if we try to complete task using , using <code>[]</code> to access element contents?</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
-<a class="sourceLine" id="cb441-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[i],<span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb441-3" title="3">  <span class="co">#print(typeof(df[i]))</span></a>
-<a class="sourceLine" id="cb441-4" title="4">  <span class="co">#print(class(df[i]))  </span></a>
-<a class="sourceLine" id="cb441-5" title="5">}</a>
-<a class="sourceLine" id="cb441-6" title="6"><span class="co">#?mean # mean(object) requires object to be numeric or logical</span></a></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
+<a class="sourceLine" id="cb460-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[i],<span class="dt">na.rm =</span> <span class="ot">TRUE</span>), <span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb460-3" title="3">  <span class="co">#print(typeof(df[i]))</span></a>
+<a class="sourceLine" id="cb460-4" title="4">  <span class="co">#print(class(df[i]))  </span></a>
+<a class="sourceLine" id="cb460-5" title="5">}</a>
+<a class="sourceLine" id="cb460-6" title="6"><span class="co">#?mean # mean(object) requires object to be numeric or logical</span></a></code></pre></div>
 </div>
 <div id="approach-3-loop-over-numeric-indices-of-element-position-5" class="section level3">
 <h3><span class="header-section-number">5.3.7</span> Approach 3: Loop over numeric indices of element position</h3>
@@ -3480,17 +3592,17 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <li>First, let’s experiment w/ <code>attributes()</code> and <code>names()</code> functions</li>
 </ul>
 <p><code>attributes()</code> function [output omitted]</p>
-<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb442-1" title="1"><span class="kw">attributes</span>(df)</a>
-<a class="sourceLine" id="cb442-2" title="2"><span class="kw">attributes</span>(df[<span class="dv">1</span>]) <span class="co"># not null</span></a>
-<a class="sourceLine" id="cb442-3" title="3"><span class="kw">attributes</span>(df[[<span class="dv">1</span>]]) <span class="co"># null: removing level of hierarchy removes attributes</span></a></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb461-1" title="1"><span class="kw">attributes</span>(df)</a>
+<a class="sourceLine" id="cb461-2" title="2"><span class="kw">attributes</span>(df[<span class="dv">1</span>]) <span class="co"># not null</span></a>
+<a class="sourceLine" id="cb461-3" title="3"><span class="kw">attributes</span>(df[[<span class="dv">1</span>]]) <span class="co"># null: removing level of hierarchy removes attributes</span></a></code></pre></div>
 <p><code>names()</code> functions</p>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1"><span class="kw">names</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" title="1"><span class="kw">names</span>(df)</a></code></pre></div>
 <pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1"><span class="kw">names</span>(df[<span class="dv">1</span>]) <span class="co"># not null</span></a></code></pre></div>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" title="1"><span class="kw">names</span>(df[<span class="dv">1</span>]) <span class="co"># not null</span></a></code></pre></div>
 <pre><code>## [1] &quot;a&quot;</code></pre>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1"><span class="kw">names</span>(df[[<span class="dv">1</span>]]) <span class="co"># null: object df[[1]] has no attributes; just values</span></a></code></pre></div>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1"><span class="kw">names</span>(df[[<span class="dv">1</span>]]) <span class="co"># null: object df[[1]] has no attributes; just values</span></a></code></pre></div>
 <pre><code>## NULL</code></pre>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1"><span class="kw">names</span>(df)[[<span class="dv">1</span>]] <span class="co"># not null: we extract names of df, then select first element</span></a></code></pre></div>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1"><span class="kw">names</span>(df)[[<span class="dv">1</span>]] <span class="co"># not null: we extract names of df, then select first element</span></a></code></pre></div>
 <pre><code>## [1] &quot;a&quot;</code></pre>
 </div>
 <div id="approach-3-loop-over-numeric-indices-of-element-position-6" class="section level3">
@@ -3500,17 +3612,17 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>First, experiment w/ <code>names()</code> function</li>
 </ul>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1"><span class="kw">names</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" title="1"><span class="kw">names</span>(df)</a></code></pre></div>
 <pre><code>## [1] &quot;a&quot; &quot;b&quot; &quot;c&quot;</code></pre>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1"><span class="kw">names</span>(df)[[<span class="dv">1</span>]] <span class="co"># not null: we extract names of df, then select first element</span></a></code></pre></div>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" title="1"><span class="kw">names</span>(df)[[<span class="dv">1</span>]] <span class="co"># not null: we extract names of df, then select first element</span></a></code></pre></div>
 <pre><code>## [1] &quot;a&quot;</code></pre>
 <ul>
 <li>Second, apply what we learned to loop</li>
 </ul>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
-<a class="sourceLine" id="cb455-2" title="2">  <span class="co">#print(names(df)[[i]])</span></a>
-<a class="sourceLine" id="cb455-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; names=&quot;</span>,<span class="kw">names</span>(df)[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb455-4" title="4">}</a></code></pre></div>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
+<a class="sourceLine" id="cb474-2" title="2">  <span class="co">#print(names(df)[[i]])</span></a>
+<a class="sourceLine" id="cb474-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; names=&quot;</span>,<span class="kw">names</span>(df)[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb474-4" title="4">}</a></code></pre></div>
 <pre><code>## i=1; names=a
 ## i=2; names=b
 ## i=3; names=c</code></pre>
@@ -3526,15 +3638,15 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>given element position number, can extract element name[2] and value[1]</li>
 </ul>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
-<a class="sourceLine" id="cb457-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb457-3" title="3">  </a>
-<a class="sourceLine" id="cb457-4" title="4">  name &lt;-<span class="st"> </span><span class="kw">names</span>(df)[[i]] <span class="co"># value of object &quot;name&quot; is what we loop over in approach 2</span></a>
-<a class="sourceLine" id="cb457-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;name=&quot;</span>,name,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb457-6" title="6">  </a>
-<a class="sourceLine" id="cb457-7" title="7">  value &lt;-<span class="st"> </span>df[[i]] <span class="co"># value of object &quot;value&quot; is what we loop over in approach 1</span></a>
-<a class="sourceLine" id="cb457-8" title="8">  <span class="kw">cat</span>(<span class="st">&quot;value=&quot;</span>,value,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="dt">sep=</span><span class="st">&quot; &quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb457-9" title="9">}</a></code></pre></div>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
+<a class="sourceLine" id="cb476-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb476-3" title="3">  </a>
+<a class="sourceLine" id="cb476-4" title="4">  name &lt;-<span class="st"> </span><span class="kw">names</span>(df)[[i]] <span class="co"># value of object &quot;name&quot; is what we loop over in approach 2</span></a>
+<a class="sourceLine" id="cb476-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;name=&quot;</span>,name,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb476-6" title="6">  </a>
+<a class="sourceLine" id="cb476-7" title="7">  value &lt;-<span class="st"> </span>df[[i]] <span class="co"># value of object &quot;value&quot; is what we loop over in approach 1</span></a>
+<a class="sourceLine" id="cb476-8" title="8">  <span class="kw">cat</span>(<span class="st">&quot;value=&quot;</span>,value,<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="dt">sep=</span><span class="st">&quot; &quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb476-9" title="9">}</a></code></pre></div>
 <pre><code>## i=1
 ## name=a
 ## value= 0.5855288 0.709466 -0.1093033 -0.4534972 
@@ -3599,16 +3711,16 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <div id="creating-a-new-object-1" class="section level3">
 <h3><span class="header-section-number">6.1.2</span> Creating a new object</h3>
 <p>Create sample data frame named <code>df</code></p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb459-1" title="1"><span class="kw">set.seed</span>(<span class="dv">54321</span>)</a>
-<a class="sourceLine" id="cb459-2" title="2">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1"><span class="kw">set.seed</span>(<span class="dv">54321</span>)</a>
+<a class="sourceLine" id="cb478-2" title="2">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>))</a></code></pre></div>
 <p><strong>Task</strong>:</p>
 <ul>
 <li>Using the data frame <code>df</code>, which contains data on four numeric variables, create a new object that contains the mean value of each variable</li>
 </ul>
 <p>In a previous example, we calculated mean for each variable</p>
-<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb460-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
-<a class="sourceLine" id="cb460-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[[i]], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb460-3" title="3">}</a></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
+<a class="sourceLine" id="cb479-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;mean of element named&quot;</span>,i,<span class="st">&quot;is&quot;</span>,<span class="kw">mean</span>(df[[i]], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>),<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb479-3" title="3">}</a></code></pre></div>
 <pre><code>## mean of element named 1 is -0.2646042
 ## mean of element named 2 is 0.6025297
 ## mean of element named 3 is 0.0349128
@@ -3626,19 +3738,19 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 </ul>
 
 <p>Create object to hold output; we’ll name this object <code>output</code></p>
-<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb462-1" title="1">output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, <span class="kw">ncol</span>(df)) <span class="co"># create object</span></a>
-<a class="sourceLine" id="cb462-2" title="2"><span class="kw">typeof</span>(output)</a></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" title="1">output &lt;-<span class="st"> </span><span class="kw">vector</span>(<span class="st">&quot;double&quot;</span>, <span class="kw">ncol</span>(df)) <span class="co"># create object</span></a>
+<a class="sourceLine" id="cb481-2" title="2"><span class="kw">typeof</span>(output)</a></code></pre></div>
 <pre><code>## [1] &quot;double&quot;</code></pre>
-<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb464-1" title="1"><span class="kw">length</span>(output)</a></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" title="1"><span class="kw">length</span>(output)</a></code></pre></div>
 <pre><code>## [1] 4</code></pre>
-<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb466-1" title="1"><span class="kw">length</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" title="1"><span class="kw">length</span>(df)</a></code></pre></div>
 <pre><code>## [1] 4</code></pre>
 <p>Create loop; use position number to assign variable means to elements of vector <code>output</code></p>
-<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb468-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
-<a class="sourceLine" id="cb468-2" title="2">  <span class="co">#cat(&quot;i=&quot;,i,fill=TRUE)</span></a>
-<a class="sourceLine" id="cb468-3" title="3">  output[[i]] &lt;-<span class="st"> </span><span class="kw">mean</span>(df[[i]], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># mean of df[[1]] assigned to output[[1]], etc.</span></a>
-<a class="sourceLine" id="cb468-4" title="4">}</a>
-<a class="sourceLine" id="cb468-5" title="5">output</a></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
+<a class="sourceLine" id="cb487-2" title="2">  <span class="co">#cat(&quot;i=&quot;,i,fill=TRUE)</span></a>
+<a class="sourceLine" id="cb487-3" title="3">  output[[i]] &lt;-<span class="st"> </span><span class="kw">mean</span>(df[[i]], <span class="dt">na.rm =</span> <span class="ot">TRUE</span>) <span class="co"># mean of df[[1]] assigned to output[[1]], etc.</span></a>
+<a class="sourceLine" id="cb487-4" title="4">}</a>
+<a class="sourceLine" id="cb487-5" title="5">output</a></code></pre></div>
 <pre><code>## [1] -0.2646042  0.6025297  0.0349128 -0.4557522</code></pre>
 </div>
 </div>
@@ -3653,13 +3765,13 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <p>The z-score for observation <em>i</em> is number of standard deviations from mean:</p>
 <p><span class="math inline">\(z_i = \frac{x_i - \bar{x}}{sd(x)}\)</span></p>
 <p>Task: calculate z-score for first 4 observations of <code>df$a</code></p>
-<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb470-1" title="1">(df<span class="op">$</span>a[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" title="1">(df<span class="op">$</span>a[<span class="dv">1</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] 0.06413227</code></pre>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb472-1" title="1">(df<span class="op">$</span>a[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb491-1" title="1">(df<span class="op">$</span>a[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] -0.4964552</code></pre>
-<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb474-1" title="1">(df<span class="op">$</span>a[<span class="dv">3</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb493-1" title="1">(df<span class="op">$</span>a[<span class="dv">3</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] -0.3886915</code></pre>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb476-1" title="1">(df<span class="op">$</span>a[<span class="dv">4</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb495-1" title="1">(df<span class="op">$</span>a[<span class="dv">4</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## [1] -1.037147</code></pre>
 </div>
 <div id="example-of-modifying-an-object-z-score-loop-1" class="section level3">
@@ -3692,76 +3804,76 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 </ul></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb478-1" title="1"><span class="kw">set.seed</span>(<span class="dv">54321</span>)</a>
-<a class="sourceLine" id="cb478-2" title="2">(df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>)))</a>
-<a class="sourceLine" id="cb478-3" title="3"></a>
-<a class="sourceLine" id="cb478-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
-<a class="sourceLine" id="cb478-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; mean=&quot;</span>,<span class="kw">mean</span>(df[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="st">&quot;; sd=&quot;</span>,<span class="kw">sd</span>(df[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb478-6" title="6">  <span class="co">#print((df[[i]] - mean(df[[i]], na.rm=TRUE))/sd(df[[i]], na.rm=TRUE)) # show z-score for each obs</span></a>
-<a class="sourceLine" id="cb478-7" title="7">  df[[i]] &lt;-<span class="st"> </span>(df[[i]] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>) <span class="co"># modify values</span></a>
-<a class="sourceLine" id="cb478-8" title="8">}</a>
-<a class="sourceLine" id="cb478-9" title="9"><span class="kw">str</span>(df)</a></code></pre></div>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb497-1" title="1"><span class="kw">set.seed</span>(<span class="dv">54321</span>)</a>
+<a class="sourceLine" id="cb497-2" title="2">(df &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">a =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">b =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">c =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>),<span class="dt">d =</span> <span class="kw">rnorm</span>(<span class="dv">10</span>)))</a>
+<a class="sourceLine" id="cb497-3" title="3"></a>
+<a class="sourceLine" id="cb497-4" title="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df)) {</a>
+<a class="sourceLine" id="cb497-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; mean=&quot;</span>,<span class="kw">mean</span>(df[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="st">&quot;; sd=&quot;</span>,<span class="kw">sd</span>(df[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb497-6" title="6">  <span class="co">#print((df[[i]] - mean(df[[i]], na.rm=TRUE))/sd(df[[i]], na.rm=TRUE)) # show z-score for each obs</span></a>
+<a class="sourceLine" id="cb497-7" title="7">  df[[i]] &lt;-<span class="st"> </span>(df[[i]] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>) <span class="co"># modify values</span></a>
+<a class="sourceLine" id="cb497-8" title="8">}</a>
+<a class="sourceLine" id="cb497-9" title="9"><span class="kw">str</span>(df)</a></code></pre></div>
 </div>
 <div id="modify-z-score-loop-to-work-with-non-numeric-variables" class="section level3">
 <h3><span class="header-section-number">6.2.3</span> Modify z-score loop to work with non-numeric variables</h3>
 <p>What happens if we apply our loop to the data frame <code>df_bama</code>, which has both string and numeric variables?</p>
 
 <p>Create data frame <code>df_bama</code></p>
-<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb479-1" title="1"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;https://github.com/ozanj/rclass/raw/master/data/recruiting/recruit_event_somevars.RData&quot;</span>))</a>
-<a class="sourceLine" id="cb479-2" title="2">df_bama &lt;-<span class="st"> </span>df_event <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(univ_id,event_date) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb479-3" title="3"><span class="st">  </span><span class="kw">select</span>(instnm,univ_id,event_date,event_type,event_state,zip,med_inc) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb479-4" title="4"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>()<span class="op">&lt;</span><span class="dv">6</span>)</a>
-<a class="sourceLine" id="cb479-5" title="5"><span class="kw">str</span>(df_bama)</a></code></pre></div>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb498-1" title="1"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;https://github.com/ozanj/rclass/raw/master/data/recruiting/recruit_event_somevars.RData&quot;</span>))</a>
+<a class="sourceLine" id="cb498-2" title="2">df_bama &lt;-<span class="st"> </span>df_event <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(univ_id,event_date) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb498-3" title="3"><span class="st">  </span><span class="kw">select</span>(instnm,univ_id,event_date,event_type,event_state,zip,med_inc) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb498-4" title="4"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>()<span class="op">&lt;</span><span class="dv">6</span>)</a>
+<a class="sourceLine" id="cb498-5" title="5"><span class="kw">str</span>(df_bama)</a></code></pre></div>
 <p>Attempt to run loop; what went wrong?</p>
-<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb480-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df_bama)) {</a>
-<a class="sourceLine" id="cb480-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; mean=&quot;</span>,<span class="kw">mean</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="st">&quot;; sd=&quot;</span>,<span class="kw">sd</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb480-3" title="3">  <span class="co">#print((df_bama[[i]] - mean(df_bama[[i]], na.rm=TRUE))/sd(df_bama[[i]], na.rm=TRUE))</span></a>
-<a class="sourceLine" id="cb480-4" title="4">  df_bama[[i]] &lt;-<span class="st"> </span>(df_bama[[i]] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb480-5" title="5">}</a>
-<a class="sourceLine" id="cb480-6" title="6">df_bama</a></code></pre></div>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb499-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df_bama)) {</a>
+<a class="sourceLine" id="cb499-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; mean=&quot;</span>,<span class="kw">mean</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="st">&quot;; sd=&quot;</span>,<span class="kw">sd</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb499-3" title="3">  <span class="co">#print((df_bama[[i]] - mean(df_bama[[i]], na.rm=TRUE))/sd(df_bama[[i]], na.rm=TRUE))</span></a>
+<a class="sourceLine" id="cb499-4" title="4">  df_bama[[i]] &lt;-<span class="st"> </span>(df_bama[[i]] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb499-5" title="5">}</a>
+<a class="sourceLine" id="cb499-6" title="6">df_bama</a></code></pre></div>
 </div>
 <div id="modify-z-score-loop-to-work-with-non-numeric-variables-1" class="section level3">
 <h3><span class="header-section-number">6.2.4</span> Modify z-score loop to work with non-numeric variables</h3>
 <p>What happens if we apply our loop to the data frame <code>df_bama</code>, which has both string and numeric variables?</p>
 
 <p>Let’s modify our loop so that it only calculates z-score only for non-integer, numeric variables</p>
-<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb481-1" title="1"><span class="kw">str</span>(df_bama)</a>
-<a class="sourceLine" id="cb481-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df_bama)) {</a>
-<a class="sourceLine" id="cb481-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; var name=&quot;</span>,<span class="kw">names</span>(df_bama)[[i]],<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(df_bama[[i]]),</a>
-<a class="sourceLine" id="cb481-4" title="4">      <span class="st">&quot;; class=&quot;</span>,<span class="kw">class</span>(df_bama[[i]]),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb481-5" title="5">  </a>
-<a class="sourceLine" id="cb481-6" title="6">  <span class="cf">if</span>(<span class="kw">is.numeric</span>(df_bama[[i]]) <span class="op">&amp;</span><span class="st"> </span>(<span class="op">!</span><span class="kw">is_integer</span>(df_bama[[i]]))) {</a>
-<a class="sourceLine" id="cb481-7" title="7">    df_bama[[i]] &lt;-<span class="st"> </span>(df_bama[[i]] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb481-8" title="8">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb481-9" title="9">    <span class="co"># do nothing</span></a>
-<a class="sourceLine" id="cb481-10" title="10">  }</a>
-<a class="sourceLine" id="cb481-11" title="11">}</a>
-<a class="sourceLine" id="cb481-12" title="12"><span class="kw">str</span>(df_bama)</a></code></pre></div>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb500-1" title="1"><span class="kw">str</span>(df_bama)</a>
+<a class="sourceLine" id="cb500-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(df_bama)) {</a>
+<a class="sourceLine" id="cb500-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; var name=&quot;</span>,<span class="kw">names</span>(df_bama)[[i]],<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(df_bama[[i]]),</a>
+<a class="sourceLine" id="cb500-4" title="4">      <span class="st">&quot;; class=&quot;</span>,<span class="kw">class</span>(df_bama[[i]]),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb500-5" title="5">  </a>
+<a class="sourceLine" id="cb500-6" title="6">  <span class="cf">if</span>(<span class="kw">is.numeric</span>(df_bama[[i]]) <span class="op">&amp;</span><span class="st"> </span>(<span class="op">!</span><span class="kw">is_integer</span>(df_bama[[i]]))) {</a>
+<a class="sourceLine" id="cb500-7" title="7">    df_bama[[i]] &lt;-<span class="st"> </span>(df_bama[[i]] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df_bama[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb500-8" title="8">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb500-9" title="9">    <span class="co"># do nothing</span></a>
+<a class="sourceLine" id="cb500-10" title="10">  }</a>
+<a class="sourceLine" id="cb500-11" title="11">}</a>
+<a class="sourceLine" id="cb500-12" title="12"><span class="kw">str</span>(df_bama)</a></code></pre></div>
 </div>
 <div id="modify-object-embed-z-score-loop-in-function-skip" class="section level3">
 <h3><span class="header-section-number">6.2.5</span> Modify object: embed z-score loop in function [SKIP]</h3>
 <p>Recreate <code>df</code> and <code>df_bama</code> [ouput and code omitted]</p>
 
 <p>Can we embed this loop in a function that takes the data frame as an argument so we don’t have to modify loop for each data frame?</p>
-<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb482-1" title="1">z_score &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
-<a class="sourceLine" id="cb482-2" title="2"></a>
-<a class="sourceLine" id="cb482-3" title="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(x)) {</a>
-<a class="sourceLine" id="cb482-4" title="4">    <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; var name=&quot;</span>,<span class="kw">names</span>(x)[[i]],<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(x[[i]]),</a>
-<a class="sourceLine" id="cb482-5" title="5">        <span class="st">&quot;; class=&quot;</span>,<span class="kw">class</span>(x[[i]]),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb482-6" title="6">    </a>
-<a class="sourceLine" id="cb482-7" title="7">    <span class="cf">if</span>(<span class="kw">is.numeric</span>(x[[i]]) <span class="op">&amp;</span><span class="st"> </span>(<span class="op">!</span><span class="kw">is_integer</span>(x[[i]]))) {</a>
-<a class="sourceLine" id="cb482-8" title="8">      x[[i]] &lt;-<span class="st"> </span>(x[[i]] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(x[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb482-9" title="9">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb482-10" title="10">       <span class="co">#do nothing</span></a>
-<a class="sourceLine" id="cb482-11" title="11">    }</a>
-<a class="sourceLine" id="cb482-12" title="12">  }</a>
-<a class="sourceLine" id="cb482-13" title="13">}</a>
-<a class="sourceLine" id="cb482-14" title="14"><span class="co">#apply to data frame df</span></a>
-<a class="sourceLine" id="cb482-15" title="15">df_z &lt;-<span class="st"> </span><span class="kw">z_score</span>(df)</a>
-<a class="sourceLine" id="cb482-16" title="16">df; df_z</a>
-<a class="sourceLine" id="cb482-17" title="17"><span class="co">#apply to data frame df_bama</span></a>
-<a class="sourceLine" id="cb482-18" title="18">df_bama_z &lt;-<span class="st"> </span><span class="kw">z_score</span>(df_bama)</a>
-<a class="sourceLine" id="cb482-19" title="19">df_bama; df_bama_z</a></code></pre></div>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb501-1" title="1">z_score &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb501-2" title="2"></a>
+<a class="sourceLine" id="cb501-3" title="3">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(x)) {</a>
+<a class="sourceLine" id="cb501-4" title="4">    <span class="kw">cat</span>(<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; var name=&quot;</span>,<span class="kw">names</span>(x)[[i]],<span class="st">&quot;; type=&quot;</span>,<span class="kw">typeof</span>(x[[i]]),</a>
+<a class="sourceLine" id="cb501-5" title="5">        <span class="st">&quot;; class=&quot;</span>,<span class="kw">class</span>(x[[i]]),<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb501-6" title="6">    </a>
+<a class="sourceLine" id="cb501-7" title="7">    <span class="cf">if</span>(<span class="kw">is.numeric</span>(x[[i]]) <span class="op">&amp;</span><span class="st"> </span>(<span class="op">!</span><span class="kw">is_integer</span>(x[[i]]))) {</a>
+<a class="sourceLine" id="cb501-8" title="8">      x[[i]] &lt;-<span class="st"> </span>(x[[i]] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(x[[i]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb501-9" title="9">    } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb501-10" title="10">       <span class="co">#do nothing</span></a>
+<a class="sourceLine" id="cb501-11" title="11">    }</a>
+<a class="sourceLine" id="cb501-12" title="12">  }</a>
+<a class="sourceLine" id="cb501-13" title="13">}</a>
+<a class="sourceLine" id="cb501-14" title="14"><span class="co">#apply to data frame df</span></a>
+<a class="sourceLine" id="cb501-15" title="15">df_z &lt;-<span class="st"> </span><span class="kw">z_score</span>(df)</a>
+<a class="sourceLine" id="cb501-16" title="16">df; df_z</a>
+<a class="sourceLine" id="cb501-17" title="17"><span class="co">#apply to data frame df_bama</span></a>
+<a class="sourceLine" id="cb501-18" title="18">df_bama_z &lt;-<span class="st"> </span><span class="kw">z_score</span>(df_bama)</a>
+<a class="sourceLine" id="cb501-19" title="19">df_bama; df_bama_z</a></code></pre></div>
 </div>
 </div>
 <div id="practice" class="section level2">
@@ -3777,17 +3889,17 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>Note: this data frame has more vars than previous data frame we used</li>
 </ul>
-<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb483-1" title="1"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>()) <span class="co"># remove all objects</span></a>
-<a class="sourceLine" id="cb483-2" title="2"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;https://github.com/ozanj/rclass/raw/master/data/recruiting/recruit_school_allvars.RData&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb502-1" title="1"><span class="kw">rm</span>(<span class="dt">list =</span> <span class="kw">ls</span>()) <span class="co"># remove all objects</span></a>
+<a class="sourceLine" id="cb502-2" title="2"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;https://github.com/ozanj/rclass/raw/master/data/recruiting/recruit_school_allvars.RData&quot;</span>))</a></code></pre></div>
 <p>We are interested in creating measures of how good a job public universities are doing visiting in-state public high schools</p>
 <ul>
 <li>Create data frame with one observation for each public high school</li>
 </ul>
-<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb484-1" title="1"><span class="co">#names(df_school_all)</span></a>
-<a class="sourceLine" id="cb484-2" title="2">df_school_all <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a>
-<a class="sourceLine" id="cb484-3" title="3">df_pubhs &lt;-<span class="st"> </span>df_school_all <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Create data-frame that keeps public high schools</span></a>
-<a class="sourceLine" id="cb484-4" title="4"><span class="st">  </span><span class="kw">filter</span>(school_type<span class="op">==</span><span class="st">&quot;public&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>school_type)</a>
-<a class="sourceLine" id="cb484-5" title="5"><span class="kw">rm</span>(df_school_all)</a></code></pre></div>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb503-1" title="1"><span class="co">#names(df_school_all)</span></a>
+<a class="sourceLine" id="cb503-2" title="2">df_school_all <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a>
+<a class="sourceLine" id="cb503-3" title="3">df_pubhs &lt;-<span class="st"> </span>df_school_all <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># Create data-frame that keeps public high schools</span></a>
+<a class="sourceLine" id="cb503-4" title="4"><span class="st">  </span><span class="kw">filter</span>(school_type<span class="op">==</span><span class="st">&quot;public&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="op">-</span>school_type)</a>
+<a class="sourceLine" id="cb503-5" title="5"><span class="kw">rm</span>(df_school_all)</a></code></pre></div>
 <p>Create standalone objects (output and code omitted)</p>
 <ol style="list-style-type: decimal">
 <li>Character vector containing ID for each public university</li>
@@ -3801,24 +3913,24 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>let’s choose <code>&quot;U of South Carolina&quot;</code>, <code>ID==218663</code></li>
 </ul>
-<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb485-1" title="1"><span class="co">#&quot;state_code&quot; is the 2-letter high school state code</span></a>
-<a class="sourceLine" id="cb485-2" title="2">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(state_code) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a>
-<a class="sourceLine" id="cb485-3" title="3"></a>
-<a class="sourceLine" id="cb485-4" title="4"><span class="co">#variables starting with &quot;inst_&quot; identify state the university is located in</span></a>
-<a class="sourceLine" id="cb485-5" title="5">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(inst_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a>
-<a class="sourceLine" id="cb485-6" title="6">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(inst_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(inst_<span class="dv">218663</span>) <span class="co"># these vars don&#39;t vary</span></a>
-<a class="sourceLine" id="cb485-7" title="7"></a>
-<a class="sourceLine" id="cb485-8" title="8"><span class="co">#variables starting with &quot;visits_by_&quot; indicate number of visits HS got in 2017</span></a>
-<a class="sourceLine" id="cb485-9" title="9">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(visits_by_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a>
-<a class="sourceLine" id="cb485-10" title="10">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(visits_by_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(visits_by_<span class="dv">218663</span>) </a>
-<a class="sourceLine" id="cb485-11" title="11"></a>
-<a class="sourceLine" id="cb485-12" title="12"><span class="co">#filter only obs where HS state code equals home state of university</span></a>
-<a class="sourceLine" id="cb485-13" title="13">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state_code<span class="op">==</span>inst_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>() <span class="co"># count pub HS in SC</span></a>
-<a class="sourceLine" id="cb485-14" title="14"></a>
-<a class="sourceLine" id="cb485-15" title="15"><span class="co">#Create measures: number pub HS in SC; number w/ visit; pct w/ visit</span></a>
-<a class="sourceLine" id="cb485-16" title="16">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state_code<span class="op">==</span>inst_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(visits_by_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb485-17" title="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">got_visit=</span><span class="kw">ifelse</span>(visits_by_<span class="dv">218663</span><span class="op">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb485-18" title="18"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n_hs=</span><span class="kw">n</span>(),<span class="dt">n_visit=</span><span class="kw">sum</span>(got_visit),<span class="dt">pct_visit=</span><span class="kw">sum</span>(got_visit)<span class="op">/</span><span class="kw">n</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb504-1" title="1"><span class="co">#&quot;state_code&quot; is the 2-letter high school state code</span></a>
+<a class="sourceLine" id="cb504-2" title="2">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(state_code) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a>
+<a class="sourceLine" id="cb504-3" title="3"></a>
+<a class="sourceLine" id="cb504-4" title="4"><span class="co">#variables starting with &quot;inst_&quot; identify state the university is located in</span></a>
+<a class="sourceLine" id="cb504-5" title="5">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(inst_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a>
+<a class="sourceLine" id="cb504-6" title="6">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(inst_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(inst_<span class="dv">218663</span>) <span class="co"># these vars don&#39;t vary</span></a>
+<a class="sourceLine" id="cb504-7" title="7"></a>
+<a class="sourceLine" id="cb504-8" title="8"><span class="co">#variables starting with &quot;visits_by_&quot; indicate number of visits HS got in 2017</span></a>
+<a class="sourceLine" id="cb504-9" title="9">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(visits_by_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a>
+<a class="sourceLine" id="cb504-10" title="10">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(visits_by_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>(visits_by_<span class="dv">218663</span>) </a>
+<a class="sourceLine" id="cb504-11" title="11"></a>
+<a class="sourceLine" id="cb504-12" title="12"><span class="co">#filter only obs where HS state code equals home state of university</span></a>
+<a class="sourceLine" id="cb504-13" title="13">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state_code<span class="op">==</span>inst_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">count</span>() <span class="co"># count pub HS in SC</span></a>
+<a class="sourceLine" id="cb504-14" title="14"></a>
+<a class="sourceLine" id="cb504-15" title="15"><span class="co">#Create measures: number pub HS in SC; number w/ visit; pct w/ visit</span></a>
+<a class="sourceLine" id="cb504-16" title="16">df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(state_code<span class="op">==</span>inst_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(visits_by_<span class="dv">218663</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb504-17" title="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">got_visit=</span><span class="kw">ifelse</span>(visits_by_<span class="dv">218663</span><span class="op">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb504-18" title="18"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n_hs=</span><span class="kw">n</span>(),<span class="dt">n_visit=</span><span class="kw">sum</span>(got_visit),<span class="dt">pct_visit=</span><span class="kw">sum</span>(got_visit)<span class="op">/</span><span class="kw">n</span>())</a></code></pre></div>
 </div>
 <div id="how-well-do-public-universities-cover-in-state-public-high-schools-skip--base-r" class="section level3">
 <h3><span class="header-section-number">6.4.3</span> How well do public universities cover in-state public high schools [SKIP- BASE R]</h3>
@@ -3827,37 +3939,37 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>let’s choose <code>&quot;U of South Carolina&quot;</code>, <code>ID==218663</code></li>
 </ul>
-<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb486-1" title="1"><span class="co">#&quot;state_code&quot; is the 2-letter high school state code</span></a>
-<a class="sourceLine" id="cb486-2" title="2"><span class="kw">str</span>(df_pubhs<span class="op">$</span>state_code)</a>
-<a class="sourceLine" id="cb486-3" title="3"></a>
-<a class="sourceLine" id="cb486-4" title="4"><span class="co">#variables starting with &quot;inst_&quot; identify state the university is located in</span></a>
-<a class="sourceLine" id="cb486-5" title="5"><span class="kw">str</span>(df_pubhs<span class="op">$</span>inst_<span class="dv">218663</span>)</a>
-<a class="sourceLine" id="cb486-6" title="6"><span class="kw">table</span>(df_pubhs<span class="op">$</span>inst_<span class="dv">218663</span>, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>) <span class="co"># these vars don&#39;t vary </span></a>
-<a class="sourceLine" id="cb486-7" title="7"></a>
-<a class="sourceLine" id="cb486-8" title="8"><span class="co">#variables starting with &quot;visits_by_&quot; indicate number of visits HS got in 2017</span></a>
-<a class="sourceLine" id="cb486-9" title="9"><span class="kw">str</span>(df_pubhs<span class="op">$</span>visits_by_<span class="dv">218663</span>)</a>
-<a class="sourceLine" id="cb486-10" title="10"><span class="kw">table</span>(df_pubhs<span class="op">$</span>visits_by_<span class="dv">218663</span>, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>)</a>
-<a class="sourceLine" id="cb486-11" title="11"></a>
-<a class="sourceLine" id="cb486-12" title="12"><span class="co">#filter only obs where HS state code equals home state of university</span></a>
-<a class="sourceLine" id="cb486-13" title="13">tempdf &lt;-<span class="st"> </span><span class="kw">subset</span>(df_pubhs,df_pubhs[[<span class="st">&quot;state_code&quot;</span>]]<span class="op">==</span>df_pubhs[[<span class="st">&quot;inst_218663&quot;</span>]])</a>
-<a class="sourceLine" id="cb486-14" title="14">  <span class="co">#tempdf &lt;- subset(df_pubhs,df_pubhs$state_code==df_pubhs$inst_218663) # same as above</span></a>
-<a class="sourceLine" id="cb486-15" title="15">  <span class="co">#tempdf &lt;- subset(df_pubhs,state_code==inst_218663) # same as above</span></a>
-<a class="sourceLine" id="cb486-16" title="16"></a>
-<a class="sourceLine" id="cb486-17" title="17"><span class="co">#Create 0/1 indicator of whether got visit</span></a>
-<a class="sourceLine" id="cb486-18" title="18">tempdf<span class="op">$</span>got_visit &lt;-<span class="st"> </span><span class="kw">ifelse</span>(tempdf<span class="op">$</span>visits_by_<span class="dv">218663</span><span class="op">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb486-19" title="19"></a>
-<a class="sourceLine" id="cb486-20" title="20"><span class="co">#frequency count of schools that got visits vs. not</span></a>
-<a class="sourceLine" id="cb486-21" title="21"><span class="kw">table</span>(tempdf<span class="op">$</span>got_visit, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>)</a>
-<a class="sourceLine" id="cb486-22" title="22"></a>
-<a class="sourceLine" id="cb486-23" title="23"><span class="co">#create objects for count table and proportion table</span></a>
-<a class="sourceLine" id="cb486-24" title="24">ct_table &lt;-<span class="st"> </span><span class="kw">table</span>(tempdf<span class="op">$</span>got_visit, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>)</a>
-<a class="sourceLine" id="cb486-25" title="25">ct_table</a>
-<a class="sourceLine" id="cb486-26" title="26"><span class="kw">typeof</span>(ct_table); <span class="kw">length</span>(ct_table); <span class="kw">str</span>(ct_table) <span class="co"># named vector with 2 elements</span></a>
-<a class="sourceLine" id="cb486-27" title="27"></a>
-<a class="sourceLine" id="cb486-28" title="28"><span class="kw">prop.table</span>(ct_table)</a>
-<a class="sourceLine" id="cb486-29" title="29">pr_table &lt;-<span class="kw">prop.table</span>(ct_table)</a>
-<a class="sourceLine" id="cb486-30" title="30">pr_table</a>
-<a class="sourceLine" id="cb486-31" title="31"><span class="kw">typeof</span>(pr_table); <span class="kw">length</span>(pr_table); <span class="kw">str</span>(pr_table) <span class="co"># named vector with 2 elements</span></a></code></pre></div>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb505-1" title="1"><span class="co">#&quot;state_code&quot; is the 2-letter high school state code</span></a>
+<a class="sourceLine" id="cb505-2" title="2"><span class="kw">str</span>(df_pubhs<span class="op">$</span>state_code)</a>
+<a class="sourceLine" id="cb505-3" title="3"></a>
+<a class="sourceLine" id="cb505-4" title="4"><span class="co">#variables starting with &quot;inst_&quot; identify state the university is located in</span></a>
+<a class="sourceLine" id="cb505-5" title="5"><span class="kw">str</span>(df_pubhs<span class="op">$</span>inst_<span class="dv">218663</span>)</a>
+<a class="sourceLine" id="cb505-6" title="6"><span class="kw">table</span>(df_pubhs<span class="op">$</span>inst_<span class="dv">218663</span>, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>) <span class="co"># these vars don&#39;t vary </span></a>
+<a class="sourceLine" id="cb505-7" title="7"></a>
+<a class="sourceLine" id="cb505-8" title="8"><span class="co">#variables starting with &quot;visits_by_&quot; indicate number of visits HS got in 2017</span></a>
+<a class="sourceLine" id="cb505-9" title="9"><span class="kw">str</span>(df_pubhs<span class="op">$</span>visits_by_<span class="dv">218663</span>)</a>
+<a class="sourceLine" id="cb505-10" title="10"><span class="kw">table</span>(df_pubhs<span class="op">$</span>visits_by_<span class="dv">218663</span>, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>)</a>
+<a class="sourceLine" id="cb505-11" title="11"></a>
+<a class="sourceLine" id="cb505-12" title="12"><span class="co">#filter only obs where HS state code equals home state of university</span></a>
+<a class="sourceLine" id="cb505-13" title="13">tempdf &lt;-<span class="st"> </span><span class="kw">subset</span>(df_pubhs,df_pubhs[[<span class="st">&quot;state_code&quot;</span>]]<span class="op">==</span>df_pubhs[[<span class="st">&quot;inst_218663&quot;</span>]])</a>
+<a class="sourceLine" id="cb505-14" title="14">  <span class="co">#tempdf &lt;- subset(df_pubhs,df_pubhs$state_code==df_pubhs$inst_218663) # same as above</span></a>
+<a class="sourceLine" id="cb505-15" title="15">  <span class="co">#tempdf &lt;- subset(df_pubhs,state_code==inst_218663) # same as above</span></a>
+<a class="sourceLine" id="cb505-16" title="16"></a>
+<a class="sourceLine" id="cb505-17" title="17"><span class="co">#Create 0/1 indicator of whether got visit</span></a>
+<a class="sourceLine" id="cb505-18" title="18">tempdf<span class="op">$</span>got_visit &lt;-<span class="st"> </span><span class="kw">ifelse</span>(tempdf<span class="op">$</span>visits_by_<span class="dv">218663</span><span class="op">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb505-19" title="19"></a>
+<a class="sourceLine" id="cb505-20" title="20"><span class="co">#frequency count of schools that got visits vs. not</span></a>
+<a class="sourceLine" id="cb505-21" title="21"><span class="kw">table</span>(tempdf<span class="op">$</span>got_visit, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>)</a>
+<a class="sourceLine" id="cb505-22" title="22"></a>
+<a class="sourceLine" id="cb505-23" title="23"><span class="co">#create objects for count table and proportion table</span></a>
+<a class="sourceLine" id="cb505-24" title="24">ct_table &lt;-<span class="st"> </span><span class="kw">table</span>(tempdf<span class="op">$</span>got_visit, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>)</a>
+<a class="sourceLine" id="cb505-25" title="25">ct_table</a>
+<a class="sourceLine" id="cb505-26" title="26"><span class="kw">typeof</span>(ct_table); <span class="kw">length</span>(ct_table); <span class="kw">str</span>(ct_table) <span class="co"># named vector with 2 elements</span></a>
+<a class="sourceLine" id="cb505-27" title="27"></a>
+<a class="sourceLine" id="cb505-28" title="28"><span class="kw">prop.table</span>(ct_table)</a>
+<a class="sourceLine" id="cb505-29" title="29">pr_table &lt;-<span class="kw">prop.table</span>(ct_table)</a>
+<a class="sourceLine" id="cb505-30" title="30">pr_table</a>
+<a class="sourceLine" id="cb505-31" title="31"><span class="kw">typeof</span>(pr_table); <span class="kw">length</span>(pr_table); <span class="kw">str</span>(pr_table) <span class="co"># named vector with 2 elements</span></a></code></pre></div>
 </div>
 <div id="how-well-do-public-universities-cover-in-state-public-high-schools-1" class="section level3">
 <h3><span class="header-section-number">6.4.4</span> How well do public universities cover in-state public high schools</h3>
@@ -3866,16 +3978,16 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>first, loop through each value of list <code>instnm</code></li>
 </ul>
-<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb487-1" title="1">instnm</a>
-<a class="sourceLine" id="cb487-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(instnm)) {</a>
-<a class="sourceLine" id="cb487-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;i=&quot;</span>,i,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb487-4" title="4">  </a>
-<a class="sourceLine" id="cb487-5" title="5">  name &lt;-<span class="st"> </span><span class="kw">names</span>(instnm)[[i]] <span class="co"># name of element</span></a>
-<a class="sourceLine" id="cb487-6" title="6">  <span class="kw">cat</span>(<span class="st">&quot;name=&quot;</span>,name,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb487-7" title="7">  </a>
-<a class="sourceLine" id="cb487-8" title="8">  value &lt;-<span class="st"> </span>instnm[[i]] <span class="co"># value of element</span></a>
-<a class="sourceLine" id="cb487-9" title="9">  <span class="kw">cat</span>(<span class="st">&quot;value=&quot;</span>,value,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb487-10" title="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb506-1" title="1">instnm</a>
+<a class="sourceLine" id="cb506-2" title="2"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(instnm)) {</a>
+<a class="sourceLine" id="cb506-3" title="3">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;i=&quot;</span>,i,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb506-4" title="4">  </a>
+<a class="sourceLine" id="cb506-5" title="5">  name &lt;-<span class="st"> </span><span class="kw">names</span>(instnm)[[i]] <span class="co"># name of element</span></a>
+<a class="sourceLine" id="cb506-6" title="6">  <span class="kw">cat</span>(<span class="st">&quot;name=&quot;</span>,name,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb506-7" title="7">  </a>
+<a class="sourceLine" id="cb506-8" title="8">  value &lt;-<span class="st"> </span>instnm[[i]] <span class="co"># value of element</span></a>
+<a class="sourceLine" id="cb506-9" title="9">  <span class="kw">cat</span>(<span class="st">&quot;value=&quot;</span>,value,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb506-10" title="10">}</a></code></pre></div>
 </div>
 <div id="how-well-do-public-universities-cover-in-state-public-high-schools-2" class="section level3">
 <h3><span class="header-section-number">6.4.5</span> How well do public universities cover in-state public high schools</h3>
@@ -3886,25 +3998,25 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <li>keep obs in same state as university</li>
 <li>create 0/1 variable of whether high school got a visit</li>
 </ul>
-<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb488-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(instnm)) {</a>
-<a class="sourceLine" id="cb488-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; &quot;</span>,<span class="kw">names</span>(instnm)[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb488-3" title="3">  </a>
-<a class="sourceLine" id="cb488-4" title="4">  <span class="co">#create object called inst_var; value is &quot;inst_id&quot; (e.g., &quot;inst_166629&quot;)</span></a>
-<a class="sourceLine" id="cb488-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;inst_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb488-6" title="6">  inst_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;inst_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb488-7" title="7">  <span class="kw">print</span>(inst_var)</a>
-<a class="sourceLine" id="cb488-8" title="8">  </a>
-<a class="sourceLine" id="cb488-9" title="9">  <span class="co">#create object called visits_by_var; value is &quot;visits_by_id&quot; (e.g., &quot;visits_by_166629&quot;)</span></a>
-<a class="sourceLine" id="cb488-10" title="10">  visits_by_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;visits_by_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb488-11" title="11">  <span class="kw">print</span>(visits_by_var)</a>
-<a class="sourceLine" id="cb488-12" title="12">  </a>
-<a class="sourceLine" id="cb488-13" title="13">  <span class="co">#create subset of data with high schools in same state as the university</span></a>
-<a class="sourceLine" id="cb488-14" title="14">  tempdf &lt;-<span class="st"> </span><span class="kw">subset</span>(df_pubhs,df_pubhs[[<span class="st">&quot;state_code&quot;</span>]]<span class="op">==</span>df_pubhs[[inst_var]])</a>
-<a class="sourceLine" id="cb488-15" title="15">      <span class="co"># code df_pubhs[[inst_var]]) evaluates to df_pubhs[[&quot;inst_166629&quot;]]) or whatever current value of inst_var is</span></a>
-<a class="sourceLine" id="cb488-16" title="16">      <span class="co"># this is same as instnm[[i]] evaluating to instnm[[16]] or whatever current value of i is</span></a>
-<a class="sourceLine" id="cb488-17" title="17">  <span class="co">#Create 0/1 indicator of whether got visit</span></a>
-<a class="sourceLine" id="cb488-18" title="18">  tempdf<span class="op">$</span>got_visit &lt;-<span class="st"> </span><span class="kw">ifelse</span>(tempdf[[visits_by_var]]<span class="op">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)  </a>
-<a class="sourceLine" id="cb488-19" title="19">}</a></code></pre></div>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb507-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(instnm)) {</a>
+<a class="sourceLine" id="cb507-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; &quot;</span>,<span class="kw">names</span>(instnm)[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb507-3" title="3">  </a>
+<a class="sourceLine" id="cb507-4" title="4">  <span class="co">#create object called inst_var; value is &quot;inst_id&quot; (e.g., &quot;inst_166629&quot;)</span></a>
+<a class="sourceLine" id="cb507-5" title="5">  <span class="kw">cat</span>(<span class="st">&quot;inst_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb507-6" title="6">  inst_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;inst_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb507-7" title="7">  <span class="kw">print</span>(inst_var)</a>
+<a class="sourceLine" id="cb507-8" title="8">  </a>
+<a class="sourceLine" id="cb507-9" title="9">  <span class="co">#create object called visits_by_var; value is &quot;visits_by_id&quot; (e.g., &quot;visits_by_166629&quot;)</span></a>
+<a class="sourceLine" id="cb507-10" title="10">  visits_by_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;visits_by_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb507-11" title="11">  <span class="kw">print</span>(visits_by_var)</a>
+<a class="sourceLine" id="cb507-12" title="12">  </a>
+<a class="sourceLine" id="cb507-13" title="13">  <span class="co">#create subset of data with high schools in same state as the university</span></a>
+<a class="sourceLine" id="cb507-14" title="14">  tempdf &lt;-<span class="st"> </span><span class="kw">subset</span>(df_pubhs,df_pubhs[[<span class="st">&quot;state_code&quot;</span>]]<span class="op">==</span>df_pubhs[[inst_var]])</a>
+<a class="sourceLine" id="cb507-15" title="15">      <span class="co"># code df_pubhs[[inst_var]]) evaluates to df_pubhs[[&quot;inst_166629&quot;]]) or whatever current value of inst_var is</span></a>
+<a class="sourceLine" id="cb507-16" title="16">      <span class="co"># this is same as instnm[[i]] evaluating to instnm[[16]] or whatever current value of i is</span></a>
+<a class="sourceLine" id="cb507-17" title="17">  <span class="co">#Create 0/1 indicator of whether got visit</span></a>
+<a class="sourceLine" id="cb507-18" title="18">  tempdf<span class="op">$</span>got_visit &lt;-<span class="st"> </span><span class="kw">ifelse</span>(tempdf[[visits_by_var]]<span class="op">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)  </a>
+<a class="sourceLine" id="cb507-19" title="19">}</a></code></pre></div>
 </div>
 <div id="how-well-do-public-universities-cover-in-state-public-high-schools-3" class="section level3">
 <h3><span class="header-section-number">6.4.6</span> How well do public universities cover in-state public high schools</h3>
@@ -3913,43 +4025,43 @@ typeof(df_bama[7]); length(df_bama[7])</code></pre>
 <ul>
 <li>next, create count of number of visted and non-visited in-state schools</li>
 </ul>
-<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb489-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(instnm)) {</a>
-<a class="sourceLine" id="cb489-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; &quot;</span>,<span class="kw">names</span>(instnm)[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb489-3" title="3">  </a>
-<a class="sourceLine" id="cb489-4" title="4">  inst_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;inst_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb489-5" title="5">  visits_by_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;visits_by_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb489-6" title="6"></a>
-<a class="sourceLine" id="cb489-7" title="7">  tempdf &lt;-<span class="st"> </span><span class="kw">subset</span>(df_pubhs,df_pubhs[[<span class="st">&quot;state_code&quot;</span>]]<span class="op">==</span>df_pubhs[[inst_var]]) <span class="co"># keep obs in same state as university</span></a>
-<a class="sourceLine" id="cb489-8" title="8">  tempdf<span class="op">$</span>got_visit &lt;-<span class="st"> </span><span class="kw">ifelse</span>(tempdf[[visits_by_var]]<span class="op">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>) <span class="co"># create 0/1 indicator</span></a>
-<a class="sourceLine" id="cb489-9" title="9">  </a>
-<a class="sourceLine" id="cb489-10" title="10">  <span class="co">#create frequency table of number of schools with and without visits</span></a>
-<a class="sourceLine" id="cb489-11" title="11">  <span class="kw">print</span>(<span class="kw">table</span>(tempdf<span class="op">$</span>got_visit, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>))</a>
-<a class="sourceLine" id="cb489-12" title="12">  ct_table &lt;-<span class="st"> </span><span class="kw">table</span>(tempdf<span class="op">$</span>got_visit, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>) <span class="co"># named vector with 2 elements str(ct_table)</span></a>
-<a class="sourceLine" id="cb489-13" title="13"></a>
-<a class="sourceLine" id="cb489-14" title="14">  <span class="co">#create proportion table</span></a>
-<a class="sourceLine" id="cb489-15" title="15">  <span class="kw">print</span>(<span class="kw">prop.table</span>(ct_table))</a>
-<a class="sourceLine" id="cb489-16" title="16">  pr_table &lt;-<span class="st"> </span><span class="kw">prop.table</span>(ct_table) <span class="co"># named vector with 2 elements str(pr_table)</span></a>
-<a class="sourceLine" id="cb489-17" title="17">}</a></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb508-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(instnm)) {</a>
+<a class="sourceLine" id="cb508-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; &quot;</span>,<span class="kw">names</span>(instnm)[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb508-3" title="3">  </a>
+<a class="sourceLine" id="cb508-4" title="4">  inst_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;inst_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb508-5" title="5">  visits_by_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;visits_by_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb508-6" title="6"></a>
+<a class="sourceLine" id="cb508-7" title="7">  tempdf &lt;-<span class="st"> </span><span class="kw">subset</span>(df_pubhs,df_pubhs[[<span class="st">&quot;state_code&quot;</span>]]<span class="op">==</span>df_pubhs[[inst_var]]) <span class="co"># keep obs in same state as university</span></a>
+<a class="sourceLine" id="cb508-8" title="8">  tempdf<span class="op">$</span>got_visit &lt;-<span class="st"> </span><span class="kw">ifelse</span>(tempdf[[visits_by_var]]<span class="op">&gt;</span><span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>) <span class="co"># create 0/1 indicator</span></a>
+<a class="sourceLine" id="cb508-9" title="9">  </a>
+<a class="sourceLine" id="cb508-10" title="10">  <span class="co">#create frequency table of number of schools with and without visits</span></a>
+<a class="sourceLine" id="cb508-11" title="11">  <span class="kw">print</span>(<span class="kw">table</span>(tempdf<span class="op">$</span>got_visit, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>))</a>
+<a class="sourceLine" id="cb508-12" title="12">  ct_table &lt;-<span class="st"> </span><span class="kw">table</span>(tempdf<span class="op">$</span>got_visit, <span class="dt">useNA=</span><span class="st">&#39;ifany&#39;</span>) <span class="co"># named vector with 2 elements str(ct_table)</span></a>
+<a class="sourceLine" id="cb508-13" title="13"></a>
+<a class="sourceLine" id="cb508-14" title="14">  <span class="co">#create proportion table</span></a>
+<a class="sourceLine" id="cb508-15" title="15">  <span class="kw">print</span>(<span class="kw">prop.table</span>(ct_table))</a>
+<a class="sourceLine" id="cb508-16" title="16">  pr_table &lt;-<span class="st"> </span><span class="kw">prop.table</span>(ct_table) <span class="co"># named vector with 2 elements str(pr_table)</span></a>
+<a class="sourceLine" id="cb508-17" title="17">}</a></code></pre></div>
 </div>
 <div id="how-well-do-public-universities-cover-in-state-public-high-schools-skip" class="section level3">
 <h3><span class="header-section-number">6.4.7</span> How well do public universities cover in-state public high schools [SKIP]</h3>
 <p><strong>Task</strong>: for each public research university, calculate the number and percent of public high schools in the university’s home state that received a visit</p>
 <p>Here is tidyverse approach to loop, which uses some programming concepts we haven’t covered</p>
-<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb490-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(instnm)) {</a>
-<a class="sourceLine" id="cb490-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; &quot;</span>,<span class="kw">names</span>(instnm)[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb490-3" title="3">  </a>
-<a class="sourceLine" id="cb490-4" title="4">  <span class="co">#create object called inst_var; value is &quot;inst_id&quot; (e.g., &quot;inst_166629&quot;)</span></a>
-<a class="sourceLine" id="cb490-5" title="5">  inst_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;inst_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb490-6" title="6"></a>
-<a class="sourceLine" id="cb490-7" title="7">  <span class="co">#create object called visits_by_var; value is &quot;visits_by_id&quot; (e.g., &quot;visits_by_166629&quot;)</span></a>
-<a class="sourceLine" id="cb490-8" title="8">  visits_by_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;visits_by_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb490-9" title="9"></a>
-<a class="sourceLine" id="cb490-10" title="10">  <span class="co">#Create measures: number pub HS in SC; number w/ visit; pct w/ visit</span></a>
-<a class="sourceLine" id="cb490-11" title="11">  df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter_</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;state_code=={inst_var}&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb490-12" title="12"><span class="st">      </span><span class="kw">select_</span>(visits_by_var) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb490-13" title="13"><span class="st">      </span><span class="kw">mutate_</span>(<span class="dt">got_visit=</span>glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;ifelse({visits_by_var}&gt;0,1,0)&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb490-14" title="14"><span class="st">      </span><span class="kw">summarise</span>(<span class="dt">n_hs=</span><span class="kw">n</span>(),<span class="dt">n_visit=</span><span class="kw">sum</span>(got_visit),<span class="dt">pct_visit=</span><span class="kw">sum</span>(got_visit)<span class="op">/</span><span class="kw">n</span>())</a>
-<a class="sourceLine" id="cb490-15" title="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb509-1" title="1"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq_along</span>(instnm)) {</a>
+<a class="sourceLine" id="cb509-2" title="2">  <span class="kw">cat</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>,<span class="st">&quot;i=&quot;</span>,i,<span class="st">&quot;; &quot;</span>,<span class="kw">names</span>(instnm)[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>,<span class="dt">fill=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb509-3" title="3">  </a>
+<a class="sourceLine" id="cb509-4" title="4">  <span class="co">#create object called inst_var; value is &quot;inst_id&quot; (e.g., &quot;inst_166629&quot;)</span></a>
+<a class="sourceLine" id="cb509-5" title="5">  inst_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;inst_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb509-6" title="6"></a>
+<a class="sourceLine" id="cb509-7" title="7">  <span class="co">#create object called visits_by_var; value is &quot;visits_by_id&quot; (e.g., &quot;visits_by_166629&quot;)</span></a>
+<a class="sourceLine" id="cb509-8" title="8">  visits_by_var &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;visits_by_&quot;</span>,instnm[[i]],<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</a>
+<a class="sourceLine" id="cb509-9" title="9"></a>
+<a class="sourceLine" id="cb509-10" title="10">  <span class="co">#Create measures: number pub HS in SC; number w/ visit; pct w/ visit</span></a>
+<a class="sourceLine" id="cb509-11" title="11">  df_pubhs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter_</span>(glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;state_code=={inst_var}&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb509-12" title="12"><span class="st">      </span><span class="kw">select_</span>(visits_by_var) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb509-13" title="13"><span class="st">      </span><span class="kw">mutate_</span>(<span class="dt">got_visit=</span>glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;ifelse({visits_by_var}&gt;0,1,0)&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb509-14" title="14"><span class="st">      </span><span class="kw">summarise</span>(<span class="dt">n_hs=</span><span class="kw">n</span>(),<span class="dt">n_visit=</span><span class="kw">sum</span>(got_visit),<span class="dt">pct_visit=</span><span class="kw">sum</span>(got_visit)<span class="op">/</span><span class="kw">n</span>())</a>
+<a class="sourceLine" id="cb509-15" title="15">}</a></code></pre></div>
 </div>
 </div>
 </div>
