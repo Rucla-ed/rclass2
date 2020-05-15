@@ -1,0 +1,50 @@
+---
+title: "Programming"
+author: 
+date: 
+urlcolor: blue
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true # toc_float option to float the table of contents to the left of the main document content. floating table of contents will always be visible even when the document is scrolled
+      #collapsed: false # collapsed (defaults to TRUE) controls whether the TOC appears with only the top-level (e.g., H2) headers. If collapsed initially, the TOC is automatically expanded inline when necessary
+      #smooth_scroll: true # smooth_scroll (defaults to TRUE) controls whether page scrolls are animated when TOC items are navigated to via mouse clicks
+    number_sections: true
+    fig_caption: true # ? this option doesn't seem to be working for figure inserted below outside of r code chunk    
+    highlight: tango # Supported styles include "default", "tango", "pygments", "kate", "monochrome", "espresso", "zenburn", and "haddock" (specify null to prevent syntax    
+    theme: default # theme specifies the Bootstrap theme to use for the page. Valid themes include default, cerulean, journal, flatly, readable, spacelab, united, cosmo, lumen, paper, sandstone, simplex, and yeti.
+    df_print: tibble #options: default, tibble, paged
+    keep_md: true # may be helpful for storing on github
+    
+---
+
+
+# Introduction
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+rm(list = ls()) # remove all objects
+
+#load("../../data/prospect_list/western_washington_college_board_list.RData")
+load(url("https://github.com/ozanj/rclass/raw/master/data/prospect_list/wwlist_merged.RData"))
+
+# will this get rid of warnings "Unknown or uninitialised column: 'ethn_code_fac'"?
+wwlist <- wwlist %>% mutate(eth_code_fac = NULL) # remove variable
+
+#load off-campus recruiting dataset with one obs per recruiting event
+load(url("https://github.com/ozanj/rclass/raw/master/data/recruiting/recruit_event_somevars.RData"))
+
+#load off-campus recruiting dataset with one obs per high school
+load(url("https://github.com/ozanj/rclass/raw/master/data/recruiting/recruit_school_somevars.RData"))
+```
+
+## Practice:
+
+SOMETHING TO ADD; USE REGULAR EXPRESSIONS TO GRAB URL OF DATA
+
+Maybe for loops, get website for each college/university from ipeds, filter by org characteristics, and then loop through each website and calculate some shit. 
+
