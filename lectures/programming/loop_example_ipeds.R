@@ -144,7 +144,7 @@ for (i in 1:length(hd)) {
   
 # dowload all datasets using loop
 
-for (i in 1:2) {   
+
 for (i in 1:length(hd)) { # this takes too long
 
   writeLines(str_c("i=",i, "; hd[",i,"]=",hd[i], sep = ""))
@@ -188,22 +188,77 @@ for (i in 1:length(hd)) { # this takes too long
 
   
 # read into R
+  
+  #one year of data
   file.path(data_dir,str_c(hd[1],".csv"))
   hd2018 <- read_csv(file = file.path(data_dir,str_c(hd[1],".csv")))
   
-  
+
+#loop to read in csv files and assign them to data frames
 for (i in 1:length(hd)) { 
  
-  #hd[i] <-
-  hd[i] <- read_csv(file = file.path(data_dir,str_c(hd[i],".csv")))
+  dfname <- str_c(str_to_lower(hd[i]))
+  #str(dfname)
+  
+  assign(dfname, read_csv(file = file.path(data_dir,str_c(hd[i],".csv"))))
 }
+  
 glimpse(hd2018)
-# Keep only subset of variables (including latitude and longitude, univerisity url, unitid, ) 
-  
-# and keep relatively small subset of institutions (e.g., all UCs and CSUs)
-  
-# and then create a character vector from the webaddr field and use that to create loop 
-  #that reads in the url using xml2/rvest functions we learned last week. and calculate something from url 
-  #and merge this thing back to the hd dataset
 
-#something like this
+
+# rename variables to lowercase and keep selected variables
+
+# this works
+dfname <- str_c(str_to_lower(hd[1]))
+dfname
+
+
+assign(dfname, read_csv(file = file.path(data_dir,str_c(hd[1],".csv")))) %>% 
+  select(UNITID,LONGITUD,LATITUDE) %>% rename_all(tolower) %>% glimpse()
+
+# HAVING TROUBLE DOING THIS WITHIN A LOOP....
+
+for (i in 1:length(hd)) { 
+  
+  dfname <- str_c(str_to_lower(hd[i]))
+  writeLines(dfname)
+  
+  #%>% rename_all(tolower) %>% glimpse()
+  
+  #assign(dfname, read_csv(file = file.path(data_dir,str_c(hd[i],".csv"))))
+}
+
+
+
+for (d in c("hd2018","hd2017","hd2016")) {
+
+  
+  writeLines(str_c("new iteration. d=",d, sep = ""))
+  d
+  #print(typeof(d))
+  #print(d[1:5,1:5])
+  
+    #rename_all(tolower)
+  
+}
+
+hd2018 %>% rename_all(tolower) %>% glimpse()
+glimpse(hd2018)
+## -----------------------------------------------------------------------------
+## MODIFY HD 2018 DATASET
+## -----------------------------------------------------------------------------
+
+glimpse(hd2018)
+
+# Keep only subset of variables (including latitude and longitude, univerisity url, unitid, ) 
+
+# and keep relatively small subset of institutions (e.g., all UCs and CSUs)
+
+# and then create a character vector from the webaddr field and use that to create loop 
+#that reads in the url using xml2/rvest functions we learned last week. and calculate something from url 
+#and merge this thing back to the hd dataset
+
+## -----------------------------------------------------------------------------
+## ??? START APPLYING REGULAR EXPRESSIONS TO MODIFY HD 2018 DO FILE?
+## -----------------------------------------------------------------------------
+
