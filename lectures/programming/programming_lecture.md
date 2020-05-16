@@ -28,7 +28,7 @@ library(tidyverse)
 ```
 
 ```
-## -- Attaching packages ------------------------------------------------------------------ tidyverse 1.2.1 --
+## -- Attaching packages ------------------------------------------------------------------------ tidyverse 1.2.1 --
 ```
 
 ```
@@ -39,7 +39,7 @@ library(tidyverse)
 ```
 
 ```
-## -- Conflicts --------------------------------------------------------------------- tidyverse_conflicts() --
+## -- Conflicts --------------------------------------------------------------------------- tidyverse_conflicts() --
 ## x dplyr::filter() masks stats::filter()
 ## x dplyr::lag()    masks stats::lag()
 ```
@@ -392,7 +392,10 @@ attributes(df_a)
 ## [1] 1 2 3
 ```
 
-### Identify and coerce vector type
+<br>
+<details><summary>**Identify and coerce vector type**</summary>
+
+Identify and coerce vector type
 
 Identifying vector __type__, Grolemund and Wickham:
 
@@ -429,9 +432,7 @@ Functions for converting/coercing between vector types:
 - `as.list()`: Convert to `list`
 - `as.data.frame()`: Convert to `data.frame`
 
-
-<br>
-<details><summary>**Example**: Using `as.logical()` to convert to `logical`</summary>
+**Example**: Using `as.logical()` to convert to `logical`
 
 Character vector coerced to logical vector:
 
@@ -457,10 +458,8 @@ as.logical(c(0, 0.0, 1, -1, 20, 5.5))
 ## [1] FALSE FALSE  TRUE  TRUE  TRUE  TRUE
 ```
 
-</details>
 
-<br>
-<details><summary>**Example**: Using `as.numeric()` to convert to `numeric`</summary>
+**Example**: Using `as.numeric()` to convert to `numeric`
 
 Logical vector coerced to numeric vector:
 
@@ -474,7 +473,7 @@ as.numeric(c(FALSE, TRUE))
 ## [1] 0 1
 ```
 
-
+</details>
 
 ## Subset/extract elements
 
@@ -556,7 +555,7 @@ Six ways to subset an atomic vector using `[]`
 6. If vector is "named," use character vectors to return elements with matching names
 
 
-#### 1. Using positive integers to return elements at specified positions (subset atomic vectors using [])
+####  Way #1. Using positive integers to return elements (subset atomic vectors using [])
 
 Create atomic vector `x`
 
@@ -624,7 +623,7 @@ x[3:5]
 ```
 
 
-#### 2. Using negative integers to exclude elements at specified positions (subset atomic vectors using [])
+#### Way #2. Using negative integers to exclude elements at specified positions (subset atomic vectors using [])
 
 Before excluding elements based on position, investigate object
 
@@ -679,7 +678,7 @@ x[-c(3,1)] # exclude 3rd and 1st element
 ```
 
 
-#### 3. Using logicals to return elements where corresponding logical is `TRUE` (subset atomic vectors using [])
+#### Way #3. Using logicals to return elements where corresponding logical is `TRUE` (subset atomic vectors using [])
 
 
 ```r
@@ -784,7 +783,7 @@ x[x>3]
 ```
 
 
-#### 4. Empty `[]` returns original vector (subset atomic vectors using [])
+#### Way #4. Empty `[]` returns original vector (subset atomic vectors using [])
 
 
 
@@ -806,7 +805,7 @@ x[]
 
 This is useful for sub-setting data frames, as we will show below
 
-#### 5. Zero vector [0] (subset atomic vectors using [])
+#### Way #5.  Zero vector [0] (subset atomic vectors using [])
 
 Zero vector, `x[0]`
 
@@ -825,7 +824,7 @@ Wickham states:
 - "This is not something you usually do on purpose, but it can be helpful for generating test data."
 
 
-#### 6. If vector is named, character vectors to return elements with matching names (subset atomic vectors using [])
+#### Way #6. If vector is named, character vectors to return elements with matching names (subset atomic vectors using [])
 
 
 Create vector `y` that has values of vector `x` but each element is named
@@ -932,18 +931,101 @@ Use "single index" `df_name[<columns>]` to extract columns (variables) based on 
 
 \medskip
 
-Examples [output omitted]
+Examples
 
 ```r
 names(df_event)
+```
 
+```
+##  [1] "instnm"               "univ_id"              "instst"              
+##  [4] "pid"                  "event_date"           "event_type"          
+##  [7] "zip"                  "school_id"            "ipeds_id"            
+## [10] "event_state"          "event_inst"           "med_inc"             
+## [13] "pop_total"            "pct_white_zip"        "pct_black_zip"       
+## [16] "pct_asian_zip"        "pct_hispanic_zip"     "pct_amerindian_zip"  
+## [19] "pct_nativehawaii_zip" "pct_tworaces_zip"     "pct_otherrace_zip"   
+## [22] "fr_lunch"             "titlei_status_pub"    "total_12"            
+## [25] "school_type_pri"      "school_type_pub"      "g12offered"          
+## [28] "g12"                  "total_students_pub"   "total_students_pri"  
+## [31] "event_name"           "event_location_name"  "event_datetime_start"
+```
+
+```r
 #extract elements 1 through 4 (elements=columns=variables)
 df_event[1:4]
-df_event[c(1,2,3,4)]
+```
 
+```
+## # A tibble: 18,680 x 4
+##    instnm      univ_id instst   pid
+##    <chr>         <int> <chr>  <int>
+##  1 UM Amherst   166629 MA     57570
+##  2 UM Amherst   166629 MA     56984
+##  3 UM Amherst   166629 MA     57105
+##  4 UM Amherst   166629 MA     57118
+##  5 Stony Brook  196097 NY     16281
+##  6 USCC         218663 SC      8608
+##  7 UM Amherst   166629 MA     56898
+##  8 UM Amherst   166629 MA     56933
+##  9 UM Amherst   166629 MA     56940
+## 10 UM Amherst   166629 MA     57030
+## # ... with 18,670 more rows
+```
+
+```r
+df_event[c(1,2,3,4)]
+```
+
+```
+## # A tibble: 18,680 x 4
+##    instnm      univ_id instst   pid
+##    <chr>         <int> <chr>  <int>
+##  1 UM Amherst   166629 MA     57570
+##  2 UM Amherst   166629 MA     56984
+##  3 UM Amherst   166629 MA     57105
+##  4 UM Amherst   166629 MA     57118
+##  5 Stony Brook  196097 NY     16281
+##  6 USCC         218663 SC      8608
+##  7 UM Amherst   166629 MA     56898
+##  8 UM Amherst   166629 MA     56933
+##  9 UM Amherst   166629 MA     56940
+## 10 UM Amherst   166629 MA     57030
+## # ... with 18,670 more rows
+```
+
+```r
 str(df_event[1:4])
+```
+
+```
+## Classes 'tbl_df', 'tbl' and 'data.frame':	18680 obs. of  4 variables:
+##  $ instnm : chr  "UM Amherst" "UM Amherst" "UM Amherst" "UM Amherst" ...
+##  $ univ_id: int  166629 166629 166629 166629 196097 218663 166629 166629 166629 166629 ...
+##  $ instst : chr  "MA" "MA" "MA" "MA" ...
+##  $ pid    : int  57570 56984 57105 57118 16281 8608 56898 56933 56940 57030 ...
+```
+
+```r
 #extract columns 13 and 7
 df_event[c(13,7)]
+```
+
+```
+## # A tibble: 18,680 x 2
+##    pop_total zip  
+##        <dbl> <chr>
+##  1     29970 01002
+##  2     14888 01007
+##  3     30629 01020
+##  4     30629 01020
+##  5     17872 01027
+##  6     17872 01027
+##  7     17872 01027
+##  8      6310 01033
+##  9      6310 01033
+## 10      2853 01038
+## # ... with 18,670 more rows
 ```
 
 ##### Subsetting Data Frames to extract columns (variables) and rows (observations) based on positionality
@@ -1312,116 +1394,7 @@ str(df_event$zip)
 ```
 
 
-#### Subsetting Data Frames with [] combined with $ 
-
-Combine `[]` with `$` to subset data frame same as `filter()` or `subset()`
-
-Syntax: `df_name[df_name$var_name <condition>, ]`
-
-- Note: Uses "double index" `df_name[<rows>, <columns>]` syntax
-- __Cannot__ use "single index" `df_name[<columns>]`
-
-Examples (output omitted)
-
-- All observations where the hich school received at least 1 visit from UC Berkeley (var=`visits_by_110635`) and all columns
-
-```r
-df_school[df_school$visits_by_110635 >= 1, ]
-```
-
-- All obs where the high school received at least 1 visit from UC Berkeley and the first three columns
-
-```r
-df_school[df_school$visits_by_110635 == 1, 1:3]
-```
-- All obs where the high school received at least 1 visit from UC Berkeley and variables "state_code" "school_type" "name"
-
-```r
-df_school[df_school$visits_by_110635 == 1, c("state_code","school_type","name")]
-```
-
-Combine `[]` with `$` to subset data frame same as `filter()` or `subset()`
-
-- Syntax: `df_name[df_name$var_name <condition>, ]`
-
-- Can be combined with `count()` or `nrow()` to avoid printing many rows
-
-\medskip
-Count obs where high schools received at least 1 visit by Bama (100751) and at least one visit by Berkeley (110635)
-
-- compare with `filter()` and `subset()` approaches
-
-```r
-#[] combined with $ approach
-count(df_school[df_school$visits_by_110635 >= 1
-  & df_school$visits_by_100751 >= 1, ])
-```
-
-```
-## # A tibble: 1 x 1
-##       n
-##   <int>
-## 1   247
-```
-
-```r
-count(df_school[df_school[["visits_by_110635"]] >= 1
-  & df_school[["visits_by_100751"]] >= 1, ])
-```
-
-```
-## # A tibble: 1 x 1
-##       n
-##   <int>
-## 1   247
-```
-
-```r
-df_school[]
-```
-
-```
-## # A tibble: 21,301 x 26
-##    state_code school_type ncessch name  address city  zip_code pct_white
-##    <chr>      <chr>       <chr>   <chr> <chr>   <chr> <chr>        <dbl>
-##  1 AK         public      020000~ Beth~ 1006 R~ Beth~ 99559       11.8  
-##  2 AK         public      020000~ Ayag~ 106 Vi~ Kong~ 99559        0    
-##  3 AK         public      020000~ Kwig~ 108 Vi~ Kwig~ 99622        0    
-##  4 AK         public      020000~ Nels~ 118 Vi~ Toks~ 99637        0    
-##  5 AK         public      020000~ Alak~ 9 Scho~ Alak~ 99554        2.52 
-##  6 AK         public      020000~ Emmo~ Genera~ Emmo~ 99581        0    
-##  7 AK         public      020000~ Hoop~ Genera~ Hoop~ 99604        0    
-##  8 AK         public      020000~ Igna~ 100 Hi~ Moun~ 99632        0    
-##  9 AK         public      020000~ Pilo~ 5090 S~ Pilo~ 99650        0.559
-## 10 AK         public      020000~ Kotl~ 20129 ~ Kotl~ 99620        0.538
-## # ... with 21,291 more rows, and 18 more variables: pct_black <dbl>,
-## #   pct_hispanic <dbl>, pct_asian <dbl>, pct_amerindian <dbl>, pct_other <dbl>,
-## #   num_fr_lunch <dbl>, total_students <dbl>, num_took_math <dbl>,
-## #   num_prof_math <dbl>, num_took_rla <dbl>, num_prof_rla <dbl>,
-## #   avgmedian_inc_2564 <dbl>, visits_by_110635 <int>, visits_by_126614 <int>,
-## #   visits_by_100751 <int>, inst_110635 <chr>, inst_126614 <chr>,
-## #   inst_100751 <chr>
-```
-
-```r
-#filter() approach
-nrow(filter(df_school, visits_by_110635 >= 1, visits_by_100751 >= 1))
-```
-
-```
-## [1] 247
-```
-
-```r
-#subset() approach
-nrow(subset(df_school, visits_by_110635 >= 1 & visits_by_100751 >= 1))
-```
-
-```
-## [1] 247
-```
-
-## Attributes and class
+## Attributes and class [SKIP]
 
 ### Atomic vs. augmented vectors
 
@@ -2097,7 +2070,7 @@ Many different object classes exist in R
 - In this course we will work with classes that have been created by others
 
 
-## Names and values
+## Names and values [EMPTY]
 
 ## Prereq functions/concepts
 
@@ -2159,7 +2132,9 @@ seq(from=100,to=150,by=10)
 ```
 ## [1] 100 110 120 130 140 150
 ```
-### Length of atomic vectors
+### Length of vectors
+
+#### Length of atomic vectors
 
 \medskip 
 Definition: __length__ of an object is its number of elements
@@ -2224,7 +2199,7 @@ z[[1]]
 ```
 ## [1] "1"
 ```
-### Length of lists
+#### Length of lists
 
 \medskip 
 Definition: __length__ of an object is its number of elements
@@ -2317,7 +2292,7 @@ df_bama$med_inc; typeof(df_bama$med_inc); length(df_bama$med_inc)
 ## [1] 5
 ```
 
-### Combine sequences and length
+### Combine sequence and length
 
 \medskip
 
@@ -2384,7 +2359,7 @@ seq(2,length(df_bama))
 ```
 
 
-### File paths
+### Directories/paths [SKIP]
 
 Working directory
 
@@ -2435,9 +2410,11 @@ list.files()
 ```
 
 ```
-## [1] "data"                     "loop_examples.Rmd"       
-## [3] "programming.Rproj"        "programming_lecture.html"
-## [5] "programming_lecture.md"   "programming_lecture.Rmd"
+##  [1] "data"                     "hd2014.csv"              
+##  [3] "hd2017.csv"               "ipeds_file_list.txt"     
+##  [5] "loop_example_ipeds.R"     "loop_examples.Rmd"       
+##  [7] "programming.Rproj"        "programming_lecture.html"
+##  [9] "programming_lecture.md"   "programming_lecture.Rmd"
 ```
 
 ```r
@@ -2451,9 +2428,11 @@ list.files()
 ```
 
 ```
-## [1] "data"                     "loop_examples.Rmd"       
-## [3] "programming.Rproj"        "programming_lecture.html"
-## [5] "programming_lecture.md"   "programming_lecture.Rmd"
+##  [1] "data"                     "hd2014.csv"              
+##  [3] "hd2017.csv"               "ipeds_file_list.txt"     
+##  [5] "loop_example_ipeds.R"     "loop_examples.Rmd"       
+##  [7] "programming.Rproj"        "programming_lecture.html"
+##  [9] "programming_lecture.md"   "programming_lecture.Rmd"
 ```
 
 `unlink()` deletes the file(s) or directories specified by argument `x`
@@ -2535,9 +2514,6 @@ THEN DEFINE LOOPS AS MOST COMMON WAY TO ITERATE
 
 
 ## Loop basics
-
-\medskip
-What are loops?: __Loops__ execute some set of commands multiple times
 
 ### Simple loop example
 
@@ -2753,7 +2729,7 @@ for(y in birth_years) { # Loop sequence
 ## value of 2016 minus 2018 is 2
 ```
 
-# When to write a loop; recipe for writing loops
+## When to write a loop; recipe for writing loops
 
 ### When to write a loop
 
@@ -2774,9 +2750,23 @@ __Don't worry about knowing all the situations you should write a loop__
 - Rather, you'll be creating analysis dataset or analyzing data and you will notice there is some task that you are repeating over and over
 - Then you'll think "oh, I should write a loop or function for this"
 
-### When to write a loop vs a functions [SKIP- for next week]
+### Recipe for how to write loop
 
-\medskip
+The general recipe for how to write a loop:
+
+1. Complete the task for one instance outside a loop (this is akin to writing the __body__ of the loop)
+
+2. Write the __sequence__ 
+
+3. Which parts of the body need to change with each iteration
+
+4. _if_ you are creating a new object store output of the loop, create this outside of the loop
+
+5. Construct the loop
+
+<br>
+<details><summary>**When to write a loop vs a functions [SKIP]**</summary>
+
 Usually obvious when you are duplicating code, but unclear whether you should write a loop or whether you should write a function.
 
 - Often, a repeated task can be completed with a loop or a function
@@ -2796,36 +2786,9 @@ __Note__
 - Can embed loops within functions; can call functions within loops
 - But for now, just try to understand basics of functions and loops
 
+</details>
 
-
-### Recipe for how to write loop
-
-The general recipe for how to write a loop:
-
-1. Complete the task for one instance outside a loop (this is akin to writing the __body__ of the loop)
-
-2. Write the __sequence__ 
-
-3. Which parts of the body need to change with each iteration
-
-4. _if_ you are creating a new object store output of the loop, create this outside of the loop
-
-5. Construct the loop
-
-# Three ways to loop over a vector (atomic vector or a list)
-
-### Plan for learning more about loops
-
-Rest of lecture on loops will proceed as follows:
-
-1. Describe the three different ways to "loop over" a vector
-2. Describe the two broad sorts of tasks to accomplish within body of a loop
-    1. Modify an existing object (e.g., vector or list/data frame)
-    2. Create a new object
-    
-Throughout, I'll try to give you lots of examples and practice    
-
-### Three ways to loop over an object
+## Three ways to loop over a vector (atomic vector or a list)
 
 \medskip
 
@@ -2862,8 +2825,6 @@ str(df)
 ##  $ b: num  0.606 -1.818 0.63 -0.276
 ##  $ c: num  -0.284 -0.919 -0.116 1.817
 ```
-
-## Loop over elements
 
 ### Approach 1: loop over elements of object [object=atomic vector]
 
@@ -2903,9 +2864,6 @@ for (i in vec) {
 ## value of object i= 30
 ## object i has: type=double; length=1; class=numeric; attributes=
 ```
-### Approach 1: loop over elements of object [object=list]
-
-\medskip
 
 - \medskip __sequence__ syntax: `for (i in object_name)`
     - Sequence iterates through each element of the object
@@ -2947,9 +2905,6 @@ for (i in df) {
 ## value of object i= -0.2841597 -0.919322 -0.1162478 1.817312
 ## object type=double; length=4; class=numeric; attributes=
 ```
-### Approach 1: loop over elements of object
-
-\medskip
 
 __Example task__:
 
@@ -2989,11 +2944,7 @@ for (i in df) {
 ## value of object i= -0.2841597 -0.919322 -0.1162478 1.817312
 ## mean value of object i= 0.1243956
 ```
-## Loop over element names
-
 ### Approach 2: loop over names of object elements
-
-\medskip
 
 To use this approach, elements in object must have name attributes
 
@@ -3037,7 +2988,7 @@ for (i in names(vec)) {
 }
 ```
 
-### Approach 2: loop over names of object elements [object = list]
+loop over names of object elements [object = list]
 
 \medskip
 
@@ -3065,6 +3016,7 @@ names(df)
 ## [1] "a" "b" "c"
 ```
 
+
 ```r
 for (i in names(df)) {
   cat("\n","value of object i=",i,"; type=",typeof(i),sep="",fill=TRUE)
@@ -3072,9 +3024,6 @@ for (i in names(df)) {
   print(str(df[[i]])) # "Access element contents using [[]]"
 }
 ```
-### Approach 2: loop over names of elements in object
-
-\medskip
 
 __Example task__: calculate mean value of each element of list object `df`, using `[[]]` to access element contents
 
@@ -3112,8 +3061,6 @@ for (i in names(df)) {
 }
 #?mean # mean function only works for particular *classes* of objects
 ```
-## Loop over element position number
-
 ### Approach 3: Loop over numeric indices of element position
 
 \medskip
@@ -3170,9 +3117,6 @@ for (i in 1:3) {
 }
 ```
 
-
-### Approach 3: Loop over numeric indices of element position
-
 \medskip
 
 Loop over element position number: Simple sequence syntax
@@ -3220,62 +3164,6 @@ for (i in seq_along(vec)) {
 ## value of object i= 2
 ## value of object i= 3
 ```
-### Approach 3: Loop over numeric indices [SKIP]
-
-\medskip
-
-Why Wickham prefers `seq_along(object_name)` over `1:length(object_name)`
-
-- `seq_along` handles zero-length vectors correctly, and is therefore the "safe" version of `1:length(object_name)`
-
-
-```r
-# create vector of length=0
-y <- vector("double", 0) 
-length(y)
-```
-
-```
-## [1] 0
-```
-
-```r
-1:length(y)
-```
-
-```
-## [1] 1 0
-```
-
-```r
-for (i in 1:length(y)) {
-  cat("value of object i=",i,fill=TRUE)
-}
-```
-
-```
-## value of object i= 1
-## value of object i= 0
-```
-
-```r
-seq_along(y)
-```
-
-```
-## integer(0)
-```
-
-```r
-for (i in seq_along(y)) {
-  cat("value of object i=",i,fill=TRUE)
-}
-```
-Personally, I find `1:length(object_name)` much more intuitive
-
-### Approach 3: Loop over numeric indices of element position
-
-\medskip
 
 __sequence__ syntax: `for (i in 1:length(object_name))` __OR__ `for (i in seq_along(object_name))`
 
@@ -3308,8 +3196,6 @@ for (i in 1:length(vec)) {
 }
 ```
 
-### Approach 3: Loop over numeric indices of element position
-
 __Example, object is a list__
 
 ```r
@@ -3333,8 +3219,6 @@ for (i in 1:length(df)) {
   print(str(df[[i]])) # "Access element contents using [[]]"
 }
 ```
-
-### Approach 3: Loop over numeric indices of element position
 
 __Example task__:
 
@@ -3363,10 +3247,6 @@ for (i in seq_along(df)) {
 }
 #?mean # mean(object) requires object to be numeric or logical
 ```
-### Approach 3: Loop over numeric indices of element position
-
-\medskip 
-
 __When looping over numeric indices, you can extract element names based on element position__
 
 - First, let's experiment w/ `attributes()` and `names()` functions
@@ -3412,10 +3292,6 @@ names(df)[[1]] # not null: we extract names of df, then select first element
 ```
 ## [1] "a"
 ```
-
-### Approach 3: Loop over numeric indices of element position
-
-\medskip 
 
 __When looping over numeric indices, you can extract element names based on element position__
 
@@ -3491,8 +3367,9 @@ for (i in seq_along(df)) {
 ## value= -0.2841597 -0.919322 -0.1162478 1.817312
 ```
 
-# Modifying vs. Creating new object
+## Modifying vs. Creating new object
 
+###  START HERE FRIDAY 
 ### Modify object or create new object
 
 Grolemund and Wickham differentiate between two types of tasks loops accomplish: (1) modify existing object; and (2) create new object
@@ -3756,7 +3633,7 @@ z_score <- function(x) {
     }
   }
 }
-#apply to data frame df
+#apple df
 df_z <- z_score(df)
 df; df_z
 #apply to data frame df_bama
@@ -3764,221 +3641,11 @@ df_bama_z <- z_score(df_bama)
 df_bama; df_bama_z
 ```
 
-## Practice:
+## Practice: download IPEDS 
 
-SOMETHING TO ADD; USE REGULAR EXPRESSIONS TO GRAB URL OF DATA
+EXPLAIN OBJECTIVE OF EXAMPLE
 
-Maybe for loops, get website for each college/university from ipeds, filter by org characteristics, and then loop through each website and calculate some shit. 
-
-## Practice: How well do public universities cover in-state public high schools?
-
-### Load recruiting data
-
-Load data frame with one observation per high school and variables for visits by each public research university in sample
-
-- Note: this data frame has more vars than previous data frame we used
-
-```r
-rm(list = ls()) # remove all objects
-load(url("https://github.com/ozanj/rclass/raw/master/data/recruiting/recruit_school_allvars.RData"))
-```
-
-We are interested in creating measures of how good a job public universities are doing visiting in-state public high schools
-
-- Create data frame with one observation for each public high school
-
-```r
-#names(df_school_all)
-df_school_all %>% str()
-df_pubhs <- df_school_all %>% # Create data-frame that keeps public high schools
-  filter(school_type=="public") %>% select(-school_type)
-rm(df_school_all)
-```
-
-Create standalone objects (output and code omitted)
-
-1. Character vector containing ID for each public university
-2. A named list containing university name
-
-
-
-
-### How well do public universities cover in-state public high schools
-
-\medskip __Task__: for each public research university, calculate the number and percent of public high schools in the university's home state that received a visit
-
-First, let's accomplish task outside of a loop for one university [Tidyverse]
-
-- let's choose `"U of South Carolina"`, `ID==218663`
-
-```r
-#"state_code" is the 2-letter high school state code
-df_pubhs %>% select(state_code) %>% str()
-
-#variables starting with "inst_" identify state the university is located in
-df_pubhs %>% select(inst_218663) %>% str()
-df_pubhs %>% select(inst_218663) %>% count(inst_218663) # these vars don't vary
-
-#variables starting with "visits_by_" indicate number of visits HS got in 2017
-df_pubhs %>% select(visits_by_218663) %>% str()
-df_pubhs %>% select(visits_by_218663) %>% count(visits_by_218663) 
-
-#filter only obs where HS state code equals home state of university
-df_pubhs %>% filter(state_code==inst_218663) %>% count() # count pub HS in SC
-
-#Create measures: number pub HS in SC; number w/ visit; pct w/ visit
-df_pubhs %>% filter(state_code==inst_218663) %>% select(visits_by_218663) %>% 
-  mutate(got_visit=ifelse(visits_by_218663>0,1,0)) %>%
-  summarise(n_hs=n(),n_visit=sum(got_visit),pct_visit=sum(got_visit)/n())
-```
-### How well do public universities cover in-state public high schools [SKIP- BASE R]
-
-\medskip __Task__: for each public research university, calculate the number and percent of public high schools in the university's home state that received a visit
-
-First, let's accomplish task outside of a loop for one university [Base R]
-
-- let's choose `"U of South Carolina"`, `ID==218663`
-
-```r
-#"state_code" is the 2-letter high school state code
-str(df_pubhs$state_code)
-
-#variables starting with "inst_" identify state the university is located in
-str(df_pubhs$inst_218663)
-table(df_pubhs$inst_218663, useNA='ifany') # these vars don't vary 
-
-#variables starting with "visits_by_" indicate number of visits HS got in 2017
-str(df_pubhs$visits_by_218663)
-table(df_pubhs$visits_by_218663, useNA='ifany')
-
-#filter only obs where HS state code equals home state of university
-tempdf <- subset(df_pubhs,df_pubhs[["state_code"]]==df_pubhs[["inst_218663"]])
-  #tempdf <- subset(df_pubhs,df_pubhs$state_code==df_pubhs$inst_218663) # same as above
-  #tempdf <- subset(df_pubhs,state_code==inst_218663) # same as above
-
-#Create 0/1 indicator of whether got visit
-tempdf$got_visit <- ifelse(tempdf$visits_by_218663>0,1,0)
-
-#frequency count of schools that got visits vs. not
-table(tempdf$got_visit, useNA='ifany')
-
-#create objects for count table and proportion table
-ct_table <- table(tempdf$got_visit, useNA='ifany')
-ct_table
-typeof(ct_table); length(ct_table); str(ct_table) # named vector with 2 elements
-
-prop.table(ct_table)
-pr_table <-prop.table(ct_table)
-pr_table
-typeof(pr_table); length(pr_table); str(pr_table) # named vector with 2 elements
-```
-
-### How well do public universities cover in-state public high schools
-
-\medskip __Task__: for each public research university, calculate the number and percent of public high schools in the university's home state that received a visit
-
-Build loop
-
-- first, loop through each value of list `instnm`
-
-```r
-instnm
-for (i in seq_along(instnm)) {
-  cat("\n","i=",i,sep="",fill=TRUE)
-  
-  name <- names(instnm)[[i]] # name of element
-  cat("name=",name,sep="",fill=TRUE)
-  
-  value <- instnm[[i]] # value of element
-  cat("value=",value,sep="",fill=TRUE)
-}
-```
-
-### How well do public universities cover in-state public high schools
-
-\medskip __Task__: for each public research university, calculate the number and percent of public high schools in the university's home state that received a visit
-
-Build loop
-
-- next, create "inst_..." and "visits_by_..." vars for each id
-- keep obs in same state as university
-- create 0/1 variable of whether high school got a visit
-
-```r
-for (i in seq_along(instnm)) {
-  cat("\n","i=",i,"; ",names(instnm)[[i]],sep="",fill=TRUE)
-  
-  #create object called inst_var; value is "inst_id" (e.g., "inst_166629")
-  cat("inst_",instnm[[i]],sep="",fill=TRUE)
-  inst_var <- paste("inst_",instnm[[i]],sep="")
-  print(inst_var)
-  
-  #create object called visits_by_var; value is "visits_by_id" (e.g., "visits_by_166629")
-  visits_by_var <- paste("visits_by_",instnm[[i]],sep="")
-  print(visits_by_var)
-  
-  #create subset of data with high schools in same state as the university
-  tempdf <- subset(df_pubhs,df_pubhs[["state_code"]]==df_pubhs[[inst_var]])
-      # code df_pubhs[[inst_var]]) evaluates to df_pubhs[["inst_166629"]]) or whatever current value of inst_var is
-      # this is same as instnm[[i]] evaluating to instnm[[16]] or whatever current value of i is
-  #Create 0/1 indicator of whether got visit
-  tempdf$got_visit <- ifelse(tempdf[[visits_by_var]]>0,1,0)  
-}
-```
-
-### How well do public universities cover in-state public high schools
-
-\medskip __Task__: for each public research university, calculate the number and percent of public high schools in the university's home state that received a visit
-
-Build loop
-
-- next, create count of number of visted and non-visited in-state schools
-
-```r
-for (i in seq_along(instnm)) {
-  cat("\n","i=",i,"; ",names(instnm)[[i]],sep="",fill=TRUE)
-  
-  inst_var <- paste("inst_",instnm[[i]],sep="")
-  visits_by_var <- paste("visits_by_",instnm[[i]],sep="")
-
-  tempdf <- subset(df_pubhs,df_pubhs[["state_code"]]==df_pubhs[[inst_var]]) # keep obs in same state as university
-  tempdf$got_visit <- ifelse(tempdf[[visits_by_var]]>0,1,0) # create 0/1 indicator
-  
-  #create frequency table of number of schools with and without visits
-  print(table(tempdf$got_visit, useNA='ifany'))
-  ct_table <- table(tempdf$got_visit, useNA='ifany') # named vector with 2 elements str(ct_table)
-
-  #create proportion table
-  print(prop.table(ct_table))
-  pr_table <- prop.table(ct_table) # named vector with 2 elements str(pr_table)
-}
-```
-
-### How well do public universities cover in-state public high schools [SKIP]
-
-\medskip __Task__: for each public research university, calculate the number and percent of public high schools in the university's home state that received a visit
-
-Here is tidyverse approach to loop, which uses some programming concepts we haven't covered
-
-
-```r
-for (i in seq_along(instnm)) {
-  cat("\n","i=",i,"; ",names(instnm)[[i]],sep="",fill=TRUE)
-  
-  #create object called inst_var; value is "inst_id" (e.g., "inst_166629")
-  inst_var <- paste("inst_",instnm[[i]],sep="")
-
-  #create object called visits_by_var; value is "visits_by_id" (e.g., "visits_by_166629")
-  visits_by_var <- paste("visits_by_",instnm[[i]],sep="")
-
-  #Create measures: number pub HS in SC; number w/ visit; pct w/ visit
-  df_pubhs %>% filter_(glue::glue("state_code=={inst_var}")) %>% 
-      select_(visits_by_var) %>% 
-      mutate_(got_visit=glue::glue("ifelse({visits_by_var}>0,1,0)")) %>%
-      summarise(n_hs=n(),n_visit=sum(got_visit),pct_visit=sum(got_visit)/n())
-}
-```
-
+PASTE RELEVANT CODE FROM R SCRIPT INTO R CODE CHUNKS OR PROVIDE LINK TO R SCRIPT
 
 
 # Conditional execution
