@@ -194,56 +194,31 @@ for (i in 1:length(hd)) { # this takes too long
   hd2018 <- read_csv(file = file.path(data_dir,str_c(hd[1],".csv")))
   
 
+  # make df name lowercase
+  dfname <- str_c(str_to_lower(hd[1]))
+  dfname
+
 #loop to read in csv files and assign them to data frames
 for (i in 1:length(hd)) { 
  
-  dfname <- str_c(str_to_lower(hd[i]))
+  dfname <- str_c(str_to_lower(hd[i])) #change string to lowercase
   #str(dfname)
   
-  assign(dfname, read_csv(file = file.path(data_dir,str_c(hd[i],".csv"))))
+  
+  df <- read_csv(file = file.path(data_dir,str_c(hd[i],".csv"))) #read in csv files
+  
+    
+    names(df) <- df %>% #change column names to lowercase
+      names() %>%
+      str_to_lower()
+    
+    #print(names(df))
+    
+    assign(dfname, df) #assign the df dataframe to the dfname lowercase string 
+
 }
   
-glimpse(hd2018)
-
-
-# rename variables to lowercase and keep selected variables
-
-# this works
-dfname <- str_c(str_to_lower(hd[1]))
-dfname
-
-
-assign(dfname, read_csv(file = file.path(data_dir,str_c(hd[1],".csv")))) %>% 
-  select(UNITID,LONGITUD,LATITUDE) %>% rename_all(tolower) %>% glimpse()
-
-# HAVING TROUBLE DOING THIS WITHIN A LOOP....
-
-for (i in 1:length(hd)) { 
   
-  dfname <- str_c(str_to_lower(hd[i]))
-  writeLines(dfname)
-  
-  #%>% rename_all(tolower) %>% glimpse()
-  
-  #assign(dfname, read_csv(file = file.path(data_dir,str_c(hd[i],".csv"))))
-}
-
-
-
-for (d in c("hd2018","hd2017","hd2016")) {
-
-  
-  writeLines(str_c("new iteration. d=",d, sep = ""))
-  d
-  #print(typeof(d))
-  #print(d[1:5,1:5])
-  
-    #rename_all(tolower)
-  
-}
-
-hd2018 %>% rename_all(tolower) %>% glimpse()
-glimpse(hd2018)
 ## -----------------------------------------------------------------------------
 ## MODIFY HD 2018 DATASET
 ## -----------------------------------------------------------------------------
@@ -251,6 +226,10 @@ glimpse(hd2018)
 glimpse(hd2018)
 
 # Keep only subset of variables (including latitude and longitude, univerisity url, unitid, ) 
+# and keep relatively small subset of institutions (e.g., all UCs and CSUs)
+#hd2018_s <- hd2018 %>%
+#v  dplyr::select(unitid, instnm, addr, stabbr, city, zip, latitude, longitud, webaddr) %>%
+  
 
 # and keep relatively small subset of institutions (e.g., all UCs and CSUs)
 
