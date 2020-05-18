@@ -16,14 +16,14 @@ library(tidyverse)
 ## ---------------------------
 ## directory paths
 ## ---------------------------
-data_dir <- file.path(".", "data")
+data_dir <- file.path(".", "data_lastname")
 data_dir
 
-#CREATE SUB-FOLDER FOR DATA
-dir.create(path = "data", showWarnings = FALSE) # showWarnings = FALSE omits warnings if directory already exists
+#Create a sub-folder for data inside your group repository
+dir.create(path = "data_lastname", showWarnings = FALSE) # showWarnings = FALSE omits warnings if directory already exists
 
 ## -----------------------------------------------------------------------------
-## Part X - Create objects for later use
+## Part I - Create objects for later use
 ## -----------------------------------------------------------------------------
 
 url <- "https://nces.ed.gov/ipeds/datacenter/data/"
@@ -42,280 +42,61 @@ writeLines(ipeds[1:30])
 
 # Use regular expressions to remove blank lines and lines that start with #
 
-  #Blank lines
-  str_view_all(string = ipeds[18:60], pattern ="^\\s*$") # blank lines
-  str_detect(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
-  
-  str_view_all(string = ipeds[18:60], pattern ="^[^(\\s*$)]") # NOT blank lines
-  str_detect(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
-  
-  length(str_subset(string = ipeds, pattern ="^[^(\\s*$)]"))
-  length(ipeds)
+#Blank lines
+str_view_all(string = ipeds[18:60], pattern ="^\\s*$") # blank lines
+str_detect(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
 
-  #remove blank lines
-  ipeds <- str_subset(string = ipeds, pattern ="^[^(\\s*$)]") # overwrite object to remove blanks
-  length(ipeds)
-  
-  # lines that start with # (or do not start with #)
-  
-  str_view_all(string = ipeds[1:60], pattern ="^#") # starts with "#"
-  str_detect(string = ipeds[1:60], pattern ="^#") # starts with "#"
-  
-  
-  str_view_all(string = ipeds[1:60], pattern ="^[^#]") # starts with anything but #
-  str_detect(string = ipeds[1:60], pattern ="^[^#]") # does not start with "#"
-  
-  str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
-  length(str_subset(string = ipeds, pattern ="^[^#]")) # does not start with "#"
-  
-  #REMOVE LINES THAT START WITH "#"
-  ipeds <- str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
-  
-  ipeds[1:50]
-  
+str_view_all(string = ipeds[18:60], pattern ="^[^(\\s*$)]") # NOT blank lines
+str_detect(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
+
+length(str_subset(string = ipeds, pattern ="^[^(\\s*$)]"))
+length(ipeds)
+
+#remove blank lines
+ipeds <- str_subset(string = ipeds, pattern ="^[^(\\s*$)]") # overwrite object to remove blanks
+length(ipeds)
+
+# lines that start with # (or do not start with #)
+
+str_view_all(string = ipeds[1:60], pattern ="^#") # starts with "#"
+str_detect(string = ipeds[1:60], pattern ="^#") # starts with "#"
+
+
+str_view_all(string = ipeds[1:60], pattern ="^[^#]") # starts with anything but #
+str_detect(string = ipeds[1:60], pattern ="^[^#]") # does not start with "#"
+
+str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
+length(str_subset(string = ipeds, pattern ="^[^#]")) # does not start with "#"
+
+#Remove lines that start with a "#"
+ipeds <- str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
+
+ipeds[1:50]
+
 # Create new character vector "hd" that contains names of all "HD" files
-  str_subset(string = ipeds, pattern = "^HD")
-  hd <- str_subset(string = ipeds, pattern = "^HD")
-  
-  hd
-  hd[2]
-  hd[1:5]
-  
-  length(hd)
-  seq(from = 1, to = length(hd))
- 
-  
+str_subset(string = ipeds, pattern = "^HD")
+hd <- str_subset(string = ipeds, pattern = "^HD")
+
+hd
+hd[2]
+hd[1:5]
+
+length(hd)
+seq(from = 1, to = length(hd))
+
 ## -----------------------------------------------------------------------------
-## CREATE LOOP TO READ IN IPEDS DATA
+## Part 2 - Creating loops
+## -----------------------------------------------------------------------------
+
+## -----------------------------------------------------------------------------
+## LOOP 1: Create loop that prints URL for each dataset
 ## -----------------------------------------------------------------------------
 
 # First, just work on creating loop without body and showing the value of object i and hd[i]
 for (i in 1:length(hd)) {
-    
+  
   writeLines(str_c(i))
   #writeLines(str_c("object i=",i, "; hd[i]=",hd[i], sep = ""))
   #writeLines(str_c("i=",i, "; hd[",i,"]=",hd[i], sep = ""))
 }
- 
-  
-# create loop that prints URL for each dataset
-  
-url
-data_suffix
-
-for (i in 1:length(hd)) {
-    
-  writeLines(str_c("i=",i, "; hd[",i,"]=",hd[i], sep = ""))
-  #writeLines(str_c(url,hd[i], sep = ""))
-  
-  #URL for csv data
-  writeLines(str_c(url,hd[i],data_suffix, sep = ""))
-  
-  #URL for data dictionary
-  writeLines(str_c(url,hd[i],dict_suffix, sep = ""))
-  
-  #URL for stata do file w/ variable labels and value labels
-  writeLines(str_c(url,hd[i],stata_do_suffix, sep = ""))
-}
-  #NOTE: try taking one of these urls created by the loop and paste it into your internet browser. should download a file
-
-
-# dowload one dataset using download.file()
-  #?download.file
-
-
-  # figure out url for one dataset
-    url
-    hd[1]
-    str_c(url,hd[1],data_suffix, sep = "")
-  
-  # figure out file-path (including filename) where you will save data
-    data_dir
-    file.path(data_dir)
-    file.path(data_dir,hd[1])
-    file.path(data_dir,hd[1],data_suffix) # this wouldn't work
-    file.path(data_dir,str_c(hd[1],data_suffix, sep = "")) # this would work
-  
-  # download one year of data
-    download.file(url = str_c(url,hd[1],data_suffix, sep = ""), destfile = file.path(data_dir,str_c(hd[1],data_suffix, sep = "")))
-  
-    download.file(url = str_c(url,hd[5],data_suffix, sep = ""), destfile = file.path(data_dir,str_c(hd[5],data_suffix, sep = "")))
-  
-  
-# dowload all datasets using loop
-
-
-for (i in 1:length(hd)) { # this takes too long
-
-  writeLines(str_c("i=",i, "; hd[",i,"]=",hd[i], sep = ""))
-  #writeLines(str_c(url,hd[i], sep = ""))
-  
-  #download csv data
-  download.file(url = str_c(url,hd[i],data_suffix, sep = ""), 
-                destfile = file.path(data_dir,str_c(hd[i],data_suffix, sep = "")))
-    
-  #download xls data dictionary
-  download.file(url = str_c(url,hd[i],dict_suffix, sep = ""), 
-                destfile = file.path(data_dir,str_c(hd[i],dict_suffix, sep = "")))
-  
-  
-  #download stata do file containing variable labels and value labels
-  download.file(url = str_c(url,hd[i],stata_do_suffix, sep = ""), 
-                destfile = file.path(data_dir,str_c(hd[i],stata_do_suffix, sep = "")))
-  
-  
-}
-  
-# unzip and read in individual year of data
-
-  unzip(zipfile = file.path(data_dir,str_c(hd[2])), unzip = "unzip", exdir = file.path(data_dir))
-  unzip(zipfile = file.path(data_dir,str_c(hd[5])), unzip = "unzip", exdir = file.path(data_dir))
-
-#unzip in a loop
-for (i in 1:length(hd)) { # this takes too long
-  
-  writeLines(str_c("i=",i, "; hd[",i,"]=",hd[i], sep = ""))
-  #writeLines(str_c(url,hd[i], sep = ""))
-  
-  
-  for (z in c("","Dict","_Stata")) {
-  
-    writeLines(str_c(z))
-    unzip(zipfile = file.path(data_dir,str_c(hd[i],z)), unzip = "unzip", exdir = file.path(data_dir))  
-  }
-  
-}
-
-  
-# read into R
-  
-  #one year of data
-  file.path(data_dir,str_c(hd[1],".csv"))
-  hd2018 <- read_csv(file = file.path(data_dir,str_c(hd[1],".csv")))
-  
-
-  # make df name lowercase
-  dfname <- str_c(str_to_lower(hd[1]))
-  dfname
-
-#loop to read in csv files and assign them to data frames
-for (i in 1:length(hd)) { 
- 
-  dfname <- str_c(str_to_lower(hd[i])) #change string to lowercase
-  #str(dfname)
-  
-  
-  df <- read_csv(file = file.path(data_dir,str_c(hd[i],".csv"))) #read in csv files
-  
-    
-    names(df) <- df %>% #change column names to lowercase
-      names() %>%
-      str_to_lower()
-    
-    #print(names(df))
-    
-    assign(dfname, df) #assign the df dataframe to the dfname lowercase string 
-
-}
-  
-  
-## -----------------------------------------------------------------------------
-## MODIFY HD 2018 DATASET
-## -----------------------------------------------------------------------------
-
-glimpse(hd2018)
-  
-# Keep only subset of variables (including latitude and longitude, univerisity url, unitid, ) 
-# and keep relatively small subset of institutions (e.g., all UCs)
-
-hd2018_uc <- hd2018 %>%
-  dplyr::select(unitid, instnm, addr, stabbr, city, zip, latitude, longitud, webaddr) %>%
-  filter(stabbr=="CA" & unitid %in% c(110644, 110662, 110671))
-  
-#typeof(hd2018_uc$webaddr)
-
-# Create a character vector from the webaddr field and use that to create loop 
-web <- hd2018_uc$webaddr
-
-library(rvest)
-
-web <- str_c("https://", web) #add https:// to web address
-
-#str_extract(string = web, pattern = "\\.(w\\+)\\.")
-
-for(i in seq_along(web)) {
-  
-  url <- web[i] 
-  
-  name <- str_match(string = web[i], pattern = 'https://.+\\.([\\w]+)\\..+')
-  name <- name[,2] #get uni name on website
-  
-  html <- read_html(url)
-  
-  assign(name, html)
-  
-  writeLines(str_c("web name: ", name, " url: ", url, sep = ""))
-}
-
-ucla_sm <- ucla %>%
-  html_nodes('#social-media')
-
-ucla_sm <- as.character(sm)
-
-
-# Use `writeLines()` and `head()` to preview the first few rows of the data
-writeLines(head(ucla_sm))
-
-ucla_sm <- str_match(string = ucla_sm, pattern = '<a href="(http://twitter.+)"\\sclass.+</a>')
-
-
-
-ucr_sm <- UCR %>%
-  html_nodes('.social-link')
-
-ucr_sm <- as.character(ucr_sm)
-
-# Use `writeLines()` and `head()` to preview the first few rows of the data
-writeLines(head(ucr_sm))
-
-ucr_sm <- str_match(string = ucr_sm, pattern = '<a href="(https://twitter.+)"\\starget.+</a>')
-
-
-
-ucd_sm <- ucdavis %>%
-  html_nodes('ul.pack')
-
-ucd_sm <- as.character(ucd)
-
-# Use `writeLines()` and `head()` to preview the first few rows of the data
-writeLines(head(ucd_sm))
-
-ucd_sm <- str_match(string = ucd_sm, pattern = '<a class=".+ href="(https://twitter.+)">.+</a>')
-
-
-
-twitter_ucla <- ucla_sm[,2]
-twitter_ucd <- ucd_sm[,2]
-twitter_ucr <- ucr_sm[,2]
-
-vec <- as_vector(c(twitter_ucd, twitter_ucla, twitter_ucr))
-
-hd2018_t <- bind_cols(hd2018_uc, data.frame(twitter = vec))
-
-
-#.social-link riverside
-
-
-#ul.pack ucdavis social media
-#.uci-icon-list uci social media
-#.columns.columns-3
-# #social-media ucla
-#.social-link riverside
-
-#that reads in the url using xml2/rvest functions we learned last week. and calculate something from url 
-#and merge this thing back to the hd dataset
-
-## -----------------------------------------------------------------------------
-## ??? START APPLYING REGULAR EXPRESSIONS TO MODIFY HD 2018 DO FILE?
-## -----------------------------------------------------------------------------
 
