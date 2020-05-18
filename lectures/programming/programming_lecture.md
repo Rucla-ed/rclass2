@@ -29,6 +29,24 @@ Load packages:
 library(tidyverse)
 ```
 
+
+The "programming" unit will introduce you to tools that tell the computer to do the same or similar things over and over, without writing code over and over. And the code you write to do things over and over, will be able to do things differently depending on conditions of the data or depending on things you specify. 
+
+Paraphrasing Will Doyle
+
+> "Computers love to do the same thing over and over. It's their favorite thing to do. Learn to make your computer happy."
+
+The core foci of this unit are:
+
+- iteration (loops)
+- conditionals (if, if else)
+- functions
+
+But more than learning these things, this unit is about developing a more formal, rigorous understanding of programming concepts so that you can become a more powerful programmer. Towards that end, we will be reading chapters from Wickhams free text book [_Advanced R_](https://adv-r.hadley.nz/)
+
+
+In fact, please spend 10 minutes reading the [Chapter 1](https://adv-r.hadley.nz/introduction.html) (sections 1.1 through 1.5)
+
 # Foundational concepts
 
 ## Data structures and types
@@ -2453,7 +2471,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
+## [1] "C:/Users/ozanj/Documents/rclass2/lectures/programming"
 ```
 
 <br>
@@ -2497,7 +2515,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
+## [1] "C:/Users/ozanj/Documents/rclass2/lectures/programming"
 ```
 
 ```r
@@ -2510,9 +2528,10 @@ list.files()
 
 ```
 ## [1] "data"                     "ipeds_file_list.txt"     
-## [3] "loop_example_ipeds.R"     "my_folder"               
-## [5] "programming_lecture.html" "programming_lecture.md"  
-## [7] "programming_lecture.Rmd"  "programming.Rproj"
+## [3] "ipeds_file_list_og.txt"   "loop_example_ipeds.R"    
+## [5] "my_folder"                "programming.Rproj"       
+## [7] "programming_lecture.html" "programming_lecture.md"  
+## [9] "programming_lecture.Rmd"
 ```
 
 <br>
@@ -2547,9 +2566,9 @@ list.files()
 
 ```
 ## [1] "data"                     "ipeds_file_list.txt"     
-## [3] "loop_example_ipeds.R"     "programming_lecture.html"
-## [5] "programming_lecture.md"   "programming_lecture.Rmd" 
-## [7] "programming.Rproj"
+## [3] "ipeds_file_list_og.txt"   "loop_example_ipeds.R"    
+## [5] "programming.Rproj"        "programming_lecture.html"
+## [7] "programming_lecture.md"   "programming_lecture.Rmd"
 ```
 
 <br>

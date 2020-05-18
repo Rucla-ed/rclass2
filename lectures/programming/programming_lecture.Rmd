@@ -28,6 +28,24 @@ Load packages:
 library(tidyverse)
 ```
 
+
+The "programming" unit will introduce you to tools that tell the computer to do the same or similar things over and over, without writing code over and over. And the code you write to do things over and over, will be able to do things differently depending on conditions of the data or depending on things you specify. 
+
+Paraphrasing Will Doyle
+
+> "Computers love to do the same thing over and over. It's their favorite thing to do. Learn to make your computer happy."
+
+The core foci of this unit are:
+
+- iteration (loops)
+- conditionals (if, if else)
+- functions
+
+But more than learning these things, this unit is about developing a more formal, rigorous understanding of programming concepts so that you can become a more powerful programmer. Towards that end, we will be reading chapters from Wickhams free text book [_Advanced R_](https://adv-r.hadley.nz/)
+
+  
+In fact, please spend 10 minutes reading the [Chapter 1](https://adv-r.hadley.nz/introduction.html) (sections 1.1 through 1.5)
+
 # Foundational concepts
 
 ## Data structures and types
