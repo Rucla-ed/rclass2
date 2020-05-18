@@ -1496,24 +1496,8 @@ You may see the loop sequence being written in slightly different ways. For exam
 
 ### Printing values in loop body
 
-When building a loop, it is useful to print out information to understand what the loop is doing. The `cat()` function allows us to concatenate and print multiple objects.
+When building a loop, it is useful to print out information to understand what the loop is doing.
 
-__The `cat()` function__:
-
-```{r, eval = FALSE}
-?cat
-
-# SYNTAX AND DEFAULT VALUES
-cat(... , file = "", sep = " ", fill = FALSE, labels = NULL, append = FALSE)
-```
-
-- Function: Concatenate and print multiple objects
-- Arguments:
-  - The input is all the objects you want to print, separated by commas
-  - `sep`: By default, the objects are separated by a space when they are printed out
-  - `fill`: If set to `TRUE`, a newline will be added after the printed output
-
-<br>
 For example, the two loops below are essentially the same, but the second approach is preferable because it more clearly prints out what object we are working with inside the loop:
 
 - Using `print()` to print a single object `z`:
@@ -1524,11 +1508,11 @@ For example, the two loops below are essentially the same, but the second approa
     }
     ```
 
-- Using `cat()` to concatenate and print multiple items:
+- Using `str_c()` and `writeLines()` to concatenate and print multiple items:
 
     ```{r}
     for(z in c(1,2,3)) {
-      cat("object z =", z, fill=TRUE)  # `fill=TRUE` forces line break after each iteration
+      writeLines(str_c("object z=", z))
     }
     ```
 
@@ -1548,9 +1532,9 @@ birth_years <- c(1944,1950,1981,2016)
 birth_years
 
 for(y in birth_years) {  # Loop sequence
-  cat("object y =", y, fill=TRUE)  # Loop body
+  writeLines(str_c("object y=", y))  # Loop body
   z <- 2020 - y
-  cat("value of", y, "minus", 2018, "is", z, fill=TRUE)
+  writeLines(str_c("value of ", y, " minus ", 2018, " is ", z))
 }
 ```
 </details>
@@ -1596,9 +1580,9 @@ For the examples in the next few subsections, we will be working with the follow
 vec  # View named atomic vector object
 
 for (i in vec) {
-  cat("value of object i =",i, fill=TRUE)
-  cat("object i has: type =", typeof(i), "; length =", length(i), "; class =", class(i),
-      "\n", fill=TRUE)  # "\n" adds line break
+  writeLines(str_c("value of object i=",i))
+  writeLines(str_c("object i has: type=", typeof(i), "; length=", length(i), "; class=", class(i),
+      "\n"))  # "\n" adds line break
 }
 ```
 
@@ -1609,9 +1593,9 @@ for (i in vec) {
 df  # View dataframe object
 
 for (i in df) {
-  cat("value of object i =",i, fill=TRUE)
-  cat("object i has: type =", typeof(i), "; length =", length(i), "; class =", class(i),
-      "\n", fill=TRUE)  # "\n" adds line break
+  writeLines(str_c("value of object i=",i))
+  writeLines(str_c("object i has: type=", typeof(i), "; length=", length(i), "; class=", class(i),
+      "\n"))  # "\n" adds line break
 }
 ```
 
@@ -1624,8 +1608,8 @@ The dataframe `df` is a list object, where each element is a vector (i.e., colum
 df  # View dataframe object
 
 for (i in df) {
-  cat("value of object i =", i, fill=TRUE)
-  cat("mean value of object i =", mean(i, na.rm = TRUE), "\n", fill=TRUE)
+  writeLines(str_c("value of object i=", i))
+  writeLines(str_c("mean value of object i=", mean(i, na.rm = TRUE), "\n"))
 }
 ```
 </details>
@@ -1653,7 +1637,7 @@ vec  # View named atomic vector object
 names(vec)  # View names of atomic vector object
 
 for (i in names(vec)) {
-  cat("\nvalue of object i =", i, "; type =", typeof(i), fill=TRUE)
+  writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(vec[i])  # Access element contents using []
   str(vec[[i]])  # Access element contents using [[]]
 }
@@ -1667,7 +1651,7 @@ df  # View dataframe object
 names(df)  # View names of dataframe object (i.e., column names)
 
 for (i in names(df)) {
-  cat("\nvalue of object i =", i, "; type =", typeof(i), fill=TRUE)
+  writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(df[i])  # Access element contents using []
   str(df[[i]])  # Access element contents using [[]]
 }
@@ -1686,7 +1670,7 @@ Remember that we can use `[[]]` to access element contents by their name:
 
 ```{r}
 for (i in names(df)) {
-  cat("mean of element named", i, "=", mean(df[[i]], na.rm = TRUE), fill=TRUE)
+  writeLines(str_c("mean of element named", i, "=", mean(df[[i]], na.rm = TRUE)))
 }
 ```
 
@@ -1695,7 +1679,7 @@ If we tried completing the task using `[]` to access the element contents, we wo
 
 ```{r, eval=FALSE}
 for (i in names(df)) {
-  cat("mean of element named", i, "=", mean(df[i], na.rm = TRUE), fill=TRUE)
+  writeLines(str_c("mean of element named", i, "=", mean(df[i], na.rm = TRUE)))
   
   # print(class(df[i]))
 }
@@ -1731,7 +1715,7 @@ length(vec)  # View length of atomic vector object
 1:length(vec)  # Create sequence from `1` to `length(vec)`
 
 for (i in 1:length(vec)) {
-  cat("\nvalue of object i =", i, "; type =", typeof(i), fill=TRUE)
+  writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(vec[i])  # Access element contents using []
   str(vec[[i]])  # Access element contents using [[]]
 }
@@ -1747,7 +1731,7 @@ df  # View dataframe object
 seq_along(df)  # Equivalent to `1:length(df)`
 
 for (i in seq_along(df)) {
-  cat("\nvalue of object i =", i, "; type =", typeof(i), fill=TRUE)
+  writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(df[i])  # Access element contents using []
   str(df[[i]])  # Access element contents using [[]]
 }
@@ -1762,7 +1746,7 @@ names(df)[[2]]  # We can access any element in the names vector by its index
 
 # Incorporate the above line into the loop
 for (i in 1:length(df)) {
-  cat("i =", i, "; name =", names(df)[[i]], fill=TRUE)
+  writeLines(str_c("i=", i, "; name=", names(df)[[i]]))
 }
 ```
 
@@ -1775,7 +1759,7 @@ Use `i in seq_along(df)` to loop over the column indices and `[[]]` to access co
 str(df)  # View structure of dataframe object
 
 for (i in seq_along(df)) {
-  cat("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE), fill=TRUE)
+  writeLines(str_c("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE)))
 }
 ```
 
@@ -1793,13 +1777,13 @@ There are 3 ways to loop over elements of an object:
 
 ```{r}
 for (i in seq_along(df)) {
-  cat("i =", i, fill=TRUE)  # element's index position
+  writeLines(str_c("i=", i))  # element's index position
   
   name <- names(df)[[i]]  # element's name (what we looped over in approach #2)
-  cat("name =", name, fill=TRUE)
+  writeLines(str_c("name=", name))
   
   value <- df[[i]]  # element's value (what we looped over in approach #1)
-  cat("value =", value, "\n", fill=TRUE)
+  writeLines(str_c("value=", value, "\n"))
 }
 ```
 
@@ -1911,7 +1895,7 @@ Recall the previous example where we calculated the mean value of each column in
 str(df)
 
 for (i in seq_along(df)) {
-  cat("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE), fill=TRUE)
+  writeLines(str_c("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE)))
 }
 ```
 
@@ -1978,9 +1962,7 @@ __Note__:
 
 ## Practice: Download IPEDS 
 
-EXPLAIN OBJECTIVE OF EXAMPLE
-
-PASTE RELEVANT CODE FROM R SCRIPT INTO R CODE CHUNKS OR PROVIDE LINK TO R SCRIPT
+Link to Ben Skinner's [downloadipeds.R](https://github.com/btskinner/downloadipeds/blob/master/downloadipeds.R)
 
 
 # Conditional execution

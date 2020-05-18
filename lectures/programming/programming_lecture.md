@@ -44,7 +44,7 @@ The core foci of this unit are:
 
 But more than learning these things, this unit is about developing a more formal, rigorous understanding of programming concepts so that you can become a more powerful programmer. Towards that end, we will be reading chapters from Wickhams free text book [_Advanced R_](https://adv-r.hadley.nz/)
 
-
+  
 In fact, please spend 10 minutes reading the [Chapter 1](https://adv-r.hadley.nz/introduction.html) (sections 1.1 through 1.5)
 
 # Foundational concepts
@@ -2471,7 +2471,7 @@ getwd()
 ```
 
 ```
-## [1] "C:/Users/ozanj/Documents/rclass2/lectures/programming"
+## [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
 ```
 
 <br>
@@ -2515,7 +2515,7 @@ getwd()
 ```
 
 ```
-## [1] "C:/Users/ozanj/Documents/rclass2/lectures/programming"
+## [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
 ```
 
 ```r
@@ -2527,11 +2527,11 @@ list.files()
 ```
 
 ```
-## [1] "data"                     "ipeds_file_list.txt"     
-## [3] "ipeds_file_list_og.txt"   "loop_example_ipeds.R"    
-## [5] "my_folder"                "programming.Rproj"       
-## [7] "programming_lecture.html" "programming_lecture.md"  
-## [9] "programming_lecture.Rmd"
+## [1] "data"                     "ipeds_file_list_og.txt"  
+## [3] "ipeds_file_list.txt"      "loop_example_ipeds.R"    
+## [5] "my_folder"                "programming_lecture.html"
+## [7] "programming_lecture.md"   "programming_lecture.Rmd" 
+## [9] "programming.Rproj"
 ```
 
 <br>
@@ -2565,10 +2565,10 @@ list.files()
 ```
 
 ```
-## [1] "data"                     "ipeds_file_list.txt"     
-## [3] "ipeds_file_list_og.txt"   "loop_example_ipeds.R"    
-## [5] "programming.Rproj"        "programming_lecture.html"
-## [7] "programming_lecture.md"   "programming_lecture.Rmd"
+## [1] "data"                     "ipeds_file_list_og.txt"  
+## [3] "ipeds_file_list.txt"      "loop_example_ipeds.R"    
+## [5] "programming_lecture.html" "programming_lecture.md"  
+## [7] "programming_lecture.Rmd"  "programming.Rproj"
 ```
 
 <br>
@@ -2733,25 +2733,8 @@ You may see the loop sequence being written in slightly different ways. For exam
 
 ### Printing values in loop body
 
-When building a loop, it is useful to print out information to understand what the loop is doing. The `cat()` function allows us to concatenate and print multiple objects.
+When building a loop, it is useful to print out information to understand what the loop is doing.
 
-__The `cat()` function__:
-
-
-```r
-?cat
-
-# SYNTAX AND DEFAULT VALUES
-cat(... , file = "", sep = " ", fill = FALSE, labels = NULL, append = FALSE)
-```
-
-- Function: Concatenate and print multiple objects
-- Arguments:
-  - The input is all the objects you want to print, separated by commas
-  - `sep`: By default, the objects are separated by a space when they are printed out
-  - `fill`: If set to `TRUE`, a newline will be added after the printed output
-
-<br>
 For example, the two loops below are essentially the same, but the second approach is preferable because it more clearly prints out what object we are working with inside the loop:
 
 - Using `print()` to print a single object `z`:
@@ -2769,19 +2752,19 @@ For example, the two loops below are essentially the same, but the second approa
     ## [1] 3
     ```
 
-- Using `cat()` to concatenate and print multiple items:
+- Using `str_c()` and `writeLines()` to concatenate and print multiple items:
 
     
     ```r
     for(z in c(1,2,3)) {
-      cat("object z =", z, fill=TRUE)  # `fill=TRUE` forces line break after each iteration
+      writeLines(str_c("object z=", z))
     }
     ```
     
     ```
-    ## object z = 1
-    ## object z = 2
-    ## object z = 3
+    ## object z=1
+    ## object z=2
+    ## object z=3
     ```
 
 ### Student exercise
@@ -2807,20 +2790,20 @@ birth_years
 
 ```r
 for(y in birth_years) {  # Loop sequence
-  cat("object y =", y, fill=TRUE)  # Loop body
+  writeLines(str_c("object y=", y))  # Loop body
   z <- 2020 - y
-  cat("value of", y, "minus", 2018, "is", z, fill=TRUE)
+  writeLines(str_c("value of ", y, " minus ", 2018, " is ", z))
 }
 ```
 
 ```
-## object y = 1944
+## object y=1944
 ## value of 1944 minus 2018 is 76
-## object y = 1950
+## object y=1950
 ## value of 1950 minus 2018 is 70
-## object y = 1981
+## object y=1981
 ## value of 1981 minus 2018 is 39
-## object y = 2016
+## object y=2016
 ## value of 2016 minus 2018 is 4
 ```
 </details>
@@ -2888,21 +2871,21 @@ vec  # View named atomic vector object
 
 ```r
 for (i in vec) {
-  cat("value of object i =",i, fill=TRUE)
-  cat("object i has: type =", typeof(i), "; length =", length(i), "; class =", class(i),
-      "\n", fill=TRUE)  # "\n" adds line break
+  writeLines(str_c("value of object i=",i))
+  writeLines(str_c("object i has: type=", typeof(i), "; length=", length(i), "; class=", class(i),
+      "\n"))  # "\n" adds line break
 }
 ```
 
 ```
-## value of object i = 5
-## object i has: type = double ; length = 1 ; class = numeric 
+## value of object i=5
+## object i has: type=double; length=1; class=numeric
 ## 
-## value of object i = -10
-## object i has: type = double ; length = 1 ; class = numeric 
+## value of object i=-10
+## object i has: type=double; length=1; class=numeric
 ## 
-## value of object i = 30
-## object i has: type = double ; length = 1 ; class = numeric
+## value of object i=30
+## object i has: type=double; length=1; class=numeric
 ```
 
 <br>
@@ -2925,21 +2908,30 @@ df  # View dataframe object
 
 ```r
 for (i in df) {
-  cat("value of object i =",i, fill=TRUE)
-  cat("object i has: type =", typeof(i), "; length =", length(i), "; class =", class(i),
-      "\n", fill=TRUE)  # "\n" adds line break
+  writeLines(str_c("value of object i=",i))
+  writeLines(str_c("object i has: type=", typeof(i), "; length=", length(i), "; class=", class(i),
+      "\n"))  # "\n" adds line break
 }
 ```
 
 ```
-## value of object i = 0.5855288 0.709466 -0.1093033 -0.4534972
-## object i has: type = double ; length = 4 ; class = numeric 
+## value of object i=0.585528817843856
+## value of object i=0.709466017509524
+## value of object i=-0.109303314681054
+## value of object i=-0.453497173462763
+## object i has: type=double; length=4; class=numeric
 ## 
-## value of object i = 0.6058875 -1.817956 0.6300986 -0.2761841
-## object i has: type = double ; length = 4 ; class = numeric 
+## value of object i=0.605887455840394
+## value of object i=-1.81795596770373
+## value of object i=0.630098551068391
+## value of object i=-0.276184105225216
+## object i has: type=double; length=4; class=numeric
 ## 
-## value of object i = -0.2841597 -0.919322 -0.1162478 1.817312
-## object i has: type = double ; length = 4 ; class = numeric
+## value of object i=-0.284159743943371
+## value of object i=-0.919322002474128
+## value of object i=-0.116247806352002
+## value of object i=1.81731204370422
+## object i has: type=double; length=4; class=numeric
 ```
 
 <br>
@@ -2964,20 +2956,29 @@ df  # View dataframe object
 
 ```r
 for (i in df) {
-  cat("value of object i =", i, fill=TRUE)
-  cat("mean value of object i =", mean(i, na.rm = TRUE), "\n", fill=TRUE)
+  writeLines(str_c("value of object i=", i))
+  writeLines(str_c("mean value of object i=", mean(i, na.rm = TRUE), "\n"))
 }
 ```
 
 ```
-## value of object i = 0.5855288 0.709466 -0.1093033 -0.4534972
-## mean value of object i = 0.1830486 
+## value of object i=0.585528817843856
+## value of object i=0.709466017509524
+## value of object i=-0.109303314681054
+## value of object i=-0.453497173462763
+## mean value of object i=0.183048586802391
 ## 
-## value of object i = 0.6058875 -1.817956 0.6300986 -0.2761841
-## mean value of object i = -0.2145385 
+## value of object i=0.605887455840394
+## value of object i=-1.81795596770373
+## value of object i=0.630098551068391
+## value of object i=-0.276184105225216
+## mean value of object i=-0.21453851650504
 ## 
-## value of object i = -0.2841597 -0.919322 -0.1162478 1.817312
-## mean value of object i = 0.1243956
+## value of object i=-0.284159743943371
+## value of object i=-0.919322002474128
+## value of object i=-0.116247806352002
+## value of object i=1.81731204370422
+## mean value of object i=0.124395622733679
 ```
 </details>
 
@@ -3019,7 +3020,7 @@ names(vec)  # View names of atomic vector object
 
 ```r
 for (i in names(vec)) {
-  cat("\nvalue of object i =", i, "; type =", typeof(i), fill=TRUE)
+  writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(vec[i])  # Access element contents using []
   str(vec[[i]])  # Access element contents using [[]]
 }
@@ -3027,17 +3028,17 @@ for (i in names(vec)) {
 
 ```
 ## 
-## value of object i = a ; type = character
+## value of object i=a; type=character
 ##  Named num 5
 ##  - attr(*, "names")= chr "a"
 ##  num 5
 ## 
-## value of object i = b ; type = character
+## value of object i=b; type=character
 ##  Named num -10
 ##  - attr(*, "names")= chr "b"
 ##  num -10
 ## 
-## value of object i = c ; type = character
+## value of object i=c; type=character
 ##  Named num 30
 ##  - attr(*, "names")= chr "c"
 ##  num 30
@@ -3071,7 +3072,7 @@ names(df)  # View names of dataframe object (i.e., column names)
 
 ```r
 for (i in names(df)) {
-  cat("\nvalue of object i =", i, "; type =", typeof(i), fill=TRUE)
+  writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(df[i])  # Access element contents using []
   str(df[[i]])  # Access element contents using [[]]
 }
@@ -3079,17 +3080,17 @@ for (i in names(df)) {
 
 ```
 ## 
-## value of object i = a ; type = character
+## value of object i=a; type=character
 ## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
 ##  $ a: num  0.586 0.709 -0.109 -0.453
 ##  num [1:4] 0.586 0.709 -0.109 -0.453
 ## 
-## value of object i = b ; type = character
+## value of object i=b; type=character
 ## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
 ##  $ b: num  0.606 -1.818 0.63 -0.276
 ##  num [1:4] 0.606 -1.818 0.63 -0.276
 ## 
-## value of object i = c ; type = character
+## value of object i=c; type=character
 ## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
 ##  $ c: num  -0.284 -0.919 -0.116 1.817
 ##  num [1:4] -0.284 -0.919 -0.116 1.817
@@ -3117,14 +3118,14 @@ Remember that we can use `[[]]` to access element contents by their name:
 
 ```r
 for (i in names(df)) {
-  cat("mean of element named", i, "=", mean(df[[i]], na.rm = TRUE), fill=TRUE)
+  writeLines(str_c("mean of element named", i, "=", mean(df[[i]], na.rm = TRUE)))
 }
 ```
 
 ```
-## mean of element named a = 0.1830486
-## mean of element named b = -0.2145385
-## mean of element named c = 0.1243956
+## mean of element nameda=0.183048586802391
+## mean of element namedb=-0.21453851650504
+## mean of element namedc=0.124395622733679
 ```
 
 <br>
@@ -3133,7 +3134,7 @@ If we tried completing the task using `[]` to access the element contents, we wo
 
 ```r
 for (i in names(df)) {
-  cat("mean of element named", i, "=", mean(df[i], na.rm = TRUE), fill=TRUE)
+  writeLines(str_c("mean of element named", i, "=", mean(df[i], na.rm = TRUE)))
   
   # print(class(df[i]))
 }
@@ -3191,7 +3192,7 @@ length(vec)  # View length of atomic vector object
 
 ```r
 for (i in 1:length(vec)) {
-  cat("\nvalue of object i =", i, "; type =", typeof(i), fill=TRUE)
+  writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(vec[i])  # Access element contents using []
   str(vec[[i]])  # Access element contents using [[]]
 }
@@ -3199,17 +3200,17 @@ for (i in 1:length(vec)) {
 
 ```
 ## 
-## value of object i = 1 ; type = integer
+## value of object i=1; type=integer
 ##  Named num 5
 ##  - attr(*, "names")= chr "a"
 ##  num 5
 ## 
-## value of object i = 2 ; type = integer
+## value of object i=2; type=integer
 ##  Named num -10
 ##  - attr(*, "names")= chr "b"
 ##  num -10
 ## 
-## value of object i = 3 ; type = integer
+## value of object i=3; type=integer
 ##  Named num 30
 ##  - attr(*, "names")= chr "c"
 ##  num 30
@@ -3245,7 +3246,7 @@ seq_along(df)  # Equivalent to `1:length(df)`
 
 ```r
 for (i in seq_along(df)) {
-  cat("\nvalue of object i =", i, "; type =", typeof(i), fill=TRUE)
+  writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(df[i])  # Access element contents using []
   str(df[[i]])  # Access element contents using [[]]
 }
@@ -3253,17 +3254,17 @@ for (i in seq_along(df)) {
 
 ```
 ## 
-## value of object i = 1 ; type = integer
+## value of object i=1; type=integer
 ## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
 ##  $ a: num  0.586 0.709 -0.109 -0.453
 ##  num [1:4] 0.586 0.709 -0.109 -0.453
 ## 
-## value of object i = 2 ; type = integer
+## value of object i=2; type=integer
 ## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
 ##  $ b: num  0.606 -1.818 0.63 -0.276
 ##  num [1:4] 0.606 -1.818 0.63 -0.276
 ## 
-## value of object i = 3 ; type = integer
+## value of object i=3; type=integer
 ## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
 ##  $ c: num  -0.284 -0.919 -0.116 1.817
 ##  num [1:4] -0.284 -0.919 -0.116 1.817
@@ -3292,14 +3293,14 @@ names(df)[[2]]  # We can access any element in the names vector by its index
 ```r
 # Incorporate the above line into the loop
 for (i in 1:length(df)) {
-  cat("i =", i, "; name =", names(df)[[i]], fill=TRUE)
+  writeLines(str_c("i=", i, "; name=", names(df)[[i]]))
 }
 ```
 
 ```
-## i = 1 ; name = a
-## i = 2 ; name = b
-## i = 3 ; name = c
+## i=1; name=a
+## i=2; name=b
+## i=3; name=c
 ```
 
 <br>
@@ -3321,14 +3322,14 @@ str(df)  # View structure of dataframe object
 
 ```r
 for (i in seq_along(df)) {
-  cat("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE), fill=TRUE)
+  writeLines(str_c("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE)))
 }
 ```
 
 ```
-## mean of element at index position 1 = 0.1830486
-## mean of element at index position 2 = -0.2145385
-## mean of element at index position 3 = 0.1243956
+## mean of element at index position1=0.183048586802391
+## mean of element at index position2=-0.21453851650504
+## mean of element at index position3=0.124395622733679
 ```
 
 </details>
@@ -3346,28 +3347,46 @@ There are 3 ways to loop over elements of an object:
 
 ```r
 for (i in seq_along(df)) {
-  cat("i =", i, fill=TRUE)  # element's index position
+  writeLines(str_c("i=", i))  # element's index position
   
   name <- names(df)[[i]]  # element's name (what we looped over in approach #2)
-  cat("name =", name, fill=TRUE)
+  writeLines(str_c("name=", name))
   
   value <- df[[i]]  # element's value (what we looped over in approach #1)
-  cat("value =", value, "\n", fill=TRUE)
+  writeLines(str_c("value=", value, "\n"))
 }
 ```
 
 ```
-## i = 1
-## name = a
-## value = 0.5855288 0.709466 -0.1093033 -0.4534972 
+## i=1
+## name=a
+## value=0.585528817843856
 ## 
-## i = 2
-## name = b
-## value = 0.6058875 -1.817956 0.6300986 -0.2761841 
+## value=0.709466017509524
 ## 
-## i = 3
-## name = c
-## value = -0.2841597 -0.919322 -0.1162478 1.817312
+## value=-0.109303314681054
+## 
+## value=-0.453497173462763
+## 
+## i=2
+## name=b
+## value=0.605887455840394
+## 
+## value=-1.81795596770373
+## 
+## value=0.630098551068391
+## 
+## value=-0.276184105225216
+## 
+## i=3
+## name=c
+## value=-0.284159743943371
+## 
+## value=-0.919322002474128
+## 
+## value=-0.116247806352002
+## 
+## value=1.81731204370422
 ```
 
 
@@ -3523,14 +3542,14 @@ str(df)
 
 ```r
 for (i in seq_along(df)) {
-  cat("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE), fill=TRUE)
+  writeLines(str_c("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE)))
 }
 ```
 
 ```
-## mean of element at index position 1 = 0.3660972
-## mean of element at index position 2 = -0.429077
-## mean of element at index position 3 = 0.2487912
+## mean of element at index position1=0.366097173604781
+## mean of element at index position2=-0.42907703301008
+## mean of element at index position3=0.248791245467358
 ```
 
 <br>
@@ -3613,9 +3632,7 @@ __Note__:
 
 ## Practice: Download IPEDS 
 
-EXPLAIN OBJECTIVE OF EXAMPLE
-
-PASTE RELEVANT CODE FROM R SCRIPT INTO R CODE CHUNKS OR PROVIDE LINK TO R SCRIPT
+Link to Ben Skinner's [downloadipeds.R](https://github.com/btskinner/downloadipeds/blob/master/downloadipeds.R)
 
 
 # Conditional execution
