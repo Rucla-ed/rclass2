@@ -18,7 +18,7 @@ The purpose of this problem set will be to give you more practice writing for lo
 
 Like the previous week, create a new private GitHub repository [here](https://github.com/organizations/Rucla-ed/repositories/new) for your group called `<team_name>_ps8` and initialize it with a `.gitignore` file. 
 
-1. Download and save the [ipeds_file_list.txt](https://github.com/btskinner/downloadipeds/blob/master/ipeds_file_list.txt) file in your repository. Make sure it is in the main repository folder. Only one person in your group needs to add this file to the repository using the **master branch**. Once this file is added, everyone on the team should clone the repository to their local machines. 
+1. Download and save the [ipeds_file_list.txt](https://raw.githubusercontent.com/Rucla-ed/rclass2/master/problem_sets/week_8/ipeds_file_list.txt) file in your repository. Make sure it is in the main repository folder. Only one person in your group needs to add this file to the repository using the **master branch**. Once this file is added, everyone on the team should clone the repository to their local machines. 
 
 2. Create a new RStudio Project for this repository and complete all your work on a branch called `dev_<last_name>`.
 
