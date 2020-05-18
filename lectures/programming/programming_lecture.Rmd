@@ -1964,6 +1964,195 @@ __Note__:
 
 Link to Ben Skinner's [downloadipeds.R](https://github.com/btskinner/downloadipeds/blob/master/downloadipeds.R)
 
+```{r}
+#load libraries
+library(tidyverse)
+
+#data directory path
+data_dir <- file.path(".", "data")
+data_dir
+
+#Create a sub-folder for data inside your group repository
+dir.create(path = "data", showWarnings = FALSE) # showWarnings = FALSE omits warnings if directory already exists
+
+## -----------------------------------------------------------------------------
+## Part I - Create objects for later use
+## -----------------------------------------------------------------------------
+
+url <- "https://nces.ed.gov/ipeds/datacenter/data/"
+url
+
+# suffix of file names
+data_suffix <- ".zip" # suffix for csv data files [not stata data]
+dict_suffix <- "_Dict.zip" # data dictionary
+stata_do_suffix <- "_Stata.zip" # Stata do file w/ variable labels and value labels
+
+
+# Read in string that has names of IPEDS files
+ipeds <- readLines('./ipeds_file_list.txt')
+#str(ipeds)
+writeLines(ipeds[1:30])
+
+# Use regular expressions to remove blank lines and lines that start with #
+
+#Blank lines
+str_view_all(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
+str_detect(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
+
+str_view_all(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
+str_detect(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
+
+length(str_subset(string = ipeds, pattern ="^[^(\\s*$)]"))
+length(ipeds)
+
+#remove blank lines
+ipeds <- str_subset(string = ipeds, pattern ="^[^(\\s*$)]") # overwrite object to remove blanks
+length(ipeds)
+
+# lines that start with # (or do not start with #)
+
+str_view_all(string = ipeds[1:30], pattern ="^#") # starts with "#"
+str_detect(string = ipeds[1:30], pattern ="^#") # starts with "#"
+
+
+str_view_all(string = ipeds[1:30], pattern ="^[^#]") # starts with anything but #
+str_detect(string = ipeds[1:30], pattern ="^[^#]") # does not start with "#"
+
+str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
+length(str_subset(string = ipeds, pattern ="^[^#]")) # does not start with "#"
+
+#Remove lines that start with a "#"
+ipeds <- str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
+
+ipeds[1:50]
+
+# Create new character vector "hd" that contains names of all "HD" files
+str_subset(string = ipeds, pattern = "^HD")
+hd <- str_subset(string = ipeds, pattern = "^HD")
+
+hd
+hd[2]
+hd[1:5]
+
+length(hd)
+seq(from = 1, to = length(hd))
+
+## -----------------------------------------------------------------------------
+## Part 2 - Creating loops
+## -----------------------------------------------------------------------------
+
+## -----------------------------------------------------------------------------
+## LOOP 1: Create loop that prints URL for each dataset
+## -----------------------------------------------------------------------------
+
+# First, just work on creating loop without body and showing the value of object i and hd[i]
+for (i in 1:length(hd)) {
+  
+  writeLines(str_c(i))
+  #writeLines(str_c("object i=",i, "; hd[i]=",hd[i], sep = ""))
+  #writeLines(str_c("i=",i, "; hd[",i,"]=",hd[i], sep = ""))
+}
+
+```
+
+
+## Practice: IPEDS data & rvest package
+
+```{r, message=FALSE}
+## -----------------------------------------------------------------------------
+## MODIFY HD 2018 DATASET
+## -----------------------------------------------------------------------------
+#Read in HD2018 data
+hd2018 <- read_csv(file = file.path(data_dir,"hd2018.csv"))
+#glimpse(hd2018)
+
+#change column names to lowercase
+names(hd2018) <- hd2018 %>% 
+  names() %>%
+  str_to_lower()
+  
+# Keep only subset of variables (including latitude and longitude, univerisity url, unitid, ) 
+# and keep relatively small subset of institutions (e.g., a few UCs)
+
+hd2018_uc <- hd2018 %>%
+  dplyr::select(unitid, instnm, addr, stabbr, city, zip, latitude, longitud, webaddr) %>%
+  filter(stabbr=="CA" & unitid %in% c(110644, 110662, 110671))
+  
+#typeof(hd2018_uc$webaddr)
+
+# Create a character vector from the webaddr field and use that to create loop 
+web <- hd2018_uc$webaddr
+
+library(rvest) #load rvest package
+
+web <- str_c("https://", web) #add https:// to web address
+
+#str_extract(string = web, pattern = "\\.(w\\+)\\.")
+
+#for loop to create xml_document/xml_node object
+for(i in seq_along(web)) {
+  
+  url <- web[i] #grab url for each iteration
+  
+  name <- str_match(string = web[i], pattern = 'https://.+\\.([\\w]+)\\..+') #grab uni. name
+  name <- name[,2] #get uni name on website
+  
+  html <- read_html(url) #use rvest function read_html to create xml_document/xml_node object
+  
+  assign(name, html) #assign name of uni. to object
+  
+  writeLines(str_c("web name: ", name, " url: ", url, sep = ""))
+}
+
+ucla_sm <- ucla %>%
+  html_nodes('#social-media') #search for social-media ID
+
+ucla_sm <- as.character(ucla_sm) #change to character
+
+
+# Use `writeLines()` and `head()` to preview the first few rows of the data
+writeLines(head(ucla_sm))
+
+ucla_sm <- str_match(string = ucla_sm, pattern = '<a href="(http://twitter.+)"\\sclass.+</a>') #grab twitter url
+
+
+
+ucr_sm <- UCR %>%
+  html_nodes('.social-link') #search for social-link class
+
+ucr_sm <- as.character(ucr_sm) #change to character
+
+# Use `writeLines()` and `head()` to preview the first few rows of the data
+writeLines(head(ucr_sm))
+
+ucr_sm <- str_match(string = ucr_sm, pattern = '<a href="(https://twitter.+)"\\starget.+</a>') #grab twitter url
+
+
+
+ucd_sm <- ucdavis %>%
+  html_nodes('ul.pack') 
+
+ucd_sm <- as.character(ucd_sm)
+
+# Use `writeLines()` and `head()` to preview the first few rows of the data
+writeLines(head(ucd_sm))
+
+ucd_sm <- str_match(string = ucd_sm, pattern = '<a class=".+ href="(https://twitter.+)">.+</a>')
+
+
+
+twitter_ucla <- ucla_sm[,2] #grab twitter urls
+twitter_ucd <- ucd_sm[,2]
+twitter_ucr <- ucr_sm[,2]
+
+vec <- as_vector(c(twitter_ucd, twitter_ucla, twitter_ucr)) #create a vector of urls
+
+hd2018_t <- bind_cols(hd2018_uc, data.frame(twitter = vec)) #add column to df
+
+hd2018_t %>%
+  select(instnm, webaddr, twitter)
+
+```
 
 # Conditional execution
 
