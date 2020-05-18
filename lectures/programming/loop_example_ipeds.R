@@ -194,67 +194,124 @@ for (i in 1:length(hd)) { # this takes too long
   hd2018 <- read_csv(file = file.path(data_dir,str_c(hd[1],".csv")))
   
 
+  # make df name lowercase
+  dfname <- str_c(str_to_lower(hd[1]))
+  dfname
+
 #loop to read in csv files and assign them to data frames
 for (i in 1:length(hd)) { 
  
-  dfname <- str_c(str_to_lower(hd[i]))
+  dfname <- str_c(str_to_lower(hd[i])) #change string to lowercase
   #str(dfname)
   
-  assign(dfname, read_csv(file = file.path(data_dir,str_c(hd[i],".csv"))))
+  
+  df <- read_csv(file = file.path(data_dir,str_c(hd[i],".csv"))) #read in csv files
+  
+    
+    names(df) <- df %>% #change column names to lowercase
+      names() %>%
+      str_to_lower()
+    
+    #print(names(df))
+    
+    assign(dfname, df) #assign the df dataframe to the dfname lowercase string 
+
 }
   
-glimpse(hd2018)
-
-
-# rename variables to lowercase and keep selected variables
-
-# this works
-dfname <- str_c(str_to_lower(hd[1]))
-dfname
-
-
-assign(dfname, read_csv(file = file.path(data_dir,str_c(hd[1],".csv")))) %>% 
-  select(UNITID,LONGITUD,LATITUDE) %>% rename_all(tolower) %>% glimpse()
-
-# HAVING TROUBLE DOING THIS WITHIN A LOOP....
-
-for (i in 1:length(hd)) { 
   
-  dfname <- str_c(str_to_lower(hd[i]))
-  writeLines(dfname)
-  
-  #%>% rename_all(tolower) %>% glimpse()
-  
-  #assign(dfname, read_csv(file = file.path(data_dir,str_c(hd[i],".csv"))))
-}
-
-
-
-for (d in c("hd2018","hd2017","hd2016")) {
-
-  
-  writeLines(str_c("new iteration. d=",d, sep = ""))
-  d
-  #print(typeof(d))
-  #print(d[1:5,1:5])
-  
-    #rename_all(tolower)
-  
-}
-
-hd2018 %>% rename_all(tolower) %>% glimpse()
-glimpse(hd2018)
 ## -----------------------------------------------------------------------------
 ## MODIFY HD 2018 DATASET
 ## -----------------------------------------------------------------------------
 
 glimpse(hd2018)
-
+  
 # Keep only subset of variables (including latitude and longitude, univerisity url, unitid, ) 
+# and keep relatively small subset of institutions (e.g., all UCs)
 
-# and keep relatively small subset of institutions (e.g., all UCs and CSUs)
+hd2018_uc <- hd2018 %>%
+  dplyr::select(unitid, instnm, addr, stabbr, city, zip, latitude, longitud, webaddr) %>%
+  filter(stabbr=="CA" & unitid %in% c(110644, 110662, 110671))
+  
+#typeof(hd2018_uc$webaddr)
 
-# and then create a character vector from the webaddr field and use that to create loop 
+# Create a character vector from the webaddr field and use that to create loop 
+web <- hd2018_uc$webaddr
+
+library(rvest)
+
+web <- str_c("https://", web) #add https:// to web address
+
+#str_extract(string = web, pattern = "\\.(w\\+)\\.")
+
+for(i in seq_along(web)) {
+  
+  url <- web[i] 
+  
+  name <- str_match(string = web[i], pattern = 'https://.+\\.([\\w]+)\\..+')
+  name <- name[,2] #get uni name on website
+  
+  html <- read_html(url)
+  
+  assign(name, html)
+  
+  writeLines(str_c("web name: ", name, " url: ", url, sep = ""))
+}
+
+ucla_sm <- ucla %>%
+  html_nodes('#social-media')
+
+ucla_sm <- as.character(sm)
+
+
+# Use `writeLines()` and `head()` to preview the first few rows of the data
+writeLines(head(ucla_sm))
+
+ucla_sm <- str_match(string = ucla_sm, pattern = '<a href="(http://twitter.+)"\\sclass.+</a>')
+
+
+
+ucr_sm <- UCR %>%
+  html_nodes('.social-link')
+
+ucr_sm <- as.character(ucr_sm)
+
+# Use `writeLines()` and `head()` to preview the first few rows of the data
+writeLines(head(ucr_sm))
+
+ucr_sm <- str_match(string = ucr_sm, pattern = '<a href="(https://twitter.+)"\\starget.+</a>')
+
+
+
+ucd_sm <- ucdavis %>%
+  html_nodes('ul.pack')
+
+ucd_sm <- as.character(ucd)
+
+# Use `writeLines()` and `head()` to preview the first few rows of the data
+writeLines(head(ucd_sm))
+
+ucd_sm <- str_match(string = ucd_sm, pattern = '<a class=".+ href="(https://twitter.+)">.+</a>')
+
+
+
+twitter_ucla <- ucla_sm[,2]
+twitter_ucd <- ucd_sm[,2]
+twitter_ucr <- ucr_sm[,2]
+
+vec <- as_vector(c(twitter_ucd, twitter_ucla, twitter_ucr))
+
+hd2018_t <- bind_cols(hd2018_uc, data.frame(twitter = vec))
+
+
+#.social-link riverside
+
+
+#ul.pack ucdavis social media
+#.uci-icon-list uci social media
+#.columns.columns-3
+# #social-media ucla
+#.social-link riverside
+
 #that reads in the url using xml2/rvest functions we learned last week. and calculate something from url 
 #and merge this thing back to the hd dataset
 
