@@ -27,6 +27,7 @@ Load packages:
 
 ```r
 library(tidyverse)
+library(ggplot2)
 ```
 
 
@@ -2471,7 +2472,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/patriciamartin/Desktop/GitHub/rclass2/lectures/programming"
+## [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
 ```
 
 <br>
@@ -2515,7 +2516,7 @@ getwd()
 ```
 
 ```
-## [1] "/Users/patriciamartin/Desktop/GitHub/rclass2/lectures/programming"
+## [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
 ```
 
 ```r
@@ -2843,10 +2844,10 @@ For the examples in the next few subsections, we will be working with the follow
     ```
     
     ```
-    ## tibble [4 × 3] (S3: tbl_df/tbl/data.frame)
-    ##  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
-    ##  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
-    ##  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
+    ##  $ a: num  0.586 0.709 -0.109 -0.453
+    ##  $ b: num  0.606 -1.818 0.63 -0.276
+    ##  $ c: num  -0.284 -0.919 -0.116 1.817
     ```
 
 ### Looping over elements
@@ -3081,18 +3082,18 @@ for (i in names(df)) {
 ```
 ## 
 ## value of object i=a; type=character
-## tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
-##  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+##  $ a: num  0.586 0.709 -0.109 -0.453
 ##  num [1:4] 0.586 0.709 -0.109 -0.453
 ## 
 ## value of object i=b; type=character
-## tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
-##  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+##  $ b: num  0.606 -1.818 0.63 -0.276
 ##  num [1:4] 0.606 -1.818 0.63 -0.276
 ## 
 ## value of object i=c; type=character
-## tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
-##  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+##  $ c: num  -0.284 -0.919 -0.116 1.817
 ##  num [1:4] -0.284 -0.919 -0.116 1.817
 ```
 
@@ -3106,10 +3107,10 @@ str(df)  # View structure of dataframe object
 ```
 
 ```
-## tibble [4 × 3] (S3: tbl_df/tbl/data.frame)
-##  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
-##  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
-##  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
+##  $ a: num  0.586 0.709 -0.109 -0.453
+##  $ b: num  0.606 -1.818 0.63 -0.276
+##  $ c: num  -0.284 -0.919 -0.116 1.817
 ```
 
 <br>
@@ -3255,18 +3256,18 @@ for (i in seq_along(df)) {
 ```
 ## 
 ## value of object i=1; type=integer
-## tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
-##  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+##  $ a: num  0.586 0.709 -0.109 -0.453
 ##  num [1:4] 0.586 0.709 -0.109 -0.453
 ## 
 ## value of object i=2; type=integer
-## tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
-##  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+##  $ b: num  0.606 -1.818 0.63 -0.276
 ##  num [1:4] 0.606 -1.818 0.63 -0.276
 ## 
 ## value of object i=3; type=integer
-## tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
-##  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+##  $ c: num  -0.284 -0.919 -0.116 1.817
 ##  num [1:4] -0.284 -0.919 -0.116 1.817
 ```
 
@@ -3314,10 +3315,10 @@ str(df)  # View structure of dataframe object
 ```
 
 ```
-## tibble [4 × 3] (S3: tbl_df/tbl/data.frame)
-##  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
-##  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
-##  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
+##  $ a: num  0.586 0.709 -0.109 -0.453
+##  $ b: num  0.606 -1.818 0.63 -0.276
+##  $ c: num  -0.284 -0.919 -0.116 1.817
 ```
 
 ```r
@@ -3534,10 +3535,10 @@ str(df)
 ```
 
 ```
-## tibble [4 × 3] (S3: tbl_df/tbl/data.frame)
-##  $ a: num [1:4] 1.171 1.419 -0.219 -0.907
-##  $ b: num [1:4] 1.212 -3.636 1.26 -0.552
-##  $ c: num [1:4] -0.568 -1.839 -0.232 3.635
+## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
+##  $ a: num  1.171 1.419 -0.219 -0.907
+##  $ b: num  1.212 -3.636 1.26 -0.552
+##  $ c: num  -0.568 -1.839 -0.232 3.635
 ```
 
 ```r
@@ -3717,32 +3718,32 @@ writeLines(ipeds[1:30])
 str_view_all(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
 ```
 
-<!--html_preserve--><div id="htmlwidget-a563b28b397ccb0130ae" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a563b28b397ccb0130ae">{"x":{"html":"<ul>\n  <li>## LAST UPDATED: 2 December 2019<\/li>\n  <li>## -----------------------------<\/li>\n  <li><span class='match'><\/span><\/li>\n  <li>## ---------------------------<\/li>\n  <li>## 2018<\/li>\n  <li>## ---------------------------<\/li>\n  <li><span class='match'><\/span><\/li>\n  <li>HD2018<\/li>\n  <li>IC2018<\/li>\n  <li>IC2018_AY<\/li>\n  <li>IC2018_PY<\/li>\n  <li>EFFY2018<\/li>\n  <li>EFIA2018<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-00cbd347f90b02880d8c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-00cbd347f90b02880d8c">{"x":{"html":"<ul>\n  <li>## LAST UPDATED: 2 December 2019<\/li>\n  <li>## -----------------------------<\/li>\n  <li><span class='match'><\/span><\/li>\n  <li>## ---------------------------<\/li>\n  <li>## 2018<\/li>\n  <li>## ---------------------------<\/li>\n  <li><span class='match'><\/span><\/li>\n  <li>HD2018<\/li>\n  <li>IC2018<\/li>\n  <li>IC2018_AY<\/li>\n  <li>IC2018_PY<\/li>\n  <li>EFFY2018<\/li>\n  <li>EFIA2018<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_detect(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
 ```
 
 ```
-##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
-## [13] FALSE
+##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
+## [12] FALSE FALSE
 ```
 
 ```r
 str_view_all(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
 ```
 
-<!--html_preserve--><div id="htmlwidget-5e5cdee79e22c86dedc5" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5e5cdee79e22c86dedc5">{"x":{"html":"<ul>\n  <li><span class='match'>#<\/span># LAST UPDATED: 2 December 2019<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><span class='match'>#<\/span># 2018<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><\/li>\n  <li><span class='match'>H<\/span>D2018<\/li>\n  <li><span class='match'>I<\/span>C2018<\/li>\n  <li><span class='match'>I<\/span>C2018_AY<\/li>\n  <li><span class='match'>I<\/span>C2018_PY<\/li>\n  <li><span class='match'>E<\/span>FFY2018<\/li>\n  <li><span class='match'>E<\/span>FIA2018<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-bf9369760f4f3ddf61f3" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf9369760f4f3ddf61f3">{"x":{"html":"<ul>\n  <li><span class='match'>#<\/span># LAST UPDATED: 2 December 2019<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><span class='match'>#<\/span># 2018<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><\/li>\n  <li><span class='match'>H<\/span>D2018<\/li>\n  <li><span class='match'>I<\/span>C2018<\/li>\n  <li><span class='match'>I<\/span>C2018_AY<\/li>\n  <li><span class='match'>I<\/span>C2018_PY<\/li>\n  <li><span class='match'>E<\/span>FFY2018<\/li>\n  <li><span class='match'>E<\/span>FIA2018<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_detect(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
 ```
 
 ```
-##  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
-## [13]  TRUE
+##  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
+## [12]  TRUE  TRUE
 ```
 
 ```r
@@ -3777,34 +3778,34 @@ length(ipeds)
 str_view_all(string = ipeds[1:30], pattern ="^#") # starts with "#"
 ```
 
-<!--html_preserve--><div id="htmlwidget-42520f0b0ea0f6d35036" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-42520f0b0ea0f6d35036">{"x":{"html":"<ul>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># This is as list of all IPEDS files as given in the<\/li>\n  <li><span class='match'>#<\/span># complete data files portal. If you want to add files<\/li>\n  <li><span class='match'>#<\/span># that I've missed, be sure they match the name of the<\/li>\n  <li><span class='match'>#<\/span># link in the Data File column of the drop down table.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># You can prevent the script from downloading<\/li>\n  <li><span class='match'>#<\/span># specific files by either commenting out the name with<\/li>\n  <li><span class='match'>#<\/span># a hash symbol (#) or erasing it all together.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># Keep in mind that if you've already downloaded some<\/li>\n  <li><span class='match'>#<\/span># of the files before, the download script will not<\/li>\n  <li><span class='match'>#<\/span># download them again unless you change the -overwrite-<\/li>\n  <li><span class='match'>#<\/span># option to TRUE.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><span class='match'>#<\/span># LAST UPDATED: 2 December 2019<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><span class='match'>#<\/span># 2018<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li>HD2018<\/li>\n  <li>IC2018<\/li>\n  <li>IC2018_AY<\/li>\n  <li>IC2018_PY<\/li>\n  <li>EFFY2018<\/li>\n  <li>EFIA2018<\/li>\n  <li>ADM2018<\/li>\n  <li>EF2018A<\/li>\n  <li>EF2018CP<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-7a3b681f1823e7caa588" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7a3b681f1823e7caa588">{"x":{"html":"<ul>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># This is as list of all IPEDS files as given in the<\/li>\n  <li><span class='match'>#<\/span># complete data files portal. If you want to add files<\/li>\n  <li><span class='match'>#<\/span># that I've missed, be sure they match the name of the<\/li>\n  <li><span class='match'>#<\/span># link in the Data File column of the drop down table.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># You can prevent the script from downloading<\/li>\n  <li><span class='match'>#<\/span># specific files by either commenting out the name with<\/li>\n  <li><span class='match'>#<\/span># a hash symbol (#) or erasing it all together.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># Keep in mind that if you've already downloaded some<\/li>\n  <li><span class='match'>#<\/span># of the files before, the download script will not<\/li>\n  <li><span class='match'>#<\/span># download them again unless you change the -overwrite-<\/li>\n  <li><span class='match'>#<\/span># option to TRUE.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><span class='match'>#<\/span># LAST UPDATED: 2 December 2019<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><span class='match'>#<\/span># 2018<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li>HD2018<\/li>\n  <li>IC2018<\/li>\n  <li>IC2018_AY<\/li>\n  <li>IC2018_PY<\/li>\n  <li>EFFY2018<\/li>\n  <li>EFIA2018<\/li>\n  <li>ADM2018<\/li>\n  <li>EF2018A<\/li>\n  <li>EF2018CP<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_detect(string = ipeds[1:30], pattern ="^#") # starts with "#"
 ```
 
 ```
-##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-## [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
-## [25] FALSE FALSE FALSE FALSE FALSE FALSE
+##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+## [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+## [23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ```
 
 ```r
 str_view_all(string = ipeds[1:30], pattern ="^[^#]") # starts with anything but #
 ```
 
-<!--html_preserve--><div id="htmlwidget-bb7fba146f3cca42fcc1" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bb7fba146f3cca42fcc1">{"x":{"html":"<ul>\n  <li>##<\/li>\n  <li>## This is as list of all IPEDS files as given in the<\/li>\n  <li>## complete data files portal. If you want to add files<\/li>\n  <li>## that I've missed, be sure they match the name of the<\/li>\n  <li>## link in the Data File column of the drop down table.<\/li>\n  <li>##<\/li>\n  <li>## You can prevent the script from downloading<\/li>\n  <li>## specific files by either commenting out the name with<\/li>\n  <li>## a hash symbol (#) or erasing it all together.<\/li>\n  <li>##<\/li>\n  <li>## Keep in mind that if you've already downloaded some<\/li>\n  <li>## of the files before, the download script will not<\/li>\n  <li>## download them again unless you change the -overwrite-<\/li>\n  <li>## option to TRUE.<\/li>\n  <li>##<\/li>\n  <li>## -----------------------------<\/li>\n  <li>## LAST UPDATED: 2 December 2019<\/li>\n  <li>## -----------------------------<\/li>\n  <li>## ---------------------------<\/li>\n  <li>## 2018<\/li>\n  <li>## ---------------------------<\/li>\n  <li><span class='match'>H<\/span>D2018<\/li>\n  <li><span class='match'>I<\/span>C2018<\/li>\n  <li><span class='match'>I<\/span>C2018_AY<\/li>\n  <li><span class='match'>I<\/span>C2018_PY<\/li>\n  <li><span class='match'>E<\/span>FFY2018<\/li>\n  <li><span class='match'>E<\/span>FIA2018<\/li>\n  <li><span class='match'>A<\/span>DM2018<\/li>\n  <li><span class='match'>E<\/span>F2018A<\/li>\n  <li><span class='match'>E<\/span>F2018CP<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-84ced2907e90a43969c2" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-84ced2907e90a43969c2">{"x":{"html":"<ul>\n  <li>##<\/li>\n  <li>## This is as list of all IPEDS files as given in the<\/li>\n  <li>## complete data files portal. If you want to add files<\/li>\n  <li>## that I've missed, be sure they match the name of the<\/li>\n  <li>## link in the Data File column of the drop down table.<\/li>\n  <li>##<\/li>\n  <li>## You can prevent the script from downloading<\/li>\n  <li>## specific files by either commenting out the name with<\/li>\n  <li>## a hash symbol (#) or erasing it all together.<\/li>\n  <li>##<\/li>\n  <li>## Keep in mind that if you've already downloaded some<\/li>\n  <li>## of the files before, the download script will not<\/li>\n  <li>## download them again unless you change the -overwrite-<\/li>\n  <li>## option to TRUE.<\/li>\n  <li>##<\/li>\n  <li>## -----------------------------<\/li>\n  <li>## LAST UPDATED: 2 December 2019<\/li>\n  <li>## -----------------------------<\/li>\n  <li>## ---------------------------<\/li>\n  <li>## 2018<\/li>\n  <li>## ---------------------------<\/li>\n  <li><span class='match'>H<\/span>D2018<\/li>\n  <li><span class='match'>I<\/span>C2018<\/li>\n  <li><span class='match'>I<\/span>C2018_AY<\/li>\n  <li><span class='match'>I<\/span>C2018_PY<\/li>\n  <li><span class='match'>E<\/span>FFY2018<\/li>\n  <li><span class='match'>E<\/span>FIA2018<\/li>\n  <li><span class='match'>A<\/span>DM2018<\/li>\n  <li><span class='match'>E<\/span>F2018A<\/li>\n  <li><span class='match'>E<\/span>F2018CP<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_detect(string = ipeds[1:30], pattern ="^[^#]") # does not start with "#"
 ```
 
 ```
-##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
-## [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+## [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 ```
 
 ```r
@@ -3812,41 +3813,52 @@ str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
 ```
 
 ```
-##   [1] "HD2018"          "IC2018"          "IC2018_AY"       "IC2018_PY"      
-##   [5] "EFFY2018"        "EFIA2018"        "ADM2018"         "EF2018A"        
-##   [9] "EF2018CP"        "EF2018B"         "EF2018C"         "EF2018D"        
-##  [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"         "C2018_C"        
-##  [17] "C2018DEP"        "SAL2018_IS"      "SAL2018_NIS"     "S2018_OC"       
-##  [21] "S2018_SIS"       "S2018_IS"        "S2018_NH"        "EAP2018"        
-##  [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"        "SFA1718"        
-##  [29] "SFAV1718"        "GR2018"          "GR2018_L2"       "GR2018_PELL_SSL"
-##  [33] "GR200_18"        "OM2018"          "AL2018"          "FLAGS2018"      
-##  [37] "HD2017"          "IC2017"          "IC2017_AY"       "IC2017_PY"      
-##  [41] "EFFY2017"        "EFIA2017"        "EF2017A"         "EF2017B"        
-##  [45] "EF2017C"         "EF2017D"         "EF2017A_DIST"    "C2017_A"        
-##  [49] "C2017_B"         "C2017_C"         "C2017DEP"        "SAL2017_IS"     
-##  [53] "SAL2017_NIS"     "S2017_OC"        "S2017_SIS"       "S2017_IS"       
-##  [57] "S2017_NH"        "EAP2017"         "F1617_F1A"       "F1617_F2"       
-##  [61] "F1617_F3"        "GR2017"          "GR2017_L2"       "GR2017_PELL_SSL"
-##  [65] "GR200_17"        "OM2017"          "AL2017"          "FLAGS2017"      
-##  [69] "HD2016"          "IC2016"          "IC2016_AY"       "IC2016_PY"      
-##  [73] "EFFY2016"        "EFIA2016"        "ADM2016"         "EF2016A"        
-##  [77] "EF2016CP"        "EF2016B"         "EF2016C"         "EF2016D"        
-##  [81] "EF2016A_DIST"    "C2016_A"         "C2016_B"         "C2016_C"        
-##  [85] "C2016DEP"        "SAL2016_IS"      "SAL2016_NIS"     "S2016_OC"       
-##  [89] "S2016_SIS"       "S2016_IS"        "S2016_NH"        "EAP2016"        
-##  [93] "F1516_F1A"       "F1516_F2"        "F1516_F3"        "SFA1516"        
-##  [97] "SFAV1516"        "GR2016"          "GR2016_L2"       "GR200_16"       
-## [101] "GR2016_PELL_SSL" "OM2016"          "AL2016"          "FLAGS2016"      
-## [105] "HD2015"          "IC2015"          "IC2015_AY"       "IC2015_PY"      
-## [109] "EFFY2015"        "EFIA2015"        "ADM2015"         "EF2015A"        
-## [113] "EF2015B"         "EF2015C"         "EF2015D"         "EF2015A_DIST"   
-## [117] "C2015_A"         "C2015_B"         "C2015_C"         "C2015DEP"       
-## [121] "SAL2015_IS"      "SAL2015_NIS"     "S2015_OC"        "S2015_SIS"      
-## [125] "S2015_IS"        "S2015_NH"        "EAP2015"         "F1415_F1A"      
-## [129] "F1415_F2"        "F1415_F3"        "SFA1415"         "SFAV1415"       
-## [133] "GR2015"          "GR2015_L2"       "GR200_15"        "OM2015"         
-## [137] "AL2015"          "FLAGS2015"
+##   [1] "HD2018"          "IC2018"          "IC2018_AY"      
+##   [4] "IC2018_PY"       "EFFY2018"        "EFIA2018"       
+##   [7] "ADM2018"         "EF2018A"         "EF2018CP"       
+##  [10] "EF2018B"         "EF2018C"         "EF2018D"        
+##  [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"        
+##  [16] "C2018_C"         "C2018DEP"        "SAL2018_IS"     
+##  [19] "SAL2018_NIS"     "S2018_OC"        "S2018_SIS"      
+##  [22] "S2018_IS"        "S2018_NH"        "EAP2018"        
+##  [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"       
+##  [28] "SFA1718"         "SFAV1718"        "GR2018"         
+##  [31] "GR2018_L2"       "GR2018_PELL_SSL" "GR200_18"       
+##  [34] "OM2018"          "AL2018"          "FLAGS2018"      
+##  [37] "HD2017"          "IC2017"          "IC2017_AY"      
+##  [40] "IC2017_PY"       "EFFY2017"        "EFIA2017"       
+##  [43] "EF2017A"         "EF2017B"         "EF2017C"        
+##  [46] "EF2017D"         "EF2017A_DIST"    "C2017_A"        
+##  [49] "C2017_B"         "C2017_C"         "C2017DEP"       
+##  [52] "SAL2017_IS"      "SAL2017_NIS"     "S2017_OC"       
+##  [55] "S2017_SIS"       "S2017_IS"        "S2017_NH"       
+##  [58] "EAP2017"         "F1617_F1A"       "F1617_F2"       
+##  [61] "F1617_F3"        "GR2017"          "GR2017_L2"      
+##  [64] "GR2017_PELL_SSL" "GR200_17"        "OM2017"         
+##  [67] "AL2017"          "FLAGS2017"       "HD2016"         
+##  [70] "IC2016"          "IC2016_AY"       "IC2016_PY"      
+##  [73] "EFFY2016"        "EFIA2016"        "ADM2016"        
+##  [76] "EF2016A"         "EF2016CP"        "EF2016B"        
+##  [79] "EF2016C"         "EF2016D"         "EF2016A_DIST"   
+##  [82] "C2016_A"         "C2016_B"         "C2016_C"        
+##  [85] "C2016DEP"        "SAL2016_IS"      "SAL2016_NIS"    
+##  [88] "S2016_OC"        "S2016_SIS"       "S2016_IS"       
+##  [91] "S2016_NH"        "EAP2016"         "F1516_F1A"      
+##  [94] "F1516_F2"        "F1516_F3"        "SFA1516"        
+##  [97] "SFAV1516"        "GR2016"          "GR2016_L2"      
+## [100] "GR200_16"        "GR2016_PELL_SSL" "OM2016"         
+## [103] "AL2016"          "FLAGS2016"       "HD2015"         
+## [106] "IC2015"          "IC2015_AY"       "IC2015_PY"      
+## [109] "EFFY2015"        "EFIA2015"        "ADM2015"        
+## [112] "EF2015A"         "EF2015B"         "EF2015C"        
+## [115] "EF2015D"         "EF2015A_DIST"    "C2015_A"        
+## [118] "C2015_B"         "C2015_C"         "C2015DEP"       
+## [121] "SAL2015_IS"      "SAL2015_NIS"     "S2015_OC"       
+## [124] "S2015_SIS"       "S2015_IS"        "S2015_NH"       
+## [127] "EAP2015"         "F1415_F1A"       "F1415_F2"       
+## [130] "F1415_F3"        "SFA1415"         "SFAV1415"       
+## [133] "GR2015"          "GR2015_L2"       "GR200_15"       
+## [136] "OM2015"          "AL2015"          "FLAGS2015"
 ```
 
 ```r
@@ -3865,18 +3877,22 @@ ipeds[1:50]
 ```
 
 ```
-##  [1] "HD2018"          "IC2018"          "IC2018_AY"       "IC2018_PY"      
-##  [5] "EFFY2018"        "EFIA2018"        "ADM2018"         "EF2018A"        
-##  [9] "EF2018CP"        "EF2018B"         "EF2018C"         "EF2018D"        
-## [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"         "C2018_C"        
-## [17] "C2018DEP"        "SAL2018_IS"      "SAL2018_NIS"     "S2018_OC"       
-## [21] "S2018_SIS"       "S2018_IS"        "S2018_NH"        "EAP2018"        
-## [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"        "SFA1718"        
-## [29] "SFAV1718"        "GR2018"          "GR2018_L2"       "GR2018_PELL_SSL"
-## [33] "GR200_18"        "OM2018"          "AL2018"          "FLAGS2018"      
-## [37] "HD2017"          "IC2017"          "IC2017_AY"       "IC2017_PY"      
-## [41] "EFFY2017"        "EFIA2017"        "EF2017A"         "EF2017B"        
-## [45] "EF2017C"         "EF2017D"         "EF2017A_DIST"    "C2017_A"        
+##  [1] "HD2018"          "IC2018"          "IC2018_AY"      
+##  [4] "IC2018_PY"       "EFFY2018"        "EFIA2018"       
+##  [7] "ADM2018"         "EF2018A"         "EF2018CP"       
+## [10] "EF2018B"         "EF2018C"         "EF2018D"        
+## [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"        
+## [16] "C2018_C"         "C2018DEP"        "SAL2018_IS"     
+## [19] "SAL2018_NIS"     "S2018_OC"        "S2018_SIS"      
+## [22] "S2018_IS"        "S2018_NH"        "EAP2018"        
+## [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"       
+## [28] "SFA1718"         "SFAV1718"        "GR2018"         
+## [31] "GR2018_L2"       "GR2018_PELL_SSL" "GR200_18"       
+## [34] "OM2018"          "AL2018"          "FLAGS2018"      
+## [37] "HD2017"          "IC2017"          "IC2017_AY"      
+## [40] "IC2017_PY"       "EFFY2017"        "EFIA2017"       
+## [43] "EF2017A"         "EF2017B"         "EF2017C"        
+## [46] "EF2017D"         "EF2017A_DIST"    "C2017_A"        
 ## [49] "C2017_B"         "C2017_C"
 ```
 
@@ -4117,17 +4133,539 @@ hd2018_t %>%
 
 ```
 ## # A tibble: 3 x 3
-##   instnm                             webaddr        twitter                     
-##   <chr>                              <chr>          <fct>                       
-## 1 University of California-Davis     www.ucdavis.e… https://twitter.com/ucdavis 
-## 2 University of California-Los Ange… www.ucla.edu/  http://twitter.com/ucla     
-## 3 University of California-Riverside WWW.UCR.EDU    https://twitter.com/UCRiver…
+##   instnm                          webaddr        twitter                   
+##   <chr>                           <chr>          <fct>                     
+## 1 University of California-Davis  www.ucdavis.e… https://twitter.com/ucdav…
+## 2 University of California-Los A… www.ucla.edu/  http://twitter.com/ucla   
+## 3 University of California-River… WWW.UCR.EDU    https://twitter.com/UCRiv…
 ```
 
 # Conditional execution
 
-TEXT
+## `if`/`else` statements
 
-# Function basics
+What are **`if` statements**?
 
-TEXT
+- `if` statements allow you to conditionally execute certain blocks of code depending on whether some condition is satisfied
+- The condition goes inside of the parentheses in `if()` and the block of code to execute goes between the curly brackets (`{}`)
+- The condition must evaluate to either `TRUE` or `FALSE` (i.e., be of type `logical`)
+- The condition must have length of `1`
+
+
+```r
+if (condition) {
+  # code executed when condition is TRUE
+}
+```
+
+Optionally, you could also have an `else` block that gets executed if the condition is not met:
+
+
+```r
+if (condition) {
+  # code executed when condition is TRUE
+} else {
+  # code executed when condition is FALSE
+}
+```
+
+<br>
+<details><summary>**Example**: Using if-else statement</summary>
+
+Let's take a look at using if-else statement to print whether a student is on academic probation because their GPA is under 2.0:
+
+
+```r
+# Student has GPA under 2.0 and is on academic probation
+gpa <- 1.5
+if (gpa < 2) {
+  writeLines(str_c("Your GPA is ", gpa, " and you are on academic probation."))
+} else {
+  writeLines(str_c("Your GPA is ", gpa, " and you are NOT on academic probation."))
+}
+```
+
+```
+## Your GPA is 1.5 and you are on academic probation.
+```
+
+```r
+# Student has GPA over 2.0 and is NOT on academic probation
+gpa <- 3.5
+if (gpa < 2) {
+  writeLines(str_c("Your GPA is ", gpa, " and you are on academic probation."))
+} else {
+  writeLines(str_c("Your GPA is ", gpa, " and you are NOT on academic probation."))
+}
+```
+
+```
+## Your GPA is 3.5 and you are NOT on academic probation.
+```
+
+<br>
+Recall that the condition evaluates to either `TRUE` or `FALSE`:
+
+
+```r
+# When student has 1.5 GPA, the condition evaluates to `TRUE`
+gpa <- 1.5
+gpa < 2
+```
+
+```
+## [1] TRUE
+```
+
+```r
+# When student has 3.5 GPA, the condition evaluates to `FALSE`
+gpa <- 3.5
+gpa < 2
+```
+
+```
+## [1] FALSE
+```
+
+<br>
+The condition is of type `logical` and has a length of `1`:
+
+
+```r
+# Condition has type `logical`
+typeof(gpa < 2)
+```
+
+```
+## [1] "logical"
+```
+
+```r
+# Condition has length of 1
+length(gpa < 2)
+```
+
+```
+## [1] 1
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using if-else statement with loop</summary>
+
+Using the `diamonds` dataset from `ggplot2`, let's loop through the `price` of 5 of the diamonds and use an if-else statement to print whether each is affordable (under \$500) or pricey (\$500 and up):
+
+
+```r
+for (i in unique(diamonds$price)[21:25]) {
+  if (i < 500) {
+    writeLines(str_c("This diamond costs $", i, " and is affordable."))
+  } else {
+    writeLines(str_c("This diamond costs $", i, " and is pricey..."))
+  }
+}
+```
+
+```
+## This diamond costs $403 and is affordable.
+## This diamond costs $404 and is affordable.
+## This diamond costs $405 and is affordable.
+## This diamond costs $552 and is pricey...
+## This diamond costs $553 and is pricey...
+```
+
+</details>
+
+## `||` and `&&`
+
+How to combine **multiple logical expressions** in a condition?
+
+- Use `||` (or) and `&&` (and) to combine multiple logical expressions
+- "Never use `|` or `&` in an if statement: these are _vectorised_ operations that apply to multiple values (that's why you use them in `filter()`)" (From [R for Data Science](https://r4ds.had.co.nz/functions.html#conditional-execution))
+
+
+```r
+# Combining multiple logical expressions using `||` (or)
+if (condition1 || condition2 || condition3) {
+  # code executed when any of the conditions is TRUE
+}
+
+# Combining multiple logical expressions using `&&` (and)
+if (condition1 && condition2 && condition3) {
+  # code executed when all of the conditions are TRUE
+}
+```
+
+<br>
+<details><summary>**Example**: Using multiple logical expressions in a condition</summary>
+
+
+
+</details>
+
+## `else if` statements
+
+What are **`else if` statements**?
+
+- Between the `if` and `else` blocks, you can include additional block(s) using `else if` that gets executed if its condition is met and none of the previous blocks got executed
+- In other words, only 1 block will ever execute in an `if`/`else if`/`else` chain
+
+
+```r
+if (condition) {
+  # run this code if condition TRUE
+} else if (condition) {
+  # run this code if previous condition FALSE and this condition TRUE
+} else if (condition) {
+  # run this code if both previous conditions FALSE and this condition TRUE
+} else {
+  # run this code if all previous conditions FALSE
+}
+```
+
+<br>
+<details><summary>**Example**: Using `else if` statement</summary>
+
+Using the `diamonds` dataset from `ggplot2`, let's loop through the `price` of 5 of the diamonds and print whether each is affordable (under \$500), pricey (between \$500 and \$1000), or too expensive (\$1000 and up):
+
+
+```r
+for (i in unique(diamonds$price)[23:27]) {
+  if (i < 500) {
+    writeLines(str_c("This diamond costs $", i, " and is affordable."))
+  } else if (i >= 500 && i < 1000) {
+    writeLines(str_c("This diamond costs $", i, " and is pricey..."))
+  } else {
+    writeLines(str_c("This diamond costs $", i, " and is too expensive!"))
+  }
+}
+```
+
+```
+## This diamond costs $405 and is affordable.
+## This diamond costs $552 and is pricey...
+## This diamond costs $553 and is pricey...
+## This diamond costs $554 and is pricey...
+## This diamond costs $2757 and is too expensive!
+```
+
+<br>
+Remember that each subsequent `else if` statement will only be considered if all previous blocks did not run (i.e., their conditions were not met). This means we can simplify `i >= 500 && i < 1000` to `i < 1000` in the `else if` condition:
+
+
+```r
+for (i in unique(diamonds$price)[23:27]) {
+  if (i < 500) {
+    writeLines(str_c("This diamond costs $", i, " and is affordable."))
+  } else if (i < 1000) {
+    writeLines(str_c("This diamond costs $", i, " and is pricey..."))
+  } else {
+    writeLines(str_c("This diamond costs $", i, " and is too expensive!"))
+  }
+}
+```
+
+```
+## This diamond costs $405 and is affordable.
+## This diamond costs $552 and is pricey...
+## This diamond costs $553 and is pricey...
+## This diamond costs $554 and is pricey...
+## This diamond costs $2757 and is too expensive!
+```
+
+</details>
+
+# Functions
+
+## Function basics
+
+What are **functions** and why use them?
+
+- **Functions** are pre-written bits of code that accomplish some task
+  - E.g., `str_c()` for concatenating strings, `make_date()` for creating a `Date` object
+- We can call functions whenever we want to use them, again and again
+- Since functions are _reusable_ pieces of code, they are very useful for helping us avoid repetition
+- "You should consider writing a function whenever you've copied and pasted a block of code more than twice" (From [R for Data Science](https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function))
+
+<br>
+How to write a **function**?
+
+- We can define a function using `function()` and give it a **name** using the assignment operator `<-`
+- Any **arguments** (i.e., inputs) the function takes should go inside the parentheses of `function()`
+- The **body** of the function goes inside the pair of curly brackets (`{}`) that follows `function()`
+
+
+```r
+function_name <- function(arg1, arg2, arg3) {
+  # function body
+}
+```
+
+<br>
+**Example**: Writing a function that prints a greeting
+
+
+```r
+# Define function called `print_hello()`
+print_hello <- function() {  # This function takes no arguments
+  "Hello!"                   # The body of the function simply prints "Hello!"
+}
+
+# Call function
+print_hello()
+```
+
+```
+## [1] "Hello!"
+```
+
+<br>
+Let's modify the `print_hello()` function to take the name of who we want to greet as an argument:
+
+
+```r
+# Define function
+print_hello <- function(x) {  # The argument goes between the parentheses
+  str_c("Hello ", x, "!")     # Use `str_c()` to concatenate the name of who we want to greet
+}
+
+# Call function
+print_hello("World")
+```
+
+```
+## [1] "Hello World!"
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Writing a function</summary>
+
+
+
+</details>
+
+## Function arguments
+
+### Default values
+
+What are **default values** for arguments?
+
+- The **default value** for an argument is the value that will be used if the argument was not supplied during the function call
+- When writing the function, you can specify the **default value** for an argument using `name=value`
+
+Recall the `print_hello()` function. Let's modify the function to make `x` have a default value:
+
+
+```r
+# Define function
+print_hello <- function(x="there") {  # The default value for `x` is "there"
+  str_c("Hello ", x, "!")
+}
+
+# Call function without passing in name (it will use default value)
+print_hello()
+```
+
+```
+## [1] "Hello there!"
+```
+
+```r
+# Call function and pass in name (it will override default value)
+print_hello("World")
+```
+
+```
+## [1] "Hello World!"
+```
+
+
+### Dot-dot-dot (`...`)
+
+What is **dot-dot-dot (`...`)**?
+
+- Dot-dot-dot (`...`) allows the function to take an arbitrary number of arguments
+  - E.g., `str_c(..., sep = "", collapse = NULL)`
+  - As seen, `str_c()` allows us to pass in an arbitrary number of character vectors to concatenate together
+- "`...` (pronounced dot-dot-dot) [...] captures any number of arguments that aren’t otherwise matched." (From [R for Data Science](https://r4ds.had.co.nz/functions.html#dot-dot-dot))
+- When we write our own function with the special argument `...`, we can pass those inputs into another function that takes `...` (e.g., `str_c()`)
+
+Recall the `print_hello()` function. Let's modify the function to make it take an arbitrary number of names to greet:
+
+
+```r
+# Define function
+print_hello <- function(...) {  # The function accepts an arbitrary number of inputs
+  str_c("Hello ", str_c(..., sep = ", "), "!")  # Pass the `...` to `str_c()`
+}
+
+# Call function
+print_hello("Dasher", "Dancer", "Prancer", "Vixen")
+```
+
+```
+## [1] "Hello Dasher, Dancer, Prancer, Vixen!"
+```
+
+```r
+print_hello("Rudolf")
+```
+
+```
+## [1] "Hello Rudolf!"
+```
+
+## Return values
+
+### Implicit returns
+
+What are **return values**?
+
+- Just like how it can take inputs (i.e., arguments), functions can also return values as output
+- The last statement that the function evaluates will be automatically (i.e., implicitly) returned
+- If we want, we can store returned values in a variable for future use
+
+Recall the `print_hello()` function:
+
+
+```r
+# Define function
+print_hello <- function() {
+  "Hello!"  # The last statement in the function is returned
+}
+
+# Call function
+h <- print_hello()  # We can show that `print_hello()` returns a value by storing it in `h`
+h                   # `h` stores the value "Hello!"
+```
+
+```
+## [1] "Hello!"
+```
+
+### Explicit returns
+
+How can we **explicitly return values** from the function?
+
+- We can use `return()` to explicitly return a value from our function
+- This is commonly used when we want to return from the function early (e.g., inside an `if` block)
+- There can be multiple `return()` in a function
+- Returning from a function means exiting the function, so no other code below the point of return would be run
+
+Recall the `print_hello()` function:
+
+
+```r
+# Define function
+print_hello <- function() {
+  return("Hello!")   # Explicitly return "Hello!"
+  print("Goodbye!")  # Since this is after `return()`, it never gets run
+}
+
+# Call function
+h <- print_hello()  # `print_hello()` returns "Hello!"
+h
+```
+
+```
+## [1] "Hello!"
+```
+
+
+<br>
+<details><summary>**Example**: Writing a function with multiple returns</summary>
+
+Recall the previous example where we assess the prices of diamonds using the `diamonds` dataset from `ggplot2`. Let's move the `if`/`else if`/`else` blocks inside of a function, then call the function from inside the loop.
+
+As seen below, the last statement that the function evaluates (i.e., whichever `if`/`else if`/`else` block is run) will be implicitly returned:
+
+
+```r
+assess_price <- function(price) {
+  if (price < 500) {
+    str_c("This diamond costs $", price, " and is affordable.")
+  } else if (price < 1000) {
+    str_c("This diamond costs $", price, " and is pricey...")
+  } else {
+    str_c("This diamond costs $", price, " and is too expensive!")
+  }
+}
+
+for (i in unique(diamonds$price)[23:27]) {
+  writeLines(assess_price(i))
+}
+```
+
+```
+## This diamond costs $405 and is affordable.
+## This diamond costs $552 and is pricey...
+## This diamond costs $553 and is pricey...
+## This diamond costs $554 and is pricey...
+## This diamond costs $2757 and is too expensive!
+```
+
+<br>
+But if we were to have another line after the conditional part, then that would be implicitly returned instead, since it is now the last statement in the function:
+
+
+```r
+assess_price <- function(price) {
+  if (price < 500) {
+    str_c("This diamond costs $", price, " and is affordable.")
+  } else if (price < 1000) {
+    str_c("This diamond costs $", price, " and is pricey...")
+  } else {
+    str_c("This diamond costs $", price, " and is too expensive!")
+  }
+  
+  "I can't afford that."  # This is now the last statement in the function that will be returned
+}
+
+for (i in unique(diamonds$price)[23:27]) {
+  writeLines(assess_price(i))
+}
+```
+
+```
+## I can't afford that.
+## I can't afford that.
+## I can't afford that.
+## I can't afford that.
+## I can't afford that.
+```
+
+<br>
+We can use `return()` to explicitly return early from the function:
+
+
+```r
+assess_price <- function(price) {
+  if (price < 500) {
+    return(str_c("This diamond costs $", price, " and is affordable."))  # Return early
+  } else if (price < 1000) {
+    return(str_c("This diamond costs $", price, " and is pricey..."))  # Return early
+  } else {
+    writeLines(str_c("This diamond costs $", price, " and is too expensive!"))
+  }
+  
+  "I can't afford that."
+}
+
+for (i in unique(diamonds$price)[23:27]) {
+  writeLines(assess_price(i))
+}
+```
+
+```
+## This diamond costs $405 and is affordable.
+## This diamond costs $552 and is pricey...
+## This diamond costs $553 and is pricey...
+## This diamond costs $554 and is pricey...
+## This diamond costs $2757 and is too expensive!
+## I can't afford that.
+```
+
+</details>

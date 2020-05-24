@@ -26,6 +26,7 @@ Load packages:
 
 ```{r, message=FALSE}
 library(tidyverse)
+library(ggplot2)
 ```
 
 
@@ -2156,8 +2157,397 @@ hd2018_t %>%
 
 # Conditional execution
 
-TEXT
+## `if`/`else` statements
 
-# Function basics
+What are **`if` statements**?
 
-TEXT
+- `if` statements allow you to conditionally execute certain blocks of code depending on whether some condition is satisfied
+- The condition goes inside of the parentheses in `if()` and the block of code to execute goes between the curly brackets (`{}`)
+- The condition must evaluate to either `TRUE` or `FALSE` (i.e., be of type `logical`)
+- The condition must have length of `1`
+
+```{r, eval=FALSE}
+if (condition) {
+  # code executed when condition is TRUE
+}
+```
+
+Optionally, you could also have an `else` block that gets executed if the condition is not met:
+
+```{r, eval=FALSE}
+if (condition) {
+  # code executed when condition is TRUE
+} else {
+  # code executed when condition is FALSE
+}
+```
+
+<br>
+<details><summary>**Example**: Using if-else statement</summary>
+
+Let's take a look at using if-else statement to print whether a student is on academic probation because their GPA is under 2.0:
+
+```{r}
+# Student has GPA under 2.0 and is on academic probation
+gpa <- 1.5
+if (gpa < 2) {
+  writeLines(str_c("Your GPA is ", gpa, " and you are on academic probation."))
+} else {
+  writeLines(str_c("Your GPA is ", gpa, " and you are NOT on academic probation."))
+}
+
+# Student has GPA over 2.0 and is NOT on academic probation
+gpa <- 3.5
+if (gpa < 2) {
+  writeLines(str_c("Your GPA is ", gpa, " and you are on academic probation."))
+} else {
+  writeLines(str_c("Your GPA is ", gpa, " and you are NOT on academic probation."))
+}
+```
+
+<br>
+Recall that the condition evaluates to either `TRUE` or `FALSE`:
+
+```{r}
+# When student has 1.5 GPA, the condition evaluates to `TRUE`
+gpa <- 1.5
+gpa < 2
+
+# When student has 3.5 GPA, the condition evaluates to `FALSE`
+gpa <- 3.5
+gpa < 2
+```
+
+<br>
+The condition is of type `logical` and has a length of `1`:
+
+```{r}
+# Condition has type `logical`
+typeof(gpa < 2)
+
+# Condition has length of 1
+length(gpa < 2)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using if-else statement with loop</summary>
+
+Using the `diamonds` dataset from `ggplot2`, let's loop through the `price` of 5 of the diamonds and use an if-else statement to print whether each is affordable (under \$500) or pricey (\$500 and up):
+
+```{r}
+for (i in unique(diamonds$price)[21:25]) {
+  if (i < 500) {
+    writeLines(str_c("This diamond costs $", i, " and is affordable."))
+  } else {
+    writeLines(str_c("This diamond costs $", i, " and is pricey..."))
+  }
+}
+```
+
+</details>
+
+## `||` and `&&`
+
+How to combine **multiple logical expressions** in a condition?
+
+- Use `||` (or) and `&&` (and) to combine multiple logical expressions
+- "Never use `|` or `&` in an if statement: these are _vectorised_ operations that apply to multiple values (that's why you use them in `filter()`)" (From [R for Data Science](https://r4ds.had.co.nz/functions.html#conditional-execution))
+
+```{r, eval=FALSE}
+# Combining multiple logical expressions using `||` (or)
+if (condition1 || condition2 || condition3) {
+  # code executed when any of the conditions is TRUE
+}
+
+# Combining multiple logical expressions using `&&` (and)
+if (condition1 && condition2 && condition3) {
+  # code executed when all of the conditions are TRUE
+}
+```
+
+<br>
+<details><summary>**Example**: Using multiple logical expressions in a condition</summary>
+
+```{r}
+
+```
+
+</details>
+
+## `else if` statements
+
+What are **`else if` statements**?
+
+- Between the `if` and `else` blocks, you can include additional block(s) using `else if` that gets executed if its condition is met and none of the previous blocks got executed
+- In other words, only 1 block will ever execute in an `if`/`else if`/`else` chain
+
+```{r, eval=FALSE}
+if (condition) {
+  # run this code if condition TRUE
+} else if (condition) {
+  # run this code if previous condition FALSE and this condition TRUE
+} else if (condition) {
+  # run this code if both previous conditions FALSE and this condition TRUE
+} else {
+  # run this code if all previous conditions FALSE
+}
+```
+
+<br>
+<details><summary>**Example**: Using `else if` statement</summary>
+
+Using the `diamonds` dataset from `ggplot2`, let's loop through the `price` of 5 of the diamonds and print whether each is affordable (under \$500), pricey (between \$500 and \$1000), or too expensive (\$1000 and up):
+
+```{r}
+for (i in unique(diamonds$price)[23:27]) {
+  if (i < 500) {
+    writeLines(str_c("This diamond costs $", i, " and is affordable."))
+  } else if (i >= 500 && i < 1000) {
+    writeLines(str_c("This diamond costs $", i, " and is pricey..."))
+  } else {
+    writeLines(str_c("This diamond costs $", i, " and is too expensive!"))
+  }
+}
+```
+
+<br>
+Remember that each subsequent `else if` statement will only be considered if all previous blocks did not run (i.e., their conditions were not met). This means we can simplify `i >= 500 && i < 1000` to `i < 1000` in the `else if` condition:
+
+```{r}
+for (i in unique(diamonds$price)[23:27]) {
+  if (i < 500) {
+    writeLines(str_c("This diamond costs $", i, " and is affordable."))
+  } else if (i < 1000) {
+    writeLines(str_c("This diamond costs $", i, " and is pricey..."))
+  } else {
+    writeLines(str_c("This diamond costs $", i, " and is too expensive!"))
+  }
+}
+```
+
+</details>
+
+# Functions
+
+## Function basics
+
+What are **functions** and why use them?
+
+- **Functions** are pre-written bits of code that accomplish some task
+  - E.g., `str_c()` for concatenating strings, `make_date()` for creating a `Date` object
+- We can call functions whenever we want to use them, again and again
+- Since functions are _reusable_ pieces of code, they are very useful for helping us avoid repetition
+- "You should consider writing a function whenever you've copied and pasted a block of code more than twice" (From [R for Data Science](https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function))
+
+<br>
+How to write a **function**?
+
+- We can define a function using `function()` and give it a **name** using the assignment operator `<-`
+- Any **arguments** (i.e., inputs) the function takes should go inside the parentheses of `function()`
+- The **body** of the function goes inside the pair of curly brackets (`{}`) that follows `function()`
+
+```{r, eval=FALSE}
+function_name <- function(arg1, arg2, arg3) {
+  # function body
+}
+```
+
+<br>
+**Example**: Writing a function that prints a greeting
+
+```{r}
+# Define function called `print_hello()`
+print_hello <- function() {  # This function takes no arguments
+  "Hello!"                   # The body of the function simply prints "Hello!"
+}
+
+# Call function
+print_hello()
+```
+
+<br>
+Let's modify the `print_hello()` function to take the name of who we want to greet as an argument:
+
+```{r}
+# Define function
+print_hello <- function(x) {  # The argument goes between the parentheses
+  str_c("Hello ", x, "!")     # Use `str_c()` to concatenate the name of who we want to greet
+}
+
+# Call function
+print_hello("World")
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Writing a function</summary>
+
+```{r}
+```
+
+</details>
+
+## Function arguments
+
+### Default values
+
+What are **default values** for arguments?
+
+- The **default value** for an argument is the value that will be used if the argument was not supplied during the function call
+- When writing the function, you can specify the **default value** for an argument using `name=value`
+
+Recall the `print_hello()` function. Let's modify the function to make `x` have a default value:
+
+```{r}
+# Define function
+print_hello <- function(x="there") {  # The default value for `x` is "there"
+  str_c("Hello ", x, "!")
+}
+
+# Call function without passing in name (it will use default value)
+print_hello()
+
+# Call function and pass in name (it will override default value)
+print_hello("World")
+```
+
+
+### Dot-dot-dot (`...`)
+
+What is **dot-dot-dot (`...`)**?
+
+- Dot-dot-dot (`...`) allows the function to take an arbitrary number of arguments
+  - E.g., `str_c(..., sep = "", collapse = NULL)`
+  - As seen, `str_c()` allows us to pass in an arbitrary number of character vectors to concatenate together
+- "`...` (pronounced dot-dot-dot) [...] captures any number of arguments that aren’t otherwise matched." (From [R for Data Science](https://r4ds.had.co.nz/functions.html#dot-dot-dot))
+- When we write our own function with the special argument `...`, we can pass those inputs into another function that takes `...` (e.g., `str_c()`)
+
+Recall the `print_hello()` function. Let's modify the function to make it take an arbitrary number of names to greet:
+
+```{r}
+# Define function
+print_hello <- function(...) {  # The function accepts an arbitrary number of inputs
+  str_c("Hello ", str_c(..., sep = ", "), "!")  # Pass the `...` to `str_c()`
+}
+
+# Call function
+print_hello("Dasher", "Dancer", "Prancer", "Vixen")
+print_hello("Rudolf")
+```
+
+## Return values
+
+### Implicit returns
+
+What are **return values**?
+
+- Just like how it can take inputs (i.e., arguments), functions can also return values as output
+- The last statement that the function evaluates will be automatically (i.e., implicitly) returned
+- If we want, we can store returned values in a variable for future use
+
+Recall the `print_hello()` function:
+
+```{r}
+# Define function
+print_hello <- function() {
+  "Hello!"  # The last statement in the function is returned
+}
+
+# Call function
+h <- print_hello()  # We can show that `print_hello()` returns a value by storing it in `h`
+h                   # `h` stores the value "Hello!"
+```
+
+### Explicit returns
+
+How can we **explicitly return values** from the function?
+
+- We can use `return()` to explicitly return a value from our function
+- This is commonly used when we want to return from the function early (e.g., inside an `if` block)
+- There can be multiple `return()` in a function
+- Returning from a function means exiting the function, so no other code below the point of return would be run
+
+Recall the `print_hello()` function:
+
+```{r}
+# Define function
+print_hello <- function() {
+  return("Hello!")   # Explicitly return "Hello!"
+  print("Goodbye!")  # Since this is after `return()`, it never gets run
+}
+
+# Call function
+h <- print_hello()  # `print_hello()` returns "Hello!"
+h
+```
+
+
+<br>
+<details><summary>**Example**: Writing a function with multiple returns</summary>
+
+Recall the previous example where we assess the prices of diamonds using the `diamonds` dataset from `ggplot2`. Let's move the `if`/`else if`/`else` blocks inside of a function, then call the function from inside the loop.
+
+As seen below, the last statement that the function evaluates (i.e., whichever `if`/`else if`/`else` block is run) will be implicitly returned:
+
+```{r}
+assess_price <- function(price) {
+  if (price < 500) {
+    str_c("This diamond costs $", price, " and is affordable.")
+  } else if (price < 1000) {
+    str_c("This diamond costs $", price, " and is pricey...")
+  } else {
+    str_c("This diamond costs $", price, " and is too expensive!")
+  }
+}
+
+for (i in unique(diamonds$price)[23:27]) {
+  writeLines(assess_price(i))
+}
+```
+
+<br>
+But if we were to have another line after the conditional part, then that would be implicitly returned instead, since it is now the last statement in the function:
+
+```{r}
+assess_price <- function(price) {
+  if (price < 500) {
+    str_c("This diamond costs $", price, " and is affordable.")
+  } else if (price < 1000) {
+    str_c("This diamond costs $", price, " and is pricey...")
+  } else {
+    str_c("This diamond costs $", price, " and is too expensive!")
+  }
+  
+  "I can't afford that."  # This is now the last statement in the function that will be returned
+}
+
+for (i in unique(diamonds$price)[23:27]) {
+  writeLines(assess_price(i))
+}
+```
+
+<br>
+We can use `return()` to explicitly return early from the function:
+
+```{r}
+assess_price <- function(price) {
+  if (price < 500) {
+    return(str_c("This diamond costs $", price, " and is affordable."))  # Return early
+  } else if (price < 1000) {
+    return(str_c("This diamond costs $", price, " and is pricey..."))  # Return early
+  } else {
+    writeLines(str_c("This diamond costs $", price, " and is too expensive!"))
+  }
+  
+  "I can't afford that."
+}
+
+for (i in unique(diamonds$price)[23:27]) {
+  writeLines(assess_price(i))
+}
+```
+
+</details>
