@@ -2501,7 +2501,8 @@ div.tocify {
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p>Load packages:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(lubridate)</a></code></pre></div>
 <p>The “programming” unit will introduce you to tools that tell the computer to do the same or similar things over and over, without writing code over and over. And the code you write to do things over and over, will be able to do things differently depending on conditions of the data or depending on things you specify.</p>
 <p>Paraphrasing Will Doyle</p>
 <blockquote>
@@ -3900,11 +3901,12 @@ div.tocify {
 <a class="sourceLine" id="cb340-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb340-4" data-line-number="4"><span class="co"># Check that `my_folder` has been created</span></a>
 <a class="sourceLine" id="cb340-5" data-line-number="5"><span class="kw">list.files</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;data&quot;                     &quot;ipeds_file_list_og.txt&quot;  
-## [3] &quot;ipeds_file_list.txt&quot;      &quot;loop_example_ipeds.R&quot;    
-## [5] &quot;my_folder&quot;                &quot;programming_lecture.html&quot;
-## [7] &quot;programming_lecture.md&quot;   &quot;programming_lecture.Rmd&quot; 
-## [9] &quot;programming.Rproj&quot;</code></pre>
+<pre><code>##  [1] &quot;data&quot;                     &quot;function_basics.html&quot;    
+##  [3] &quot;function_basics.md&quot;       &quot;function_basics.Rmd&quot;     
+##  [5] &quot;ipeds_file_list_og.txt&quot;   &quot;ipeds_file_list.txt&quot;     
+##  [7] &quot;loop_example_ipeds.R&quot;     &quot;my_folder&quot;               
+##  [9] &quot;programming_lecture.html&quot; &quot;programming_lecture.md&quot;  
+## [11] &quot;programming_lecture.Rmd&quot;  &quot;programming.Rproj&quot;</code></pre>
 <p><br> <strong>The <code>unlink()</code> function</strong>:</p>
 <div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb342-1" data-line-number="1">?unlink</a>
 <a class="sourceLine" id="cb342-2" data-line-number="2"></a>
@@ -3928,10 +3930,12 @@ div.tocify {
 <a class="sourceLine" id="cb343-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb343-4" data-line-number="4"><span class="co"># Check that `my_folder` has been deleted</span></a>
 <a class="sourceLine" id="cb343-5" data-line-number="5"><span class="kw">list.files</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;data&quot;                     &quot;ipeds_file_list_og.txt&quot;  
-## [3] &quot;ipeds_file_list.txt&quot;      &quot;loop_example_ipeds.R&quot;    
-## [5] &quot;programming_lecture.html&quot; &quot;programming_lecture.md&quot;  
-## [7] &quot;programming_lecture.Rmd&quot;  &quot;programming.Rproj&quot;</code></pre>
+<pre><code>##  [1] &quot;data&quot;                     &quot;function_basics.html&quot;    
+##  [3] &quot;function_basics.md&quot;       &quot;function_basics.Rmd&quot;     
+##  [5] &quot;ipeds_file_list_og.txt&quot;   &quot;ipeds_file_list.txt&quot;     
+##  [7] &quot;loop_example_ipeds.R&quot;     &quot;programming_lecture.html&quot;
+##  [9] &quot;programming_lecture.md&quot;   &quot;programming_lecture.Rmd&quot; 
+## [11] &quot;programming.Rproj&quot;</code></pre>
 <p><br></p>
 </div>
 <div id="file-paths" class="section level4">
@@ -5214,75 +5218,707 @@ div.tocify {
 </div>
 <div id="functions" class="section level1">
 <h1><span class="header-section-number">5</span> Functions</h1>
-<div id="function-basics" class="section level2">
-<h2><span class="header-section-number">5.1</span> Function basics</h2>
-<p>What are <strong>functions</strong> and why use them?</p>
+<div id="what-are-functions" class="section level2">
+<h2><span class="header-section-number">5.1</span> What are functions</h2>
+<p><strong>Functions</strong> are pre-written bits of code that accomplish some task.</p>
 <ul>
-<li><strong>Functions</strong> are pre-written bits of code that accomplish some task
-<ul>
-<li>E.g., <code>str_c()</code> for concatenating strings, <code>make_date()</code> for creating a <code>Date</code> object</li>
-</ul></li>
+<li>Functions allow you to “automate” tasks that you perform more than once</li>
 <li>We can call functions whenever we want to use them, again and again</li>
-<li>Since functions are <em>reusable</em> pieces of code, they are very useful for helping us avoid repetition</li>
-<li>“You should consider writing a function whenever you’ve copied and pasted a block of code more than twice” (From <a href="https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function">R for Data Science</a>)</li>
 </ul>
-<p><br> How to write a <strong>function</strong>?</p>
+<p>Functions generally follow three sequential steps:</p>
+<ol style="list-style-type: decimal">
+<li>take in an <strong>input</strong> object(s)</li>
+<li><strong>process</strong> the input.</li>
+<li><strong>return</strong>. Returns a new object, which may be a vector, data-frame, plot, etc.</li>
+</ol>
+<p>We’ve been working with functions all quarter.</p>
+<div id="functions-from-packages-written-by-others" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Functions from packages written by others</h3>
+
+<p><strong>Example</strong>: <code>length()</code> function counts number of elements in an object</p>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" data-line-number="1">?length</a></code></pre></div>
+<ol style="list-style-type: decimal">
+<li><strong>input</strong>. takes in “R object” as the input</li>
+<li><strong>processing</strong>. counts the number of elements in the object</li>
+<li><strong>return</strong>. Returns a new object, specifically an integer atomic vector of length == 1, that indicates the number of elements in the input R object</li>
+</ol>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" data-line-number="1"><span class="co"># apply length() to atomic vector</span></a>
+<a class="sourceLine" id="cb543-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb543-3" data-line-number="3">x</a></code></pre></div>
+<pre><code>## [1] 1 2 3 4</code></pre>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" data-line-number="1"><span class="kw">length</span>(x)</a></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" data-line-number="1"><span class="co"># apply length() to a list that is a data frame</span></a>
+<a class="sourceLine" id="cb547-2" data-line-number="2">mpg <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">5</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 11
+##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
+##   &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;  &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;
+## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
+## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
+## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
+## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
+## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…</code></pre>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" data-line-number="1"><span class="kw">length</span>(mpg)</a></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<p><strong>Example</strong>: The <code>sum()</code> function:</p>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" data-line-number="1">?sum</a></code></pre></div>
+<ol style="list-style-type: decimal">
+<li><strong>input</strong>. takes in a vector of elements (<em>class</em> must be numeric or logical)</li>
+<li><strong>processing</strong>. Calculates the sum of elements</li>
+<li><strong>return</strong>. Returns numeric vector: length=1; value is sum of input vector</li>
+</ol>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb552-1" data-line-number="1"><span class="kw">sum</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</a></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb554-1" data-line-number="1"><span class="kw">sum</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">str</span>()</a></code></pre></div>
+<pre><code>##  num 6</code></pre>
+</div>
+<div id="user-wrtten-functions" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> User-wrtten functions</h3>
+<p>“<strong>user-written functions</strong>” [my term]</p>
 <ul>
-<li>We can define a function using <code>function()</code> and give it a <strong>name</strong> using the assignment operator <code>&lt;-</code></li>
-<li>Any <strong>arguments</strong> (i.e., inputs) the function takes should go inside the parentheses of <code>function()</code></li>
-<li>The <strong>body</strong> of the function goes inside the pair of curly brackets (<code>{}</code>) that follows <code>function()</code></li>
+<li>functions you write to perform some specific task, often a data-manipulation or analysis task specific to your project</li>
 </ul>
-<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb542-1" data-line-number="1">function_name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, arg3) {</a>
-<a class="sourceLine" id="cb542-2" data-line-number="2">  <span class="co"># function body</span></a>
-<a class="sourceLine" id="cb542-3" data-line-number="3">}</a></code></pre></div>
-<p><br> <strong>Example</strong>: Writing a function that prints a greeting</p>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb543-1" data-line-number="1"><span class="co"># Define function called `print_hello()`</span></a>
-<a class="sourceLine" id="cb543-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>() {  <span class="co"># This function takes no arguments</span></a>
-<a class="sourceLine" id="cb543-3" data-line-number="3">  <span class="st">&quot;Hello!&quot;</span>                   <span class="co"># The body of the function simply prints &quot;Hello!&quot;</span></a>
-<a class="sourceLine" id="cb543-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb543-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb543-6" data-line-number="6"><span class="co"># Call function</span></a>
-<a class="sourceLine" id="cb543-7" data-line-number="7"><span class="kw">print_hello</span>()</a></code></pre></div>
-<pre><code>## [1] &quot;Hello!&quot;</code></pre>
-<p><br> Let’s modify the <code>print_hello()</code> function to take the name of who we want to greet as an argument:</p>
-<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb545-1" data-line-number="1"><span class="co"># Define function</span></a>
-<a class="sourceLine" id="cb545-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>(x) {  <span class="co"># The argument goes between the parentheses</span></a>
-<a class="sourceLine" id="cb545-3" data-line-number="3">  <span class="kw">str_c</span>(<span class="st">&quot;Hello &quot;</span>, x, <span class="st">&quot;!&quot;</span>)     <span class="co"># Use `str_c()` to concatenate the name of who we want to greet</span></a>
-<a class="sourceLine" id="cb545-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb545-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb545-6" data-line-number="6"><span class="co"># Call function</span></a>
-<a class="sourceLine" id="cb545-7" data-line-number="7"><span class="kw">print_hello</span>(<span class="st">&quot;World&quot;</span>)</a></code></pre></div>
-<pre><code>## [1] &quot;Hello World!&quot;</code></pre>
-</details>
-<br>
-<details>
-<p><summary><strong>Example</strong>: Writing a function</summary></p>
-</details>
+<p>Like all functions, user-written functions usually follow three steps:</p>
+<ol style="list-style-type: decimal">
+<li>take in one or more <strong>inputs</strong></li>
+<li><strong>process</strong> the inputs
+<ul>
+<li>this may include using pre-written functions like <code>select()</code> or <code>sum()</code></li>
+</ul></li>
+<li><strong>return</strong> a new object</li>
+</ol>
+<p>Example things we might want to write a function to do:</p>
+<ul>
+<li>Write function to read in annual data; call function for each year</li>
+<li>Create interactive maps: <a href="https://ozanj.github.io/naed_presentation">NAED_presentation</a>
+<ul>
+<li>see “deep dive” results</li>
+</ul></li>
+<li><a href="https://github.com/btskinner">Ben Skinner</a> recommends [paraphrasing] writing “short functions that do one thing and do it well”</li>
+</ul>
+<p><br></p>
+<p><strong>When to write a function</strong></p>
+<ul>
+<li>Since functions are <em>reusable</em> pieces of code, they allow you to “automate” tasks that you perform more than once
+<ul>
+<li>e.g., check to see if IPEDS data file already downloaded. and if not, then download data</li>
+<li>e.g., write function that runs regression model and creates results table</li>
+</ul></li>
+<li>The alternative to writing a function to perform some specific task (aside from loops/iteration) is to copy and paste the code each time you want to perform a task</li>
+<li><p><a href="https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function">Wickham and Grolemund chapter 19.2</a>:</p>
+<blockquote>
+<p>“You should consider writing a function whenever you’ve copied and pasted a block of code more than twice”</p>
+</blockquote></li>
+<li>Darin Christenson (professor, UCLA public policy) refers to the programming mantra <strong>DRY</strong>
+<ul>
+<li>“Do not Repeat Yourself (DRY)”</li>
+</ul>
+<blockquote>
+<p>“Functions enable you to perform multiple tasks (that are similar to one another) without copying the same code over and over”</p>
+</blockquote></li>
+</ul>
+<p><br></p>
+<p><strong>Why write functions</strong> to complete a task (as opposed to the copy-and-paste approach)</p>
+<ul>
+<li>As task requirements change (and they always do!), you only need to revise code in one place rather than many places</li>
+<li>Reduce errors that are common in copy-and-paste approach (e.g., forgetting to change variable name or variable value)</li>
+<li>Functions give you an opportunity to make continual improvements to completing a task
+<ul>
+<li>e.g., you realize your function does not work for certain input values, so you modify function to handle those values</li>
+</ul></li>
+</ul>
+<p><strong>How to approach writing functions</strong> (broad recipe)</p>
+<ol style="list-style-type: decimal">
+<li>Experiment with performing the task outside of a function
+<ul>
+<li>experiment with performing task with different sets of inputs</li>
+<li>sometimes you will have to revise this code, when an approach that worked outside a function does not work within a function</li>
+</ul></li>
+<li>Write the function</li>
+<li>Test the function; try to “break” it</li>
+<li><strong>Continual improvement</strong>. As you use the function, make continual improvements going back-and-forth between steps 1-3</li>
+</ol>
+</div>
+</div>
+<div id="writing-functions-basics" class="section level2">
+<h2><span class="header-section-number">5.2</span> Writing functions, basics</h2>
+<p>This section teaches the basics of writing functions.</p>
+<p>Often, the functions we write (“user-written functions”) will utilize existing functions from R packages. For example, we will create a function named <code>z_score()</code> that calculates how many standard deviations an observation is from the mean. Our <code>z_score()</code> function will use the existing <code>mean()</code> and <code>sd()</code> functions.</p>
+<p>We will avoid creating user-written functions that utilize <code>Tidyverse</code> functions, particularly functions from the <code>dplyr</code> package such as <code>group_by()</code>. The reason is that including certain <code>Tidyverse</code>/<code>dplyr</code> functions in a user-written function (or loo) requires knowledge of some advanced programming skills that we have not introduced yet. For more explanation, see [CRYSTAL ADD OTHER/BETTER LINKS?] <a href="https://www.r-bloggers.com/data-frame-columns-as-arguments-to-dplyr-functions/" class="uri">https://www.r-bloggers.com/data-frame-columns-as-arguments-to-dplyr-functions/</a>.</p>
+<p>Therefore, when writing funtions that perform data manipulation tasks, we will use a “Base R approach” rather than a “Tidyverse approach.”</p>
+<div id="components-of-a-function" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Components of a function</h3>
+<p>The <code>function()</code> function tells R that you are writing a function</p>
+<div class="sourceCode" id="cb556"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb556-1" data-line-number="1">function_name &lt;-<span class="st"> </span><span class="cf">function</span>(arg1, arg2, arg3) {</a>
+<a class="sourceLine" id="cb556-2" data-line-number="2">  <span class="co">#function body</span></a>
+<a class="sourceLine" id="cb556-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb556-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb556-5" data-line-number="5"><span class="co">#to find help file for function():</span></a>
+<a class="sourceLine" id="cb556-6" data-line-number="6">  ?<span class="st">`</span><span class="dt">function</span><span class="st">`</span></a>
+<a class="sourceLine" id="cb556-7" data-line-number="7">  <span class="co">#but help file is not a helpful introduction</span></a></code></pre></div>
+<p>Three components of a function:</p>
+<ol style="list-style-type: decimal">
+<li><strong>function name</strong>
+<ul>
+<li>define a function using <code>function()</code> and give it a <strong>name</strong> using the assignment operator <code>&lt;-</code></li>
+</ul></li>
+<li><strong>function arguments</strong> (sometimes called “inputs”)
+<ul>
+<li>Inputs that the function takes; they go inside the parentheses of <code>function()</code>
+<ul>
+<li>can be vectors, data frames, logical statements, strings, etc.</li>
+</ul></li>
+<li>in above hypothetical code, the function took three inputs <code>arg1</code>,<code>arg2</code>,<code>arg3</code>, but we could have written:
+<ul>
+<li><code>function(x,y,z)</code> or <code>function(Larry,Curly,Moe)</code></li>
+</ul></li>
+<li>In “function call,” you specify values to assign to these function arguments</li>
+</ul></li>
+<li><strong>function body</strong>
+<ul>
+<li>What the function does to the inputs</li>
+<li>function body goes inside the pair of curly brackets (<code>{}</code>) that follows <code>function()</code></li>
+<li>Above hypothetical function doesn’t do anything</li>
+</ul></li>
+</ol>
+</div>
+<div id="hello-function" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Hello function</h3>
+<p><code>print_hello()</code> function</p>
+<ul>
+<li>We will write a function that simply prints “Hello, world.”</li>
+<li>Then we’ll modify this function to print name and age</li>
+</ul>
+<p><br></p>
+<p><strong>Task</strong>: Write function that prints “Hello!”</p>
+<p><strong>First, perform task outside of function</strong></p>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" data-line-number="1"><span class="st">&quot;Hello, world&quot;</span></a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world&quot;</code></pre>
+<p>Alternative approaches to perform task outside of function</p>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" data-line-number="1"><span class="kw">print</span>(<span class="st">&quot;Hello, world&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world&quot;</code></pre>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" data-line-number="1"><span class="kw">str_c</span>(<span class="st">&quot;Hello, world&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world&quot;</code></pre>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" data-line-number="1"><span class="kw">str_c</span>(<span class="st">&quot;Hello, world&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world&quot;</code></pre>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb565-1" data-line-number="1"><span class="kw">writeLines</span>(<span class="kw">str_c</span>(<span class="st">&quot;Hello, world&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span>))</a></code></pre></div>
+<pre><code>## Hello, world</code></pre>
+<p><strong>Create the function</strong></p>
+<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb567-1" data-line-number="1"><span class="co"># Define function called `print_hello()`</span></a>
+<a class="sourceLine" id="cb567-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>() {  <span class="co"># This function takes no arguments</span></a>
+<a class="sourceLine" id="cb567-3" data-line-number="3">  <span class="st">&quot;Hello, world&quot;</span>                   <span class="co"># The body of the function simply prints &quot;Hello!&quot;</span></a>
+<a class="sourceLine" id="cb567-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb567-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb567-6" data-line-number="6"><span class="co"># Call function</span></a>
+<a class="sourceLine" id="cb567-7" data-line-number="7"><span class="kw">print_hello</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world&quot;</code></pre>
+<ol style="list-style-type: decimal">
+<li><strong>function name</strong>
+<ul>
+<li>function name is <code>print_hello</code></li>
+</ul></li>
+<li><strong>function arguments</strong> (sometimes called “inputs”)
+<ul>
+<li><code>print_hello</code> function doesn’t take any arguments</li>
+</ul></li>
+<li><strong>function body</strong> (what the function does to the inputs)
+<ul>
+<li>body of <code>print_hello</code> simply prints “Hello, world”</li>
+</ul></li>
+</ol>
+<p><br><br />
+<strong>Task</strong>: modify <code>print_hello</code> function so that it prints “Hello, world. My name is <name>”, where <code>&lt;name&gt;</code> is a function argument that we can specify in function call</p>
+<p><strong>First, perform task outside a function</strong>.</p>
+<p>This seems wrong because my name is not an input</p>
+<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb569-1" data-line-number="1"><span class="st">&quot;Hello, world. My name is Ozan Jaquette&quot;</span></a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world. My name is Ozan Jaquette&quot;</code></pre>
+<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb571-1" data-line-number="1"><span class="co"># create an object x for name</span></a>
+<a class="sourceLine" id="cb571-2" data-line-number="2"><span class="co"># </span></a></code></pre></div>
+<p>Create an object, x, for name</p>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb572-1" data-line-number="1">x &lt;-<span class="st"> &quot;Ozan Jaquette&quot;</span></a>
+<a class="sourceLine" id="cb572-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb572-3" data-line-number="3"><span class="kw">str_c</span>(<span class="st">&quot;Hello, world. My name is&quot;</span>,x, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world. My name is Ozan Jaquette&quot;</code></pre>
+<p><strong>Modify function</strong></p>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb574-1" data-line-number="1"><span class="co"># Define function</span></a>
+<a class="sourceLine" id="cb574-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>(x) {  <span class="co"># The argument goes between the parentheses</span></a>
+<a class="sourceLine" id="cb574-3" data-line-number="3">  <span class="kw">str_c</span>(<span class="st">&quot;Hello, world. My name is&quot;</span>,x, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span>) <span class="co"># body `str_c()` to concatenate greeting and name</span></a>
+<a class="sourceLine" id="cb574-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb574-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb574-6" data-line-number="6"><span class="co"># Call function</span></a>
+<a class="sourceLine" id="cb574-7" data-line-number="7"><span class="kw">print_hello</span>(<span class="dt">x =</span> <span class="st">&quot;Ozan Jaquette&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world. My name is Ozan Jaquette&quot;</code></pre>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb576-1" data-line-number="1"><span class="kw">print_hello</span>(<span class="st">&quot;Ozan Jaquette&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world. My name is Ozan Jaquette&quot;</code></pre>
+<p><br></p>
+<p><strong>Task</strong>: modify <code>print_hello</code> function so that it also takes birth date as input and states age in years</p>
+<ul>
+<li>like this: <code>&quot;Hello, world. My name is Ozan Jaquette and I am 41 years old.&quot;</code></li>
+</ul>
+<p><strong>Perform task outside of function</strong></p>
+<p>Date of birth</p>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb578-1" data-line-number="1">y &lt;-<span class="st"> &quot;01/16/1979&quot;</span></a>
+<a class="sourceLine" id="cb578-2" data-line-number="2">y</a></code></pre></div>
+<pre><code>## [1] &quot;01/16/1979&quot;</code></pre>
+<div class="sourceCode" id="cb580"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb580-1" data-line-number="1"><span class="kw">mdy</span>(<span class="st">&quot;01/16/1979&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;1979-01-16&quot;</code></pre>
+<div class="sourceCode" id="cb582"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb582-1" data-line-number="1"><span class="kw">mdy</span>(y)</a></code></pre></div>
+<pre><code>## [1] &quot;1979-01-16&quot;</code></pre>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb584-1" data-line-number="1"><span class="kw">str</span>(<span class="kw">mdy</span>(y))</a></code></pre></div>
+<pre><code>##  Date[1:1], format: &quot;1979-01-16&quot;</code></pre>
+<p>Calculate age</p>
+<div class="sourceCode" id="cb586"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb586-1" data-line-number="1">y &lt;-<span class="st"> &quot;01/16/1979&quot;</span></a>
+<a class="sourceLine" id="cb586-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb586-3" data-line-number="3"><span class="kw">today</span>()</a></code></pre></div>
+<pre><code>## [1] &quot;2020-05-27&quot;</code></pre>
+<div class="sourceCode" id="cb588"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb588-1" data-line-number="1"><span class="co"># calculate duration</span></a>
+<a class="sourceLine" id="cb588-2" data-line-number="2"><span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">mdy</span>(y)</a></code></pre></div>
+<pre><code>## Time difference of 15107 days</code></pre>
+<div class="sourceCode" id="cb590"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb590-1" data-line-number="1"><span class="kw">str</span>(<span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">mdy</span>(y))</a></code></pre></div>
+<pre><code>##  'difftime' num 15107
+##  - attr(*, &quot;units&quot;)= chr &quot;days&quot;</code></pre>
+<div class="sourceCode" id="cb592"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb592-1" data-line-number="1"><span class="kw">as.duration</span>(<span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">mdy</span>(y))</a></code></pre></div>
+<pre><code>## [1] &quot;1305244800s (~41.36 years)&quot;</code></pre>
+<div class="sourceCode" id="cb594"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb594-1" data-line-number="1"><span class="co"># create age in years as numeric vector</span></a>
+<a class="sourceLine" id="cb594-2" data-line-number="2"><span class="kw">as.numeric</span>(<span class="kw">as.duration</span>(<span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">mdy</span>(y)), <span class="st">&quot;years&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] 41.36071</code></pre>
+<div class="sourceCode" id="cb596"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb596-1" data-line-number="1"><span class="kw">floor</span>(<span class="kw">as.numeric</span>(<span class="kw">as.duration</span>(<span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">mdy</span>(y)), <span class="st">&quot;years&quot;</span>))</a></code></pre></div>
+<pre><code>## [1] 41</code></pre>
+<div class="sourceCode" id="cb598"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb598-1" data-line-number="1"><span class="kw">str</span>(<span class="kw">floor</span>(<span class="kw">as.numeric</span>(<span class="kw">as.duration</span>(<span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">mdy</span>(y)), <span class="st">&quot;years&quot;</span>)))</a></code></pre></div>
+<pre><code>##  num 41</code></pre>
+<div class="sourceCode" id="cb600"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb600-1" data-line-number="1">age &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">as.numeric</span>(<span class="kw">as.duration</span>(<span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">mdy</span>(y)), <span class="st">&quot;years&quot;</span>))</a>
+<a class="sourceLine" id="cb600-2" data-line-number="2">age</a></code></pre></div>
+<pre><code>## [1] 41</code></pre>
+<p>Print name and age in years</p>
+<div class="sourceCode" id="cb602"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb602-1" data-line-number="1">x &lt;-<span class="st"> &quot;Ozan Jaquette&quot;</span></a>
+<a class="sourceLine" id="cb602-2" data-line-number="2">y &lt;-<span class="st"> &quot;01/16/1979&quot;</span></a>
+<a class="sourceLine" id="cb602-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb602-4" data-line-number="4">age &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">as.numeric</span>(<span class="kw">as.duration</span>(<span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">mdy</span>(y)), <span class="st">&quot;years&quot;</span>))</a>
+<a class="sourceLine" id="cb602-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb602-6" data-line-number="6"><span class="kw">str_c</span>(<span class="st">&quot;Hello, world. My name is&quot;</span>,x, <span class="st">&quot;and I am&quot;</span>,age,<span class="st">&quot;years old&quot;</span>,<span class="dt">sep =</span> <span class="st">&quot; &quot;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world. My name is Ozan Jaquette and I am 41 years old&quot;</code></pre>
+<p><strong>Modify function</strong></p>
+<div class="sourceCode" id="cb604"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb604-1" data-line-number="1"><span class="co"># Define function</span></a>
+<a class="sourceLine" id="cb604-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>(x,y) {  <span class="co"># The argument goes between the parentheses</span></a>
+<a class="sourceLine" id="cb604-3" data-line-number="3">  </a>
+<a class="sourceLine" id="cb604-4" data-line-number="4">  age &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">as.numeric</span>(<span class="kw">as.duration</span>(<span class="kw">today</span>() <span class="op">-</span><span class="st"> </span><span class="kw">mdy</span>(y)), <span class="st">&quot;years&quot;</span>))</a>
+<a class="sourceLine" id="cb604-5" data-line-number="5">  <span class="kw">str_c</span>(<span class="st">&quot;Hello, world. My name is&quot;</span>,x, <span class="st">&quot;and I am&quot;</span>,age,<span class="st">&quot;years old&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot; &quot;</span>, <span class="dt">collapse =</span> <span class="ot">NULL</span>) <span class="co"># body `str_c()` to concatenate greeting and name</span></a>
+<a class="sourceLine" id="cb604-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb604-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb604-8" data-line-number="8"><span class="co"># Call function</span></a>
+<a class="sourceLine" id="cb604-9" data-line-number="9"><span class="kw">print_hello</span>(<span class="dt">x =</span> <span class="st">&quot;Ozan Jaquette&quot;</span>,<span class="st">&quot;01/16/1979&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world. My name is Ozan Jaquette and I am 41 years old&quot;</code></pre>
+<div class="sourceCode" id="cb606"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb606-1" data-line-number="1"><span class="kw">print_hello</span>(<span class="dt">x =</span> <span class="st">&quot;Kartal Jaquette&quot;</span>,<span class="st">&quot;01/24/1983&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world. My name is Kartal Jaquette and I am 37 years old&quot;</code></pre>
+<div class="sourceCode" id="cb608"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb608-1" data-line-number="1"><span class="kw">print_hello</span>(<span class="dt">x =</span> <span class="st">&quot;Sumru Erkut&quot;</span>,<span class="st">&quot;06/15/1944&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world. My name is Sumru Erkut and I am 75 years old&quot;</code></pre>
+<div class="sourceCode" id="cb610"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb610-1" data-line-number="1"><span class="kw">print_hello</span>(<span class="dt">x =</span> <span class="st">&quot;Sumru Jaquette-Nasiali&quot;</span>,<span class="st">&quot;04/05/2019&quot;</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;Hello, world. My name is Sumru Jaquette-Nasiali and I am 1 years old&quot;</code></pre>
+<p>Test/break function</p>
+<ul>
+<li>what if date of birth is input using a different format?</li>
+</ul>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb612-1" data-line-number="1"><span class="kw">print_hello</span>(<span class="dt">x =</span> <span class="st">&quot;Sumru Jaquette-Nasiali&quot;</span>,<span class="st">&quot;04/05/2019&quot;</span>) <span class="co"># this works</span></a>
+<a class="sourceLine" id="cb612-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb612-3" data-line-number="3"><span class="kw">print_hello</span>(<span class="dt">x =</span> <span class="st">&quot;Sumru Jaquette-Nasiali&quot;</span>,<span class="st">&quot;2019/04/05&quot;</span>) <span class="co"># this breaks</span></a></code></pre></div>
+<p>Next step would be to modify function to create date object for date of birth, allowing DOB to be entered using multiple formats</p>
+<ul>
+<li>first, do outside of function</li>
+<li>second, modify function</li>
+</ul>
+</div>
+<div id="z_score-function" class="section level3">
+<h3><span class="header-section-number">5.2.3</span> z_score function</h3>
+<p>The <strong>z-score</strong> for an observation <em>i</em> is number of standard deviations from mean</p>
+<ul>
+<li><span class="math inline">\(z_i = \frac{x_i - \bar{x}}{sd(x)}\)</span></li>
+</ul>
+<p><br></p>
+<p><strong>Task</strong>:</p>
+<ul>
+<li>Write function that calculates <code>z-score</code> for each element of a vector</li>
+</ul>
+<p><br></p>
+<p><strong>First, experiment calculating z-score without writing function</strong></p>
+<p>Create a vector of numbers we’ll use to calculate z-score</p>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb613-1" data-line-number="1">v=<span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">5</span>,<span class="dv">15</span>))</a>
+<a class="sourceLine" id="cb613-2" data-line-number="2">v</a></code></pre></div>
+<pre><code>##  [1]  5  6  7  8  9 10 11 12 13 14 15</code></pre>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb615-1" data-line-number="1"><span class="kw">typeof</span>(v) <span class="co"># type==integer vector</span></a></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb617-1" data-line-number="1"><span class="kw">class</span>(v) <span class="co"># class == integer</span></a></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb619-1" data-line-number="1"><span class="kw">length</span>(v) <span class="co"># number of elements in object v</span></a></code></pre></div>
+<pre><code>## [1] 11</code></pre>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb621-1" data-line-number="1">v[<span class="dv">1</span>] <span class="co"># 1st element of v</span></a></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb623-1" data-line-number="1">v[<span class="dv">10</span>] <span class="co"># 10th element of v</span></a></code></pre></div>
+<pre><code>## [1] 14</code></pre>
+<p>We can calculate the z-score using the Base R <code>mean()</code> and <code>sd()</code> functions</p>
+<ul>
+<li><span class="math inline">\(z_i = \frac{x_i - \bar{x}}{sd(x)}\)</span></li>
+</ul>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb625-1" data-line-number="1"><span class="kw">mean</span>(v)</a></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb627-1" data-line-number="1"><span class="kw">sd</span>(v)</a></code></pre></div>
+<pre><code>## [1] 3.316625</code></pre>
+<ul>
+<li>Calculate z-score for some value</li>
+</ul>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb629-1" data-line-number="1">(<span class="dv">5</span><span class="op">-</span><span class="kw">mean</span>(v))<span class="op">/</span><span class="kw">sd</span>(v)</a></code></pre></div>
+<pre><code>## [1] -1.507557</code></pre>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb631-1" data-line-number="1">(<span class="dv">10</span><span class="op">-</span><span class="kw">mean</span>(v))<span class="op">/</span><span class="kw">sd</span>(v)</a></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<ul>
+<li>Calculate z-score for particular elements of vector <code>v</code></li>
+</ul>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb633-1" data-line-number="1">v[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb635-1" data-line-number="1">(v[<span class="dv">1</span>]<span class="op">-</span><span class="kw">mean</span>(v))<span class="op">/</span><span class="kw">sd</span>(v)</a></code></pre></div>
+<pre><code>## [1] -1.507557</code></pre>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb637-1" data-line-number="1">v[<span class="dv">8</span>]</a></code></pre></div>
+<pre><code>## [1] 12</code></pre>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb639-1" data-line-number="1">(v[<span class="dv">8</span>]<span class="op">-</span><span class="kw">mean</span>(v))<span class="op">/</span><span class="kw">sd</span>(v)</a></code></pre></div>
+<pre><code>## [1] 0.6030227</code></pre>
+<ul>
+<li>Calculate <code>z_i</code> for multiple elements of vector <code>v</code></li>
+</ul>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb641-1" data-line-number="1"><span class="kw">c</span>(v[<span class="dv">1</span>],v[<span class="dv">8</span>],v[<span class="dv">11</span>])</a></code></pre></div>
+<pre><code>## [1]  5 12 15</code></pre>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb643-1" data-line-number="1"><span class="kw">c</span>((v[<span class="dv">1</span>]<span class="op">-</span><span class="kw">mean</span>(v))<span class="op">/</span><span class="kw">sd</span>(v),(v[<span class="dv">8</span>]<span class="op">-</span><span class="kw">mean</span>(v))<span class="op">/</span><span class="kw">sd</span>(v),(v[<span class="dv">11</span>]<span class="op">-</span><span class="kw">mean</span>(v))<span class="op">/</span><span class="kw">sd</span>(v))</a></code></pre></div>
+<pre><code>## [1] -1.5075567  0.6030227  1.5075567</code></pre>
+<p><strong>Next, write function</strong></p>
+<p>Write function to calculate z_score for each element of vector</p>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb645-1" data-line-number="1">z_score &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb645-2" data-line-number="2">  (x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</a>
+<a class="sourceLine" id="cb645-3" data-line-number="3">}</a></code></pre></div>
+<p><strong>Components of function</strong></p>
+<ol style="list-style-type: decimal">
+<li><strong>function name</strong> is <code>z_score</code></li>
+<li><strong>function arguments</strong>. Takes one input, which we named <code>x</code>
+<ul>
+<li>inputs can be vectors, dataframes, logical statements, etc.</li>
+</ul></li>
+<li><strong>function body</strong>.What function does to the inputs
+<ul>
+<li>for each element of <code>x</code>, calculate difference between value of element and mean value of elements, then divide by standard deviation of elements</li>
+</ul></li>
+</ol>
+<p>Test/call function</p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb646-1" data-line-number="1"><span class="kw">z_score</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">15</span>)) <span class="co">#note use of c() function to indicate individual arguments for multiple calls</span></a></code></pre></div>
+<pre><code>##  [1] -1.5075567 -1.2060454 -0.9045340 -0.6030227 -0.3015113  0.0000000
+##  [7]  0.3015113  0.6030227  0.9045340  1.2060454  1.5075567</code></pre>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb648-1" data-line-number="1">v</a></code></pre></div>
+<pre><code>##  [1]  5  6  7  8  9 10 11 12 13 14 15</code></pre>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb650-1" data-line-number="1"><span class="kw">z_score</span>(<span class="dt">x =</span> v)</a></code></pre></div>
+<pre><code>##  [1] -1.5075567 -1.2060454 -0.9045340 -0.6030227 -0.3015113  0.0000000
+##  [7]  0.3015113  0.6030227  0.9045340  1.2060454  1.5075567</code></pre>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb652-1" data-line-number="1"><span class="kw">z_score</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">20</span>,<span class="dv">25</span>)))</a></code></pre></div>
+<pre><code>## [1] -1.3363062 -0.8017837 -0.2672612  0.2672612  0.8017837  1.3363062</code></pre>
+<p>Improve our function by trying to break it</p>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb654-1" data-line-number="1">w=<span class="kw">c</span>(<span class="ot">NA</span>,<span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>),<span class="ot">NA</span>)</a>
+<a class="sourceLine" id="cb654-2" data-line-number="2">w</a></code></pre></div>
+<pre><code>## [1] NA  1  2  3  4  5 NA</code></pre>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb656-1" data-line-number="1"><span class="kw">z_score</span>(w)</a></code></pre></div>
+<pre><code>## [1] NA NA NA NA NA NA NA</code></pre>
+<ul>
+<li>What went wrong?</li>
+</ul>
+
+<p>Let’s revise our function</p>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb658-1" data-line-number="1">z_score &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb658-2" data-line-number="2">  (x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb658-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb658-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb658-5" data-line-number="5">w</a></code></pre></div>
+<pre><code>## [1] NA  1  2  3  4  5 NA</code></pre>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb660-1" data-line-number="1"><span class="kw">z_score</span>(w)</a></code></pre></div>
+<pre><code>## [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+## [7]         NA</code></pre>
+<p><br></p>
+<p>Does our <code>z_score</code> function work when applied to variables from a data frame?</p>
+<ul>
+<li>Create data frame called <code>df</code></li>
+</ul>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb662-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">12345</span>) <span class="co"># set &quot;seed&quot; so we all get the same &quot;random&quot; numbers</span></a>
+<a class="sourceLine" id="cb662-2" data-line-number="2">df &lt;-<span class="st"> </span><span class="kw">tibble</span>(</a>
+<a class="sourceLine" id="cb662-3" data-line-number="3">  <span class="dt">a =</span> <span class="kw">c</span>(<span class="ot">NA</span>,<span class="kw">rnorm</span>(<span class="dv">9</span>)),</a>
+<a class="sourceLine" id="cb662-4" data-line-number="4">  <span class="dt">b =</span> <span class="kw">c</span>(<span class="ot">NA</span>,<span class="kw">rnorm</span>(<span class="dv">9</span>)),</a>
+<a class="sourceLine" id="cb662-5" data-line-number="5">  <span class="dt">c =</span> <span class="kw">c</span>(<span class="ot">NA</span>,<span class="kw">rnorm</span>(<span class="dv">9</span>))</a>
+<a class="sourceLine" id="cb662-6" data-line-number="6">)</a>
+<a class="sourceLine" id="cb662-7" data-line-number="7"><span class="kw">class</span>(df) <span class="co"># class of object df</span></a>
+<a class="sourceLine" id="cb662-8" data-line-number="8">df <span class="co"># print data frame</span></a>
+<a class="sourceLine" id="cb662-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb662-10" data-line-number="10"><span class="co"># subset a data frame w/ one element, using []</span></a>
+<a class="sourceLine" id="cb662-11" data-line-number="11">df[<span class="st">&quot;a&quot;</span>] </a>
+<a class="sourceLine" id="cb662-12" data-line-number="12"><span class="kw">str</span>(df[<span class="st">&quot;a&quot;</span>])</a>
+<a class="sourceLine" id="cb662-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb662-14" data-line-number="14"><span class="co"># subset values of an element using [[]] or $</span></a>
+<a class="sourceLine" id="cb662-15" data-line-number="15">df[[<span class="st">&quot;a&quot;</span>]]</a>
+<a class="sourceLine" id="cb662-16" data-line-number="16"><span class="kw">str</span>(df[[<span class="st">&quot;a&quot;</span>]])</a>
+<a class="sourceLine" id="cb662-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb662-18" data-line-number="18">df<span class="op">$</span>a <span class="co"># print element &quot;a&quot; (i.e., variable &quot;a&quot;) of object df (data frame)</span></a>
+<a class="sourceLine" id="cb662-19" data-line-number="19"><span class="kw">str</span>(df<span class="op">$</span>a) <span class="co"># structure of element &quot;a&quot; of df: a numeric vector</span></a></code></pre></div>
+<p>Experiment with components of z-score, outside of a function</p>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb663-1" data-line-number="1"><span class="kw">mean</span>(df[[<span class="st">&quot;a&quot;</span>]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>) <span class="co"># mean of variable &quot;a&quot;</span></a></code></pre></div>
+<pre><code>## [1] -0.04556883</code></pre>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb665-1" data-line-number="1"><span class="kw">sd</span>(df[[<span class="st">&quot;a&quot;</span>]], <span class="dt">na.rm=</span><span class="ot">TRUE</span>) <span class="co"># std dev of variable &quot;a&quot;</span></a></code></pre></div>
+<pre><code>## [1] 0.8117278</code></pre>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb667-1" data-line-number="1"><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>) <span class="co"># mean of variable &quot;a&quot;</span></a></code></pre></div>
+<pre><code>## [1] -0.04556883</code></pre>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb669-1" data-line-number="1"><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>) <span class="co"># std dev of variable &quot;a&quot;</span></a></code></pre></div>
+<pre><code>## [1] 0.8117278</code></pre>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb671-1" data-line-number="1"><span class="co">#would these work?</span></a>
+<a class="sourceLine" id="cb671-2" data-line-number="2">  <span class="co">#mean(df[&quot;a&quot;], na.rm=TRUE) # mean of variable &quot;a&quot;</span></a>
+<a class="sourceLine" id="cb671-3" data-line-number="3">  <span class="co">#sd(df[&quot;a&quot;], na.rm=TRUE) # std dev of variable &quot;a&quot;</span></a>
+<a class="sourceLine" id="cb671-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb671-5" data-line-number="5"><span class="co">#manually calculate z score for second observation in variable &quot;a&quot;</span></a>
+<a class="sourceLine" id="cb671-6" data-line-number="6">df<span class="op">$</span>a[<span class="dv">2</span>]</a></code></pre></div>
+<pre><code>## [1] 0.5855288</code></pre>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb673-1" data-line-number="1">(df<span class="op">$</span>a[<span class="dv">2</span>] <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(df<span class="op">$</span>a, <span class="dt">na.rm=</span><span class="ot">TRUE</span>) <span class="co"># check result</span></a></code></pre></div>
+<pre><code>## [1] 0.7774745</code></pre>
+<ul>
+<li>Apply <code>z_score</code> function to variables in data frame</li>
+</ul>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb675-1" data-line-number="1"><span class="co"># z_score function to calculate z-score for each obs of variable &quot;a&quot;</span></a>
+<a class="sourceLine" id="cb675-2" data-line-number="2">df<span class="op">$</span>a <span class="co"># print variable &quot;a&quot;</span></a>
+<a class="sourceLine" id="cb675-3" data-line-number="3"><span class="kw">z_score</span>(<span class="dt">x =</span> df<span class="op">$</span>a)</a>
+<a class="sourceLine" id="cb675-4" data-line-number="4"><span class="kw">z_score</span>(<span class="dt">x =</span> df[[<span class="st">&quot;a&quot;</span>]])</a>
+<a class="sourceLine" id="cb675-5" data-line-number="5">  <span class="co">#z_score(x = df[&quot;a&quot;]) # but this doesn't work</span></a>
+<a class="sourceLine" id="cb675-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb675-7" data-line-number="7"><span class="co"># z-score for each obs of variable &quot;b&quot;</span></a>
+<a class="sourceLine" id="cb675-8" data-line-number="8"><span class="kw">z_score</span>(<span class="dt">x =</span> df<span class="op">$</span>b) </a></code></pre></div>
+<p><strong>Task</strong></p>
+<ul>
+<li>Use our <code>z_score</code> function to create a new variable that is the z-score version of a variable</li>
+</ul>
+<p>First, briefly review how to create and delete variables using “Base R” approach</p>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb676-1" data-line-number="1">df <span class="co"># print data frame df</span></a>
+<a class="sourceLine" id="cb676-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb676-3" data-line-number="3">df<span class="op">$</span>one &lt;-<span class="st"> </span><span class="dv">1</span> <span class="co"># create variable &quot;one&quot; that always equals 1</span></a>
+<a class="sourceLine" id="cb676-4" data-line-number="4">df <span class="co"># print data frame df</span></a>
+<a class="sourceLine" id="cb676-5" data-line-number="5">df<span class="op">$</span>one &lt;-<span class="st"> </span><span class="ot">NULL</span> <span class="co"># remove variable &quot;one&quot;</span></a>
+<a class="sourceLine" id="cb676-6" data-line-number="6">df </a>
+<a class="sourceLine" id="cb676-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb676-8" data-line-number="8">df<span class="op">$</span>c_plus2 &lt;-<span class="st"> </span>df<span class="op">$</span>c<span class="op">+</span><span class="dv">2</span> <span class="co">#create variable equal to &quot;c&quot; plus 2</span></a>
+<a class="sourceLine" id="cb676-9" data-line-number="9">df</a>
+<a class="sourceLine" id="cb676-10" data-line-number="10">df<span class="op">$</span>c_plus2 &lt;-<span class="st"> </span><span class="ot">NULL</span> <span class="co"># remove variable &quot;c_plus2&quot;</span></a>
+<a class="sourceLine" id="cb676-11" data-line-number="11">df</a></code></pre></div>
+<p>Use <code>z_score</code> function to create a new variable that equals the z-score of another variable</p>
+<ul>
+<li>simply calling the <code>z_score</code> function does not create a new variable</li>
+</ul>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb677-1" data-line-number="1"><span class="kw">z_score</span>(<span class="dt">x =</span> df<span class="op">$</span>c)</a></code></pre></div>
+<pre><code>##  [1]         NA  0.7824644  0.1323014  0.5126742  1.0474944 -0.6136182
+##  [7] -1.3324528 -1.3677077  1.3237878 -0.4849435</code></pre>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb679-1" data-line-number="1">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">5</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 3
+##        a      b      c
+##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 NA     NA     NA    
+## 2  0.586 -0.919  1.12 
+## 3  0.709 -0.116  0.299
+## 4 -0.109  1.82   0.780
+## 5 -0.453  0.371  1.46</code></pre>
+<ul>
+<li>Do not modify the <code>z_score</code> function so that the variable is assigned within the function</li>
+<li>Preferred approach is to call the <code>z_score</code> function after the assignment operator <code>&lt;-</code></li>
+</ul>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb681-1" data-line-number="1">df<span class="op">$</span>c_z &lt;-<span class="st"> </span><span class="kw">z_score</span>(<span class="dt">x =</span> df<span class="op">$</span>c)</a>
+<a class="sourceLine" id="cb681-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb681-3" data-line-number="3"><span class="co"># examine data frame</span></a>
+<a class="sourceLine" id="cb681-4" data-line-number="4">df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">5</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 4
+##        a      b      c    c_z
+##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 NA     NA     NA     NA    
+## 2  0.586 -0.919  1.12   0.782
+## 3  0.709 -0.116  0.299  0.132
+## 4 -0.109  1.82   0.780  0.513
+## 5 -0.453  0.371  1.46   1.05</code></pre>
+<p>We can apply our function to a “real” dataset too</p>
+<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb683-1" data-line-number="1"><span class="co">#load dataset with one obs per recruiting event</span></a>
+<a class="sourceLine" id="cb683-2" data-line-number="2"><span class="kw">load</span>(<span class="kw">url</span>(<span class="st">&quot;https://github.com/ozanj/rclass/raw/master/data/recruiting/recruit_event_somevars.RData&quot;</span>))</a>
+<a class="sourceLine" id="cb683-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb683-4" data-line-number="4">df_event_small &lt;-<span class="st"> </span>df_event[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,] <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># keep first 10 observations</span></a>
+<a class="sourceLine" id="cb683-5" data-line-number="5"><span class="st">  </span><span class="kw">select</span>(instnm,univ_id,event_type,med_inc) <span class="co"># keep 4 vars</span></a>
+<a class="sourceLine" id="cb683-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb683-7" data-line-number="7">df_event_small</a>
+<a class="sourceLine" id="cb683-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb683-9" data-line-number="9"><span class="co">#show observations for variable med_inc</span></a>
+<a class="sourceLine" id="cb683-10" data-line-number="10">df_event_small<span class="op">$</span>med_inc</a>
+<a class="sourceLine" id="cb683-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb683-12" data-line-number="12"><span class="co">#calculate z-score of variable med_inc (without assignment)</span></a>
+<a class="sourceLine" id="cb683-13" data-line-number="13"><span class="kw">z_score</span>(<span class="dt">x =</span> df_event_small<span class="op">$</span>med_inc)</a>
+<a class="sourceLine" id="cb683-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb683-15" data-line-number="15"><span class="co">#assign new variable equal to the z-score of med_inc</span></a>
+<a class="sourceLine" id="cb683-16" data-line-number="16">df_event_small<span class="op">$</span>med_inc_z &lt;-<span class="st"> </span><span class="kw">z_score</span>(<span class="dt">x =</span> df_event_small<span class="op">$</span>med_inc)</a>
+<a class="sourceLine" id="cb683-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb683-18" data-line-number="18"><span class="co">#inspect</span></a>
+<a class="sourceLine" id="cb683-19" data-line-number="19">df_event_small <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">5</span>)</a></code></pre></div>
+<p><br></p>
+<p>Improve <code>z_score</code> function by first checking whether input <code>x</code> is valid [CRYSTAL - MAKE THIS A COLLAPSIBLE]</p>
+<p>We could improve <code>z_score</code> function by making it more “surly” about inputs it will accept</p>
+<p>Current function</p>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb684-1" data-line-number="1">z_score &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb684-2" data-line-number="2">  (x <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>))<span class="op">/</span><span class="kw">sd</span>(x, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb684-3" data-line-number="3">}</a>
+<a class="sourceLine" id="cb684-4" data-line-number="4"><span class="co">#?mean</span></a>
+<a class="sourceLine" id="cb684-5" data-line-number="5"><span class="co">#?sd</span></a></code></pre></div>
+<ul>
+<li><code>z_score</code> function does simple arithmatic and utilizes the <code>mean()</code> and <code>sd()</code> functions</li>
+<li><code>mean()</code> and <code>sd()</code> functions require <code>x</code> to be a numeric (or logical) atomic vector
+<ul>
+<li><code>z_score()</code> function will break if the input <code>x</code> is not an atomic vector</li>
+<li><code>z_score()</code> function will break if the input <code>x</code> is not a numeric/logical atomic vector</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb685-1" data-line-number="1"><span class="co">#function doesn't work if input is a list/data frame</span></a>
+<a class="sourceLine" id="cb685-2" data-line-number="2"><span class="kw">str</span>(df_event_small<span class="op">$</span>med_inc)</a>
+<a class="sourceLine" id="cb685-3" data-line-number="3"><span class="kw">str</span>(df_event_small[<span class="st">&quot;med_inc&quot;</span>])</a>
+<a class="sourceLine" id="cb685-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb685-5" data-line-number="5"><span class="kw">z_score</span>(<span class="dt">x =</span> df_event_small<span class="op">$</span>med_inc)</a>
+<a class="sourceLine" id="cb685-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb685-7" data-line-number="7"><span class="co">#function doesn't work if x is not a numeric vector</span></a>
+<a class="sourceLine" id="cb685-8" data-line-number="8"><span class="kw">str</span>(df_event_small<span class="op">$</span>instnm)</a>
+<a class="sourceLine" id="cb685-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb685-10" data-line-number="10"><span class="kw">z_score</span>(<span class="dt">x =</span> df_event_small<span class="op">$</span>instnm)</a></code></pre></div>
+<ul>
+<li>We could modify <code>z_score()</code> by using conditional statements calculate the z-score only if input object <code>x</code> is the appropriate type and class of object</li>
+</ul>
+<p>[CRYSTAL - WE COULD ADD REVISED FUNCTION HERE OR WE COULD PUT THIS CODE LATER IN LECTURE IF WE ADD SUB-SECTION ON “CHECKING VALUES”]</p>
+<ul>
+<li><a href="https://r4ds.had.co.nz/functions.html#checking-values" class="uri">https://r4ds.had.co.nz/functions.html#checking-values</a></li>
+</ul>
+</div>
+<div id="student-exercise-skip" class="section level3">
+<h3><span class="header-section-number">5.2.4</span> Student exercise [skip]</h3>
+<p>Some common tasks when working with survey data:</p>
+<ul>
+<li>identify number of observations with <code>NA</code> values for a specific variable</li>
+<li>identify number of observations with negative values for a specific variable</li>
+<li>Replace negative values with <code>NA</code> for a specific variable</li>
+</ul>
+<div id="num_negative-function" class="section level4">
+<h4><span class="header-section-number">5.2.4.1</span> <code>num_negative()</code> function</h4>
+<p><strong>Your task for student exercise</strong>: The <code>num_negative</code> function</p>
+<ul>
+<li>Write a function that counts the number of observations with negative values for a specific variable</li>
+<li>Apply this function to variables from dataframe <code>df</code> (created below)</li>
+<li>Adapted from Ben Skinner’s <em>programming 1</em> R Workshop <a href="https://www.btskinner.me/rworkshop/modules/programming_one.html">HERE</a></li>
+</ul>
+<p>Create a sample dataset <code>df</code> that contains some negative values</p>
+<ul>
+<li>code omitted; don’t worry about understanding this code</li>
+</ul>
+<pre><code>## # A tibble: 100 x 4
+##       id   age sibage parage
+##    &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1     1    17      8     49
+##  2     2    15    -97     46
+##  3     3   -97    -97     53
+##  4     4    13     12     -4
+##  5     5   -97     10     47
+##  6     6    12     10     52
+##  7     7   -99      5     51
+##  8     8   -97     10     55
+##  9     9    16      6     51
+## 10    10    16    -99     -8
+## # … with 90 more rows</code></pre>
+<p><strong>Task</strong>: Write a function that counts the number of observations with negative values for a specific variable</p>
+<p><strong>Recommended steps</strong>:</p>
+<ul>
+<li>Perform task outside of function
+<ul>
+<li>HINT: <code>sum(data_frame_name$var_name&lt;0)</code></li>
+</ul></li>
+<li>Write function</li>
+<li>Apply/test function on variables</li>
+</ul>
+<p><strong>Step 1</strong>: Perform task outside of function [output omitted]</p>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb687-1" data-line-number="1"><span class="kw">names</span>(df) <span class="co"># identify variable names</span></a>
+<a class="sourceLine" id="cb687-2" data-line-number="2">df<span class="op">$</span>age <span class="co"># print observations for a variable</span></a>
+<a class="sourceLine" id="cb687-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb687-4" data-line-number="4"><span class="co">#BaseR</span></a>
+<a class="sourceLine" id="cb687-5" data-line-number="5"><span class="kw">sum</span>(df<span class="op">$</span>age<span class="op">&lt;</span><span class="dv">0</span>) <span class="co"># count number of obs w/ negative values for variable &quot;age&quot;</span></a></code></pre></div>
+<p><strong>Step 2</strong>: Write function</p>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb688-1" data-line-number="1">num_missing &lt;-<span class="st"> </span><span class="cf">function</span>(x){</a>
+<a class="sourceLine" id="cb688-2" data-line-number="2">  <span class="kw">sum</span>(x<span class="op">&lt;</span><span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb688-3" data-line-number="3">}</a></code></pre></div>
+<p><strong>Step 3</strong>: apply function</p>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb689-1" data-line-number="1"><span class="kw">num_missing</span>(df<span class="op">$</span>age)</a></code></pre></div>
+<pre><code>## [1] 27</code></pre>
+<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb691-1" data-line-number="1"><span class="kw">num_missing</span>(df<span class="op">$</span>sibage)</a></code></pre></div>
+<pre><code>## [1] 22</code></pre>
+</div>
+<div id="num_missing-function" class="section level4">
+<h4><span class="header-section-number">5.2.4.2</span> <code>num_missing</code> function</h4>
+<p>In survey data, negative values often refer to reason for missing values</p>
+<ul>
+<li>e.g., <code>-8</code> refers to “didn’t take survey”</li>
+<li>e.g., <code>-7</code> refers to “took survey, but didn’t answer this question”</li>
+</ul>
+<p><strong>Your task</strong>: Write function <code>num_mising</code> that counts number of missing observations for a variable and allows you to specify which values are associated with missing for that variable. This function will take two arguments:</p>
+<ul>
+<li><code>x</code>: the variable (e.g., <code>df$sibage</code>)</li>
+<li><code>miss_vals</code>: vector of values you want to associate with “missing” variable
+<ul>
+<li>Values to associate with missing for <code>df$age</code>: <code>-97,-98,-99</code></li>
+<li>Values to associate with missing for <code>df$sibage</code>: <code>-97,-98,-99</code></li>
+<li>Values to associate with missing for <code>df$parage</code>: <code>-4,-7,-8</code></li>
+</ul></li>
+</ul>
+<p><strong>Recommended steps</strong>:</p>
+<ul>
+<li>Perform task outside of function
+<ul>
+<li>HINT: <code>sum(data_frame_name$var_name&lt; %in% c(-4,-5))</code></li>
+</ul></li>
+<li>Write function</li>
+<li>Apply/test function on variables</li>
+</ul>
+<p>Perform task outside of function</p>
+<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb693-1" data-line-number="1"><span class="kw">sum</span>(df<span class="op">$</span>age <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">97</span>,<span class="op">-</span><span class="dv">98</span>,<span class="op">-</span><span class="dv">99</span>))</a></code></pre></div>
+<pre><code>## [1] 27</code></pre>
+<p>Write function</p>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb695-1" data-line-number="1">num_missing &lt;-<span class="st"> </span><span class="cf">function</span>(x, miss_vals){</a>
+<a class="sourceLine" id="cb695-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb695-3" data-line-number="3">  <span class="kw">sum</span>(x <span class="op">%in%</span><span class="st"> </span>miss_vals)</a>
+<a class="sourceLine" id="cb695-4" data-line-number="4">}</a></code></pre></div>
+<p>Call function</p>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb696-1" data-line-number="1"><span class="kw">num_missing</span>(df<span class="op">$</span>age,<span class="kw">c</span>(<span class="op">-</span><span class="dv">97</span>,<span class="op">-</span><span class="dv">98</span>,<span class="op">-</span><span class="dv">99</span>))</a></code></pre></div>
+<pre><code>## [1] 27</code></pre>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb698-1" data-line-number="1"><span class="kw">num_missing</span>(df<span class="op">$</span>sibage,<span class="kw">c</span>(<span class="op">-</span><span class="dv">97</span>,<span class="op">-</span><span class="dv">98</span>,<span class="op">-</span><span class="dv">99</span>))</a></code></pre></div>
+<pre><code>## [1] 22</code></pre>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb700-1" data-line-number="1"><span class="kw">num_missing</span>(df<span class="op">$</span>parage,<span class="kw">c</span>(<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">7</span>,<span class="op">-</span><span class="dv">8</span>))</a></code></pre></div>
+<pre><code>## [1] 17</code></pre>
+</div>
+</div>
 </div>
 <div id="function-arguments" class="section level2">
-<h2><span class="header-section-number">5.2</span> Function arguments</h2>
+<h2><span class="header-section-number">5.3</span> Function arguments</h2>
 <div id="default-values" class="section level3">
-<h3><span class="header-section-number">5.2.1</span> Default values</h3>
+<h3><span class="header-section-number">5.3.1</span> Default values</h3>
 <p>What are <strong>default values</strong> for arguments?</p>
 <ul>
 <li>The <strong>default value</strong> for an argument is the value that will be used if the argument was not supplied during the function call</li>
 <li>When writing the function, you can specify the <strong>default value</strong> for an argument using <code>name=value</code></li>
 </ul>
 <p>Recall the <code>print_hello()</code> function. Let’s modify the function to make <code>x</code> have a default value:</p>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb547-1" data-line-number="1"><span class="co"># Define function</span></a>
-<a class="sourceLine" id="cb547-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">x=</span><span class="st">&quot;there&quot;</span>) {  <span class="co"># The default value for `x` is &quot;there&quot;</span></a>
-<a class="sourceLine" id="cb547-3" data-line-number="3">  <span class="kw">str_c</span>(<span class="st">&quot;Hello &quot;</span>, x, <span class="st">&quot;!&quot;</span>)</a>
-<a class="sourceLine" id="cb547-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb547-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb547-6" data-line-number="6"><span class="co"># Call function without passing in name (it will use default value)</span></a>
-<a class="sourceLine" id="cb547-7" data-line-number="7"><span class="kw">print_hello</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb702-1" data-line-number="1"><span class="co"># Define function</span></a>
+<a class="sourceLine" id="cb702-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">x=</span><span class="st">&quot;there&quot;</span>) {  <span class="co"># The default value for `x` is &quot;there&quot;</span></a>
+<a class="sourceLine" id="cb702-3" data-line-number="3">  <span class="kw">str_c</span>(<span class="st">&quot;Hello &quot;</span>, x, <span class="st">&quot;!&quot;</span>)</a>
+<a class="sourceLine" id="cb702-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb702-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb702-6" data-line-number="6"><span class="co"># Call function without passing in name (it will use default value)</span></a>
+<a class="sourceLine" id="cb702-7" data-line-number="7"><span class="kw">print_hello</span>()</a></code></pre></div>
 <pre><code>## [1] &quot;Hello there!&quot;</code></pre>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb549-1" data-line-number="1"><span class="co"># Call function and pass in name (it will override default value)</span></a>
-<a class="sourceLine" id="cb549-2" data-line-number="2"><span class="kw">print_hello</span>(<span class="st">&quot;World&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb704-1" data-line-number="1"><span class="co"># Call function and pass in name (it will override default value)</span></a>
+<a class="sourceLine" id="cb704-2" data-line-number="2"><span class="kw">print_hello</span>(<span class="st">&quot;World&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Hello World!&quot;</code></pre>
 </div>
 <div id="dot-dot-dot-..." class="section level3">
-<h3><span class="header-section-number">5.2.2</span> Dot-dot-dot (<code>...</code>)</h3>
+<h3><span class="header-section-number">5.3.2</span> Dot-dot-dot (<code>...</code>)</h3>
 <p>What is <strong>dot-dot-dot (<code>...</code>)</strong>?</p>
 <ul>
 <li>Dot-dot-dot (<code>...</code>) allows the function to take an arbitrary number of arguments
@@ -5294,22 +5930,22 @@ div.tocify {
 <li>When we write our own function with the special argument <code>...</code>, we can pass those inputs into another function that takes <code>...</code> (e.g., <code>str_c()</code>)</li>
 </ul>
 <p>Recall the <code>print_hello()</code> function. Let’s modify the function to make it take an arbitrary number of names to greet:</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb551-1" data-line-number="1"><span class="co"># Define function</span></a>
-<a class="sourceLine" id="cb551-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>(...) {  <span class="co"># The function accepts an arbitrary number of inputs</span></a>
-<a class="sourceLine" id="cb551-3" data-line-number="3">  <span class="kw">str_c</span>(<span class="st">&quot;Hello &quot;</span>, <span class="kw">str_c</span>(..., <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;!&quot;</span>)  <span class="co"># Pass the `...` to `str_c()`</span></a>
-<a class="sourceLine" id="cb551-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb551-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb551-6" data-line-number="6"><span class="co"># Call function</span></a>
-<a class="sourceLine" id="cb551-7" data-line-number="7"><span class="kw">print_hello</span>(<span class="st">&quot;Dasher&quot;</span>, <span class="st">&quot;Dancer&quot;</span>, <span class="st">&quot;Prancer&quot;</span>, <span class="st">&quot;Vixen&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb706-1" data-line-number="1"><span class="co"># Define function</span></a>
+<a class="sourceLine" id="cb706-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>(...) {  <span class="co"># The function accepts an arbitrary number of inputs</span></a>
+<a class="sourceLine" id="cb706-3" data-line-number="3">  <span class="kw">str_c</span>(<span class="st">&quot;Hello &quot;</span>, <span class="kw">str_c</span>(..., <span class="dt">sep =</span> <span class="st">&quot;, &quot;</span>), <span class="st">&quot;!&quot;</span>)  <span class="co"># Pass the `...` to `str_c()`</span></a>
+<a class="sourceLine" id="cb706-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb706-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb706-6" data-line-number="6"><span class="co"># Call function</span></a>
+<a class="sourceLine" id="cb706-7" data-line-number="7"><span class="kw">print_hello</span>(<span class="st">&quot;Dasher&quot;</span>, <span class="st">&quot;Dancer&quot;</span>, <span class="st">&quot;Prancer&quot;</span>, <span class="st">&quot;Vixen&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Hello Dasher, Dancer, Prancer, Vixen!&quot;</code></pre>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb553-1" data-line-number="1"><span class="kw">print_hello</span>(<span class="st">&quot;Rudolf&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb708-1" data-line-number="1"><span class="kw">print_hello</span>(<span class="st">&quot;Rudolf&quot;</span>)</a></code></pre></div>
 <pre><code>## [1] &quot;Hello Rudolf!&quot;</code></pre>
 </div>
 </div>
 <div id="return-values" class="section level2">
-<h2><span class="header-section-number">5.3</span> Return values</h2>
+<h2><span class="header-section-number">5.4</span> Return values</h2>
 <div id="implicit-returns" class="section level3">
-<h3><span class="header-section-number">5.3.1</span> Implicit returns</h3>
+<h3><span class="header-section-number">5.4.1</span> Implicit returns</h3>
 <p>What are <strong>return values</strong>?</p>
 <ul>
 <li>Just like how it can take inputs (i.e., arguments), functions can also return values as output</li>
@@ -5317,18 +5953,18 @@ div.tocify {
 <li>If we want, we can store returned values in a variable for future use</li>
 </ul>
 <p>Recall the <code>print_hello()</code> function:</p>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb555-1" data-line-number="1"><span class="co"># Define function</span></a>
-<a class="sourceLine" id="cb555-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb555-3" data-line-number="3">  <span class="st">&quot;Hello!&quot;</span>  <span class="co"># The last statement in the function is returned</span></a>
-<a class="sourceLine" id="cb555-4" data-line-number="4">}</a>
-<a class="sourceLine" id="cb555-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb555-6" data-line-number="6"><span class="co"># Call function</span></a>
-<a class="sourceLine" id="cb555-7" data-line-number="7">h &lt;-<span class="st"> </span><span class="kw">print_hello</span>()  <span class="co"># We can show that `print_hello()` returns a value by storing it in `h`</span></a>
-<a class="sourceLine" id="cb555-8" data-line-number="8">h                   <span class="co"># `h` stores the value &quot;Hello!&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb710-1" data-line-number="1"><span class="co"># Define function</span></a>
+<a class="sourceLine" id="cb710-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb710-3" data-line-number="3">  <span class="st">&quot;Hello!&quot;</span>  <span class="co"># The last statement in the function is returned</span></a>
+<a class="sourceLine" id="cb710-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb710-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb710-6" data-line-number="6"><span class="co"># Call function</span></a>
+<a class="sourceLine" id="cb710-7" data-line-number="7">h &lt;-<span class="st"> </span><span class="kw">print_hello</span>()  <span class="co"># We can show that `print_hello()` returns a value by storing it in `h`</span></a>
+<a class="sourceLine" id="cb710-8" data-line-number="8">h                   <span class="co"># `h` stores the value &quot;Hello!&quot;</span></a></code></pre></div>
 <pre><code>## [1] &quot;Hello!&quot;</code></pre>
 </div>
 <div id="explicit-returns" class="section level3">
-<h3><span class="header-section-number">5.3.2</span> Explicit returns</h3>
+<h3><span class="header-section-number">5.4.2</span> Explicit returns</h3>
 <p>How can we <strong>explicitly return values</strong> from the function?</p>
 <ul>
 <li>We can use <code>return()</code> to explicitly return a value from our function</li>
@@ -5337,76 +5973,76 @@ div.tocify {
 <li>Returning from a function means exiting the function, so no other code below the point of return would be run</li>
 </ul>
 <p>Recall the <code>print_hello()</code> function:</p>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb557-1" data-line-number="1"><span class="co"># Define function</span></a>
-<a class="sourceLine" id="cb557-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb557-3" data-line-number="3">  <span class="kw">return</span>(<span class="st">&quot;Hello!&quot;</span>)   <span class="co"># Explicitly return &quot;Hello!&quot;</span></a>
-<a class="sourceLine" id="cb557-4" data-line-number="4">  <span class="kw">print</span>(<span class="st">&quot;Goodbye!&quot;</span>)  <span class="co"># Since this is after `return()`, it never gets run</span></a>
-<a class="sourceLine" id="cb557-5" data-line-number="5">}</a>
-<a class="sourceLine" id="cb557-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb557-7" data-line-number="7"><span class="co"># Call function</span></a>
-<a class="sourceLine" id="cb557-8" data-line-number="8">h &lt;-<span class="st"> </span><span class="kw">print_hello</span>()  <span class="co"># `print_hello()` returns &quot;Hello!&quot;</span></a>
-<a class="sourceLine" id="cb557-9" data-line-number="9">h</a></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb712-1" data-line-number="1"><span class="co"># Define function</span></a>
+<a class="sourceLine" id="cb712-2" data-line-number="2">print_hello &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
+<a class="sourceLine" id="cb712-3" data-line-number="3">  <span class="kw">return</span>(<span class="st">&quot;Hello!&quot;</span>)   <span class="co"># Explicitly return &quot;Hello!&quot;</span></a>
+<a class="sourceLine" id="cb712-4" data-line-number="4">  <span class="kw">print</span>(<span class="st">&quot;Goodbye!&quot;</span>)  <span class="co"># Since this is after `return()`, it never gets run</span></a>
+<a class="sourceLine" id="cb712-5" data-line-number="5">}</a>
+<a class="sourceLine" id="cb712-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb712-7" data-line-number="7"><span class="co"># Call function</span></a>
+<a class="sourceLine" id="cb712-8" data-line-number="8">h &lt;-<span class="st"> </span><span class="kw">print_hello</span>()  <span class="co"># `print_hello()` returns &quot;Hello!&quot;</span></a>
+<a class="sourceLine" id="cb712-9" data-line-number="9">h</a></code></pre></div>
 <pre><code>## [1] &quot;Hello!&quot;</code></pre>
 <br>
 <details>
 <p><summary><strong>Example</strong>: Writing a function with multiple returns</summary></p>
 <p>Recall the previous example where we assess the prices of diamonds using the <code>diamonds</code> dataset from <code>ggplot2</code>. Let’s move the <code>if</code>/<code>else if</code>/<code>else</code> blocks inside of a function, then call the function from inside the loop.</p>
 <p>As seen below, the last statement that the function evaluates (i.e., whichever <code>if</code>/<code>else if</code>/<code>else</code> block is run) will be implicitly returned:</p>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb559-1" data-line-number="1">assess_price &lt;-<span class="st"> </span><span class="cf">function</span>(price) {</a>
-<a class="sourceLine" id="cb559-2" data-line-number="2">  <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) {</a>
-<a class="sourceLine" id="cb559-3" data-line-number="3">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is affordable.&quot;</span>)</a>
-<a class="sourceLine" id="cb559-4" data-line-number="4">  } <span class="cf">else</span> <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>) {</a>
-<a class="sourceLine" id="cb559-5" data-line-number="5">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is pricey...&quot;</span>)</a>
-<a class="sourceLine" id="cb559-6" data-line-number="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb559-7" data-line-number="7">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is too expensive!&quot;</span>)</a>
-<a class="sourceLine" id="cb559-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb559-9" data-line-number="9">}</a>
-<a class="sourceLine" id="cb559-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb559-11" data-line-number="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">unique</span>(diamonds<span class="op">$</span>price)[<span class="dv">23</span><span class="op">:</span><span class="dv">27</span>]) {</a>
-<a class="sourceLine" id="cb559-12" data-line-number="12">  <span class="kw">writeLines</span>(<span class="kw">assess_price</span>(i))</a>
-<a class="sourceLine" id="cb559-13" data-line-number="13">}</a></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb714-1" data-line-number="1">assess_price &lt;-<span class="st"> </span><span class="cf">function</span>(price) {</a>
+<a class="sourceLine" id="cb714-2" data-line-number="2">  <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) {</a>
+<a class="sourceLine" id="cb714-3" data-line-number="3">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is affordable.&quot;</span>)</a>
+<a class="sourceLine" id="cb714-4" data-line-number="4">  } <span class="cf">else</span> <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>) {</a>
+<a class="sourceLine" id="cb714-5" data-line-number="5">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is pricey...&quot;</span>)</a>
+<a class="sourceLine" id="cb714-6" data-line-number="6">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb714-7" data-line-number="7">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is too expensive!&quot;</span>)</a>
+<a class="sourceLine" id="cb714-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb714-9" data-line-number="9">}</a>
+<a class="sourceLine" id="cb714-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb714-11" data-line-number="11"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">unique</span>(diamonds<span class="op">$</span>price)[<span class="dv">23</span><span class="op">:</span><span class="dv">27</span>]) {</a>
+<a class="sourceLine" id="cb714-12" data-line-number="12">  <span class="kw">writeLines</span>(<span class="kw">assess_price</span>(i))</a>
+<a class="sourceLine" id="cb714-13" data-line-number="13">}</a></code></pre></div>
 <pre><code>## This diamond costs $405 and is affordable.
 ## This diamond costs $552 and is pricey...
 ## This diamond costs $553 and is pricey...
 ## This diamond costs $554 and is pricey...
 ## This diamond costs $2757 and is too expensive!</code></pre>
 <p><br> But if we were to have another line after the conditional part, then that would be implicitly returned instead, since it is now the last statement in the function:</p>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb561-1" data-line-number="1">assess_price &lt;-<span class="st"> </span><span class="cf">function</span>(price) {</a>
-<a class="sourceLine" id="cb561-2" data-line-number="2">  <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) {</a>
-<a class="sourceLine" id="cb561-3" data-line-number="3">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is affordable.&quot;</span>)</a>
-<a class="sourceLine" id="cb561-4" data-line-number="4">  } <span class="cf">else</span> <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>) {</a>
-<a class="sourceLine" id="cb561-5" data-line-number="5">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is pricey...&quot;</span>)</a>
-<a class="sourceLine" id="cb561-6" data-line-number="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb561-7" data-line-number="7">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is too expensive!&quot;</span>)</a>
-<a class="sourceLine" id="cb561-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb561-9" data-line-number="9">  </a>
-<a class="sourceLine" id="cb561-10" data-line-number="10">  <span class="st">&quot;I can't afford that.&quot;</span>  <span class="co"># This is now the last statement in the function that will be returned</span></a>
-<a class="sourceLine" id="cb561-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb561-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb561-13" data-line-number="13"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">unique</span>(diamonds<span class="op">$</span>price)[<span class="dv">23</span><span class="op">:</span><span class="dv">27</span>]) {</a>
-<a class="sourceLine" id="cb561-14" data-line-number="14">  <span class="kw">writeLines</span>(<span class="kw">assess_price</span>(i))</a>
-<a class="sourceLine" id="cb561-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb716-1" data-line-number="1">assess_price &lt;-<span class="st"> </span><span class="cf">function</span>(price) {</a>
+<a class="sourceLine" id="cb716-2" data-line-number="2">  <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) {</a>
+<a class="sourceLine" id="cb716-3" data-line-number="3">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is affordable.&quot;</span>)</a>
+<a class="sourceLine" id="cb716-4" data-line-number="4">  } <span class="cf">else</span> <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>) {</a>
+<a class="sourceLine" id="cb716-5" data-line-number="5">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is pricey...&quot;</span>)</a>
+<a class="sourceLine" id="cb716-6" data-line-number="6">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb716-7" data-line-number="7">    <span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is too expensive!&quot;</span>)</a>
+<a class="sourceLine" id="cb716-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb716-9" data-line-number="9">  </a>
+<a class="sourceLine" id="cb716-10" data-line-number="10">  <span class="st">&quot;I can't afford that.&quot;</span>  <span class="co"># This is now the last statement in the function that will be returned</span></a>
+<a class="sourceLine" id="cb716-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb716-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb716-13" data-line-number="13"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">unique</span>(diamonds<span class="op">$</span>price)[<span class="dv">23</span><span class="op">:</span><span class="dv">27</span>]) {</a>
+<a class="sourceLine" id="cb716-14" data-line-number="14">  <span class="kw">writeLines</span>(<span class="kw">assess_price</span>(i))</a>
+<a class="sourceLine" id="cb716-15" data-line-number="15">}</a></code></pre></div>
 <pre><code>## I can't afford that.
 ## I can't afford that.
 ## I can't afford that.
 ## I can't afford that.
 ## I can't afford that.</code></pre>
 <p><br> We can use <code>return()</code> to explicitly return early from the function:</p>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb563-1" data-line-number="1">assess_price &lt;-<span class="st"> </span><span class="cf">function</span>(price) {</a>
-<a class="sourceLine" id="cb563-2" data-line-number="2">  <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) {</a>
-<a class="sourceLine" id="cb563-3" data-line-number="3">    <span class="kw">return</span>(<span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is affordable.&quot;</span>))  <span class="co"># Return early</span></a>
-<a class="sourceLine" id="cb563-4" data-line-number="4">  } <span class="cf">else</span> <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>) {</a>
-<a class="sourceLine" id="cb563-5" data-line-number="5">    <span class="kw">return</span>(<span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is pricey...&quot;</span>))  <span class="co"># Return early</span></a>
-<a class="sourceLine" id="cb563-6" data-line-number="6">  } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb563-7" data-line-number="7">    <span class="kw">writeLines</span>(<span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is too expensive!&quot;</span>))</a>
-<a class="sourceLine" id="cb563-8" data-line-number="8">  }</a>
-<a class="sourceLine" id="cb563-9" data-line-number="9">  </a>
-<a class="sourceLine" id="cb563-10" data-line-number="10">  <span class="st">&quot;I can't afford that.&quot;</span></a>
-<a class="sourceLine" id="cb563-11" data-line-number="11">}</a>
-<a class="sourceLine" id="cb563-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb563-13" data-line-number="13"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">unique</span>(diamonds<span class="op">$</span>price)[<span class="dv">23</span><span class="op">:</span><span class="dv">27</span>]) {</a>
-<a class="sourceLine" id="cb563-14" data-line-number="14">  <span class="kw">writeLines</span>(<span class="kw">assess_price</span>(i))</a>
-<a class="sourceLine" id="cb563-15" data-line-number="15">}</a></code></pre></div>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb718-1" data-line-number="1">assess_price &lt;-<span class="st"> </span><span class="cf">function</span>(price) {</a>
+<a class="sourceLine" id="cb718-2" data-line-number="2">  <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) {</a>
+<a class="sourceLine" id="cb718-3" data-line-number="3">    <span class="kw">return</span>(<span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is affordable.&quot;</span>))  <span class="co"># Return early</span></a>
+<a class="sourceLine" id="cb718-4" data-line-number="4">  } <span class="cf">else</span> <span class="cf">if</span> (price <span class="op">&lt;</span><span class="st"> </span><span class="dv">1000</span>) {</a>
+<a class="sourceLine" id="cb718-5" data-line-number="5">    <span class="kw">return</span>(<span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is pricey...&quot;</span>))  <span class="co"># Return early</span></a>
+<a class="sourceLine" id="cb718-6" data-line-number="6">  } <span class="cf">else</span> {</a>
+<a class="sourceLine" id="cb718-7" data-line-number="7">    <span class="kw">writeLines</span>(<span class="kw">str_c</span>(<span class="st">&quot;This diamond costs $&quot;</span>, price, <span class="st">&quot; and is too expensive!&quot;</span>))</a>
+<a class="sourceLine" id="cb718-8" data-line-number="8">  }</a>
+<a class="sourceLine" id="cb718-9" data-line-number="9">  </a>
+<a class="sourceLine" id="cb718-10" data-line-number="10">  <span class="st">&quot;I can't afford that.&quot;</span></a>
+<a class="sourceLine" id="cb718-11" data-line-number="11">}</a>
+<a class="sourceLine" id="cb718-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb718-13" data-line-number="13"><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">unique</span>(diamonds<span class="op">$</span>price)[<span class="dv">23</span><span class="op">:</span><span class="dv">27</span>]) {</a>
+<a class="sourceLine" id="cb718-14" data-line-number="14">  <span class="kw">writeLines</span>(<span class="kw">assess_price</span>(i))</a>
+<a class="sourceLine" id="cb718-15" data-line-number="15">}</a></code></pre></div>
 <pre><code>## This diamond costs $405 and is affordable.
 ## This diamond costs $552 and is pricey...
 ## This diamond costs $553 and is pricey...
