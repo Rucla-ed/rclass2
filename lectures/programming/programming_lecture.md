@@ -4142,9 +4142,9 @@ hd2018_t %>%
 
 # Conditional execution
 
-## `if`/`else` statements
+## `if` statement conditions
 
-What are **`if` statements**?
+What are **`if` statement conditions**?
 
 - `if` statements allow you to conditionally execute certain blocks of code depending on whether some condition is satisfied
 - The condition goes inside of the parentheses in `if()` and the block of code to execute goes between the curly brackets (`{}`)
@@ -4158,7 +4158,170 @@ if (condition) {
 }
 ```
 
-Optionally, you could also have an `else` block that gets executed if the condition is not met:
+<br>
+The block of code is executed if the condition evaluates to `TRUE`:
+
+
+```r
+if (TRUE) {
+  writeLines("This block is executed.")
+}
+```
+
+```
+## This block is executed.
+```
+
+The block of code is not executed if condition evaluates to `FALSE`:
+
+
+```r
+if (FALSE) {
+  writeLines("This block is not executed.")
+}
+```
+
+<br>
+**Example**: Condition that evaluates to `TRUE`
+
+Remember that any statement that has a length of `1` and can evaluate to either `TRUE` or `FALSE` can be used as the condition:
+
+
+```r
+# This statement evaluates to `TRUE`
+2 + 2 == 4
+```
+
+```
+## [1] TRUE
+```
+
+```r
+# It is of type `logical`
+typeof(2 + 2 == 4)
+```
+
+```
+## [1] "logical"
+```
+
+```r
+# It has length of `1`
+length(2 + 2 == 4)
+```
+
+```
+## [1] 1
+```
+
+```r
+# We can use it as the if statement condition
+if (2 + 2 == 4) {
+  writeLines("This block is executed because `2 + 2 == 4` evaluates to `TRUE`.")
+}
+```
+
+```
+## This block is executed because `2 + 2 == 4` evaluates to `TRUE`.
+```
+
+<br>
+**Example**: Condition that evaluates to `FALSE`
+
+Recall that some functions return a `logical`, so you might also see a function call being used as the condition:
+
+
+```r
+# This function call returns `FALSE` because there is no digit in the string "Fourth of July"
+str_detect(string = "Fourth of July", pattern = "\\d")
+```
+
+```
+## [1] FALSE
+```
+
+```r
+# It is of type `logical`
+typeof(str_detect(string = "Fourth of July", pattern = "\\d"))
+```
+
+```
+## [1] "logical"
+```
+
+```r
+# It has length of `1`
+length(str_detect(string = "Fourth of July", pattern = "\\d"))
+```
+
+```
+## [1] 1
+```
+
+```r
+# We can use it as the if statement condition
+if (str_detect(string = "Fourth of July", pattern = "\\d")) {
+  writeLines("This block is not executed because the condition evaluates to `FALSE`.")
+}
+```
+
+### `||` and `&&`
+
+How to combine **multiple logical expressions** in a condition?
+
+- Use `||` (or) and `&&` (and) to combine multiple logical expressions
+- "Never use `|` or `&` in an if statement: these are _vectorised_ operations that apply to multiple values (that's why you use them in `filter()`)" (From [R for Data Science](https://r4ds.had.co.nz/functions.html#conditional-execution))
+    - Vectorised operations mean they apply to each respective elements between the vectors:
+        
+        ```r
+        c(TRUE, TRUE, FALSE) | c(TRUE, FALSE, FALSE)
+        ```
+        
+        ```
+        ## [1]  TRUE  TRUE FALSE
+        ```
+    - Whereas `||` and `&&` will only look at the first element of each vector:
+        
+        ```r
+        c(TRUE, TRUE, FALSE) || c(TRUE, FALSE, FALSE)
+        ```
+        
+        ```
+        ## [1] TRUE
+        ```
+
+<br>
+When using `||` (or), the block of code is executed if any of the conditions evaluates to `TRUE`:
+
+
+```r
+if (condition1 || condition2 || condition3) {
+  # code executed when any of the conditions is TRUE
+}
+```
+
+When using `&&` (and), the block of code is executed if all of the conditions evaluate to `TRUE`:
+
+
+```r
+if (condition1 && condition2 && condition3) {
+  # code executed when all of the conditions are TRUE
+}
+```
+
+<br>
+<details><summary>**Example**: Using multiple logical expressions in a condition</summary>
+
+
+
+</details>
+
+## `else` statements
+
+What are **`else` statements**?
+
+- After the `if` block, you can include an `else` block that will be executed if the `if` block did not execute
+- In other words, the `else` block is executed if the `if` statement's condition is not met
 
 
 ```r
@@ -4274,33 +4437,6 @@ for (i in unique(diamonds$price)[21:25]) {
 ## This diamond costs $552 and is pricey...
 ## This diamond costs $553 and is pricey...
 ```
-
-</details>
-
-## `||` and `&&`
-
-How to combine **multiple logical expressions** in a condition?
-
-- Use `||` (or) and `&&` (and) to combine multiple logical expressions
-- "Never use `|` or `&` in an if statement: these are _vectorised_ operations that apply to multiple values (that's why you use them in `filter()`)" (From [R for Data Science](https://r4ds.had.co.nz/functions.html#conditional-execution))
-
-
-```r
-# Combining multiple logical expressions using `||` (or)
-if (condition1 || condition2 || condition3) {
-  # code executed when any of the conditions is TRUE
-}
-
-# Combining multiple logical expressions using `&&` (and)
-if (condition1 && condition2 && condition3) {
-  # code executed when all of the conditions are TRUE
-}
-```
-
-<br>
-<details><summary>**Example**: Using multiple logical expressions in a condition</summary>
-
-
 
 </details>
 
