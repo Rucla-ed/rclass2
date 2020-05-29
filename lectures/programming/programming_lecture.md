@@ -20,6 +20,7 @@ output:
 ---
 
 
+
 # Introduction
 
 Load packages:
@@ -126,26 +127,11 @@ What are **atomic vectors**?
 ```r
 v <- c(TRUE, FALSE, FALSE, TRUE)
 str(v)
-```
-
-```
-##  logi [1:4] TRUE FALSE FALSE TRUE
-```
-
-```r
+#>  logi [1:4] TRUE FALSE FALSE TRUE
 class(v)
-```
-
-```
-## [1] "logical"
-```
-
-```r
+#> [1] "logical"
 typeof(v)
-```
-
-```
-## [1] "logical"
+#> [1] "logical"
 ```
 
 </details>
@@ -157,26 +143,11 @@ typeof(v)
 ```r
 v <- c(1, 3, 5, 7)
 str(v)
-```
-
-```
-##  num [1:4] 1 3 5 7
-```
-
-```r
+#>  num [1:4] 1 3 5 7
 class(v)
-```
-
-```
-## [1] "numeric"
-```
-
-```r
+#> [1] "numeric"
 typeof(v)
-```
-
-```
-## [1] "double"
+#> [1] "double"
 ```
 </details>
 
@@ -187,26 +158,11 @@ typeof(v)
 ```r
 v <- c(1L, 3L, 5L, 7L)
 str(v)
-```
-
-```
-##  int [1:4] 1 3 5 7
-```
-
-```r
+#>  int [1:4] 1 3 5 7
 class(v)
-```
-
-```
-## [1] "integer"
-```
-
-```r
+#> [1] "integer"
 typeof(v)
-```
-
-```
-## [1] "integer"
+#> [1] "integer"
 ```
 
 </details>
@@ -220,26 +176,11 @@ Each element in a `character` vector is a **string** (covered in next section):
 ```r
 v <- c("a", "b", "c", "d")
 str(v)
-```
-
-```
-##  chr [1:4] "a" "b" "c" "d"
-```
-
-```r
+#>  chr [1:4] "a" "b" "c" "d"
 class(v)
-```
-
-```
-## [1] "character"
-```
-
-```r
+#> [1] "character"
 typeof(v)
-```
-
-```
-## [1] "character"
+#> [1] "character"
 ```
 
 </details>
@@ -251,36 +192,15 @@ typeof(v)
 ```r
 v <- c(v1 = 1, v2 = 2, v3 = 3)
 v
-```
-
-```
-## v1 v2 v3 
-##  1  2  3
-```
-
-```r
+#> v1 v2 v3 
+#>  1  2  3
 str(v)
-```
-
-```
-##  Named num [1:3] 1 2 3
-##  - attr(*, "names")= chr [1:3] "v1" "v2" "v3"
-```
-
-```r
+#>  Named num [1:3] 1 2 3
+#>  - attr(*, "names")= chr [1:3] "v1" "v2" "v3"
 class(v)
-```
-
-```
-## [1] "numeric"
-```
-
-```r
+#> [1] "numeric"
 typeof(v)
-```
-
-```
-## [1] "double"
+#> [1] "double"
 ```
 
 </details>
@@ -303,30 +223,15 @@ What are **lists**?
 ```r
 l <- list(2.5, "abc", TRUE, c(1L, 2L, 3L))
 str(l)
-```
-
-```
-## List of 4
-##  $ : num 2.5
-##  $ : chr "abc"
-##  $ : logi TRUE
-##  $ : int [1:3] 1 2 3
-```
-
-```r
+#> List of 4
+#>  $ : num 2.5
+#>  $ : chr "abc"
+#>  $ : logi TRUE
+#>  $ : int [1:3] 1 2 3
 class(l)
-```
-
-```
-## [1] "list"
-```
-
-```r
+#> [1] "list"
 typeof(l)
-```
-
-```
-## [1] "list"
+#> [1] "list"
 ```
 
 </details>
@@ -338,33 +243,18 @@ typeof(l)
 ```r
 l <- list(list(TRUE, c(1, 2, 3), list(c("a", "b", "c"))), FALSE, 10L)
 str(l)
-```
-
-```
-## List of 3
-##  $ :List of 3
-##   ..$ : logi TRUE
-##   ..$ : num [1:3] 1 2 3
-##   ..$ :List of 1
-##   .. ..$ : chr [1:3] "a" "b" "c"
-##  $ : logi FALSE
-##  $ : int 10
-```
-
-```r
+#> List of 3
+#>  $ :List of 3
+#>   ..$ : logi TRUE
+#>   ..$ : num [1:3] 1 2 3
+#>   ..$ :List of 1
+#>   .. ..$ : chr [1:3] "a" "b" "c"
+#>  $ : logi FALSE
+#>  $ : int 10
 class(l)
-```
-
-```
-## [1] "list"
-```
-
-```r
+#> [1] "list"
 typeof(l)
-```
-
-```
-## [1] "list"
+#> [1] "list"
 ```
 
 </details>
@@ -376,32 +266,17 @@ typeof(l)
 ```r
 l <- list(l1 = 1, l2 = c("apple", "orange"), l3 = list(1, 2, 3))
 str(l)
-```
-
-```
-## List of 3
-##  $ l1: num 1
-##  $ l2: chr [1:2] "apple" "orange"
-##  $ l3:List of 3
-##   ..$ : num 1
-##   ..$ : num 2
-##   ..$ : num 3
-```
-
-```r
+#> List of 3
+#>  $ l1: num 1
+#>  $ l2: chr [1:2] "apple" "orange"
+#>  $ l3:List of 3
+#>   ..$ : num 1
+#>   ..$ : num 2
+#>   ..$ : num 3
 class(l)
-```
-
-```
-## [1] "list"
-```
-
-```r
+#> [1] "list"
 typeof(l)
-```
-
-```
-## [1] "list"
+#> [1] "list"
 ```
 
 </details>
@@ -433,42 +308,21 @@ df <- data.frame(
   stringsAsFactors = FALSE
 )
 df
-```
-
-```
-## # A tibble: 3 x 3
-##    colA colB  colC 
-##   <dbl> <chr> <lgl>
-## 1     1 a     TRUE 
-## 2     2 b     FALSE
-## 3     3 c     TRUE
-```
-
-```r
+#> # A tibble: 3 x 3
+#>    colA colB  colC 
+#>   <dbl> <chr> <lgl>
+#> 1     1 a     TRUE 
+#> 2     2 b     FALSE
+#> 3     3 c     TRUE
 str(df)
-```
-
-```
-## 'data.frame':	3 obs. of  3 variables:
-##  $ colA: num  1 2 3
-##  $ colB: chr  "a" "b" "c"
-##  $ colC: logi  TRUE FALSE TRUE
-```
-
-```r
+#> 'data.frame':	3 obs. of  3 variables:
+#>  $ colA: num  1 2 3
+#>  $ colB: chr  "a" "b" "c"
+#>  $ colC: logi  TRUE FALSE TRUE
 class(df)
-```
-
-```
-## [1] "data.frame"
-```
-
-```r
+#> [1] "data.frame"
 typeof(df)
-```
-
-```
-## [1] "list"
+#> [1] "list"
 ```
 
 </details>
@@ -505,66 +359,21 @@ Function | logical | int | dbl | chr | list
 ```r
 v <- c(5, 6, 7)
 is.logical(v)
-```
-
-```
-## [1] FALSE
-```
-
-```r
+#> [1] FALSE
 is.integer(v)
-```
-
-```
-## [1] FALSE
-```
-
-```r
+#> [1] FALSE
 is.double(v)
-```
-
-```
-## [1] TRUE
-```
-
-```r
+#> [1] TRUE
 is.numeric(v)
-```
-
-```
-## [1] TRUE
-```
-
-```r
+#> [1] TRUE
 is.character(v)
-```
-
-```
-## [1] FALSE
-```
-
-```r
+#> [1] FALSE
 is.atomic(v)
-```
-
-```
-## [1] TRUE
-```
-
-```r
+#> [1] TRUE
 is.list(v)
-```
-
-```
-## [1] FALSE
-```
-
-```r
+#> [1] FALSE
 is.vector(v)
-```
-
-```
-## [1] TRUE
+#> [1] TRUE
 ```
 
 </details>
@@ -591,10 +400,7 @@ Character vector coerced to logical vector:
 ```r
 # Only "TRUE"/"FALSE", "True"/"False", "T"/"F", "true"/"false" are able to be coerced to logical type
 as.logical(c("TRUE", "FALSE", "True", "False", "true", "false", "T", "F", "t", "f", ""))
-```
-
-```
-##  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE    NA    NA    NA
+#>  [1]  TRUE FALSE  TRUE FALSE  TRUE FALSE  TRUE FALSE    NA    NA    NA
 ```
 
 Numeric vector coerced to logical vector:
@@ -603,10 +409,7 @@ Numeric vector coerced to logical vector:
 ```r
 # 0 is treated as FALSE, while all other numeric values are treated as TRUE
 as.logical(c(0, 0.0, 1, -1, 20, 5.5))
-```
-
-```
-## [1] FALSE FALSE  TRUE  TRUE  TRUE  TRUE
+#> [1] FALSE FALSE  TRUE  TRUE  TRUE  TRUE
 ```
 
 </details>
@@ -620,10 +423,7 @@ Logical vector coerced to numeric vector:
 ```r
 # FALSE is mapped to 0 and TRUE is mapped to 1
 as.numeric(c(FALSE, TRUE))
-```
-
-```
-## [1] 0 1
+#> [1] 0 1
 ```
 
 Character vector coerced to numeric vector:
@@ -633,10 +433,7 @@ Character vector coerced to numeric vector:
 # Strings containing numeric values can be coerced to numeric (leading 0's are dropped) 
 # All other characters become NA
 as.numeric(c("0", "007", "2.5", "abc", "."))
-```
-
-```
-## [1] 0.0 7.0 2.5  NA  NA
+#> [1] 0.0 7.0 2.5  NA  NA
 ```
 
 </details>
@@ -650,10 +447,7 @@ Logical vector coerced to integer vector:
 ```r
 # FALSE is mapped to 0 and TRUE is mapped to 1
 as.integer(c(FALSE, TRUE))
-```
-
-```
-## [1] 0 1
+#> [1] 0 1
 ```
 
 Character vector coerced to integer vector:
@@ -663,10 +457,7 @@ Character vector coerced to integer vector:
 # Strings containing numeric values can be coerced to integer (leading 0's are dropped, decimals are truncated) 
 # All other characters become NA
 as.integer(c("0", "007", "2.5", "abc", "."))
-```
-
-```
-## [1]  0  7  2 NA NA
+#> [1]  0  7  2 NA NA
 ```
 
 Numeric vector coerced to integer vector:
@@ -675,10 +466,7 @@ Numeric vector coerced to integer vector:
 ```r
 # All decimal places are truncated
 as.integer(c(0, 2.1, 10.5, 8.8, -1.8))
-```
-
-```
-## [1]  0  2 10  8 -1
+#> [1]  0  2 10  8 -1
 ```
 
 </details>
@@ -691,10 +479,7 @@ Logical vector coerced to character vector:
 
 ```r
 as.character(c(FALSE, TRUE))
-```
-
-```
-## [1] "FALSE" "TRUE"
+#> [1] "FALSE" "TRUE"
 ```
 
 Numeric vector coerced to character vector:
@@ -702,10 +487,7 @@ Numeric vector coerced to character vector:
 
 ```r
 as.character(c(-5, 0, 2.5))
-```
-
-```
-## [1] "-5"  "0"   "2.5"
+#> [1] "-5"  "0"   "2.5"
 ```
 
 Integer vector coerced to character vector:
@@ -713,10 +495,7 @@ Integer vector coerced to character vector:
 
 ```r
 as.character(c(-2L, 0L, 10L))
-```
-
-```
-## [1] "-2" "0"  "10"
+#> [1] "-2" "0"  "10"
 ```
 
 </details>
@@ -730,46 +509,33 @@ Atomic vectors coerced to list:
 ```r
 # Logical vector
 as.list(c(TRUE, FALSE))
-```
+#> [[1]]
+#> [1] TRUE
+#> 
+#> [[2]]
+#> [1] FALSE
 
-```
-## [[1]]
-## [1] TRUE
-## 
-## [[2]]
-## [1] FALSE
-```
-
-```r
 # Character vector
 as.list(c("a", "b", "c"))
-```
+#> [[1]]
+#> [1] "a"
+#> 
+#> [[2]]
+#> [1] "b"
+#> 
+#> [[3]]
+#> [1] "c"
 
-```
-## [[1]]
-## [1] "a"
-## 
-## [[2]]
-## [1] "b"
-## 
-## [[3]]
-## [1] "c"
-```
-
-```r
 # Numeric vector
 as.list(1:3)
-```
-
-```
-## [[1]]
-## [1] 1
-## 
-## [[2]]
-## [1] 2
-## 
-## [[3]]
-## [1] 3
+#> [[1]]
+#> [1] 1
+#> 
+#> [[2]]
+#> [1] 2
+#> 
+#> [[3]]
+#> [1] 3
 ```
 
 </details>
@@ -784,24 +550,16 @@ Lists coerced to dataframe:
 # Create a list
 l <- list(A = c("x", "y", "z"), B = c(1, 2, 3))
 str(l)
-```
+#> List of 2
+#>  $ A: chr [1:3] "x" "y" "z"
+#>  $ B: num [1:3] 1 2 3
 
-```
-## List of 2
-##  $ A: chr [1:3] "x" "y" "z"
-##  $ B: num [1:3] 1 2 3
-```
-
-```r
 # Convert to class `data.frame`
 df <- as.data.frame(l, stringsAsFactors = F)
 str(df)
-```
-
-```
-## 'data.frame':	3 obs. of  2 variables:
-##  $ A: chr  "x" "y" "z"
-##  $ B: num  1 2 3
+#> 'data.frame':	3 obs. of  2 variables:
+#>  $ A: chr  "x" "y" "z"
+#>  $ B: num  1 2 3
 ```
 
 </details>
@@ -825,11 +583,8 @@ For the examples in the next few subsections, we will be working with the follow
     ```r
     v <- c(a = 10, b = 20, c = 30, d = 40)
     v
-    ```
-    
-    ```
-    ##  a  b  c  d 
-    ## 10 20 30 40
+    #>  a  b  c  d 
+    #> 10 20 30 40
     ```
 
 - Create named list called `l` with 4 elements
@@ -838,25 +593,22 @@ For the examples in the next few subsections, we will be working with the follow
     ```r
     l <- list(a = TRUE, b = c("a", "b", "c"), c = list(1, 2), d = 10L)
     l
-    ```
-    
-    ```
-    ## $a
-    ## [1] TRUE
-    ## 
-    ## $b
-    ## [1] "a" "b" "c"
-    ## 
-    ## $c
-    ## $c[[1]]
-    ## [1] 1
-    ## 
-    ## $c[[2]]
-    ## [1] 2
-    ## 
-    ## 
-    ## $d
-    ## [1] 10
+    #> $a
+    #> [1] TRUE
+    #> 
+    #> $b
+    #> [1] "a" "b" "c"
+    #> 
+    #> $c
+    #> $c[[1]]
+    #> [1] 1
+    #> 
+    #> $c[[2]]
+    #> [1] 2
+    #> 
+    #> 
+    #> $d
+    #> [1] 10
     ```
 
 - Create dataframe called `df` with 4 columns and 3 rows
@@ -870,15 +622,12 @@ For the examples in the next few subsections, we will be working with the follow
       d = c(14, 24, 34)
     )
     df
-    ```
-    
-    ```
-    ## # A tibble: 3 x 4
-    ##       a     b     c     d
-    ##   <dbl> <dbl> <dbl> <dbl>
-    ## 1    11    12    13    14
-    ## 2    21    22    23    24
-    ## 3    31    32    33    34
+    #> # A tibble: 3 x 4
+    #>       a     b     c     d
+    #>   <dbl> <dbl> <dbl> <dbl>
+    #> 1    11    12    13    14
+    #> 2    21    22    23    24
+    #> 3    31    32    33    34
     ```
     
 ### Subsetting using `[]`
@@ -908,39 +657,21 @@ Six ways to subset using `[]`:
 ```r
 # Select 1st element from numeric vector (note that names attribute is retained)
 v[1]
-```
+#>  a 
+#> 10
 
-```
-##  a 
-## 10
-```
-
-```r
 # Subsetted object will be of type `numeric`
 class(v[1])
-```
+#> [1] "numeric"
 
-```
-## [1] "numeric"
-```
-
-```r
 # Select 1st element from list (note that names attribute is retained)
 l[1]
-```
+#> $a
+#> [1] TRUE
 
-```
-## $a
-## [1] TRUE
-```
-
-```r
 # Subsetted object will be a `list` containing the element
 class(l[1])
-```
-
-```
-## [1] "list"
+#> [1] "list"
 ```
 
 <br>
@@ -950,45 +681,27 @@ class(l[1])
 ```r
 # Select 3rd and 1st elements from numeric vector
 v[c(3,1)]
-```
+#>  c  a 
+#> 30 10
 
-```
-##  c  a 
-## 30 10
-```
-
-```r
 # Subsetted object will be of type `numeric`
 class(v[c(3,1)])
-```
+#> [1] "numeric"
 
-```
-## [1] "numeric"
-```
-
-```r
 # Select 1st element three times from list
 l[c(1,1,1)]
-```
+#> $a
+#> [1] TRUE
+#> 
+#> $a
+#> [1] TRUE
+#> 
+#> $a
+#> [1] TRUE
 
-```
-## $a
-## [1] TRUE
-## 
-## $a
-## [1] TRUE
-## 
-## $a
-## [1] TRUE
-```
-
-```r
 # Subsetted object will be a `list` containing the elements
 class(l[c(1,1,1)])
-```
-
-```
-## [1] "list"
+#> [1] "list"
 ```
 
 </details>
@@ -1002,20 +715,12 @@ class(l[c(1,1,1)])
 ```r
 # Exclude 1st element from numeric vector (note that names are retained)
 v[-1]
-```
+#>  b  c  d 
+#> 20 30 40
 
-```
-##  b  c  d 
-## 20 30 40
-```
-
-```r
 # Subsetted object will be of type `numeric`
 class(v[-1])
-```
-
-```
-## [1] "numeric"
+#> [1] "numeric"
 ```
 
 <br>
@@ -1025,23 +730,15 @@ class(v[-1])
 ```r
 # Exclude 1st and 3rd elements from list
 l[-c(1,3)]
-```
+#> $b
+#> [1] "a" "b" "c"
+#> 
+#> $d
+#> [1] 10
 
-```
-## $b
-## [1] "a" "b" "c"
-## 
-## $d
-## [1] 10
-```
-
-```r
 # Subsetted object will be a `list` containing the remaining elements
 class(l[-c(1,3)])
-```
-
-```
-## [1] "list"
+#> [1] "list"
 ```
 
 </details>
@@ -1055,20 +752,12 @@ If the logical vector is the same length as the object, then each element in the
 ```r
 # Select 2nd and 3rd elements from numeric vector
 v[c(FALSE, TRUE, TRUE, FALSE)]
-```
+#>  b  c 
+#> 20 30
 
-```
-##  b  c 
-## 20 30
-```
-
-```r
 # Subsetted object will be of type `numeric`
 class(v[c(FALSE, TRUE, TRUE, FALSE)])
-```
-
-```
-## [1] "numeric"
+#> [1] "numeric"
 ```
 
 <br>
@@ -1078,23 +767,15 @@ If the logical vector is shorter than the object, then the elements in the logic
 ```r
 # This is equivalent to `l[c(FALSE, TRUE, FALSE, TRUE)]`, thus retaining 2nd and 4th elements
 l[c(FALSE, TRUE)]
-```
+#> $b
+#> [1] "a" "b" "c"
+#> 
+#> $d
+#> [1] 10
 
-```
-## $b
-## [1] "a" "b" "c"
-## 
-## $d
-## [1] 10
-```
-
-```r
 # Subsetted object will be a `list` containing the elements
 class(l[c(FALSE, TRUE)])
-```
-
-```
-## [1] "list"
+#> [1] "list"
 ```
 
 <br>
@@ -1103,11 +784,8 @@ We can also write expressions that evaluates to either `TRUE` or `FALSE`:
 ```r
 # This expression is recycled and evaluates to be equivalent to `l[c(FALSE, FALSE, TRUE, TRUE)]`
 v[v > 20]
-```
-
-```
-##  c  d 
-## 30 40
+#>  c  d 
+#> 30 40
 ```
 
 </details>
@@ -1121,49 +799,36 @@ An empty vector `[]` just returns the original object:
 ```r
 # Original atomic vector
 v[]
-```
+#>  a  b  c  d 
+#> 10 20 30 40
 
-```
-##  a  b  c  d 
-## 10 20 30 40
-```
-
-```r
 # Original list
 l[]
-```
+#> $a
+#> [1] TRUE
+#> 
+#> $b
+#> [1] "a" "b" "c"
+#> 
+#> $c
+#> $c[[1]]
+#> [1] 1
+#> 
+#> $c[[2]]
+#> [1] 2
+#> 
+#> 
+#> $d
+#> [1] 10
 
-```
-## $a
-## [1] TRUE
-## 
-## $b
-## [1] "a" "b" "c"
-## 
-## $c
-## $c[[1]]
-## [1] 1
-## 
-## $c[[2]]
-## [1] 2
-## 
-## 
-## $d
-## [1] 10
-```
-
-```r
 # Original dataframe
 df[]
-```
-
-```
-## # A tibble: 3 x 4
-##       a     b     c     d
-##   <dbl> <dbl> <dbl> <dbl>
-## 1    11    12    13    14
-## 2    21    22    23    24
-## 3    31    32    33    34
+#> # A tibble: 3 x 4
+#>       a     b     c     d
+#>   <dbl> <dbl> <dbl> <dbl>
+#> 1    11    12    13    14
+#> 2    21    22    23    24
+#> 3    31    32    33    34
 ```
 
 </details>
@@ -1177,28 +842,15 @@ A zero vector `[0]` just returns an empty object of the same type as the origina
 ```r
 # Empty named atomic vector
 v[0]
-```
+#> named numeric(0)
 
-```
-## named numeric(0)
-```
-
-```r
 # Empty named list
 l[0]
-```
+#> named list()
 
-```
-## named list()
-```
-
-```r
 # Empty dataframe
 df[0]
-```
-
-```
-## # A tibble: 3 x 0
+#> # A tibble: 3 x 0
 ```
 
 </details>
@@ -1212,28 +864,20 @@ We can select a single element or multiple elements by their name(s):
 ```r
 # Equivalent to v[2]
 v["b"]
-```
+#>  b 
+#> 20
 
-```
-##  b 
-## 20
-```
-
-```r
 # Equivalent to l[c(1, 3)]
 l[c("a", "c")]
-```
-
-```
-## $a
-## [1] TRUE
-## 
-## $c
-## $c[[1]]
-## [1] 1
-## 
-## $c[[2]]
-## [1] 2
+#> $a
+#> [1] TRUE
+#> 
+#> $c
+#> $c[[1]]
+#> [1] 1
+#> 
+#> $c[[2]]
+#> [1] 2
 ```
 
 </details>
@@ -1267,37 +911,19 @@ Two ways to subset using `[[]]`:
 ```r
 # Select 1st element from numeric vector (note that names attribute is gone)
 v[[1]]
-```
+#> [1] 10
 
-```
-## [1] 10
-```
-
-```r
 # Subsetted element is `numeric`
 class(v[[1]])
-```
+#> [1] "numeric"
 
-```
-## [1] "numeric"
-```
-
-```r
 # Select 1st element from list (note that names attribute is gone)
 l[[1]]
-```
+#> [1] TRUE
 
-```
-## [1] TRUE
-```
-
-```r
 # Subsetted element is `logical`
 class(l[[1]])
-```
-
-```
-## [1] "logical"
+#> [1] "logical"
 ```
 
 </details>
@@ -1309,37 +935,19 @@ class(l[[1]])
 ```r
 # Equivalent to v[[2]]
 v[["b"]]
-```
+#> [1] 20
 
-```
-## [1] 20
-```
-
-```r
 # Subsetted element is `numeric`
 class(v[["b"]])
-```
+#> [1] "numeric"
 
-```
-## [1] "numeric"
-```
-
-```r
 # Equivalent to l[[2]]
 l[["b"]]
-```
+#> [1] "a" "b" "c"
 
-```
-## [1] "a" "b" "c"
-```
-
-```r
 # Subsetted element is `character` vector
 class(l[["b"]])
-```
-
-```
-## [1] "character"
+#> [1] "character"
 ```
 
 </details>
@@ -1361,19 +969,11 @@ Subsetting a list with `$`:
 ```r
 # Equivalent to l[["b"]]
 l$b
-```
+#> [1] "a" "b" "c"
 
-```
-## [1] "a" "b" "c"
-```
-
-```r
 # Subsetted element is `character` vector
 class(l$b)
-```
-
-```
-## [1] "character"
+#> [1] "character"
 ```
 
 <br>
@@ -1383,10 +983,7 @@ Since dataframes is just a special kind of named list, it would work the same wa
 ```r
 # Equivalent to df[["d"]]
 df$d
-```
-
-```
-## [1] 14 24 34
+#> [1] 14 24 34
 ```
 
 </details>
@@ -1413,47 +1010,29 @@ We can subset dataframe column(s) the same way we have subsetted atomic vector o
 ```r
 # Select 1st column from dataframe (note that names attribute is retained)
 df[1]
-```
+#> # A tibble: 3 x 1
+#>       a
+#>   <dbl>
+#> 1    11
+#> 2    21
+#> 3    31
 
-```
-## # A tibble: 3 x 1
-##       a
-##   <dbl>
-## 1    11
-## 2    21
-## 3    31
-```
-
-```r
 # Subsetted object will be a `data.frame` containing the column
 class(df[1])
-```
+#> [1] "data.frame"
 
-```
-## [1] "data.frame"
-```
-
-```r
 # Exclude 1st and 3rd columns from dataframe (note that names attribute is retained)
 df[-c(1,3)]
-```
+#> # A tibble: 3 x 2
+#>       b     d
+#>   <dbl> <dbl>
+#> 1    12    14
+#> 2    22    24
+#> 3    32    34
 
-```
-## # A tibble: 3 x 2
-##       b     d
-##   <dbl> <dbl>
-## 1    12    14
-## 2    22    24
-## 3    32    34
-```
-
-```r
 # Subsetted object will be a `data.frame` containing the remaining columns
 class(df[-c(1,3)])
-```
-
-```
-## [1] "data.frame"
+#> [1] "data.frame"
 ```
 
 </details>
@@ -1467,37 +1046,19 @@ We can select a single dataframe column the same way we have subsetted a single 
 ```r
 # Select 1st column from dataframe by its index (note that names attribute is gone)
 df[[1]]
-```
+#> [1] 11 21 31
 
-```
-## [1] 11 21 31
-```
-
-```r
 # Subsetted column is `numeric` vector
 class(df[[1]])
-```
+#> [1] "numeric"
 
-```
-## [1] "numeric"
-```
-
-```r
 # Equivalently, we could've selected 1st column by its name
 df[["a"]]
-```
+#> [1] 11 21 31
 
-```
-## [1] 11 21 31
-```
-
-```r
 # Equivalently, we could've selected 1st column using `$`
 df$a
-```
-
-```
-## [1] 11 21 31
+#> [1] 11 21 31
 ```
 
 </details>
@@ -1511,28 +1072,15 @@ If we select a single cell by specifying its row and column, we will get back th
 ```r
 # Selects cell in 1st row and 2nd col
 df[1, 2]
-```
+#> [1] 12
 
-```
-## [1] 12
-```
-
-```r
 # Subsetted cell is of type `numeric`
 class(df[1, 2])
-```
+#> [1] "numeric"
 
-```
-## [1] "numeric"
-```
-
-```r
 # Equivalently, we could select using column name instead of index
 df[1, "b"]
-```
-
-```
-## [1] 12
+#> [1] 12
 ```
 
 <br>
@@ -1542,37 +1090,19 @@ Similarly, if we select cells from the same column, we will get back the element
 ```r
 # Selects cells from the 2nd col
 df[c(1,3), 2]
-```
+#> [1] 12 32
 
-```
-## [1] 12 32
-```
-
-```r
 # Subsetted cells is of type `numeric`
 class(df[c(1,3), 2])
-```
+#> [1] "numeric"
 
-```
-## [1] "numeric"
-```
-
-```r
 # Selects all cells from the 2nd col
 df[, 2]
-```
+#> [1] 12 22 32
 
-```
-## [1] 12 22 32
-```
-
-```r
 # Subsetted column is of type `numeric`
 class(df[, 2])
-```
-
-```
-## [1] "numeric"
+#> [1] "numeric"
 ```
 
 <br>
@@ -1582,65 +1112,37 @@ However, if we select cells from the same row, or cells across multiple rows and
 ```r
 # Selects cells from the 2nd row
 df[2, c("a", "c")]
-```
+#> # A tibble: 1 x 2
+#>       a     c
+#>   <dbl> <dbl>
+#> 1    21    23
 
-```
-## # A tibble: 1 x 2
-##       a     c
-##   <dbl> <dbl>
-## 1    21    23
-```
-
-```r
 # Subsetted cells are returned as a dataframe
 class(df[2, c("a", "c")])
-```
+#> [1] "data.frame"
 
-```
-## [1] "data.frame"
-```
-
-```r
 # Selects all cells from the 2nd row
 df[2, ]
-```
+#> # A tibble: 1 x 4
+#>       a     b     c     d
+#>   <dbl> <dbl> <dbl> <dbl>
+#> 1    21    22    23    24
 
-```
-## # A tibble: 1 x 4
-##       a     b     c     d
-##   <dbl> <dbl> <dbl> <dbl>
-## 1    21    22    23    24
-```
-
-```r
 # Subsetted row is returned as a dataframe
 class(df[2, ])
-```
+#> [1] "data.frame"
 
-```
-## [1] "data.frame"
-```
-
-```r
 # Selects cells from multiple rows and columns
 df[1:2, c("a", "c")]
-```
+#> # A tibble: 2 x 2
+#>       a     c
+#>   <dbl> <dbl>
+#> 1    11    13
+#> 2    21    23
 
-```
-## # A tibble: 2 x 2
-##       a     c
-##   <dbl> <dbl>
-## 1    11    13
-## 2    21    23
-```
-
-```r
 # Subsetted cells are returned as a dataframe
 class(df[1:2, c("a", "c")])
-```
-
-```
-## [1] "data.frame"
+#> [1] "data.frame"
 ```
 
 </details>
@@ -1654,28 +1156,15 @@ With `[[]]`, we are only allowed to select a single cell:
 ```r
 # Selects cell in 1st row and 2nd col
 df[[1, 2]]
-```
+#> [1] 12
 
-```
-## [1] 12
-```
-
-```r
 # Subsetted cell is of type `numeric`
 class(df[[1, 2]])
-```
+#> [1] "numeric"
 
-```
-## [1] "numeric"
-```
-
-```r
 # This is equivalent to using `[]`
 df[1, 2]
-```
-
-```
-## [1] 12
+#> [1] 12
 ```
 
 </details>
@@ -1736,31 +1225,23 @@ Recall our dataframe `df` from the previous examples, which has multiple attribu
 
 ```r
 df
-```
+#> # A tibble: 3 x 4
+#>       a     b     c     d
+#>   <dbl> <dbl> <dbl> <dbl>
+#> 1    11    12    13    14
+#> 2    21    22    23    24
+#> 3    31    32    33    34
 
-```
-## # A tibble: 3 x 4
-##       a     b     c     d
-##   <dbl> <dbl> <dbl> <dbl>
-## 1    11    12    13    14
-## 2    21    22    23    24
-## 3    31    32    33    34
-```
-
-```r
 # View attributes of dataframe
 attributes(df)
-```
-
-```
-## $names
-## [1] "a" "b" "c" "d"
-## 
-## $class
-## [1] "data.frame"
-## 
-## $row.names
-## [1] 1 2 3
+#> $names
+#> [1] "a" "b" "c" "d"
+#> 
+#> $class
+#> [1] "data.frame"
+#> 
+#> $row.names
+#> [1] 1 2 3
 ```
 
 <br>
@@ -1770,31 +1251,23 @@ When we subset by `[]`, attributes are retained:
 ```r
 # Subset 1st column using `[]`
 df[1]
-```
+#> # A tibble: 3 x 1
+#>       a
+#>   <dbl>
+#> 1    11
+#> 2    21
+#> 3    31
 
-```
-## # A tibble: 3 x 1
-##       a
-##   <dbl>
-## 1    11
-## 2    21
-## 3    31
-```
-
-```r
 # Attributes are retained when we subset by `[]`
 attributes(df[1])
-```
-
-```
-## $names
-## [1] "a"
-## 
-## $row.names
-## [1] 1 2 3
-## 
-## $class
-## [1] "data.frame"
+#> $names
+#> [1] "a"
+#> 
+#> $row.names
+#> [1] 1 2 3
+#> 
+#> $class
+#> [1] "data.frame"
 ```
 
 <br>
@@ -1804,19 +1277,11 @@ When we subset by `[[]]`, attributes are removed and we are left with "just the 
 ```r
 # Subset 1st column using `[[]]`
 df[[1]]
-```
+#> [1] 11 21 31
 
-```
-## [1] 11 21 31
-```
-
-```r
 # Attributes are gone when we subset by `[[]]`
 attributes(df[[1]])
-```
-
-```
-## NULL
+#> NULL
 ```
 
 </details>
@@ -1829,21 +1294,13 @@ Recall our named atomic vector `v` from the previous examples, which has the _na
 
 ```r
 v
-```
+#>  a  b  c  d 
+#> 10 20 30 40
 
-```
-##  a  b  c  d 
-## 10 20 30 40
-```
-
-```r
 # View attributes of atomic vector
 attributes(v)
-```
-
-```
-## $names
-## [1] "a" "b" "c" "d"
+#> $names
+#> [1] "a" "b" "c" "d"
 ```
 
 <br>
@@ -1856,19 +1313,11 @@ attributes(v) <- NULL
 
 # The atomic vector is no longer named
 v
-```
+#> [1] 10 20 30 40
 
-```
-## [1] 10 20 30 40
-```
-
-```r
 # Confirm that the names attribute is no longer there
 attributes(v)
-```
-
-```
-## NULL
+#> NULL
 ```
 
 </details>
@@ -1901,31 +1350,23 @@ Recall our dataframe `df` from the previous examples, which has multiple attribu
 
 ```r
 df
-```
+#> # A tibble: 3 x 4
+#>       a     b     c     d
+#>   <dbl> <dbl> <dbl> <dbl>
+#> 1    11    12    13    14
+#> 2    21    22    23    24
+#> 3    31    32    33    34
 
-```
-## # A tibble: 3 x 4
-##       a     b     c     d
-##   <dbl> <dbl> <dbl> <dbl>
-## 1    11    12    13    14
-## 2    21    22    23    24
-## 3    31    32    33    34
-```
-
-```r
 # View attributes of dataframe
 attributes(df)
-```
-
-```
-## $names
-## [1] "a" "b" "c" "d"
-## 
-## $class
-## [1] "data.frame"
-## 
-## $row.names
-## [1] 1 2 3
+#> $names
+#> [1] "a" "b" "c" "d"
+#> 
+#> $class
+#> [1] "data.frame"
+#> 
+#> $row.names
+#> [1] 1 2 3
 ```
 
 <br>
@@ -1935,37 +1376,19 @@ We can use `attr()` to fetch individual attributes:
 ```r
 # Get the names attribute
 attr(df, "names")
-```
+#> [1] "a" "b" "c" "d"
 
-```
-## [1] "a" "b" "c" "d"
-```
-
-```r
 # Note that we don't have to provide the full name of attribute for it to be recognized
 attr(df, "nam")
-```
+#> [1] "a" "b" "c" "d"
 
-```
-## [1] "a" "b" "c" "d"
-```
-
-```r
 # If we specify `exact = TRUE`, then we do have to provide exact attribute name
 attr(df, "names", exact = TRUE)
-```
+#> [1] "a" "b" "c" "d"
 
-```
-## [1] "a" "b" "c" "d"
-```
-
-```r
 # This no longer works
 attr(df, "nam", exact = TRUE)
-```
-
-```
-## NULL
+#> NULL
 ```
 
 </details>
@@ -1978,19 +1401,11 @@ Recall the atomic vector `v` that we've removed all attributes from in the previ
 
 ```r
 v
-```
+#> [1] 10 20 30 40
 
-```
-## [1] 10 20 30 40
-```
-
-```r
 # View attributes of atomic vector
 attributes(v)
-```
-
-```
-## NULL
+#> NULL
 ```
 
 <br>
@@ -2003,11 +1418,8 @@ attr(v, "names") <- c("a", "b", "c", "d")
 
 # View attributes
 attributes(v)
-```
-
-```
-## $names
-## [1] "a" "b" "c" "d"
+#> $names
+#> [1] "a" "b" "c" "d"
 ```
 
 <br>
@@ -2020,23 +1432,15 @@ attr(x = v, which = "greeting") <- "Hi!"
 
 # View `greeting` attribute
 attr(x = v, which = "greeting")
-```
+#> [1] "Hi!"
 
-```
-## [1] "Hi!"
-```
-
-```r
 # View all attributes
 attributes(v)
-```
-
-```
-## $names
-## [1] "a" "b" "c" "d"
-## 
-## $greeting
-## [1] "Hi!"
+#> $names
+#> [1] "a" "b" "c" "d"
+#> 
+#> $greeting
+#> [1] "Hi!"
 ```
 
 <br>
@@ -2049,20 +1453,12 @@ attr(x = v, which = "greeting") <- NULL
 
 # Try viewing `greeting` attribute
 attr(x = v, which = "greeting")
-```
+#> NULL
 
-```
-## NULL
-```
-
-```r
 # View all attributes
 attributes(v)
-```
-
-```
-## $names
-## [1] "a" "b" "c" "d"
+#> $names
+#> [1] "a" "b" "c" "d"
 ```
 
 </details>
@@ -2075,31 +1471,23 @@ Unlike atomic vectors, we can also set attributes of individual elements of list
 
 ```r
 df
-```
+#> # A tibble: 3 x 4
+#>       a     b     c     d
+#>   <dbl> <dbl> <dbl> <dbl>
+#> 1    11    12    13    14
+#> 2    21    22    23    24
+#> 3    31    32    33    34
 
-```
-## # A tibble: 3 x 4
-##       a     b     c     d
-##   <dbl> <dbl> <dbl> <dbl>
-## 1    11    12    13    14
-## 2    21    22    23    24
-## 3    31    32    33    34
-```
-
-```r
 # View attributes of dataframe
 attributes(df)
-```
-
-```
-## $names
-## [1] "a" "b" "c" "d"
-## 
-## $class
-## [1] "data.frame"
-## 
-## $row.names
-## [1] 1 2 3
+#> $names
+#> [1] "a" "b" "c" "d"
+#> 
+#> $class
+#> [1] "data.frame"
+#> 
+#> $row.names
+#> [1] 1 2 3
 ```
 
 <br>
@@ -2109,23 +1497,15 @@ We can also add attributes to an individual column (i.e., variable) of the dataf
 ```r
 # Equivalent to df[["a"]] - Remember this usually starts off as "just the data" with no attributes
 attributes(df$a)
-```
+#> NULL
 
-```
-## NULL
-```
-
-```r
 # Add an attribute
 attr(df$a, "description") <- "A is for Apple"
 
 # View attributes
 attributes(df$a)
-```
-
-```
-## $description
-## [1] "A is for Apple"
+#> $description
+#> [1] "A is for Apple"
 ```
 
 <br>
@@ -2138,19 +1518,11 @@ attr(df$a, "description") <- NULL
 
 # Try viewing `description` attribute
 attr(df$a, "description")
-```
+#> NULL
 
-```
-## NULL
-```
-
-```r
 # View attributes
 attributes(df$a)
-```
-
-```
-## NULL
+#> NULL
 ```
 
 </details>
@@ -2174,19 +1546,11 @@ What are **sequences**?
 ```r
 # Sequence from -5 to 5
 -5:5
-```
+#>  [1] -5 -4 -3 -2 -1  0  1  2  3  4  5
 
-```
-##  [1] -5 -4 -3 -2 -1  0  1  2  3  4  5
-```
-
-```r
 # Sequence from 5 to -5
 5:-5
-```
-
-```
-##  [1]  5  4  3  2  1  0 -1 -2 -3 -4 -5
+#>  [1]  5  4  3  2  1  0 -1 -2 -3 -4 -5
 ```
 
 <br>
@@ -2213,28 +1577,15 @@ seq(from = 1, to = 1, by = ((to - from)/(length.out - 1)),
 ```r
 # Sequence from 10 to 15, by increment of 1 (default)
 seq(10,15)
-```
+#> [1] 10 11 12 13 14 15
 
-```
-## [1] 10 11 12 13 14 15
-```
-
-```r
 # Explicitly specify increment of 1 (equivalent to above)
 seq(from=10, to=15, by=1)
-```
+#> [1] 10 11 12 13 14 15
 
-```
-## [1] 10 11 12 13 14 15
-```
-
-```r
 # Sequence from 100 to 150, by increment of 10
 seq(from=100, to=150, by=10)
-```
-
-```
-## [1] 100 110 120 130 140 150
+#> [1] 100 110 120 130 140 150
 ```
 
 ### Length
@@ -2260,20 +1611,12 @@ length(x)
 ```r
 # View the atomic vector
 v
-```
+#>  a  b  c  d 
+#> 10 20 30 40
 
-```
-##  a  b  c  d 
-## 10 20 30 40
-```
-
-```r
 # Use `length()` to find number of elements
 length(v)
-```
-
-```
-## [1] 4
+#> [1] 4
 ```
 
 <br>
@@ -2285,24 +1628,16 @@ Remember that dataframes are just lists where each element is a column, so the n
 ```r
 # View the dataframe
 df
-```
+#> # A tibble: 3 x 4
+#>       a     b     c     d
+#>   <dbl> <dbl> <dbl> <dbl>
+#> 1    11    12    13    14
+#> 2    21    22    23    24
+#> 3    31    32    33    34
 
-```
-## # A tibble: 3 x 4
-##       a     b     c     d
-##   <dbl> <dbl> <dbl> <dbl>
-## 1    11    12    13    14
-## 2    21    22    23    24
-## 3    31    32    33    34
-```
-
-```r
 # Use `length()` to find number of elements (i.e., columns)
 length(df)
-```
-
-```
-## [1] 4
+#> [1] 4
 ```
 
 <br>
@@ -2312,47 +1647,29 @@ When we subset a dataframe using `[]` (i.e., _select column(s) from the datafram
 ```r
 # Subset one column
 df[1]
-```
+#> # A tibble: 3 x 1
+#>       a
+#>   <dbl>
+#> 1    11
+#> 2    21
+#> 3    31
 
-```
-## # A tibble: 3 x 1
-##       a
-##   <dbl>
-## 1    11
-## 2    21
-## 3    31
-```
-
-```r
 # Length is one
 length(df[1])
-```
+#> [1] 1
 
-```
-## [1] 1
-```
-
-```r
 # Subset three columns
 df[1:3]
-```
+#> # A tibble: 3 x 3
+#>       a     b     c
+#>   <dbl> <dbl> <dbl>
+#> 1    11    12    13
+#> 2    21    22    23
+#> 3    31    32    33
 
-```
-## # A tibble: 3 x 3
-##       a     b     c
-##   <dbl> <dbl> <dbl>
-## 1    11    12    13
-## 2    21    22    23
-## 3    31    32    33
-```
-
-```r
 # Length is three
 length(df[1:3])
-```
-
-```
-## [1] 3
+#> [1] 3
 ```
 
 <br>
@@ -2362,19 +1679,11 @@ When we subset a dataframe using `[[]]` (i.e., _isolate a specific column in the
 ```r
 # Isolate a specific column
 df[[2]]
-```
+#> [1] 12 22 32
 
-```
-## [1] 12 22 32
-```
-
-```r
 # Length is number of elements in that column (i.e., number of rows in dataframe)
 length(df[[2]])
-```
-
-```
-## [1] 3
+#> [1] 3
 ```
 
 
@@ -2389,29 +1698,16 @@ When writing loops, it is very common to create a sequence from 1 to the length 
 ```r
 # There are 4 elements in the atomic vector
 v
-```
+#>  a  b  c  d 
+#> 10 20 30 40
 
-```
-##  a  b  c  d 
-## 10 20 30 40
-```
-
-```r
 # Use `:` to generate a sequence from 1 to 4
 1:length(v)
-```
+#> [1] 1 2 3 4
 
-```
-## [1] 1 2 3 4
-```
-
-```r
 # Use `seq()` to generate a sequence from 1 to 4
 seq(1, length(v))
-```
-
-```
-## [1] 1 2 3 4
+#> [1] 1 2 3 4
 ```
 
 <br>
@@ -2439,24 +1735,16 @@ seq_along(x)
 ```r
 # There are 4 elements (i.e., columns) in the dataframe
 df
-```
+#> # A tibble: 3 x 4
+#>       a     b     c     d
+#>   <dbl> <dbl> <dbl> <dbl>
+#> 1    11    12    13    14
+#> 2    21    22    23    24
+#> 3    31    32    33    34
 
-```
-## # A tibble: 3 x 4
-##       a     b     c     d
-##   <dbl> <dbl> <dbl> <dbl>
-## 1    11    12    13    14
-## 2    21    22    23    24
-## 3    31    32    33    34
-```
-
-```r
 # Use `seq_along()` to generate a sequence from 1 to 4
 seq_along(df)
-```
-
-```
-## [1] 1 2 3 4
+#> [1] 1 2 3 4
 ```
 
 ### Directories and paths [SKIP]
@@ -2470,10 +1758,7 @@ When you run R code in an `.Rmd` file, the working directory is the directory th
 
 ```r
 getwd()
-```
-
-```
-## [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
+#> [1] "C:/Users/ozanj/Documents/rclass2/lectures/programming"
 ```
 
 <br>
@@ -2546,27 +1831,19 @@ dir.create(path, showWarnings = TRUE, recursive = FALSE, mode = "0777")
 ```r
 # Check current working directory
 getwd()
-```
+#> [1] "C:/Users/ozanj/Documents/rclass2/lectures/programming"
 
-```
-## [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
-```
-
-```r
 # Create new directory called `my_folder`
 dir.create(path = "my_folder")
 
 # Check that `my_folder` has been created
 list.files()
-```
-
-```
-##  [1] "data"                     "function_basics.html"    
-##  [3] "function_basics.md"       "function_basics.Rmd"     
-##  [5] "ipeds_file_list_og.txt"   "ipeds_file_list.txt"     
-##  [7] "loop_example_ipeds.R"     "my_folder"               
-##  [9] "programming_lecture.html" "programming_lecture.md"  
-## [11] "programming_lecture.Rmd"  "programming.Rproj"
+#>  [1] "data"                     "function_basics.html"    
+#>  [3] "function_basics.md"       "function_basics.Rmd"     
+#>  [5] "ipeds_file_list.txt"      "ipeds_file_list_og.txt"  
+#>  [7] "loop_example_ipeds.R"     "my_folder"               
+#>  [9] "programming.Rproj"        "programming_lecture.html"
+#> [11] "programming_lecture.md"   "programming_lecture.Rmd"
 ```
 
 <br>
@@ -2597,15 +1874,12 @@ unlink(x = "my_folder", recursive = TRUE)
 
 # Check that `my_folder` has been deleted
 list.files()
-```
-
-```
-##  [1] "data"                     "function_basics.html"    
-##  [3] "function_basics.md"       "function_basics.Rmd"     
-##  [5] "ipeds_file_list_og.txt"   "ipeds_file_list.txt"     
-##  [7] "loop_example_ipeds.R"     "programming_lecture.html"
-##  [9] "programming_lecture.md"   "programming_lecture.Rmd" 
-## [11] "programming.Rproj"
+#>  [1] "data"                     "function_basics.html"    
+#>  [3] "function_basics.md"       "function_basics.Rmd"     
+#>  [5] "ipeds_file_list.txt"      "ipeds_file_list_og.txt"  
+#>  [7] "loop_example_ipeds.R"     "programming.Rproj"       
+#>  [9] "programming_lecture.html" "programming_lecture.md"  
+#> [11] "programming_lecture.Rmd"
 ```
 
 <br>
@@ -2655,23 +1929,15 @@ __Example__: Printing each element of the vector `c(1,2,3,4)` using a loop
 
 ```r
 c(1,2,3,4)  # There are 4 elements in the vector
-```
+#> [1] 1 2 3 4
 
-```
-## [1] 1 2 3 4
-```
-
-```r
 for(i in c(1,2,3,4)) {  # Iterate over each element of the vector
   print(i)  # Print out each element
 }
-```
-
-```
-## [1] 1
-## [1] 2
-## [1] 3
-## [1] 4
+#> [1] 1
+#> [1] 2
+#> [1] 3
+#> [1] 4
 ```
 
 <br>
@@ -2729,12 +1995,9 @@ You may see the loop sequence being written in slightly different ways. For exam
     for(z in c(1,2,3)) {  # Loop sequence
       print(z)  # Loop body
     }
-    ```
-    
-    ```
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
+    #> [1] 1
+    #> [1] 2
+    #> [1] 3
     ```
 
 - Looping over the sequence `1:3` 
@@ -2744,12 +2007,9 @@ You may see the loop sequence being written in slightly different ways. For exam
     for(z in 1:3) {  # Loop sequence
       print(z)  # Loop body
     }
-    ```
-    
-    ```
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
+    #> [1] 1
+    #> [1] 2
+    #> [1] 3
     ```
 
 - Looping over the object `num_sequence`
@@ -2760,12 +2020,9 @@ You may see the loop sequence being written in slightly different ways. For exam
     for(z in num_sequence) {  # Loop sequence
       print(z)  # Loop body
     }
-    ```
-    
-    ```
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
+    #> [1] 1
+    #> [1] 2
+    #> [1] 3
     ```
 
 ### Printing values in loop body
@@ -2781,12 +2038,9 @@ For example, the two loops below are essentially the same, but the second approa
     for(z in c(1,2,3)) {
       print(z)
     }
-    ```
-    
-    ```
-    ## [1] 1
-    ## [1] 2
-    ## [1] 3
+    #> [1] 1
+    #> [1] 2
+    #> [1] 3
     ```
 
 - Using `str_c()` and `writeLines()` to concatenate and print multiple items:
@@ -2796,12 +2050,9 @@ For example, the two loops below are essentially the same, but the second approa
     for(z in c(1,2,3)) {
       writeLines(str_c("object z=", z))
     }
-    ```
-    
-    ```
-    ## object z=1
-    ## object z=2
-    ## object z=3
+    #> object z=1
+    #> object z=2
+    #> object z=3
     ```
 
 ### Student exercise
@@ -2819,29 +2070,21 @@ For example, the two loops below are essentially the same, but the second approa
 ```r
 birth_years <- c(1944,1950,1981,2016)
 birth_years
-```
+#> [1] 1944 1950 1981 2016
 
-```
-## [1] 1944 1950 1981 2016
-```
-
-```r
 for(y in birth_years) {  # Loop sequence
   writeLines(str_c("object y=", y))  # Loop body
   z <- 2020 - y
   writeLines(str_c("value of ", y, " minus ", 2018, " is ", z))
 }
-```
-
-```
-## object y=1944
-## value of 1944 minus 2018 is 76
-## object y=1950
-## value of 1950 minus 2018 is 70
-## object y=1981
-## value of 1981 minus 2018 is 39
-## object y=2016
-## value of 2016 minus 2018 is 4
+#> object y=1944
+#> value of 1944 minus 2018 is 76
+#> object y=1950
+#> value of 1950 minus 2018 is 70
+#> object y=1981
+#> value of 1981 minus 2018 is 39
+#> object y=2016
+#> value of 2016 minus 2018 is 4
 ```
 </details>
 
@@ -2863,11 +2106,8 @@ For the examples in the next few subsections, we will be working with the follow
     ```r
     vec <- c(a = 5, b = -10, c = 30)
     vec
-    ```
-    
-    ```
-    ##   a   b   c 
-    ##   5 -10  30
+    #>   a   b   c 
+    #>   5 -10  30
     ```
 
 - Create dataframe called `df` with randomly generated data, 3 columns (vars) and 4 rows (obs)
@@ -2877,13 +2117,10 @@ For the examples in the next few subsections, we will be working with the follow
     set.seed(12345) # so we all get the same variable values
     df <- tibble(a = rnorm(4), b = rnorm(4), c = rnorm(4))
     str(df)
-    ```
-    
-    ```
-    ## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
-    ##  $ a: num  0.586 0.709 -0.109 -0.453
-    ##  $ b: num  0.606 -1.818 0.63 -0.276
-    ##  $ c: num  -0.284 -0.919 -0.116 1.817
+    #> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
+    #>  $ a: num  0.586 0.709 -0.109 -0.453
+    #>  $ b: num  0.606 -1.818 0.63 -0.276
+    #>  $ c: num  -0.284 -0.919 -0.116 1.817
     ```
 
 ### Looping over elements
@@ -2899,30 +2136,22 @@ For the examples in the next few subsections, we will be working with the follow
 
 ```r
 vec  # View named atomic vector object
-```
+#>   a   b   c 
+#>   5 -10  30
 
-```
-##   a   b   c 
-##   5 -10  30
-```
-
-```r
 for (i in vec) {
   writeLines(str_c("value of object i=",i))
   writeLines(str_c("object i has: type=", typeof(i), "; length=", length(i), "; class=", class(i),
       "\n"))  # "\n" adds line break
 }
-```
-
-```
-## value of object i=5
-## object i has: type=double; length=1; class=numeric
-## 
-## value of object i=-10
-## object i has: type=double; length=1; class=numeric
-## 
-## value of object i=30
-## object i has: type=double; length=1; class=numeric
+#> value of object i=5
+#> object i has: type=double; length=1; class=numeric
+#> 
+#> value of object i=-10
+#> object i has: type=double; length=1; class=numeric
+#> 
+#> value of object i=30
+#> object i has: type=double; length=1; class=numeric
 ```
 
 <br>
@@ -2931,44 +2160,36 @@ for (i in vec) {
 
 ```r
 df  # View dataframe object
-```
+#> # A tibble: 4 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1  0.586  0.606 -0.284
+#> 2  0.709 -1.82  -0.919
+#> 3 -0.109  0.630 -0.116
+#> 4 -0.453 -0.276  1.82
 
-```
-## # A tibble: 4 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1  0.586  0.606 -0.284
-## 2  0.709 -1.82  -0.919
-## 3 -0.109  0.630 -0.116
-## 4 -0.453 -0.276  1.82
-```
-
-```r
 for (i in df) {
   writeLines(str_c("value of object i=",i))
   writeLines(str_c("object i has: type=", typeof(i), "; length=", length(i), "; class=", class(i),
       "\n"))  # "\n" adds line break
 }
-```
-
-```
-## value of object i=0.585528817843856
-## value of object i=0.709466017509524
-## value of object i=-0.109303314681054
-## value of object i=-0.453497173462763
-## object i has: type=double; length=4; class=numeric
-## 
-## value of object i=0.605887455840394
-## value of object i=-1.81795596770373
-## value of object i=0.630098551068391
-## value of object i=-0.276184105225216
-## object i has: type=double; length=4; class=numeric
-## 
-## value of object i=-0.284159743943371
-## value of object i=-0.919322002474128
-## value of object i=-0.116247806352002
-## value of object i=1.81731204370422
-## object i has: type=double; length=4; class=numeric
+#> value of object i=0.585528817843856
+#> value of object i=0.709466017509524
+#> value of object i=-0.109303314681054
+#> value of object i=-0.453497173462763
+#> object i has: type=double; length=4; class=numeric
+#> 
+#> value of object i=0.605887455840394
+#> value of object i=-1.81795596770373
+#> value of object i=0.630098551068391
+#> value of object i=-0.276184105225216
+#> object i has: type=double; length=4; class=numeric
+#> 
+#> value of object i=-0.284159743943371
+#> value of object i=-0.919322002474128
+#> value of object i=-0.116247806352002
+#> value of object i=1.81731204370422
+#> object i has: type=double; length=4; class=numeric
 ```
 
 <br>
@@ -2979,43 +2200,35 @@ The dataframe `df` is a list object, where each element is a vector (i.e., colum
 
 ```r
 df  # View dataframe object
-```
+#> # A tibble: 4 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1  0.586  0.606 -0.284
+#> 2  0.709 -1.82  -0.919
+#> 3 -0.109  0.630 -0.116
+#> 4 -0.453 -0.276  1.82
 
-```
-## # A tibble: 4 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1  0.586  0.606 -0.284
-## 2  0.709 -1.82  -0.919
-## 3 -0.109  0.630 -0.116
-## 4 -0.453 -0.276  1.82
-```
-
-```r
 for (i in df) {
   writeLines(str_c("value of object i=", i))
   writeLines(str_c("mean value of object i=", mean(i, na.rm = TRUE), "\n"))
 }
-```
-
-```
-## value of object i=0.585528817843856
-## value of object i=0.709466017509524
-## value of object i=-0.109303314681054
-## value of object i=-0.453497173462763
-## mean value of object i=0.183048586802391
-## 
-## value of object i=0.605887455840394
-## value of object i=-1.81795596770373
-## value of object i=0.630098551068391
-## value of object i=-0.276184105225216
-## mean value of object i=-0.21453851650504
-## 
-## value of object i=-0.284159743943371
-## value of object i=-0.919322002474128
-## value of object i=-0.116247806352002
-## value of object i=1.81731204370422
-## mean value of object i=0.124395622733679
+#> value of object i=0.585528817843856
+#> value of object i=0.709466017509524
+#> value of object i=-0.109303314681054
+#> value of object i=-0.453497173462763
+#> mean value of object i=0.183048586802391
+#> 
+#> value of object i=0.605887455840394
+#> value of object i=-1.81795596770373
+#> value of object i=0.630098551068391
+#> value of object i=-0.276184105225216
+#> mean value of object i=-0.21453851650504
+#> 
+#> value of object i=-0.284159743943371
+#> value of object i=-0.919322002474128
+#> value of object i=-0.116247806352002
+#> value of object i=1.81731204370422
+#> mean value of object i=0.124395622733679
 ```
 </details>
 
@@ -3040,45 +2253,31 @@ for (i in df) {
 
 ```r
 vec  # View named atomic vector object
-```
-
-```
-##   a   b   c 
-##   5 -10  30
-```
-
-```r
+#>   a   b   c 
+#>   5 -10  30
 names(vec)  # View names of atomic vector object
-```
+#> [1] "a" "b" "c"
 
-```
-## [1] "a" "b" "c"
-```
-
-```r
 for (i in names(vec)) {
   writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(vec[i])  # Access element contents using []
   str(vec[[i]])  # Access element contents using [[]]
 }
-```
-
-```
-## 
-## value of object i=a; type=character
-##  Named num 5
-##  - attr(*, "names")= chr "a"
-##  num 5
-## 
-## value of object i=b; type=character
-##  Named num -10
-##  - attr(*, "names")= chr "b"
-##  num -10
-## 
-## value of object i=c; type=character
-##  Named num 30
-##  - attr(*, "names")= chr "c"
-##  num 30
+#> 
+#> value of object i=a; type=character
+#>  Named num 5
+#>  - attr(*, "names")= chr "a"
+#>  num 5
+#> 
+#> value of object i=b; type=character
+#>  Named num -10
+#>  - attr(*, "names")= chr "b"
+#>  num -10
+#> 
+#> value of object i=c; type=character
+#>  Named num 30
+#>  - attr(*, "names")= chr "c"
+#>  num 30
 ```
 
 <br>
@@ -3087,50 +2286,36 @@ for (i in names(vec)) {
 
 ```r
 df  # View dataframe object
-```
-
-```
-## # A tibble: 4 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1  0.586  0.606 -0.284
-## 2  0.709 -1.82  -0.919
-## 3 -0.109  0.630 -0.116
-## 4 -0.453 -0.276  1.82
-```
-
-```r
+#> # A tibble: 4 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1  0.586  0.606 -0.284
+#> 2  0.709 -1.82  -0.919
+#> 3 -0.109  0.630 -0.116
+#> 4 -0.453 -0.276  1.82
 names(df)  # View names of dataframe object (i.e., column names)
-```
+#> [1] "a" "b" "c"
 
-```
-## [1] "a" "b" "c"
-```
-
-```r
 for (i in names(df)) {
   writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(df[i])  # Access element contents using []
   str(df[[i]])  # Access element contents using [[]]
 }
-```
-
-```
-## 
-## value of object i=a; type=character
-## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-##  $ a: num  0.586 0.709 -0.109 -0.453
-##  num [1:4] 0.586 0.709 -0.109 -0.453
-## 
-## value of object i=b; type=character
-## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-##  $ b: num  0.606 -1.818 0.63 -0.276
-##  num [1:4] 0.606 -1.818 0.63 -0.276
-## 
-## value of object i=c; type=character
-## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-##  $ c: num  -0.284 -0.919 -0.116 1.817
-##  num [1:4] -0.284 -0.919 -0.116 1.817
+#> 
+#> value of object i=a; type=character
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+#>  $ a: num  0.586 0.709 -0.109 -0.453
+#>  num [1:4] 0.586 0.709 -0.109 -0.453
+#> 
+#> value of object i=b; type=character
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+#>  $ b: num  0.606 -1.818 0.63 -0.276
+#>  num [1:4] 0.606 -1.818 0.63 -0.276
+#> 
+#> value of object i=c; type=character
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+#>  $ c: num  -0.284 -0.919 -0.116 1.817
+#>  num [1:4] -0.284 -0.919 -0.116 1.817
 ```
 
 
@@ -3140,13 +2325,10 @@ for (i in names(df)) {
 
 ```r
 str(df)  # View structure of dataframe object
-```
-
-```
-## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
-##  $ a: num  0.586 0.709 -0.109 -0.453
-##  $ b: num  0.606 -1.818 0.63 -0.276
-##  $ c: num  -0.284 -0.919 -0.116 1.817
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
+#>  $ a: num  0.586 0.709 -0.109 -0.453
+#>  $ b: num  0.606 -1.818 0.63 -0.276
+#>  $ c: num  -0.284 -0.919 -0.116 1.817
 ```
 
 <br>
@@ -3157,12 +2339,9 @@ Remember that we can use `[[]]` to access element contents by their name:
 for (i in names(df)) {
   writeLines(str_c("mean of element named", i, "=", mean(df[[i]], na.rm = TRUE)))
 }
-```
-
-```
-## mean of element nameda=0.183048586802391
-## mean of element namedb=-0.21453851650504
-## mean of element namedc=0.124395622733679
+#> mean of element nameda=0.183048586802391
+#> mean of element namedb=-0.21453851650504
+#> mean of element namedc=0.124395622733679
 ```
 
 <br>
@@ -3204,53 +2383,33 @@ for (i in names(df)) {
 
 ```r
 vec  # View named atomic vector object
-```
-
-```
-##   a   b   c 
-##   5 -10  30
-```
-
-```r
+#>   a   b   c 
+#>   5 -10  30
 length(vec)  # View length of atomic vector object
-```
-
-```
-## [1] 3
-```
-
-```r
+#> [1] 3
 1:length(vec)  # Create sequence from `1` to `length(vec)`
-```
+#> [1] 1 2 3
 
-```
-## [1] 1 2 3
-```
-
-```r
 for (i in 1:length(vec)) {
   writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(vec[i])  # Access element contents using []
   str(vec[[i]])  # Access element contents using [[]]
 }
-```
-
-```
-## 
-## value of object i=1; type=integer
-##  Named num 5
-##  - attr(*, "names")= chr "a"
-##  num 5
-## 
-## value of object i=2; type=integer
-##  Named num -10
-##  - attr(*, "names")= chr "b"
-##  num -10
-## 
-## value of object i=3; type=integer
-##  Named num 30
-##  - attr(*, "names")= chr "c"
-##  num 30
+#> 
+#> value of object i=1; type=integer
+#>  Named num 5
+#>  - attr(*, "names")= chr "a"
+#>  num 5
+#> 
+#> value of object i=2; type=integer
+#>  Named num -10
+#>  - attr(*, "names")= chr "b"
+#>  num -10
+#> 
+#> value of object i=3; type=integer
+#>  Named num 30
+#>  - attr(*, "names")= chr "c"
+#>  num 30
 ```
 
 
@@ -3261,50 +2420,36 @@ for (i in 1:length(vec)) {
 
 ```r
 df  # View dataframe object
-```
-
-```
-## # A tibble: 4 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1  0.586  0.606 -0.284
-## 2  0.709 -1.82  -0.919
-## 3 -0.109  0.630 -0.116
-## 4 -0.453 -0.276  1.82
-```
-
-```r
+#> # A tibble: 4 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1  0.586  0.606 -0.284
+#> 2  0.709 -1.82  -0.919
+#> 3 -0.109  0.630 -0.116
+#> 4 -0.453 -0.276  1.82
 seq_along(df)  # Equivalent to `1:length(df)`
-```
+#> [1] 1 2 3
 
-```
-## [1] 1 2 3
-```
-
-```r
 for (i in seq_along(df)) {
   writeLines(str_c("\nvalue of object i=", i, "; type=", typeof(i)))
   str(df[i])  # Access element contents using []
   str(df[[i]])  # Access element contents using [[]]
 }
-```
-
-```
-## 
-## value of object i=1; type=integer
-## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-##  $ a: num  0.586 0.709 -0.109 -0.453
-##  num [1:4] 0.586 0.709 -0.109 -0.453
-## 
-## value of object i=2; type=integer
-## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-##  $ b: num  0.606 -1.818 0.63 -0.276
-##  num [1:4] 0.606 -1.818 0.63 -0.276
-## 
-## value of object i=3; type=integer
-## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-##  $ c: num  -0.284 -0.919 -0.116 1.817
-##  num [1:4] -0.284 -0.919 -0.116 1.817
+#> 
+#> value of object i=1; type=integer
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+#>  $ a: num  0.586 0.709 -0.109 -0.453
+#>  num [1:4] 0.586 0.709 -0.109 -0.453
+#> 
+#> value of object i=2; type=integer
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+#>  $ b: num  0.606 -1.818 0.63 -0.276
+#>  num [1:4] 0.606 -1.818 0.63 -0.276
+#> 
+#> value of object i=3; type=integer
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
+#>  $ c: num  -0.284 -0.919 -0.116 1.817
+#>  num [1:4] -0.284 -0.919 -0.116 1.817
 ```
 
 <br>
@@ -3313,31 +2458,17 @@ We could also access the element's name by its index:
 
 ```r
 names(df)  # View names of dataframe object (i.e., column names)
-```
-
-```
-## [1] "a" "b" "c"
-```
-
-```r
+#> [1] "a" "b" "c"
 names(df)[[2]]  # We can access any element in the names vector by its index
-```
+#> [1] "b"
 
-```
-## [1] "b"
-```
-
-```r
 # Incorporate the above line into the loop
 for (i in 1:length(df)) {
   writeLines(str_c("i=", i, "; name=", names(df)[[i]]))
 }
-```
-
-```
-## i=1; name=a
-## i=2; name=b
-## i=3; name=c
+#> i=1; name=a
+#> i=2; name=b
+#> i=3; name=c
 ```
 
 <br>
@@ -3348,25 +2479,17 @@ Use `i in seq_along(df)` to loop over the column indices and `[[]]` to access co
 
 ```r
 str(df)  # View structure of dataframe object
-```
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
+#>  $ a: num  0.586 0.709 -0.109 -0.453
+#>  $ b: num  0.606 -1.818 0.63 -0.276
+#>  $ c: num  -0.284 -0.919 -0.116 1.817
 
-```
-## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
-##  $ a: num  0.586 0.709 -0.109 -0.453
-##  $ b: num  0.606 -1.818 0.63 -0.276
-##  $ c: num  -0.284 -0.919 -0.116 1.817
-```
-
-```r
 for (i in seq_along(df)) {
   writeLines(str_c("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE)))
 }
-```
-
-```
-## mean of element at index position1=0.183048586802391
-## mean of element at index position2=-0.21453851650504
-## mean of element at index position3=0.124395622733679
+#> mean of element at index position1=0.183048586802391
+#> mean of element at index position2=-0.21453851650504
+#> mean of element at index position3=0.124395622733679
 ```
 
 </details>
@@ -3392,38 +2515,35 @@ for (i in seq_along(df)) {
   value <- df[[i]]  # element's value (what we looped over in approach #1)
   writeLines(str_c("value=", value, "\n"))
 }
-```
-
-```
-## i=1
-## name=a
-## value=0.585528817843856
-## 
-## value=0.709466017509524
-## 
-## value=-0.109303314681054
-## 
-## value=-0.453497173462763
-## 
-## i=2
-## name=b
-## value=0.605887455840394
-## 
-## value=-1.81795596770373
-## 
-## value=0.630098551068391
-## 
-## value=-0.276184105225216
-## 
-## i=3
-## name=c
-## value=-0.284159743943371
-## 
-## value=-0.919322002474128
-## 
-## value=-0.116247806352002
-## 
-## value=1.81731204370422
+#> i=1
+#> name=a
+#> value=0.585528817843856
+#> 
+#> value=0.709466017509524
+#> 
+#> value=-0.109303314681054
+#> 
+#> value=-0.453497173462763
+#> 
+#> i=2
+#> name=b
+#> value=0.605887455840394
+#> 
+#> value=-1.81795596770373
+#> 
+#> value=0.630098551068391
+#> 
+#> value=-0.276184105225216
+#> 
+#> i=3
+#> name=c
+#> value=-0.284159743943371
+#> 
+#> value=-0.919322002474128
+#> 
+#> value=-0.116247806352002
+#> 
+#> value=1.81731204370422
 ```
 
 
@@ -3457,11 +2577,8 @@ Recall our named atomic vector `vec` from the previous examples:
 
 ```r
 vec
-```
-
-```
-##   a   b   c 
-##   5 -10  30
+#>   a   b   c 
+#>   5 -10  30
 ```
 
 We can loop over the index positions and use `[[]]` to modify the object:
@@ -3473,11 +2590,8 @@ for (i in seq_along(vec)) {
 }
 
 vec
-```
-
-```
-##   a   b   c 
-##  10 -20  60
+#>   a   b   c 
+#>  10 -20  60
 ```
 
 </details>
@@ -3490,16 +2604,13 @@ Recall our dataframe `df` from the previous examples:
 
 ```r
 df
-```
-
-```
-## # A tibble: 4 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1  0.586  0.606 -0.284
-## 2  0.709 -1.82  -0.919
-## 3 -0.109  0.630 -0.116
-## 4 -0.453 -0.276  1.82
+#> # A tibble: 4 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1  0.586  0.606 -0.284
+#> 2  0.709 -1.82  -0.919
+#> 3 -0.109  0.630 -0.116
+#> 4 -0.453 -0.276  1.82
 ```
 
 We can loop over the index positions and use `[[]]` to modify the object:
@@ -3511,16 +2622,13 @@ for (i in seq_along(df)) {
 }
 
 df
-```
-
-```
-## # A tibble: 4 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1  1.17   1.21  -0.568
-## 2  1.42  -3.64  -1.84 
-## 3 -0.219  1.26  -0.232
-## 4 -0.907 -0.552  3.63
+#> # A tibble: 4 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1  1.17   1.21  -0.568
+#> 2  1.42  -3.64  -1.84 
+#> 3 -0.219  1.26  -0.232
+#> 4 -0.907 -0.552  3.63
 ```
 
 </details>
@@ -3568,25 +2676,17 @@ Recall the previous example where we calculated the mean value of each column in
 
 ```r
 str(df)
-```
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
+#>  $ a: num  1.171 1.419 -0.219 -0.907
+#>  $ b: num  1.212 -3.636 1.26 -0.552
+#>  $ c: num  -0.568 -1.839 -0.232 3.635
 
-```
-## Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
-##  $ a: num  1.171 1.419 -0.219 -0.907
-##  $ b: num  1.212 -3.636 1.26 -0.552
-##  $ c: num  -0.568 -1.839 -0.232 3.635
-```
-
-```r
 for (i in seq_along(df)) {
   writeLines(str_c("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE)))
 }
-```
-
-```
-## mean of element at index position1=0.366097173604781
-## mean of element at index position2=-0.42907703301008
-## mean of element at index position3=0.248791245467358
+#> mean of element at index position1=0.366097173604781
+#> mean of element at index position2=-0.42907703301008
+#> mean of element at index position3=0.248791245467358
 ```
 
 <br>
@@ -3596,18 +2696,9 @@ Let's create a new object to store these column averages. Specifically, we'll cr
 ```r
 output <- vector(mode = "numeric", length = length(df))
 class(output)  # Specified by `mode` argument in `vector()`
-```
-
-```
-## [1] "numeric"
-```
-
-```r
+#> [1] "numeric"
 length(output)  # Specified by `length` argument in `vector()`
-```
-
-```
-## [1] 3
+#> [1] 3
 ```
 
 <br>
@@ -3620,10 +2711,7 @@ for (i in seq_along(df)) {
 }
 
 output
-```
-
-```
-## [1]  0.3660972 -0.4290770  0.2487912
+#> [1]  0.3660972 -0.4290770  0.2487912
 ```
 
 </details>
@@ -3679,13 +2767,8 @@ library(tidyverse)
 #data directory path
 data_dir <- file.path(".", "data")
 data_dir
-```
+#> [1] "./data"
 
-```
-## [1] "./data"
-```
-
-```r
 #Create a sub-folder for data inside your group repository
 dir.create(path = "data", showWarnings = FALSE) # showWarnings = FALSE omits warnings if directory already exists
 
@@ -3695,13 +2778,8 @@ dir.create(path = "data", showWarnings = FALSE) # showWarnings = FALSE omits war
 
 url <- "https://nces.ed.gov/ipeds/datacenter/data/"
 url
-```
+#> [1] "https://nces.ed.gov/ipeds/datacenter/data/"
 
-```
-## [1] "https://nces.ed.gov/ipeds/datacenter/data/"
-```
-
-```r
 # suffix of file names
 data_suffix <- ".zip" # suffix for csv data files [not stata data]
 dict_suffix <- "_Dict.zip" # data dictionary
@@ -3712,42 +2790,37 @@ stata_do_suffix <- "_Stata.zip" # Stata do file w/ variable labels and value lab
 ipeds <- readLines('./ipeds_file_list.txt')
 #str(ipeds)
 writeLines(ipeds[1:30])
-```
+#> ##
+#> ## This is as list of all IPEDS files as given in the
+#> ## complete data files portal. If you want to add files
+#> ## that I've missed, be sure they match the name of the
+#> ## link in the Data File column of the drop down table.
+#> ##
+#> ## You can prevent the script from downloading
+#> ## specific files by either commenting out the name with
+#> ## a hash symbol (#) or erasing it all together.
+#> ##
+#> ## Keep in mind that if you've already downloaded some
+#> ## of the files before, the download script will not
+#> ## download them again unless you change the -overwrite-
+#> ## option to TRUE.
+#> ##
+#> 
+#> ## -----------------------------
+#> ## LAST UPDATED: 2 December 2019
+#> ## -----------------------------
+#> 
+#> ## ---------------------------
+#> ## 2018
+#> ## ---------------------------
+#> 
+#> HD2018
+#> IC2018
+#> IC2018_AY
+#> IC2018_PY
+#> EFFY2018
+#> EFIA2018
 
-```
-## ##
-## ## This is as list of all IPEDS files as given in the
-## ## complete data files portal. If you want to add files
-## ## that I've missed, be sure they match the name of the
-## ## link in the Data File column of the drop down table.
-## ##
-## ## You can prevent the script from downloading
-## ## specific files by either commenting out the name with
-## ## a hash symbol (#) or erasing it all together.
-## ##
-## ## Keep in mind that if you've already downloaded some
-## ## of the files before, the download script will not
-## ## download them again unless you change the -overwrite-
-## ## option to TRUE.
-## ##
-## 
-## ## -----------------------------
-## ## LAST UPDATED: 2 December 2019
-## ## -----------------------------
-## 
-## ## ---------------------------
-## ## 2018
-## ## ---------------------------
-## 
-## HD2018
-## IC2018
-## IC2018_AY
-## IC2018_PY
-## EFFY2018
-## EFIA2018
-```
-
-```r
 # Use regular expressions to remove blank lines and lines that start with #
 
 #Blank lines
@@ -3759,14 +2832,9 @@ str_view_all(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
 
 ```r
 str_detect(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
-```
+#>  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+#> [13] FALSE
 
-```
-##  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
-## [12] FALSE FALSE
-```
-
-```r
 str_view_all(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
 ```
 
@@ -3775,40 +2843,19 @@ str_view_all(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
 
 ```r
 str_detect(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
-```
+#>  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+#> [13]  TRUE
 
-```
-##  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
-## [12]  TRUE  TRUE
-```
-
-```r
 length(str_subset(string = ipeds, pattern ="^[^(\\s*$)]"))
-```
-
-```
-## [1] 168
-```
-
-```r
+#> [1] 168
 length(ipeds)
-```
+#> [1] 178
 
-```
-## [1] 178
-```
-
-```r
 #remove blank lines
 ipeds <- str_subset(string = ipeds, pattern ="^[^(\\s*$)]") # overwrite object to remove blanks
 length(ipeds)
-```
+#> [1] 168
 
-```
-## [1] 168
-```
-
-```r
 # lines that start with # (or do not start with #)
 
 str_view_all(string = ipeds[1:30], pattern ="^#") # starts with "#"
@@ -3819,15 +2866,11 @@ str_view_all(string = ipeds[1:30], pattern ="^#") # starts with "#"
 
 ```r
 str_detect(string = ipeds[1:30], pattern ="^#") # starts with "#"
-```
+#>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+#> [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+#> [25] FALSE FALSE FALSE FALSE FALSE FALSE
 
-```
-##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-## [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
-## [23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-```
 
-```r
 str_view_all(string = ipeds[1:30], pattern ="^[^#]") # starts with anything but #
 ```
 
@@ -3836,154 +2879,84 @@ str_view_all(string = ipeds[1:30], pattern ="^[^#]") # starts with anything but 
 
 ```r
 str_detect(string = ipeds[1:30], pattern ="^[^#]") # does not start with "#"
-```
+#>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#> [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+#> [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 
-```
-##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
-## [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-```
-
-```r
 str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
-```
-
-```
-##   [1] "HD2018"          "IC2018"          "IC2018_AY"      
-##   [4] "IC2018_PY"       "EFFY2018"        "EFIA2018"       
-##   [7] "ADM2018"         "EF2018A"         "EF2018CP"       
-##  [10] "EF2018B"         "EF2018C"         "EF2018D"        
-##  [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"        
-##  [16] "C2018_C"         "C2018DEP"        "SAL2018_IS"     
-##  [19] "SAL2018_NIS"     "S2018_OC"        "S2018_SIS"      
-##  [22] "S2018_IS"        "S2018_NH"        "EAP2018"        
-##  [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"       
-##  [28] "SFA1718"         "SFAV1718"        "GR2018"         
-##  [31] "GR2018_L2"       "GR2018_PELL_SSL" "GR200_18"       
-##  [34] "OM2018"          "AL2018"          "FLAGS2018"      
-##  [37] "HD2017"          "IC2017"          "IC2017_AY"      
-##  [40] "IC2017_PY"       "EFFY2017"        "EFIA2017"       
-##  [43] "EF2017A"         "EF2017B"         "EF2017C"        
-##  [46] "EF2017D"         "EF2017A_DIST"    "C2017_A"        
-##  [49] "C2017_B"         "C2017_C"         "C2017DEP"       
-##  [52] "SAL2017_IS"      "SAL2017_NIS"     "S2017_OC"       
-##  [55] "S2017_SIS"       "S2017_IS"        "S2017_NH"       
-##  [58] "EAP2017"         "F1617_F1A"       "F1617_F2"       
-##  [61] "F1617_F3"        "GR2017"          "GR2017_L2"      
-##  [64] "GR2017_PELL_SSL" "GR200_17"        "OM2017"         
-##  [67] "AL2017"          "FLAGS2017"       "HD2016"         
-##  [70] "IC2016"          "IC2016_AY"       "IC2016_PY"      
-##  [73] "EFFY2016"        "EFIA2016"        "ADM2016"        
-##  [76] "EF2016A"         "EF2016CP"        "EF2016B"        
-##  [79] "EF2016C"         "EF2016D"         "EF2016A_DIST"   
-##  [82] "C2016_A"         "C2016_B"         "C2016_C"        
-##  [85] "C2016DEP"        "SAL2016_IS"      "SAL2016_NIS"    
-##  [88] "S2016_OC"        "S2016_SIS"       "S2016_IS"       
-##  [91] "S2016_NH"        "EAP2016"         "F1516_F1A"      
-##  [94] "F1516_F2"        "F1516_F3"        "SFA1516"        
-##  [97] "SFAV1516"        "GR2016"          "GR2016_L2"      
-## [100] "GR200_16"        "GR2016_PELL_SSL" "OM2016"         
-## [103] "AL2016"          "FLAGS2016"       "HD2015"         
-## [106] "IC2015"          "IC2015_AY"       "IC2015_PY"      
-## [109] "EFFY2015"        "EFIA2015"        "ADM2015"        
-## [112] "EF2015A"         "EF2015B"         "EF2015C"        
-## [115] "EF2015D"         "EF2015A_DIST"    "C2015_A"        
-## [118] "C2015_B"         "C2015_C"         "C2015DEP"       
-## [121] "SAL2015_IS"      "SAL2015_NIS"     "S2015_OC"       
-## [124] "S2015_SIS"       "S2015_IS"        "S2015_NH"       
-## [127] "EAP2015"         "F1415_F1A"       "F1415_F2"       
-## [130] "F1415_F3"        "SFA1415"         "SFAV1415"       
-## [133] "GR2015"          "GR2015_L2"       "GR200_15"       
-## [136] "OM2015"          "AL2015"          "FLAGS2015"
-```
-
-```r
+#>   [1] "HD2018"          "IC2018"          "IC2018_AY"       "IC2018_PY"      
+#>   [5] "EFFY2018"        "EFIA2018"        "ADM2018"         "EF2018A"        
+#>   [9] "EF2018CP"        "EF2018B"         "EF2018C"         "EF2018D"        
+#>  [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"         "C2018_C"        
+#>  [17] "C2018DEP"        "SAL2018_IS"      "SAL2018_NIS"     "S2018_OC"       
+#>  [21] "S2018_SIS"       "S2018_IS"        "S2018_NH"        "EAP2018"        
+#>  [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"        "SFA1718"        
+#>  [29] "SFAV1718"        "GR2018"          "GR2018_L2"       "GR2018_PELL_SSL"
+#>  [33] "GR200_18"        "OM2018"          "AL2018"          "FLAGS2018"      
+#>  [37] "HD2017"          "IC2017"          "IC2017_AY"       "IC2017_PY"      
+#>  [41] "EFFY2017"        "EFIA2017"        "EF2017A"         "EF2017B"        
+#>  [45] "EF2017C"         "EF2017D"         "EF2017A_DIST"    "C2017_A"        
+#>  [49] "C2017_B"         "C2017_C"         "C2017DEP"        "SAL2017_IS"     
+#>  [53] "SAL2017_NIS"     "S2017_OC"        "S2017_SIS"       "S2017_IS"       
+#>  [57] "S2017_NH"        "EAP2017"         "F1617_F1A"       "F1617_F2"       
+#>  [61] "F1617_F3"        "GR2017"          "GR2017_L2"       "GR2017_PELL_SSL"
+#>  [65] "GR200_17"        "OM2017"          "AL2017"          "FLAGS2017"      
+#>  [69] "HD2016"          "IC2016"          "IC2016_AY"       "IC2016_PY"      
+#>  [73] "EFFY2016"        "EFIA2016"        "ADM2016"         "EF2016A"        
+#>  [77] "EF2016CP"        "EF2016B"         "EF2016C"         "EF2016D"        
+#>  [81] "EF2016A_DIST"    "C2016_A"         "C2016_B"         "C2016_C"        
+#>  [85] "C2016DEP"        "SAL2016_IS"      "SAL2016_NIS"     "S2016_OC"       
+#>  [89] "S2016_SIS"       "S2016_IS"        "S2016_NH"        "EAP2016"        
+#>  [93] "F1516_F1A"       "F1516_F2"        "F1516_F3"        "SFA1516"        
+#>  [97] "SFAV1516"        "GR2016"          "GR2016_L2"       "GR200_16"       
+#> [101] "GR2016_PELL_SSL" "OM2016"          "AL2016"          "FLAGS2016"      
+#> [105] "HD2015"          "IC2015"          "IC2015_AY"       "IC2015_PY"      
+#> [109] "EFFY2015"        "EFIA2015"        "ADM2015"         "EF2015A"        
+#> [113] "EF2015B"         "EF2015C"         "EF2015D"         "EF2015A_DIST"   
+#> [117] "C2015_A"         "C2015_B"         "C2015_C"         "C2015DEP"       
+#> [121] "SAL2015_IS"      "SAL2015_NIS"     "S2015_OC"        "S2015_SIS"      
+#> [125] "S2015_IS"        "S2015_NH"        "EAP2015"         "F1415_F1A"      
+#> [129] "F1415_F2"        "F1415_F3"        "SFA1415"         "SFAV1415"       
+#> [133] "GR2015"          "GR2015_L2"       "GR200_15"        "OM2015"         
+#> [137] "AL2015"          "FLAGS2015"
 length(str_subset(string = ipeds, pattern ="^[^#]")) # does not start with "#"
-```
+#> [1] 138
 
-```
-## [1] 138
-```
-
-```r
 #Remove lines that start with a "#"
 ipeds <- str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
 
 ipeds[1:50]
-```
+#>  [1] "HD2018"          "IC2018"          "IC2018_AY"       "IC2018_PY"      
+#>  [5] "EFFY2018"        "EFIA2018"        "ADM2018"         "EF2018A"        
+#>  [9] "EF2018CP"        "EF2018B"         "EF2018C"         "EF2018D"        
+#> [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"         "C2018_C"        
+#> [17] "C2018DEP"        "SAL2018_IS"      "SAL2018_NIS"     "S2018_OC"       
+#> [21] "S2018_SIS"       "S2018_IS"        "S2018_NH"        "EAP2018"        
+#> [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"        "SFA1718"        
+#> [29] "SFAV1718"        "GR2018"          "GR2018_L2"       "GR2018_PELL_SSL"
+#> [33] "GR200_18"        "OM2018"          "AL2018"          "FLAGS2018"      
+#> [37] "HD2017"          "IC2017"          "IC2017_AY"       "IC2017_PY"      
+#> [41] "EFFY2017"        "EFIA2017"        "EF2017A"         "EF2017B"        
+#> [45] "EF2017C"         "EF2017D"         "EF2017A_DIST"    "C2017_A"        
+#> [49] "C2017_B"         "C2017_C"
 
-```
-##  [1] "HD2018"          "IC2018"          "IC2018_AY"      
-##  [4] "IC2018_PY"       "EFFY2018"        "EFIA2018"       
-##  [7] "ADM2018"         "EF2018A"         "EF2018CP"       
-## [10] "EF2018B"         "EF2018C"         "EF2018D"        
-## [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"        
-## [16] "C2018_C"         "C2018DEP"        "SAL2018_IS"     
-## [19] "SAL2018_NIS"     "S2018_OC"        "S2018_SIS"      
-## [22] "S2018_IS"        "S2018_NH"        "EAP2018"        
-## [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"       
-## [28] "SFA1718"         "SFAV1718"        "GR2018"         
-## [31] "GR2018_L2"       "GR2018_PELL_SSL" "GR200_18"       
-## [34] "OM2018"          "AL2018"          "FLAGS2018"      
-## [37] "HD2017"          "IC2017"          "IC2017_AY"      
-## [40] "IC2017_PY"       "EFFY2017"        "EFIA2017"       
-## [43] "EF2017A"         "EF2017B"         "EF2017C"        
-## [46] "EF2017D"         "EF2017A_DIST"    "C2017_A"        
-## [49] "C2017_B"         "C2017_C"
-```
-
-```r
 # Create new character vector "hd" that contains names of all "HD" files
 str_subset(string = ipeds, pattern = "^HD")
-```
-
-```
-## [1] "HD2018" "HD2017" "HD2016" "HD2015"
-```
-
-```r
+#> [1] "HD2018" "HD2017" "HD2016" "HD2015"
 hd <- str_subset(string = ipeds, pattern = "^HD")
 
 hd
-```
-
-```
-## [1] "HD2018" "HD2017" "HD2016" "HD2015"
-```
-
-```r
+#> [1] "HD2018" "HD2017" "HD2016" "HD2015"
 hd[2]
-```
-
-```
-## [1] "HD2017"
-```
-
-```r
+#> [1] "HD2017"
 hd[1:5]
-```
+#> [1] "HD2018" "HD2017" "HD2016" "HD2015" NA
 
-```
-## [1] "HD2018" "HD2017" "HD2016" "HD2015" NA
-```
-
-```r
 length(hd)
-```
-
-```
-## [1] 4
-```
-
-```r
+#> [1] 4
 seq(from = 1, to = length(hd))
-```
+#> [1] 1 2 3 4
 
-```
-## [1] 1 2 3 4
-```
-
-```r
 ## -----------------------------------------------------------------------------
 ## Part 2 - Creating loops
 ## -----------------------------------------------------------------------------
@@ -3999,13 +2972,10 @@ for (i in 1:length(hd)) {
   #writeLines(str_c("object i=",i, "; hd[i]=",hd[i], sep = ""))
   #writeLines(str_c("i=",i, "; hd[",i,"]=",hd[i], sep = ""))
 }
-```
-
-```
-## 1
-## 2
-## 3
-## 4
+#> 1
+#> 2
+#> 3
+#> 4
 ```
 
 
@@ -4038,6 +3008,8 @@ hd2018_uc <- hd2018 %>%
 web <- hd2018_uc$webaddr
 
 library(rvest) #load rvest package
+#> Warning: package 'rvest' was built under R version 3.6.3
+#> Warning: package 'xml2' was built under R version 3.6.3
 
 web <- str_c("https://", web) #add https:// to web address
 
@@ -4057,15 +3029,10 @@ for(i in seq_along(web)) {
   
   writeLines(str_c("web name: ", name, " url: ", url, sep = ""))
 }
-```
+#> web name: ucdavis url: https://www.ucdavis.edu
+#> web name: ucla url: https://www.ucla.edu/
+#> web name: UCR url: https://WWW.UCR.EDU
 
-```
-## web name: ucdavis url: https://www.ucdavis.edu
-## web name: ucla url: https://www.ucla.edu/
-## web name: UCR url: https://WWW.UCR.EDU
-```
-
-```r
 ucla_sm <- ucla %>%
   html_nodes('#social-media') #search for social-media ID
 
@@ -4074,20 +3041,15 @@ ucla_sm <- as.character(ucla_sm) #change to character
 
 # Use `writeLines()` and `head()` to preview the first few rows of the data
 writeLines(head(ucla_sm))
-```
+#> <div id="social-media">
+#>     <a href="https://www.facebook.com/UCLA/" class="facebook"><span>UCLA on Facebook</span></a>
+#>     <a href="http://twitter.com/ucla" class="twitter"><span>UCLA on Twitter</span></a>
+#> 	  <a href="http://www.instagram.com/ucla" class="instagram"><span>UCLA on Instagram</span></a>
+#>     <a href="https://www.snapchat.com/add/uclaofficial" class="snapchat"><span>UCLA on Snapchat</span></a>
+#> 	  <a href="https://www.linkedin.com/company/ucla" class="linkedin"><span>UCLA on LinkedIn</span></a>
+#>     <a href="https://www.youtube.com/user/UCLA" class="youtube"><span>UCLA on YouTube</span></a>
+#> </div>
 
-```
-## <div id="social-media">
-##     <a href="https://www.facebook.com/UCLA/" class="facebook"><span>UCLA on Facebook</span></a>
-##     <a href="http://twitter.com/ucla" class="twitter"><span>UCLA on Twitter</span></a>
-## 	  <a href="http://www.instagram.com/ucla" class="instagram"><span>UCLA on Instagram</span></a>
-##     <a href="https://www.snapchat.com/add/uclaofficial" class="snapchat"><span>UCLA on Snapchat</span></a>
-## 	  <a href="https://www.linkedin.com/company/ucla" class="linkedin"><span>UCLA on LinkedIn</span></a>
-##     <a href="https://www.youtube.com/user/UCLA" class="youtube"><span>UCLA on YouTube</span></a>
-## </div>
-```
-
-```r
 ucla_sm <- str_match(string = ucla_sm, pattern = '<a href="(http://twitter.+)"\\sclass.+</a>') #grab twitter url
 
 
@@ -4099,19 +3061,14 @@ ucr_sm <- as.character(ucr_sm) #change to character
 
 # Use `writeLines()` and `head()` to preview the first few rows of the data
 writeLines(head(ucr_sm))
-```
+#> <div class="social-link">
+#>                     <a href="https://www.facebook.com/UCRiverside/" target="_blank" class="button mdi mdi-facebook" title="Facebook"><span class="show-for-sr">Facebook</span></a>
+#>                     <a href="https://twitter.com/UCRiverside" target="_blank" class="button mdi mdi-twitter" title="Twitter"><span class="show-for-sr">Twitter</span></a>
+#>                     <a href="https://www.youtube.com/UCRiverside" target="_blank" class="button mdi mdi-youtube-play" title="YouTube"><span class="show-for-sr">YouTube</span></a>
+#>                     <a href="https://www.instagram.com/ucriversideofficial/" target="_blank" class="button mdi mdi-instagram" title="Instagram"><span class="show-for-sr">Instagram</span></a>
+#>                     <a href="https://www.linkedin.com/school/university-of-california-riverside/" target="_blank" class="button mdi mdi-linkedin" title="LinkedIn"><span class="show-for-sr">LinkedIn</span></a>
+#>             </div>
 
-```
-## <div class="social-link">
-##                     <a href="https://www.facebook.com/UCRiverside/" target="_blank" class="button mdi mdi-facebook" title="Facebook"><span class="show-for-sr">Facebook</span></a>
-##                     <a href="https://twitter.com/UCRiverside" target="_blank" class="button mdi mdi-twitter" title="Twitter"><span class="show-for-sr">Twitter</span></a>
-##                     <a href="https://www.youtube.com/UCRiverside" target="_blank" class="button mdi mdi-youtube-play" title="YouTube"><span class="show-for-sr">YouTube</span></a>
-##                     <a href="https://www.instagram.com/ucriversideofficial/" target="_blank" class="button mdi mdi-instagram" title="Instagram"><span class="show-for-sr">Instagram</span></a>
-##                     <a href="https://www.linkedin.com/school/university-of-california-riverside/" target="_blank" class="button mdi mdi-linkedin" title="LinkedIn"><span class="show-for-sr">LinkedIn</span></a>
-##             </div>
-```
-
-```r
 ucr_sm <- str_match(string = ucr_sm, pattern = '<a href="(https://twitter.+)"\\starget.+</a>') #grab twitter url
 
 
@@ -4123,34 +3080,29 @@ ucd_sm <- as.character(ucd_sm)
 
 # Use `writeLines()` and `head()` to preview the first few rows of the data
 writeLines(head(ucd_sm))
-```
+#> <ul class="pack">
+#> <li class="pack__item">
+#>       <a class="social-follow__icon social-follow--facebook" title="Facebook" href="https://www.facebook.com/UCDavis">Follow on Facebook</a>
+#>       <div class="social-follow__title"><a title="Facebook" href="https://www.facebook.com/UCDavis">Facebook</a></div>
+#>     </li>
+#>     <li class="pack__item">
+#>       <a class="social-follow__icon social-follow--twitter" title="Twitter" href="https://twitter.com/ucdavis">Follow on Twitter</a>
+#>       <div class="social-follow__title"><a title="Twitter" href="https://twitter.com/ucdavis">Twitter</a></div>
+#>     </li>
+#>     <li class="pack__item">
+#>       <a class="social-follow__icon social-follow--instagram" title="Instagram" href="https://instagram.com/ucdavis">Follow on Instagram</a>
+#>       <div class="social-follow__title"><a title="Instagram" href="https://instagram.com/ucdavis">Instagram</a></div>
+#>     </li>
+#>     <li class="pack__item">
+#>       <a class="social-follow__icon social-follow--youtube" title="YouTube" href="http://www.youtube.com/ucdavis">Follow on YouTube</a>
+#>       <div class="social-follow__title"><a title="YouTube" href="http://www.youtube.com/ucdavis">YouTube</a></div>
+#>     </li>
+#>     <li class="pack__item">
+#>       <a class="social-follow__icon social-follow--linkedin" title="LinkedIn" href="https://www.linkedin.com/school/uc-davis/">Follow on LinkedIn</a>
+#>       <div class="social-follow__title"><a title="LinkedIn" href="https://www.linkedin.com/school/uc-davis/">LinkedIn</a></div>
+#>     </li>
+#>   </ul>
 
-```
-## <ul class="pack">
-## <li class="pack__item">
-##       <a class="social-follow__icon social-follow--facebook" title="Facebook" href="https://www.facebook.com/UCDavis">Follow on Facebook</a>
-##       <div class="social-follow__title"><a title="Facebook" href="https://www.facebook.com/UCDavis">Facebook</a></div>
-##     </li>
-##     <li class="pack__item">
-##       <a class="social-follow__icon social-follow--twitter" title="Twitter" href="https://twitter.com/ucdavis">Follow on Twitter</a>
-##       <div class="social-follow__title"><a title="Twitter" href="https://twitter.com/ucdavis">Twitter</a></div>
-##     </li>
-##     <li class="pack__item">
-##       <a class="social-follow__icon social-follow--instagram" title="Instagram" href="https://instagram.com/ucdavis">Follow on Instagram</a>
-##       <div class="social-follow__title"><a title="Instagram" href="https://instagram.com/ucdavis">Instagram</a></div>
-##     </li>
-##     <li class="pack__item">
-##       <a class="social-follow__icon social-follow--youtube" title="YouTube" href="http://www.youtube.com/ucdavis">Follow on YouTube</a>
-##       <div class="social-follow__title"><a title="YouTube" href="http://www.youtube.com/ucdavis">YouTube</a></div>
-##     </li>
-##     <li class="pack__item">
-##       <a class="social-follow__icon social-follow--linkedin" title="LinkedIn" href="https://www.linkedin.com/school/uc-davis/">Follow on LinkedIn</a>
-##       <div class="social-follow__title"><a title="LinkedIn" href="https://www.linkedin.com/school/uc-davis/">LinkedIn</a></div>
-##     </li>
-##   </ul>
-```
-
-```r
 ucd_sm <- str_match(string = ucd_sm, pattern = '<a class=".+ href="(https://twitter.+)">.+</a>')
 
 
@@ -4165,15 +3117,12 @@ hd2018_t <- bind_cols(hd2018_uc, data.frame(twitter = vec)) #add column to df
 
 hd2018_t %>%
   select(instnm, webaddr, twitter)
-```
-
-```
-## # A tibble: 3 x 3
-##   instnm                          webaddr        twitter                   
-##   <chr>                           <chr>          <fct>                     
-## 1 University of California-Davis  www.ucdavis.e… https://twitter.com/ucdav…
-## 2 University of California-Los A… www.ucla.edu/  http://twitter.com/ucla   
-## 3 University of California-River… WWW.UCR.EDU    https://twitter.com/UCRiv…
+#> # A tibble: 3 x 3
+#>   instnm                             webaddr        twitter                     
+#>   <chr>                              <chr>          <fct>                       
+#> 1 University of California-Davis     www.ucdavis.e~ https://twitter.com/ucdavis 
+#> 2 University of California-Los Ange~ www.ucla.edu/  http://twitter.com/ucla     
+#> 3 University of California-Riverside WWW.UCR.EDU    https://twitter.com/UCRiver~
 ```
 
 # Conditional execution
@@ -4182,7 +3131,7 @@ hd2018_t %>%
 
 What are **`if` statement conditions**?
 
-- `if` statements allow you to conditionally execute certain blocks of code depending on whether some condition is satisfied
+- `if` statements allow you to conditionally execute certain blocks of code depending on whether some condition(s) is `TRUE`
 - The condition goes inside of the parentheses in `if()` and the block of code to execute goes between the curly brackets (`{}`)
 - The condition must evaluate to either `TRUE` or `FALSE` (i.e., be of type `logical`)
 - The condition must have length of `1`
@@ -4202,10 +3151,7 @@ The block of code is executed if the condition evaluates to `TRUE`:
 if (TRUE) {
   writeLines("This block is executed.")
 }
-```
-
-```
-## This block is executed.
+#> This block is executed.
 ```
 
 The block of code is not executed if condition evaluates to `FALSE`:
@@ -4226,39 +3172,21 @@ Remember that any statement that has a length of `1` and can evaluate to either 
 ```r
 # This statement evaluates to `TRUE`
 2 + 2 == 4
-```
+#> [1] TRUE
 
-```
-## [1] TRUE
-```
-
-```r
 # It is of type `logical`
 typeof(2 + 2 == 4)
-```
+#> [1] "logical"
 
-```
-## [1] "logical"
-```
-
-```r
 # It has length of `1`
 length(2 + 2 == 4)
-```
+#> [1] 1
 
-```
-## [1] 1
-```
-
-```r
 # We can use it as the if statement condition
 if (2 + 2 == 4) {
   writeLines("This block is executed because `2 + 2 == 4` evaluates to `TRUE`.")
 }
-```
-
-```
-## This block is executed because `2 + 2 == 4` evaluates to `TRUE`.
+#> This block is executed because `2 + 2 == 4` evaluates to `TRUE`.
 ```
 
 </details>
@@ -4272,31 +3200,16 @@ Recall that some functions return a `logical`, so you might also see a function 
 ```r
 # This function call returns `FALSE` because there is no digit in the string "Fourth of July"
 str_detect(string = "Fourth of July", pattern = "\\d")
-```
+#> [1] FALSE
 
-```
-## [1] FALSE
-```
-
-```r
 # It is of type `logical`
 typeof(str_detect(string = "Fourth of July", pattern = "\\d"))
-```
+#> [1] "logical"
 
-```
-## [1] "logical"
-```
-
-```r
 # It has length of `1`
 length(str_detect(string = "Fourth of July", pattern = "\\d"))
-```
+#> [1] 1
 
-```
-## [1] 1
-```
-
-```r
 # We can use it as the if statement condition
 if (str_detect(string = "Fourth of July", pattern = "\\d")) {
   writeLines("This block is not executed because the condition evaluates to `FALSE`.")
@@ -4315,19 +3228,13 @@ How to combine **multiple logical expressions** in a condition?
         
         ```r
         c(TRUE, TRUE, FALSE) | c(TRUE, FALSE, FALSE)
-        ```
-        
-        ```
-        ## [1]  TRUE  TRUE FALSE
+        #> [1]  TRUE  TRUE FALSE
         ```
     - Whereas `||` and `&&` will only look at the first element of each vector:
         
         ```r
         c(TRUE, TRUE, FALSE) || c(TRUE, FALSE, FALSE)
-        ```
-        
-        ```
-        ## [1] TRUE
+        #> [1] TRUE
         ```
 
 <br>
@@ -4359,13 +3266,8 @@ When using `||` (or), the block of code is executed if any of the conditions eva
 if (TRUE || FALSE) {
   writeLines("This block is executed.")
 }
-```
+#> This block is executed.
 
-```
-## This block is executed.
-```
-
-```r
 if (str_detect(string = "ABC", pattern = "\\d") || str_detect(string = "123", pattern = "[A-Z]")) {
   writeLines("This block is not executed.")
 }
@@ -4383,10 +3285,7 @@ if (TRUE && FALSE) {
 if (str_detect(string = "ABC", pattern = "[A-Z]") && str_detect(string = "123", pattern = "\\d")) {
   writeLines("This block is executed.")
 }
-```
-
-```
-## This block is executed.
+#> This block is executed.
 ```
 
 </details>
@@ -4416,10 +3315,7 @@ Recall the function [`dir.exists()`](#checking-if-a-file-or-directory-exists) th
 ```r
 directory <- "my_new_directory"
 dir.exists(directory)
-```
-
-```
-## [1] FALSE
+#> [1] FALSE
 ```
 
 <br>
@@ -4433,24 +3329,16 @@ if (dir.exists(directory)) {
   dir.create(directory)
   writeLines(str_c("Created directory '", directory, "'."))
 }
-```
+#> Created directory 'my_new_directory'.
 
-```
-## Created directory 'my_new_directory'.
-```
-
-```r
 # Check that directory is created
 list.files()
-```
-
-```
-##  [1] "data"                     "function_basics.html"    
-##  [3] "function_basics.md"       "function_basics.Rmd"     
-##  [5] "ipeds_file_list_og.txt"   "ipeds_file_list.txt"     
-##  [7] "loop_example_ipeds.R"     "my_new_directory"        
-##  [9] "programming_lecture.html" "programming_lecture.md"  
-## [11] "programming_lecture.Rmd"  "programming.Rproj"
+#>  [1] "data"                     "function_basics.html"    
+#>  [3] "function_basics.md"       "function_basics.Rmd"     
+#>  [5] "ipeds_file_list.txt"      "ipeds_file_list_og.txt"  
+#>  [7] "loop_example_ipeds.R"     "my_new_directory"        
+#>  [9] "programming.Rproj"        "programming_lecture.html"
+#> [11] "programming_lecture.md"   "programming_lecture.Rmd"
 ```
 
 <br>
@@ -4459,23 +3347,15 @@ If we try creating the directory again, the `else` block would be executed becau
 
 ```r
 dir.exists(directory)
-```
+#> [1] TRUE
 
-```
-## [1] TRUE
-```
-
-```r
 if (dir.exists(directory)) {
   writeLines(str_c("The directory '", directory, "' already exists."))
 } else {
   dir.create(directory)
   writeLines(str_c("Created directory '", directory, "'."))
 }
-```
-
-```
-## The directory 'my_new_directory' already exists.
+#> The directory 'my_new_directory' already exists.
 ```
 
 
@@ -4499,27 +3379,19 @@ for (i in directories) {
     writeLines(str_c("Created directory '", i, "'."))
   }
 }
-```
+#> Created directory 'scripts'.
+#> Created directory 'dictionaries'.
+#> Created directory 'output'.
 
-```
-## Created directory 'scripts'.
-## Created directory 'dictionaries'.
-## Created directory 'output'.
-```
-
-```r
 # Check that directories are created
 list.files()
-```
-
-```
-##  [1] "data"                     "dictionaries"            
-##  [3] "function_basics.html"     "function_basics.md"      
-##  [5] "function_basics.Rmd"      "ipeds_file_list_og.txt"  
-##  [7] "ipeds_file_list.txt"      "loop_example_ipeds.R"    
-##  [9] "output"                   "programming_lecture.html"
-## [11] "programming_lecture.md"   "programming_lecture.Rmd" 
-## [13] "programming.Rproj"        "scripts"
+#>  [1] "data"                     "dictionaries"            
+#>  [3] "function_basics.html"     "function_basics.md"      
+#>  [5] "function_basics.Rmd"      "ipeds_file_list.txt"     
+#>  [7] "ipeds_file_list_og.txt"   "loop_example_ipeds.R"    
+#>  [9] "output"                   "programming.Rproj"       
+#> [11] "programming_lecture.html" "programming_lecture.md"  
+#> [13] "programming_lecture.Rmd"  "scripts"
 ```
 
 <br>
@@ -4535,12 +3407,9 @@ for (i in directories) {
     writeLines(str_c("Created directory '", i, "'."))
   }
 }
-```
-
-```
-## The directory 'scripts' already exists.
-## The directory 'dictionaries' already exists.
-## The directory 'output' already exists.
+#> The directory 'scripts' already exists.
+#> The directory 'dictionaries' already exists.
+#> The directory 'output' already exists.
 ```
 
 
@@ -4576,10 +3445,7 @@ Using the `diamonds` dataset from `ggplot2`, let's create a vector of 5 diamond 
 ```r
 prices <- unique(diamonds$price)[23:27]
 str(prices)
-```
-
-```
-##  int [1:5] 405 552 553 554 2757
+#>  int [1:5] 405 552 553 554 2757
 ```
 
 <br>
@@ -4596,14 +3462,11 @@ for (i in prices) {
     writeLines(str_c("This diamond costs $", i, " and is too expensive!"))
   }
 }
-```
-
-```
-## This diamond costs $405 and is affordable.
-## This diamond costs $552 and is pricey...
-## This diamond costs $553 and is pricey...
-## This diamond costs $554 and is pricey...
-## This diamond costs $2757 and is too expensive!
+#> This diamond costs $405 and is affordable.
+#> This diamond costs $552 and is pricey...
+#> This diamond costs $553 and is pricey...
+#> This diamond costs $554 and is pricey...
+#> This diamond costs $2757 and is too expensive!
 ```
 
 <br>
@@ -4620,14 +3483,149 @@ for (i in prices) {
     writeLines(str_c("This diamond costs $", i, " and is too expensive!"))
   }
 }
+#> This diamond costs $405 and is affordable.
+#> This diamond costs $552 and is pricey...
+#> This diamond costs $553 and is pricey...
+#> This diamond costs $554 and is pricey...
+#> This diamond costs $2757 and is too expensive!
 ```
 
+## Processing time
+
+CRYSTAL - STATE PURPOSE OF THIS SUB-SECTION AND INTRODUCE system.time() function. 
+
+Let's create a new numeric atomic vector called `prices` that is equal to the price of each diamond in the data frame `diamonds`
+
+```r
+prices <- diamonds$price[1:20000]
+  #prices <- diamonds$price
+length(prices)
+#> [1] 20000
 ```
-## This diamond costs $405 and is affordable.
-## This diamond costs $552 and is pricey...
-## This diamond costs $553 and is pricey...
-## This diamond costs $554 and is pricey...
-## This diamond costs $2757 and is too expensive!
+
+Using loops, create an atomic vector `z_prices` that equals the z-score (number of standard deviations from the mean) for each element of atomic vector `prices`
+- Although not strictly necessary to create `z_prices`, our loop will include conditional statements that separately process diamonds that are "affordable," "pricey," and "too expensive"
+
+Using the function `system.time()` let's how long this process takes for the following alternative loops:
+
+1. use `if`, `else if`, and `else` conditional statements
+1. only use `if` conditional statements
+
+Using `if`, `else if`, and `else` conditional statements
+
+```r
+# Pre-allocate the number of elements required for the atomic vector z_prices
+z_prices <- vector("double", length(prices))
+length(z_prices)
+#> [1] 20000
+
+system.time(
+  
+  for (i in 1:length(prices)) {
+
+    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
+    
+    if (prices[i] < 500) {
+      
+      str_c("This diamond costs $", i, " and is affordable.")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } else if (prices[i] < 1000) {
+      
+      str_c("This diamond costs $", i, " and is pricey...")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } else {
+      
+      str_c("This diamond costs $", i, " and is too expensive!")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    }
+  }
+  
+)
+#>    user  system elapsed 
+#>    8.46    0.04    8.51
+```
+Only using `if` conditional statements
+
+```r
+# Pre-allocate the number of elements required for the atomic vector z_prices
+z_prices <- vector("double", length(prices))
+length(z_prices)
+#> [1] 20000
+
+system.time(
+  
+  for (i in 1:length(prices)) {
+
+    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
+    
+    if (prices[i] < 500) {
+      
+      str_c("This diamond costs $", i, " and is affordable.")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } 
+    if (prices[i] < 1000) {
+      
+      str_c("This diamond costs $", i, " and is pricey...")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } 
+    if (prices[i] >= 1000) {
+      
+      str_c("This diamond costs $", i, " and is too expensive!")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    }
+  }
+  
+) # end system.time()
+#>    user  system elapsed 
+#>    7.16    0.00    7.18
+```
+
+CRYSTAL - EXPLAIN HOW THE ABOVE TWO LOOPS DIFFER FROM ONE ANOTHER IN TERMS OF PROCESSING. 
+
+CRYSTAL - ALSO, THE DIFFERENCE IN PROCESSING TIME IS VERY SMALL BETWEEN THESE TWO EXAMPLES. IN OTHER EXPLORATORY EXAMPLES I HAVE DONE. THE DIFFERENCE BETWEEEN ONLY USING "IF" AND USING IF/ELSE IF/ELSE RESULTED IN MUCH GREATER DIFFERENCE IN PROCESSING TIME. IS THERE ANY SMALL TWEAK WE CAN DO TO THE ABOVE LOOPS TO MAKE THE DIFFERENCE IN PROCESSING TIME MORE SUBSTANTIAL?
+
+What if we didn't pre-allocate length of atomic vector `z_prices`
+
+- CRYSTAL - WICKHAM SAYS NOT PRE-ALLOCATING LENGTH RESULTS IN MUCH LONGER PROCESSING OF LOOPS. BUT DIDN'T SEEM TO BE THE CASE BELOW. HOW COME?
+
+```r
+#z_prices <- vector("double", length(prices))
+rm(z_prices)
+z_prices <- NULL
+
+system.time(
+  
+  for (i in 1:length(prices)) {
+
+    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
+    
+    if (prices[i] < 500) {
+      
+      str_c("This diamond costs $", i, " and is affordable.")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } else if (prices[i] < 1000) {
+      
+      str_c("This diamond costs $", i, " and is pricey...")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } else {
+      
+      str_c("This diamond costs $", i, " and is too expensive!")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    }
+  }
+  
+)
+#>    user  system elapsed 
+#>    6.91    0.00    6.90
 ```
 
 </details>
@@ -4653,60 +3651,6 @@ Functions generally follow **three sequential steps**:
 
 We've been working with functions all quarter. 
 
-__Example__: The `length()` function
-
-
-```r
-?length
-```
-
-1. __Input__: Takes in "R object" as the input
-2. __Processing__: Counts the number of elements in the object
-3. __Return__: Returns a new object, specifically an integer atomic vector of length `1`, that indicates the number of elements in the input R object
-
-
-```r
-# Apply length() to atomic vector
-x <- c(1,2,3,4)
-x
-```
-
-```
-## [1] 1 2 3 4
-```
-
-```r
-length(x)
-```
-
-```
-## [1] 4
-```
-
-```r
-# Apply length() to a list that is a data frame
-mpg %>% head(5)
-```
-
-```
-## # A tibble: 5 x 11
-##   manufacturer model displ  year   cyl trans  drv     cty   hwy fl    class
-##   <chr>        <chr> <dbl> <int> <int> <chr>  <chr> <int> <int> <chr> <chr>
-## 1 audi         a4      1.8  1999     4 auto(… f        18    29 p     comp…
-## 2 audi         a4      1.8  1999     4 manua… f        21    29 p     comp…
-## 3 audi         a4      2    2008     4 manua… f        20    31 p     comp…
-## 4 audi         a4      2    2008     4 auto(… f        21    30 p     comp…
-## 5 audi         a4      2.8  1999     6 auto(… f        16    26 p     comp…
-```
-
-```r
-length(mpg)
-```
-
-```
-## [1] 11
-```
-
 <br>
 __Example__: The `sum()` function
 
@@ -4721,20 +3665,11 @@ __Example__: The `sum()` function
 
 
 ```r
-# Apply length() to atomic vector
+# Apply sum() to atomic vector
 sum(c(1,2,3))
-```
-
-```
-## [1] 6
-```
-
-```r
+#> [1] 6
 sum(c(1,2,3)) %>% str()
-```
-
-```
-##  num 6
+#>  num 6
 ```
 
 ### User-written functions
@@ -4749,14 +3684,15 @@ Like all functions, user-written functions usually follow **three steps**:
 
 1. Take in one or more __input__ object(s)
 2. __Process__ the input
-    - This may include using pre-written functions like `select()` or `sum()`
+    - This may include utilizing exsting functions from other packages, for example `sum()` or `length()`
 3. __Return__ a new object
 
 **Examples** of what we might want to write a function for:
 
 - Write a function to read in annual data, then call function for each year
-- Create interactive maps: [NAED_presentation](https://ozanj.github.io/naed_presentation)
-    - See "Deep-Dive Results"
+- Create interactive maps. e.g., see maps from policy report on [off-campus recruiting by public research universities](https://www.thirdway.org/report/follow-the-money-recruiting-and-the-enrollment-priorities-of-public-research-universities)
+    - Link to maps [HERE](https://cyouh95.github.io/third-way-report/assets/maps/map_income.html)
+    - R code for interactive maps developed by Karina Salazar, modified by Crystal Han
 - [Ben Skinner](https://github.com/btskinner) recommends [paraphrasing] writing "short functions that do one thing and do it well"
     
 <br>
@@ -4787,7 +3723,7 @@ __How to approach writing functions__? (_broad recipe_)
 
 1. Experiment with performing the task outside of a function
     - Experiment with performing task with different sets of inputs
-    - Sometimes you will have to revise this code, when an approach that worked outside a function does not work within a function
+    - Often, you must revise this code, when an approach that worked outside a function does not work within a function
 1. Write the function
 1. Test the function
     - Try to "break" it
@@ -4795,11 +3731,11 @@ __How to approach writing functions__? (_broad recipe_)
 
 ## Basics of writing functions
 
-Often, the functions we write ("user-written functions") will utilize existing functions from R packages. For example, we will create a function named `z_score()` that calculates how many standard deviations an observation is from the mean. Our `z_score()` function will use the existing `mean()` and `sd()` functions.
+Often, the functions we write will utilize existing functions from Base R and other R packages. For example, create a function named `z_score()` that calculates how many standard deviations an observation is from the mean. Our `z_score()` function will use the existing Base R `mean()` and `sd()` functions.
 
 We will avoid creating user-written functions that utilize `Tidyverse` functions, particularly functions from the `dplyr` package such as `group_by()`. The reason is that including certain `Tidyverse`/`dplyr` functions in a user-written function (or `loo`) requires knowledge of some advanced programming skills that we have not introduced yet. For more explanation, see [here](https://www.r-bloggers.com/data-frame-columns-as-arguments-to-dplyr-functions/) and [here](https://adv-r.hadley.nz/quasiquotation.html#unquoting). 
 
-Therefore, when writing funtions that perform data manipulation tasks, we will use a "Base R approach" rather than a "Tidyverse approach."
+Therefore, when teaching how to write funtions that perform data manipulation tasks, we will use a "Base R approach" rather than a "Tidyverse approach."
 
 ### Components of a function
 
@@ -4807,13 +3743,13 @@ The `function()` function tells R that you are writing a function:
 
 
 ```r
+# To find help file for function():
+  ?`function` # But help file is not a helpful introduction
+
+
 function_name <- function(arg1, arg2, arg3) {
   # function body
 }
-
-# To find help file for function():
-  ?`function`
-  # But help file is not a helpful introduction
 ```
 
 **Three components** of a function:
@@ -4837,12 +3773,10 @@ __Task__: Write function called `print_hello()` that prints `"Hello, world."`
 
 
 ```r
+
 # Expected output
 print_hello()
-```
-
-```
-## [1] "Hello, world"
+#> [1] "Hello, world"
 ```
 
 <details><summary>**Step 1**: Perform task outside of function</summary>
@@ -4852,10 +3786,7 @@ We want to print `"Hello, world"`:
 
 ```r
 "Hello, world"
-```
-
-```
-## [1] "Hello, world"
+#> [1] "Hello, world"
 ```
 
 <br>
@@ -4864,34 +3795,14 @@ Alternative approaches to perform task outside of function:
 
 ```r
 print("Hello, world")
-```
+#> [1] "Hello, world"
 
-```
-## [1] "Hello, world"
-```
-
-```r
 str_c("Hello, world")
-```
-
-```
-## [1] "Hello, world"
-```
-
-```r
+#> [1] "Hello, world"
 str_c("Hello, world", sep = "", collapse = NULL)
-```
-
-```
-## [1] "Hello, world"
-```
-
-```r
+#> [1] "Hello, world"
 writeLines(str_c("Hello, world", sep = "", collapse = NULL))
-```
-
-```
-## Hello, world
+#> Hello, world
 ```
 
 </details>
@@ -4908,10 +3819,7 @@ print_hello <- function() {  # This function takes no arguments
 
 # Call function
 print_hello()
-```
-
-```
-## [1] "Hello, world"
+#> [1] "Hello, world"
 ```
 
 1. __Function name__
@@ -4929,12 +3837,10 @@ __Task__: Modify `print_hello()` to take a name as input and print `"Hello, worl
 
 
 ```r
+
 # Expected output
 print_hello("Ozan Jaquette")
-```
-
-```
-## [1] "Hello, world. My name is Ozan Jaquette"
+#> [1] "Hello, world. My name is Ozan Jaquette"
 ```
 
 <details><summary>**Step 1**: Perform task outside of function</summary>
@@ -4944,10 +3850,7 @@ Say we want to print `"Hello, world. My name is Ozan Jaquette"`:
 
 ```r
 "Hello, world. My name is Ozan Jaquette"
-```
-
-```
-## [1] "Hello, world. My name is Ozan Jaquette"
+#> [1] "Hello, world. My name is Ozan Jaquette"
 ```
 
 Remember that we eventually want the name to be an input to our function, so let's create a separate object, `x`, to store name:
@@ -4956,10 +3859,7 @@ Remember that we eventually want the name to be an input to our function, so let
 ```r
 x <- "Ozan Jaquette"
 str_c("Hello, world. My name is", x, sep = " ", collapse = NULL)
-```
-
-```
-## [1] "Hello, world. My name is Ozan Jaquette"
+#> [1] "Hello, world. My name is Ozan Jaquette"
 ```
 
 </details>
@@ -4977,18 +3877,9 @@ print_hello <- function(x) {  # This function takes 1 argument
 
 # Call function
 print_hello(x = "Ozan Jaquette")
-```
-
-```
-## [1] "Hello, world. My name is Ozan Jaquette"
-```
-
-```r
+#> [1] "Hello, world. My name is Ozan Jaquette"
 print_hello("Ozan Jaquette")
-```
-
-```
-## [1] "Hello, world. My name is Ozan Jaquette"
+#> [1] "Hello, world. My name is Ozan Jaquette"
 ```
 
 1. __Function name__
@@ -5006,12 +3897,10 @@ __Task__: Modify `print_hello()` to take a name and birthdate as inputs and prin
 
 
 ```r
+
 # Expected output
 print_hello("Ozan Jaquette", "01/16/1979")
-```
-
-```
-## [1] "Hello, world. My name is Ozan Jaquette and I am 41 years old"
+#> [1] "Hello, world. My name is Ozan Jaquette and I am 41 years old"
 ```
 
 <details><summary>**Step 1**: Perform task outside of function</summary>
@@ -5022,26 +3911,11 @@ Use `mdy()` from the `lubridate` package to help handle birthdates:
 ```r
 y <- "01/16/1979"
 y
-```
-
-```
-## [1] "01/16/1979"
-```
-
-```r
+#> [1] "01/16/1979"
 mdy(y)
-```
-
-```
-## [1] "1979-01-16"
-```
-
-```r
+#> [1] "1979-01-16"
 str(mdy(y))
-```
-
-```
-##  Date[1:1], format: "1979-01-16"
+#>  Date[1:1], format: "1979-01-16"
 ```
 
 <br>
@@ -5050,62 +3924,27 @@ Using `today()` to get today's date, we can calculate an age given a birthdate:
 
 ```r
 today()
-```
+#> [1] "2020-05-29"
 
-```
-## [1] "2020-05-29"
-```
-
-```r
 # Calculate difference
 today() - mdy(y)
-```
-
-```
-## Time difference of 15109 days
-```
-
-```r
+#> Time difference of 15109 days
 str(today() - mdy(y))
-```
+#>  'difftime' num 15109
+#>  - attr(*, "units")= chr "days"
 
-```
-##  'difftime' num 15109
-##  - attr(*, "units")= chr "days"
-```
-
-```r
 # Convert to duration
 as.duration(today() - mdy(y))
-```
+#> [1] "1305417600s (~41.37 years)"
 
-```
-## [1] "1305417600s (~41.37 years)"
-```
-
-```r
 # Create age in years as numeric vector
 as.numeric(as.duration(today() - mdy(y)), "years")
-```
-
-```
-## [1] 41.36619
-```
-
-```r
+#> [1] 41.36619
 floor(as.numeric(as.duration(today() - mdy(y)), "years"))
-```
+#> [1] 41
 
-```
-## [1] 41
-```
-
-```r
 str(floor(as.numeric(as.duration(today() - mdy(y)), "years")))
-```
-
-```
-##  num 41
+#>  num 41
 ```
 
 <br>
@@ -5119,10 +3958,7 @@ y <- "01/16/1979"
 age <- floor(as.numeric(as.duration(today() - mdy(y)), "years"))
 
 str_c("Hello, world. My name is", x, "and I am", age, "years old", sep = " ", collapse = NULL)
-```
-
-```
-## [1] "Hello, world. My name is Ozan Jaquette and I am 41 years old"
+#> [1] "Hello, world. My name is Ozan Jaquette and I am 41 years old"
 ```
 
 </details>
@@ -5143,34 +3979,13 @@ print_hello <- function(x, y) {  # This function takes 2 arguments
 
 # Call function
 print_hello(x = "Ozan Jaquette", "01/16/1979")
-```
-
-```
-## [1] "Hello, world. My name is Ozan Jaquette and I am 41 years old"
-```
-
-```r
+#> [1] "Hello, world. My name is Ozan Jaquette and I am 41 years old"
 print_hello(x = "Kartal Jaquette", "01/24/1983")
-```
-
-```
-## [1] "Hello, world. My name is Kartal Jaquette and I am 37 years old"
-```
-
-```r
+#> [1] "Hello, world. My name is Kartal Jaquette and I am 37 years old"
 print_hello(x = "Sumru Erkut", "06/15/1944")
-```
-
-```
-## [1] "Hello, world. My name is Sumru Erkut and I am 75 years old"
-```
-
-```r
+#> [1] "Hello, world. My name is Sumru Erkut and I am 75 years old"
 print_hello(x = "Sumru Jaquette-Nasiali", "04/05/2019")
-```
-
-```
-## [1] "Hello, world. My name is Sumru Jaquette-Nasiali and I am 1 years old"
+#> [1] "Hello, world. My name is Sumru Jaquette-Nasiali and I am 1 years old"
 ```
 
 1. __Function name__
@@ -5194,10 +4009,9 @@ print_hello(x = "Sumru Jaquette-Nasiali", "04/05/2019") # this works
 print_hello(x = "Sumru Jaquette-Nasiali", "2019/04/05") # this breaks
 ```
 
-Next step would be to modify function to create date object for date of birth, allowing DOB to be entered using multiple formats
+<br>
+If we wanted to make additional improvements to `print_hello()`, we could modify the function to allow date of birth to be entered using several alternative formats (e.g., `"04/05/2019"` or `"2019/04/05"`)
 
-- first, do outside of function
-- second, modify function
 
 ### `z_score()` function
 
@@ -5209,12 +4023,10 @@ __Task__: Write function called `z_score()` that calculates the z-score for each
 
 
 ```r
+
 # Expected output
 z_score(c(1, 2, 3, 4, 5))
-```
-
-```
-## [1] -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+#> [1] -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
 ```
 
 <details><summary>**Step 1**: Perform task outside of function</summary>
@@ -5225,50 +4037,17 @@ Create a vector of numbers we'll use to calculate z-score:
 ```r
 v=seq(5,15)
 v
-```
-
-```
-##  [1]  5  6  7  8  9 10 11 12 13 14 15
-```
-
-```r
+#>  [1]  5  6  7  8  9 10 11 12 13 14 15
 typeof(v) # type == integer vector
-```
-
-```
-## [1] "integer"
-```
-
-```r
+#> [1] "integer"
 class(v) # class == integer
-```
-
-```
-## [1] "integer"
-```
-
-```r
+#> [1] "integer"
 length(v) # number of elements in object v
-```
-
-```
-## [1] 11
-```
-
-```r
+#> [1] 11
 v[1] # 1st element of v
-```
-
-```
-## [1] 5
-```
-
-```r
+#> [1] 5
 v[10] # 10th element of v
-```
-
-```
-## [1] 14
+#> [1] 14
 ```
 
 <br>
@@ -5279,18 +4058,9 @@ We can calculate the z-score using the Base R `mean()` and `sd()` functions:
 
 ```r
 mean(v)
-```
-
-```
-## [1] 10
-```
-
-```r
+#> [1] 10
 sd(v)
-```
-
-```
-## [1] 3.316625
+#> [1] 3.316625
 ```
 
 <br>
@@ -5299,18 +4069,9 @@ Calculate z-score for some value:
 
 ```r
 (5-mean(v))/sd(v)
-```
-
-```
-## [1] -1.507557
-```
-
-```r
+#> [1] -1.507557
 (10-mean(v))/sd(v)
-```
-
-```
-## [1] 0
+#> [1] 0
 ```
 
 <br>
@@ -5319,34 +4080,13 @@ Calculate z-score for particular elements of vector `v`:
 
 ```r
 v[1]
-```
-
-```
-## [1] 5
-```
-
-```r
+#> [1] 5
 (v[1]-mean(v))/sd(v)
-```
-
-```
-## [1] -1.507557
-```
-
-```r
+#> [1] -1.507557
 v[8]
-```
-
-```
-## [1] 12
-```
-
-```r
+#> [1] 12
 (v[8]-mean(v))/sd(v)
-```
-
-```
-## [1] 0.6030227
+#> [1] 0.6030227
 ```
 
 <br>
@@ -5355,18 +4095,9 @@ Calculate `z_i` for multiple elements of vector `v`:
 
 ```r
 c(v[1],v[8],v[11])
-```
-
-```
-## [1]  5 12 15
-```
-
-```r
+#> [1]  5 12 15
 c((v[1]-mean(v))/sd(v),(v[8]-mean(v))/sd(v),(v[11]-mean(v))/sd(v))
-```
-
-```
-## [1] -1.5075567  0.6030227  1.5075567
+#> [1] -1.5075567  0.6030227  1.5075567
 ```
 
 </details>
@@ -5395,36 +4126,17 @@ Test/call the function:
 
 ```r
 z_score(x = c(5,6,7,8,9,10,11,12,13,14,15))
-```
+#>  [1] -1.5075567 -1.2060454 -0.9045340 -0.6030227 -0.3015113  0.0000000
+#>  [7]  0.3015113  0.6030227  0.9045340  1.2060454  1.5075567
 
-```
-##  [1] -1.5075567 -1.2060454 -0.9045340 -0.6030227 -0.3015113  0.0000000
-##  [7]  0.3015113  0.6030227  0.9045340  1.2060454  1.5075567
-```
-
-```r
 v
-```
-
-```
-##  [1]  5  6  7  8  9 10 11 12 13 14 15
-```
-
-```r
+#>  [1]  5  6  7  8  9 10 11 12 13 14 15
 z_score(x = v)
-```
+#>  [1] -1.5075567 -1.2060454 -0.9045340 -0.6030227 -0.3015113  0.0000000
+#>  [7]  0.3015113  0.6030227  0.9045340  1.2060454  1.5075567
 
-```
-##  [1] -1.5075567 -1.2060454 -0.9045340 -0.6030227 -0.3015113  0.0000000
-##  [7]  0.3015113  0.6030227  0.9045340  1.2060454  1.5075567
-```
-
-```r
 z_score(x = c(seq(20,25)))
-```
-
-```
-## [1] -1.3363062 -0.8017837 -0.2672612  0.2672612  0.8017837  1.3363062
+#> [1] -1.3363062 -0.8017837 -0.2672612  0.2672612  0.8017837  1.3363062
 ```
 
 </details>
@@ -5441,18 +4153,9 @@ Let's see what happens when we try passing in a vector containing `NA` to our `z
 ```r
 w <- c(NA, seq(1:5), NA)
 w
-```
-
-```
-## [1] NA  1  2  3  4  5 NA
-```
-
-```r
+#> [1] NA  1  2  3  4  5 NA
 z_score(w)
-```
-
-```
-## [1] NA NA NA NA NA NA NA
+#> [1] NA NA NA NA NA NA NA
 ```
 
 <br>
@@ -5465,19 +4168,9 @@ z_score <- function(x) {
 }
 
 w
-```
-
-```
-## [1] NA  1  2  3  4  5 NA
-```
-
-```r
+#> [1] NA  1  2  3  4  5 NA
 z_score(w)
-```
-
-```
-## [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
-## [7]         NA
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
 ```
 
 </details>
@@ -5496,85 +4189,43 @@ df <- tibble(
   c = c(NA,rnorm(5))
 )
 class(df) # class of object df
-```
-
-```
-## [1] "tbl_df"     "tbl"        "data.frame"
-```
-
-```r
+#> [1] "tbl_df"     "tbl"        "data.frame"
 df # print data frame
-```
+#> # A tibble: 6 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1 NA     NA     NA    
+#> 2  0.586 -1.82  -0.116
+#> 3  0.709  0.630  1.82 
+#> 4 -0.109 -0.276  0.371
+#> 5 -0.453 -0.284  0.520
+#> 6  0.606 -0.919 -0.751
 
-```
-## # A tibble: 6 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1 NA     NA     NA    
-## 2  0.586 -1.82  -0.116
-## 3  0.709  0.630  1.82 
-## 4 -0.109 -0.276  0.371
-## 5 -0.453 -0.284  0.520
-## 6  0.606 -0.919 -0.751
-```
-
-```r
 # subset a data frame w/ one element, using []
 df["a"] 
-```
-
-```
-## # A tibble: 6 x 1
-##        a
-##    <dbl>
-## 1 NA    
-## 2  0.586
-## 3  0.709
-## 4 -0.109
-## 5 -0.453
-## 6  0.606
-```
-
-```r
+#> # A tibble: 6 x 1
+#>        a
+#>    <dbl>
+#> 1 NA    
+#> 2  0.586
+#> 3  0.709
+#> 4 -0.109
+#> 5 -0.453
+#> 6  0.606
 str(df["a"])
-```
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	6 obs. of  1 variable:
+#>  $ a: num  NA 0.586 0.709 -0.109 -0.453 ...
 
-```
-## Classes 'tbl_df', 'tbl' and 'data.frame':	6 obs. of  1 variable:
-##  $ a: num  NA 0.586 0.709 -0.109 -0.453 ...
-```
-
-```r
 # subset values of an element using [[]] or $
 df[["a"]]
-```
-
-```
-## [1]         NA  0.5855288  0.7094660 -0.1093033 -0.4534972  0.6058875
-```
-
-```r
+#> [1]         NA  0.5855288  0.7094660 -0.1093033 -0.4534972  0.6058875
 str(df[["a"]])
-```
+#>  num [1:6] NA 0.586 0.709 -0.109 -0.453 ...
 
-```
-##  num [1:6] NA 0.586 0.709 -0.109 -0.453 ...
-```
-
-```r
 df$a # print element "a" (i.e., variable "a") of object df (dataframe)
-```
-
-```
-## [1]         NA  0.5855288  0.7094660 -0.1093033 -0.4534972  0.6058875
-```
-
-```r
+#> [1]         NA  0.5855288  0.7094660 -0.1093033 -0.4534972  0.6058875
 str(df$a) # structure of element "a" of df: a numeric vector
-```
-
-```
-##  num [1:6] NA 0.586 0.709 -0.109 -0.453 ...
+#>  num [1:6] NA 0.586 0.709 -0.109 -0.453 ...
 ```
 
 <br>
@@ -5583,55 +4234,24 @@ Experiment with components of z-score, outside of a function:
 
 ```r
 mean(df[["a"]], na.rm=TRUE) # mean of variable "a"
-```
-
-```
-## [1] 0.2676164
-```
-
-```r
+#> [1] 0.2676164
 sd(df[["a"]], na.rm=TRUE) # std dev of variable "a"
-```
+#> [1] 0.5178803
 
-```
-## [1] 0.5178803
-```
-
-```r
 mean(df$a, na.rm=TRUE) # mean of variable "a"
-```
-
-```
-## [1] 0.2676164
-```
-
-```r
+#> [1] 0.2676164
 sd(df$a, na.rm=TRUE) # std dev of variable "a"
-```
+#> [1] 0.5178803
 
-```
-## [1] 0.5178803
-```
-
-```r
 #would these work?
   #mean(df["a"], na.rm=TRUE) # mean of variable "a"
   #sd(df["a"], na.rm=TRUE) # std dev of variable "a"
 
 #manually calculate z score for second observation in variable "a"
 df$a[2]
-```
-
-```
-## [1] 0.5855288
-```
-
-```r
+#> [1] 0.5855288
 (df$a[2] - mean(df$a, na.rm=TRUE))/sd(df$a, na.rm=TRUE) # check result
-```
-
-```
-## [1] 0.6138725
+#> [1] 0.6138725
 ```
 
 <br>
@@ -5641,37 +4261,21 @@ Apply `z_score()` function to variables in dataframe:
 ```r
 # z_score() function to calculate z-score for each obs of variable "a"
 df$a # print variable "a"
-```
-
-```
-## [1]         NA  0.5855288  0.7094660 -0.1093033 -0.4534972  0.6058875
-```
-
-```r
+#> [1]         NA  0.5855288  0.7094660 -0.1093033 -0.4534972  0.6058875
 z_score(x = df$a)
-```
-
-```
-## [1]         NA  0.6138725  0.8531888 -0.7278124 -1.3924329  0.6531840
-```
-
-```r
+#> [1]         NA  0.6138725  0.8531888 -0.7278124 -1.3924329  0.6531840
 z_score(x = df[["a"]])
-```
+#> [1]         NA  0.6138725  0.8531888 -0.7278124 -1.3924329  0.6531840
 
-```
-## [1]         NA  0.6138725  0.8531888 -0.7278124 -1.3924329  0.6531840
-```
-
-```r
-  #z_score(x = df["a"]) # but this doesn't work
+#this approach doesn't work:
+  #z_score(x = df["a"]) 
+  # Why?:
+    # df["a"] is a dataframe with one variable
+    # you can't apply mean() or sd() functions to a list/data frame object, only a numeric atomic vector
 
 # z-score for each obs of variable "b"
 z_score(x = df$b) 
-```
-
-```
-## [1]         NA -1.4182167  1.2847832  0.2841184  0.2753122 -0.4259971
+#> [1]         NA -1.4182167  1.2847832  0.2841184  0.2753122 -0.4259971
 ```
 
 </details>
@@ -5687,119 +4291,65 @@ First, briefly review how to create and delete variables using Base R approach:
 
 ```r
 df # print data frame df
-```
+#> # A tibble: 6 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1 NA     NA     NA    
+#> 2  0.586 -1.82  -0.116
+#> 3  0.709  0.630  1.82 
+#> 4 -0.109 -0.276  0.371
+#> 5 -0.453 -0.284  0.520
+#> 6  0.606 -0.919 -0.751
 
-```
-## # A tibble: 6 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1 NA     NA     NA    
-## 2  0.586 -1.82  -0.116
-## 3  0.709  0.630  1.82 
-## 4 -0.109 -0.276  0.371
-## 5 -0.453 -0.284  0.520
-## 6  0.606 -0.919 -0.751
-```
-
-```r
-df$one <- 1 # create variable "one" that always equals 1
-df # print data frame df
-```
-
-```
-## # A tibble: 6 x 4
-##        a      b      c   one
-##    <dbl>  <dbl>  <dbl> <dbl>
-## 1 NA     NA     NA         1
-## 2  0.586 -1.82  -0.116     1
-## 3  0.709  0.630  1.82      1
-## 4 -0.109 -0.276  0.371     1
-## 5 -0.453 -0.284  0.520     1
-## 6  0.606 -0.919 -0.751     1
-```
-
-```r
-df$one <- NULL # remove variable "one"
-df 
-```
-
-```
-## # A tibble: 6 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1 NA     NA     NA    
-## 2  0.586 -1.82  -0.116
-## 3  0.709  0.630  1.82 
-## 4 -0.109 -0.276  0.371
-## 5 -0.453 -0.284  0.520
-## 6  0.606 -0.919 -0.751
-```
-
-```r
 df$c_plus2 <- df$c+2 #create variable equal to "c" plus 2
 df
-```
-
-```
-## # A tibble: 6 x 4
-##        a      b      c c_plus2
-##    <dbl>  <dbl>  <dbl>   <dbl>
-## 1 NA     NA     NA       NA   
-## 2  0.586 -1.82  -0.116    1.88
-## 3  0.709  0.630  1.82     3.82
-## 4 -0.109 -0.276  0.371    2.37
-## 5 -0.453 -0.284  0.520    2.52
-## 6  0.606 -0.919 -0.751    1.25
-```
-
-```r
+#> # A tibble: 6 x 4
+#>        a      b      c c_plus2
+#>    <dbl>  <dbl>  <dbl>   <dbl>
+#> 1 NA     NA     NA       NA   
+#> 2  0.586 -1.82  -0.116    1.88
+#> 3  0.709  0.630  1.82     3.82
+#> 4 -0.109 -0.276  0.371    2.37
+#> 5 -0.453 -0.284  0.520    2.52
+#> 6  0.606 -0.919 -0.751    1.25
 df$c_plus2 <- NULL # remove variable "c_plus2"
 df
-```
-
-```
-## # A tibble: 6 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1 NA     NA     NA    
-## 2  0.586 -1.82  -0.116
-## 3  0.709  0.630  1.82 
-## 4 -0.109 -0.276  0.371
-## 5 -0.453 -0.284  0.520
-## 6  0.606 -0.919 -0.751
+#> # A tibble: 6 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1 NA     NA     NA    
+#> 2  0.586 -1.82  -0.116
+#> 3  0.709  0.630  1.82 
+#> 4 -0.109 -0.276  0.371
+#> 5 -0.453 -0.284  0.520
+#> 6  0.606 -0.919 -0.751
 ```
 
 <br>
-Use `z_score()` function to create a new variable that equals the z-score of another variable. Simply calling the `z_score()` function does not create a new variable:
+Use `z_score()` function to create a new variable that equals the z-score of another variable. 
+
+- Simply calling the `z_score()` function does not create a new variable:
 
 
 ```r
 z_score(x = df$c)
-```
-
-```
-## [1]           NA -0.510074390  1.525451514  0.002476613  0.159953743
-## [6] -1.177807481
-```
-
-```r
+#> [1]           NA -0.510074390  1.525451514  0.002476613  0.159953743
+#> [6] -1.177807481
 df
-```
-
-```
-## # A tibble: 6 x 3
-##        a      b      c
-##    <dbl>  <dbl>  <dbl>
-## 1 NA     NA     NA    
-## 2  0.586 -1.82  -0.116
-## 3  0.709  0.630  1.82 
-## 4 -0.109 -0.276  0.371
-## 5 -0.453 -0.284  0.520
-## 6  0.606 -0.919 -0.751
+#> # A tibble: 6 x 3
+#>        a      b      c
+#>    <dbl>  <dbl>  <dbl>
+#> 1 NA     NA     NA    
+#> 2  0.586 -1.82  -0.116
+#> 3  0.709  0.630  1.82 
+#> 4 -0.109 -0.276  0.371
+#> 5 -0.453 -0.284  0.520
+#> 6  0.606 -0.919 -0.751
 ```
 
 <br>
-Instead of modifying the `z_score()` function so that the variable is assigned within the function, the preferred approach is to call the `z_score()` function after the assignment operator `<-`:
+
+- Instead of modifying the `z_score()` function so that the variable is assigned within the function, the preferred approach is to call the `z_score()` function after the assignment operator `<-`:
 
 
 ```r
@@ -5807,18 +4357,15 @@ df$c_z <- z_score(x = df$c)
 
 # examine data frame
 df
-```
-
-```
-## # A tibble: 6 x 4
-##        a      b      c      c_z
-##    <dbl>  <dbl>  <dbl>    <dbl>
-## 1 NA     NA     NA     NA      
-## 2  0.586 -1.82  -0.116 -0.510  
-## 3  0.709  0.630  1.82   1.53   
-## 4 -0.109 -0.276  0.371  0.00248
-## 5 -0.453 -0.284  0.520  0.160  
-## 6  0.606 -0.919 -0.751 -1.18
+#> # A tibble: 6 x 4
+#>        a      b      c      c_z
+#>    <dbl>  <dbl>  <dbl>    <dbl>
+#> 1 NA     NA     NA     NA      
+#> 2  0.586 -1.82  -0.116 -0.510  
+#> 3  0.709  0.630  1.82   1.53   
+#> 4 -0.109 -0.276  0.371  0.00248
+#> 5 -0.453 -0.284  0.520  0.160  
+#> 6  0.606 -0.919 -0.751 -1.18
 ```
 
 </details>
@@ -5837,61 +4384,43 @@ df_event_small <- df_event[1:10,] %>% # keep first 10 observations
   select(instnm,univ_id,event_type,med_inc) # keep 4 vars
 
 df_event_small
-```
+#> # A tibble: 10 x 4
+#>    instnm      univ_id event_type med_inc
+#>    <chr>         <int> <chr>        <dbl>
+#>  1 UM Amherst   166629 public hs   71714.
+#>  2 UM Amherst   166629 public hs   89122.
+#>  3 UM Amherst   166629 public hs   70136.
+#>  4 UM Amherst   166629 public hs   70136.
+#>  5 Stony Brook  196097 public hs   71024.
+#>  6 USCC         218663 private hs  71024.
+#>  7 UM Amherst   166629 private hs  71024.
+#>  8 UM Amherst   166629 public hs   97225 
+#>  9 UM Amherst   166629 private hs  97225 
+#> 10 UM Amherst   166629 public hs   77800.
 
-```
-## # A tibble: 10 x 4
-##    instnm      univ_id event_type med_inc
-##    <chr>         <int> <chr>        <dbl>
-##  1 UM Amherst   166629 public hs   71714.
-##  2 UM Amherst   166629 public hs   89122.
-##  3 UM Amherst   166629 public hs   70136.
-##  4 UM Amherst   166629 public hs   70136.
-##  5 Stony Brook  196097 public hs   71024.
-##  6 USCC         218663 private hs  71024.
-##  7 UM Amherst   166629 private hs  71024.
-##  8 UM Amherst   166629 public hs   97225 
-##  9 UM Amherst   166629 private hs  97225 
-## 10 UM Amherst   166629 public hs   77800.
-```
-
-```r
 #show observations for variable med_inc
 df_event_small$med_inc
-```
+#>  [1] 71713.5 89121.5 70136.5 70136.5 71023.5 71023.5 71023.5 97225.0 97225.0
+#> [10] 77799.5
 
-```
-##  [1] 71713.5 89121.5 70136.5 70136.5 71023.5 71023.5 71023.5 97225.0
-##  [9] 97225.0 77799.5
-```
-
-```r
 #calculate z-score of variable med_inc (without assignment)
 z_score(x = df_event_small$med_inc)
-```
+#>  [1] -0.60825958  0.91982879 -0.74668992 -0.74668992 -0.66882834 -0.66882834
+#>  [7] -0.66882834  1.63116060  1.63116060 -0.07402556
 
-```
-##  [1] -0.60825958  0.91982879 -0.74668992 -0.74668992 -0.66882834
-##  [6] -0.66882834 -0.66882834  1.63116060  1.63116060 -0.07402556
-```
-
-```r
 #assign new variable equal to the z-score of med_inc
 df_event_small$med_inc_z <- z_score(x = df_event_small$med_inc)
 
 #inspect
 df_event_small %>% head(5)
-```
-
-```
-## # A tibble: 5 x 5
-##   instnm      univ_id event_type med_inc med_inc_z
-##   <chr>         <int> <chr>        <dbl>     <dbl>
-## 1 UM Amherst   166629 public hs   71714.    -0.608
-## 2 UM Amherst   166629 public hs   89122.     0.920
-## 3 UM Amherst   166629 public hs   70136.    -0.747
-## 4 UM Amherst   166629 public hs   70136.    -0.747
-## 5 Stony Brook  196097 public hs   71024.    -0.669
+#> # A tibble: 5 x 5
+#>   instnm      univ_id event_type med_inc med_inc_z
+#>   <chr>         <int> <chr>        <dbl>     <dbl>
+#> 1 UM Amherst   166629 public hs   71714.    -0.608
+#> 2 UM Amherst   166629 public hs   89122.     0.920
+#> 3 UM Amherst   166629 public hs   70136.    -0.747
+#> 4 UM Amherst   166629 public hs   70136.    -0.747
+#> 5 Stony Brook  196097 public hs   71024.    -0.669
 ```
 
 </details>
@@ -5960,25 +4489,15 @@ We no longer run into errors if we supply an invalid input:
 ```r
 # Test with list/dataframe input
 str(df_event_small["med_inc"])
-```
+#> Classes 'tbl_df', 'tbl' and 'data.frame':	10 obs. of  1 variable:
+#>  $ med_inc: num  71714 89122 70137 70137 71024 ...
 
-```
-## Classes 'tbl_df', 'tbl' and 'data.frame':	10 obs. of  1 variable:
-##  $ med_inc: num  71714 89122 70136 70136 71024 ...
-```
-
-```r
 z_score(x = df_event_small["med_inc"])
 
 # Test with character vector input
 str(df_event_small$instnm)
-```
+#>  chr [1:10] "UM Amherst" "UM Amherst" "UM Amherst" "UM Amherst" ...
 
-```
-##  chr [1:10] "UM Amherst" "UM Amherst" "UM Amherst" "UM Amherst" ...
-```
-
-```r
 z_score(x = df_event_small$instnm)
 ```
 
@@ -5988,36 +4507,23 @@ Note that our function would return `NULL` if the input was invalid, so the new 
 
 ```r
 str(df_event_small$instnm)
-```
+#>  chr [1:10] "UM Amherst" "UM Amherst" "UM Amherst" "UM Amherst" ...
 
-```
-##  chr [1:10] "UM Amherst" "UM Amherst" "UM Amherst" "UM Amherst" ...
-```
-
-```r
 # Invalid character vector input returns `NULL`
 typeof(z_score(x = df_event_small$instnm))
-```
+#> [1] "NULL"
 
-```
-## [1] "NULL"
-```
-
-```r
 # We would not see new variable/column `instnm_z`
 df_event_small$instnm_z <- z_score(x = df_event_small$instnm)
 df_event_small %>% head(5)
-```
-
-```
-## # A tibble: 5 x 5
-##   instnm      univ_id event_type med_inc med_inc_z
-##   <chr>         <int> <chr>        <dbl>     <dbl>
-## 1 UM Amherst   166629 public hs   71714.    -0.608
-## 2 UM Amherst   166629 public hs   89122.     0.920
-## 3 UM Amherst   166629 public hs   70136.    -0.747
-## 4 UM Amherst   166629 public hs   70136.    -0.747
-## 5 Stony Brook  196097 public hs   71024.    -0.669
+#> # A tibble: 5 x 5
+#>   instnm      univ_id event_type med_inc med_inc_z
+#>   <chr>         <int> <chr>        <dbl>     <dbl>
+#> 1 UM Amherst   166629 public hs   71714.    -0.608
+#> 2 UM Amherst   166629 public hs   89122.     0.920
+#> 3 UM Amherst   166629 public hs   70136.    -0.747
+#> 4 UM Amherst   166629 public hs   70136.    -0.747
+#> 5 Stony Brook  196097 public hs   71024.    -0.669
 ```
 
 </details>
@@ -6043,25 +4549,23 @@ __Task__: Write function called `num_negative()`
 
 
 ```r
+
 # Sample dataframe `df` that contains some negative values
 df
-```
-
-```
-## # A tibble: 100 x 4
-##       id   age sibage parage
-##    <int> <dbl>  <dbl>  <dbl>
-##  1     1    17      8     49
-##  2     2    15    -97     46
-##  3     3   -97    -97     53
-##  4     4    13     12     -4
-##  5     5   -97     10     47
-##  6     6    12     10     52
-##  7     7   -99      5     51
-##  8     8   -97     10     55
-##  9     9    16      6     51
-## 10    10    16    -99     -8
-## # … with 90 more rows
+#> # A tibble: 100 x 4
+#>       id   age sibage parage
+#>    <int> <dbl>  <dbl>  <dbl>
+#>  1     1    17      8     49
+#>  2     2    15    -97     46
+#>  3     3   -97    -97     53
+#>  4     4    13     12     -4
+#>  5     5   -97     10     47
+#>  6     6    12     10     52
+#>  7     7   -99      5     51
+#>  8     8   -97     10     55
+#>  9     9    16      6     51
+#> 10    10    16    -99     -8
+#> # ... with 90 more rows
 ```
 
 <br>
@@ -6078,32 +4582,18 @@ __Recommended steps__:
 
 ```r
 names(df) # identify variable names
-```
-
-```
-## [1] "id"     "age"    "sibage" "parage"
-```
-
-```r
+#> [1] "id"     "age"    "sibage" "parage"
 df$age # print observations for a variable
-```
+#>   [1]  17  15 -97  13 -97  12 -99 -97  16  16 -98  20 -99  20  11  20  12  17
+#>  [19]  19  17 -97 -99  12  13  11  15  20  14 -99  11  20 -98  11 -98  12  16
+#>  [37]  12  18  12  19  12 -97  20  17  11  19  19  12 -98  11  15  18  15 -98
+#>  [55]  15  19 -97  13 -98  16  13  12  16  19 -99  19 -98  13 -97  20  15  19
+#>  [73]  15  12  18 -99  18 -98 -98 -98 -97  12  14  19 -97  11  20  18  14 -99
+#>  [91]  15  20 -97  14  14  19  18  17  20  15
 
-```
-##   [1]  17  15 -97  13 -97  12 -99 -97  16  16 -98  20 -99  20  11  20  12
-##  [18]  17  19  17 -97 -99  12  13  11  15  20  14 -99  11  20 -98  11 -98
-##  [35]  12  16  12  18  12  19  12 -97  20  17  11  19  19  12 -98  11  15
-##  [52]  18  15 -98  15  19 -97  13 -98  16  13  12  16  19 -99  19 -98  13
-##  [69] -97  20  15  19  15  12  18 -99  18 -98 -98 -98 -97  12  14  19 -97
-##  [86]  11  20  18  14 -99  15  20 -97  14  14  19  18  17  20  15
-```
-
-```r
 #BaseR
 sum(df$age<0) # count number of obs w/ negative values for variable "age"
-```
-
-```
-## [1] 27
+#> [1] 27
 ```
 
 </details>
@@ -6126,18 +4616,9 @@ num_missing <- function(x){
 
 ```r
 num_missing(df$age)
-```
-
-```
-## [1] 27
-```
-
-```r
+#> [1] 27
 num_missing(df$sibage)
-```
-
-```
-## [1] 22
+#> [1] 22
 ```
 
 </details>
@@ -6173,10 +4654,7 @@ __Recommended steps__:
 
 ```r
 sum(df$age %in% c(-97,-98,-99))
-```
-
-```
-## [1] 27
+#> [1] 27
 ```
 
 </details>
@@ -6200,26 +4678,11 @@ num_missing <- function(x, miss_vals){
 
 ```r
 num_missing(df$age,c(-97,-98,-99))
-```
-
-```
-## [1] 27
-```
-
-```r
+#> [1] 27
 num_missing(df$sibage,c(-97,-98,-99))
-```
-
-```
-## [1] 22
-```
-
-```r
+#> [1] 22
 num_missing(df$parage,c(-4,-7,-8))
-```
-
-```
-## [1] 17
+#> [1] 17
 ```
 
 </details>
@@ -6231,135 +4694,208 @@ num_missing(df$parage,c(-4,-7,-8))
 
 What are **default values** for arguments?
 
-- The **default value** for an argument is the value that will be used if the argument was not supplied during the function call
+- The **default value** for an argument is the value that will be used if the argument value was not supplied during the function call
 - When writing the function, you can specify the **default value** for an argument using `name=value`
 
 <br>
-**Example**: Arguments with default value in `str_c()`
+Most Base R functions and functions from other packages specify default values for one or more arguments
+
+**Example**: `str_c()` function
 
 The `str_c()` function has default values for `sep` and `collapse`:
 
-- `str_c(..., sep = "", collapse = NULL)`
+- Syntax
+  - `str_c(..., sep = "", collapse = NULL)`
+- Arguments
+  - `...`: one or more character vectors to join, separated by commas
+  - `sep`: string to insert between input vectors
+    - default value: `sep = ""`
+  - `collapse`: Optional string used to combine input vectors into single string.
+      - after joining vectors into single string within each element, should resulting elements be combined into a single string? and if so, what string to insert between elements 
+      - default value: `collapse = NULL` is to not combine elements into a single string
 
 
 ```r
+# We want to join the following two vectors element-wise into a single character vector
+c("a","b")
+#> [1] "a" "b"
+c(1,2)
+#> [1] 1 2
+
+# manually specifying default values
+str_c(c("a", "b"), c(1, 2), sep = "", collapse = NULL)
+#> [1] "a1" "b2"
+
 # If we don't specify `sep` and `collapse`, they take the default values
 str_c(c("a", "b"), c(1, 2))
-```
+#> [1] "a1" "b2"
 
-```
-## [1] "a1" "b2"
-```
+# specify value for `sep` that overrides default value
+str_c(c("a", "b"), c(1, 2), sep = "~")
+#> [1] "a~1" "b~2"
+length(str_c(c("a", "b"), c(1, 2), sep = "~")) # resulting vector has length = 2
+#> [1] 2
 
-```r
-# If we specify `sep` and `collapse`, they would override the default values
-str_c(c("a", "b"), c(1, 2), sep = "~", collapse = "|")
-```
+# specify value for `collapse` that overrides default
+str_c(c("a", "b"), c(1, 2), collapse = "|")
+#> [1] "a1|b2"
+length(str_c(c("a", "b"), c(1, 2), collapse = "|"))  # resulting vector has length = 1
+#> [1] 1
 
-```
-## [1] "a~1|b~2"
+# specify alternative values for both `sep` and `collapse`
+  #str_c(c("a", "b"), c(1, 2), sep = "~", collapse = "|")
 ```
 
 <br>
-<details><summary>**Example**: Adding a default value for function argument</summary>
+<details><summary>**Example**: Adding a default value to our `z_score()` function</summary>
 
-Recall the `print_hello()` function. Let's modify the function to make `x` have a default value:
+Recall the `z_score()` function we developed previously
+
+- we wrote this function to remove `NA` values prior to calculating z-score
 
 
 ```r
-# Define function
-print_hello <- function(x="there") {  # The default value for `x` is "there"
-  str_c("Hello ", x, "!")
+z_score <- function(x) {
+  (x - mean(x, na.rm=TRUE))/sd(x, na.rm=TRUE)
 }
 
-# Call function without passing in name (it will use default value)
-print_hello()
+w <- c(NA, seq(1:5), NA)
+w
+#> [1] NA  1  2  3  4  5 NA
+z_score(w)
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
 ```
+We could add an argument (named `na`) that specifies whether `NA`s should be removed prior to calculating z-scores
 
-```
-## [1] "Hello there!"
-```
 
 ```r
-# Call function and pass in name (it will override default value)
-print_hello("World")
-```
+z_score <- function(x, na) {
+  (x - mean(x, na.rm=na))/sd(x, na.rm=na)
+}
 
+w
+#> [1] NA  1  2  3  4  5 NA
+z_score(w, TRUE)
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
+z_score(w, FALSE)
+#> [1] NA NA NA NA NA NA NA
+#z_score(w) # error: argument "na" is missing, with no default
 ```
-## [1] "Hello World!"
+We could also add a default value for the `na` argument
+
+- following conservative approach, we'll specify default value as `FALSE` which means that any `NA` values in input vector `x` will result in z-score of `NA` for all observations
+
+
+```r
+z_score <- function(x, na = FALSE) {
+  (x - mean(x, na.rm=na))/sd(x, na.rm=na)
+}
+
+w
+#> [1] NA  1  2  3  4  5 NA
+
+z_score(w) # uses default value of FALSE
+#> [1] NA NA NA NA NA NA NA
+z_score(w, FALSE) # manually specify default value
+#> [1] NA NA NA NA NA NA NA
+z_score(w, TRUE) # override default value
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
 ```
 
 </details>
 
 ### Dot-dot-dot (`...`)
 
-What is **dot-dot-dot (`...`)**?
-
-- Dot-dot-dot (`...`) allows the function to take an arbitrary number of arguments
-- "`...` (pronounced dot-dot-dot) [...] captures any number of arguments that aren’t otherwise matched." (From [R for Data Science](https://r4ds.had.co.nz/functions.html#dot-dot-dot))
-- When we write our own function with the special argument `...`, we can pass those inputs into another function that takes `...` (e.g., `str_c()`)
+#### What is dot-dot-dot (`...`)?
 
 <br>
-**Example**: Dot-dot-dot (`...`) argument in `str_c()`
 
-The `str_c()` function allows us to pass in an arbitrary number of character vectors to concatenate together:
+Many functions take an arbitrary number of arguments/inputs
 
-- `str_c(..., sep = "", collapse = NULL)`
-
+- Examples of functions we haved worked with that allow an arbitrary number of arguments include `select()`, `sum()`, `filter()`, `str_c()`
+- `select()`
 
 ```r
+#?select
+select(df_event,instnm,univ_id,event_type,med_inc) %>% names()
+#> [1] "instnm"     "univ_id"    "event_type" "med_inc"
+```
+
+- `sum()`
+
+```r
+#?sum
+sum(3,3,2,2,1,1)
+#> [1] 12
+```
+
+- `str_c`
+
+```r
+#?str_c
+
 # 1 character vector as input
 str_c(c("a", "b", "c"))
-```
+#> [1] "a" "b" "c"
 
-```
-## [1] "a" "b" "c"
-```
-
-```r
 # 2 character vectors as input
 str_c(c("a", "b", "c"), " is for ")
-```
+#> [1] "a is for " "b is for " "c is for "
 
-```
-## [1] "a is for " "b is for " "c is for "
-```
-
-```r
 # 3 character vectors as input
 str_c(c("a", "b", "c"), " is for ", c("apple", "banana", "coffee"))
+#> [1] "a is for apple"  "b is for banana" "c is for coffee"
 ```
 
-```
-## [1] "a is for apple"  "b is for banana" "c is for coffee"
-```
+
+All of these functions rely on a special argument `...` (pronounced dot-dot-dot)  
+
+- Dot-dot-dot (`...`) allows a function to take an arbitrary number of arguments
+- Wickham and Grolemund [chapter 19.5.3](https://r4ds.had.co.nz/functions.html#dot-dot-dot) states:
+
+  > "`...` captures any number of arguments that aren’t otherwise matched."
 
 <br>
+
+#### Writing functions with dot-dot-dot (`...`) arguments
+
+When writing functions, there are two primary uses of including `...` arguments:
+
+1. A means of allowing the function to take an arbitrary number of arguments, as in the `select()` and `sum` functions
+1. When we write our own function with the special argument `...`, we can pass those inputs into another function that takes `...` (e.g., `str_c()`)
+
+<br>
+
 <details><summary>**Example**: Adding dot-dot-dot (`...`) as function argument</summary>
 
-Recall the `print_hello()` function. Let's modify the function to make it take an arbitrary number of names to greet:
+
+Recall the first iteration of our `print_hello()` function, which basically just printed a name that we specified in program call. Let's modify the function to make it take an arbitrary number of names to greet:
+
+- Function that only took one argument
+
+```r
+print_hello1 <- function(x) {  
+  str_c("Hello ", x, "!") 
+}
+
+print_hello1("Ozan")
+#> [1] "Hello Ozan!"
+```
+
+- Modify function to take an arbitrary number of names to greet
 
 
 ```r
 # Define function
-print_hello <- function(...) {  # The function accepts an arbitrary number of inputs
+print_hello2 <- function(...) {  # The function accepts an arbitrary number of inputs
   str_c("Hello ", str_c(..., sep = ", "), "!")  # Pass the `...` to `str_c()`
 }
 
 # Call function
-print_hello("Dasher", "Dancer", "Prancer", "Vixen")
-```
-
-```
-## [1] "Hello Dasher, Dancer, Prancer, Vixen!"
-```
-
-```r
-print_hello("Rudolf")
-```
-
-```
-## [1] "Hello Rudolf!"
+print_hello2("Dasher", "Dancer", "Prancer", "Vixen")
+#> [1] "Hello Dasher, Dancer, Prancer, Vixen!"
+print_hello2("Rudolf")
+#> [1] "Hello Rudolf!"
 ```
 
 </details>
@@ -6395,10 +4931,7 @@ print_hello <- function(x) {
 }
 
 print_hello(NA)
-```
-
-```
-## [1] NA
+#> [1] NA
 ```
 
 <br>
@@ -6428,7 +4961,7 @@ What are **return values**?
 
 - Just like how it can take inputs (i.e., arguments), functions can also return values as output
 - The last statement that the function evaluates will be automatically (i.e., implicitly) returned
-- If we want, we can store returned values in a variable for future use
+- We can use the assignment operator `<-` to store returned values in a new object for future use
 
 Recall the `print_hello()` function:
 
@@ -6442,10 +4975,7 @@ print_hello <- function() {
 # Call function
 h <- print_hello()  # We can show that `print_hello()` returns a value by storing it in `h`
 h                   # `h` stores the value "Hello!"
-```
-
-```
-## [1] "Hello!"
+#> [1] "Hello!"
 ```
 
 ### Explicit returns
@@ -6470,10 +5000,7 @@ print_hello <- function() {
 # Call function
 h <- print_hello()  # `print_hello()` returns "Hello!"
 h
-```
-
-```
-## [1] "Hello!"
+#> [1] "Hello!"
 ```
 
 <br>
@@ -6499,14 +5026,11 @@ prices <- unique(diamonds$price)[23:27]
 for (i in prices) {
   writeLines(assess_price(i))
 }
-```
-
-```
-## This diamond costs $405 and is affordable.
-## This diamond costs $552 and is pricey...
-## This diamond costs $553 and is pricey...
-## This diamond costs $554 and is pricey...
-## This diamond costs $2757 and is too expensive!
+#> This diamond costs $405 and is affordable.
+#> This diamond costs $552 and is pricey...
+#> This diamond costs $553 and is pricey...
+#> This diamond costs $554 and is pricey...
+#> This diamond costs $2757 and is too expensive!
 ```
 
 <br>
@@ -6529,14 +5053,11 @@ assess_price <- function(price) {
 for (i in prices) {
   writeLines(assess_price(i))
 }
-```
-
-```
-## I can't afford that.
-## I can't afford that.
-## I can't afford that.
-## I can't afford that.
-## I can't afford that.
+#> I can't afford that.
+#> I can't afford that.
+#> I can't afford that.
+#> I can't afford that.
+#> I can't afford that.
 ```
 
 <br>
@@ -6559,15 +5080,12 @@ assess_price <- function(price) {
 for (i in prices) {
   writeLines(assess_price(i))
 }
-```
-
-```
-## This diamond costs $405 and is affordable.
-## This diamond costs $552 and is pricey...
-## This diamond costs $553 and is pricey...
-## This diamond costs $554 and is pricey...
-## This diamond costs $2757 and is too expensive!
-## I can't afford that.
+#> This diamond costs $405 and is affordable.
+#> This diamond costs $552 and is pricey...
+#> This diamond costs $553 and is pricey...
+#> This diamond costs $554 and is pricey...
+#> This diamond costs $2757 and is too expensive!
+#> I can't afford that.
 ```
 
 </details>

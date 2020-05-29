@@ -19,6 +19,9 @@ output:
     
 ---
 
+```{r, echo=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", highlight = TRUE)
+```
 
 # Introduction
 
@@ -2192,7 +2195,7 @@ hd2018_t %>%
 
 What are **`if` statement conditions**?
 
-- `if` statements allow you to conditionally execute certain blocks of code depending on whether some condition is satisfied
+- `if` statements allow you to conditionally execute certain blocks of code depending on whether some condition(s) is `TRUE`
 - The condition goes inside of the parentheses in `if()` and the block of code to execute goes between the curly brackets (`{}`)
 - The condition must evaluate to either `TRUE` or `FALSE` (i.e., be of type `logical`)
 - The condition must have length of `1`
@@ -2490,6 +2493,131 @@ for (i in prices) {
 }
 ```
 
+## Processing time
+
+CRYSTAL - STATE PURPOSE OF THIS SUB-SECTION AND INTRODUCE system.time() function. 
+
+Let's create a new numeric atomic vector called `prices` that is equal to the price of each diamond in the data frame `diamonds`
+```{r}
+prices <- diamonds$price[1:20000]
+  #prices <- diamonds$price
+length(prices)
+```
+
+Using loops, create an atomic vector `z_prices` that equals the z-score (number of standard deviations from the mean) for each element of atomic vector `prices`
+- Although not strictly necessary to create `z_prices`, our loop will include conditional statements that separately process diamonds that are "affordable," "pricey," and "too expensive"
+
+Using the function `system.time()` let's how long this process takes for the following alternative loops:
+
+1. use `if`, `else if`, and `else` conditional statements
+1. only use `if` conditional statements
+
+Using `if`, `else if`, and `else` conditional statements
+```{r}
+# Pre-allocate the number of elements required for the atomic vector z_prices
+z_prices <- vector("double", length(prices))
+length(z_prices)
+
+system.time(
+  
+  for (i in 1:length(prices)) {
+
+    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
+    
+    if (prices[i] < 500) {
+      
+      str_c("This diamond costs $", i, " and is affordable.")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } else if (prices[i] < 1000) {
+      
+      str_c("This diamond costs $", i, " and is pricey...")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } else {
+      
+      str_c("This diamond costs $", i, " and is too expensive!")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    }
+  }
+  
+)
+```
+Only using `if` conditional statements
+```{r}
+# Pre-allocate the number of elements required for the atomic vector z_prices
+z_prices <- vector("double", length(prices))
+length(z_prices)
+
+system.time(
+  
+  for (i in 1:length(prices)) {
+
+    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
+    
+    if (prices[i] < 500) {
+      
+      str_c("This diamond costs $", i, " and is affordable.")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } 
+    if (prices[i] < 1000) {
+      
+      str_c("This diamond costs $", i, " and is pricey...")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } 
+    if (prices[i] >= 1000) {
+      
+      str_c("This diamond costs $", i, " and is too expensive!")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    }
+  }
+  
+) # end system.time()
+```
+
+CRYSTAL - EXPLAIN HOW THE ABOVE TWO LOOPS DIFFER FROM ONE ANOTHER IN TERMS OF PROCESSING. 
+
+CRYSTAL - ALSO, THE DIFFERENCE IN PROCESSING TIME IS VERY SMALL BETWEEN THESE TWO EXAMPLES. IN OTHER EXPLORATORY EXAMPLES I HAVE DONE. THE DIFFERENCE BETWEEEN ONLY USING "IF" AND USING IF/ELSE IF/ELSE RESULTED IN MUCH GREATER DIFFERENCE IN PROCESSING TIME. IS THERE ANY SMALL TWEAK WE CAN DO TO THE ABOVE LOOPS TO MAKE THE DIFFERENCE IN PROCESSING TIME MORE SUBSTANTIAL?
+
+What if we didn't pre-allocate length of atomic vector `z_prices`
+
+- CRYSTAL - WICKHAM SAYS NOT PRE-ALLOCATING LENGTH RESULTS IN MUCH LONGER PROCESSING OF LOOPS. BUT DIDN'T SEEM TO BE THE CASE BELOW. HOW COME?
+```{r}
+#z_prices <- vector("double", length(prices))
+rm(z_prices)
+z_prices <- NULL
+
+system.time(
+  
+  for (i in 1:length(prices)) {
+
+    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
+    
+    if (prices[i] < 500) {
+      
+      str_c("This diamond costs $", i, " and is affordable.")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } else if (prices[i] < 1000) {
+      
+      str_c("This diamond costs $", i, " and is pricey...")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    } else {
+      
+      str_c("This diamond costs $", i, " and is too expensive!")
+      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
+      
+    }
+  }
+  
+)
+```
+
 </details>
 
 # Functions
@@ -2513,27 +2641,6 @@ Functions generally follow **three sequential steps**:
 
 We've been working with functions all quarter. 
 
-__Example__: The `length()` function
-
-```{r, eval = FALSE}
-?length
-```
-
-1. __Input__: Takes in "R object" as the input
-2. __Processing__: Counts the number of elements in the object
-3. __Return__: Returns a new object, specifically an integer atomic vector of length `1`, that indicates the number of elements in the input R object
-
-```{r}
-# Apply length() to atomic vector
-x <- c(1,2,3,4)
-x
-length(x)
-
-# Apply length() to a list that is a data frame
-mpg %>% head(5)
-length(mpg)
-```
-
 <br>
 __Example__: The `sum()` function
 
@@ -2546,7 +2653,7 @@ __Example__: The `sum()` function
 3. __Return__: Returns a numeric vector of length `1` whose value is the sum of the input vector
 
 ```{r}
-# Apply length() to atomic vector
+# Apply sum() to atomic vector
 sum(c(1,2,3))
 sum(c(1,2,3)) %>% str()
 ```
@@ -2563,14 +2670,15 @@ Like all functions, user-written functions usually follow **three steps**:
 
 1. Take in one or more __input__ object(s)
 2. __Process__ the input
-    - This may include using pre-written functions like `select()` or `sum()`
+    - This may include utilizing exsting functions from other packages, for example `sum()` or `length()`
 3. __Return__ a new object
 
 **Examples** of what we might want to write a function for:
 
 - Write a function to read in annual data, then call function for each year
-- Create interactive maps: [NAED_presentation](https://ozanj.github.io/naed_presentation)
-    - See "Deep-Dive Results"
+- Create interactive maps. e.g., see maps from policy report on [off-campus recruiting by public research universities](https://www.thirdway.org/report/follow-the-money-recruiting-and-the-enrollment-priorities-of-public-research-universities)
+    - Link to maps [HERE](https://cyouh95.github.io/third-way-report/assets/maps/map_income.html)
+    - R code for interactive maps developed by Karina Salazar, modified by Crystal Han
 - [Ben Skinner](https://github.com/btskinner) recommends [paraphrasing] writing "short functions that do one thing and do it well"
     
 <br>
@@ -2601,7 +2709,7 @@ __How to approach writing functions__? (_broad recipe_)
 
 1. Experiment with performing the task outside of a function
     - Experiment with performing task with different sets of inputs
-    - Sometimes you will have to revise this code, when an approach that worked outside a function does not work within a function
+    - Often, you must revise this code, when an approach that worked outside a function does not work within a function
 1. Write the function
 1. Test the function
     - Try to "break" it
@@ -2609,24 +2717,24 @@ __How to approach writing functions__? (_broad recipe_)
 
 ## Basics of writing functions
 
-Often, the functions we write ("user-written functions") will utilize existing functions from R packages. For example, we will create a function named `z_score()` that calculates how many standard deviations an observation is from the mean. Our `z_score()` function will use the existing `mean()` and `sd()` functions.
+Often, the functions we write will utilize existing functions from Base R and other R packages. For example, create a function named `z_score()` that calculates how many standard deviations an observation is from the mean. Our `z_score()` function will use the existing Base R `mean()` and `sd()` functions.
 
 We will avoid creating user-written functions that utilize `Tidyverse` functions, particularly functions from the `dplyr` package such as `group_by()`. The reason is that including certain `Tidyverse`/`dplyr` functions in a user-written function (or `loo`) requires knowledge of some advanced programming skills that we have not introduced yet. For more explanation, see [here](https://www.r-bloggers.com/data-frame-columns-as-arguments-to-dplyr-functions/) and [here](https://adv-r.hadley.nz/quasiquotation.html#unquoting). 
 
-Therefore, when writing funtions that perform data manipulation tasks, we will use a "Base R approach" rather than a "Tidyverse approach."
+Therefore, when teaching how to write funtions that perform data manipulation tasks, we will use a "Base R approach" rather than a "Tidyverse approach."
 
 ### Components of a function
 
 The `function()` function tells R that you are writing a function:
 
 ```{r, eval=FALSE}
+# To find help file for function():
+  ?`function` # But help file is not a helpful introduction
+
+
 function_name <- function(arg1, arg2, arg3) {
   # function body
 }
-
-# To find help file for function():
-  ?`function`
-  # But help file is not a helpful introduction
 ```
 
 **Three components** of a function:
@@ -2853,10 +2961,9 @@ print_hello(x = "Sumru Jaquette-Nasiali", "04/05/2019") # this works
 print_hello(x = "Sumru Jaquette-Nasiali", "2019/04/05") # this breaks
 ```
 
-Next step would be to modify function to create date object for date of birth, allowing DOB to be entered using multiple formats
+<br>
+If we wanted to make additional improvements to `print_hello()`, we could modify the function to allow date of birth to be entered using several alternative formats (e.g., `"04/05/2019"` or `"2019/04/05"`)
 
-- first, do outside of function
-- second, modify function
 
 ### `z_score()` function
 
@@ -3040,7 +3147,12 @@ Apply `z_score()` function to variables in dataframe:
 df$a # print variable "a"
 z_score(x = df$a)
 z_score(x = df[["a"]])
-  #z_score(x = df["a"]) # but this doesn't work
+
+#this approach doesn't work:
+  #z_score(x = df["a"]) 
+  # Why?:
+    # df["a"] is a dataframe with one variable
+    # you can't apply mean() or sd() functions to a list/data frame object, only a numeric atomic vector
 
 # z-score for each obs of variable "b"
 z_score(x = df$b) 
@@ -3059,11 +3171,6 @@ First, briefly review how to create and delete variables using Base R approach:
 ```{r}
 df # print data frame df
 
-df$one <- 1 # create variable "one" that always equals 1
-df # print data frame df
-df$one <- NULL # remove variable "one"
-df 
-
 df$c_plus2 <- df$c+2 #create variable equal to "c" plus 2
 df
 df$c_plus2 <- NULL # remove variable "c_plus2"
@@ -3071,7 +3178,9 @@ df
 ```
 
 <br>
-Use `z_score()` function to create a new variable that equals the z-score of another variable. Simply calling the `z_score()` function does not create a new variable:
+Use `z_score()` function to create a new variable that equals the z-score of another variable. 
+
+- Simply calling the `z_score()` function does not create a new variable:
 
 ```{r}
 z_score(x = df$c)
@@ -3079,7 +3188,8 @@ df
 ```
 
 <br>
-Instead of modifying the `z_score()` function so that the variable is assigned within the function, the preferred approach is to call the `z_score()` function after the assignment operator `<-`:
+
+- Instead of modifying the `z_score()` function so that the variable is assigned within the function, the preferred approach is to call the `z_score()` function after the assignment operator `<-`:
 
 ```{r}
 df$c_z <- z_score(x = df$c)
@@ -3350,60 +3460,120 @@ num_missing(df$parage,c(-4,-7,-8))
 
 What are **default values** for arguments?
 
-- The **default value** for an argument is the value that will be used if the argument was not supplied during the function call
+- The **default value** for an argument is the value that will be used if the argument value was not supplied during the function call
 - When writing the function, you can specify the **default value** for an argument using `name=value`
 
 <br>
-**Example**: Arguments with default value in `str_c()`
+Most Base R functions and functions from other packages specify default values for one or more arguments
+
+**Example**: `str_c()` function
 
 The `str_c()` function has default values for `sep` and `collapse`:
 
-- `str_c(..., sep = "", collapse = NULL)`
+- Syntax
+  - `str_c(..., sep = "", collapse = NULL)`
+- Arguments
+  - `...`: one or more character vectors to join, separated by commas
+  - `sep`: string to insert between input vectors
+    - default value: `sep = ""`
+  - `collapse`: Optional string used to combine input vectors into single string.
+      - after joining vectors into single string within each element, should resulting elements be combined into a single string? and if so, what string to insert between elements 
+      - default value: `collapse = NULL` is to not combine elements into a single string
 
 ```{r}
+# We want to join the following two vectors element-wise into a single character vector
+c("a","b")
+c(1,2)
+
+# manually specifying default values
+str_c(c("a", "b"), c(1, 2), sep = "", collapse = NULL)
+
 # If we don't specify `sep` and `collapse`, they take the default values
 str_c(c("a", "b"), c(1, 2))
 
-# If we specify `sep` and `collapse`, they would override the default values
-str_c(c("a", "b"), c(1, 2), sep = "~", collapse = "|")
+# specify value for `sep` that overrides default value
+str_c(c("a", "b"), c(1, 2), sep = "~")
+length(str_c(c("a", "b"), c(1, 2), sep = "~")) # resulting vector has length = 2
+
+# specify value for `collapse` that overrides default
+str_c(c("a", "b"), c(1, 2), collapse = "|")
+length(str_c(c("a", "b"), c(1, 2), collapse = "|"))  # resulting vector has length = 1
+
+# specify alternative values for both `sep` and `collapse`
+  #str_c(c("a", "b"), c(1, 2), sep = "~", collapse = "|")
 ```
 
 <br>
-<details><summary>**Example**: Adding a default value for function argument</summary>
+<details><summary>**Example**: Adding a default value to our `z_score()` function</summary>
 
-Recall the `print_hello()` function. Let's modify the function to make `x` have a default value:
+Recall the `z_score()` function we developed previously
+
+- we wrote this function to remove `NA` values prior to calculating z-score
 
 ```{r}
-# Define function
-print_hello <- function(x="there") {  # The default value for `x` is "there"
-  str_c("Hello ", x, "!")
+z_score <- function(x) {
+  (x - mean(x, na.rm=TRUE))/sd(x, na.rm=TRUE)
 }
 
-# Call function without passing in name (it will use default value)
-print_hello()
+w <- c(NA, seq(1:5), NA)
+w
+z_score(w)
+```
+We could add an argument (named `na`) that specifies whether `NA`s should be removed prior to calculating z-scores
 
-# Call function and pass in name (it will override default value)
-print_hello("World")
+```{r}
+z_score <- function(x, na) {
+  (x - mean(x, na.rm=na))/sd(x, na.rm=na)
+}
+
+w
+z_score(w, TRUE)
+z_score(w, FALSE)
+#z_score(w) # error: argument "na" is missing, with no default
+```
+We could also add a default value for the `na` argument
+
+- following conservative approach, we'll specify default value as `FALSE` which means that any `NA` values in input vector `x` will result in z-score of `NA` for all observations
+
+```{r}
+z_score <- function(x, na = FALSE) {
+  (x - mean(x, na.rm=na))/sd(x, na.rm=na)
+}
+
+w
+
+z_score(w) # uses default value of FALSE
+z_score(w, FALSE) # manually specify default value
+z_score(w, TRUE) # override default value
 ```
 
 </details>
 
 ### Dot-dot-dot (`...`)
 
-What is **dot-dot-dot (`...`)**?
-
-- Dot-dot-dot (`...`) allows the function to take an arbitrary number of arguments
-- "`...` (pronounced dot-dot-dot) [...] captures any number of arguments that aren’t otherwise matched." (From [R for Data Science](https://r4ds.had.co.nz/functions.html#dot-dot-dot))
-- When we write our own function with the special argument `...`, we can pass those inputs into another function that takes `...` (e.g., `str_c()`)
+#### What is dot-dot-dot (`...`)?
 
 <br>
-**Example**: Dot-dot-dot (`...`) argument in `str_c()`
 
-The `str_c()` function allows us to pass in an arbitrary number of character vectors to concatenate together:
+Many functions take an arbitrary number of arguments/inputs
 
-- `str_c(..., sep = "", collapse = NULL)`
-
+- Examples of functions we haved worked with that allow an arbitrary number of arguments include `select()`, `sum()`, `filter()`, `str_c()`
+- `select()`
 ```{r}
+#?select
+select(df_event,instnm,univ_id,event_type,med_inc) %>% names()
+```
+
+- `sum()`
+```{r}
+#?sum
+sum(3,3,2,2,1,1)
+```
+
+- `str_c`
+```{r}
+#?str_c
+
 # 1 character vector as input
 str_c(c("a", "b", "c"))
 
@@ -3414,20 +3584,50 @@ str_c(c("a", "b", "c"), " is for ")
 str_c(c("a", "b", "c"), " is for ", c("apple", "banana", "coffee"))
 ```
 
+
+All of these functions rely on a special argument `...` (pronounced dot-dot-dot)  
+
+- Dot-dot-dot (`...`) allows a function to take an arbitrary number of arguments
+- Wickham and Grolemund [chapter 19.5.3](https://r4ds.had.co.nz/functions.html#dot-dot-dot) states:
+
+  > "`...` captures any number of arguments that aren’t otherwise matched."
+
 <br>
+
+#### Writing functions with dot-dot-dot (`...`) arguments
+
+When writing functions, there are two primary uses of including `...` arguments:
+
+1. A means of allowing the function to take an arbitrary number of arguments, as in the `select()` and `sum` functions
+1. When we write our own function with the special argument `...`, we can pass those inputs into another function that takes `...` (e.g., `str_c()`)
+
+<br>
+
 <details><summary>**Example**: Adding dot-dot-dot (`...`) as function argument</summary>
 
-Recall the `print_hello()` function. Let's modify the function to make it take an arbitrary number of names to greet:
+
+Recall the first iteration of our `print_hello()` function, which basically just printed a name that we specified in program call. Let's modify the function to make it take an arbitrary number of names to greet:
+
+- Function that only took one argument
+```{r}
+print_hello1 <- function(x) {  
+  str_c("Hello ", x, "!") 
+}
+
+print_hello1("Ozan")
+```
+
+- Modify function to take an arbitrary number of names to greet
 
 ```{r}
 # Define function
-print_hello <- function(...) {  # The function accepts an arbitrary number of inputs
+print_hello2 <- function(...) {  # The function accepts an arbitrary number of inputs
   str_c("Hello ", str_c(..., sep = ", "), "!")  # Pass the `...` to `str_c()`
 }
 
 # Call function
-print_hello("Dasher", "Dancer", "Prancer", "Vixen")
-print_hello("Rudolf")
+print_hello2("Dasher", "Dancer", "Prancer", "Vixen")
+print_hello2("Rudolf")
 ```
 
 </details>
@@ -3489,7 +3689,7 @@ What are **return values**?
 
 - Just like how it can take inputs (i.e., arguments), functions can also return values as output
 - The last statement that the function evaluates will be automatically (i.e., implicitly) returned
-- If we want, we can store returned values in a variable for future use
+- We can use the assignment operator `<-` to store returned values in a new object for future use
 
 Recall the `print_hello()` function:
 
