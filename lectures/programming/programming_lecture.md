@@ -2486,6 +2486,38 @@ When you run an `.R` script, the working directory is the directory indicated at
 
 <br>
 
+#### Checking if a file or directory exists
+
+<br>
+__The `file.exists()` function__:
+
+
+```r
+?file.exists
+
+# SYNTAX
+file.exists(...)
+```
+
+- Function: Checks if a file exists
+- Argument(s): filename(s)
+
+<br>
+__The `dir.exists()` function__:
+
+
+```r
+?dir.exists
+
+# SYNTAX
+dir.exists(paths)
+```
+
+- Function: Checks if a directory exists
+- Argument(s): path(s)
+
+<br>
+
 #### Creating and deleting directories
 
 <br>
@@ -4186,7 +4218,7 @@ if (FALSE) {
 ```
 
 <br>
-**Example**: Condition that evaluates to `TRUE`
+<details><summary>**Example**: Condition that evaluates to `TRUE`</summary>
 
 Remember that any statement that has a length of `1` and can evaluate to either `TRUE` or `FALSE` can be used as the condition:
 
@@ -4229,8 +4261,10 @@ if (2 + 2 == 4) {
 ## This block is executed because `2 + 2 == 4` evaluates to `TRUE`.
 ```
 
+</details>
+
 <br>
-**Example**: Condition that evaluates to `FALSE`
+<details><summary>**Example**: Condition that evaluates to `FALSE`</summary>
 
 Recall that some functions return a `logical`, so you might also see a function call being used as the condition:
 
@@ -4268,6 +4302,8 @@ if (str_detect(string = "Fourth of July", pattern = "\\d")) {
   writeLines("This block is not executed because the condition evaluates to `FALSE`.")
 }
 ```
+
+</details>
 
 ### `||` and `&&`
 
@@ -4316,7 +4352,42 @@ if (condition1 && condition2 && condition3) {
 <br>
 <details><summary>**Example**: Using multiple logical expressions in a condition</summary>
 
+When using `||` (or), the block of code is executed if any of the conditions evaluates to `TRUE`:
 
+
+```r
+if (TRUE || FALSE) {
+  writeLines("This block is executed.")
+}
+```
+
+```
+## This block is executed.
+```
+
+```r
+if (str_detect(string = "ABC", pattern = "\\d") || str_detect(string = "123", pattern = "[A-Z]")) {
+  writeLines("This block is not executed.")
+}
+```
+
+<br>
+When using `&&` (and), the block of code is executed if all of the conditions evaluate to `TRUE`:
+
+
+```r
+if (TRUE && FALSE) {
+  writeLines("This block is not executed.")
+}
+
+if (str_detect(string = "ABC", pattern = "[A-Z]") && str_detect(string = "123", pattern = "\\d")) {
+  writeLines("This block is executed.")
+}
+```
+
+```
+## This block is executed.
+```
 
 </details>
 
@@ -4339,55 +4410,12 @@ if (condition) {
 <br>
 <details><summary>**Example**: Using if-else statement</summary>
 
-Let's take a look at using if-else statement to print whether a student is on academic probation because their GPA is under 2.0:
+Recall the function [`dir.exists()`](#checking-if-a-file-or-directory-exists) that checks if a directory exists:
 
 
 ```r
-# Student has GPA under 2.0 and is on academic probation
-gpa <- 1.5
-if (gpa < 2) {
-  writeLines(str_c("Your GPA is ", gpa, " and you are on academic probation."))
-} else {
-  writeLines(str_c("Your GPA is ", gpa, " and you are NOT on academic probation."))
-}
-```
-
-```
-## Your GPA is 1.5 and you are on academic probation.
-```
-
-```r
-# Student has GPA over 2.0 and is NOT on academic probation
-gpa <- 3.5
-if (gpa < 2) {
-  writeLines(str_c("Your GPA is ", gpa, " and you are on academic probation."))
-} else {
-  writeLines(str_c("Your GPA is ", gpa, " and you are NOT on academic probation."))
-}
-```
-
-```
-## Your GPA is 3.5 and you are NOT on academic probation.
-```
-
-<br>
-Recall that the condition evaluates to either `TRUE` or `FALSE`:
-
-
-```r
-# When student has 1.5 GPA, the condition evaluates to `TRUE`
-gpa <- 1.5
-gpa < 2
-```
-
-```
-## [1] TRUE
-```
-
-```r
-# When student has 3.5 GPA, the condition evaluates to `FALSE`
-gpa <- 3.5
-gpa < 2
+directory <- "my_new_directory"
+dir.exists(directory)
 ```
 
 ```
@@ -4395,52 +4423,127 @@ gpa < 2
 ```
 
 <br>
-The condition is of type `logical` and has a length of `1`:
+Let's take a look at using if-else statement to create the directory (using [`dir.create()`](#creating-and-deleting-directories)) only if it doesn't currently exist:
 
 
 ```r
-# Condition has type `logical`
-typeof(gpa < 2)
+if (dir.exists(directory)) {
+  writeLines(str_c("The directory '", directory, "' already exists."))
+} else {
+  dir.create(directory)
+  writeLines(str_c("Created directory '", directory, "'."))
+}
 ```
 
 ```
-## [1] "logical"
+## Created directory 'my_new_directory'.
 ```
 
 ```r
-# Condition has length of 1
-length(gpa < 2)
+# Check that directory is created
+list.files()
 ```
 
 ```
-## [1] 1
+##  [1] "data"                     "function_basics.html"    
+##  [3] "function_basics.md"       "function_basics.Rmd"     
+##  [5] "ipeds_file_list_og.txt"   "ipeds_file_list.txt"     
+##  [7] "loop_example_ipeds.R"     "my_new_directory"        
+##  [9] "programming_lecture.html" "programming_lecture.md"  
+## [11] "programming_lecture.Rmd"  "programming.Rproj"
 ```
+
+<br>
+If we try creating the directory again, the `else` block would be executed because the directory already exists:
+
+
+```r
+dir.exists(directory)
+```
+
+```
+## [1] TRUE
+```
+
+```r
+if (dir.exists(directory)) {
+  writeLines(str_c("The directory '", directory, "' already exists."))
+} else {
+  dir.create(directory)
+  writeLines(str_c("Created directory '", directory, "'."))
+}
+```
+
+```
+## The directory 'my_new_directory' already exists.
+```
+
+
 
 </details>
 
 <br>
 <details><summary>**Example**: Using if-else statement with loop</summary>
 
-Using the `diamonds` dataset from `ggplot2`, let's loop through the `price` of 5 of the diamonds and use an if-else statement to print whether each is affordable (under \$500) or pricey (\$500 and up):
+We can loop over multiple directory names and for each, create the directory only if it does not already exist:
 
 
 ```r
-for (i in unique(diamonds$price)[21:25]) {
-  if (i < 500) {
-    writeLines(str_c("This diamond costs $", i, " and is affordable."))
+directories <- c("scripts", "dictionaries", "output")
+
+for (i in directories) {
+  if (dir.exists(i)) {
+    writeLines(str_c("The directory '", i, "' already exists."))
   } else {
-    writeLines(str_c("This diamond costs $", i, " and is pricey..."))
+    dir.create(i)
+    writeLines(str_c("Created directory '", i, "'."))
   }
 }
 ```
 
 ```
-## This diamond costs $403 and is affordable.
-## This diamond costs $404 and is affordable.
-## This diamond costs $405 and is affordable.
-## This diamond costs $552 and is pricey...
-## This diamond costs $553 and is pricey...
+## Created directory 'scripts'.
+## Created directory 'dictionaries'.
+## Created directory 'output'.
 ```
+
+```r
+# Check that directories are created
+list.files()
+```
+
+```
+##  [1] "data"                     "dictionaries"            
+##  [3] "function_basics.html"     "function_basics.md"      
+##  [5] "function_basics.Rmd"      "ipeds_file_list_og.txt"  
+##  [7] "ipeds_file_list.txt"      "loop_example_ipeds.R"    
+##  [9] "output"                   "programming_lecture.html"
+## [11] "programming_lecture.md"   "programming_lecture.Rmd" 
+## [13] "programming.Rproj"        "scripts"
+```
+
+<br>
+If we try creating the directories again, the `else` block would be executed because they already exist:
+
+
+```r
+for (i in directories) {
+  if (dir.exists(i)) {
+    writeLines(str_c("The directory '", i, "' already exists."))
+  } else {
+    dir.create(i)
+    writeLines(str_c("Created directory '", i, "'."))
+  }
+}
+```
+
+```
+## The directory 'scripts' already exists.
+## The directory 'dictionaries' already exists.
+## The directory 'output' already exists.
+```
+
+
 
 </details>
 
@@ -4467,11 +4570,24 @@ if (condition) {
 <br>
 <details><summary>**Example**: Using `else if` statement</summary>
 
-Using the `diamonds` dataset from `ggplot2`, let's loop through the `price` of 5 of the diamonds and print whether each is affordable (under \$500), pricey (between \$500 and \$1000), or too expensive (\$1000 and up):
+Using the `diamonds` dataset from `ggplot2`, let's create a vector of 5 diamond prices:
 
 
 ```r
-for (i in unique(diamonds$price)[23:27]) {
+prices <- unique(diamonds$price)[23:27]
+str(prices)
+```
+
+```
+##  int [1:5] 405 552 553 554 2757
+```
+
+<br>
+Let's loop through the `prices` vector and print whether each is affordable (under \$500), pricey (between \$500 and \$1000), or too expensive (\$1000 and up):
+
+
+```r
+for (i in prices) {
   if (i < 500) {
     writeLines(str_c("This diamond costs $", i, " and is affordable."))
   } else if (i >= 500 && i < 1000) {
@@ -4495,7 +4611,7 @@ Remember that each subsequent `else if` statement will only be considered if all
 
 
 ```r
-for (i in unique(diamonds$price)[23:27]) {
+for (i in prices) {
   if (i < 500) {
     writeLines(str_c("This diamond costs $", i, " and is affordable."))
   } else if (i < 1000) {
@@ -4520,36 +4636,37 @@ for (i in unique(diamonds$price)[23:27]) {
 
 ## What are functions
 
-__Functions__ are pre-written bits of code that accomplish some task. 
+What are **functions**?
 
+- **Functions** are pre-written bits of code that accomplish some task
 - Functions allow you to "automate" tasks that you perform more than once
 - We can call functions whenever we want to use them, again and again
 
+Functions generally follow **three sequential steps**:
 
-Functions generally follow three sequential steps:
+1. Take in __input__ object(s)
+2. __Process__ the input
+3. __Return__ a new object, which may be a vector, data-frame, plot, etc.
 
-1. take in an __input__ object(s)
-2. __process__ the input.
-3. __return__.  Returns a new object, which may be a vector, data-frame, plot, etc.
-
-We've been working with functions all quarter. 
 
 ### Functions from packages written by others
 
-\medskip
-__Example__: `length()` function counts number of elements in an object
+We've been working with functions all quarter. 
+
+__Example__: The `length()` function
 
 
 ```r
 ?length
 ```
-1. __input__. takes in "R object" as the input
-2. __processing__. counts the number of elements in the object
-3. __return__. Returns a new object, specifically an integer atomic vector of length == 1, that indicates the number of elements in the input R object
+
+1. __Input__: Takes in "R object" as the input
+2. __Processing__: Counts the number of elements in the object
+3. __Return__: Returns a new object, specifically an integer atomic vector of length `1`, that indicates the number of elements in the input R object
 
 
 ```r
-# apply length() to atomic vector
+# Apply length() to atomic vector
 x <- c(1,2,3,4)
 x
 ```
@@ -4567,7 +4684,7 @@ length(x)
 ```
 
 ```r
-# apply length() to a list that is a data frame
+# Apply length() to a list that is a data frame
 mpg %>% head(5)
 ```
 
@@ -4589,18 +4706,22 @@ length(mpg)
 ```
 ## [1] 11
 ```
-__Example__: The `sum()` function:
+
+<br>
+__Example__: The `sum()` function
 
 
 ```r
 ?sum
 ```
 
-1. __input__. takes in a vector of elements (_class_ must be numeric or logical)
-2. __processing__. Calculates the sum of elements
-3. __return__. Returns numeric vector: length=1; value is sum of input vector
+1. __Input__: Takes in a vector of elements (_class_ must be `numeric` or `logical`)
+2. __Processing__: Calculates the sum of elements
+3. __Return__: Returns a numeric vector of length `1` whose value is the sum of the input vector
+
 
 ```r
+# Apply length() to atomic vector
 sum(c(1,2,3))
 ```
 
@@ -4616,118 +4737,117 @@ sum(c(1,2,3)) %>% str()
 ##  num 6
 ```
 
-### User-wrtten functions
+### User-written functions
 
-"__user-written functions__" [my term]
+What are "__user-written functions__"? [_my term_]
 
-- functions you write to perform some specific task, often a data-manipulation or analysis task specific to your project
+- __User-written functions__ are functions _you_ write to perform some specific task
+- It can often be for a data-manipulation or analysis task specific to your project
 
-Like all functions, user-written functions usually follow three steps:
+Like all functions, user-written functions usually follow **three steps**:
 
-1. take in one or more __inputs__
-2. __process__ the inputs
-    - this may include using pre-written functions like `select()` or `sum()`
-3. __return__ a new object
 
-Example things we might want to write a function to do:
+1. Take in one or more __input__ object(s)
+2. __Process__ the input
+    - This may include using pre-written functions like `select()` or `sum()`
+3. __Return__ a new object
 
-- Write function to read in annual data; call function for each year
+**Examples** of what we might want to write a function for:
+
+- Write a function to read in annual data, then call function for each year
 - Create interactive maps: [NAED_presentation](https://ozanj.github.io/naed_presentation)
-    - see "deep dive" results
+    - See "Deep-Dive Results"
 - [Ben Skinner](https://github.com/btskinner) recommends [paraphrasing] writing "short functions that do one thing and do it well"
     
 <br>
-
-__When to write a function__
+__When to write a function__?
 
 - Since functions are _reusable_ pieces of code, they allow you to "automate" tasks that you perform more than once
-  - e.g., check to see if IPEDS data file already downloaded. and if not, then download data
-  - e.g., write function that runs regression model and creates results table
+  - E.g., Check to see if IPEDS data file is already downloaded. If not, then download the data.
+  - E.g., Write function that runs regression model and creates results table
 - The alternative to writing a function to perform some specific task (aside from loops/iteration) is to copy and paste the code each time you want to perform a task
 - [Wickham and Grolemund chapter 19.2](https://r4ds.had.co.nz/functions.html#when-should-you-write-a-function):
 
   > "You should consider writing a function whenever you’ve copied and pasted a block of code more than twice"
   
-- Darin Christenson (professor, UCLA public policy) refers to the programming mantra __DRY__
-  - "Do not Repeat Yourself (DRY)"
-  
+- Darin Christenson (professor, UCLA public policy) refers to the programming mantra __DRY__ ("Don't Repeat Yourself")
+
   > "Functions enable you to perform multiple tasks (that are similar to one another) without copying the same code over and over"
 
 <br>
-
-__Why write functions__ to complete a task (as opposed to the copy-and-paste approach)
-
+__Why write functions to complete a task__? (_as opposed to the copy-and-paste approach_)
 
 - As task requirements change (and they always do!), you only need to revise code in one place rather than many places
 - Reduce errors that are common in copy-and-paste approach (e.g., forgetting to change variable name or variable value)
 - Functions give you an opportunity to make continual improvements to completing a task
-    - e.g., you realize your function does not work for certain input values, so you modify function to handle those values
+    - E.g., you realize your function does not work for certain input values, so you modify function to handle those values
 
-
-__How to approach writing functions__ (broad recipe)
+<br>
+__How to approach writing functions__? (_broad recipe_)
 
 1. Experiment with performing the task outside of a function
-    - experiment with performing task with different sets of inputs
-    - sometimes you will have to revise this code, when an approach that worked outside a function does not work within a function
+    - Experiment with performing task with different sets of inputs
+    - Sometimes you will have to revise this code, when an approach that worked outside a function does not work within a function
 1. Write the function
-1. Test the function; try to "break" it
+1. Test the function
+    - Try to "break" it
 1. __Continual improvement__. As you use the function, make continual improvements going back-and-forth between steps 1-3
 
-## Writing functions, basics
-
-This section teaches the basics of writing functions. 
-
+## Basics of writing functions
 
 Often, the functions we write ("user-written functions") will utilize existing functions from R packages. For example, we will create a function named `z_score()` that calculates how many standard deviations an observation is from the mean. Our `z_score()` function will use the existing `mean()` and `sd()` functions.
 
-
-We will avoid creating user-written functions that utilize `Tidyverse` functions, particularly functions from the `dplyr` package such as `group_by()`. The reason is that including certain `Tidyverse`/`dplyr` functions in a user-written function (or loo) requires knowledge of some advanced programming skills that we have not introduced yet. For more explanation, see [CRYSTAL ADD OTHER/BETTER LINKS?] https://www.r-bloggers.com/data-frame-columns-as-arguments-to-dplyr-functions/. 
+We will avoid creating user-written functions that utilize `Tidyverse` functions, particularly functions from the `dplyr` package such as `group_by()`. The reason is that including certain `Tidyverse`/`dplyr` functions in a user-written function (or `loo`) requires knowledge of some advanced programming skills that we have not introduced yet. For more explanation, see [here](https://www.r-bloggers.com/data-frame-columns-as-arguments-to-dplyr-functions/) and [here](https://adv-r.hadley.nz/quasiquotation.html#unquoting). 
 
 Therefore, when writing funtions that perform data manipulation tasks, we will use a "Base R approach" rather than a "Tidyverse approach."
 
 ### Components of a function
 
-The `function()` function tells R that you are writing a function
+The `function()` function tells R that you are writing a function:
+
 
 ```r
 function_name <- function(arg1, arg2, arg3) {
-  #function body
+  # function body
 }
 
-#to find help file for function():
+# To find help file for function():
   ?`function`
-  #but help file is not a helpful introduction
+  # But help file is not a helpful introduction
 ```
 
-Three components of a function:
+**Three components** of a function:
 
-1. __function name__
-    - define a function using `function()` and give it a **name** using the assignment operator `<-`
-2. __function arguments__ (sometimes called "inputs")
+1. __Function name__
+    - Define a function using `function()` and give it a **name** using the assignment operator `<-`
+2. __Function arguments__ (sometimes called "inputs")
     - Inputs that the function takes; they go inside the parentheses of `function()`
-      - can be vectors, data frames, logical statements, strings, etc.
-    - in above hypothetical code, the function took three inputs `arg1`,`arg2`,`arg3`, but we could have written:
-      - `function(x,y,z)` or `function(Larry,Curly,Moe)`
-    - In "function call," you specify values to assign to these function arguments
-3. __function body__
+      - Can be vectors, data frames, logical statements, strings, etc.
+    - In the above hypothetical code, the function took three inputs `arg1`, `arg2`, `arg3`, but we could have written:
+      - `function(x, y, z)` or `function(Larry, Curly, Moe)`
+    - In the "function call," you specify values to assign to these function arguments
+3. __Function body__
     - What the function does to the inputs
-    - function body goes inside the pair of curly brackets (`{}`) that follows `function()`
+    - Function body goes inside the pair of curly brackets (`{}`) that follows `function()`
     - Above hypothetical function doesn't do anything
 
+### `print_hello()` function
 
-### Hello function
-
-`print_hello()` function
-
-- We will write a function that simply prints "Hello, world."
-- Then we'll modify this function to print name and age
-
-<br>
-
-__Task__: Write function that prints "Hello!"
+__Task__: Write function called `print_hello()` that prints `"Hello, world."`
 
 
-__First, perform task outside of function__
+```r
+# Expected output
+print_hello()
+```
+
+```
+## [1] "Hello, world"
+```
+
+<details><summary>**Step 1**: Perform task outside of function</summary>
+
+We want to print `"Hello, world"`:
 
 
 ```r
@@ -4737,7 +4857,10 @@ __First, perform task outside of function__
 ```
 ## [1] "Hello, world"
 ```
-Alternative approaches to perform task outside of function
+
+<br>
+Alternative approaches to perform task outside of function:
+
 
 ```r
 print("Hello, world")
@@ -4771,12 +4894,16 @@ writeLines(str_c("Hello, world", sep = "", collapse = NULL))
 ## Hello, world
 ```
 
-__Create the function__
+</details>
+
+<br>
+<details><summary>**Step 2**: Create the function</summary>
+
 
 ```r
 # Define function called `print_hello()`
 print_hello <- function() {  # This function takes no arguments
-  "Hello, world"                   # The body of the function simply prints "Hello!"
+  "Hello, world"             # The body of the function simply prints "Hello!"
 }
 
 # Call function
@@ -4787,19 +4914,33 @@ print_hello()
 ## [1] "Hello, world"
 ```
 
-1. __function name__
-    - function name is `print_hello`
-2. __function arguments__ (sometimes called "inputs")
-    - `print_hello` function doesn't take any arguments
-3. __function body__ (what the function does to the inputs)
-    - body of `print_hello` simply prints "Hello, world"
+1. __Function name__
+    - Function name is `print_hello()`
+2. __Function arguments__ (sometimes called "inputs")
+    - `print_hello()` function doesn't take any arguments
+3. __Function body__ (what the function does to the inputs)
+    - Body of `print_hello()` simply prints "Hello, world"
 
-<br>    
-__Task__: modify `print_hello` function so that it prints "Hello, world. My name is <name>", where `<name>` is a function argument that we can specify in function call
+</details>
 
-__First, perform task outside a function__. 
+<br>
 
-This seems wrong because my name is not an input
+__Task__: Modify `print_hello()` to take a name as input and print `"Hello, world. My name is <name>"`
+
+
+```r
+# Expected output
+print_hello("Ozan Jaquette")
+```
+
+```
+## [1] "Hello, world. My name is Ozan Jaquette"
+```
+
+<details><summary>**Step 1**: Perform task outside of function</summary>
+
+Say we want to print `"Hello, world. My name is Ozan Jaquette"`:
+
 
 ```r
 "Hello, world. My name is Ozan Jaquette"
@@ -4809,29 +4950,29 @@ This seems wrong because my name is not an input
 ## [1] "Hello, world. My name is Ozan Jaquette"
 ```
 
-```r
-# create an object x for name
-# 
-```
-Create an object, x, for name
+Remember that we eventually want the name to be an input to our function, so let's create a separate object, `x`, to store name:
+
 
 ```r
 x <- "Ozan Jaquette"
-
-str_c("Hello, world. My name is",x, sep = " ", collapse = NULL)
+str_c("Hello, world. My name is", x, sep = " ", collapse = NULL)
 ```
 
 ```
 ## [1] "Hello, world. My name is Ozan Jaquette"
 ```
 
+</details>
 
-__Modify function__
+<br>
+<details><summary>**Step 2**: Modify the function</summary>
+
 
 ```r
-# Define function
-print_hello <- function(x) {  # The argument goes between the parentheses
-  str_c("Hello, world. My name is",x, sep = " ", collapse = NULL) # body `str_c()` to concatenate greeting and name
+# Modify `print_hello()` function 
+print_hello <- function(x) {  # This function takes 1 argument
+  # In the body, use `str_c()` to concatenate greeting and name
+  str_c("Hello, world. My name is", x, sep = " ", collapse = NULL)  
 }
 
 # Call function
@@ -4849,16 +4990,34 @@ print_hello("Ozan Jaquette")
 ```
 ## [1] "Hello, world. My name is Ozan Jaquette"
 ```
+
+1. __Function name__
+    - Function name is `print_hello()`
+2. __Function arguments__ (sometimes called "inputs")
+    - `print_hello()` function takes a name as input
+3. __Function body__ (what the function does to the inputs)
+    - Body of `print_hello()` prints `"Hello, world. My name is <name>"`
+
+</details>
+
 <br>
 
-__Task__: modify `print_hello` function so that it also takes birth date as input and states age in years
-
-- like this: `"Hello, world. My name is Ozan Jaquette and I am 41 years old."`
+__Task__: Modify `print_hello()` to take a name and birthdate as inputs and print `"Hello, world. My name is <name> and I am <age> years old"`
 
 
-__Perform task outside of function__
+```r
+# Expected output
+print_hello("Ozan Jaquette", "01/16/1979")
+```
 
-Date of birth
+```
+## [1] "Hello, world. My name is Ozan Jaquette and I am 41 years old"
+```
+
+<details><summary>**Step 1**: Perform task outside of function</summary>
+
+Use `mdy()` from the `lubridate` package to help handle birthdates:
+
 
 ```r
 y <- "01/16/1979"
@@ -4867,14 +5026,6 @@ y
 
 ```
 ## [1] "01/16/1979"
-```
-
-```r
-mdy("01/16/1979")
-```
-
-```
-## [1] "1979-01-16"
 ```
 
 ```r
@@ -4892,25 +5043,26 @@ str(mdy(y))
 ```
 ##  Date[1:1], format: "1979-01-16"
 ```
-Calculate age
+
+<br>
+Using `today()` to get today's date, we can calculate an age given a birthdate:
+
 
 ```r
-y <- "01/16/1979"
-
 today()
 ```
 
 ```
-## [1] "2020-05-27"
+## [1] "2020-05-29"
 ```
 
 ```r
-# calculate duration
+# Calculate difference
 today() - mdy(y)
 ```
 
 ```
-## Time difference of 15107 days
+## Time difference of 15109 days
 ```
 
 ```r
@@ -4918,25 +5070,26 @@ str(today() - mdy(y))
 ```
 
 ```
-##  'difftime' num 15107
+##  'difftime' num 15109
 ##  - attr(*, "units")= chr "days"
 ```
 
 ```r
+# Convert to duration
 as.duration(today() - mdy(y))
 ```
 
 ```
-## [1] "1305244800s (~41.36 years)"
+## [1] "1305417600s (~41.37 years)"
 ```
 
 ```r
-# create age in years as numeric vector
+# Create age in years as numeric vector
 as.numeric(as.duration(today() - mdy(y)), "years")
 ```
 
 ```
-## [1] 41.36071
+## [1] 41.36619
 ```
 
 ```r
@@ -4955,15 +5108,9 @@ str(floor(as.numeric(as.duration(today() - mdy(y)), "years")))
 ##  num 41
 ```
 
-```r
-age <- floor(as.numeric(as.duration(today() - mdy(y)), "years"))
-age
-```
+<br>
+Putting it all together, let's print the name and age in years:
 
-```
-## [1] 41
-```
-Print name and age in years
 
 ```r
 x <- "Ozan Jaquette"
@@ -4971,27 +5118,31 @@ y <- "01/16/1979"
 
 age <- floor(as.numeric(as.duration(today() - mdy(y)), "years"))
 
-str_c("Hello, world. My name is",x, "and I am",age,"years old",sep = " ", collapse = NULL)
+str_c("Hello, world. My name is", x, "and I am", age, "years old", sep = " ", collapse = NULL)
 ```
 
 ```
 ## [1] "Hello, world. My name is Ozan Jaquette and I am 41 years old"
 ```
 
+</details>
 
-__Modify function__
+<br>
+<details><summary>**Step 2**: Modify the function</summary>
 
 
 ```r
-# Define function
-print_hello <- function(x,y) {  # The argument goes between the parentheses
-  
+# Modify `print_hello()` function 
+print_hello <- function(x, y) {  # This function takes 2 arguments
+  # In the body, calculate age
   age <- floor(as.numeric(as.duration(today() - mdy(y)), "years"))
-  str_c("Hello, world. My name is",x, "and I am",age,"years old", sep = " ", collapse = NULL) # body `str_c()` to concatenate greeting and name
+  
+  # Use `str_c()` to concatenate greeting, name, and age
+  str_c("Hello, world. My name is", x, "and I am", age, "years old", sep = " ", collapse = NULL)
 }
 
 # Call function
-print_hello(x = "Ozan Jaquette","01/16/1979")
+print_hello(x = "Ozan Jaquette", "01/16/1979")
 ```
 
 ```
@@ -4999,7 +5150,7 @@ print_hello(x = "Ozan Jaquette","01/16/1979")
 ```
 
 ```r
-print_hello(x = "Kartal Jaquette","01/24/1983")
+print_hello(x = "Kartal Jaquette", "01/24/1983")
 ```
 
 ```
@@ -5007,7 +5158,7 @@ print_hello(x = "Kartal Jaquette","01/24/1983")
 ```
 
 ```r
-print_hello(x = "Sumru Erkut","06/15/1944")
+print_hello(x = "Sumru Erkut", "06/15/1944")
 ```
 
 ```
@@ -5015,21 +5166,32 @@ print_hello(x = "Sumru Erkut","06/15/1944")
 ```
 
 ```r
-print_hello(x = "Sumru Jaquette-Nasiali","04/05/2019")
+print_hello(x = "Sumru Jaquette-Nasiali", "04/05/2019")
 ```
 
 ```
 ## [1] "Hello, world. My name is Sumru Jaquette-Nasiali and I am 1 years old"
 ```
 
-Test/break function
+1. __Function name__
+    - Function name is `print_hello()`
+2. __Function arguments__ (sometimes called "inputs")
+    - `print_hello()` function takes a name and birthdate as inputs
+3. __Function body__ (what the function does to the inputs)
+    - Body of `print_hello()` prints `"Hello, world. My name is <name> and I am <age> years old"`
 
-- what if date of birth is input using a different format?
+</details>
+
+
+<br>
+
+__Task__: Test/break `print_hello()` by passing in birthdate using a different format
+
 
 ```r
-print_hello(x = "Sumru Jaquette-Nasiali","04/05/2019") # this works
+print_hello(x = "Sumru Jaquette-Nasiali", "04/05/2019") # this works
 
-print_hello(x = "Sumru Jaquette-Nasiali","2019/04/05") # this breaks
+print_hello(x = "Sumru Jaquette-Nasiali", "2019/04/05") # this breaks
 ```
 
 Next step would be to modify function to create date object for date of birth, allowing DOB to be entered using multiple formats
@@ -5037,26 +5199,31 @@ Next step would be to modify function to create date object for date of birth, a
 - first, do outside of function
 - second, modify function
 
-### z_score function
+### `z_score()` function
 
-The __z-score__ for an observation _i_ is number of standard deviations from mean
+The __z-score__ for an observation _i_ is the number of standard deviations away it is from the mean:
 
 - $z_i = \frac{x_i - \bar{x}}{sd(x)}$
 
-<br>
+__Task__: Write function called `z_score()` that calculates the z-score for each element of a vector
 
-__Task__: 
-
-- Write function that calculates `z-score` for each element of a vector
-
-<br>
-
-__First, experiment calculating z-score without writing function__
-
-Create a vector of numbers we'll use to calculate z-score
 
 ```r
-v=c(seq(5,15))
+# Expected output
+z_score(c(1, 2, 3, 4, 5))
+```
+
+```
+## [1] -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+```
+
+<details><summary>**Step 1**: Perform task outside of function</summary>
+
+Create a vector of numbers we'll use to calculate z-score:
+
+
+```r
+v=seq(5,15)
 v
 ```
 
@@ -5065,7 +5232,7 @@ v
 ```
 
 ```r
-typeof(v) # type==integer vector
+typeof(v) # type == integer vector
 ```
 
 ```
@@ -5104,9 +5271,11 @@ v[10] # 10th element of v
 ## [1] 14
 ```
 
-We can calculate the z-score using the Base R `mean()` and `sd()` functions
+<br>
+We can calculate the z-score using the Base R `mean()` and `sd()` functions:
 
 - $z_i = \frac{x_i - \bar{x}}{sd(x)}$
+
 
 ```r
 mean(v)
@@ -5124,7 +5293,9 @@ sd(v)
 ## [1] 3.316625
 ```
 
-- Calculate z-score for some value
+<br>
+Calculate z-score for some value:
+
 
 ```r
 (5-mean(v))/sd(v)
@@ -5142,7 +5313,9 @@ sd(v)
 ## [1] 0
 ```
 
-- Calculate z-score for particular elements of vector `v`
+<br>
+Calculate z-score for particular elements of vector `v`:
+
 
 ```r
 v[1]
@@ -5176,7 +5349,9 @@ v[8]
 ## [1] 0.6030227
 ```
 
-- Calculate `z_i` for multiple elements of vector `v`
+<br>
+Calculate `z_i` for multiple elements of vector `v`:
+
 
 ```r
 c(v[1],v[8],v[11])
@@ -5193,9 +5368,14 @@ c((v[1]-mean(v))/sd(v),(v[8]-mean(v))/sd(v),(v[11]-mean(v))/sd(v))
 ```
 ## [1] -1.5075567  0.6030227  1.5075567
 ```
-__Next, write function__
 
-Write function to calculate z_score for each element of vector
+</details>
+
+<br>
+<details><summary>**Step 2**: Write the function</summary>
+
+Write function to calculate z-score for each element of the vector:
+
 
 ```r
 z_score <- function(x) {
@@ -5203,18 +5383,18 @@ z_score <- function(x) {
 }
 ```
 
-__Components of function__
+1. __Function name__: `z_score`
+2. __Function arguments__: Takes one input, which we named `x`
+    - Inputs can be vectors, dataframes, logical statements, etc.
+3. __Function body__: What function does to the inputs
+    - For each element of `x`, calculate difference between value of element and mean value of elements, then divide by standard deviation of elements
 
-1. __function name__ is `z_score`
-2. __function arguments__. Takes one input, which we named `x`
-    - inputs can be vectors, dataframes, logical statements, etc.
-3. __function body__.What function does to the inputs
-    - for each element of `x`, calculate difference between value of element and mean value of elements, then divide by standard deviation of elements
+<br>
+Test/call the function:
 
-Test/call function
 
 ```r
-z_score(x = c(5,6,7,8,9,10,11,12,13,14,15)) #note use of c() function to indicate individual arguments for multiple calls
+z_score(x = c(5,6,7,8,9,10,11,12,13,14,15))
 ```
 
 ```
@@ -5247,11 +5427,19 @@ z_score(x = c(seq(20,25)))
 ## [1] -1.3363062 -0.8017837 -0.2672612  0.2672612  0.8017837  1.3363062
 ```
 
+</details>
 
-Improve our function by trying to break it
+<br><br>
+
+__Task__: Improve the `z_score()` function by trying to break it
+
+<details><summary>**Test 1**: Handling `NA` values</summary>
+
+Let's see what happens when we try passing in a vector containing `NA` to our `z_score()` function:
+
 
 ```r
-w=c(NA,seq(1:5),NA)
+w <- c(NA, seq(1:5), NA)
 w
 ```
 
@@ -5267,10 +5455,9 @@ z_score(w)
 ## [1] NA NA NA NA NA NA NA
 ```
 
-- What went wrong?
+<br>
+What went wrong? Let's revise our function to handle `NA` values:
 
-\medskip
-Let's revise our function
 
 ```r
 z_score <- function(x) {
@@ -5293,42 +5480,113 @@ z_score(w)
 ## [7]         NA
 ```
 
+</details>
+
 <br>
+<details><summary>**Test 2**: Applying function to variables from a dataframe</summary>
 
-Does our `z_score` function work when applied to variables from a data frame?
+Create dataframe called `df`:
 
-- Create data frame called `df`
 
 ```r
 set.seed(12345) # set "seed" so we all get the same "random" numbers
 df <- tibble(
-  a = c(NA,rnorm(9)),
-  b = c(NA,rnorm(9)),
-  c = c(NA,rnorm(9))
+  a = c(NA,rnorm(5)),
+  b = c(NA,rnorm(5)),
+  c = c(NA,rnorm(5))
 )
 class(df) # class of object df
-df # print data frame
+```
 
+```
+## [1] "tbl_df"     "tbl"        "data.frame"
+```
+
+```r
+df # print data frame
+```
+
+```
+## # A tibble: 6 x 3
+##        a      b      c
+##    <dbl>  <dbl>  <dbl>
+## 1 NA     NA     NA    
+## 2  0.586 -1.82  -0.116
+## 3  0.709  0.630  1.82 
+## 4 -0.109 -0.276  0.371
+## 5 -0.453 -0.284  0.520
+## 6  0.606 -0.919 -0.751
+```
+
+```r
 # subset a data frame w/ one element, using []
 df["a"] 
-str(df["a"])
+```
 
+```
+## # A tibble: 6 x 1
+##        a
+##    <dbl>
+## 1 NA    
+## 2  0.586
+## 3  0.709
+## 4 -0.109
+## 5 -0.453
+## 6  0.606
+```
+
+```r
+str(df["a"])
+```
+
+```
+## Classes 'tbl_df', 'tbl' and 'data.frame':	6 obs. of  1 variable:
+##  $ a: num  NA 0.586 0.709 -0.109 -0.453 ...
+```
+
+```r
 # subset values of an element using [[]] or $
 df[["a"]]
-str(df[["a"]])
+```
 
-df$a # print element "a" (i.e., variable "a") of object df (data frame)
+```
+## [1]         NA  0.5855288  0.7094660 -0.1093033 -0.4534972  0.6058875
+```
+
+```r
+str(df[["a"]])
+```
+
+```
+##  num [1:6] NA 0.586 0.709 -0.109 -0.453 ...
+```
+
+```r
+df$a # print element "a" (i.e., variable "a") of object df (dataframe)
+```
+
+```
+## [1]         NA  0.5855288  0.7094660 -0.1093033 -0.4534972  0.6058875
+```
+
+```r
 str(df$a) # structure of element "a" of df: a numeric vector
 ```
 
-Experiment with components of z-score, outside of a function
+```
+##  num [1:6] NA 0.586 0.709 -0.109 -0.453 ...
+```
+
+<br>
+Experiment with components of z-score, outside of a function:
+
 
 ```r
 mean(df[["a"]], na.rm=TRUE) # mean of variable "a"
 ```
 
 ```
-## [1] -0.04556883
+## [1] 0.2676164
 ```
 
 ```r
@@ -5336,7 +5594,7 @@ sd(df[["a"]], na.rm=TRUE) # std dev of variable "a"
 ```
 
 ```
-## [1] 0.8117278
+## [1] 0.5178803
 ```
 
 ```r
@@ -5344,7 +5602,7 @@ mean(df$a, na.rm=TRUE) # mean of variable "a"
 ```
 
 ```
-## [1] -0.04556883
+## [1] 0.2676164
 ```
 
 ```r
@@ -5352,7 +5610,7 @@ sd(df$a, na.rm=TRUE) # std dev of variable "a"
 ```
 
 ```
-## [1] 0.8117278
+## [1] 0.5178803
 ```
 
 ```r
@@ -5373,94 +5631,202 @@ df$a[2]
 ```
 
 ```
-## [1] 0.7774745
+## [1] 0.6138725
 ```
 
-- Apply `z_score` function to variables in data frame
+<br>
+Apply `z_score()` function to variables in dataframe:
+
 
 ```r
-# z_score function to calculate z-score for each obs of variable "a"
+# z_score() function to calculate z-score for each obs of variable "a"
 df$a # print variable "a"
+```
+
+```
+## [1]         NA  0.5855288  0.7094660 -0.1093033 -0.4534972  0.6058875
+```
+
+```r
 z_score(x = df$a)
+```
+
+```
+## [1]         NA  0.6138725  0.8531888 -0.7278124 -1.3924329  0.6531840
+```
+
+```r
 z_score(x = df[["a"]])
+```
+
+```
+## [1]         NA  0.6138725  0.8531888 -0.7278124 -1.3924329  0.6531840
+```
+
+```r
   #z_score(x = df["a"]) # but this doesn't work
 
 # z-score for each obs of variable "b"
 z_score(x = df$b) 
 ```
 
-__Task__
+```
+## [1]         NA -1.4182167  1.2847832  0.2841184  0.2753122 -0.4259971
+```
 
-- Use our `z_score` function to create a new variable that is the z-score version of a variable
+</details>
 
-First, briefly review how to create and delete variables using "Base R" approach
+<br><br>
+
+__Task__: Use the `z_score()` function to create a new variable that is the z-score version of a variable
+
+<details><summary>**Example 1**: Creating a new z-score variable for the `df` dataframe</summary>
+
+First, briefly review how to create and delete variables using Base R approach:
+
 
 ```r
 df # print data frame df
+```
 
+```
+## # A tibble: 6 x 3
+##        a      b      c
+##    <dbl>  <dbl>  <dbl>
+## 1 NA     NA     NA    
+## 2  0.586 -1.82  -0.116
+## 3  0.709  0.630  1.82 
+## 4 -0.109 -0.276  0.371
+## 5 -0.453 -0.284  0.520
+## 6  0.606 -0.919 -0.751
+```
+
+```r
 df$one <- 1 # create variable "one" that always equals 1
 df # print data frame df
+```
+
+```
+## # A tibble: 6 x 4
+##        a      b      c   one
+##    <dbl>  <dbl>  <dbl> <dbl>
+## 1 NA     NA     NA         1
+## 2  0.586 -1.82  -0.116     1
+## 3  0.709  0.630  1.82      1
+## 4 -0.109 -0.276  0.371     1
+## 5 -0.453 -0.284  0.520     1
+## 6  0.606 -0.919 -0.751     1
+```
+
+```r
 df$one <- NULL # remove variable "one"
 df 
+```
 
+```
+## # A tibble: 6 x 3
+##        a      b      c
+##    <dbl>  <dbl>  <dbl>
+## 1 NA     NA     NA    
+## 2  0.586 -1.82  -0.116
+## 3  0.709  0.630  1.82 
+## 4 -0.109 -0.276  0.371
+## 5 -0.453 -0.284  0.520
+## 6  0.606 -0.919 -0.751
+```
+
+```r
 df$c_plus2 <- df$c+2 #create variable equal to "c" plus 2
 df
+```
+
+```
+## # A tibble: 6 x 4
+##        a      b      c c_plus2
+##    <dbl>  <dbl>  <dbl>   <dbl>
+## 1 NA     NA     NA       NA   
+## 2  0.586 -1.82  -0.116    1.88
+## 3  0.709  0.630  1.82     3.82
+## 4 -0.109 -0.276  0.371    2.37
+## 5 -0.453 -0.284  0.520    2.52
+## 6  0.606 -0.919 -0.751    1.25
+```
+
+```r
 df$c_plus2 <- NULL # remove variable "c_plus2"
 df
 ```
 
+```
+## # A tibble: 6 x 3
+##        a      b      c
+##    <dbl>  <dbl>  <dbl>
+## 1 NA     NA     NA    
+## 2  0.586 -1.82  -0.116
+## 3  0.709  0.630  1.82 
+## 4 -0.109 -0.276  0.371
+## 5 -0.453 -0.284  0.520
+## 6  0.606 -0.919 -0.751
+```
 
+<br>
+Use `z_score()` function to create a new variable that equals the z-score of another variable. Simply calling the `z_score()` function does not create a new variable:
 
-Use `z_score` function to create a new variable that equals the z-score of another variable
-
-- simply calling the `z_score` function does not create a new variable
 
 ```r
 z_score(x = df$c)
 ```
 
 ```
-##  [1]         NA  0.7824644  0.1323014  0.5126742  1.0474944 -0.6136182
-##  [7] -1.3324528 -1.3677077  1.3237878 -0.4849435
+## [1]           NA -0.510074390  1.525451514  0.002476613  0.159953743
+## [6] -1.177807481
 ```
 
 ```r
-df %>% head(5)
+df
 ```
 
 ```
-## # A tibble: 5 x 3
+## # A tibble: 6 x 3
 ##        a      b      c
 ##    <dbl>  <dbl>  <dbl>
 ## 1 NA     NA     NA    
-## 2  0.586 -0.919  1.12 
-## 3  0.709 -0.116  0.299
-## 4 -0.109  1.82   0.780
-## 5 -0.453  0.371  1.46
+## 2  0.586 -1.82  -0.116
+## 3  0.709  0.630  1.82 
+## 4 -0.109 -0.276  0.371
+## 5 -0.453 -0.284  0.520
+## 6  0.606 -0.919 -0.751
 ```
 
-- Do not modify the `z_score` function so that the variable is assigned within the function
-- Preferred approach is to call the `z_score` function after the assignment operator `<-`
+<br>
+Instead of modifying the `z_score()` function so that the variable is assigned within the function, the preferred approach is to call the `z_score()` function after the assignment operator `<-`:
 
 
 ```r
 df$c_z <- z_score(x = df$c)
 
 # examine data frame
-df %>% head(5)
+df
 ```
 
 ```
-## # A tibble: 5 x 4
-##        a      b      c    c_z
-##    <dbl>  <dbl>  <dbl>  <dbl>
-## 1 NA     NA     NA     NA    
-## 2  0.586 -0.919  1.12   0.782
-## 3  0.709 -0.116  0.299  0.132
-## 4 -0.109  1.82   0.780  0.513
-## 5 -0.453  0.371  1.46   1.05
+## # A tibble: 6 x 4
+##        a      b      c      c_z
+##    <dbl>  <dbl>  <dbl>    <dbl>
+## 1 NA     NA     NA     NA      
+## 2  0.586 -1.82  -0.116 -0.510  
+## 3  0.709  0.630  1.82   1.53   
+## 4 -0.109 -0.276  0.371  0.00248
+## 5 -0.453 -0.284  0.520  0.160  
+## 6  0.606 -0.919 -0.751 -1.18
 ```
-We can apply our function to a "real" dataset too
+
+</details>
+
+<br>
+<details><summary>**Example 2**: Creating a new z-score variable for the recruiting dataset</summary>
+
+We can apply our function to a "real" dataset too:
 
 
 ```r
@@ -5471,13 +5837,45 @@ df_event_small <- df_event[1:10,] %>% # keep first 10 observations
   select(instnm,univ_id,event_type,med_inc) # keep 4 vars
 
 df_event_small
+```
 
+```
+## # A tibble: 10 x 4
+##    instnm      univ_id event_type med_inc
+##    <chr>         <int> <chr>        <dbl>
+##  1 UM Amherst   166629 public hs   71714.
+##  2 UM Amherst   166629 public hs   89122.
+##  3 UM Amherst   166629 public hs   70136.
+##  4 UM Amherst   166629 public hs   70136.
+##  5 Stony Brook  196097 public hs   71024.
+##  6 USCC         218663 private hs  71024.
+##  7 UM Amherst   166629 private hs  71024.
+##  8 UM Amherst   166629 public hs   97225 
+##  9 UM Amherst   166629 private hs  97225 
+## 10 UM Amherst   166629 public hs   77800.
+```
+
+```r
 #show observations for variable med_inc
 df_event_small$med_inc
+```
 
+```
+##  [1] 71713.5 89121.5 70136.5 70136.5 71023.5 71023.5 71023.5 97225.0
+##  [9] 97225.0 77799.5
+```
+
+```r
 #calculate z-score of variable med_inc (without assignment)
 z_score(x = df_event_small$med_inc)
+```
 
+```
+##  [1] -0.60825958  0.91982879 -0.74668992 -0.74668992 -0.66882834
+##  [6] -0.66882834 -0.66882834  1.63116060  1.63116060 -0.07402556
+```
+
+```r
 #assign new variable equal to the z-score of med_inc
 df_event_small$med_inc_z <- z_score(x = df_event_small$med_inc)
 
@@ -5485,13 +5883,27 @@ df_event_small$med_inc_z <- z_score(x = df_event_small$med_inc)
 df_event_small %>% head(5)
 ```
 
-<br>
+```
+## # A tibble: 5 x 5
+##   instnm      univ_id event_type med_inc med_inc_z
+##   <chr>         <int> <chr>        <dbl>     <dbl>
+## 1 UM Amherst   166629 public hs   71714.    -0.608
+## 2 UM Amherst   166629 public hs   89122.     0.920
+## 3 UM Amherst   166629 public hs   70136.    -0.747
+## 4 UM Amherst   166629 public hs   70136.    -0.747
+## 5 Stony Brook  196097 public hs   71024.    -0.669
+```
 
-Improve `z_score` function by first checking whether input `x` is valid [CRYSTAL - MAKE THIS A COLLAPSIBLE]
+</details>
 
-We could improve `z_score` function by making it more "surly" about inputs it will accept
+<br><br>
 
-Current function
+__Task__: Improve the `z_score()` function by first checking whether input `x` is valid
+
+<details><summary>**Step 1**: Breaking current function with invalid input</summary>
+
+Current function:
+
 
 ```r
 z_score <- function(x) {
@@ -5501,18 +5913,23 @@ z_score <- function(x) {
 #?sd
 ```
 
-- `z_score` function does simple arithmatic and utilizes the `mean()` and `sd()` functions
+<br>
+What kind of input is our current function limited to?
+
+- `z_score()` function does simple arithmatic and utilizes the `mean()` and `sd()` functions
 - `mean()` and `sd()` functions require `x` to be a numeric (or logical) atomic vector
   - `z_score()` function will break if the input `x` is not an atomic vector
   - `z_score()` function will break if the input `x` is not a numeric/logical atomic vector
 
 
 ```r
-#function doesn't work if input is a list/data frame
+#function works on below numeric atomic vector
 str(df_event_small$med_inc)
+
+#function doesn't work if input is a list/dataframe
 str(df_event_small["med_inc"])
 
-z_score(x = df_event_small$med_inc)
+z_score(x = df_event_small["med_inc"])
 
 #function doesn't work if x is not a numeric vector
 str(df_event_small$instnm)
@@ -5520,32 +5937,115 @@ str(df_event_small$instnm)
 z_score(x = df_event_small$instnm)
 ```
 
-- We could modify `z_score()` by using conditional statements calculate the z-score only if input object `x` is the appropriate type and class of object
+</details>
 
-[CRYSTAL - WE COULD ADD REVISED FUNCTION HERE OR WE COULD PUT THIS CODE LATER IN LECTURE IF WE ADD SUB-SECTION ON "CHECKING VALUES"]
+<br>
+<details><summary>**Step 2**: Modify the function to handle invalid inputs</summary>
 
-- https://r4ds.had.co.nz/functions.html#checking-values
+We could modify `z_score()` by using conditional statements to calculate the z-score only if input object `x` is the appropriate class of object:
 
-### Student exercise [skip]
+
+```r
+z_score <- function(x) {
+  if (class(x) == "numeric" || class(x) == "logical") {
+    (x - mean(x, na.rm=TRUE))/sd(x, na.rm=TRUE)
+  }
+}
+```
+
+<br>
+We no longer run into errors if we supply an invalid input:
+
+
+```r
+# Test with list/dataframe input
+str(df_event_small["med_inc"])
+```
+
+```
+## Classes 'tbl_df', 'tbl' and 'data.frame':	10 obs. of  1 variable:
+##  $ med_inc: num  71714 89122 70136 70136 71024 ...
+```
+
+```r
+z_score(x = df_event_small["med_inc"])
+
+# Test with character vector input
+str(df_event_small$instnm)
+```
+
+```
+##  chr [1:10] "UM Amherst" "UM Amherst" "UM Amherst" "UM Amherst" ...
+```
+
+```r
+z_score(x = df_event_small$instnm)
+```
+
+<br>
+Note that our function would return `NULL` if the input was invalid, so the new variable would not be created if we used `<-`:
+
+
+```r
+str(df_event_small$instnm)
+```
+
+```
+##  chr [1:10] "UM Amherst" "UM Amherst" "UM Amherst" "UM Amherst" ...
+```
+
+```r
+# Invalid character vector input returns `NULL`
+typeof(z_score(x = df_event_small$instnm))
+```
+
+```
+## [1] "NULL"
+```
+
+```r
+# We would not see new variable/column `instnm_z`
+df_event_small$instnm_z <- z_score(x = df_event_small$instnm)
+df_event_small %>% head(5)
+```
+
+```
+## # A tibble: 5 x 5
+##   instnm      univ_id event_type med_inc med_inc_z
+##   <chr>         <int> <chr>        <dbl>     <dbl>
+## 1 UM Amherst   166629 public hs   71714.    -0.608
+## 2 UM Amherst   166629 public hs   89122.     0.920
+## 3 UM Amherst   166629 public hs   70136.    -0.747
+## 4 UM Amherst   166629 public hs   70136.    -0.747
+## 5 Stony Brook  196097 public hs   71024.    -0.669
+```
+
+</details>
+<br>
+
+### Student exercise [SKIP]
 
 Some common tasks when working with survey data:
 
-- identify number of observations with `NA` values for a specific variable
-- identify number of observations with negative values for a specific variable
+- Identify number of observations with `NA` values for a specific variable
+- Identify number of observations with negative values for a specific variable
 - Replace negative values with `NA` for a specific variable
+
+<br>
 
 #### `num_negative()` function
 
-__Your task for student exercise__: The `num_negative` function
+__Task__: Write function called `num_negative()`
 
 - Write a function that counts the number of observations with negative values for a specific variable
 - Apply this function to variables from dataframe `df` (created below)
-- Adapted from Ben Skinner's _programming 1_ R Workshop [HERE](https://www.btskinner.me/rworkshop/modules/programming_one.html)
+- Adapted from Ben Skinner's _Programming 1_ R Workshop [HERE](https://www.btskinner.me/rworkshop/modules/programming_one.html)
 
 
-Create a sample dataset `df` that contains some negative values
-
-- code omitted; don't worry about understanding this code
+```r
+# Sample dataframe `df` that contains some negative values
+df
+```
 
 ```
 ## # A tibble: 100 x 4
@@ -5564,8 +6064,7 @@ Create a sample dataset `df` that contains some negative values
 ## # … with 90 more rows
 ```
 
-__Task__: Write a function that counts the number of observations with negative values for a specific variable
-
+<br>
 __Recommended steps__:
 
 - Perform task outside of function
@@ -5573,17 +6072,45 @@ __Recommended steps__:
 - Write function
 - Apply/test function on variables
 
-__Step 1__: Perform task outside of function [output omitted]
+<br>
+<details><summary>**Step 1**: Perform task outside of function</summary>
+
 
 ```r
 names(df) # identify variable names
-df$age # print observations for a variable
+```
 
+```
+## [1] "id"     "age"    "sibage" "parage"
+```
+
+```r
+df$age # print observations for a variable
+```
+
+```
+##   [1]  17  15 -97  13 -97  12 -99 -97  16  16 -98  20 -99  20  11  20  12
+##  [18]  17  19  17 -97 -99  12  13  11  15  20  14 -99  11  20 -98  11 -98
+##  [35]  12  16  12  18  12  19  12 -97  20  17  11  19  19  12 -98  11  15
+##  [52]  18  15 -98  15  19 -97  13 -98  16  13  12  16  19 -99  19 -98  13
+##  [69] -97  20  15  19  15  12  18 -99  18 -98 -98 -98 -97  12  14  19 -97
+##  [86]  11  20  18  14 -99  15  20 -97  14  14  19  18  17  20  15
+```
+
+```r
 #BaseR
 sum(df$age<0) # count number of obs w/ negative values for variable "age"
 ```
 
-__Step 2__: Write function
+```
+## [1] 27
+```
+
+</details>
+
+<br>
+<details><summary>**Step 2**: Write function</summary>
+
 
 ```r
 num_missing <- function(x){
@@ -5591,7 +6118,11 @@ num_missing <- function(x){
 }
 ```
 
-__Step 3__: apply function
+</details>
+
+<br>
+<details><summary>**Step 3**: Apply function</summary>
+
 
 ```r
 num_missing(df$age)
@@ -5609,21 +6140,26 @@ num_missing(df$sibage)
 ## [1] 22
 ```
 
-#### `num_missing` function
+</details>
+<br>
 
-In survey data, negative values often refer to reason for missing values
+#### `num_missing()` function
 
-- e.g., `-8` refers to "didn't take survey"
-- e.g., `-7` refers to "took survey, but didn't answer this question"
+In survey data, negative values often refer to reason for missing values:
 
-__Your task__: Write function `num_mising` that counts number of missing observations for a variable and allows you to specify which values are associated with missing for that variable. This function will take two arguments:
+- E.g., `-8` refers to "didn't take survey"
+- E.g., `-7` refers to "took survey, but didn't answer this question"
 
-- `x`: the variable (e.g., `df$sibage`)
-- `miss_vals`: vector of values you want to associate with "missing" variable
-    - Values to associate with missing for `df$age`: `-97,-98,-99`
-    - Values to associate with missing for `df$sibage`: `-97,-98,-99`
-    - Values to associate with missing for `df$parage`: `-4,-7,-8`
+__Task__: Write function called `num_negative()`
 
+- Write a function that counts number of missing observations for a variable and allows you to specify which values are associated with missing for that variable. This function will take two arguments:
+    - `x`: The variable (e.g., `df$sibage`)
+    - `miss_vals`: Vector of values you want to associate with "missing" variable
+        - Values to associate with missing for `df$age`: `-97,-98,-99`
+        - Values to associate with missing for `df$sibage`: `-97,-98,-99`
+        - Values to associate with missing for `df$parage`: `-4,-7,-8`
+
+<br>
 __Recommended steps__:
 
 - Perform task outside of function
@@ -5631,8 +6167,9 @@ __Recommended steps__:
 - Write function
 - Apply/test function on variables
 
+<br>
+<details><summary>**Step 1**: Perform task outside of function</summary>
 
-Perform task outside of function
 
 ```r
 sum(df$age %in% c(-97,-98,-99))
@@ -5642,7 +6179,11 @@ sum(df$age %in% c(-97,-98,-99))
 ## [1] 27
 ```
 
-Write function
+</details>
+
+<br>
+<details><summary>**Step 2**: Write function</summary>
+
 
 ```r
 num_missing <- function(x, miss_vals){
@@ -5651,7 +6192,11 @@ num_missing <- function(x, miss_vals){
 }
 ```
 
-Call function
+</details>
+
+<br>
+<details><summary>**Step 3**: Apply function</summary>
+
 
 ```r
 num_missing(df$age,c(-97,-98,-99))
@@ -5677,6 +6222,9 @@ num_missing(df$parage,c(-4,-7,-8))
 ## [1] 17
 ```
 
+</details>
+<br>
+
 ## Function arguments
 
 ### Default values
@@ -5685,6 +6233,35 @@ What are **default values** for arguments?
 
 - The **default value** for an argument is the value that will be used if the argument was not supplied during the function call
 - When writing the function, you can specify the **default value** for an argument using `name=value`
+
+<br>
+**Example**: Arguments with default value in `str_c()`
+
+The `str_c()` function has default values for `sep` and `collapse`:
+
+- `str_c(..., sep = "", collapse = NULL)`
+
+
+```r
+# If we don't specify `sep` and `collapse`, they take the default values
+str_c(c("a", "b"), c(1, 2))
+```
+
+```
+## [1] "a1" "b2"
+```
+
+```r
+# If we specify `sep` and `collapse`, they would override the default values
+str_c(c("a", "b"), c(1, 2), sep = "~", collapse = "|")
+```
+
+```
+## [1] "a~1|b~2"
+```
+
+<br>
+<details><summary>**Example**: Adding a default value for function argument</summary>
 
 Recall the `print_hello()` function. Let's modify the function to make `x` have a default value:
 
@@ -5712,16 +6289,53 @@ print_hello("World")
 ## [1] "Hello World!"
 ```
 
+</details>
 
 ### Dot-dot-dot (`...`)
 
 What is **dot-dot-dot (`...`)**?
 
 - Dot-dot-dot (`...`) allows the function to take an arbitrary number of arguments
-  - E.g., `str_c(..., sep = "", collapse = NULL)`
-  - As seen, `str_c()` allows us to pass in an arbitrary number of character vectors to concatenate together
 - "`...` (pronounced dot-dot-dot) [...] captures any number of arguments that aren’t otherwise matched." (From [R for Data Science](https://r4ds.had.co.nz/functions.html#dot-dot-dot))
 - When we write our own function with the special argument `...`, we can pass those inputs into another function that takes `...` (e.g., `str_c()`)
+
+<br>
+**Example**: Dot-dot-dot (`...`) argument in `str_c()`
+
+The `str_c()` function allows us to pass in an arbitrary number of character vectors to concatenate together:
+
+- `str_c(..., sep = "", collapse = NULL)`
+
+
+```r
+# 1 character vector as input
+str_c(c("a", "b", "c"))
+```
+
+```
+## [1] "a" "b" "c"
+```
+
+```r
+# 2 character vectors as input
+str_c(c("a", "b", "c"), " is for ")
+```
+
+```
+## [1] "a is for " "b is for " "c is for "
+```
+
+```r
+# 3 character vectors as input
+str_c(c("a", "b", "c"), " is for ", c("apple", "banana", "coffee"))
+```
+
+```
+## [1] "a is for apple"  "b is for banana" "c is for coffee"
+```
+
+<br>
+<details><summary>**Example**: Adding dot-dot-dot (`...`) as function argument</summary>
 
 Recall the `print_hello()` function. Let's modify the function to make it take an arbitrary number of names to greet:
 
@@ -5747,6 +6361,64 @@ print_hello("Rudolf")
 ```
 ## [1] "Hello Rudolf!"
 ```
+
+</details>
+
+### Checking values
+
+How to handle invalid inputs?
+
+- As seen previously in the [`z_score()` example](#z_score-function), one way to check for invalid inputs is using conditional statements
+- "It's good practice to check important preconditions, and throw an error (with `stop()`), if they are not true" ([R for Data Science](https://r4ds.had.co.nz/functions.html#checking-values))
+    - Especially in the case where the invalid input does not cause the function to break, but gives an unintended output instead, we want to explicitly raise an error so this does not go unnoticed
+
+<br>
+__The `stop()` function__:
+
+
+```r
+?stop
+
+# SYNTAX AND DEFAULT VALUES
+stop(..., call. = TRUE, domain = NULL)
+```
+
+<br>
+<details><summary>**Example**: Using `stop()` inside function</summary>
+
+Recall the `print_hello()` function. It will not print a greeting if `NA` is supplied as the input:
+
+
+```r
+print_hello <- function(x) {
+  str_c("Hello ", x, "!")
+}
+
+print_hello(NA)
+```
+
+```
+## [1] NA
+```
+
+<br>
+We can raise an error with a custom message if the input is `NA`:
+
+
+```r
+print_hello <- function(x) {
+  if (is.na(x)) {
+    stop("`x` must not be `NA`")
+  }
+  
+  str_c("Hello ", x, "!")
+}
+
+print_hello(NA)
+```
+
+</details>
+<br>
 
 ## Return values
 
@@ -5804,11 +6476,10 @@ h
 ## [1] "Hello!"
 ```
 
-
 <br>
 <details><summary>**Example**: Writing a function with multiple returns</summary>
 
-Recall the previous example where we assess the prices of diamonds using the `diamonds` dataset from `ggplot2`. Let's move the `if`/`else if`/`else` blocks inside of a function, then call the function from inside the loop.
+Recall the previous example where we assess the prices of diamonds from the `diamonds` dataset from `ggplot2`. Let's move the `if`/`else if`/`else` blocks inside of a function, then call the function from inside the loop.
 
 As seen below, the last statement that the function evaluates (i.e., whichever `if`/`else if`/`else` block is run) will be implicitly returned:
 
@@ -5824,7 +6495,8 @@ assess_price <- function(price) {
   }
 }
 
-for (i in unique(diamonds$price)[23:27]) {
+prices <- unique(diamonds$price)[23:27]
+for (i in prices) {
   writeLines(assess_price(i))
 }
 ```
@@ -5854,7 +6526,7 @@ assess_price <- function(price) {
   "I can't afford that."  # This is now the last statement in the function that will be returned
 }
 
-for (i in unique(diamonds$price)[23:27]) {
+for (i in prices) {
   writeLines(assess_price(i))
 }
 ```
@@ -5884,7 +6556,7 @@ assess_price <- function(price) {
   "I can't afford that."
 }
 
-for (i in unique(diamonds$price)[23:27]) {
+for (i in prices) {
   writeLines(assess_price(i))
 }
 ```
