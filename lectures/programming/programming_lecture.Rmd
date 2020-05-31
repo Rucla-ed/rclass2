@@ -2273,12 +2273,17 @@ if (str_detect(string = "Fourth of July", pattern = "\\d")) {
 
 How to combine **multiple logical expressions** in a condition?
 
-- Use `||` (or) and `&&` (and) to combine multiple logical expressions
+- Recall that a logical expression is of type `logical` and has a length of `1`
+- An `if` statement condition can be made up of multiple logical expressions
+- We can use `||` (or) and `&&` (and) to combine multiple logical expressions
 - "Never use `|` or `&` in an if statement: these are _vectorised_ operations that apply to multiple values (that's why you use them in `filter()`)" (From [R for Data Science](https://r4ds.had.co.nz/functions.html#conditional-execution))
-    - Vectorised operations mean they apply to each respective elements between the vectors:
+    - Vectorised operations apply to each respective elements of the vectors and returns a vector:
         ```{r}
         c(TRUE, TRUE, FALSE) | c(TRUE, FALSE, FALSE)
         ```
+        - 1st element of each vector: `TRUE` or `TRUE` is `TRUE`
+        - 2nd element of each vector: `TRUE` or `FALSE` is `TRUE`
+        - 3rd element of each vector: `FALSE` or `FALSE` is `FALSE`
     - Whereas `||` and `&&` will only look at the first element of each vector:
         ```{r}
         c(TRUE, TRUE, FALSE) || c(TRUE, FALSE, FALSE)
@@ -2492,133 +2497,207 @@ for (i in prices) {
   }
 }
 ```
+</details>
 
 ## Processing time
 
-CRYSTAL - STATE PURPOSE OF THIS SUB-SECTION AND INTRODUCE system.time() function. 
+Especially when working with large datasets, the time it takes for your code to run can really add up, so it is important to look for ways to optimize code such that it runs most efficiently. We can use `system.time()` to measure how long it takes for some code to run.
 
-Let's create a new numeric atomic vector called `prices` that is equal to the price of each diamond in the data frame `diamonds`
-```{r}
-prices <- diamonds$price[1:20000]
-  #prices <- diamonds$price
-length(prices)
+__The `system.time()` function__:
+
+```{r, eval = FALSE}
+?system.time
+
+# SYNTAX AND DEFAULT VALUES
+system.time(expr, gcFirst = TRUE)
 ```
 
-Using loops, create an atomic vector `z_prices` that equals the z-score (number of standard deviations from the mean) for each element of atomic vector `prices`
-- Although not strictly necessary to create `z_prices`, our loop will include conditional statements that separately process diamonds that are "affordable," "pricey," and "too expensive"
+- Function: Returns CPU (and other) times that expr used
+- Arguments:
+    - `expr`: Valid R expression to be timed
 
-Using the function `system.time()` let's how long this process takes for the following alternative loops:
+<br>
+For the below examples, we'll create a numeric atomic vector called `prices` that is equal to the price of each diamond in the `diamonds` dataframe:
 
-1. use `if`, `else if`, and `else` conditional statements
-1. only use `if` conditional statements
-
-Using `if`, `else if`, and `else` conditional statements
 ```{r}
-# Pre-allocate the number of elements required for the atomic vector z_prices
-z_prices <- vector("double", length(prices))
-length(z_prices)
+prices <- diamonds$price
+str(prices)  # 53,940 diamond prices
+```
+
+<br>
+<details><summary>**Example**: Allocating sufficient space for output before loop</summary>
+
+Let's take a look at an example of using a loop to calculate the z-score for each diamond price and storing the scores in a vector. First, we'll calculate the mean and standard deviation of the prices:
+
+```{r}
+m <- mean(prices, na.rm=TRUE)
+s <- sd(prices, na.rm=TRUE)
+```
+
+<br>
+**[Method 1]** Growing the vector inside the loop using `c()`
+
+- "Whenever you use `c()`, `append()`, `cbind()`, `rbind()`, or `paste()` to create a bigger object, R must first allocate space for the new object and then copy the old object to its new home. If you’re repeating this many times, like in a for loop, this can be quite expensive." ([Advanced R](http://adv-r.had.co.nz/Profiling.html#avoid-copies))
+
+```{r}
+z_prices <- c()
 
 system.time(
-  
   for (i in 1:length(prices)) {
-
-    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
-    
-    if (prices[i] < 500) {
-      
-      str_c("This diamond costs $", i, " and is affordable.")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } else if (prices[i] < 1000) {
-      
-      str_c("This diamond costs $", i, " and is pricey...")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } else {
-      
-      str_c("This diamond costs $", i, " and is too expensive!")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    }
+    z_prices <- c(z_prices, (prices[i] - m)/s)
   }
-  
 )
 ```
-Only using `if` conditional statements
+
+<br>
+**[Method 2]** Creating the output vector before loop (_Recommended_)
+
+- "Before you start the loop, you must always allocate sufficient space for the output. This is very important for efficiency" ([R for Data Science](https://r4ds.had.co.nz/iteration.html#for-loops))
+- As seen, we can do that by first creating the `z_prices` object using `vector()` before the loop
+
 ```{r}
-# Pre-allocate the number of elements required for the atomic vector z_prices
 z_prices <- vector("double", length(prices))
-length(z_prices)
 
 system.time(
-  
   for (i in 1:length(prices)) {
-
-    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
-    
-    if (prices[i] < 500) {
-      
-      str_c("This diamond costs $", i, " and is affordable.")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } 
-    if (prices[i] < 1000) {
-      
-      str_c("This diamond costs $", i, " and is pricey...")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } 
-    if (prices[i] >= 1000) {
-      
-      str_c("This diamond costs $", i, " and is too expensive!")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    }
+    z_prices[i] <- (prices[i] - m)/s
   }
-  
-) # end system.time()
-```
-
-CRYSTAL - EXPLAIN HOW THE ABOVE TWO LOOPS DIFFER FROM ONE ANOTHER IN TERMS OF PROCESSING. 
-
-CRYSTAL - ALSO, THE DIFFERENCE IN PROCESSING TIME IS VERY SMALL BETWEEN THESE TWO EXAMPLES. IN OTHER EXPLORATORY EXAMPLES I HAVE DONE. THE DIFFERENCE BETWEEEN ONLY USING "IF" AND USING IF/ELSE IF/ELSE RESULTED IN MUCH GREATER DIFFERENCE IN PROCESSING TIME. IS THERE ANY SMALL TWEAK WE CAN DO TO THE ABOVE LOOPS TO MAKE THE DIFFERENCE IN PROCESSING TIME MORE SUBSTANTIAL?
-
-What if we didn't pre-allocate length of atomic vector `z_prices`
-
-- CRYSTAL - WICKHAM SAYS NOT PRE-ALLOCATING LENGTH RESULTS IN MUCH LONGER PROCESSING OF LOOPS. BUT DIDN'T SEEM TO BE THE CASE BELOW. HOW COME?
-```{r}
-#z_prices <- vector("double", length(prices))
-rm(z_prices)
-z_prices <- NULL
-
-system.time(
-  
-  for (i in 1:length(prices)) {
-
-    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
-    
-    if (prices[i] < 500) {
-      
-      str_c("This diamond costs $", i, " and is affordable.")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } else if (prices[i] < 1000) {
-      
-      str_c("This diamond costs $", i, " and is pricey...")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } else {
-      
-      str_c("This diamond costs $", i, " and is too expensive!")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    }
-  }
-  
 )
 ```
 
 </details>
+
+
+<br>
+<details><summary>**Example**: Vectorising your code</summary>
+
+What does it mean to "vectorise your code"? ([Advanced R](http://adv-r.had.co.nz/Profiling.html#vectorise))
+
+- "Vectorising is about taking a 'whole object' approach to a problem, thinking about vectors, not scalars."
+- Often, this means avoiding loops and using vectorised functions instead (e.g., use `ifelse()` function instead of if-else statement inside a for loop)
+
+To see the difference, let's look at the example of classifying diamond prices as affordable or expensive.
+
+<br>
+**[Method 1]** Using if-else statement inside a for loop
+
+```{r}
+output <- vector("character", length(prices))
+
+system.time(
+  for (i in 1:length(prices)) {
+    if (i < 500) {
+      output[i] <- str_c("This diamond costs $", prices[i], " and is affordable.")
+    } else {
+      output[i] <- str_c("This diamond costs $", prices[i], " and is too expensive!")
+    }
+  }
+)
+```
+
+<br>
+**[Method 2]** Using the vectorised `ifelse()` function (_Recommended_)
+
+```{r}
+system.time(
+  output <- ifelse(prices < 500,
+                   str_c("This diamond costs $", prices, " and is affordable."),
+                   str_c("This diamond costs $", prices, " and is too expensive!")
+                   )
+)
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using multiple `if` statements vs. `if`/`else if`/`else` statements</summary>
+
+**[Method 1]** Using multiple `if` statements inside a for loop
+
+- Look out for situations like the below where we can use `if`/`else if`/`else` statements instead of multiple `if` statements
+- With multiple `if` statements, each of the `if` conditions need to be checked for every diamond price
+
+```{r}
+output <- vector("integer", length(prices))
+
+system.time(
+  for (i in 1:length(prices)) {
+    if (i < 200) {
+      output[i] <- 1
+    } 
+    if (i >= 200 && i < 400) {
+      output[i] <- 2
+    }
+    if (i >= 400 && i < 600) {
+      output[i] <- 3
+    } 
+    if (i >= 600 && i < 800) {
+      output[i] <- 4
+    }
+    if (i >= 800 && i < 1000) {
+      output[i] <- 5
+    } 
+    if (i >= 1000 && i < 1500) {
+      output[i] <- 6
+    }
+    if (i >= 1500 && i < 2000) {
+      output[i] <- 7
+    }
+    if (i >= 2000) {
+      output[i] <- 8
+    }
+  }
+)
+```
+
+<br>
+**[Method 2]** Using `if`/`else if`/`else` statements inside a for loop
+
+- With `if`/`else if`/`else` statements, not all conditions below will be checked (only up to when one of the blocks get executed)
+- Thus, we see a reduction in the processing time compared to **Method 1** - this will be especially true the more `if` statements there are
+
+```{r}
+output <- vector("integer", length(prices))
+
+system.time(
+  for (i in 1:length(prices)) {
+    if (i < 200) {
+      output[i] <- 1
+    } else if (i < 400) {
+      output[i] <- 2
+    } else if (i < 600) {
+      output[i] <- 3
+    } else if (i < 800) {
+      output[i] <- 4
+    } else if (i < 1000) {
+      output[i] <- 5
+    } else if (i < 1500) {
+      output[i] <- 6
+    } else if (i < 2000) {
+      output[i] <- 7
+    } else {
+      output[i] <- 8
+    }
+  }
+)
+```
+
+<br>
+**[Method 3]** Using the vectorised `ifelse()` function
+
+- Note that using a vectorised function when possible would still be the fastest
+- But there can be a "trade-off between code speed and code readability", as nested `ifelse()` statements are hard to read ([Efficient R programming](https://csgillespie.github.io/efficientR/performance.html))
+
+```{r}
+system.time(
+  output <- ifelse(prices < 200, 1, ifelse(prices < 400, 2, ifelse(prices < 600, 3, 
+                   ifelse(prices < 800, 4, ifelse(prices < 1000, 5, ifelse(prices < 1500, 6, 
+                   ifelse(prices < 2000, 7, 8)))))))
+)
+```
+
+</details>
+
 
 # Functions
 
@@ -2756,7 +2835,7 @@ function_name <- function(arg1, arg2, arg3) {
 
 __Task__: Write function called `print_hello()` that prints `"Hello, world."`
 
-```{r, echo=-1}
+```{r, echo=-c(1:2)}
 print_hello <- function() {
   "Hello, world"
 }
@@ -2812,7 +2891,7 @@ print_hello()
 
 __Task__: Modify `print_hello()` to take a name as input and print `"Hello, world. My name is <name>"`
 
-```{r, echo=-1}
+```{r, echo=-c(1:2)}
 print_hello <- function(x) {
   str_c("Hello, world. My name is", x, sep = " ", collapse = NULL)
 }
@@ -2866,7 +2945,7 @@ print_hello("Ozan Jaquette")
 
 __Task__: Modify `print_hello()` to take a name and birthdate as inputs and print `"Hello, world. My name is <name> and I am <age> years old"`
 
-```{r, echo=-1}
+```{r, echo=-c(1:2)}
 print_hello <- function(x, y) {
   age <- floor(as.numeric(as.duration(today() - mdy(y)), "years"))
   str_c("Hello, world. My name is", x, "and I am", age, "years old", sep = " ", collapse = NULL)
@@ -2973,7 +3052,7 @@ The __z-score__ for an observation _i_ is the number of standard deviations away
 
 __Task__: Write function called `z_score()` that calculates the z-score for each element of a vector
 
-```{r, echo=-1}
+```{r, echo=-c(1:2)}
 z_score <- function(x) {
   (x - mean(x))/sd(x)
 }
@@ -3333,7 +3412,7 @@ __Task__: Write function called `num_negative()`
 - Apply this function to variables from dataframe `df` (created below)
 - Adapted from Ben Skinner's _Programming 1_ R Workshop [HERE](https://www.btskinner.me/rworkshop/modules/programming_one.html)
 
-```{r, echo=-c(1:2)}
+```{r, echo=-c(1:3)}
 set.seed(54321) # so that we all get the same random numbers
 df <- tibble('id' = 1:100,
              'age' = sample(c(seq(11,20,1), -97,-98,-99),
@@ -3462,9 +3541,9 @@ What are **default values** for arguments?
 
 - The **default value** for an argument is the value that will be used if the argument value was not supplied during the function call
 - When writing the function, you can specify the **default value** for an argument using `name=value`
+- Most Base R functions and functions from other packages specify default values for one or more arguments
 
 <br>
-Most Base R functions and functions from other packages specify default values for one or more arguments
 
 **Example**: `str_c()` function
 
@@ -3473,12 +3552,12 @@ The `str_c()` function has default values for `sep` and `collapse`:
 - Syntax
   - `str_c(..., sep = "", collapse = NULL)`
 - Arguments
-  - `...`: one or more character vectors to join, separated by commas
-  - `sep`: string to insert between input vectors
-    - default value: `sep = ""`
-  - `collapse`: Optional string used to combine input vectors into single string.
-      - after joining vectors into single string within each element, should resulting elements be combined into a single string? and if so, what string to insert between elements 
-      - default value: `collapse = NULL` is to not combine elements into a single string
+  - `...`: One or more character vectors to join, separated by commas
+  - `sep`: String to insert between input vectors
+      - Default value: `sep = ""`
+  - `collapse`: Optional string used to combine input vectors into single string
+      - After joining vectors into single string within each element, should resulting elements be combined into a single string? If so, what string to insert between elements?
+      - Default value: `collapse = NULL` is to not combine elements into a single string
 
 ```{r}
 # We want to join the following two vectors element-wise into a single character vector
@@ -3506,9 +3585,7 @@ length(str_c(c("a", "b"), c(1, 2), collapse = "|"))  # resulting vector has leng
 <br>
 <details><summary>**Example**: Adding a default value to our `z_score()` function</summary>
 
-Recall the `z_score()` function we developed previously
-
-- we wrote this function to remove `NA` values prior to calculating z-score
+Recall the `z_score()` function we developed previously, where we wrote this function to remove `NA` values prior to calculating z-score:
 
 ```{r}
 z_score <- function(x) {
@@ -3519,7 +3596,10 @@ w <- c(NA, seq(1:5), NA)
 w
 z_score(w)
 ```
-We could add an argument (named `na`) that specifies whether `NA`s should be removed prior to calculating z-scores
+
+
+<br>
+We could add an argument (named `na`) that specifies whether `NA`s should be removed prior to calculating z-scores:
 
 ```{r}
 z_score <- function(x, na) {
@@ -3531,9 +3611,9 @@ z_score(w, TRUE)
 z_score(w, FALSE)
 #z_score(w) # error: argument "na" is missing, with no default
 ```
-We could also add a default value for the `na` argument
 
-- following conservative approach, we'll specify default value as `FALSE` which means that any `NA` values in input vector `x` will result in z-score of `NA` for all observations
+<br>
+We could also add a default value for the `na` argument. Following conservative approach, we'll specify default value as `FALSE` which means that any `NA` values in input vector `x` will result in z-score of `NA` for all observations:
 
 ```{r}
 z_score <- function(x, na = FALSE) {
@@ -3551,41 +3631,43 @@ z_score(w, TRUE) # override default value
 
 ### Dot-dot-dot (`...`)
 
-#### What is dot-dot-dot (`...`)?
-
 <br>
 
-Many functions take an arbitrary number of arguments/inputs
+#### What is dot-dot-dot (`...`)?
 
-- Examples of functions we haved worked with that allow an arbitrary number of arguments include `select()`, `sum()`, `filter()`, `str_c()`
+Many functions take an arbitrary number of arguments/inputs, including:
+
 - `select()`
-```{r}
-#?select
-select(df_event,instnm,univ_id,event_type,med_inc) %>% names()
-```
+
+    ```{r}
+    #?select
+    select(df_event,instnm,univ_id,event_type,med_inc) %>% names()
+    ```
 
 - `sum()`
-```{r}
-#?sum
-sum(3,3,2,2,1,1)
-```
+
+    ```{r}
+    #?sum
+    sum(3,3,2,2,1,1)
+    ```
 
 - `str_c`
-```{r}
-#?str_c
 
-# 1 character vector as input
-str_c(c("a", "b", "c"))
-
-# 2 character vectors as input
-str_c(c("a", "b", "c"), " is for ")
-
-# 3 character vectors as input
-str_c(c("a", "b", "c"), " is for ", c("apple", "banana", "coffee"))
-```
-
-
-All of these functions rely on a special argument `...` (pronounced dot-dot-dot)  
+    ```{r}
+    #?str_c
+    
+    # 1 character vector as input
+    str_c(c("a", "b", "c"))
+    
+    # 2 character vectors as input
+    str_c(c("a", "b", "c"), " is for ")
+    
+    # 3 character vectors as input
+    str_c(c("a", "b", "c"), " is for ", c("apple", "banana", "coffee"))
+    ```
+    
+<br>
+All of these functions rely on a special argument `...` (pronounced "dot-dot-dot")  
 
 - Dot-dot-dot (`...`) allows a function to take an arbitrary number of arguments
 - Wickham and Grolemund [chapter 19.5.3](https://r4ds.had.co.nz/functions.html#dot-dot-dot) states:
@@ -3598,7 +3680,7 @@ All of these functions rely on a special argument `...` (pronounced dot-dot-dot)
 
 When writing functions, there are two primary uses of including `...` arguments:
 
-1. A means of allowing the function to take an arbitrary number of arguments, as in the `select()` and `sum` functions
+1. A means of allowing the function to take an arbitrary number of arguments, as in the `select()` and `sum()` functions
 1. When we write our own function with the special argument `...`, we can pass those inputs into another function that takes `...` (e.g., `str_c()`)
 
 <br>
@@ -3606,29 +3688,30 @@ When writing functions, there are two primary uses of including `...` arguments:
 <details><summary>**Example**: Adding dot-dot-dot (`...`) as function argument</summary>
 
 
-Recall the first iteration of our `print_hello()` function, which basically just printed a name that we specified in program call. Let's modify the function to make it take an arbitrary number of names to greet:
+Recall the first iteration of our `print_hello()` function, which basically just printed a name that we specified in function call. Let's modify the function to make it take an arbitrary number of names to greet:
 
 - Function that only took one argument
-```{r}
-print_hello1 <- function(x) {  
-  str_c("Hello ", x, "!") 
-}
 
-print_hello1("Ozan")
-```
+    ```{r}
+    print_hello1 <- function(x) {  
+      str_c("Hello ", x, "!") 
+    }
+    
+    print_hello1("Ozan")
+    ```
 
 - Modify function to take an arbitrary number of names to greet
 
-```{r}
-# Define function
-print_hello2 <- function(...) {  # The function accepts an arbitrary number of inputs
-  str_c("Hello ", str_c(..., sep = ", "), "!")  # Pass the `...` to `str_c()`
-}
-
-# Call function
-print_hello2("Dasher", "Dancer", "Prancer", "Vixen")
-print_hello2("Rudolf")
-```
+    ```{r}
+    # Define function
+    print_hello2 <- function(...) {  # The function accepts an arbitrary number of inputs
+      str_c("Hello ", str_c(..., sep = ", "), "!")  # Pass the `...` to `str_c()`
+    }
+    
+    # Call function
+    print_hello2("Dasher", "Dancer", "Prancer", "Vixen")
+    print_hello2("Rudolf")
+    ```
 
 </details>
 
@@ -3682,6 +3765,12 @@ print_hello(NA)
 <br>
 
 ## Return values
+
+Recall that functions generally follow **three sequential steps**:
+
+1. Take in __input__ object(s)
+2. __Process__ the input
+3. __Return__ a new object, which may be a vector, data-frame, plot, etc.
 
 ### Implicit returns
 

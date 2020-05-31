@@ -1758,7 +1758,7 @@ When you run R code in an `.Rmd` file, the working directory is the directory th
 
 ```r
 getwd()
-#> [1] "C:/Users/ozanj/Documents/rclass2/lectures/programming"
+#> [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
 ```
 
 <br>
@@ -1831,7 +1831,7 @@ dir.create(path, showWarnings = TRUE, recursive = FALSE, mode = "0777")
 ```r
 # Check current working directory
 getwd()
-#> [1] "C:/Users/ozanj/Documents/rclass2/lectures/programming"
+#> [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
 
 # Create new directory called `my_folder`
 dir.create(path = "my_folder")
@@ -1840,10 +1840,10 @@ dir.create(path = "my_folder")
 list.files()
 #>  [1] "data"                     "function_basics.html"    
 #>  [3] "function_basics.md"       "function_basics.Rmd"     
-#>  [5] "ipeds_file_list.txt"      "ipeds_file_list_og.txt"  
+#>  [5] "ipeds_file_list_og.txt"   "ipeds_file_list.txt"     
 #>  [7] "loop_example_ipeds.R"     "my_folder"               
-#>  [9] "programming.Rproj"        "programming_lecture.html"
-#> [11] "programming_lecture.md"   "programming_lecture.Rmd"
+#>  [9] "programming_lecture.html" "programming_lecture.md"  
+#> [11] "programming_lecture.Rmd"  "programming.Rproj"
 ```
 
 <br>
@@ -1876,10 +1876,10 @@ unlink(x = "my_folder", recursive = TRUE)
 list.files()
 #>  [1] "data"                     "function_basics.html"    
 #>  [3] "function_basics.md"       "function_basics.Rmd"     
-#>  [5] "ipeds_file_list.txt"      "ipeds_file_list_og.txt"  
-#>  [7] "loop_example_ipeds.R"     "programming.Rproj"       
-#>  [9] "programming_lecture.html" "programming_lecture.md"  
-#> [11] "programming_lecture.Rmd"
+#>  [5] "ipeds_file_list_og.txt"   "ipeds_file_list.txt"     
+#>  [7] "loop_example_ipeds.R"     "programming_lecture.html"
+#>  [9] "programming_lecture.md"   "programming_lecture.Rmd" 
+#> [11] "programming.Rproj"
 ```
 
 <br>
@@ -2832,8 +2832,8 @@ str_view_all(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
 
 ```r
 str_detect(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
-#>  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
-#> [13] FALSE
+#>  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
+#> [12] FALSE FALSE
 
 str_view_all(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
 ```
@@ -2843,8 +2843,8 @@ str_view_all(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
 
 ```r
 str_detect(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
-#>  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
-#> [13]  TRUE
+#>  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
+#> [12]  TRUE  TRUE
 
 length(str_subset(string = ipeds, pattern ="^[^(\\s*$)]"))
 #> [1] 168
@@ -2866,9 +2866,9 @@ str_view_all(string = ipeds[1:30], pattern ="^#") # starts with "#"
 
 ```r
 str_detect(string = ipeds[1:30], pattern ="^#") # starts with "#"
-#>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-#> [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
-#> [25] FALSE FALSE FALSE FALSE FALSE FALSE
+#>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+#> [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
+#> [23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 
 
 str_view_all(string = ipeds[1:30], pattern ="^[^#]") # starts with anything but #
@@ -2879,46 +2879,57 @@ str_view_all(string = ipeds[1:30], pattern ="^[^#]") # starts with anything but 
 
 ```r
 str_detect(string = ipeds[1:30], pattern ="^[^#]") # does not start with "#"
-#>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-#> [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
-#> [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+#>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#> [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
+#> [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 
 str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
-#>   [1] "HD2018"          "IC2018"          "IC2018_AY"       "IC2018_PY"      
-#>   [5] "EFFY2018"        "EFIA2018"        "ADM2018"         "EF2018A"        
-#>   [9] "EF2018CP"        "EF2018B"         "EF2018C"         "EF2018D"        
-#>  [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"         "C2018_C"        
-#>  [17] "C2018DEP"        "SAL2018_IS"      "SAL2018_NIS"     "S2018_OC"       
-#>  [21] "S2018_SIS"       "S2018_IS"        "S2018_NH"        "EAP2018"        
-#>  [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"        "SFA1718"        
-#>  [29] "SFAV1718"        "GR2018"          "GR2018_L2"       "GR2018_PELL_SSL"
-#>  [33] "GR200_18"        "OM2018"          "AL2018"          "FLAGS2018"      
-#>  [37] "HD2017"          "IC2017"          "IC2017_AY"       "IC2017_PY"      
-#>  [41] "EFFY2017"        "EFIA2017"        "EF2017A"         "EF2017B"        
-#>  [45] "EF2017C"         "EF2017D"         "EF2017A_DIST"    "C2017_A"        
-#>  [49] "C2017_B"         "C2017_C"         "C2017DEP"        "SAL2017_IS"     
-#>  [53] "SAL2017_NIS"     "S2017_OC"        "S2017_SIS"       "S2017_IS"       
-#>  [57] "S2017_NH"        "EAP2017"         "F1617_F1A"       "F1617_F2"       
-#>  [61] "F1617_F3"        "GR2017"          "GR2017_L2"       "GR2017_PELL_SSL"
-#>  [65] "GR200_17"        "OM2017"          "AL2017"          "FLAGS2017"      
-#>  [69] "HD2016"          "IC2016"          "IC2016_AY"       "IC2016_PY"      
-#>  [73] "EFFY2016"        "EFIA2016"        "ADM2016"         "EF2016A"        
-#>  [77] "EF2016CP"        "EF2016B"         "EF2016C"         "EF2016D"        
-#>  [81] "EF2016A_DIST"    "C2016_A"         "C2016_B"         "C2016_C"        
-#>  [85] "C2016DEP"        "SAL2016_IS"      "SAL2016_NIS"     "S2016_OC"       
-#>  [89] "S2016_SIS"       "S2016_IS"        "S2016_NH"        "EAP2016"        
-#>  [93] "F1516_F1A"       "F1516_F2"        "F1516_F3"        "SFA1516"        
-#>  [97] "SFAV1516"        "GR2016"          "GR2016_L2"       "GR200_16"       
-#> [101] "GR2016_PELL_SSL" "OM2016"          "AL2016"          "FLAGS2016"      
-#> [105] "HD2015"          "IC2015"          "IC2015_AY"       "IC2015_PY"      
-#> [109] "EFFY2015"        "EFIA2015"        "ADM2015"         "EF2015A"        
-#> [113] "EF2015B"         "EF2015C"         "EF2015D"         "EF2015A_DIST"   
-#> [117] "C2015_A"         "C2015_B"         "C2015_C"         "C2015DEP"       
-#> [121] "SAL2015_IS"      "SAL2015_NIS"     "S2015_OC"        "S2015_SIS"      
-#> [125] "S2015_IS"        "S2015_NH"        "EAP2015"         "F1415_F1A"      
-#> [129] "F1415_F2"        "F1415_F3"        "SFA1415"         "SFAV1415"       
-#> [133] "GR2015"          "GR2015_L2"       "GR200_15"        "OM2015"         
-#> [137] "AL2015"          "FLAGS2015"
+#>   [1] "HD2018"          "IC2018"          "IC2018_AY"      
+#>   [4] "IC2018_PY"       "EFFY2018"        "EFIA2018"       
+#>   [7] "ADM2018"         "EF2018A"         "EF2018CP"       
+#>  [10] "EF2018B"         "EF2018C"         "EF2018D"        
+#>  [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"        
+#>  [16] "C2018_C"         "C2018DEP"        "SAL2018_IS"     
+#>  [19] "SAL2018_NIS"     "S2018_OC"        "S2018_SIS"      
+#>  [22] "S2018_IS"        "S2018_NH"        "EAP2018"        
+#>  [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"       
+#>  [28] "SFA1718"         "SFAV1718"        "GR2018"         
+#>  [31] "GR2018_L2"       "GR2018_PELL_SSL" "GR200_18"       
+#>  [34] "OM2018"          "AL2018"          "FLAGS2018"      
+#>  [37] "HD2017"          "IC2017"          "IC2017_AY"      
+#>  [40] "IC2017_PY"       "EFFY2017"        "EFIA2017"       
+#>  [43] "EF2017A"         "EF2017B"         "EF2017C"        
+#>  [46] "EF2017D"         "EF2017A_DIST"    "C2017_A"        
+#>  [49] "C2017_B"         "C2017_C"         "C2017DEP"       
+#>  [52] "SAL2017_IS"      "SAL2017_NIS"     "S2017_OC"       
+#>  [55] "S2017_SIS"       "S2017_IS"        "S2017_NH"       
+#>  [58] "EAP2017"         "F1617_F1A"       "F1617_F2"       
+#>  [61] "F1617_F3"        "GR2017"          "GR2017_L2"      
+#>  [64] "GR2017_PELL_SSL" "GR200_17"        "OM2017"         
+#>  [67] "AL2017"          "FLAGS2017"       "HD2016"         
+#>  [70] "IC2016"          "IC2016_AY"       "IC2016_PY"      
+#>  [73] "EFFY2016"        "EFIA2016"        "ADM2016"        
+#>  [76] "EF2016A"         "EF2016CP"        "EF2016B"        
+#>  [79] "EF2016C"         "EF2016D"         "EF2016A_DIST"   
+#>  [82] "C2016_A"         "C2016_B"         "C2016_C"        
+#>  [85] "C2016DEP"        "SAL2016_IS"      "SAL2016_NIS"    
+#>  [88] "S2016_OC"        "S2016_SIS"       "S2016_IS"       
+#>  [91] "S2016_NH"        "EAP2016"         "F1516_F1A"      
+#>  [94] "F1516_F2"        "F1516_F3"        "SFA1516"        
+#>  [97] "SFAV1516"        "GR2016"          "GR2016_L2"      
+#> [100] "GR200_16"        "GR2016_PELL_SSL" "OM2016"         
+#> [103] "AL2016"          "FLAGS2016"       "HD2015"         
+#> [106] "IC2015"          "IC2015_AY"       "IC2015_PY"      
+#> [109] "EFFY2015"        "EFIA2015"        "ADM2015"        
+#> [112] "EF2015A"         "EF2015B"         "EF2015C"        
+#> [115] "EF2015D"         "EF2015A_DIST"    "C2015_A"        
+#> [118] "C2015_B"         "C2015_C"         "C2015DEP"       
+#> [121] "SAL2015_IS"      "SAL2015_NIS"     "S2015_OC"       
+#> [124] "S2015_SIS"       "S2015_IS"        "S2015_NH"       
+#> [127] "EAP2015"         "F1415_F1A"       "F1415_F2"       
+#> [130] "F1415_F3"        "SFA1415"         "SFAV1415"       
+#> [133] "GR2015"          "GR2015_L2"       "GR200_15"       
+#> [136] "OM2015"          "AL2015"          "FLAGS2015"
 length(str_subset(string = ipeds, pattern ="^[^#]")) # does not start with "#"
 #> [1] 138
 
@@ -2926,18 +2937,22 @@ length(str_subset(string = ipeds, pattern ="^[^#]")) # does not start with "#"
 ipeds <- str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
 
 ipeds[1:50]
-#>  [1] "HD2018"          "IC2018"          "IC2018_AY"       "IC2018_PY"      
-#>  [5] "EFFY2018"        "EFIA2018"        "ADM2018"         "EF2018A"        
-#>  [9] "EF2018CP"        "EF2018B"         "EF2018C"         "EF2018D"        
-#> [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"         "C2018_C"        
-#> [17] "C2018DEP"        "SAL2018_IS"      "SAL2018_NIS"     "S2018_OC"       
-#> [21] "S2018_SIS"       "S2018_IS"        "S2018_NH"        "EAP2018"        
-#> [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"        "SFA1718"        
-#> [29] "SFAV1718"        "GR2018"          "GR2018_L2"       "GR2018_PELL_SSL"
-#> [33] "GR200_18"        "OM2018"          "AL2018"          "FLAGS2018"      
-#> [37] "HD2017"          "IC2017"          "IC2017_AY"       "IC2017_PY"      
-#> [41] "EFFY2017"        "EFIA2017"        "EF2017A"         "EF2017B"        
-#> [45] "EF2017C"         "EF2017D"         "EF2017A_DIST"    "C2017_A"        
+#>  [1] "HD2018"          "IC2018"          "IC2018_AY"      
+#>  [4] "IC2018_PY"       "EFFY2018"        "EFIA2018"       
+#>  [7] "ADM2018"         "EF2018A"         "EF2018CP"       
+#> [10] "EF2018B"         "EF2018C"         "EF2018D"        
+#> [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"        
+#> [16] "C2018_C"         "C2018DEP"        "SAL2018_IS"     
+#> [19] "SAL2018_NIS"     "S2018_OC"        "S2018_SIS"      
+#> [22] "S2018_IS"        "S2018_NH"        "EAP2018"        
+#> [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"       
+#> [28] "SFA1718"         "SFAV1718"        "GR2018"         
+#> [31] "GR2018_L2"       "GR2018_PELL_SSL" "GR200_18"       
+#> [34] "OM2018"          "AL2018"          "FLAGS2018"      
+#> [37] "HD2017"          "IC2017"          "IC2017_AY"      
+#> [40] "IC2017_PY"       "EFFY2017"        "EFIA2017"       
+#> [43] "EF2017A"         "EF2017B"         "EF2017C"        
+#> [46] "EF2017D"         "EF2017A_DIST"    "C2017_A"        
 #> [49] "C2017_B"         "C2017_C"
 
 # Create new character vector "hd" that contains names of all "HD" files
@@ -3008,8 +3023,6 @@ hd2018_uc <- hd2018 %>%
 web <- hd2018_uc$webaddr
 
 library(rvest) #load rvest package
-#> Warning: package 'rvest' was built under R version 3.6.3
-#> Warning: package 'xml2' was built under R version 3.6.3
 
 web <- str_c("https://", web) #add https:// to web address
 
@@ -3118,11 +3131,11 @@ hd2018_t <- bind_cols(hd2018_uc, data.frame(twitter = vec)) #add column to df
 hd2018_t %>%
   select(instnm, webaddr, twitter)
 #> # A tibble: 3 x 3
-#>   instnm                             webaddr        twitter                     
-#>   <chr>                              <chr>          <fct>                       
-#> 1 University of California-Davis     www.ucdavis.e~ https://twitter.com/ucdavis 
-#> 2 University of California-Los Ange~ www.ucla.edu/  http://twitter.com/ucla     
-#> 3 University of California-Riverside WWW.UCR.EDU    https://twitter.com/UCRiver~
+#>   instnm                          webaddr        twitter                   
+#>   <chr>                           <chr>          <fct>                     
+#> 1 University of California-Davis  www.ucdavis.e… https://twitter.com/ucdav…
+#> 2 University of California-Los A… www.ucla.edu/  http://twitter.com/ucla   
+#> 3 University of California-River… WWW.UCR.EDU    https://twitter.com/UCRiv…
 ```
 
 # Conditional execution
@@ -3222,14 +3235,19 @@ if (str_detect(string = "Fourth of July", pattern = "\\d")) {
 
 How to combine **multiple logical expressions** in a condition?
 
-- Use `||` (or) and `&&` (and) to combine multiple logical expressions
+- Recall that a logical expression is of type `logical` and has a length of `1`
+- An `if` statement condition can be made up of multiple logical expressions
+- We can use `||` (or) and `&&` (and) to combine multiple logical expressions
 - "Never use `|` or `&` in an if statement: these are _vectorised_ operations that apply to multiple values (that's why you use them in `filter()`)" (From [R for Data Science](https://r4ds.had.co.nz/functions.html#conditional-execution))
-    - Vectorised operations mean they apply to each respective elements between the vectors:
+    - Vectorised operations apply to each respective elements of the vectors and returns a vector:
         
         ```r
         c(TRUE, TRUE, FALSE) | c(TRUE, FALSE, FALSE)
         #> [1]  TRUE  TRUE FALSE
         ```
+        - 1st element of each vector: `TRUE` or `TRUE` is `TRUE`
+        - 2nd element of each vector: `TRUE` or `FALSE` is `TRUE`
+        - 3rd element of each vector: `FALSE` or `FALSE` is `FALSE`
     - Whereas `||` and `&&` will only look at the first element of each vector:
         
         ```r
@@ -3335,10 +3353,10 @@ if (dir.exists(directory)) {
 list.files()
 #>  [1] "data"                     "function_basics.html"    
 #>  [3] "function_basics.md"       "function_basics.Rmd"     
-#>  [5] "ipeds_file_list.txt"      "ipeds_file_list_og.txt"  
+#>  [5] "ipeds_file_list_og.txt"   "ipeds_file_list.txt"     
 #>  [7] "loop_example_ipeds.R"     "my_new_directory"        
-#>  [9] "programming.Rproj"        "programming_lecture.html"
-#> [11] "programming_lecture.md"   "programming_lecture.Rmd"
+#>  [9] "programming_lecture.html" "programming_lecture.md"  
+#> [11] "programming_lecture.Rmd"  "programming.Rproj"
 ```
 
 <br>
@@ -3387,11 +3405,11 @@ for (i in directories) {
 list.files()
 #>  [1] "data"                     "dictionaries"            
 #>  [3] "function_basics.html"     "function_basics.md"      
-#>  [5] "function_basics.Rmd"      "ipeds_file_list.txt"     
-#>  [7] "ipeds_file_list_og.txt"   "loop_example_ipeds.R"    
-#>  [9] "output"                   "programming.Rproj"       
-#> [11] "programming_lecture.html" "programming_lecture.md"  
-#> [13] "programming_lecture.Rmd"  "scripts"
+#>  [5] "function_basics.Rmd"      "ipeds_file_list_og.txt"  
+#>  [7] "ipeds_file_list.txt"      "loop_example_ipeds.R"    
+#>  [9] "output"                   "programming_lecture.html"
+#> [11] "programming_lecture.md"   "programming_lecture.Rmd" 
+#> [13] "programming.Rproj"        "scripts"
 ```
 
 <br>
@@ -3489,146 +3507,232 @@ for (i in prices) {
 #> This diamond costs $554 and is pricey...
 #> This diamond costs $2757 and is too expensive!
 ```
+</details>
 
 ## Processing time
 
-CRYSTAL - STATE PURPOSE OF THIS SUB-SECTION AND INTRODUCE system.time() function. 
+Especially when working with large datasets, the time it takes for your code to run can really add up, so it is important to look for ways to optimize code such that it runs most efficiently. We can use `system.time()` to measure how long it takes for some code to run.
 
-Let's create a new numeric atomic vector called `prices` that is equal to the price of each diamond in the data frame `diamonds`
+__The `system.time()` function__:
+
 
 ```r
-prices <- diamonds$price[1:20000]
-  #prices <- diamonds$price
-length(prices)
-#> [1] 20000
+?system.time
+
+# SYNTAX AND DEFAULT VALUES
+system.time(expr, gcFirst = TRUE)
 ```
 
-Using loops, create an atomic vector `z_prices` that equals the z-score (number of standard deviations from the mean) for each element of atomic vector `prices`
-- Although not strictly necessary to create `z_prices`, our loop will include conditional statements that separately process diamonds that are "affordable," "pricey," and "too expensive"
+- Function: Returns CPU (and other) times that expr used
+- Arguments:
+    - `expr`: Valid R expression to be timed
 
-Using the function `system.time()` let's how long this process takes for the following alternative loops:
+<br>
+For the below examples, we'll create a numeric atomic vector called `prices` that is equal to the price of each diamond in the `diamonds` dataframe:
 
-1. use `if`, `else if`, and `else` conditional statements
-1. only use `if` conditional statements
-
-Using `if`, `else if`, and `else` conditional statements
 
 ```r
-# Pre-allocate the number of elements required for the atomic vector z_prices
-z_prices <- vector("double", length(prices))
-length(z_prices)
-#> [1] 20000
+prices <- diamonds$price
+str(prices)  # 53,940 diamond prices
+#>  int [1:53940] 326 326 327 334 335 336 336 337 337 338 ...
+```
+
+<br>
+<details><summary>**Example**: Allocating sufficient space for output before loop</summary>
+
+Let's take a look at an example of using a loop to calculate the z-score for each diamond price and storing the scores in a vector. First, we'll calculate the mean and standard deviation of the prices:
+
+
+```r
+m <- mean(prices, na.rm=TRUE)
+s <- sd(prices, na.rm=TRUE)
+```
+
+<br>
+**[Method 1]** Growing the vector inside the loop using `c()`
+
+- "Whenever you use `c()`, `append()`, `cbind()`, `rbind()`, or `paste()` to create a bigger object, R must first allocate space for the new object and then copy the old object to its new home. If you’re repeating this many times, like in a for loop, this can be quite expensive." ([Advanced R](http://adv-r.had.co.nz/Profiling.html#avoid-copies))
+
+
+```r
+z_prices <- c()
 
 system.time(
-  
   for (i in 1:length(prices)) {
-
-    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
-    
-    if (prices[i] < 500) {
-      
-      str_c("This diamond costs $", i, " and is affordable.")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } else if (prices[i] < 1000) {
-      
-      str_c("This diamond costs $", i, " and is pricey...")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } else {
-      
-      str_c("This diamond costs $", i, " and is too expensive!")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    }
+    z_prices <- c(z_prices, (prices[i] - m)/s)
   }
-  
 )
 #>    user  system elapsed 
-#>    8.46    0.04    8.51
+#>   8.458   4.677  13.228
 ```
-Only using `if` conditional statements
+
+<br>
+**[Method 2]** Creating the output vector before loop (_Recommended_)
+
+- "Before you start the loop, you must always allocate sufficient space for the output. This is very important for efficiency" ([R for Data Science](https://r4ds.had.co.nz/iteration.html#for-loops))
+- As seen, we can do that by first creating the `z_prices` object using `vector()` before the loop
+
 
 ```r
-# Pre-allocate the number of elements required for the atomic vector z_prices
 z_prices <- vector("double", length(prices))
-length(z_prices)
-#> [1] 20000
 
 system.time(
-  
   for (i in 1:length(prices)) {
-
-    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
-    
-    if (prices[i] < 500) {
-      
-      str_c("This diamond costs $", i, " and is affordable.")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } 
-    if (prices[i] < 1000) {
-      
-      str_c("This diamond costs $", i, " and is pricey...")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } 
-    if (prices[i] >= 1000) {
-      
-      str_c("This diamond costs $", i, " and is too expensive!")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    }
+    z_prices[i] <- (prices[i] - m)/s
   }
-  
-) # end system.time()
-#>    user  system elapsed 
-#>    7.16    0.00    7.18
-```
-
-CRYSTAL - EXPLAIN HOW THE ABOVE TWO LOOPS DIFFER FROM ONE ANOTHER IN TERMS OF PROCESSING. 
-
-CRYSTAL - ALSO, THE DIFFERENCE IN PROCESSING TIME IS VERY SMALL BETWEEN THESE TWO EXAMPLES. IN OTHER EXPLORATORY EXAMPLES I HAVE DONE. THE DIFFERENCE BETWEEEN ONLY USING "IF" AND USING IF/ELSE IF/ELSE RESULTED IN MUCH GREATER DIFFERENCE IN PROCESSING TIME. IS THERE ANY SMALL TWEAK WE CAN DO TO THE ABOVE LOOPS TO MAKE THE DIFFERENCE IN PROCESSING TIME MORE SUBSTANTIAL?
-
-What if we didn't pre-allocate length of atomic vector `z_prices`
-
-- CRYSTAL - WICKHAM SAYS NOT PRE-ALLOCATING LENGTH RESULTS IN MUCH LONGER PROCESSING OF LOOPS. BUT DIDN'T SEEM TO BE THE CASE BELOW. HOW COME?
-
-```r
-#z_prices <- vector("double", length(prices))
-rm(z_prices)
-z_prices <- NULL
-
-system.time(
-  
-  for (i in 1:length(prices)) {
-
-    #writeLines(str_c("price of i=", i, "is", prices[i], sep = " "))
-    
-    if (prices[i] < 500) {
-      
-      str_c("This diamond costs $", i, " and is affordable.")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } else if (prices[i] < 1000) {
-      
-      str_c("This diamond costs $", i, " and is pricey...")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    } else {
-      
-      str_c("This diamond costs $", i, " and is too expensive!")
-      z_prices[i] <- (prices[i] - mean(prices, na.rm=TRUE))/sd(prices, na.rm=TRUE)
-      
-    }
-  }
-  
 )
 #>    user  system elapsed 
-#>    6.91    0.00    6.90
+#>   0.015   0.001   0.015
 ```
 
 </details>
+
+
+<br>
+<details><summary>**Example**: Vectorising your code</summary>
+
+What does it mean to "vectorise your code"? ([Advanced R](http://adv-r.had.co.nz/Profiling.html#vectorise))
+
+- "Vectorising is about taking a 'whole object' approach to a problem, thinking about vectors, not scalars."
+- Often, this means avoiding loops and using vectorised functions instead (e.g., use `ifelse()` function instead of if-else statement inside a for loop)
+
+To see the difference, let's look at the example of classifying diamond prices as affordable or expensive.
+
+<br>
+**[Method 1]** Using if-else statement inside a for loop
+
+
+```r
+output <- vector("character", length(prices))
+
+system.time(
+  for (i in 1:length(prices)) {
+    if (i < 500) {
+      output[i] <- str_c("This diamond costs $", prices[i], " and is affordable.")
+    } else {
+      output[i] <- str_c("This diamond costs $", prices[i], " and is too expensive!")
+    }
+  }
+)
+#>    user  system elapsed 
+#>   0.366   0.004   0.371
+```
+
+<br>
+**[Method 2]** Using the vectorised `ifelse()` function (_Recommended_)
+
+
+```r
+system.time(
+  output <- ifelse(prices < 500,
+                   str_c("This diamond costs $", prices, " and is affordable."),
+                   str_c("This diamond costs $", prices, " and is too expensive!")
+                   )
+)
+#>    user  system elapsed 
+#>   0.056   0.001   0.058
+```
+
+</details>
+
+<br>
+<details><summary>**Example**: Using multiple `if` statements vs. `if`/`else if`/`else` statements</summary>
+
+**[Method 1]** Using multiple `if` statements inside a for loop
+
+- Look out for situations like the below where we can use `if`/`else if`/`else` statements instead of multiple `if` statements
+- With multiple `if` statements, each of the `if` conditions need to be checked for every diamond price
+
+
+```r
+output <- vector("integer", length(prices))
+
+system.time(
+  for (i in 1:length(prices)) {
+    if (i < 200) {
+      output[i] <- 1
+    } 
+    if (i >= 200 && i < 400) {
+      output[i] <- 2
+    }
+    if (i >= 400 && i < 600) {
+      output[i] <- 3
+    } 
+    if (i >= 600 && i < 800) {
+      output[i] <- 4
+    }
+    if (i >= 800 && i < 1000) {
+      output[i] <- 5
+    } 
+    if (i >= 1000 && i < 1500) {
+      output[i] <- 6
+    }
+    if (i >= 1500 && i < 2000) {
+      output[i] <- 7
+    }
+    if (i >= 2000) {
+      output[i] <- 8
+    }
+  }
+)
+#>    user  system elapsed 
+#>   0.047   0.000   0.048
+```
+
+<br>
+**[Method 2]** Using `if`/`else if`/`else` statements inside a for loop
+
+- With `if`/`else if`/`else` statements, not all conditions below will be checked (only up to when one of the blocks get executed)
+- Thus, we see a reduction in the processing time compared to **Method 1** - this will be especially true the more `if` statements there are
+
+
+```r
+output <- vector("integer", length(prices))
+
+system.time(
+  for (i in 1:length(prices)) {
+    if (i < 200) {
+      output[i] <- 1
+    } else if (i < 400) {
+      output[i] <- 2
+    } else if (i < 600) {
+      output[i] <- 3
+    } else if (i < 800) {
+      output[i] <- 4
+    } else if (i < 1000) {
+      output[i] <- 5
+    } else if (i < 1500) {
+      output[i] <- 6
+    } else if (i < 2000) {
+      output[i] <- 7
+    } else {
+      output[i] <- 8
+    }
+  }
+)
+#>    user  system elapsed 
+#>   0.021   0.000   0.021
+```
+
+<br>
+**[Method 3]** Using the vectorised `ifelse()` function
+
+- Note that using a vectorised function when possible would still be the fastest
+- But there can be a "trade-off between code speed and code readability", as nested `ifelse()` statements are hard to read ([Efficient R programming](https://csgillespie.github.io/efficientR/performance.html))
+
+
+```r
+system.time(
+  output <- ifelse(prices < 200, 1, ifelse(prices < 400, 2, ifelse(prices < 600, 3, 
+                   ifelse(prices < 800, 4, ifelse(prices < 1000, 5, ifelse(prices < 1500, 6, 
+                   ifelse(prices < 2000, 7, 8)))))))
+)
+#>    user  system elapsed 
+#>   0.018   0.007   0.025
+```
+
+</details>
+
 
 # Functions
 
@@ -3773,7 +3877,6 @@ __Task__: Write function called `print_hello()` that prints `"Hello, world."`
 
 
 ```r
-
 # Expected output
 print_hello()
 #> [1] "Hello, world"
@@ -3837,7 +3940,6 @@ __Task__: Modify `print_hello()` to take a name as input and print `"Hello, worl
 
 
 ```r
-
 # Expected output
 print_hello("Ozan Jaquette")
 #> [1] "Hello, world. My name is Ozan Jaquette"
@@ -3897,7 +3999,6 @@ __Task__: Modify `print_hello()` to take a name and birthdate as inputs and prin
 
 
 ```r
-
 # Expected output
 print_hello("Ozan Jaquette", "01/16/1979")
 #> [1] "Hello, world. My name is Ozan Jaquette and I am 41 years old"
@@ -3924,22 +4025,22 @@ Using `today()` to get today's date, we can calculate an age given a birthdate:
 
 ```r
 today()
-#> [1] "2020-05-29"
+#> [1] "2020-05-30"
 
 # Calculate difference
 today() - mdy(y)
-#> Time difference of 15109 days
+#> Time difference of 15110 days
 str(today() - mdy(y))
-#>  'difftime' num 15109
+#>  'difftime' num 15110
 #>  - attr(*, "units")= chr "days"
 
 # Convert to duration
 as.duration(today() - mdy(y))
-#> [1] "1305417600s (~41.37 years)"
+#> [1] "1305504000s (~41.37 years)"
 
 # Create age in years as numeric vector
 as.numeric(as.duration(today() - mdy(y)), "years")
-#> [1] 41.36619
+#> [1] 41.36893
 floor(as.numeric(as.duration(today() - mdy(y)), "years"))
 #> [1] 41
 
@@ -4023,7 +4124,6 @@ __Task__: Write function called `z_score()` that calculates the z-score for each
 
 
 ```r
-
 # Expected output
 z_score(c(1, 2, 3, 4, 5))
 #> [1] -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
@@ -4170,7 +4270,8 @@ z_score <- function(x) {
 w
 #> [1] NA  1  2  3  4  5 NA
 z_score(w)
-#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+#> [7]         NA
 ```
 
 </details>
@@ -4400,13 +4501,13 @@ df_event_small
 
 #show observations for variable med_inc
 df_event_small$med_inc
-#>  [1] 71713.5 89121.5 70136.5 70136.5 71023.5 71023.5 71023.5 97225.0 97225.0
-#> [10] 77799.5
+#>  [1] 71713.5 89121.5 70136.5 70136.5 71023.5 71023.5 71023.5 97225.0
+#>  [9] 97225.0 77799.5
 
 #calculate z-score of variable med_inc (without assignment)
 z_score(x = df_event_small$med_inc)
-#>  [1] -0.60825958  0.91982879 -0.74668992 -0.74668992 -0.66882834 -0.66882834
-#>  [7] -0.66882834  1.63116060  1.63116060 -0.07402556
+#>  [1] -0.60825958  0.91982879 -0.74668992 -0.74668992 -0.66882834
+#>  [6] -0.66882834 -0.66882834  1.63116060  1.63116060 -0.07402556
 
 #assign new variable equal to the z-score of med_inc
 df_event_small$med_inc_z <- z_score(x = df_event_small$med_inc)
@@ -4490,7 +4591,7 @@ We no longer run into errors if we supply an invalid input:
 # Test with list/dataframe input
 str(df_event_small["med_inc"])
 #> Classes 'tbl_df', 'tbl' and 'data.frame':	10 obs. of  1 variable:
-#>  $ med_inc: num  71714 89122 70137 70137 71024 ...
+#>  $ med_inc: num  71714 89122 70136 70136 71024 ...
 
 z_score(x = df_event_small["med_inc"])
 
@@ -4549,7 +4650,6 @@ __Task__: Write function called `num_negative()`
 
 
 ```r
-
 # Sample dataframe `df` that contains some negative values
 df
 #> # A tibble: 100 x 4
@@ -4565,7 +4665,7 @@ df
 #>  8     8   -97     10     55
 #>  9     9    16      6     51
 #> 10    10    16    -99     -8
-#> # ... with 90 more rows
+#> # … with 90 more rows
 ```
 
 <br>
@@ -4584,12 +4684,12 @@ __Recommended steps__:
 names(df) # identify variable names
 #> [1] "id"     "age"    "sibage" "parage"
 df$age # print observations for a variable
-#>   [1]  17  15 -97  13 -97  12 -99 -97  16  16 -98  20 -99  20  11  20  12  17
-#>  [19]  19  17 -97 -99  12  13  11  15  20  14 -99  11  20 -98  11 -98  12  16
-#>  [37]  12  18  12  19  12 -97  20  17  11  19  19  12 -98  11  15  18  15 -98
-#>  [55]  15  19 -97  13 -98  16  13  12  16  19 -99  19 -98  13 -97  20  15  19
-#>  [73]  15  12  18 -99  18 -98 -98 -98 -97  12  14  19 -97  11  20  18  14 -99
-#>  [91]  15  20 -97  14  14  19  18  17  20  15
+#>   [1]  17  15 -97  13 -97  12 -99 -97  16  16 -98  20 -99  20  11  20  12
+#>  [18]  17  19  17 -97 -99  12  13  11  15  20  14 -99  11  20 -98  11 -98
+#>  [35]  12  16  12  18  12  19  12 -97  20  17  11  19  19  12 -98  11  15
+#>  [52]  18  15 -98  15  19 -97  13 -98  16  13  12  16  19 -99  19 -98  13
+#>  [69] -97  20  15  19  15  12  18 -99  18 -98 -98 -98 -97  12  14  19 -97
+#>  [86]  11  20  18  14 -99  15  20 -97  14  14  19  18  17  20  15
 
 #BaseR
 sum(df$age<0) # count number of obs w/ negative values for variable "age"
@@ -4696,9 +4796,9 @@ What are **default values** for arguments?
 
 - The **default value** for an argument is the value that will be used if the argument value was not supplied during the function call
 - When writing the function, you can specify the **default value** for an argument using `name=value`
+- Most Base R functions and functions from other packages specify default values for one or more arguments
 
 <br>
-Most Base R functions and functions from other packages specify default values for one or more arguments
 
 **Example**: `str_c()` function
 
@@ -4707,12 +4807,12 @@ The `str_c()` function has default values for `sep` and `collapse`:
 - Syntax
   - `str_c(..., sep = "", collapse = NULL)`
 - Arguments
-  - `...`: one or more character vectors to join, separated by commas
-  - `sep`: string to insert between input vectors
-    - default value: `sep = ""`
-  - `collapse`: Optional string used to combine input vectors into single string.
-      - after joining vectors into single string within each element, should resulting elements be combined into a single string? and if so, what string to insert between elements 
-      - default value: `collapse = NULL` is to not combine elements into a single string
+  - `...`: One or more character vectors to join, separated by commas
+  - `sep`: String to insert between input vectors
+      - Default value: `sep = ""`
+  - `collapse`: Optional string used to combine input vectors into single string
+      - After joining vectors into single string within each element, should resulting elements be combined into a single string? If so, what string to insert between elements?
+      - Default value: `collapse = NULL` is to not combine elements into a single string
 
 
 ```r
@@ -4749,9 +4849,7 @@ length(str_c(c("a", "b"), c(1, 2), collapse = "|"))  # resulting vector has leng
 <br>
 <details><summary>**Example**: Adding a default value to our `z_score()` function</summary>
 
-Recall the `z_score()` function we developed previously
-
-- we wrote this function to remove `NA` values prior to calculating z-score
+Recall the `z_score()` function we developed previously, where we wrote this function to remove `NA` values prior to calculating z-score:
 
 
 ```r
@@ -4763,9 +4861,13 @@ w <- c(NA, seq(1:5), NA)
 w
 #> [1] NA  1  2  3  4  5 NA
 z_score(w)
-#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+#> [7]         NA
 ```
-We could add an argument (named `na`) that specifies whether `NA`s should be removed prior to calculating z-scores
+
+
+<br>
+We could add an argument (named `na`) that specifies whether `NA`s should be removed prior to calculating z-scores:
 
 
 ```r
@@ -4776,14 +4878,15 @@ z_score <- function(x, na) {
 w
 #> [1] NA  1  2  3  4  5 NA
 z_score(w, TRUE)
-#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+#> [7]         NA
 z_score(w, FALSE)
 #> [1] NA NA NA NA NA NA NA
 #z_score(w) # error: argument "na" is missing, with no default
 ```
-We could also add a default value for the `na` argument
 
-- following conservative approach, we'll specify default value as `FALSE` which means that any `NA` values in input vector `x` will result in z-score of `NA` for all observations
+<br>
+We could also add a default value for the `na` argument. Following conservative approach, we'll specify default value as `FALSE` which means that any `NA` values in input vector `x` will result in z-score of `NA` for all observations:
 
 
 ```r
@@ -4799,56 +4902,59 @@ z_score(w) # uses default value of FALSE
 z_score(w, FALSE) # manually specify default value
 #> [1] NA NA NA NA NA NA NA
 z_score(w, TRUE) # override default value
-#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
+#> [7]         NA
 ```
 
 </details>
 
 ### Dot-dot-dot (`...`)
 
-#### What is dot-dot-dot (`...`)?
-
 <br>
 
-Many functions take an arbitrary number of arguments/inputs
+#### What is dot-dot-dot (`...`)?
 
-- Examples of functions we haved worked with that allow an arbitrary number of arguments include `select()`, `sum()`, `filter()`, `str_c()`
+Many functions take an arbitrary number of arguments/inputs, including:
+
 - `select()`
 
-```r
-#?select
-select(df_event,instnm,univ_id,event_type,med_inc) %>% names()
-#> [1] "instnm"     "univ_id"    "event_type" "med_inc"
-```
+    
+    ```r
+    #?select
+    select(df_event,instnm,univ_id,event_type,med_inc) %>% names()
+    #> [1] "instnm"     "univ_id"    "event_type" "med_inc"
+    ```
 
 - `sum()`
 
-```r
-#?sum
-sum(3,3,2,2,1,1)
-#> [1] 12
-```
+    
+    ```r
+    #?sum
+    sum(3,3,2,2,1,1)
+    #> [1] 12
+    ```
 
 - `str_c`
 
-```r
-#?str_c
-
-# 1 character vector as input
-str_c(c("a", "b", "c"))
-#> [1] "a" "b" "c"
-
-# 2 character vectors as input
-str_c(c("a", "b", "c"), " is for ")
-#> [1] "a is for " "b is for " "c is for "
-
-# 3 character vectors as input
-str_c(c("a", "b", "c"), " is for ", c("apple", "banana", "coffee"))
-#> [1] "a is for apple"  "b is for banana" "c is for coffee"
-```
-
-
-All of these functions rely on a special argument `...` (pronounced dot-dot-dot)  
+    
+    ```r
+    #?str_c
+    
+    # 1 character vector as input
+    str_c(c("a", "b", "c"))
+    #> [1] "a" "b" "c"
+    
+    # 2 character vectors as input
+    str_c(c("a", "b", "c"), " is for ")
+    #> [1] "a is for " "b is for " "c is for "
+    
+    # 3 character vectors as input
+    str_c(c("a", "b", "c"), " is for ", c("apple", "banana", "coffee"))
+    #> [1] "a is for apple"  "b is for banana" "c is for coffee"
+    ```
+    
+<br>
+All of these functions rely on a special argument `...` (pronounced "dot-dot-dot")  
 
 - Dot-dot-dot (`...`) allows a function to take an arbitrary number of arguments
 - Wickham and Grolemund [chapter 19.5.3](https://r4ds.had.co.nz/functions.html#dot-dot-dot) states:
@@ -4861,7 +4967,7 @@ All of these functions rely on a special argument `...` (pronounced dot-dot-dot)
 
 When writing functions, there are two primary uses of including `...` arguments:
 
-1. A means of allowing the function to take an arbitrary number of arguments, as in the `select()` and `sum` functions
+1. A means of allowing the function to take an arbitrary number of arguments, as in the `select()` and `sum()` functions
 1. When we write our own function with the special argument `...`, we can pass those inputs into another function that takes `...` (e.g., `str_c()`)
 
 <br>
@@ -4869,34 +4975,35 @@ When writing functions, there are two primary uses of including `...` arguments:
 <details><summary>**Example**: Adding dot-dot-dot (`...`) as function argument</summary>
 
 
-Recall the first iteration of our `print_hello()` function, which basically just printed a name that we specified in program call. Let's modify the function to make it take an arbitrary number of names to greet:
+Recall the first iteration of our `print_hello()` function, which basically just printed a name that we specified in function call. Let's modify the function to make it take an arbitrary number of names to greet:
 
 - Function that only took one argument
 
-```r
-print_hello1 <- function(x) {  
-  str_c("Hello ", x, "!") 
-}
-
-print_hello1("Ozan")
-#> [1] "Hello Ozan!"
-```
+    
+    ```r
+    print_hello1 <- function(x) {  
+      str_c("Hello ", x, "!") 
+    }
+    
+    print_hello1("Ozan")
+    #> [1] "Hello Ozan!"
+    ```
 
 - Modify function to take an arbitrary number of names to greet
 
-
-```r
-# Define function
-print_hello2 <- function(...) {  # The function accepts an arbitrary number of inputs
-  str_c("Hello ", str_c(..., sep = ", "), "!")  # Pass the `...` to `str_c()`
-}
-
-# Call function
-print_hello2("Dasher", "Dancer", "Prancer", "Vixen")
-#> [1] "Hello Dasher, Dancer, Prancer, Vixen!"
-print_hello2("Rudolf")
-#> [1] "Hello Rudolf!"
-```
+    
+    ```r
+    # Define function
+    print_hello2 <- function(...) {  # The function accepts an arbitrary number of inputs
+      str_c("Hello ", str_c(..., sep = ", "), "!")  # Pass the `...` to `str_c()`
+    }
+    
+    # Call function
+    print_hello2("Dasher", "Dancer", "Prancer", "Vixen")
+    #> [1] "Hello Dasher, Dancer, Prancer, Vixen!"
+    print_hello2("Rudolf")
+    #> [1] "Hello Rudolf!"
+    ```
 
 </details>
 
@@ -4954,6 +5061,12 @@ print_hello(NA)
 <br>
 
 ## Return values
+
+Recall that functions generally follow **three sequential steps**:
+
+1. Take in __input__ object(s)
+2. __Process__ the input
+3. __Return__ a new object, which may be a vector, data-frame, plot, etc.
 
 ### Implicit returns
 
