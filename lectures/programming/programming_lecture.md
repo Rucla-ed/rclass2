@@ -1758,7 +1758,7 @@ When you run R code in an `.Rmd` file, the working directory is the directory th
 
 ```r
 getwd()
-#> [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
+#> [1] "/Users/patriciamartin/Desktop/GitHub/rclass2/lectures/programming"
 ```
 
 <br>
@@ -1831,7 +1831,7 @@ dir.create(path, showWarnings = TRUE, recursive = FALSE, mode = "0777")
 ```r
 # Check current working directory
 getwd()
-#> [1] "/Users/cyouh95/Projects/RStudio/rclass2/lectures/programming"
+#> [1] "/Users/patriciamartin/Desktop/GitHub/rclass2/lectures/programming"
 
 # Create new directory called `my_folder`
 dir.create(path = "my_folder")
@@ -2117,10 +2117,10 @@ For the examples in the next few subsections, we will be working with the follow
     set.seed(12345) # so we all get the same variable values
     df <- tibble(a = rnorm(4), b = rnorm(4), c = rnorm(4))
     str(df)
-    #> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
-    #>  $ a: num  0.586 0.709 -0.109 -0.453
-    #>  $ b: num  0.606 -1.818 0.63 -0.276
-    #>  $ c: num  -0.284 -0.919 -0.116 1.817
+    #> tibble [4 × 3] (S3: tbl_df/tbl/data.frame)
+    #>  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
+    #>  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
+    #>  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
     ```
 
 ### Looping over elements
@@ -2303,18 +2303,18 @@ for (i in names(df)) {
 }
 #> 
 #> value of object i=a; type=character
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-#>  $ a: num  0.586 0.709 -0.109 -0.453
+#> tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
 #>  num [1:4] 0.586 0.709 -0.109 -0.453
 #> 
 #> value of object i=b; type=character
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-#>  $ b: num  0.606 -1.818 0.63 -0.276
+#> tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
 #>  num [1:4] 0.606 -1.818 0.63 -0.276
 #> 
 #> value of object i=c; type=character
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-#>  $ c: num  -0.284 -0.919 -0.116 1.817
+#> tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
 #>  num [1:4] -0.284 -0.919 -0.116 1.817
 ```
 
@@ -2325,10 +2325,10 @@ for (i in names(df)) {
 
 ```r
 str(df)  # View structure of dataframe object
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
-#>  $ a: num  0.586 0.709 -0.109 -0.453
-#>  $ b: num  0.606 -1.818 0.63 -0.276
-#>  $ c: num  -0.284 -0.919 -0.116 1.817
+#> tibble [4 × 3] (S3: tbl_df/tbl/data.frame)
+#>  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
+#>  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
+#>  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
 ```
 
 <br>
@@ -2437,18 +2437,18 @@ for (i in seq_along(df)) {
 }
 #> 
 #> value of object i=1; type=integer
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-#>  $ a: num  0.586 0.709 -0.109 -0.453
+#> tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
 #>  num [1:4] 0.586 0.709 -0.109 -0.453
 #> 
 #> value of object i=2; type=integer
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-#>  $ b: num  0.606 -1.818 0.63 -0.276
+#> tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
 #>  num [1:4] 0.606 -1.818 0.63 -0.276
 #> 
 #> value of object i=3; type=integer
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  1 variable:
-#>  $ c: num  -0.284 -0.919 -0.116 1.817
+#> tibble [4 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
 #>  num [1:4] -0.284 -0.919 -0.116 1.817
 ```
 
@@ -2479,10 +2479,10 @@ Use `i in seq_along(df)` to loop over the column indices and `[[]]` to access co
 
 ```r
 str(df)  # View structure of dataframe object
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
-#>  $ a: num  0.586 0.709 -0.109 -0.453
-#>  $ b: num  0.606 -1.818 0.63 -0.276
-#>  $ c: num  -0.284 -0.919 -0.116 1.817
+#> tibble [4 × 3] (S3: tbl_df/tbl/data.frame)
+#>  $ a: num [1:4] 0.586 0.709 -0.109 -0.453
+#>  $ b: num [1:4] 0.606 -1.818 0.63 -0.276
+#>  $ c: num [1:4] -0.284 -0.919 -0.116 1.817
 
 for (i in seq_along(df)) {
   writeLines(str_c("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE)))
@@ -2676,10 +2676,10 @@ Recall the previous example where we calculated the mean value of each column in
 
 ```r
 str(df)
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	4 obs. of  3 variables:
-#>  $ a: num  1.171 1.419 -0.219 -0.907
-#>  $ b: num  1.212 -3.636 1.26 -0.552
-#>  $ c: num  -0.568 -1.839 -0.232 3.635
+#> tibble [4 × 3] (S3: tbl_df/tbl/data.frame)
+#>  $ a: num [1:4] 1.171 1.419 -0.219 -0.907
+#>  $ b: num [1:4] 1.212 -3.636 1.26 -0.552
+#>  $ c: num [1:4] -0.568 -1.839 -0.232 3.635
 
 for (i in seq_along(df)) {
   writeLines(str_c("mean of element at index position", i, "=", mean(df[[i]], na.rm = TRUE)))
@@ -2827,24 +2827,24 @@ writeLines(ipeds[1:30])
 str_view_all(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
 ```
 
-<!--html_preserve--><div id="htmlwidget-00cbd347f90b02880d8c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-00cbd347f90b02880d8c">{"x":{"html":"<ul>\n  <li>## LAST UPDATED: 2 December 2019<\/li>\n  <li>## -----------------------------<\/li>\n  <li><span class='match'><\/span><\/li>\n  <li>## ---------------------------<\/li>\n  <li>## 2018<\/li>\n  <li>## ---------------------------<\/li>\n  <li><span class='match'><\/span><\/li>\n  <li>HD2018<\/li>\n  <li>IC2018<\/li>\n  <li>IC2018_AY<\/li>\n  <li>IC2018_PY<\/li>\n  <li>EFFY2018<\/li>\n  <li>EFIA2018<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-a563b28b397ccb0130ae" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a563b28b397ccb0130ae">{"x":{"html":"<ul>\n  <li>## LAST UPDATED: 2 December 2019<\/li>\n  <li>## -----------------------------<\/li>\n  <li><span class='match'><\/span><\/li>\n  <li>## ---------------------------<\/li>\n  <li>## 2018<\/li>\n  <li>## ---------------------------<\/li>\n  <li><span class='match'><\/span><\/li>\n  <li>HD2018<\/li>\n  <li>IC2018<\/li>\n  <li>IC2018_AY<\/li>\n  <li>IC2018_PY<\/li>\n  <li>EFFY2018<\/li>\n  <li>EFIA2018<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_detect(string = ipeds[18:30], pattern ="^\\s*$") # blank lines
-#>  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
-#> [12] FALSE FALSE
+#>  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+#> [13] FALSE
 
 str_view_all(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
 ```
 
-<!--html_preserve--><div id="htmlwidget-bf9369760f4f3ddf61f3" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-bf9369760f4f3ddf61f3">{"x":{"html":"<ul>\n  <li><span class='match'>#<\/span># LAST UPDATED: 2 December 2019<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><span class='match'>#<\/span># 2018<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><\/li>\n  <li><span class='match'>H<\/span>D2018<\/li>\n  <li><span class='match'>I<\/span>C2018<\/li>\n  <li><span class='match'>I<\/span>C2018_AY<\/li>\n  <li><span class='match'>I<\/span>C2018_PY<\/li>\n  <li><span class='match'>E<\/span>FFY2018<\/li>\n  <li><span class='match'>E<\/span>FIA2018<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-5e5cdee79e22c86dedc5" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5e5cdee79e22c86dedc5">{"x":{"html":"<ul>\n  <li><span class='match'>#<\/span># LAST UPDATED: 2 December 2019<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><span class='match'>#<\/span># 2018<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><\/li>\n  <li><span class='match'>H<\/span>D2018<\/li>\n  <li><span class='match'>I<\/span>C2018<\/li>\n  <li><span class='match'>I<\/span>C2018_AY<\/li>\n  <li><span class='match'>I<\/span>C2018_PY<\/li>\n  <li><span class='match'>E<\/span>FFY2018<\/li>\n  <li><span class='match'>E<\/span>FIA2018<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_detect(string = ipeds[18:30], pattern ="^[^(\\s*$)]") # NOT blank lines
-#>  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE
-#> [12]  TRUE  TRUE
+#>  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE
+#> [13]  TRUE
 
 length(str_subset(string = ipeds, pattern ="^[^(\\s*$)]"))
 #> [1] 168
@@ -2861,75 +2861,64 @@ length(ipeds)
 str_view_all(string = ipeds[1:30], pattern ="^#") # starts with "#"
 ```
 
-<!--html_preserve--><div id="htmlwidget-7a3b681f1823e7caa588" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7a3b681f1823e7caa588">{"x":{"html":"<ul>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># This is as list of all IPEDS files as given in the<\/li>\n  <li><span class='match'>#<\/span># complete data files portal. If you want to add files<\/li>\n  <li><span class='match'>#<\/span># that I've missed, be sure they match the name of the<\/li>\n  <li><span class='match'>#<\/span># link in the Data File column of the drop down table.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># You can prevent the script from downloading<\/li>\n  <li><span class='match'>#<\/span># specific files by either commenting out the name with<\/li>\n  <li><span class='match'>#<\/span># a hash symbol (#) or erasing it all together.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># Keep in mind that if you've already downloaded some<\/li>\n  <li><span class='match'>#<\/span># of the files before, the download script will not<\/li>\n  <li><span class='match'>#<\/span># download them again unless you change the -overwrite-<\/li>\n  <li><span class='match'>#<\/span># option to TRUE.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><span class='match'>#<\/span># LAST UPDATED: 2 December 2019<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><span class='match'>#<\/span># 2018<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li>HD2018<\/li>\n  <li>IC2018<\/li>\n  <li>IC2018_AY<\/li>\n  <li>IC2018_PY<\/li>\n  <li>EFFY2018<\/li>\n  <li>EFIA2018<\/li>\n  <li>ADM2018<\/li>\n  <li>EF2018A<\/li>\n  <li>EF2018CP<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-42520f0b0ea0f6d35036" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-42520f0b0ea0f6d35036">{"x":{"html":"<ul>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># This is as list of all IPEDS files as given in the<\/li>\n  <li><span class='match'>#<\/span># complete data files portal. If you want to add files<\/li>\n  <li><span class='match'>#<\/span># that I've missed, be sure they match the name of the<\/li>\n  <li><span class='match'>#<\/span># link in the Data File column of the drop down table.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># You can prevent the script from downloading<\/li>\n  <li><span class='match'>#<\/span># specific files by either commenting out the name with<\/li>\n  <li><span class='match'>#<\/span># a hash symbol (#) or erasing it all together.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># Keep in mind that if you've already downloaded some<\/li>\n  <li><span class='match'>#<\/span># of the files before, the download script will not<\/li>\n  <li><span class='match'>#<\/span># download them again unless you change the -overwrite-<\/li>\n  <li><span class='match'>#<\/span># option to TRUE.<\/li>\n  <li><span class='match'>#<\/span>#<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><span class='match'>#<\/span># LAST UPDATED: 2 December 2019<\/li>\n  <li><span class='match'>#<\/span># -----------------------------<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li><span class='match'>#<\/span># 2018<\/li>\n  <li><span class='match'>#<\/span># ---------------------------<\/li>\n  <li>HD2018<\/li>\n  <li>IC2018<\/li>\n  <li>IC2018_AY<\/li>\n  <li>IC2018_PY<\/li>\n  <li>EFFY2018<\/li>\n  <li>EFIA2018<\/li>\n  <li>ADM2018<\/li>\n  <li>EF2018A<\/li>\n  <li>EF2018CP<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_detect(string = ipeds[1:30], pattern ="^#") # starts with "#"
-#>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-#> [12]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE
-#> [23] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#>  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+#> [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+#> [25] FALSE FALSE FALSE FALSE FALSE FALSE
 
 
 str_view_all(string = ipeds[1:30], pattern ="^[^#]") # starts with anything but #
 ```
 
-<!--html_preserve--><div id="htmlwidget-84ced2907e90a43969c2" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-84ced2907e90a43969c2">{"x":{"html":"<ul>\n  <li>##<\/li>\n  <li>## This is as list of all IPEDS files as given in the<\/li>\n  <li>## complete data files portal. If you want to add files<\/li>\n  <li>## that I've missed, be sure they match the name of the<\/li>\n  <li>## link in the Data File column of the drop down table.<\/li>\n  <li>##<\/li>\n  <li>## You can prevent the script from downloading<\/li>\n  <li>## specific files by either commenting out the name with<\/li>\n  <li>## a hash symbol (#) or erasing it all together.<\/li>\n  <li>##<\/li>\n  <li>## Keep in mind that if you've already downloaded some<\/li>\n  <li>## of the files before, the download script will not<\/li>\n  <li>## download them again unless you change the -overwrite-<\/li>\n  <li>## option to TRUE.<\/li>\n  <li>##<\/li>\n  <li>## -----------------------------<\/li>\n  <li>## LAST UPDATED: 2 December 2019<\/li>\n  <li>## -----------------------------<\/li>\n  <li>## ---------------------------<\/li>\n  <li>## 2018<\/li>\n  <li>## ---------------------------<\/li>\n  <li><span class='match'>H<\/span>D2018<\/li>\n  <li><span class='match'>I<\/span>C2018<\/li>\n  <li><span class='match'>I<\/span>C2018_AY<\/li>\n  <li><span class='match'>I<\/span>C2018_PY<\/li>\n  <li><span class='match'>E<\/span>FFY2018<\/li>\n  <li><span class='match'>E<\/span>FIA2018<\/li>\n  <li><span class='match'>A<\/span>DM2018<\/li>\n  <li><span class='match'>E<\/span>F2018A<\/li>\n  <li><span class='match'>E<\/span>F2018CP<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
+<!--html_preserve--><div id="htmlwidget-bb7fba146f3cca42fcc1" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bb7fba146f3cca42fcc1">{"x":{"html":"<ul>\n  <li>##<\/li>\n  <li>## This is as list of all IPEDS files as given in the<\/li>\n  <li>## complete data files portal. If you want to add files<\/li>\n  <li>## that I've missed, be sure they match the name of the<\/li>\n  <li>## link in the Data File column of the drop down table.<\/li>\n  <li>##<\/li>\n  <li>## You can prevent the script from downloading<\/li>\n  <li>## specific files by either commenting out the name with<\/li>\n  <li>## a hash symbol (#) or erasing it all together.<\/li>\n  <li>##<\/li>\n  <li>## Keep in mind that if you've already downloaded some<\/li>\n  <li>## of the files before, the download script will not<\/li>\n  <li>## download them again unless you change the -overwrite-<\/li>\n  <li>## option to TRUE.<\/li>\n  <li>##<\/li>\n  <li>## -----------------------------<\/li>\n  <li>## LAST UPDATED: 2 December 2019<\/li>\n  <li>## -----------------------------<\/li>\n  <li>## ---------------------------<\/li>\n  <li>## 2018<\/li>\n  <li>## ---------------------------<\/li>\n  <li><span class='match'>H<\/span>D2018<\/li>\n  <li><span class='match'>I<\/span>C2018<\/li>\n  <li><span class='match'>I<\/span>C2018_AY<\/li>\n  <li><span class='match'>I<\/span>C2018_PY<\/li>\n  <li><span class='match'>E<\/span>FFY2018<\/li>\n  <li><span class='match'>E<\/span>FIA2018<\/li>\n  <li><span class='match'>A<\/span>DM2018<\/li>\n  <li><span class='match'>E<\/span>F2018A<\/li>\n  <li><span class='match'>E<\/span>F2018CP<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script><!--/html_preserve-->
 
 ```r
 str_detect(string = ipeds[1:30], pattern ="^[^#]") # does not start with "#"
-#>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-#> [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE
-#> [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+#>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+#> [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+#> [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 
 str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
-#>   [1] "HD2018"          "IC2018"          "IC2018_AY"      
-#>   [4] "IC2018_PY"       "EFFY2018"        "EFIA2018"       
-#>   [7] "ADM2018"         "EF2018A"         "EF2018CP"       
-#>  [10] "EF2018B"         "EF2018C"         "EF2018D"        
-#>  [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"        
-#>  [16] "C2018_C"         "C2018DEP"        "SAL2018_IS"     
-#>  [19] "SAL2018_NIS"     "S2018_OC"        "S2018_SIS"      
-#>  [22] "S2018_IS"        "S2018_NH"        "EAP2018"        
-#>  [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"       
-#>  [28] "SFA1718"         "SFAV1718"        "GR2018"         
-#>  [31] "GR2018_L2"       "GR2018_PELL_SSL" "GR200_18"       
-#>  [34] "OM2018"          "AL2018"          "FLAGS2018"      
-#>  [37] "HD2017"          "IC2017"          "IC2017_AY"      
-#>  [40] "IC2017_PY"       "EFFY2017"        "EFIA2017"       
-#>  [43] "EF2017A"         "EF2017B"         "EF2017C"        
-#>  [46] "EF2017D"         "EF2017A_DIST"    "C2017_A"        
-#>  [49] "C2017_B"         "C2017_C"         "C2017DEP"       
-#>  [52] "SAL2017_IS"      "SAL2017_NIS"     "S2017_OC"       
-#>  [55] "S2017_SIS"       "S2017_IS"        "S2017_NH"       
-#>  [58] "EAP2017"         "F1617_F1A"       "F1617_F2"       
-#>  [61] "F1617_F3"        "GR2017"          "GR2017_L2"      
-#>  [64] "GR2017_PELL_SSL" "GR200_17"        "OM2017"         
-#>  [67] "AL2017"          "FLAGS2017"       "HD2016"         
-#>  [70] "IC2016"          "IC2016_AY"       "IC2016_PY"      
-#>  [73] "EFFY2016"        "EFIA2016"        "ADM2016"        
-#>  [76] "EF2016A"         "EF2016CP"        "EF2016B"        
-#>  [79] "EF2016C"         "EF2016D"         "EF2016A_DIST"   
-#>  [82] "C2016_A"         "C2016_B"         "C2016_C"        
-#>  [85] "C2016DEP"        "SAL2016_IS"      "SAL2016_NIS"    
-#>  [88] "S2016_OC"        "S2016_SIS"       "S2016_IS"       
-#>  [91] "S2016_NH"        "EAP2016"         "F1516_F1A"      
-#>  [94] "F1516_F2"        "F1516_F3"        "SFA1516"        
-#>  [97] "SFAV1516"        "GR2016"          "GR2016_L2"      
-#> [100] "GR200_16"        "GR2016_PELL_SSL" "OM2016"         
-#> [103] "AL2016"          "FLAGS2016"       "HD2015"         
-#> [106] "IC2015"          "IC2015_AY"       "IC2015_PY"      
-#> [109] "EFFY2015"        "EFIA2015"        "ADM2015"        
-#> [112] "EF2015A"         "EF2015B"         "EF2015C"        
-#> [115] "EF2015D"         "EF2015A_DIST"    "C2015_A"        
-#> [118] "C2015_B"         "C2015_C"         "C2015DEP"       
-#> [121] "SAL2015_IS"      "SAL2015_NIS"     "S2015_OC"       
-#> [124] "S2015_SIS"       "S2015_IS"        "S2015_NH"       
-#> [127] "EAP2015"         "F1415_F1A"       "F1415_F2"       
-#> [130] "F1415_F3"        "SFA1415"         "SFAV1415"       
-#> [133] "GR2015"          "GR2015_L2"       "GR200_15"       
-#> [136] "OM2015"          "AL2015"          "FLAGS2015"
+#>   [1] "HD2018"          "IC2018"          "IC2018_AY"       "IC2018_PY"      
+#>   [5] "EFFY2018"        "EFIA2018"        "ADM2018"         "EF2018A"        
+#>   [9] "EF2018CP"        "EF2018B"         "EF2018C"         "EF2018D"        
+#>  [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"         "C2018_C"        
+#>  [17] "C2018DEP"        "SAL2018_IS"      "SAL2018_NIS"     "S2018_OC"       
+#>  [21] "S2018_SIS"       "S2018_IS"        "S2018_NH"        "EAP2018"        
+#>  [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"        "SFA1718"        
+#>  [29] "SFAV1718"        "GR2018"          "GR2018_L2"       "GR2018_PELL_SSL"
+#>  [33] "GR200_18"        "OM2018"          "AL2018"          "FLAGS2018"      
+#>  [37] "HD2017"          "IC2017"          "IC2017_AY"       "IC2017_PY"      
+#>  [41] "EFFY2017"        "EFIA2017"        "EF2017A"         "EF2017B"        
+#>  [45] "EF2017C"         "EF2017D"         "EF2017A_DIST"    "C2017_A"        
+#>  [49] "C2017_B"         "C2017_C"         "C2017DEP"        "SAL2017_IS"     
+#>  [53] "SAL2017_NIS"     "S2017_OC"        "S2017_SIS"       "S2017_IS"       
+#>  [57] "S2017_NH"        "EAP2017"         "F1617_F1A"       "F1617_F2"       
+#>  [61] "F1617_F3"        "GR2017"          "GR2017_L2"       "GR2017_PELL_SSL"
+#>  [65] "GR200_17"        "OM2017"          "AL2017"          "FLAGS2017"      
+#>  [69] "HD2016"          "IC2016"          "IC2016_AY"       "IC2016_PY"      
+#>  [73] "EFFY2016"        "EFIA2016"        "ADM2016"         "EF2016A"        
+#>  [77] "EF2016CP"        "EF2016B"         "EF2016C"         "EF2016D"        
+#>  [81] "EF2016A_DIST"    "C2016_A"         "C2016_B"         "C2016_C"        
+#>  [85] "C2016DEP"        "SAL2016_IS"      "SAL2016_NIS"     "S2016_OC"       
+#>  [89] "S2016_SIS"       "S2016_IS"        "S2016_NH"        "EAP2016"        
+#>  [93] "F1516_F1A"       "F1516_F2"        "F1516_F3"        "SFA1516"        
+#>  [97] "SFAV1516"        "GR2016"          "GR2016_L2"       "GR200_16"       
+#> [101] "GR2016_PELL_SSL" "OM2016"          "AL2016"          "FLAGS2016"      
+#> [105] "HD2015"          "IC2015"          "IC2015_AY"       "IC2015_PY"      
+#> [109] "EFFY2015"        "EFIA2015"        "ADM2015"         "EF2015A"        
+#> [113] "EF2015B"         "EF2015C"         "EF2015D"         "EF2015A_DIST"   
+#> [117] "C2015_A"         "C2015_B"         "C2015_C"         "C2015DEP"       
+#> [121] "SAL2015_IS"      "SAL2015_NIS"     "S2015_OC"        "S2015_SIS"      
+#> [125] "S2015_IS"        "S2015_NH"        "EAP2015"         "F1415_F1A"      
+#> [129] "F1415_F2"        "F1415_F3"        "SFA1415"         "SFAV1415"       
+#> [133] "GR2015"          "GR2015_L2"       "GR200_15"        "OM2015"         
+#> [137] "AL2015"          "FLAGS2015"
 length(str_subset(string = ipeds, pattern ="^[^#]")) # does not start with "#"
 #> [1] 138
 
@@ -2937,22 +2926,18 @@ length(str_subset(string = ipeds, pattern ="^[^#]")) # does not start with "#"
 ipeds <- str_subset(string = ipeds, pattern ="^[^#]") # does not start with "#"
 
 ipeds[1:50]
-#>  [1] "HD2018"          "IC2018"          "IC2018_AY"      
-#>  [4] "IC2018_PY"       "EFFY2018"        "EFIA2018"       
-#>  [7] "ADM2018"         "EF2018A"         "EF2018CP"       
-#> [10] "EF2018B"         "EF2018C"         "EF2018D"        
-#> [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"        
-#> [16] "C2018_C"         "C2018DEP"        "SAL2018_IS"     
-#> [19] "SAL2018_NIS"     "S2018_OC"        "S2018_SIS"      
-#> [22] "S2018_IS"        "S2018_NH"        "EAP2018"        
-#> [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"       
-#> [28] "SFA1718"         "SFAV1718"        "GR2018"         
-#> [31] "GR2018_L2"       "GR2018_PELL_SSL" "GR200_18"       
-#> [34] "OM2018"          "AL2018"          "FLAGS2018"      
-#> [37] "HD2017"          "IC2017"          "IC2017_AY"      
-#> [40] "IC2017_PY"       "EFFY2017"        "EFIA2017"       
-#> [43] "EF2017A"         "EF2017B"         "EF2017C"        
-#> [46] "EF2017D"         "EF2017A_DIST"    "C2017_A"        
+#>  [1] "HD2018"          "IC2018"          "IC2018_AY"       "IC2018_PY"      
+#>  [5] "EFFY2018"        "EFIA2018"        "ADM2018"         "EF2018A"        
+#>  [9] "EF2018CP"        "EF2018B"         "EF2018C"         "EF2018D"        
+#> [13] "EF2018A_DIST"    "C2018_A"         "C2018_B"         "C2018_C"        
+#> [17] "C2018DEP"        "SAL2018_IS"      "SAL2018_NIS"     "S2018_OC"       
+#> [21] "S2018_SIS"       "S2018_IS"        "S2018_NH"        "EAP2018"        
+#> [25] "F1718_F1A"       "F1718_F2"        "F1718_F3"        "SFA1718"        
+#> [29] "SFAV1718"        "GR2018"          "GR2018_L2"       "GR2018_PELL_SSL"
+#> [33] "GR200_18"        "OM2018"          "AL2018"          "FLAGS2018"      
+#> [37] "HD2017"          "IC2017"          "IC2017_AY"       "IC2017_PY"      
+#> [41] "EFFY2017"        "EFIA2017"        "EF2017A"         "EF2017B"        
+#> [45] "EF2017C"         "EF2017D"         "EF2017A_DIST"    "C2017_A"        
 #> [49] "C2017_B"         "C2017_C"
 
 # Create new character vector "hd" that contains names of all "HD" files
@@ -3020,7 +3005,9 @@ hd2018_uc <- hd2018 %>%
 #typeof(hd2018_uc$webaddr)
 
 # Create a character vector from the webaddr field and use that to create loop 
-web <- hd2018_uc$webaddr
+web <- str_to_lower(hd2018_uc$webaddr)
+
+web <- str_extract(web, "www\\.\\w+\\.\\w+")
 
 library(rvest) #load rvest package
 
@@ -3042,9 +3029,6 @@ for(i in seq_along(web)) {
   
   writeLines(str_c("web name: ", name, " url: ", url, sep = ""))
 }
-#> web name: ucdavis url: https://www.ucdavis.edu
-#> web name: ucla url: https://www.ucla.edu/
-#> web name: UCR url: https://WWW.UCR.EDU
 
 ucla_sm <- ucla %>%
   html_nodes('#social-media') #search for social-media ID
@@ -3054,14 +3038,6 @@ ucla_sm <- as.character(ucla_sm) #change to character
 
 # Use `writeLines()` and `head()` to preview the first few rows of the data
 writeLines(head(ucla_sm))
-#> <div id="social-media">
-#>     <a href="https://www.facebook.com/UCLA/" class="facebook"><span>UCLA on Facebook</span></a>
-#>     <a href="http://twitter.com/ucla" class="twitter"><span>UCLA on Twitter</span></a>
-#> 	  <a href="http://www.instagram.com/ucla" class="instagram"><span>UCLA on Instagram</span></a>
-#>     <a href="https://www.snapchat.com/add/uclaofficial" class="snapchat"><span>UCLA on Snapchat</span></a>
-#> 	  <a href="https://www.linkedin.com/company/ucla" class="linkedin"><span>UCLA on LinkedIn</span></a>
-#>     <a href="https://www.youtube.com/user/UCLA" class="youtube"><span>UCLA on YouTube</span></a>
-#> </div>
 
 ucla_sm <- str_match(string = ucla_sm, pattern = '<a href="(http://twitter.+)"\\sclass.+</a>') #grab twitter url
 
@@ -3074,13 +3050,6 @@ ucr_sm <- as.character(ucr_sm) #change to character
 
 # Use `writeLines()` and `head()` to preview the first few rows of the data
 writeLines(head(ucr_sm))
-#> <div class="social-link">
-#>                     <a href="https://www.facebook.com/UCRiverside/" target="_blank" class="button mdi mdi-facebook" title="Facebook"><span class="show-for-sr">Facebook</span></a>
-#>                     <a href="https://twitter.com/UCRiverside" target="_blank" class="button mdi mdi-twitter" title="Twitter"><span class="show-for-sr">Twitter</span></a>
-#>                     <a href="https://www.youtube.com/UCRiverside" target="_blank" class="button mdi mdi-youtube-play" title="YouTube"><span class="show-for-sr">YouTube</span></a>
-#>                     <a href="https://www.instagram.com/ucriversideofficial/" target="_blank" class="button mdi mdi-instagram" title="Instagram"><span class="show-for-sr">Instagram</span></a>
-#>                     <a href="https://www.linkedin.com/school/university-of-california-riverside/" target="_blank" class="button mdi mdi-linkedin" title="LinkedIn"><span class="show-for-sr">LinkedIn</span></a>
-#>             </div>
 
 ucr_sm <- str_match(string = ucr_sm, pattern = '<a href="(https://twitter.+)"\\starget.+</a>') #grab twitter url
 
@@ -3093,28 +3062,6 @@ ucd_sm <- as.character(ucd_sm)
 
 # Use `writeLines()` and `head()` to preview the first few rows of the data
 writeLines(head(ucd_sm))
-#> <ul class="pack">
-#> <li class="pack__item">
-#>       <a class="social-follow__icon social-follow--facebook" title="Facebook" href="https://www.facebook.com/UCDavis">Follow on Facebook</a>
-#>       <div class="social-follow__title"><a title="Facebook" href="https://www.facebook.com/UCDavis">Facebook</a></div>
-#>     </li>
-#>     <li class="pack__item">
-#>       <a class="social-follow__icon social-follow--twitter" title="Twitter" href="https://twitter.com/ucdavis">Follow on Twitter</a>
-#>       <div class="social-follow__title"><a title="Twitter" href="https://twitter.com/ucdavis">Twitter</a></div>
-#>     </li>
-#>     <li class="pack__item">
-#>       <a class="social-follow__icon social-follow--instagram" title="Instagram" href="https://instagram.com/ucdavis">Follow on Instagram</a>
-#>       <div class="social-follow__title"><a title="Instagram" href="https://instagram.com/ucdavis">Instagram</a></div>
-#>     </li>
-#>     <li class="pack__item">
-#>       <a class="social-follow__icon social-follow--youtube" title="YouTube" href="http://www.youtube.com/ucdavis">Follow on YouTube</a>
-#>       <div class="social-follow__title"><a title="YouTube" href="http://www.youtube.com/ucdavis">YouTube</a></div>
-#>     </li>
-#>     <li class="pack__item">
-#>       <a class="social-follow__icon social-follow--linkedin" title="LinkedIn" href="https://www.linkedin.com/school/uc-davis/">Follow on LinkedIn</a>
-#>       <div class="social-follow__title"><a title="LinkedIn" href="https://www.linkedin.com/school/uc-davis/">LinkedIn</a></div>
-#>     </li>
-#>   </ul>
 
 ucd_sm <- str_match(string = ucd_sm, pattern = '<a class=".+ href="(https://twitter.+)">.+</a>')
 
@@ -3130,12 +3077,7 @@ hd2018_t <- bind_cols(hd2018_uc, data.frame(twitter = vec)) #add column to df
 
 hd2018_t %>%
   select(instnm, webaddr, twitter)
-#> # A tibble: 3 x 3
-#>   instnm                          webaddr        twitter                   
-#>   <chr>                           <chr>          <fct>                     
-#> 1 University of California-Davis  www.ucdavis.e… https://twitter.com/ucdav…
-#> 2 University of California-Los A… www.ucla.edu/  http://twitter.com/ucla   
-#> 3 University of California-River… WWW.UCR.EDU    https://twitter.com/UCRiv…
+
 ```
 
 # Conditional execution
@@ -3360,7 +3302,7 @@ list.files()
 ```
 
 <br>
-If we try creating the directory again, the `else` block would be executed because the directory already exists:
+If we try creating the directory again, the `if` block would be executed because the directory already exists:
 
 
 ```r
@@ -3413,7 +3355,7 @@ list.files()
 ```
 
 <br>
-If we try creating the directories again, the `else` block would be executed because they already exist:
+If we try creating the directories again, the `if` block would be executed because they already exist:
 
 
 ```r
@@ -3563,7 +3505,7 @@ system.time(
   }
 )
 #>    user  system elapsed 
-#>   8.458   4.677  13.228
+#>   6.602   4.129  10.872
 ```
 
 <br>
@@ -3582,7 +3524,7 @@ system.time(
   }
 )
 #>    user  system elapsed 
-#>   0.015   0.001   0.015
+#>   0.013   0.000   0.013
 ```
 
 </details>
@@ -3615,7 +3557,7 @@ system.time(
   }
 )
 #>    user  system elapsed 
-#>   0.366   0.004   0.371
+#>   0.296   0.001   0.300
 ```
 
 <br>
@@ -3630,7 +3572,7 @@ system.time(
                    )
 )
 #>    user  system elapsed 
-#>   0.056   0.001   0.058
+#>   0.063   0.002   0.065
 ```
 
 </details>
@@ -3676,7 +3618,7 @@ system.time(
   }
 )
 #>    user  system elapsed 
-#>   0.047   0.000   0.048
+#>   0.050   0.001   0.051
 ```
 
 <br>
@@ -3711,7 +3653,7 @@ system.time(
   }
 )
 #>    user  system elapsed 
-#>   0.021   0.000   0.021
+#>   0.031   0.000   0.031
 ```
 
 <br>
@@ -3728,7 +3670,7 @@ system.time(
                    ifelse(prices < 2000, 7, 8)))))))
 )
 #>    user  system elapsed 
-#>   0.018   0.007   0.025
+#>   0.026   0.014   0.040
 ```
 
 </details>
@@ -4025,22 +3967,22 @@ Using `today()` to get today's date, we can calculate an age given a birthdate:
 
 ```r
 today()
-#> [1] "2020-05-30"
+#> [1] "2020-05-31"
 
 # Calculate difference
 today() - mdy(y)
-#> Time difference of 15110 days
+#> Time difference of 15111 days
 str(today() - mdy(y))
-#>  'difftime' num 15110
+#>  'difftime' num 15111
 #>  - attr(*, "units")= chr "days"
 
 # Convert to duration
 as.duration(today() - mdy(y))
-#> [1] "1305504000s (~41.37 years)"
+#> [1] "1305590400s (~41.37 years)"
 
 # Create age in years as numeric vector
 as.numeric(as.duration(today() - mdy(y)), "years")
-#> [1] 41.36893
+#> [1] 41.37166
 floor(as.numeric(as.duration(today() - mdy(y)), "years"))
 #> [1] 41
 
@@ -4270,8 +4212,7 @@ z_score <- function(x) {
 w
 #> [1] NA  1  2  3  4  5 NA
 z_score(w)
-#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
-#> [7]         NA
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
 ```
 
 </details>
@@ -4314,8 +4255,8 @@ df["a"]
 #> 5 -0.453
 #> 6  0.606
 str(df["a"])
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	6 obs. of  1 variable:
-#>  $ a: num  NA 0.586 0.709 -0.109 -0.453 ...
+#> tibble [6 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ a: num [1:6] NA 0.586 0.709 -0.109 -0.453 ...
 
 # subset values of an element using [[]] or $
 df[["a"]]
@@ -4501,13 +4442,13 @@ df_event_small
 
 #show observations for variable med_inc
 df_event_small$med_inc
-#>  [1] 71713.5 89121.5 70136.5 70136.5 71023.5 71023.5 71023.5 97225.0
-#>  [9] 97225.0 77799.5
+#>  [1] 71713.5 89121.5 70136.5 70136.5 71023.5 71023.5 71023.5 97225.0 97225.0
+#> [10] 77799.5
 
 #calculate z-score of variable med_inc (without assignment)
 z_score(x = df_event_small$med_inc)
-#>  [1] -0.60825958  0.91982879 -0.74668992 -0.74668992 -0.66882834
-#>  [6] -0.66882834 -0.66882834  1.63116060  1.63116060 -0.07402556
+#>  [1] -0.60825958  0.91982879 -0.74668992 -0.74668992 -0.66882834 -0.66882834
+#>  [7] -0.66882834  1.63116060  1.63116060 -0.07402556
 
 #assign new variable equal to the z-score of med_inc
 df_event_small$med_inc_z <- z_score(x = df_event_small$med_inc)
@@ -4590,8 +4531,8 @@ We no longer run into errors if we supply an invalid input:
 ```r
 # Test with list/dataframe input
 str(df_event_small["med_inc"])
-#> Classes 'tbl_df', 'tbl' and 'data.frame':	10 obs. of  1 variable:
-#>  $ med_inc: num  71714 89122 70136 70136 71024 ...
+#> tibble [10 × 1] (S3: tbl_df/tbl/data.frame)
+#>  $ med_inc: num [1:10] 71714 89122 70136 70136 71024 ...
 
 z_score(x = df_event_small["med_inc"])
 
@@ -4684,12 +4625,12 @@ __Recommended steps__:
 names(df) # identify variable names
 #> [1] "id"     "age"    "sibage" "parage"
 df$age # print observations for a variable
-#>   [1]  17  15 -97  13 -97  12 -99 -97  16  16 -98  20 -99  20  11  20  12
-#>  [18]  17  19  17 -97 -99  12  13  11  15  20  14 -99  11  20 -98  11 -98
-#>  [35]  12  16  12  18  12  19  12 -97  20  17  11  19  19  12 -98  11  15
-#>  [52]  18  15 -98  15  19 -97  13 -98  16  13  12  16  19 -99  19 -98  13
-#>  [69] -97  20  15  19  15  12  18 -99  18 -98 -98 -98 -97  12  14  19 -97
-#>  [86]  11  20  18  14 -99  15  20 -97  14  14  19  18  17  20  15
+#>   [1]  17  15 -97  13 -97  12 -99 -97  16  16 -98  20 -99  20  11  20  12  17
+#>  [19]  19  17 -97 -99  12  13  11  15  20  14 -99  11  20 -98  11 -98  12  16
+#>  [37]  12  18  12  19  12 -97  20  17  11  19  19  12 -98  11  15  18  15 -98
+#>  [55]  15  19 -97  13 -98  16  13  12  16  19 -99  19 -98  13 -97  20  15  19
+#>  [73]  15  12  18 -99  18 -98 -98 -98 -97  12  14  19 -97  11  20  18  14 -99
+#>  [91]  15  20 -97  14  14  19  18  17  20  15
 
 #BaseR
 sum(df$age<0) # count number of obs w/ negative values for variable "age"
@@ -4861,8 +4802,7 @@ w <- c(NA, seq(1:5), NA)
 w
 #> [1] NA  1  2  3  4  5 NA
 z_score(w)
-#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
-#> [7]         NA
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
 ```
 
 
@@ -4878,8 +4818,7 @@ z_score <- function(x, na) {
 w
 #> [1] NA  1  2  3  4  5 NA
 z_score(w, TRUE)
-#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
-#> [7]         NA
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
 z_score(w, FALSE)
 #> [1] NA NA NA NA NA NA NA
 #z_score(w) # error: argument "na" is missing, with no default
@@ -4902,8 +4841,7 @@ z_score(w) # uses default value of FALSE
 z_score(w, FALSE) # manually specify default value
 #> [1] NA NA NA NA NA NA NA
 z_score(w, TRUE) # override default value
-#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111
-#> [7]         NA
+#> [1]         NA -1.2649111 -0.6324555  0.0000000  0.6324555  1.2649111         NA
 ```
 
 </details>

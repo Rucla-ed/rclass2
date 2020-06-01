@@ -2093,7 +2093,7 @@ for (i in 1:length(hd)) {
 
 ## Practice: IPEDS data & rvest package
 
-```{r, message=FALSE}
+```{r, message=FALSE, eval=FALSE}
 ## -----------------------------------------------------------------------------
 ## MODIFY HD 2018 DATASET
 ## -----------------------------------------------------------------------------
@@ -2116,7 +2116,9 @@ hd2018_uc <- hd2018 %>%
 #typeof(hd2018_uc$webaddr)
 
 # Create a character vector from the webaddr field and use that to create loop 
-web <- hd2018_uc$webaddr
+web <- str_to_lower(hd2018_uc$webaddr)
+
+web <- str_extract(web, "www\\.\\w+\\.\\w+")
 
 library(rvest) #load rvest package
 
@@ -2377,7 +2379,7 @@ list.files()
 ```
 
 <br>
-If we try creating the directory again, the `else` block would be executed because the directory already exists:
+If we try creating the directory again, the `if` block would be executed because the directory already exists:
 
 ```{r}
 dir.exists(directory)
@@ -2419,7 +2421,7 @@ list.files()
 ```
 
 <br>
-If we try creating the directories again, the `else` block would be executed because they already exist:
+If we try creating the directories again, the `if` block would be executed because they already exist:
 
 ```{r}
 for (i in directories) {
