@@ -166,7 +166,7 @@ library(labelled)
 
 ## Step 1: Unzip all downloaded files
 
-file_suffixes <- c("", "Dict", "_Stata")
+file_suffixes <- c("", "_Dict", "_Stata")
 file_dirs <- c(data_dir, dict_dir, stata_prog_dir)
 
 # Write your for loop here
