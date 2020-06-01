@@ -92,7 +92,7 @@ Like the previous week, create a new private GitHub repository [here](https://gi
 6. Write a for loop to loop over all years of data in the `hd` vector and download the three types of files (data, dictionary, stata program) into their respective directories for each year.
 
 
-# Part IV: Labelling dataframe variables and values [BONUS 5 pts]
+# Part IV: Labelling dataframe variables and values [BONUS 10 pts]
 
 In this bonus section, you'll work on labelling the variables and values in the IPEDS data. Start by running the line `library(labelled)` at the top of the `Part IV` in `<lastname>_script.R`, then follow along the comments and instructions below. Remember that for each step, you can try performing the task outside of a function (i.e., test your code using data for one specific year), then try adapting it to work inside a function.
 
